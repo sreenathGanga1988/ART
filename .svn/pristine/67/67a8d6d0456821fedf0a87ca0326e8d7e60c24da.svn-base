@@ -1,0 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Infragistics.Web.UI.ListControls;
+using System.Data;
+using ArtWebApp.DataModels;
+public partial class Merchandiser_AtcRawMaterial : System.Web.UI.Page
+{ArtWebApp.DBTransaction.PoPackTransaction potran = null;
+ArtWebApp.DBTransaction.SkuCreator skucrtr = null;
+    DataTable dt = new DataTable();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void cmb_atc_SelectionChanged(object sender, Infragistics.Web.UI.ListControls.DropDownSelectionChangedEventArgs e)
+    {
+       
+    }
+    protected void buttonAtc_Click(object sender, EventArgs e)
+    {
+       // GetGridFilled();
+        HiddenField1.Value = cmb_atc.SelectedValue.ToString();
+    }
+
+
+    public void AddRawMaterialmaster()
+    {
+
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+          
+
+             List<DropDownItem> items = cmb_item.SelectedItems;
+             foreach (DropDownItem item in items)
+             {
+                 int atcid=int.Parse(cmb_atc.SelectedValue.ToString ());
+                 int templatepk=int.Parse (item.Value.ToString ());
+                 string templatename = item.Text.Trim();
+                 var templatecode = enty.Template_Master.Where(u => u.Template_PK == templatepk).Select(u => u.TemplateCode ).FirstOrDefault();
+                 int templatecount = 0;
+                 
+                 if (!enty.AtcRawMaterialMasters.Any(f => f.Template_PK == templatepk && f.Atc_id == atcid))
+                 {
+
+                     AtcRawMaterialMaster stsz = new AtcRawMaterialMaster();
+
+
+
+                     stsz.TempCode = templatecode.ToString();
+                     stsz.Template_PK = templatepk;
+                     stsz.Atc_id = atcid;
+                     stsz.TemplateName = templatename;
+                     stsz.TemplateCount = templatecount;
+                     enty.AtcRawMaterialMasters.Add(stsz);
+                     
+
+                 }
+             }
+             enty.SaveChanges();
+        }
+    }
+    /// <summary>
+    /// get the rawmaterialmaster from database
+    /// </summary>
+    public void GetGridFilled()
+    {
+         if(cmb_atc.SelectedValue !=null)
+
+        potran=new ArtWebApp.DBTransaction.PoPackTransaction ();
+        DataTable dt = potran.GetAtcRawmaterialMaster(int.Parse(cmb_atc.SelectedValue.ToString()));
+     
+         WebDataGrid1.DataSource = dt;
+         WebDataGrid1.DataBind();
+        
+    }
+    
+    
+    protected void cmb_item_SelectionChanged(object sender, DropDownSelectionChangedEventArgs e)
+    {
+        
+    }
+
+    protected void btn_item_Click(object sender, EventArgs e)
+    {
+        AddRawMaterialmaster();
+    }
+
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        skucrtr = new ArtWebApp.DBTransaction.SkuCreator();
+        skucrtr.CreateSkuMaster(int.Parse(cmb_atc.SelectedValue.ToString()));
+    }
+
+   
+}

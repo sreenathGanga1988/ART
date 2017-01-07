@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <section name="infragistics.web" type="System.Configuration.SingleTagSectionHandler,System, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <add name="ArtConnectionString" connectionString="Data Source=APPSATRACODB2\APPDBSERVER;Initial Catalog=Art;User ID=sa;Password=sreenath" providerName="System.Data.SqlClient" />
+    <add name="CourierDetailsConnectionString" connectionString="Data Source=IT-DEPT\MSSQLSERVERRAJ;Initial Catalog=CourierDetails;Persist Security Info=True;User ID=sa;Password=sreenath" providerName="System.Data.SqlClient" /><add name="ArtEntities" connectionString="metadata=res://*/old_App_Code.ArtDataModel.csdl|res://*/Old_App_Code.ArtDataModel.ssdl|res://*/Old_App_Code.ArtDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=APPSATRACODB2\APPDBSERVER;initial catalog=Art;user id=sa;password=sreenath;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" /><add name="ArtEntitiesnew" connectionString="metadata=res://*/DataModels.ArtDataModel.csdl|res://*/DataModels.ArtDataModel.ssdl|res://*/DataModels.ArtDataModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=APPSATRACODB2\APPDBSERVER;initial catalog=Art;user id=sa;password=sreenath;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" /></connectionStrings>
+  <infragistics.web styleSetName="Default" styleSetPath="~/ig_res" />
+  <system.web>
+    <compilation debug="true" targetFramework="4.5">
+      <assemblies>
+        <add assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
+        <add assembly="Infragistics35.WebUI.Documents.Reports.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A" />
+        <add assembly="Infragistics35.WebUI.Documents.Excel.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="Infragistics35.WebUI.Documents.Word.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="Infragistics35.WebUI.Documents.IO.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="System.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A" />
+        <add assembly="System.Data.Entity.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        <add assembly="Infragistics35.WebUI.WebDataInput.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+        <add assembly="Infragistics35.WebUI.Shared.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7DD5C3163F2CD0CB" />
+      </assemblies>
+      <buildProviders>
+        <add extension=".edmx" type="System.Data.Entity.Design.AspNet.EntityDesignerBuildProvider" />
+      </buildProviders>
+    </compilation>
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <appSettings>
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+  </appSettings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqllocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+</configuration>

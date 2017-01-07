@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArtWebApp.DBTransaction
+{
+    public class PoPackTransaction
+    {
+        String connStr = ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+        public DataTable GetPoPackDetails(int popackid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        POPackDetails .PoPack_Detail_PK, POPackDetails .POPackId, AtcDetails.OurStyle, POPackDetails .ColorName, POPackDetails .ColorCode, POPackDetails .SizeName, POPackDetails .SIzeCode,
+                          POPackDetails .PoQty AS POQty, POPackDetails .OurStyleID
+FROM            POPackDetails  INNER JOIN
+                         AtcDetails ON POPackDetails .OurStyleID = AtcDetails.OurStyleID
+WHERE        (POPackDetails .POPackId = @Param1)", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1",popackid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+        /// <summary>
+        /// Get the Rawmaterialmaster count of atc
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public DataTable GetAtcRawmaterialMaster(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        AtcRaw_PK, Template_PK, Atc_id, TemplateName, TempCode, TemplateCount
+FROM            AtcRawMaterialMaster 
+WHERE        (Atc_id = @Param1)", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1", atcid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+    }
+}

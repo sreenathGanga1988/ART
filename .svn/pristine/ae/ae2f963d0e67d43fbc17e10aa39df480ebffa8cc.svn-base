@@ -1,0 +1,23 @@
+﻿.auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            height: 26px;
+        }
+.auto-style3 {
+}
+body {
+}
+.DivLeft {
+    float: left;
+}
+.Panel {
+    font-family: Calibri;
+    text-transform: uppercase;
+    padding: inherit;
+    background-color: #FFFFCC;
+}
+ .hidden
+     {
+         display:none;
+     }

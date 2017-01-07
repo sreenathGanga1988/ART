@@ -1,0 +1,453 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Merchandiser_AtcRawMaterial" Codebehind="AtcRawMaterial.aspx.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.GridControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.WebUI.WebDataInput.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.WebUI.WebDataInput" tagprefix="igtxt" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+        width: 100%;
+    }
+    .auto-style2 {
+        width: 93px;
+        height: 60px;
+    }
+
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+    .auto-style3 {
+        height: 60px;
+    }
+    .auto-style4 {
+        height: 60px;
+        width: 213px;
+    }
+    .auto-style5 {
+        width: 93px;
+        height: 61px;
+    }
+    .auto-style6 {
+            height: 61px;
+            width: 213px;
+        }
+    .auto-style7 {
+        height: 61px;
+    }
+        .auto-style8 {
+        }
+        .auto-style9 {
+            height: 60px;
+            width: 5px;
+        }
+        .auto-style10 {
+            height: 61px;
+            width: 5px;
+        }
+    </style>
+    <script type="text/javascript" id="igClientScript">
+<!--
+
+        //function Validate() {
+        //    var isValid = false;
+        //    isValid = Page_ClientValidate('VG1');
+        //    if (isValid) {
+        //        isValid = Page_ClientValidate('VG2');
+        //    }
+
+        //    return isValid;
+        //}
+</script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1"   Runat="Server">
+    <table class="auto-style1">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="auto-style1">
+                <tr>
+                    <td class="auto-style2">&nbsp;Atc # :&nbsp;</td>
+                    <td class="auto-style4">
+                             
+                    <ig:WebDropDown ID="cmb_atc" runat="server" Width="200px" 
+                    DataSourceID="atcmasterdata" TextField="Atcnum" ValueField="AtcId" 
+                                       OnSelectionChanged="cmb_atc_SelectionChanged" CurrentValue="Select Atc">
+                    <DropDownItemBinding TextField="Atcnum" ValueField="AtcId" />
+                </ig:WebDropDown>
+                    </td>
+                    <td class="auto-style9">
+                                 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="cmb_atc" ErrorMessage="Select Atc" ForeColor="#FF0066" InitialValue="Select Atc" ValidationGroup="AtcValidation">*</asp:RequiredFieldValidator>
+                     
+                            </td>
+                    <td class="auto-style3">
+                                 
+                    <asp:Button ID="buttonAtc" runat="server" Text="S" Height="26px" OnClick="buttonAtc_Click" ValidationGroup="AtcValidation" />
+                     
+                            </td>
+                    <td class="auto-style8" rowspan="3">
+                <asp:SqlDataSource ID="atcmasterdata" runat="server" 
+                    ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    SelectCommand="SELECT DISTINCT [AtcNum], [AtcId] FROM [AtcMaster] ORDER BY [AtcNum], [AtcId]">
+                </asp:SqlDataSource>
+                    
+               
+                               
+                            <asp:HiddenField ID="HiddenField1" runat="server" Value="0" />
+                        <br />
+                <asp:SqlDataSource ID="ItemMasterData" runat="server" 
+                    ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    SelectCommand="SELECT Template_PK, TemplateCode, Description FROM Template_Master ORDER BY TemplateCode">
+                </asp:SqlDataSource>
+                    
+               
+                               
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [AtcRawMaterialMaster] WHERE [AtcRaw_PK] = @original_AtcRaw_PK AND (([Template_PK] = @original_Template_PK) OR ([Template_PK] IS NULL AND @original_Template_PK IS NULL)) AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([TempCode] = @original_TempCode) OR ([TempCode] IS NULL AND @original_TempCode IS NULL)) AND (([TemplateName] = @original_TemplateName) OR ([TemplateName] IS NULL AND @original_TemplateName IS NULL)) AND (([TemplateCount] = @original_TemplateCount) OR ([TemplateCount] IS NULL AND @original_TemplateCount IS NULL))" InsertCommand="INSERT INTO [AtcRawMaterialMaster] ([Template_PK], [Atc_id], [TempCode], [TemplateName], [TemplateCount]) VALUES (@Template_PK, @Atc_id, @TempCode, @TemplateName, @TemplateCount)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [AtcRaw_PK], [Template_PK], [Atc_id], [TempCode], [TemplateName], [TemplateCount] FROM [AtcRawMaterialMaster ] WHERE ([Atc_id] = @Atc_id) ORDER BY [TempCode]" UpdateCommand="UPDATE [AtcRawMaterialMaster] SET [Template_PK] = @Template_PK, [Atc_id] = @Atc_id, [TempCode] = @TempCode, [TemplateName] = @TemplateName, [TemplateCount] = @TemplateCount WHERE [AtcRaw_PK] = @original_AtcRaw_PK AND (([Template_PK] = @original_Template_PK) OR ([Template_PK] IS NULL AND @original_Template_PK IS NULL)) AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([TempCode] = @original_TempCode) OR ([TempCode] IS NULL AND @original_TempCode IS NULL)) AND (([TemplateName] = @original_TemplateName) OR ([TemplateName] IS NULL AND @original_TemplateName IS NULL)) AND (([TemplateCount] = @original_TemplateCount) OR ([TemplateCount] IS NULL AND @original_TemplateCount IS NULL))">
+                            <DeleteParameters>
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_TempCode" Type="String" />
+                                <asp:Parameter Name="original_TemplateName" Type="String" />
+                                <asp:Parameter Name="original_TemplateCount" Type="Decimal" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="TempCode" Type="String" />
+                                <asp:Parameter Name="TemplateName" Type="String" />
+                                <asp:Parameter Name="TemplateCount" Type="Decimal" />
+                            </InsertParameters>
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="HiddenField1" DefaultValue="0" Name="Atc_id" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="TempCode" Type="String" />
+                                <asp:Parameter Name="TemplateName" Type="String" />
+                                <asp:Parameter Name="TemplateCount" Type="Decimal" />
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_TempCode" Type="String" />
+                                <asp:Parameter Name="original_TemplateName" Type="String" />
+                                <asp:Parameter Name="original_TemplateCount" Type="Decimal" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
+                    
+               
+                               
+                            <ig:WebDataGrid ID="WebDataGrid1" runat="server" AutoGenerateColumns="False" DataKeyFields="AtcRaw_PK" DataSourceID="SqlDataSource1" Height="350px" Width="800px">
+                                <Columns>
+                                    <ig:BoundDataField DataFieldName="AtcRaw_PK" Key="AtcRaw_PK">
+                                        <Header Text="AtcRaw_PK">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="Template_PK" Key="Template_PK">
+                                        <Header Text="Template_PK">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="Atc_id" Key="Atc_id">
+                                        <Header Text="Atc_id">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TempCode" Key="TempCode">
+                                        <Header Text="TempCode">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TemplateName" Key="TemplateName">
+                                        <Header Text="TemplateName">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TemplateCount" Key="TemplateCount">
+                                        <Header Text="TemplateCount">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                </Columns>
+                                <Behaviors>
+                                    <ig:EditingCore>
+                                        <Behaviors>
+                                            <ig:CellEditing>
+                                            </ig:CellEditing>
+                                        </Behaviors>
+                                    </ig:EditingCore>
+                                </Behaviors>
+                        </ig:WebDataGrid>
+                    
+               
+                               
+                            </td>
+                </tr>
+                <tr>
+                    <td class="auto-style5">Items</td>
+                    <td class="auto-style6">
+                             
+                    <ig:WebDropDown ID="cmb_item" runat="server" Width="200px" 
+                    DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk" 
+                                       OnSelectionChanged="cmb_item_SelectionChanged" EnableMultipleSelection="True" EnableClosingDropDownOnSelect="False" CurrentValue="Select Raw Material">
+                    <DropDownItemBinding TextField="Description" ValueField="Template_pk" />
+                       
+                </ig:WebDropDown>
+                    </td>
+                    <td class="auto-style10">
+                                 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cmb_item" ErrorMessage="Select Raw Material" ForeColor="#FF0066" InitialValue="Select Raw Material">*</asp:RequiredFieldValidator>
+                     
+                        </td>
+                    <td class="auto-style7">
+                                 
+                    <asp:Button ID="btn_item" runat="server" Text="S" Height="26px"  OnClick="btn_item_Click" />
+                     
+                        </td>
+                </tr>
+                <tr>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td class="auto-style6">
+                             
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" Height="52px" Font-Italic="True" Font-Size="Small" />
+                    </td>
+                    <td class="auto-style10">
+                                 
+                        &nbsp;</td>
+                    <td class="auto-style7">
+                                 
+                        &nbsp;</td>
+                </tr>
+                </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="auto-style1">
+                <tr>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Generate SKU" />
+                        <asp:SqlDataSource ID="Skumaster" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT SkuRawMaterialMaster.Sku_Pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.AtcRaw_PK, Template_Master.TemplateCode, Template_Master.Description, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.OrderMulti, SkuRawMaterialMaster.OrderMin, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, SkuRawMaterialMaster.AltUOM_pk, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, SkuRawMaterialMaster.IsSD, SkuRawMaterialMaster.Rate, SkuRawMaterialMaster.Template_pk, CurrencyMaster.CurrencyCode FROM SkuRawMaterialMaster INNER JOIN Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK LEFT OUTER JOIN CurrencyMaster ON SkuRawMaterialMaster.Currency_pk = CurrencyMaster.CurrencyID WHERE (SkuRawMaterialMaster.Atc_id = @Atc_id)">
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="HiddenField1" DefaultValue="0" Name="Atc_id" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+                        <asp:SqlDataSource ID="Compositiondata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [TemplateCom_Pk], [Composition] FROM [TemplateComposition] WHERE ([Template_Pk] = @Template_Pk)">
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="TemplatePk" DefaultValue="0" Name="Template_Pk" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+                        <asp:SqlDataSource ID="ConstructionData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Construct], [TemplateCon_Pk], [Template_Pk] FROM [TemplateConstruction] WHERE ([Template_Pk] = @Template_Pk)">
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="TemplatePk" DefaultValue="0" Name="Template_Pk" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+                        <asp:SqlDataSource ID="Width" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TemplateWidth_Pk, Template_Pk, Width FROM TemplateWidth"></asp:SqlDataSource>
+                    
+               
+                               
+                            <asp:HiddenField ID="TemplatePk" runat="server" Value="0" ViewStateMode="Enabled" />
+                        <asp:SqlDataSource ID="Weight" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [TemplateWeight_Pk], [Template_Pk], [Weight] FROM [TemplateWeight]"></asp:SqlDataSource>
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        <asp:Panel ID="Panel1" runat="server" Width="445px">
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <asp:GridView ID="tbl_skumaster" runat="server" AutoGenerateColumns="False" DataKeyNames="Sku_Pk" DataSourceID="Skumaster" OnRowEditing="GridView1_RowEditing" OnRowDataBound="tbl_skumaster_RowDataBound">
+                        <Columns>
+                            <asp:BoundField DataField="Sku_Pk" HeaderText="Sku_Pk" InsertVisible="False" ReadOnly="True" SortExpression="Sku_Pk" />
+                            <asp:TemplateField HeaderText="Template_pk" SortExpression="Template_pk">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="txt_templatepk" runat="server" Text='<%# Bind("Template_pk") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_templatepk" runat="server" Text='<%# Bind("Template_pk") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="TemplateCode" HeaderText="TemplateCode" SortExpression="TemplateCode" />
+                            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                            <asp:BoundField DataField="RMNum" HeaderText="RMNum" SortExpression="RMNum" />
+                            <asp:TemplateField HeaderText="Composition" SortExpression="Composition">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_com" runat="server"  Visible="false"  Text ='<%# Bind("Composition") %>'></asp:Label>
+                                     <asp:DropDownList ID="ddl_comp" runat="server">
+                </asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Construction" SortExpression="Construction">
+                               
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_con"  runat="server" Visible="false" Text='<%# Bind("Construction") %>'></asp:Label>
+                                     <asp:DropDownList ID="ddl_con" runat="server">
+                </asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Width" SortExpression="Width">
+                               
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_width" Visible="false" runat  ="server" Text='<%# Bind("Width") %>'></asp:Label>
+                                     <asp:DropDownList ID="ddl_width" runat="server">
+                </asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Weight" SortExpression="Weight">
+                               
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_weight" Visible="false" runat="server" Text='<%# Bind("Weight") %>'></asp:Label>
+                                     <asp:DropDownList ID="ddl_weight" runat="server">
+                </asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="IsCD" SortExpression="IsCD">
+                                
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_iscd" Visible="false" runat="server" Text='<%# Bind("IsCD") %>'></asp:Label>
+                                    <asp:CheckBox ID="chk_isCD" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="IsSD" SortExpression="IsSD">                               
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_isSD" Visible="false" runat="server" Text='<%# Bind("IsSD") %>'></asp:Label>
+                                    <asp:CheckBox ID="chk_isSD" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="isCommon" SortExpression="isCommon">
+                                
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_isCommon"  Visible="false"  runat="server" Text='<%# Bind("isCommon") %>'></asp:Label>
+                              <asp:CheckBox ID="chk_isCommon" runat="server" />
+                                      </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="OrderMulti" HeaderText="OrderMulti" SortExpression="OrderMulti" />
+                            <asp:BoundField DataField="CurrencyCode" HeaderText="CurrencyCode" SortExpression="CurrencyCode" />
+                            <asp:BoundField DataField="OrderMin" HeaderText="OrderMin" SortExpression="OrderMin" />
+                            <asp:BoundField DataField="AtcRaw_PK" HeaderText="AtcRaw_PK" SortExpression="AtcRaw_PK" />
+                            <asp:BoundField DataField="Atc_id" HeaderText="Atc_id" SortExpression="Atc_id" />
+                            <asp:BoundField DataField="AltUOM_pk" HeaderText="AltUOM_pk" SortExpression="AltUOM_pk" />
+                            <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
+                            <asp:TemplateField HeaderText="Edit">
+                                <ItemTemplate>
+                                    <asp:LinkButton Id="lnkEdit" runat="server" CommandName="Edit" Text="Edit"/>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:LinkButton Id="lnkEdit0" runat="server" CommandName="Update" Text="Update"/>
+                                    <asp:LinkButton Id="LinkButton1" runat="server" CommandName="Cancel" Text="Cancel"/>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </ContentTemplate>
+
+
+            </asp:UpdatePanel>
+        </td>
+    </tr>
+        <tr>
+            <td>
+               
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+               
+                                                 <asp:Button ID="Btn_updatesku" runat="server" Text="Update SKU Master" OnClick="btn_width_Click" ValidationGroup="con" />
+               
+            </td>
+        </tr>
+</table>
+</asp:Content>
+

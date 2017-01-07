@@ -1,0 +1,335 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Masters_ItemMaster" Codebehind="ItemMaster.aspx.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.GridControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+        .auto-style2 {
+            width: 181px;
+        }
+        .auto-style4 {
+            width: 187px;
+        }
+        .auto-style6 {
+            width: 191px;
+        }
+        .auto-style7 {
+            width: 193px;
+        }
+        .auto-style8 {
+            width: 211px;
+        }
+        .auto-style9 {
+            height: 23px;
+        }
+
+
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <table class="auto-style1">
+        <tr>
+            <td>
+                <div>
+
+
+                </div>
+                <div>
+                <asp:MultiView ID="MultiView1" runat="server">
+                    <asp:View ID="View1"  runat="server">
+                        <div  width="100%" > Item Group<br />
+                            <table class="auto-style1">
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ig:WebDataGrid ID="WebDataGrid2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Height="350px" Width="100%">
+                                            <Columns>
+                                                <ig:BoundDataField DataFieldName="ItemGroupID" Key="ItemGroupID">
+                                                    <Header Text="ItemGroupID">
+                                                    </Header>
+                                                </ig:BoundDataField>
+                                                <ig:BoundDataField DataFieldName="ItemGroupName" Key="ItemGroupName">
+                                                    <Header Text="ItemGroupName">
+                                                    </Header>
+                                                </ig:BoundDataField>
+                                                <ig:BoundDataField DataFieldName="ItemGroupDescription" Key="ItemGroupDescription">
+                                                    <Header Text="ItemGroupDescription">
+                                                    </Header>
+                                                </ig:BoundDataField>
+                                            </Columns>
+                                            <EditorProviders>
+                                                <ig:TextBoxProvider ID="WebDataGrid1_TextBoxProvider2">
+                                                </ig:TextBoxProvider>
+                                            </EditorProviders>
+                                            <Behaviors>
+                                                <ig:ColumnMoving>
+                                                </ig:ColumnMoving>
+                                                <ig:ColumnResizing>
+                                                </ig:ColumnResizing>
+                                                <ig:EditingCore>
+                                                    <Behaviors>
+                                                        <ig:RowAdding Alignment="Top">
+                                                            <ColumnSettings>
+                                                                <ig:RowAddingColumnSetting ColumnKey="ItemGroupName" DefaultValueAsString="EnterNew " />
+                                                                <ig:RowAddingColumnSetting ColumnKey="ItemGroupDescription" DefaultValueAsString="Desc" />
+                                                            </ColumnSettings>
+                                                        </ig:RowAdding>
+                                                        <ig:CellEditing>
+                                                        </ig:CellEditing>
+                                                        <ig:RowDeleting />
+                                                        <ig:RowEditingTemplate>
+                                                        </ig:RowEditingTemplate>
+                                                    </Behaviors>
+                                                </ig:EditingCore>
+                                                <ig:Selection CellClickAction="Row" RowSelectType="Single">
+                                                </ig:Selection>
+                                                <ig:RowSelectors>
+                                                </ig:RowSelectors>
+                                                <ig:Filtering>
+                                                </ig:Filtering>
+                                                <ig:Paging>
+                                                </ig:Paging>
+                                                <ig:Sorting>
+                                                </ig:Sorting>
+                                                <ig:SummaryRow>
+                                                </ig:SummaryRow>
+                                                <ig:VirtualScrolling>
+                                                </ig:VirtualScrolling>
+                                                <ig:Activation>
+                                                </ig:Activation>
+                                                <ig:Clipboard>
+                                                </ig:Clipboard>
+                                            </Behaviors>
+                                        </ig:WebDataGrid>
+                                    </td>
+                                </tr>
+                            </table>
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [ItemGroupMaster] WHERE [ItemGroupID] = @original_ItemGroupID AND (([ItemGroupName] = @original_ItemGroupName) OR ([ItemGroupName] IS NULL AND @original_ItemGroupName IS NULL)) AND (([ItemGroupDescription] = @original_ItemGroupDescription) OR ([ItemGroupDescription] IS NULL AND @original_ItemGroupDescription IS NULL))" InsertCommand="INSERT INTO [ItemGroupMaster] ([ItemGroupName], [ItemGroupDescription]) VALUES (@ItemGroupName, @ItemGroupDescription)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [ItemGroupMaster]" UpdateCommand="UPDATE [ItemGroupMaster] SET [ItemGroupName] = @ItemGroupName, [ItemGroupDescription] = @ItemGroupDescription WHERE [ItemGroupID] = @original_ItemGroupID AND (([ItemGroupName] = @original_ItemGroupName) OR ([ItemGroupName] IS NULL AND @original_ItemGroupName IS NULL)) AND (([ItemGroupDescription] = @original_ItemGroupDescription) OR ([ItemGroupDescription] IS NULL AND @original_ItemGroupDescription IS NULL))">
+                                <DeleteParameters>
+                                    <asp:Parameter Name="original_ItemGroupID" Type="Decimal" />
+                                    <asp:Parameter Name="original_ItemGroupName" Type="String" />
+                                    <asp:Parameter Name="original_ItemGroupDescription" Type="String" />
+                                </DeleteParameters>
+                                <InsertParameters>
+                                    <asp:Parameter Name="ItemGroupName" Type="String" />
+                                    <asp:Parameter Name="ItemGroupDescription" Type="String" />
+                                </InsertParameters>
+                                <UpdateParameters>
+                                    <asp:Parameter Name="ItemGroupName" Type="String" />
+                                    <asp:Parameter Name="ItemGroupDescription" Type="String" />
+                                    <asp:Parameter Name="original_ItemGroupID" Type="Decimal" />
+                                    <asp:Parameter Name="original_ItemGroupName" Type="String" />
+                                    <asp:Parameter Name="original_ItemGroupDescription" Type="String" />
+                                </UpdateParameters>
+                            </asp:SqlDataSource>
+                            <br />
+                        </div>
+                        <div  > 
+                            </div> 
+                    </asp:View>
+
+
+                     <asp:View ID="View2"  runat="server">
+                          <div>
+    
+        <br />
+        <table class="auto-style1">
+            <tr>
+                <td><div  ><h3 font-family: Calibri; text-align: center">New Item</h3>  </div></td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="auto-style1">
+                        <tr>
+                            <td class="auto-style2">Item Code</td>
+                            <td class="auto-style8">
+                                <asp:TextBox ID="txt_itemcode" runat="server"></asp:TextBox>
+                            </td>
+                            <td class="auto-style4">Item Name : </td>
+                            <td class="auto-style7">
+                                <asp:TextBox ID="txt_itemname" runat="server"></asp:TextBox>
+                            </td>
+                            <td class="auto-style6">Item Group</td>
+                            <td>
+                                <ig1:WebDropDown ID="cmb_itemgroup" runat="server" DataSourceID="itemgroup" Width="188px" TextField="ItemGroupName" ValueField="ItemGroupID">
+                                    <DropDownItemBinding TextField="ItemGroupName" ValueField="ItemGroupID" />
+                                </ig1:WebDropDown>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style2">HC Code&nbsp; :</td>
+                            <td class="auto-style8">
+                                <asp:TextBox ID="txt_hscode" runat="server"></asp:TextBox>
+                            </td>
+                            <td class="auto-style4">UOM :</td>
+                            <td class="auto-style7">
+                                <ig1:WebDropDown ID="cmb_uom" runat="server" Width="180px" Height="20px" TextField="Uomname" ValueField="Uom_pk" DataSourceID="Uomdata">
+                                    <DropDownItemBinding TextField="Uomname" ValueField="Uom_pk" />
+                                </ig1:WebDropDown>
+                            </td>
+                            <td class="auto-style6" >Wastage :</td>
+                            <td>
+                                <asp:TextBox ID="txt_wastage" runat="server"></asp:TextBox>
+
+                            </td>
+
+
+
+
+                        </tr>
+                       
+                        <tr>
+                            <td class="auto-style2">&nbsp;</td>
+                            <td class="auto-style8">
+                                <asp:CheckBox ID="CheckBox1" runat="server" Text="Color Dependant" />
+                            </td>
+                            <td class="auto-style4">
+                                <asp:CheckBox ID="CheckBox2" runat="server" Text="Size Dependant" />
+                            </td>
+                            <td class="auto-style7">&nbsp;</td>
+                            <td class="auto-style6">&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                       
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style9">
+                    <asp:SqlDataSource ID="itemgroup" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [ItemGroupName], [ItemGroupID] FROM [ItemGroupMaster] ORDER BY [ItemGroupName], [ItemGroupID]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="Uomdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [UomName], [Uom_PK] FROM [UOMMaster ]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT Template_Master.Template_PK AS Id, Template_Master.TemplateCode AS Code, Template_Master.Description AS Name, ItemGroupMaster.ItemGroupDescription AS [Item Group], Template_Master.HCCode AS HCcode, UOMMaster .UomName AS UOM, Template_Master.Wastage, Template_Master.IsStock FROM Template_Master INNER JOIN UOMMaster  ON Template_Master.Uom_PK = UOMMaster .Uom_PK INNER JOIN ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID"></asp:SqlDataSource>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style9">
+                    <ig:WebDataGrid ID="WebDataGrid3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource4" Height="350px" Width="100%">
+                        <Columns>
+                            <ig:BoundDataField DataFieldName="Id" Key="Id">
+                                <Header Text="Id">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="Code" Key="Code">
+                                <Header Text="Code">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="Name" Key="Name">
+                                <Header Text="Name">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="Item Group" Key="Item Group">
+                                <Header Text="Item Group">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="HCcode" Key="HCcode">
+                                <Header Text="HCcode">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="UOM" Key="UOM">
+                                <Header Text="UOM">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="Wastage" Key="Wastage">
+                                <Header Text="Wastage">
+                                </Header>
+                            </ig:BoundDataField>
+                            <ig:BoundDataField DataFieldName="IsStock" Key="IsStock">
+                                <Header Text="IsStock">
+                                </Header>
+                            </ig:BoundDataField>
+                        </Columns>
+                        <Behaviors>
+                            <ig:Filtering>
+                            </ig:Filtering>
+                            <ig:Sorting>
+                            </ig:Sorting>
+                        </Behaviors>
+                    </ig:WebDataGrid>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style9">&nbsp;</td>
+            </tr>
+        </table>
+    
+    </div>
+   
+                         </asp:View>
+
+                     <asp:View ID="View3" runat="server">
+                         </asp:View>
+
+                </asp:MultiView>
+
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+              
+             
+            </td>
+        </tr>
+    </table>
+</asp:Content>
+

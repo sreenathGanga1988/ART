@@ -1,0 +1,208 @@
+.ig _Control
+{
+	border-color:Gainsboro;
+	cursor:default;
+}
+
+
+.ig _PagerArea
+{
+	background-color:WhiteSmoke;
+	border-width:0px;
+	padding-top:10px;
+	padding-right:10px;
+	padding-bottom:10px;
+}
+
+
+.ig _PageCurrent
+{
+	background-repeat:no-repeat;
+	background-image: url(images/submit_hover.gif);
+	margin-right:10px;
+	padding:2px 8px 5px 5px;
+}
+
+
+.ig _PageLink
+{
+	margin-right:10px;
+	color:DimGray;
+}
+
+
+.ig _GroupByBox
+{
+	background-color:#F9FBFC;
+	background-image: url(images/groupbyheader.gif);
+	font-weight:bold;
+	font-size:11px;
+	height: 23px;
+	color:#699BC9;
+}
+
+
+.ig _AddNewBox
+{
+	background-color:#FAFAFA;
+	background-repeat:repeat-x;
+	background-image:none;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+}
+
+
+TBODY.ig _Item TR TD, THEAD.ig _Item TR TH, TFOOT.ig _Item TR TH, TBODY.ig _Item TR TH
+{
+	border:solid 1px Transparent;
+	border-right-color: LightGrey;
+	border-bottom-color: LightGrey;
+	height: 18px;
+}
+
+
+.ig _FilterOperandButton
+{
+	background-color:Transparent;
+	background-repeat:no-repeat;
+	background-position:center ;
+	background-image: url(images/submit_disable.gif);
+	border-width:0px;
+	padding-top:2px;
+	width: 18px;
+}
+
+
+TBODY.ig _Item TR.ig _Alt TD
+{
+}
+
+
+.ig _Edit
+{
+	background-color:White;
+	font-size:x-small;
+	font-family: Verdana;
+	border:solid 1px Transparent;
+	padding-top:7px;
+	text-align:left;
+	vertical-align:middle;
+}
+
+
+.ig _Button
+{
+}
+
+
+TBODY.ig _Item TR TD.ig _FxdCell
+{
+}
+
+
+THEAD.ig _Header TR TH, TFOOT.ig _Header TR TH, TBODY.ig _Header TR TH
+{
+	background-color:Transparent;
+	background-position:bottom ;
+	background-image: url(images/header.gif);
+	border-width:0px;
+	border-color:Transparent;
+	padding-top:3px;
+	padding-bottom:3px;
+	color:White;
+}
+
+
+TFOOT.ig _Footer TR TH
+{
+	background-color:#D8DFEA;
+	background-image:none;
+	border-width:0px;
+}
+
+
+TBODY.ig _Header TR TH.ig _Label
+{
+	background-color:White;
+	background-image:none;
+	border-right-width:1px;
+	border-right-color: LightGrey;
+	border-bottom-width:0px;
+	border-bottom-color:#D0D7E5;
+	padding-top:3px;
+	padding-bottom:3px;
+	height: 10px;
+}
+
+
+TBODY.ig _Header TR TH.ig _ExpArea, TFOOT.ig _Header TR TH.ig _ExpArea
+{
+	background-color:#D8DFEA;
+	background-image:none;
+	border-width:1px;
+	border-color:#D0D7E5;
+	border-top-style:solid;
+	border-top-color:Gainsboro;
+	border-bottom-style:solid;
+	text-align:left;
+}
+
+
+TBODY.ig _Header TR TH.ig _GrpItem
+{
+}
+
+
+THEAD.ig _Header TR TH.ig _FxdHeader
+{
+}
+
+
+.ig _GroupBandLabel
+{
+}
+
+
+TFOOT.ig _Header TR TH.ig _FxdFooter
+{
+}
+
+
+.ig _DropDown
+{
+	background-color:WhiteSmoke;
+	font-size:xx-small;
+	font-family: Verdana;
+	border:solid 1px LightGrey;
+}
+
+
+.ig _DropDownSel
+{
+}
+
+
+TBODY.ig _Item TR.ig _Selected TD, TBODY.ig _Item TR TD.ig _Selected, .ig _Selected
+{
+	background-color:#699BC9;
+	border-top-width:0px;
+	border-left-width:0px;
+	color:White;
+}
+
+
+TBODY.ig _Item TR TD.ig _ActiveBorderTopBottom, .ig _ActiveBorderTopBottom
+{
+}
+
+
+TBODY.ig _Item TR TD.ig _ActiveBorderLeft, .ig _ActiveBorderLeft
+{
+}
+
+
+TBODY.ig _Item TR TD.ig _ActiveBorderRight, .ig _ActiveBorderRight
+{
+}
+
+

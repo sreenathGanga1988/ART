@@ -1,0 +1,114 @@
+﻿body {
+       /* background-image:url('../Image/atraco-bg.jpg') ;
+        background-repeat:no-repeat;
+        background-size:100%,100%;*/
+		
+		
+		background: url('../Image/atraco-bg.jpg') repeat left top; margin: 0px; padding: 0px;
+}
+
+.bodybackground{
+     /*background-image:url('~/Image/A1.jpg');
+        background-image:url('../Image/Back2.jpg');
+        background-repeat:no-repeat;
+        background-size:100%,100%;
+        */
+		
+		background: url('../Image/atraco-bg.jpg') repeat left top;
+}
+   .tittlebar{
+           width: 100%;
+       }
+    .rightsidetittlebar{
+           width: 100%;
+           height:100%;
+           float: right;
+            text-align: center;
+            font-size:x-small;
+       }
+       .auto-style2 {
+           height: 22px;
+       }
+
+       .auto-style3 {
+           height: 22px;
+           width: 100px;
+       }
+       .auto-style4 {
+           height: 22px;
+           width: 191px;
+       }
+       .auto-style5 {
+           height: 22px;
+           width: 125px;
+           float: right;
+       }
+       .auto-style6 {
+           height: 22px;
+           width: 116px;
+       }
+
+       .MenuColumn {
+           width: 70%;
+       }
+        .LoginColumn {
+           width: 30%;
+             text-align: center;
+              text-align: center;
+            font-size:x-small;
+            color:blue;
+       }
+
+       
+         .footer
+{
+    position:relative;
+    height: 5em;
+    margin-bottom:-5em;
+    /* bottom:3px;
+    z-index:05px;
+    margin-top:-5em; */
+    /*background-image:url('~/Image/bg_footer111.gif');*/
+    background-repeat:no-repeat;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color:#0000ff;
+    
+    width: 100%;
+ 
+}
+
+.left-logo-set { width: 97.8%; background: #f0eeef; text-align: center; padding: 20px 0px; border: 1px solid #CCC; border-left: 0px; border-top: 0px;  }
+.left-logo-set img { width: 80%; }
+
+#WebExplorerBar1 { border-top: 1px solid #fff;}
+
+
+
+
+/*---- LOGED NAME TOP SECTION ----*/
+
+
+.top-log-set-main-box { width: 100%; height: 23px; padding: 12px 0px;}
+.loged-user-name-box { float: right; margin-right: 40px; padding: 0px 50px 0px 0px; position:relative;  background: url(../image/arrow.png) no-repeat right top 8px; cursor: pointer;}
+.loged-user-name-cont-box { width: 200px !important; position:absolute; right: 0px; top: 37px; border: 1px solid #FFF; border-bottom: 0px; }
+.loged-user-name { background: url(../image/user.png) no-repeat left top 2px; padding-left: 19px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #555;}
+.clear { clear:both;}
+
+.loged-user-name-cont-box ul { list-style: none; margin: 0px; padding: 0px; background: #7b7bad; border-radius: 5px; overflow: hidden;}
+.loged-user-name-cont-box li { display: block; padding: 10px 20px; border-top: 1px solid #6d6da2; border-bottom: 1px solid #8585c3; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #FFF; }
+.loged-user-name-cont-box li:first-child { border-top: 0px;}
+.loged-user-name-cont-box li:hover { background: #6d6da2;}
+.top-log-but { font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #555 !important; font-weight: bold; text-decoration: none !important; padding: 20px;}
+.top-log-but:hover { color: #F00 !important; }
+
+#ContentPlaceHolder1 { color: #F00 !important;}
+
+
+.LoginColumn { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #555 !important; font-weight: bold; text-decoration: none !important; padding: 10px 0 10px 15px;  background: url(../image/user.png) no-repeat left top 16px;}
+
+.LoginColumn span {
+    border-right: 1px solid;
+    padding-right: 18px;
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="635b70d9182d4b39918829c85058eeae" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="ArtModel.AtcRawMaterialMaster" Width="1.5" PointX="7.25" PointY="4" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.BuyerMaster" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.ColorMaster" Width="1.5" PointX="6.875" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.CountryMaster" Width="1.5" PointX="8.25" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.CurrencyMaster" Width="1.5" PointX="6.875" PointY="0.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.GarmentCategory" Width="1.5" PointX="9.75" PointY="10.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.ItemGroupMaster" Width="1.5" PointX="9.25" PointY="1.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.PaymentModeMaster" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.PaymentTermMaster" Width="1.5" PointX="11.75" PointY="10.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.POPackDetail" Width="1.5" PointX="0.5" PointY="2.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.PoPackMaster" Width="1.5" PointX="5.75" PointY="5.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.SizeMaster" Width="1.5" PointX="11.625" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.SkuRawMaterialMaster" Width="1.5" PointX="8.875" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtModel.StyleColor" Width="1.5" PointX="11.5" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.StyleSize" Width="1.5" PointX="12.75" PointY="7.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.sysdiagram" Width="1.5" PointX="5.375" PointY="13.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.Template_Master" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.UOMMaster" Width="1.5" PointX="10.875" PointY="13.25" IsExpanded="false" />
+        <AssociationConnector Association="ArtModel.FK_AtcRawMaterialMaster_tbl_Template_Master" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl1" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtModel.FK_POPackDetails_PoPackMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtModel.FK_Template_Master_ItemGroupMaster" />
+        <AssociationConnector Association="ArtModel.FK_Template_Master_UOMMaster" />
+        <EntityTypeShape EntityType="ArtModel.TemplateComposition" Width="1.5" PointX="8.25" PointY="16.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.TemplateConstruction" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="false" />
+        <AssociationConnector Association="ArtModel.FK_TemplateComposition_Template_Master" />
+        <AssociationConnector Association="ArtModel.FK_TemplateConstruction_Template_Master" />
+        <EntityTypeShape EntityType="ArtModel.TemplateWeight" Width="1.5" PointX="8.25" PointY="21.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="ArtModel.TemplateWidth" Width="1.5" PointX="8.25" PointY="23.875" IsExpanded="false" />
+        <AssociationConnector Association="ArtModel.FK_TemplateWeight_Template_Master" />
+        <AssociationConnector Association="ArtModel.FK_TemplateWidth_Template_Master" />
+        <EntityTypeShape EntityType="ArtModel.StyleCostingMaster" Width="1.5" PointX="4.375" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtModel.StyleCostingDetail" Width="1.5" PointX="14.125" PointY="9.375" />
+        <AssociationConnector Association="ArtModel.FK_StyleCostingDetails_SkuRawMaterialMaster" />
+        <AssociationConnector Association="ArtModel.FK_StyleCostingDetails_StyleCostingDetails" />
+        <EntityTypeShape EntityType="ArtModel.AtcMaster" Width="1.5" PointX="3" PointY="4.125" />
+        <AssociationConnector Association="ArtModel.FK_AtcMaster_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_PoPackMaster_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl" />
+        <EntityTypeShape EntityType="ArtModel.SkuRawmaterialDetail" Width="1.5" PointX="11.125" PointY="14.5" />
+        <AssociationConnector Association="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster" />
+        <EntityTypeShape EntityType="ArtModel.AtcDetail" Width="1.5" PointX="5.25" PointY="7.875" />
+        <AssociationConnector Association="ArtModel.FK_AtcDetails_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_POPackDetails_AtcDetails" />
+        <AssociationConnector Association="ArtModel.FK_StyleCostingMaster_AtcDetails" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

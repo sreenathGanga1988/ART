@@ -1,0 +1,256 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using ArtWebApp.DataModels;
+using System.Data;
+public partial class Merchandiser_POPack : System.Web.UI.Page
+{
+    ArtWebApp.DBTransaction.PoPackTransaction potran = null;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+
+       
+            PnlMain.Visible = true;
+            txt_atcnum.Text = cmb_atc.SelectedItem.Text;
+        
+    }
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+        PnlMain.Visible = false;
+
+    }
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        insertpopack();
+        PnlMain.Visible = false;
+    }
+    /// <summary>
+    /// Insert PO Pack Details
+    /// </summary>
+    public void insertpopack()
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            PoPackMaster pomstr = new PoPackMaster();
+            pomstr.AtcId = int.Parse(cmb_atc.SelectedValue.ToString());
+            pomstr.BuyerPO = txt_buyerpo.Text.Trim();
+            pomstr.DeliveryDate = DateTime.Now.Date;
+            pomstr.PoPacknum = CreatePoPacknum(int.Parse(cmb_atc.SelectedValue.ToString()), txt_atcnum.Text.Trim());
+            enty.PoPackMasters .Add(pomstr);
+
+            enty.SaveChanges();
+        }
+    }
+
+    /// <summary>
+    /// create the POPacknumber 
+    /// </summary>
+    /// <param name="atcid"></param>
+    /// <param name="buyerid"></param>
+    public String CreatePoPacknum(int atcid,String Atcnum)
+    {
+        String POPAcknum = "";
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            var count = (from o in enty.PoPackMasters
+                         where o.AtcId==atcid
+                         select o).Count();
+
+
+            POPAcknum = Atcnum.Trim() +"-"+ (int.Parse(count.ToString())+1).ToString();
+        }
+
+        return POPAcknum;
+    }
+
+
+    protected void cmb_atc_SelectionChanged(object sender, Infragistics.Web.UI.ListControls.DropDownSelectionChangedEventArgs e)
+    {
+     
+    }
+    protected void buttonAtc_Click(object sender, EventArgs e)
+    {
+        int atcid=int.Parse(cmb_atc.SelectedValue.ToString());
+
+        ArtEntitiesnew enty = new ArtEntitiesnew();
+        var q = from pckmst in enty.PoPackMasters
+                where pckmst.AtcId == atcid
+                select pckmst  ;
+
+        var q1 = from ourstyle in enty.AtcDetails
+                 where ourstyle.AtcId ==atcid
+                 select ourstyle ;
+
+        
+      
+        cmb_po.DataSource = q.ToList();
+      //  cmb_po.TextField = "PoPacknum";
+       // cmb_po.ValueField = "PoPackId";
+
+        cmb_ourstyle.DataSource = q1.ToList();
+        //cmb_ourstyle.TextField = "OurStyle";
+        //cmb_ourstyle.ValueField = "OurStyleID";
+
+        //cmb_po.DataBind();
+        //cmb_ourstyle.DataBind();
+       
+    }
+   
+    protected void btn_ShowStyledetails_Click(object sender, EventArgs e)
+    {
+        //using (ArtEntities enty = new ArtEntities())
+        //{
+        //    var q = from stylecolor in enty.StyleColors
+        //            join stylesizers in enty.StyleSizes on stylecolor.OurStyleID equals stylesizers.AtcId
+        //            where stylecolor.AtcId == stylesizers.AtcId
+
+        //            select new
+        //            {
+        //                stylesizers.StyleSizeID,
+        //                stylecolor.StyleColorid,
+        //                stylesizers.AtcId,
+        //                stylecolor.OurStyleID,
+        //                stylesizers.OurStyle,
+        //                stylecolor.GarmentColorCode,
+        //                stylecolor.GarmentColor,
+        //                stylesizers.SizeCode,
+        //                stylesizers.SizeName
+
+        //            };
+
+        //    Grd_PoPackentry.DataSource = q.ToList();
+        //    Grd_PoPackentry.DataBind();
+
+
+        //}
+        ourstylehiden.Value = cmb_ourstyle .SelectedValue.ToString();
+      //  SqlDataSource2.SelectParameters["Param1"].DefaultValue = cmb_atc.SelectedValue.ToString();
+       // SqlDataSource2.Update();
+       
+           // Grd_PoPackentry.DataSource = null;
+        Grd_PoPackentry.DataSource = SqlDataSource2;
+        Grd_PoPackentry.DataBind();
+
+        if(Grd_PoPackentry.Rows.Count >0)
+        {
+            btn_savePoPack.Visible = true;     
+        }
+    }
+    protected void btn_savePoPack_Click(object sender, EventArgs e)
+    {
+        insertPOPack();
+
+    }
+
+    public void insertPOPack()
+    {
+        foreach (GridViewRow row in Grd_PoPackentry.Rows)
+        {
+            int ourstyleid = int.Parse(row.Cells[3].Text.ToString());
+           
+
+            String colorname = row.Cells[6].Text.ToString();
+            String colorcode = row.Cells[5].Text.ToString();
+
+            String sizename = row.Cells[8].Text.ToString();
+            String sizecode = row.Cells[7].Text.ToString();
+            int popakcid = int.Parse(cmb_po.SelectedValue.ToString());
+
+
+
+            TextBox txtqty = (TextBox)row.Cells[0].FindControl("txt_poQty");         
+
+          
+            int qty = int.Parse(txtqty.Text);
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                POPackDetail pcpkdet = new POPackDetail();
+                pcpkdet.OurStyleID=ourstyleid;
+                pcpkdet.POPackId=popakcid;
+                pcpkdet.SIzeCode=sizecode.Trim ();
+                pcpkdet.SizeName=sizename.Trim ();
+                pcpkdet.ColorCode=colorcode.Trim ();
+                pcpkdet.ColorName=colorname.Trim ();
+                pcpkdet.PoQty =int.Parse (txtqty.Text);
+
+                enty.POPackDetails.Add(pcpkdet);
+
+                enty.SaveChanges();
+            }
+           
+
+        }
+    }
+
+    public void insertPOPackorginal()
+    {
+      
+            int ourstyleid = int.Parse(cmb_ourstyle.SelectedValue.ToString());
+
+
+            String colorname =drp_color.SelectedItem .ToString();
+            String colorcode = drp_color.SelectedValue .ToString();
+
+            String sizename = drp_size.SelectedItem.ToString();
+            String sizecode = drp_size.SelectedValue.ToString();
+            int popakcid = int.Parse(cmb_po.SelectedValue.ToString());
+
+
+
+
+            int qty = int.Parse(txt_qty .Text);
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                POPackDetail pcpkdet = new POPackDetail();
+                pcpkdet.OurStyleID = ourstyleid;
+                pcpkdet.POPackId = popakcid;
+                pcpkdet.SIzeCode = sizecode.Trim();
+                pcpkdet.SizeName = sizename.Trim();
+                pcpkdet.ColorCode = colorcode.Trim();
+                pcpkdet.ColorName = colorname.Trim();
+                pcpkdet.PoQty = qty;
+
+                enty.POPackDetails .Add(pcpkdet);
+
+                enty.SaveChanges();
+            }
+
+
+        
+    }
+
+    public void datacreater()
+    {
+
+    }
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        insertPOPackorginal();
+        showpopackdata();
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        showpopackdata();
+    }
+    public void showpopackdata()
+    {
+        if (cmb_po.SelectedValue != null)
+        {
+
+            potran = new ArtWebApp.DBTransaction.PoPackTransaction();
+            DataTable dt = potran.GetPoPackDetails(int.Parse(cmb_po.SelectedValue.ToString()));
+            Grd_PoPackentry.DataSource = dt;
+            Grd_PoPackentry.DataBind();
+        }
+    }
+}

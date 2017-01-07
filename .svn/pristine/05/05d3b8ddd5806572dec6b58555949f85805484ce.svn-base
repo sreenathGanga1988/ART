@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using ArtWebApp.DataModels;
+public partial class Masters_ItemMaster : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        String navtype = Request.QueryString["navtype"];
+
+        string v = Request.QueryString["navtype"];
+        if (navtype == "Item Group")
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else if (navtype == "Item Master")
+        {
+            MultiView1.ActiveViewIndex = 1;
+        }
+        else if (navtype == "Item Composition")
+        {
+            MultiView1.ActiveViewIndex = 2;
+        }
+        else if (navtype == "Item Construction")
+        {
+            MultiView1.ActiveViewIndex = 3;
+        }
+        else if (navtype == "Item Weight")
+        {
+            MultiView1.ActiveViewIndex = 4;
+        }
+        else if (navtype == "Item Width")
+        {
+            MultiView1.ActiveViewIndex = 5;
+        }
+
+       
+       
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            Template_Master tmpmstr = new Template_Master();
+            tmpmstr.TemplateCode = txt_itemcode.Text.Trim();
+            tmpmstr.Description = txt_itemname.Text.Trim();
+            tmpmstr.ItemGroup_PK = int.Parse(cmb_itemgroup.SelectedValue.ToString());
+            tmpmstr.HCCode = txt_hscode.Text.Trim();
+            tmpmstr.Wastage = int.Parse ( txt_wastage.Text.Trim());
+            tmpmstr.Uom_PK = int.Parse(cmb_uom.SelectedValue.ToString());
+            enty.Template_Master.Add(tmpmstr);
+
+            enty.SaveChanges();
+        }
+    }
+
+    protected void btn_SaveComp_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            int templatepk = int.Parse(drp_templateforComp.SelectedValue.ToString());
+
+            if (!enty.TemplateCompositions .Any(f => f.Template_Pk == templatepk && f.Composition == txt_Composition.Text.Trim ()))
+            {
+                TemplateComposition tmpcomp = new TemplateComposition();
+                tmpcomp.Composition = txt_Composition.Text.Trim();
+                tmpcomp.Template_Pk = templatepk;
+
+                enty.TemplateCompositions.Add(tmpcomp);
+                enty.SaveChanges();
+                
+            }
+        }
+    }
+
+    protected void btn_SaveCon_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            int templatepk = int.Parse(drp_templateforcon.SelectedValue.ToString());
+
+            if (!enty.TemplateConstructions.Any(f => f.Template_Pk == templatepk && f.Construct == txt_construction.Text.Trim()))
+            {
+                TemplateConstruction tmpcon = new TemplateConstruction();
+                tmpcon.Construct = txt_construction.Text.Trim();
+                tmpcon.Template_Pk = templatepk;
+
+                enty.TemplateConstructions.Add(tmpcon);
+                enty.SaveChanges();
+
+            }
+        }
+
+    }
+
+    protected void btn_weight_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            int templatepk = int.Parse(drp_templateweight.SelectedValue.ToString());
+
+            if (!enty.TemplateWeights.Any(f => f.Template_Pk == templatepk && f.Weight == txt_weight.Text.Trim()))
+            {
+                TemplateWeight tmpcon = new TemplateWeight();
+                tmpcon.Weight = txt_weight.Text.Trim();
+                tmpcon.Template_Pk = templatepk;
+
+                enty.TemplateWeights.Add(tmpcon);
+                enty.SaveChanges();
+
+            }
+        }
+    }
+
+    protected void btn_width_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            int templatepk = int.Parse(drp_templatewidth.SelectedValue.ToString());
+
+            if (!enty.TemplateWeights.Any(f => f.Template_Pk == templatepk && f.Weight == txt_width.Text.Trim()))
+            {
+                TemplateWidth tmpcon = new TemplateWidth();
+                tmpcon.Width = txt_width.Text.Trim();
+                tmpcon.Template_Pk = templatepk;
+
+                enty.TemplateWidths.Add(tmpcon);
+                enty.SaveChanges();
+
+            }
+        }
+    }
+}

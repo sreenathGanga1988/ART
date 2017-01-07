@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using ArtWebApp.DataModels;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+namespace ArtWebApp.DBTransaction
+{
+    public class CostingTransaction
+    {
+        String connStr = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+
+        public DataTable GetCostingDetails(int atcid,int ourstyleid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        SkuRawMaterialMaster.RMNum, Template_Master.Description, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, ISNULL(SkuRawMaterialMaster.Rate,0)AS RATE,
+                          ISNULL(   (SELECT        TOP (1) StyleCostingDetails.Consumption
+                               FROM            StyleCostingDetails INNER JOIN
+                                                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                               WHERE        (StyleCostingMaster.OurStyleID = @ourstyleid) AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)
+                               ORDER BY StyleCostingDetails.Costing_PK DESC) ,0)AS Consumption, 0000.000 AS priceperdoz,ISNULL(   (SELECT        TOP (1) StyleCostingDetails.isRequired
+                               FROM            StyleCostingDetails INNER JOIN
+                                                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                               WHERE        (StyleCostingMaster.OurStyleID = @ourstyleid) AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)
+                               ORDER BY StyleCostingDetails.Costing_PK DESC) ,'N')AS IsRequired ,SkuRawMaterialMaster.Sku_Pk
+FROM            SkuRawMaterialMaster INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+WHERE        (SkuRawMaterialMaster.Atc_id = @atcid)", con);
+
+
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+        /// <summary>
+        /// insert the stylecosting master
+        /// </summary>
+        /// <param name="ourstyleid"></param>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public int insertcostingmaster(int ourstyleid,int atcid)
+        {
+            int stylecostingpk=0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var count = (from o in enty.StyleCostingMasters where o.OurStyleID==ourstyleid
+
+                             select o).Count();
+
+                StyleCostingMaster scmstr = new StyleCostingMaster();
+                scmstr.OurStyleID = ourstyleid;
+                scmstr.CreatedBy = 0;
+                scmstr.CostingCount = int.Parse(count.ToString()) + 1;
+
+                enty.StyleCostingMasters.Add(scmstr);
+                enty.SaveChanges();
+
+                stylecostingpk = int.Parse (scmstr.Costing_PK.ToString ());
+               
+            }
+
+            return stylecostingpk;
+
+
+
+        }
+
+
+        public void insertstylecostingdetails(GridView tbl_costingdetails,int costingid)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                for (int i = 0; i < tbl_costingdetails.Rows.Count; i++)
+                {
+                    String chk_isSD = ((tbl_costingdetails.Rows[i].FindControl("chk_isrequired") as CheckBox).Checked == true ? "Y" : "N");
+                    Label  lbl_skuPK = (tbl_costingdetails.Rows[i].FindControl("lbl_sku") as Label);
+                    TextBox consumption = (tbl_costingdetails.Rows[i].FindControl("txt_consumption") as TextBox);
+
+                    StyleCostingDetail detail = new StyleCostingDetail();
+                    detail.Costing_PK = costingid;
+                    detail.Sku_PK = int.Parse(lbl_skuPK.Text);
+                    detail.Consumption = decimal .Parse(consumption.Text);
+                    detail.IsRequired = chk_isSD;
+                    enty.StyleCostingDetails.Add(detail);
+                }
+                enty.SaveChanges();
+            }
+
+        }
+
+
+
+
+    }
+}

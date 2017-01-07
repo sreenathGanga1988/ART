@@ -1,0 +1,75 @@
+﻿body {
+        background-image:url('../Image/Back2.jpg');
+        background-repeat:no-repeat;
+        background-size:100%,100%;
+}
+
+.bodybackground{
+     /*background-image:url('~/Image/A1.jpg');*/
+        background-image:url('../Image/Back2.jpg');
+        background-repeat:no-repeat;
+        background-size:100%,100%;
+        
+}
+   .tittlebar{
+           width: 100%;
+       }
+    .rightsidetittlebar{
+           width: 100%;
+           height:100%;
+           float: right;
+            text-align: center;
+            font-size:x-small;
+       }
+       .auto-style2 {
+           height: 22px;
+       }
+
+       .auto-style3 {
+           height: 22px;
+           width: 100px;
+       }
+       .auto-style4 {
+           height: 22px;
+           width: 191px;
+       }
+       .auto-style5 {
+           height: 22px;
+           width: 125px;
+           float: right;
+       }
+       .auto-style6 {
+           height: 22px;
+           width: 116px;
+       }
+
+       .MenuColumn {
+           width: 70%;
+       }
+        .LoginColumn {
+           width: 30%;
+             text-align: center;
+              text-align: center;
+            font-size:x-small;
+            color:blue;
+       }
+
+       
+         .footer
+{
+    position:relative;
+    height: 5em;
+    margin-bottom:-5em;
+    /* bottom:3px;
+    z-index:05px;
+    margin-top:-5em; */
+    /*background-image:url('~/Image/bg_footer111.gif');*/
+    background-repeat:no-repeat;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color:#0000ff;
+    
+    width: 100%;
+ 
+}

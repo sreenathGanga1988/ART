@@ -1,0 +1,3032 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07116257-90D9-44C5-9B0B-CE00413CCF6B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArtWebApp</RootNamespace>
+    <AssemblyName>ArtWebApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>H:\Ajax\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="App_Licenses">
+      <HintPath>..\..\..\WebSites\infratry\Bin\App_Licenses.dll</HintPath>
+    </Reference>
+    <Reference Include="DropDownChosen">
+      <HintPath>..\..\..\..\..\Downloads\DropDownChosen\DropDownChosen\DropDownChosen\bin\Debug\DropDownChosen.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\WebSites\infratry\Bin\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\WebSites\infratry\Bin\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infragistics35.WebUI.Documents.Excel.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Infragistics\NetAdvantage 2012.1\ASP.NET\CLR3.5\Bin\Infragistics35.WebUI.Documents.Excel.v12.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics35.WebUI.WebDataInput.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2402\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2402\lib\net40\Microsoft.ReportViewer.DataVisualization.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2402\lib\net40\Microsoft.ReportViewer.Design.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2402\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2402\lib\net40\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NumericTextBox">
+      <HintPath>..\..\..\..\..\Downloads\MyCustomControls\MyCustomControls\bin\Debug\NumericTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Accounts\StockSupplierInvoicing.aspx" />
+    <Content Include="Accounts\SupplierInvoicing.aspx" />
+    <Content Include="Administrator\SupportTicket.aspx" />
+    <Content Include="Administrator\Userform.aspx" />
+    <Content Include="Administrator\UserMaster.aspx" />
+    <Content Include="Approvals\CostingApproval.aspx" />
+    <Content Include="Approvals\InventoryApprovals.aspx" />
+    <Content Include="Approvals\LocalCostingApproval.aspx" />
+    <Content Include="Approvals\ProcurementApproval.aspx" />
+    <Content Include="Approvals\ResponsiveApproval.aspx" />
+    <Content Include="Approvals\ServicePoApproval.aspx" />
+    <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="ArtLogin.aspx" />
+    <Content Include="Authorisation.aspx" />
+    <Content Include="bin\ArtWebApp.dll" />
+    <Content Include="bin\ArtWebApp.pdb" />
+    <Content Include="BLL\InventoryBLL\SessionChecker.aspx" />
+    <Content Include="Controls\Matrix.aspx" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\landing-page.css" />
+    <Content Include="css\MasterPage.css" />
+    <Content Include="css\style.css" />
+    <Content Include="DataModelAtcWorld\AtcWorldModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AtcWorldModel.edmx</DependentUpon>
+      <LastGenOutput>AtcWorldModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModelAtcWorld\AtcWorldModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AtcWorldModel.edmx</DependentUpon>
+      <LastGenOutput>AtcWorldModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Default2.aspx" />
+    <Content Include="Error\ErrorPage.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="ig_res\Default\ig_calendar.css" />
+    <Content Include="ig_res\Default\ig_calendar2.css" />
+    <Content Include="ig_res\Default\ig_calendarview.css" />
+    <Content Include="ig_res\Default\ig_captcha.css" />
+    <Content Include="ig_res\Default\ig_combo.css" />
+    <Content Include="ig_res\Default\ig_dataGrid.css" />
+    <Content Include="ig_res\Default\ig_datamenu.css" />
+    <Content Include="ig_res\Default\ig_datatree.css" />
+    <Content Include="ig_res\Default\ig_datechooser.css" />
+    <Content Include="ig_res\Default\ig_dayview.css" />
+    <Content Include="ig_res\Default\ig_dialogwindow.css" />
+    <Content Include="ig_res\Default\ig_dropDown.css" />
+    <Content Include="ig_res\Default\ig_explorerbar.css" />
+    <Content Include="ig_res\Default\ig_fishEyeBar.css" />
+    <Content Include="ig_res\Default\ig_grid.css" />
+    <Content Include="ig_res\Default\ig_grid_opt.css" />
+    <Content Include="ig_res\Default\ig_hierarchicalDataGrid.css" />
+    <Content Include="ig_res\Default\ig_imageViewer.css" />
+    <Content Include="ig_res\Default\ig_listbar.css" />
+    <Content Include="ig_res\Default\ig_menu.css" />
+    <Content Include="ig_res\Default\ig_monthcalendar.css" />
+    <Content Include="ig_res\Default\ig_monthview.css" />
+    <Content Include="ig_res\Default\ig_navbar.css" />
+    <Content Include="ig_res\Default\ig_panel.css" />
+    <Content Include="ig_res\Default\ig_progressbar.css" />
+    <Content Include="ig_res\Default\ig_rating.css" />
+    <Content Include="ig_res\Default\ig_shared.css" />
+    <Content Include="ig_res\Default\ig_slider.css" />
+    <Content Include="ig_res\Default\ig_spellCheckerDialog.css" />
+    <Content Include="ig_res\Default\ig_splitter.css" />
+    <Content Include="ig_res\Default\ig_tab.css" />
+    <Content Include="ig_res\Default\ig_textedit.css" />
+    <Content Include="ig_res\Default\ig_texteditor.css" />
+    <Content Include="ig_res\Default\ig_toolbar.css" />
+    <Content Include="ig_res\Default\ig_tree.css" />
+    <Content Include="ig_res\Default\ig_webschedule.css" />
+    <Content Include="ig_res\Default\ig_webtab.css" />
+    <Content Include="ig_res\Default\ig_weekview.css" />
+    <Content Include="ig_res\Default\images\ActiveRowSelector.gif" />
+    <Content Include="ig_res\Default\images\addnewrow.gif" />
+    <Content Include="ig_res\Default\images\addnewrow_image.gif" />
+    <Content Include="ig_res\Default\images\add_disabled.gif" />
+    <Content Include="ig_res\Default\images\add_down.gif" />
+    <Content Include="ig_res\Default\images\add_hover.gif" />
+    <Content Include="ig_res\Default\images\add_up.gif" />
+    <Content Include="ig_res\Default\images\back_horiz.gif" />
+    <Content Include="ig_res\Default\images\back_vert.gif" />
+    <Content Include="ig_res\Default\images\buttonbg.png" />
+    <Content Include="ig_res\Default\images\button_bg.jpg" />
+    <Content Include="ig_res\Default\images\button_officeBlue.gif" />
+    <Content Include="ig_res\Default\images\button_officeBlue.png" />
+    <Content Include="ig_res\Default\images\button_silver.gif" />
+    <Content Include="ig_res\Default\images\Caption_bg.jpg" />
+    <Content Include="ig_res\Default\images\dayheader.jpg" />
+    <Content Include="ig_res\Default\images\day_header.jpg" />
+    <Content Include="ig_res\Default\images\day_header1.gif" />
+    <Content Include="ig_res\Default\images\day_header_active.jpg" />
+    <Content Include="ig_res\Default\images\del_disabled.gif" />
+    <Content Include="ig_res\Default\images\del_down.gif" />
+    <Content Include="ig_res\Default\images\del_hover.gif" />
+    <Content Include="ig_res\Default\images\del_up.gif" />
+    <Content Include="ig_res\Default\images\downarrows_white.gif" />
+    <Content Include="ig_res\Default\images\end_disabled.gif" />
+    <Content Include="ig_res\Default\images\end_down.gif" />
+    <Content Include="ig_res\Default\images\end_hover.gif" />
+    <Content Include="ig_res\Default\images\end_up.gif" />
+    <Content Include="ig_res\Default\images\ff_disabled.gif" />
+    <Content Include="ig_res\Default\images\ff_down.gif" />
+    <Content Include="ig_res\Default\images\ff_hover.gif" />
+    <Content Include="ig_res\Default\images\ff_up.gif" />
+    <Content Include="ig_res\Default\images\fill_horiz.gif" />
+    <Content Include="ig_res\Default\images\fill_vert.gif" />
+    <Content Include="ig_res\Default\images\groupbyheader.gif" />
+    <Content Include="ig_res\Default\images\header.gif" />
+    <Content Include="ig_res\Default\images\header_hover.gif" />
+    <Content Include="ig_res\Default\images\igc_AudioButton.gif" />
+    <Content Include="ig_res\Default\images\igc_DefautImage.gif" />
+    <Content Include="ig_res\Default\images\igc_RefreshButton.gif" />
+    <Content Include="ig_res\Default\images\igc_submitButtonBg.png" />
+    <Content Include="ig_res\Default\images\igdd_DropDownButton.png" />
+    <Content Include="ig_res\Default\images\igdd_DropDownButtonDisabled.png" />
+    <Content Include="ig_res\Default\images\igdd_DropDownButtonHover.png" />
+    <Content Include="ig_res\Default\images\igdd_DropDownButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igdd_DropDownListContainerBG.png" />
+    <Content Include="ig_res\Default\images\igdd_ListItemHover.png" />
+    <Content Include="ig_res\Default\images\igdm_bg_normal.jpg" />
+    <Content Include="ig_res\Default\images\igdm_ControlBackground.png" />
+    <Content Include="ig_res\Default\images\igdm_ItemHover.png" />
+    <Content Include="ig_res\Default\images\igdm_ItemHoverParent.png" />
+    <Content Include="ig_res\Default\images\igdm_RootHover.png" />
+    <Content Include="ig_res\Default\images\igdm_rootSelected.png" />
+    <Content Include="ig_res\Default\images\igdt_Blank.gif" />
+    <Content Include="ig_res\Default\images\igdt_DropIndicatorBg.jpg" />
+    <Content Include="ig_res\Default\images\igdt_Empty.gif" />
+    <Content Include="ig_res\Default\images\igdt_First.gif" />
+    <Content Include="ig_res\Default\images\igdt_FirstMinus.gif" />
+    <Content Include="ig_res\Default\images\igdt_FirstPlus.gif" />
+    <Content Include="ig_res\Default\images\igdt_folder.gif" />
+    <Content Include="ig_res\Default\images\igdt_folder_open.gif" />
+    <Content Include="ig_res\Default\images\igdt_Last.gif" />
+    <Content Include="ig_res\Default\images\igdt_LastMinus.gif" />
+    <Content Include="ig_res\Default\images\igdt_LastPlus.gif" />
+    <Content Include="ig_res\Default\images\igdt_Leaf.gif" />
+    <Content Include="ig_res\Default\images\igdt_Line.gif" />
+    <Content Include="ig_res\Default\images\igdt_Middle.gif" />
+    <Content Include="ig_res\Default\images\igdt_MiddleMinus.gif" />
+    <Content Include="ig_res\Default\images\igdt_MiddlePlus.gif" />
+    <Content Include="ig_res\Default\images\igdt_Minus.gif" />
+    <Content Include="ig_res\Default\images\igdt_Plus.gif" />
+    <Content Include="ig_res\Default\images\igdt_Single.gif" />
+    <Content Include="ig_res\Default\images\igdt_SingleMinus.gif" />
+    <Content Include="ig_res\Default\images\igdt_SinglePlus.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyCornerBottomLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyCornerBottomRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyCornerTopLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyCornerTopRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyEdgeBottom.gif" />
+    <Content Include="ig_res\Default\images\igdw_BodyEdgeTop.gif" />
+    <Content Include="ig_res\Default\images\igdw_Bottom.gif" />
+    <Content Include="ig_res\Default\images\igdw_BottomLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_BottomRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_Close.gif" />
+    <Content Include="ig_res\Default\images\igdw_CloseHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_CloseMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igdw_EdgeLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_EdgeRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_HeaderContent.gif" />
+    <Content Include="ig_res\Default\images\igdw_HeaderCornerLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_HeaderCornerRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_Maximize.gif" />
+    <Content Include="ig_res\Default\images\igdw_MaximizeHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_MaximizeMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igdw_Minimize.gif" />
+    <Content Include="ig_res\Default\images\igdw_MinimizeHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_MinimizeMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igdw_Pin.gif" />
+    <Content Include="ig_res\Default\images\igdw_PinHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_PinMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igdw_ResizingHandle.gif" />
+    <Content Include="ig_res\Default\images\igdw_Restore.gif" />
+    <Content Include="ig_res\Default\images\igdw_RestoreHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_RestoreMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igdw_top.gif" />
+    <Content Include="ig_res\Default\images\igdw_topHidden.gif" />
+    <Content Include="ig_res\Default\images\igdw_TopLeft.gif" />
+    <Content Include="ig_res\Default\images\igdw_TopLeftHidden.gif" />
+    <Content Include="ig_res\Default\images\igdw_TopRight.gif" />
+    <Content Include="ig_res\Default\images\igdw_TopRightHidden.gif" />
+    <Content Include="ig_res\Default\images\igdw_Unpin.gif" />
+    <Content Include="ig_res\Default\images\igdw_UnpinHover.gif" />
+    <Content Include="ig_res\Default\images\igdw_UnpinMouseDown.gif" />
+    <Content Include="ig_res\Default\images\igeb_Bullet.png" />
+    <Content Include="ig_res\Default\images\igeb_ExpanderExpanded.png" />
+    <Content Include="ig_res\Default\images\igeb_ExpanderExpandedHover.png" />
+    <Content Include="ig_res\Default\images\igeb_ExpanderNormal.png" />
+    <Content Include="ig_res\Default\images\igeb_ExpanderNormalHover.png" />
+    <Content Include="ig_res\Default\images\igeb_GroupBg.png" />
+    <Content Include="ig_res\Default\images\igeb_grouphoverbg.png" />
+    <Content Include="ig_res\Default\images\igeb_itemselected.png" />
+    <Content Include="ig_res\Default\images\igeb_ItemSelectedBg.png" />
+    <Content Include="ig_res\Default\images\igg_BottomDragIndicator.png" />
+    <Content Include="ig_res\Default\images\igg_ButtonsBG.png" />
+    <Content Include="ig_res\Default\images\igg_Filter.gif" />
+    <Content Include="ig_res\Default\images\igg_FilterApplied.gif" />
+    <Content Include="ig_res\Default\images\igg_FilterBtn.gif" />
+    <Content Include="ig_res\Default\images\igg_FilterBtnHover.gif" />
+    <Content Include="ig_res\Default\images\igg_FilterBtnPressed.gif" />
+    <Content Include="ig_res\Default\images\igg_FilterDD.gif" />
+    <Content Include="ig_res\Default\images\igg_FilteredBtn.gif" />
+    <Content Include="ig_res\Default\images\igg_FilteredBtnHover.gif" />
+    <Content Include="ig_res\Default\images\igg_FilteredBtnPressed.gif" />
+    <Content Include="ig_res\Default\images\igg_filterrow.gif" />
+    <Content Include="ig_res\Default\images\igg_Fix.gif" />
+    <Content Include="ig_res\Default\images\igg_FixHover.gif" />
+    <Content Include="ig_res\Default\images\igg_FixPressed.gif" />
+    <Content Include="ig_res\Default\images\igg_FooterBG.png" />
+    <Content Include="ig_res\Default\images\igg_FooterSummariesBG.png" />
+    <Content Include="ig_res\Default\images\igg_header.gif" />
+    <Content Include="ig_res\Default\images\igg_MiddleDragIndicator.png" />
+    <Content Include="ig_res\Default\images\igg_rowselector.gif" />
+    <Content Include="ig_res\Default\images\igg_Selected.gif" />
+    <Content Include="ig_res\Default\images\igg_sortAsc.gif" />
+    <Content Include="ig_res\Default\images\igg_sortDesc.gif" />
+    <Content Include="ig_res\Default\images\igg_Sum.gif" />
+    <Content Include="ig_res\Default\images\igg_SumHover.gif" />
+    <Content Include="ig_res\Default\images\igg_SummaryDropDownBG.png" />
+    <Content Include="ig_res\Default\images\igg_SumPressed.gif" />
+    <Content Include="ig_res\Default\images\igg_TopDragIndicator.png" />
+    <Content Include="ig_res\Default\images\igg_Unfix.gif" />
+    <Content Include="ig_res\Default\images\igg_UnfixHover.gif" />
+    <Content Include="ig_res\Default\images\igg_UnfixPressed.gif" />
+    <Content Include="ig_res\Default\images\ighg_BottomDragIndicator.gif" />
+    <Content Include="ig_res\Default\images\ighg_Collapse.gif" />
+    <Content Include="ig_res\Default\images\ighg_CollapseHover.gif" />
+    <Content Include="ig_res\Default\images\ighg_CollapsePressed.gif" />
+    <Content Include="ig_res\Default\images\ighg_Expand.gif" />
+    <Content Include="ig_res\Default\images\ighg_ExpandHover.gif" />
+    <Content Include="ig_res\Default\images\ighg_ExpandPressed.gif" />
+    <Content Include="ig_res\Default\images\ighg_GroupAreaBg.png" />
+    <Content Include="ig_res\Default\images\ighg_GroupedBandBg.png" />
+    <Content Include="ig_res\Default\images\ighg_GroupedColumnBg.png" />
+    <Content Include="ig_res\Default\images\ighg_GroupedColumnLeftEdgeBg.gif" />
+    <Content Include="ig_res\Default\images\ighg_GroupedColumnRightEdgeBg.png" />
+    <Content Include="ig_res\Default\images\ighg_GroupedColumnRightEdgeEndBg.gif" />
+    <Content Include="ig_res\Default\images\ighg_GroupedRowBg.png" />
+    <Content Include="ig_res\Default\images\ighg_MiddleDragIndicator.gif" />
+    <Content Include="ig_res\Default\images\ighg_Remove.gif" />
+    <Content Include="ig_res\Default\images\ighg_RemoveHover.gif" />
+    <Content Include="ig_res\Default\images\ighg_RemovePressed.gif" />
+    <Content Include="ig_res\Default\images\ighg_TopDragIndicator.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerBottomLeft.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerBottomLeft_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerBottomRight.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerBottomRight_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerTopLeft.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerTopLeft_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerTopRight.gif" />
+    <Content Include="ig_res\Default\images\igiv_CornerTopRight_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeBottom.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeBottom_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeLeft.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeLeft_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeRight.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeRight_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeTop.gif" />
+    <Content Include="ig_res\Default\images\igiv_EdgeTop_Vert.gif" />
+    <Content Include="ig_res\Default\images\igiv_H_NextButton.png" />
+    <Content Include="ig_res\Default\images\igiv_H_NextButtonDisabled.png" />
+    <Content Include="ig_res\Default\images\igiv_H_NextButtonHover.png" />
+    <Content Include="ig_res\Default\images\igiv_H_NextButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igiv_H_PrevButton.png" />
+    <Content Include="ig_res\Default\images\igiv_H_PrevButtonDisabled.png" />
+    <Content Include="ig_res\Default\images\igiv_H_PrevButtonHover.png" />
+    <Content Include="ig_res\Default\images\igiv_H_PrevButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igiv_V_NextButton.png" />
+    <Content Include="ig_res\Default\images\igiv_V_NextButtonDisabled.png" />
+    <Content Include="ig_res\Default\images\igiv_V_NextButtonHover.png" />
+    <Content Include="ig_res\Default\images\igiv_V_NextButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igiv_V_PNextButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igiv_V_PrevButton.png" />
+    <Content Include="ig_res\Default\images\igiv_V_PrevButtonDisabled.png" />
+    <Content Include="ig_res\Default\images\igiv_V_PrevButtonHover.png" />
+    <Content Include="ig_res\Default\images\igiv_V_PrevButtonPressed.png" />
+    <Content Include="ig_res\Default\images\igmc_dayselected.gif" />
+    <Content Include="ig_res\Default\images\igmc_dowbg.gif" />
+    <Content Include="ig_res\Default\images\igmc_footerbg.gif" />
+    <Content Include="ig_res\Default\images\igmc_footerbghover.gif" />
+    <Content Include="ig_res\Default\images\igmc_footerbgpressed.gif" />
+    <Content Include="ig_res\Default\images\igmc_headerbg.png" />
+    <Content Include="ig_res\Default\images\igmc_next.gif" />
+    <Content Include="ig_res\Default\images\igmc_nextHover.gif" />
+    <Content Include="ig_res\Default\images\igmc_nextPress.gif" />
+    <Content Include="ig_res\Default\images\igmc_prev.gif" />
+    <Content Include="ig_res\Default\images\igmc_prevHover.gif" />
+    <Content Include="ig_res\Default\images\igmc_prevPress.gif" />
+    <Content Include="ig_res\Default\images\igmc_weekbg.gif" />
+    <Content Include="ig_res\Default\images\igpb_horizontalFill.gif" />
+    <Content Include="ig_res\Default\images\igpb_VerticalFill.gif" />
+    <Content Include="ig_res\Default\images\igpnl_dwn.gif" />
+    <Content Include="ig_res\Default\images\igpnl_up.gif" />
+    <Content Include="ig_res\Default\images\igr_RatingSprite.png" />
+    <Content Include="ig_res\Default\images\igsch_xpbluedn.gif" />
+    <Content Include="ig_res\Default\images\igsch_xpblueup.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusDisableH.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusDisableV.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusFocusH.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusFocusV.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusH.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusHoverH.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusHoverV.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusPressH.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusPressV.gif" />
+    <Content Include="ig_res\Default\images\igsli_MinusV.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusDisableH.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusDisableV.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusFocusH.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusFocusV.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusH.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusHoverH.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusHoverV.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusPressH.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusPressV.gif" />
+    <Content Include="ig_res\Default\images\igsli_PlusV.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbDisableH.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbDisableV.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbFocusH.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbFocusV.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbH.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbHoverH.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbHoverV.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbPressH.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbPressV.gif" />
+    <Content Include="ig_res\Default\images\igsli_ThumbV.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackEdges.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackEdgesV.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackFill.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackFillV.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueEdges2H.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueEdges2V.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueEdgesH.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueEdgesV.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueFill2H.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueFill2V.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueFillH.gif" />
+    <Content Include="ig_res\Default\images\igsli_TrackValueFillV.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseDown.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseDownHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseLeft.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseLeftHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseRight.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseRightHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseUp.gif" />
+    <Content Include="ig_res\Default\images\igspl_CollapseUpHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandDown.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandDownHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandLeft.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandLeftHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandRight.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandRightHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandUp.gif" />
+    <Content Include="ig_res\Default\images\igspl_ExpandUpHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitHoriz.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitHorizHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitHorizPressed.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitVerPressed.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitVert.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitVertHover.gif" />
+    <Content Include="ig_res\Default\images\igspl_splitVertPressed.gif" />
+    <Content Include="ig_res\Default\images\igtab_add.gif" />
+    <Content Include="ig_res\Default\images\igtab_addHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHBorder.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHCenter.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHCenterDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHCenterHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHCenterSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHLeft.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BHRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BRoundCorners.gif" />
+    <Content Include="ig_res\Default\images\igtab_BRoundFill.gif" />
+    <Content Include="ig_res\Default\images\igtab_BRoundLeftRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_BRoundTopBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVBorder.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeft.jpg" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_BVRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_close.gif" />
+    <Content Include="ig_res\Default\images\igtab_closeHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_HolderBorder.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotLeft.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopLeft.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LHTopSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVCenter.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVCenterDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVCenterHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVCenterSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_LVTopSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RHTopSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVBotDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVBotHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVBotSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVCenter.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVCenterDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVCenterHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVCenterSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_RVTopSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollDown.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollDownDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollDownHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollDownPres.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollLeft.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollLeftPres.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollRightPres.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollUp.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollUpDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollUpHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_scrollUpPres.gif" />
+    <Content Include="ig_res\Default\images\igtab_THBorder.gif" />
+    <Content Include="ig_res\Default\images\igtab_THCenter.jpg" />
+    <Content Include="ig_res\Default\images\igtab_THCenterDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_THCenterHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_THCenterSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_THContentBackground.jpg" />
+    <Content Include="ig_res\Default\images\igtab_THLeft.gif" />
+    <Content Include="ig_res\Default\images\igtab_THLeft.png" />
+    <Content Include="ig_res\Default\images\igtab_THLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_THLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_THLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_THRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_THRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_THRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_THRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_TRoundCorners.gif" />
+    <Content Include="ig_res\Default\images\igtab_TRoundFill.gif" />
+    <Content Include="ig_res\Default\images\igtab_TRoundLeftRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_TRoundTopBot.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVBorder.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeft.jpg" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVLeftTopSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRight.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightSel.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightTop.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightTopDis.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightTopHov.gif" />
+    <Content Include="ig_res\Default\images\igtab_TVRightTopSel.gif" />
+    <Content Include="ig_res\Default\images\igte_custom.gif" />
+    <Content Include="ig_res\Default\images\igte_customDisable.gif" />
+    <Content Include="ig_res\Default\images\igte_customHover.gif" />
+    <Content Include="ig_res\Default\images\igte_customPress.gif" />
+    <Content Include="ig_res\Default\images\igte_lower.gif" />
+    <Content Include="ig_res\Default\images\igte_lowerDisable.gif" />
+    <Content Include="ig_res\Default\images\igte_lowerHover.gif" />
+    <Content Include="ig_res\Default\images\igte_lowerPress.gif" />
+    <Content Include="ig_res\Default\images\igte_spinbuttonbg.gif" />
+    <Content Include="ig_res\Default\images\igte_spinbuttonbghover.gif" />
+    <Content Include="ig_res\Default\images\igte_spinbuttonbgpressed.gif" />
+    <Content Include="ig_res\Default\images\igte_upper.gif" />
+    <Content Include="ig_res\Default\images\igte_upperDisable.gif" />
+    <Content Include="ig_res\Default\images\igte_upperHover.gif" />
+    <Content Include="ig_res\Default\images\igte_upperPress.gif" />
+    <Content Include="ig_res\Default\images\igwdm_scrollSprite.png" />
+    <Content Include="ig_res\Default\images\igwdm_SubMenuIndicator.gif" />
+    <Content Include="ig_res\Default\images\igwdm_SubMenuIndicatorHover.gif" />
+    <Content Include="ig_res\Default\images\igws_arrowLeft.gif" />
+    <Content Include="ig_res\Default\images\igws_arrowRight.gif" />
+    <Content Include="ig_res\Default\images\igws_r10bg.png" />
+    <Content Include="ig_res\Default\images\igws_r1bg.png" />
+    <Content Include="ig_res\Default\images\igws_r2bg.png" />
+    <Content Include="ig_res\Default\images\igws_r3bg.png" />
+    <Content Include="ig_res\Default\images\igws_r4bg.png" />
+    <Content Include="ig_res\Default\images\igws_r5bg.png" />
+    <Content Include="ig_res\Default\images\igws_r6bg.png" />
+    <Content Include="ig_res\Default\images\igws_r7bg.png" />
+    <Content Include="ig_res\Default\images\igws_r8bg.png" />
+    <Content Include="ig_res\Default\images\igws_r9bg.png" />
+    <Content Include="ig_res\Default\images\igwt_tab_hover.jpg" />
+    <Content Include="ig_res\Default\images\igwt_tab_normal.jpg" />
+    <Content Include="ig_res\Default\images\igwt_tab_selected.jpg" />
+    <Content Include="ig_res\Default\images\ig_ajaxIndicator.gif" />
+    <Content Include="ig_res\Default\images\ig_cal_next.gif" />
+    <Content Include="ig_res\Default\images\ig_cal_prev.gif" />
+    <Content Include="ig_res\Default\images\ig_checkbox_off.gif" />
+    <Content Include="ig_res\Default\images\ig_checkbox_on.gif" />
+    <Content Include="ig_res\Default\images\ig_checkbox_partial.gif" />
+    <Content Include="ig_res\Default\images\ig_cmboDown1.png" />
+    <Content Include="ig_res\Default\images\ig_cmboDown2.png" />
+    <Content Include="ig_res\Default\images\ig_cmboDownXP1.png" />
+    <Content Include="ig_res\Default\images\ig_cmboDownXP2.png" />
+    <Content Include="ig_res\Default\images\ig_edit_0.gif" />
+    <Content Include="ig_res\Default\images\ig_edit_01.gif" />
+    <Content Include="ig_res\Default\images\ig_edit_1.gif" />
+    <Content Include="ig_res\Default\images\ig_edit_11.gif" />
+    <Content Include="ig_res\Default\images\ig_edit_2.gif" />
+    <Content Include="ig_res\Default\images\ig_edit_21.gif" />
+    <Content Include="ig_res\Default\images\ig_menuTri.gif" />
+    <Content Include="ig_res\Default\images\ig_menu_scrolldown.gif" />
+    <Content Include="ig_res\Default\images\ig_menu_scrolldown_disabled.gif" />
+    <Content Include="ig_res\Default\images\ig_menu_scrollup.gif" />
+    <Content Include="ig_res\Default\images\ig_menu_scrollup_disabled.gif" />
+    <Content Include="ig_res\Default\images\ig_progressIndicator.gif" />
+    <Content Include="ig_res\Default\images\ig_sched_next.gif" />
+    <Content Include="ig_res\Default\images\ig_sched_prev.gif" />
+    <Content Include="ig_res\Default\images\ig_sched_recurrence.gif" />
+    <Content Include="ig_res\Default\images\ig_sched_reminder.gif" />
+    <Content Include="ig_res\Default\images\ig_sched_variance.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_BottomHover.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_BottomNormal.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_BottomSelected.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scroll0.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scroll1.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scroll2.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scroll3.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scrollXP0.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scrollXP1.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scrollXP2.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_scrollXP3.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_TopHover.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_TopNormal.gif" />
+    <Content Include="ig_res\Default\images\ig_tab_TopSelected.gif" />
+    <Content Include="ig_res\Default\images\ig_tblBlank.gif" />
+    <Content Include="ig_res\Default\images\ig_tblFilter.gif" />
+    <Content Include="ig_res\Default\images\ig_tblFilterApplied.gif" />
+    <Content Include="ig_res\Default\images\ig_tblFilterContains.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterDoesNotContain.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterDoesNotEndWith.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterDoesNotMatch.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterDoesNotMatch2.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterDoesNotStartWith.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterEndsWith.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterEqual.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterGreaterThan.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterGreaterThanOrEqualTo.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterLessThan.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterLessThanOrEqualTo.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterLike.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterMatch.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterMatch2.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterNotEqual.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterNotLike.png" />
+    <Content Include="ig_res\Default\images\ig_tblFilterStartsWith.png" />
+    <Content Include="ig_res\Default\images\ig_tblFixedOff.gif" />
+    <Content Include="ig_res\Default\images\ig_tblFixedOn.gif" />
+    <Content Include="ig_res\Default\images\ig_tblGroupBy.gif" />
+    <Content Include="ig_res\Default\images\ig_tblMinus.gif" />
+    <Content Include="ig_res\Default\images\ig_tblNewrow.gif" />
+    <Content Include="ig_res\Default\images\ig_tblPimgDn.gif" />
+    <Content Include="ig_res\Default\images\ig_tblPimgUp.gif" />
+    <Content Include="ig_res\Default\images\ig_tblPlus.gif" />
+    <Content Include="ig_res\Default\images\ig_tblSortAsc.gif" />
+    <Content Include="ig_res\Default\images\ig_tblSortDesc.gif" />
+    <Content Include="ig_res\Default\images\ig_tblTri.gif" />
+    <Content Include="ig_res\Default\images\ig_tblTriEdit.gif" />
+    <Content Include="ig_res\Default\images\ig_treeBlack_box.gif" />
+    <Content Include="ig_res\Default\images\ig_treeDownArrow.gif" />
+    <Content Include="ig_res\Default\images\ig_treeF.gif" />
+    <Content Include="ig_res\Default\images\ig_treeFminus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeFplus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeI.gif" />
+    <Content Include="ig_res\Default\images\ig_treeL.gif" />
+    <Content Include="ig_res\Default\images\ig_treeLminus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeLplus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMinus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMinus2.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMminus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMplus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMsdn_minus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeMsdn_plus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeOminus.gif" />
+    <Content Include="ig_res\Default\images\ig_treeOplus.gif" />
+    <Content Include="ig_res\Default\images\ig_treePlus.gif" />
+    <Content Include="ig_res\Default\images\ig_treePlus2.gif" />
+    <Content Include="ig_res\Default\images\ig_treeRightArrow.gif" />
+    <Content Include="ig_res\Default\images\ig_treeS.gif" />
+    <Content Include="ig_res\Default\images\ig_treeT.gif" />
+    <Content Include="ig_res\Default\images\ig_treeTri.gif" />
+    <Content Include="ig_res\Default\images\ig_treeUpArrow.gif" />
+    <Content Include="ig_res\Default\images\ig_treeWhite.gif" />
+    <Content Include="ig_res\Default\images\ig_treeXPMinus.GIF" />
+    <Content Include="ig_res\Default\images\ig_treeXPPlus.GIF" />
+    <Content Include="ig_res\Default\images\ig_tree_copy.gif" />
+    <Content Include="ig_res\Default\images\ig_tree_move.gif" />
+    <Content Include="ig_res\Default\images\ItemBackground.gif" />
+    <Content Include="ig_res\Default\images\next_disabled.gif" />
+    <Content Include="ig_res\Default\images\next_down.gif" />
+    <Content Include="ig_res\Default\images\next_hover.gif" />
+    <Content Include="ig_res\Default\images\next_up.gif" />
+    <Content Include="ig_res\Default\images\officeBlue.jpg" />
+    <Content Include="ig_res\Default\images\office_grid_header.jpg" />
+    <Content Include="ig_res\Default\images\page_bg.jpg" />
+    <Content Include="ig_res\Default\images\prev_disabled.gif" />
+    <Content Include="ig_res\Default\images\prev_down.gif" />
+    <Content Include="ig_res\Default\images\prev_hover.gif" />
+    <Content Include="ig_res\Default\images\prev_up.gif" />
+    <Content Include="ig_res\Default\images\rew_disabled.gif" />
+    <Content Include="ig_res\Default\images\rew_down.gif" />
+    <Content Include="ig_res\Default\images\rew_hover.gif" />
+    <Content Include="ig_res\Default\images\rew_up.gif" />
+    <Content Include="ig_res\Default\images\SelectedRowSelector.gif" />
+    <Content Include="ig_res\Default\images\start_disabled.gif" />
+    <Content Include="ig_res\Default\images\start_down.gif" />
+    <Content Include="ig_res\Default\images\start_hover.gif" />
+    <Content Include="ig_res\Default\images\start_up.gif" />
+    <Content Include="ig_res\Default\images\submit_disable.gif" />
+    <Content Include="ig_res\Default\images\submit_disabled.gif" />
+    <Content Include="ig_res\Default\images\submit_down.gif" />
+    <Content Include="ig_res\Default\images\submit_hover.gif" />
+    <Content Include="ig_res\Default\images\submit_up.gif" />
+    <Content Include="ig_res\Default\images\tabBG.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_hover.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_hover_F.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_normal.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_normal_F.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_selected.jpg" />
+    <Content Include="ig_res\Default\images\tabbottom_selected_f.jpg" />
+    <Content Include="ig_res\Default\images\tabtob_selected_f.jpg" />
+    <Content Include="ig_res\Default\images\tabtop_hover_F.jpg" />
+    <Content Include="ig_res\Default\images\tabtop_normal_F.jpg" />
+    <Content Include="ig_res\Default\images\tab_bottom.gif" />
+    <Content Include="ig_res\Default\images\tab_bottom_f.gif" />
+    <Content Include="ig_res\Default\images\tab_bottom_hover.gif" />
+    <Content Include="ig_res\Default\images\tab_left.gif" />
+    <Content Include="ig_res\Default\images\tab_left_f.gif" />
+    <Content Include="ig_res\Default\images\tab_left_hover.gif" />
+    <Content Include="ig_res\Default\images\tab_left_hover_f.gif" />
+    <Content Include="ig_res\Default\images\tab_left_normal.gif" />
+    <Content Include="ig_res\Default\images\tab_left_normal_f.gif" />
+    <Content Include="ig_res\Default\images\tab_right.gif" />
+    <Content Include="ig_res\Default\images\tab_right_f.gif" />
+    <Content Include="ig_res\Default\images\tab_right_hover.gif" />
+    <Content Include="ig_res\Default\images\tab_right_hover_f.gif" />
+    <Content Include="ig_res\Default\images\tab_right_normal.gif" />
+    <Content Include="ig_res\Default\images\tab_right_normal_f.gif" />
+    <Content Include="ig_res\Default\images\tab_top.gif" />
+    <Content Include="ig_res\Default\images\tab_top_f.gif" />
+    <Content Include="ig_res\Default\images\tab_top_hover.gif" />
+    <Content Include="ig_res\Default\images\uparrows_white.gif" />
+    <Content Include="Image\A1.jpg" />
+    <Content Include="Image\atraco-bg.jpg" />
+    <Content Include="Image\atraco-logo.png" />
+    <Content Include="Image\Atraco.jpg" />
+    <Content Include="Image\atrako-black-logo.png" />
+    <Content Include="Image\Back2.jpg" />
+    <Content Include="Image\bg_footer111.gif" />
+    <Content Include="Image\footer.png" />
+    <Content Include="Image\Header-Mail1-750x140.png" />
+    <Content Include="Image\intro-bg.jpg" />
+    <Content Include="Image\loader.gif" />
+    <Content Include="Image\ProgressCircle.gif" />
+    <Content Include="Image\tick.jpg" />
+    <Content Include="Image\upload.jpg" />
+    <Content Include="Image\user.png" />
+    <Content Include="Image\username.png" />
+    <Content Include="Image\warning.png" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderCountry.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderFabrictoFactory.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderFabricToFactoryRollWise.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderFactory.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderReceipt.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderStockCountry.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderStockFactory.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderStockReciept.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryReturn.aspx" />
+    <Content Include="Inventory\Fabric Transaction\DORollTransaction.aspx" />
+    <Content Include="Inventory\Fabric Transaction\InspectionEntry.aspx" />
+    <Content Include="Inventory\Fabric Transaction\InspectionReport.aspx" />
+    <Content Include="Inventory\Fabric Transaction\InspectionRollEntry.aspx" />
+    <Content Include="Inventory\Fabric Transaction\MRNRollEntry.aspx" />
+    <Content Include="Inventory\Fabric Transaction\MrnRollEntryNew.aspx" />
+    <Content Include="Inventory\Fabric Transaction\PreQadApproval.aspx" />
+    <Content Include="Inventory\Fabric Transaction\WebForm1.aspx" />
+    <Content Include="Inventory\Inventory Requests\InventoryMisplaced.aspx" />
+    <Content Include="Inventory\Inventory Requests\WrongDocument.aspx" />
+    <Content Include="Inventory\Sales\InventorySales.aspx" />
+    <Content Include="Inventory\LoanRepay.aspx" />
+    <Content Include="Inventory\LoanTransfer.aspx" />
+    <Content Include="Inventory\MRN.aspx" />
+    <Content Include="Inventory\RO Transfer\ROTransferIn.aspx" />
+    <Content Include="Inventory\RO Transfer\StockRoTransferIn.aspx" />
+    <Content Include="Inventory\SalesAndLoan.aspx" />
+    <Content Include="Inventory\StockMRN.aspx" />
+    <Content Include="Inventory\TransferToGtock.aspx" />
+    <Content Include="JQuery\GridJQuery.js" />
+    <Content Include="JQuery\Validator.js" />
+    <Content Include="Masters\BuyerMaster\BuyerAttributes.aspx" />
+    <Content Include="Masters\BuyerMaster\Buyermaster.aspx" />
+    <Content Include="Masters\CountryCreation.aspx" />
+    <Content Include="Masters\GarmentMaster.aspx" />
+    <Content Include="Masters\ItemMaster.aspx" />
+    <Content Include="Masters\PaymentMode.aspx" />
+    <Content Include="Merchandiser\ASQ\ASQAllocation.aspx" />
+    <Content Include="Merchandiser\ASQ\AsQPODependancy.aspx" />
+    <Content Include="Merchandiser\ASQ\ASQShuffle.aspx" />
+    <Content Include="Merchandiser\ASQ\ASQUpdator.aspx" />
+    <Content Include="Merchandiser\ASQ\PackingInstructionMaster.aspx" />
+    <Content Include="Merchandiser\Atc Chart\DocumentEdit.aspx" />
+    <Content Include="Merchandiser\Atc Chart\ProcurmentPlaning.aspx" />
+    <Content Include="Merchandiser\Atc Chart\StockADN.aspx" />
+    <Content Include="Merchandiser\AtcDetailProjection.aspx" />
+    <Content Include="Merchandiser\AtcEditOptions\POPackEdit.aspx" />
+    <Content Include="Merchandiser\AtcEditOptions\ProcuremntEdit.aspx" />
+    <Content Include="Merchandiser\ItemColorAddition.aspx" />
+    <Content Include="Merchandiser\PO\ExtraQtyRequest.aspx" />
+    <Content Include="Merchandiser\PO\FOCPO.aspx" />
+    <Content Include="Merchandiser\PO\InternationalPO.aspx" />
+    <Content Include="Merchandiser\PO\POCalBack.aspx" />
+    <Content Include="Merchandiser\PO\SPOEdit.aspx" />
+    <Content Include="Merchandiser\PO\WrongPOOrdered.aspx" />
+    <Content Include="Merchandiser\RO\StockRO.aspx" />
+    <Content Include="Merchandiser\StyleCostingCopy.aspx" />
+    <Content Include="Masters\SuppierForm.aspx" />
+    <Content Include="Masters\Types.aspx" />
+    <Content Include="Masters\UOMMaster.aspx" />
+    <Content Include="Masters\WarehouseMaster.aspx" />
+    <Content Include="Merchandiser\AddPOPack.aspx" />
+    <Content Include="Merchandiser\Atc Chart\DocumentEntry.aspx" />
+    <Content Include="Merchandiser\AtcCreation.aspx" />
+    <Content Include="Merchandiser\AtcEditOptions\AtcEdit.aspx" />
+    <Content Include="Merchandiser\AtcEditOptions\SkuMasterEdit.aspx" />
+    <Content Include="Merchandiser\AtcRawMaterial.aspx" />
+    <Content Include="Merchandiser\AtcStylemaster.aspx" />
+    <Content Include="Merchandiser\BOM.aspx" />
+    <Content Include="Merchandiser\POPack.aspx" />
+    <Content Include="Merchandiser\PO\Procurement.aspx" />
+    <Content Include="Merchandiser\RO\Ro.aspx" />
+    <Content Include="Merchandiser\ServicePO.aspx" />
+    <Content Include="Merchandiser\StockPO.aspx" />
+    <Content Include="Merchandiser\StyleCosting.aspx" />
+    <Content Include="Merchandiser\Styledetails.aspx" />
+    <Content Include="Production\CutOrder\CutOrderEdit.aspx" />
+    <Content Include="Production\CutOrder\CutOrderFinal.aspx" />
+    <Content Include="Production\CutOrder\CutOrderForm.aspx" />
+    <Content Include="Production\CutOrder\CutOrderNew.aspx" />
+    <Content Include="Production\CutOrder\CutPlanMarkerDetails.aspx" />
+    <Content Include="Production\CutOrder\FactoryCutPlan.aspx" />
+    <Content Include="Production\CutOrder\MarkerDetails.aspx" />
+    <Content Include="Production\CutOrder\SamplingCutOrder.aspx" />
+    <Content Include="Production\Cutting\Laysheet.aspx" />
+    <Content Include="Production\JobContract.aspx" />
+    <Content Include="Production\JobContractOthers.aspx" />
+    <Content Include="Production\ProductionReporting.aspx" />
+    <Content Include="Production\ShipmentHandover.aspx" />
+    <Content Include="Quality\InspectionEdit.aspx" />
+    <Content Include="Quality\ManualGrouping.aspx" />
+    <Content Include="Quality\PreQADValidationEntry.aspx" />
+    <Content Include="Quality\QualityDashBoard.aspx" />
+    <Content Include="Quality\QualityInspection.aspx" />
+    <Content Include="Quality\QualityInspectionComplete.aspx" />
+    <Content Include="Quality\QualityInspectionEdit.aspx" />
+    <Content Include="Reports\AccountsReport\FinalCosting.aspx" />
+    <Content Include="Reports\AccountsReport\VoucherReports.aspx" />
+    <Content Include="Reports\AccountsReport\WIPReport.aspx" />
+    <Content Include="Reports\CutOrderReport.aspx" />
+    <Content Include="Reports\DailyReceiptReport.aspx" />
+    <Content Include="Reports\DeliveryReports.aspx" />
+    <Content Include="Reports\General Reports\GeneralReportform.aspx" />
+    <Content Include="Reports\IndividualCostingPrint.aspx" />
+    <Content Include="Reports\Inventoryreport\AtcTransactionreport.aspx" />
+    <Content Include="Reports\Inventoryreport\ConsolidatedInventoryReport.aspx" />
+    <Content Include="Reports\Inventoryreport\InventoryGridreports.aspx" />
+    <Content Include="Reports\Inventoryreport\InventoryMisplaced.aspx" />
+    <Content Include="Reports\Inventoryreport\InventoryReports.aspx" />
+    <Content Include="Reports\Inventoryreport\RoReports.aspx" />
+    <Content Include="Reports\Inventoryreport\SalesandLoanReport.aspx" />
+    <Content Include="Reports\ManagementReports\ManagementReports.aspx" />
+    <Content Include="Reports\MerchandiserReport\ASQReports.aspx" />
+    <Content Include="Reports\MerchandiserReport\AtcChart.aspx" />
+    <Content Include="Reports\MerchandiserReport\AtcchartWithASQ.aspx" />
+    <Content Include="Reports\MerchandiserReport\JobContractReport.aspx" />
+    <Content Include="Reports\Inventoryreport\MRNReport.aspx" />
+    <Content Include="Reports\Inventoryreport\StockMrnReport.aspx" />
+    <Content Include="Reports\MerchandiserReport\PurchaseReports.aspx" />
+    <Content Include="Reports\MerchandiserReport\WrongPORequest.aspx" />
+    <Content Include="Reports\ProcurementReport.aspx" />
+    <Content Include="Reports\Production\CutOrderReport\CutOrder.aspx" />
+    <Content Include="Reports\Production\CutOrderReport\CutorderReport.aspx" />
+    <Content Include="Reports\Production\CutplanReport.aspx" />
+    <Content Include="Reports\Production\LaySheet\laySheetReport.aspx" />
+    <Content Include="Reports\Production\ProductionReports.aspx" />
+    <Content Include="Reports\Qualityreports\FabricASNReport.aspx" />
+    <Content Include="Reports\Qualityreports\PendingReports.aspx" />
+    <Content Include="Reports\ReporterPage.aspx" />
+    <Content Include="Reports\ShippingReport\ShippingImportReports.aspx" />
+    <Content Include="Reports\StyleCostingHtmlReport.aspx" />
+    <Content Include="Reports\Stylecostingprintable.aspx" />
+    <Content Include="Reports\View.aspx">
+      <BrowseToURL>~/Reports/Form.aspx</BrowseToURL>
+    </Content>
+    <Content Include="Sampling\CuttingTicket%28Sampling%29.aspx" />
+    <Content Include="Sampling\CuttingTicketEdit.aspx" />
+    <Content Include="Sampling\SampleWithoutATC.aspx" />
+    <Content Include="Shipping\CourierEntry.aspx" />
+    <Content Include="Shipping\Documentreceipt.aspx" />
+    <Content Include="Shipping\InboundEdit.aspx" />
+    <Content Include="Shipping\Invoicing.aspx" />
+    <Content Include="Shipping\LC\BankAdvice.aspx" />
+    <Content Include="Shipping\LC\LCMaster.aspx" />
+    <Content Include="Shipping\LC\LCPODetails.aspx" />
+    <Content Include="Shipping\LC\TrApproval.aspx" />
+    <Content Include="Shipping\PendingDisplayer.aspx" />
+    <Content Include="Shipping\ShiipingDashBoard.aspx" />
+    <Content Include="Shipping\ShipmentClosing.aspx" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image001.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image002.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image003.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image004.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image005.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image006.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image007.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image008.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image009.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image010.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image011.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image012.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image013.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image014.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image015.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image016.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image017.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image018.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image019.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image020.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image021.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image022.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image023.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image024.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image025.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image026.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image027.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image028.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image029.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image030.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image031.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image032.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image033.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image034.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image035.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image036.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image037.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image038.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image039.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE fil_files\image040.jpg" />
+    <Content Include="User Manual\MERCHANDISING MODULE final.htm" />
+    <Content Include="User Manual\quality.htm" />
+    <Content Include="User Manual\quality_files\colorschememapping.xml" />
+    <Content Include="User Manual\quality_files\filelist.xml" />
+    <Content Include="User Manual\quality_files\header.htm" />
+    <Content Include="User Manual\quality_files\image001.jpg" />
+    <Content Include="User Manual\quality_files\image002.jpg" />
+    <Content Include="User Manual\quality_files\image003.jpg" />
+    <Content Include="User Manual\quality_files\image004.jpg" />
+    <Content Include="User Manual\quality_files\image005.png" />
+    <Content Include="User Manual\quality_files\image006.jpg" />
+    <Content Include="User Manual\quality_files\image007.png" />
+    <Content Include="User Manual\quality_files\image008.jpg" />
+    <Content Include="User Manual\quality_files\image009.jpg" />
+    <Content Include="User Manual\quality_files\image010.jpg" />
+    <Content Include="User Manual\quality_files\image011.png" />
+    <Content Include="User Manual\quality_files\image012.jpg" />
+    <Content Include="User Manual\quality_files\image013.png" />
+    <Content Include="User Manual\quality_files\image014.jpg" />
+    <Content Include="User Manual\quality_files\image015.png" />
+    <Content Include="User Manual\quality_files\image016.jpg" />
+    <Content Include="User Manual\quality_files\image017.png" />
+    <Content Include="User Manual\quality_files\image018.jpg" />
+    <Content Include="User Manual\quality_files\item0025.xml" />
+    <Content Include="User Manual\quality_files\props026.xml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\StockSupplierInvoicing.aspx.cs">
+      <DependentUpon>StockSupplierInvoicing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\StockSupplierInvoicing.aspx.designer.cs">
+      <DependentUpon>StockSupplierInvoicing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\SupplierInvoicing.aspx.cs">
+      <DependentUpon>SupplierInvoicing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\SupplierInvoicing.aspx.designer.cs">
+      <DependentUpon>SupplierInvoicing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\SupportTicket.aspx.cs">
+      <DependentUpon>SupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrator\SupportTicket.aspx.designer.cs">
+      <DependentUpon>SupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\Userform.aspx.cs">
+      <DependentUpon>Userform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrator\Userform.aspx.designer.cs">
+      <DependentUpon>Userform.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\UserMaster.aspx.cs">
+      <DependentUpon>UserMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrator\UserMaster.aspx.designer.cs">
+      <DependentUpon>UserMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\CostingApproval.aspx.cs">
+      <DependentUpon>CostingApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\CostingApproval.aspx.designer.cs">
+      <DependentUpon>CostingApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\InventoryApprovals.aspx.cs">
+      <DependentUpon>InventoryApprovals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\InventoryApprovals.aspx.designer.cs">
+      <DependentUpon>InventoryApprovals.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\LocalCostingApproval.aspx.cs">
+      <DependentUpon>LocalCostingApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\LocalCostingApproval.aspx.designer.cs">
+      <DependentUpon>LocalCostingApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ProcurementApproval.aspx.cs">
+      <DependentUpon>ProcurementApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\ProcurementApproval.aspx.designer.cs">
+      <DependentUpon>ProcurementApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ResponsiveApproval.aspx.cs">
+      <DependentUpon>ResponsiveApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\ResponsiveApproval.aspx.designer.cs">
+      <DependentUpon>ResponsiveApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ServicePoApproval.aspx.cs">
+      <DependentUpon>ServicePoApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\ServicePoApproval.aspx.designer.cs">
+      <DependentUpon>ServicePoApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ArtLogin.aspx.cs">
+      <DependentUpon>ArtLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ArtLogin.aspx.designer.cs">
+      <DependentUpon>ArtLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Authorisation.aspx.cs">
+      <DependentUpon>Authorisation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authorisation.aspx.designer.cs">
+      <DependentUpon>Authorisation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BLL\FactoryAtcChart.cs" />
+    <Compile Include="BLL\InventoryBLL\FactoryInventory.cs" />
+    <Compile Include="BLL\MerchandsingBLL\AllocationBLL.cs" />
+    <Compile Include="BLL\MerchandsingBLL\PackingListBLL.cs" />
+    <Compile Include="BLL\UserBLL\AccountsBLL\InvoicingBLL.cs" />
+    <Compile Include="BLL\CostingBLL\CostingData.cs" />
+    <Compile Include="BLL\CutOrderBLL\CutOrderData.cs" />
+    <Compile Include="BLL\CutOrderBLL\CutPlan.cs" />
+    <Compile Include="BLL\InventoryBLL\DeliveryOrder.cs" />
+    <Compile Include="BLL\InventoryBLL\InventoryReportBLL.cs" />
+    <Compile Include="BLL\InventoryBLL\LoanTransfer.cs" />
+    <Compile Include="BLL\InventoryBLL\PoReceipt.cs" />
+    <Compile Include="BLL\InventoryBLL\RollTransactionBLL.cs" />
+    <Compile Include="BLL\InventoryBLL\RoTransferIn.cs" />
+    <Compile Include="BLL\InventoryBLL\SessionChecker.aspx.cs">
+      <DependentUpon>SessionChecker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BLL\InventoryBLL\SessionChecker.aspx.designer.cs">
+      <DependentUpon>SessionChecker.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BLL\InventoryBLL\StockPOreceipt.cs" />
+    <Compile Include="BLL\MerchandsingBLL\AtcChart.cs" />
+    <Compile Include="BLL\MerchandsingBLL\AtcChartBLL.cs" />
+    <Compile Include="BLL\MerchandsingBLL\BOMData.cs" />
+    <Compile Include="BLL\MerchandsingBLL\BOMGenerator.cs" />
+    <Compile Include="BLL\MerchandsingBLL\ProcurementBLL\ProcurementRo.cs" />
+    <Compile Include="BLL\MerchandsingBLL\ProcurementBLL\PurchaseOrder.cs" />
+    <Compile Include="BLL\MerchandsingBLL\ProcurementBLL\ServicePOData.cs" />
+    <Compile Include="BLL\MerchandsingBLL\AsqShuffleBLL.cs" />
+    <Compile Include="BLL\MerchandsingBLL\SKUdetailGenerator.cs" />
+    <Compile Include="BLL\MerchandsingBLL\SKUManager.cs" />
+    <Compile Include="BLL\ProductionBLL\JobContractData.cs" />
+    <Compile Include="BLL\ProductionBLL\LaysheetBLL.cs" />
+    <Compile Include="BLL\ShippingBLL\CourierDetail.cs" />
+    <Compile Include="BLL\ShippingBLL\ShippingBLL.cs" />
+    <Compile Include="BLL\UserBLL\SupportBLL.cs" />
+    <Compile Include="BLL\UserBLL\UserData.cs" />
+    <Compile Include="CodeGenerator.cs" />
+    <Compile Include="Controls\GridViewTemplate.cs" />
+    <Compile Include="Controls\Matrix.aspx.cs">
+      <DependentUpon>Matrix.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Matrix.aspx.designer.cs">
+      <DependentUpon>Matrix.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BLL\MerchandsingBLL\AtcData.cs" />
+    <Compile Include="BLL\MerchandsingBLL\PoPackData.cs" />
+    <Compile Include="Controls\Messagebox.cs" />
+    <Compile Include="ControlTreeExtensions.cs" />
+    <Compile Include="DataModelAtcWorld\ASQAllocationMaster_tbl.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ASQShuffleDetailsAtc.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ASQShuffleMasterAtc.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\AtcWorldModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AtcWorldModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\AtcWorldModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\AtcWorldModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AtcWorldModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\LocationMaster_tbl.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\PackingListDetailsAtc.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\PackingListMasterAtcPro.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AltUOMMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ApprovalTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ArtDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ArtDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ArtDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQAllocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQShuffleDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQShuffleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcDetailApproval.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcRawMaterialMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BankMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerDestinationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerStyleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CalculationModeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ChannelMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ColorMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ContainerMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CostingComponentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CountryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CourierTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CurrencyMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderDO.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanASQDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMarkerDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMarkerSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CuttingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryMethodMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryStockReceiptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryTermMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DocDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DORollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ELMAH_Error.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EtaDate.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraBOMRequestDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraBOMRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraRequestReasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricRollmaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FactoryType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FactWareLinkMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GarmentCategory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetAPO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP1_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetASNReport_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetAtcChart_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetCostingData_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetCuttingTicket_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetDailyDeliveryReciept_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetDateforCosting_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetImportDocument_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetJobContractCMData_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetPurchasesfromSupplier_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetRecieptofDay_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetSalesDO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetSPO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetStockMRN_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GoodsInTransit.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GroupDependantItem.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryLoanMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMissingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMissingRequest.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventorySalesDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventorySalesMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryStockTransferDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryStockTransferMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InvoiceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ItemGroupMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractOptionalDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractOptionalMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LCBankAdviceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LCDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LCMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocationType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MarqueeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MerchandiserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MrnDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MrnMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ODOOGPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\OrginUpdatedTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PackingListDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PackingListMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PaymentModeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PaymentTermMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\person.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PlaningRemarkMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POApproval.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POCurrExRate.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POPackDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PoPackMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurementDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurementMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurmentPlanDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionReportDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RecieptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ROINMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RollInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SDocDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SDocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SeasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SeasonType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ServicePOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ServiceTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShipmentHandOverDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShipmentHandOverMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentDODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SizeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SkuRawmaterialDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SkuRawMaterialMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockGoodsInTransit.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockMRNDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockMrnMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockPODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockRecieptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockSDocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StocPOForODOO.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleColor.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingComponentDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleSize.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierDocumentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierInvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierInvoiceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierStockInvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierStockInvoiceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierUserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupportTicket.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sysdiagram.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateColor.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateComposition.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateConstruction.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateSize.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateWeight.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateWidth.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Template_Master.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TransferToGstockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TransferToGstockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UOMMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongInventoryDocument.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongPODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBTransaction\AtcTransaction.cs" />
+    <Compile Include="DBTransaction\BOMTransaction.cs" />
+    <Compile Include="DBTransaction\ConcatofQuery.cs" />
+    <Compile Include="DBTransaction\CostingTransaction.cs" />
+    <Compile Include="DBTransaction\CutOrderTransaction.cs" />
+    <Compile Include="DBTransaction\DeliveryOrdertransaction.cs" />
+    <Compile Include="DBTransaction\InventoryTransaction\InventoryTransaction.cs" />
+    <Compile Include="DBTransaction\LaysheetTransaction.cs" />
+    <Compile Include="DBTransaction\ManagementTransaction\ManagementReportTransaction.cs" />
+    <Compile Include="DBTransaction\MrnTransaction.cs" />
+    <Compile Include="DBTransaction\PoPackTransaction.cs" />
+    <Compile Include="DBTransaction\ProcurementTransaction.cs" />
+    <Compile Include="DBTransaction\Productiontransaction\CutPlanTransaction.cs" />
+    <Compile Include="DBTransaction\ReportTransactions\ReporterTrans.cs" />
+    <Compile Include="DBTransaction\ShippingTransaction\DocumentTransaction.cs" />
+    <Compile Include="DBTransaction\ShippingTransaction\ShippingTransaction.cs" />
+    <Compile Include="DBTransaction\SkuCreator.cs" />
+    <Compile Include="Default2.aspx.cs">
+      <DependentUpon>Default2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default2.aspx.designer.cs">
+      <DependentUpon>Default2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error\ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderCountry.aspx.cs">
+      <DependentUpon>DeliveryOrderCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderCountry.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderCountry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFabrictoFactory.aspx.cs">
+      <DependentUpon>DeliveryOrderFabrictoFactory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFabrictoFactory.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderFabrictoFactory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFabricToFactoryRollWise.aspx.cs">
+      <DependentUpon>DeliveryOrderFabricToFactoryRollWise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFabricToFactoryRollWise.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderFabricToFactoryRollWise.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFactory.aspx.cs">
+      <DependentUpon>DeliveryOrderFactory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderFactory.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderFactory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderReceipt.aspx.cs">
+      <DependentUpon>DeliveryOrderReceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderReceipt.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockCountry.aspx.cs">
+      <DependentUpon>DeliveryOrderStockCountry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockCountry.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderStockCountry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockFactory.aspx.cs">
+      <DependentUpon>DeliveryOrderStockFactory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockFactory.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderStockFactory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockReciept.aspx.cs">
+      <DependentUpon>DeliveryOrderStockReciept.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderStockReciept.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderStockReciept.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryReturn.aspx.cs">
+      <DependentUpon>DeliveryReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryReturn.aspx.designer.cs">
+      <DependentUpon>DeliveryReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\DORollTransaction.aspx.cs">
+      <DependentUpon>DORollTransaction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\DORollTransaction.aspx.designer.cs">
+      <DependentUpon>DORollTransaction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionEntry.aspx.cs">
+      <DependentUpon>InspectionEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionEntry.aspx.designer.cs">
+      <DependentUpon>InspectionEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionReport.aspx.cs">
+      <DependentUpon>InspectionReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionReport.aspx.designer.cs">
+      <DependentUpon>InspectionReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionRollEntry.aspx.cs">
+      <DependentUpon>InspectionRollEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\InspectionRollEntry.aspx.designer.cs">
+      <DependentUpon>InspectionRollEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\MRNRollEntry.aspx.cs">
+      <DependentUpon>MRNRollEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\MRNRollEntry.aspx.designer.cs">
+      <DependentUpon>MRNRollEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\MrnRollEntryNew.aspx.cs">
+      <DependentUpon>MrnRollEntryNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\MrnRollEntryNew.aspx.designer.cs">
+      <DependentUpon>MrnRollEntryNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\PreQadApproval.aspx.cs">
+      <DependentUpon>PreQadApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\PreQadApproval.aspx.designer.cs">
+      <DependentUpon>PreQadApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Inventory Requests\InventoryMisplaced.aspx.cs">
+      <DependentUpon>InventoryMisplaced.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Inventory Requests\InventoryMisplaced.aspx.designer.cs">
+      <DependentUpon>InventoryMisplaced.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Inventory Requests\WrongDocument.aspx.cs">
+      <DependentUpon>WrongDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Inventory Requests\WrongDocument.aspx.designer.cs">
+      <DependentUpon>WrongDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Sales\InventorySales.aspx.cs">
+      <DependentUpon>InventorySales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Sales\InventorySales.aspx.designer.cs">
+      <DependentUpon>InventorySales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\LoanRepay.aspx.cs">
+      <DependentUpon>LoanRepay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\LoanRepay.aspx.designer.cs">
+      <DependentUpon>LoanRepay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\LoanTransfer.aspx.cs">
+      <DependentUpon>LoanTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\LoanTransfer.aspx.designer.cs">
+      <DependentUpon>LoanTransfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\MRN.aspx.cs">
+      <DependentUpon>MRN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\MRN.aspx.designer.cs">
+      <DependentUpon>MRN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\RO Transfer\ROTransferIn.aspx.cs">
+      <DependentUpon>ROTransferIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\RO Transfer\ROTransferIn.aspx.designer.cs">
+      <DependentUpon>ROTransferIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\RO Transfer\StockRoTransferIn.aspx.cs">
+      <DependentUpon>StockRoTransferIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\RO Transfer\StockRoTransferIn.aspx.designer.cs">
+      <DependentUpon>StockRoTransferIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\SalesAndLoan.aspx.cs">
+      <DependentUpon>SalesAndLoan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\SalesAndLoan.aspx.designer.cs">
+      <DependentUpon>SalesAndLoan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\StockMRN.aspx.cs">
+      <DependentUpon>StockMRN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\StockMRN.aspx.designer.cs">
+      <DependentUpon>StockMRN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\TransferToGtock.aspx.cs">
+      <DependentUpon>TransferToGtock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\TransferToGtock.aspx.designer.cs">
+      <DependentUpon>TransferToGtock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.master.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage.master.designer.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\BuyerMaster\BuyerAttributes.aspx.cs">
+      <DependentUpon>BuyerAttributes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BuyerMaster\BuyerAttributes.aspx.designer.cs">
+      <DependentUpon>BuyerAttributes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\BuyerMaster\Buyermaster.aspx.cs">
+      <DependentUpon>Buyermaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BuyerMaster\Buyermaster.aspx.designer.cs">
+      <DependentUpon>Buyermaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\CountryCreation.aspx.cs">
+      <DependentUpon>CountryCreation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\CountryCreation.aspx.designer.cs">
+      <DependentUpon>CountryCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\GarmentMaster.aspx.cs">
+      <DependentUpon>GarmentMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\GarmentMaster.aspx.designer.cs">
+      <DependentUpon>GarmentMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ItemMaster.aspx.cs">
+      <DependentUpon>ItemMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\ItemMaster.aspx.designer.cs">
+      <DependentUpon>ItemMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PaymentMode.aspx.cs">
+      <DependentUpon>PaymentMode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\PaymentMode.aspx.designer.cs">
+      <DependentUpon>PaymentMode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQAllocation.aspx.cs">
+      <DependentUpon>ASQAllocation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQAllocation.aspx.designer.cs">
+      <DependentUpon>ASQAllocation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\AsQPODependancy.aspx.cs">
+      <DependentUpon>AsQPODependancy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\AsQPODependancy.aspx.designer.cs">
+      <DependentUpon>AsQPODependancy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQShuffle.aspx.cs">
+      <DependentUpon>ASQShuffle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQShuffle.aspx.designer.cs">
+      <DependentUpon>ASQShuffle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQUpdator.aspx.cs">
+      <DependentUpon>ASQUpdator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\ASQUpdator.aspx.designer.cs">
+      <DependentUpon>ASQUpdator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\PackingInstructionMaster.aspx.cs">
+      <DependentUpon>PackingInstructionMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ASQ\PackingInstructionMaster.aspx.designer.cs">
+      <DependentUpon>PackingInstructionMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\DocumentEdit.aspx.cs">
+      <DependentUpon>DocumentEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\DocumentEdit.aspx.designer.cs">
+      <DependentUpon>DocumentEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\ProcurmentPlaning.aspx.cs">
+      <DependentUpon>ProcurmentPlaning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\ProcurmentPlaning.aspx.designer.cs">
+      <DependentUpon>ProcurmentPlaning.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\StockADN.aspx.cs">
+      <DependentUpon>StockADN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\StockADN.aspx.designer.cs">
+      <DependentUpon>StockADN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcDetailProjection.aspx.cs">
+      <DependentUpon>AtcDetailProjection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcDetailProjection.aspx.designer.cs">
+      <DependentUpon>AtcDetailProjection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\POPackEdit.aspx.cs">
+      <DependentUpon>POPackEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\POPackEdit.aspx.designer.cs">
+      <DependentUpon>POPackEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\ProcuremntEdit.aspx.cs">
+      <DependentUpon>ProcuremntEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\ProcuremntEdit.aspx.designer.cs">
+      <DependentUpon>ProcuremntEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ItemColorAddition.aspx.cs">
+      <DependentUpon>ItemColorAddition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ItemColorAddition.aspx.designer.cs">
+      <DependentUpon>ItemColorAddition.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\ExtraQtyRequest.aspx.cs">
+      <DependentUpon>ExtraQtyRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\ExtraQtyRequest.aspx.designer.cs">
+      <DependentUpon>ExtraQtyRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\FOCPO.aspx.cs">
+      <DependentUpon>FOCPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\FOCPO.aspx.designer.cs">
+      <DependentUpon>FOCPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\InternationalPO.aspx.cs">
+      <DependentUpon>InternationalPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\InternationalPO.aspx.designer.cs">
+      <DependentUpon>InternationalPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\POCalBack.aspx.cs">
+      <DependentUpon>POCalBack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\POCalBack.aspx.designer.cs">
+      <DependentUpon>POCalBack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\SPOEdit.aspx.cs">
+      <DependentUpon>SPOEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\SPOEdit.aspx.designer.cs">
+      <DependentUpon>SPOEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\WrongPOOrdered.aspx.cs">
+      <DependentUpon>WrongPOOrdered.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\WrongPOOrdered.aspx.designer.cs">
+      <DependentUpon>WrongPOOrdered.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\RO\StockRO.aspx.cs">
+      <DependentUpon>StockRO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\RO\StockRO.aspx.designer.cs">
+      <DependentUpon>StockRO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\StyleCostingCopy.aspx.cs">
+      <DependentUpon>StyleCostingCopy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\StyleCostingCopy.aspx.designer.cs">
+      <DependentUpon>StyleCostingCopy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\SuppierForm.aspx.cs">
+      <DependentUpon>SuppierForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\SuppierForm.aspx.designer.cs">
+      <DependentUpon>SuppierForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Types.aspx.cs">
+      <DependentUpon>Types.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\Types.aspx.designer.cs">
+      <DependentUpon>Types.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\UOMMaster.aspx.cs">
+      <DependentUpon>UOMMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\UOMMaster.aspx.designer.cs">
+      <DependentUpon>UOMMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\WarehouseMaster.aspx.cs">
+      <DependentUpon>WarehouseMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\WarehouseMaster.aspx.designer.cs">
+      <DependentUpon>WarehouseMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AddPOPack.aspx.cs">
+      <DependentUpon>AddPOPack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AddPOPack.aspx.designer.cs">
+      <DependentUpon>AddPOPack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\DocumentEntry.aspx.cs">
+      <DependentUpon>DocumentEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\Atc Chart\DocumentEntry.aspx.designer.cs">
+      <DependentUpon>DocumentEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcCreation.aspx.cs">
+      <DependentUpon>AtcCreation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcCreation.aspx.designer.cs">
+      <DependentUpon>AtcCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\AtcEdit.aspx.cs">
+      <DependentUpon>AtcEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\AtcEdit.aspx.designer.cs">
+      <DependentUpon>AtcEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\SkuMasterEdit.aspx.cs">
+      <DependentUpon>SkuMasterEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcEditOptions\SkuMasterEdit.aspx.designer.cs">
+      <DependentUpon>SkuMasterEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcRawMaterial.aspx.cs">
+      <DependentUpon>AtcRawMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcRawMaterial.aspx.designer.cs">
+      <DependentUpon>AtcRawMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\AtcStylemaster.aspx.cs">
+      <DependentUpon>AtcStylemaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\AtcStylemaster.aspx.designer.cs">
+      <DependentUpon>AtcStylemaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\BOM.aspx.cs">
+      <DependentUpon>BOM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\BOM.aspx.designer.cs">
+      <DependentUpon>BOM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\POPack.aspx.cs">
+      <DependentUpon>POPack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\POPack.aspx.designer.cs">
+      <DependentUpon>POPack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\Procurement.aspx.cs">
+      <DependentUpon>Procurement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\Procurement.aspx.designer.cs">
+      <DependentUpon>Procurement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\RO\Ro.aspx.cs">
+      <DependentUpon>Ro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\RO\Ro.aspx.designer.cs">
+      <DependentUpon>Ro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\ServicePO.aspx.cs">
+      <DependentUpon>ServicePO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\ServicePO.aspx.designer.cs">
+      <DependentUpon>ServicePO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\StockPO.aspx.cs">
+      <DependentUpon>StockPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\StockPO.aspx.designer.cs">
+      <DependentUpon>StockPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\StyleCosting.aspx.cs">
+      <DependentUpon>StyleCosting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\StyleCosting.aspx.designer.cs">
+      <DependentUpon>StyleCosting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\Styledetails.aspx.cs">
+      <DependentUpon>Styledetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\Styledetails.aspx.designer.cs">
+      <DependentUpon>Styledetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderEdit.aspx.cs">
+      <DependentUpon>CutOrderEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderEdit.aspx.designer.cs">
+      <DependentUpon>CutOrderEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderFinal.aspx.cs">
+      <DependentUpon>CutOrderFinal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderFinal.aspx.designer.cs">
+      <DependentUpon>CutOrderFinal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderForm.aspx.cs">
+      <DependentUpon>CutOrderForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderForm.aspx.designer.cs">
+      <DependentUpon>CutOrderForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderNew.aspx.cs">
+      <DependentUpon>CutOrderNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderNew.aspx.designer.cs">
+      <DependentUpon>CutOrderNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutPlanMarkerDetails.aspx.cs">
+      <DependentUpon>CutPlanMarkerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutPlanMarkerDetails.aspx.designer.cs">
+      <DependentUpon>CutPlanMarkerDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\FactoryCutPlan.aspx.cs">
+      <DependentUpon>FactoryCutPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\FactoryCutPlan.aspx.designer.cs">
+      <DependentUpon>FactoryCutPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\MarkerDetails.aspx.cs">
+      <DependentUpon>MarkerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\MarkerDetails.aspx.designer.cs">
+      <DependentUpon>MarkerDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\SamplingCutOrder.aspx.cs">
+      <DependentUpon>SamplingCutOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\SamplingCutOrder.aspx.designer.cs">
+      <DependentUpon>SamplingCutOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Cutting\Laysheet.aspx.cs">
+      <DependentUpon>Laysheet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\Laysheet.aspx.designer.cs">
+      <DependentUpon>Laysheet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\JobContract.aspx.cs">
+      <DependentUpon>JobContract.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\JobContract.aspx.designer.cs">
+      <DependentUpon>JobContract.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\JobContractOthers.aspx.cs">
+      <DependentUpon>JobContractOthers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\JobContractOthers.aspx.designer.cs">
+      <DependentUpon>JobContractOthers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\ProductionReporting.aspx.cs">
+      <DependentUpon>ProductionReporting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\ProductionReporting.aspx.designer.cs">
+      <DependentUpon>ProductionReporting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\ShipmentHandover.aspx.cs">
+      <DependentUpon>ShipmentHandover.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\ShipmentHandover.aspx.designer.cs">
+      <DependentUpon>ShipmentHandover.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quality\InspectionEdit.aspx.cs">
+      <DependentUpon>InspectionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\InspectionEdit.aspx.designer.cs">
+      <DependentUpon>InspectionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\ManualGrouping.aspx.cs">
+      <DependentUpon>ManualGrouping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\ManualGrouping.aspx.designer.cs">
+      <DependentUpon>ManualGrouping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\PreQADValidationEntry.aspx.cs">
+      <DependentUpon>PreQADValidationEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\PreQADValidationEntry.aspx.designer.cs">
+      <DependentUpon>PreQADValidationEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\QualityDashBoard.aspx.cs">
+      <DependentUpon>QualityDashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\QualityDashBoard.aspx.designer.cs">
+      <DependentUpon>QualityDashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\QualityInspection.aspx.cs">
+      <DependentUpon>QualityInspection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\QualityInspection.aspx.designer.cs">
+      <DependentUpon>QualityInspection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\QualityInspectionComplete.aspx.cs">
+      <DependentUpon>QualityInspectionComplete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\QualityInspectionComplete.aspx.designer.cs">
+      <DependentUpon>QualityInspectionComplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quality\QualityInspectionEdit.aspx.cs">
+      <DependentUpon>QualityInspectionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quality\QualityInspectionEdit.aspx.designer.cs">
+      <DependentUpon>QualityInspectionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\FinalCosting.aspx.cs">
+      <DependentUpon>FinalCosting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\FinalCosting.aspx.designer.cs">
+      <DependentUpon>FinalCosting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\VoucherReports.aspx.cs">
+      <DependentUpon>VoucherReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\VoucherReports.aspx.designer.cs">
+      <DependentUpon>VoucherReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\WIPReport.aspx.cs">
+      <DependentUpon>WIPReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AccountsReport\WIPReport.aspx.designer.cs">
+      <DependentUpon>WIPReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CutOrderReport.aspx.cs">
+      <DependentUpon>CutOrderReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CutOrderReport.aspx.designer.cs">
+      <DependentUpon>CutOrderReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DailyReceiptReport.aspx.cs">
+      <DependentUpon>DailyReceiptReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DailyReceiptReport.aspx.designer.cs">
+      <DependentUpon>DailyReceiptReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DeliveryReports.aspx.cs">
+      <DependentUpon>DeliveryReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DeliveryReports.aspx.designer.cs">
+      <DependentUpon>DeliveryReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\General Reports\GeneralReportform.aspx.cs">
+      <DependentUpon>GeneralReportform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\General Reports\GeneralReportform.aspx.designer.cs">
+      <DependentUpon>GeneralReportform.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\IndividualCostingPrint.aspx.cs">
+      <DependentUpon>IndividualCostingPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\IndividualCostingPrint.aspx.designer.cs">
+      <DependentUpon>IndividualCostingPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\AtcTransactionreport.aspx.cs">
+      <DependentUpon>AtcTransactionreport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\AtcTransactionreport.aspx.designer.cs">
+      <DependentUpon>AtcTransactionreport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\ConsolidatedInventoryReport.aspx.cs">
+      <DependentUpon>ConsolidatedInventoryReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\ConsolidatedInventoryReport.aspx.designer.cs">
+      <DependentUpon>ConsolidatedInventoryReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryGridreports.aspx.cs">
+      <DependentUpon>InventoryGridreports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryGridreports.aspx.designer.cs">
+      <DependentUpon>InventoryGridreports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryMisplaced.aspx.cs">
+      <DependentUpon>InventoryMisplaced.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryMisplaced.aspx.designer.cs">
+      <DependentUpon>InventoryMisplaced.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryReports.aspx.cs">
+      <DependentUpon>InventoryReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\InventoryReports.aspx.designer.cs">
+      <DependentUpon>InventoryReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\RoReports.aspx.cs">
+      <DependentUpon>RoReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\RoReports.aspx.designer.cs">
+      <DependentUpon>RoReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\SalesandLoanReport.aspx.cs">
+      <DependentUpon>SalesandLoanReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\SalesandLoanReport.aspx.designer.cs">
+      <DependentUpon>SalesandLoanReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ManagementReports\ManagementReports.aspx.cs">
+      <DependentUpon>ManagementReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ManagementReports\ManagementReports.aspx.designer.cs">
+      <DependentUpon>ManagementReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\ASQReports.aspx.cs">
+      <DependentUpon>ASQReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\ASQReports.aspx.designer.cs">
+      <DependentUpon>ASQReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\AtcChart.aspx.cs">
+      <DependentUpon>AtcChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\AtcChart.aspx.designer.cs">
+      <DependentUpon>AtcChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\AtcchartWithASQ.aspx.cs">
+      <DependentUpon>AtcchartWithASQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\AtcchartWithASQ.aspx.designer.cs">
+      <DependentUpon>AtcchartWithASQ.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\JobContractReport.aspx.cs">
+      <DependentUpon>JobContractReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\JobContractReport.aspx.designer.cs">
+      <DependentUpon>JobContractReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\MRNReport.aspx.cs">
+      <DependentUpon>MRNReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\MRNReport.aspx.designer.cs">
+      <DependentUpon>MRNReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\StockMrnReport.aspx.cs">
+      <DependentUpon>StockMrnReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\StockMrnReport.aspx.designer.cs">
+      <DependentUpon>StockMrnReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\PurchaseReports.aspx.cs">
+      <DependentUpon>PurchaseReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\PurchaseReports.aspx.designer.cs">
+      <DependentUpon>PurchaseReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\WrongPORequest.aspx.cs">
+      <DependentUpon>WrongPORequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\WrongPORequest.aspx.designer.cs">
+      <DependentUpon>WrongPORequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProcurementReport.aspx.cs">
+      <DependentUpon>ProcurementReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ProcurementReport.aspx.designer.cs">
+      <DependentUpon>ProcurementReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Dataset\ReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\CutOrderReport\CutOrder.aspx.cs">
+      <DependentUpon>CutOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\CutOrderReport\CutOrder.aspx.designer.cs">
+      <DependentUpon>CutOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\CutOrderReport\CutorderReport.aspx.cs">
+      <DependentUpon>CutorderReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\CutOrderReport\CutorderReport.aspx.designer.cs">
+      <DependentUpon>CutorderReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\CutplanReport.aspx.cs">
+      <DependentUpon>CutplanReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\CutplanReport.aspx.designer.cs">
+      <DependentUpon>CutplanReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\LaySheet\laySheetReport.aspx.cs">
+      <DependentUpon>laySheetReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\LaySheet\laySheetReport.aspx.designer.cs">
+      <DependentUpon>laySheetReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\ProductionReports.aspx.cs">
+      <DependentUpon>ProductionReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\ProductionReports.aspx.designer.cs">
+      <DependentUpon>ProductionReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Qualityreports\FabricASNReport.aspx.cs">
+      <DependentUpon>FabricASNReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Qualityreports\FabricASNReport.aspx.designer.cs">
+      <DependentUpon>FabricASNReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Qualityreports\PendingReports.aspx.cs">
+      <DependentUpon>PendingReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Qualityreports\PendingReports.aspx.designer.cs">
+      <DependentUpon>PendingReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReporterPage.aspx.cs">
+      <DependentUpon>ReporterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ReporterPage.aspx.designer.cs">
+      <DependentUpon>ReporterPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ShippingReport\ShippingImportReports.aspx.cs">
+      <DependentUpon>ShippingImportReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ShippingReport\ShippingImportReports.aspx.designer.cs">
+      <DependentUpon>ShippingImportReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StyleCostingHtmlReport.aspx.cs">
+      <DependentUpon>StyleCostingHtmlReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StyleCostingHtmlReport.aspx.designer.cs">
+      <DependentUpon>StyleCostingHtmlReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Stylecostingprintable.aspx.cs">
+      <DependentUpon>Stylecostingprintable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Stylecostingprintable.aspx.designer.cs">
+      <DependentUpon>Stylecostingprintable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\View.aspx.designer.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sampling\CuttingTicket%28Sampling%29.aspx.cs">
+      <DependentUpon>CuttingTicket%28Sampling%29.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sampling\CuttingTicket%28Sampling%29.aspx.designer.cs">
+      <DependentUpon>CuttingTicket%28Sampling%29.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sampling\CuttingTicketEdit.aspx.cs">
+      <DependentUpon>CuttingTicketEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sampling\CuttingTicketEdit.aspx.designer.cs">
+      <DependentUpon>CuttingTicketEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sampling\SampleWithoutATC.aspx.cs">
+      <DependentUpon>SampleWithoutATC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sampling\SampleWithoutATC.aspx.designer.cs">
+      <DependentUpon>SampleWithoutATC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\CourierEntry.aspx.cs">
+      <DependentUpon>CourierEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\CourierEntry.aspx.designer.cs">
+      <DependentUpon>CourierEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\Documentreceipt.aspx.cs">
+      <DependentUpon>Documentreceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\Documentreceipt.aspx.designer.cs">
+      <DependentUpon>Documentreceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\InboundEdit.aspx.cs">
+      <DependentUpon>InboundEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\InboundEdit.aspx.designer.cs">
+      <DependentUpon>InboundEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\Invoicing.aspx.cs">
+      <DependentUpon>Invoicing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\Invoicing.aspx.designer.cs">
+      <DependentUpon>Invoicing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\LC\BankAdvice.aspx.cs">
+      <DependentUpon>BankAdvice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\LC\BankAdvice.aspx.designer.cs">
+      <DependentUpon>BankAdvice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\LC\LCMaster.aspx.cs">
+      <DependentUpon>LCMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\LC\LCMaster.aspx.designer.cs">
+      <DependentUpon>LCMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\LC\LCPODetails.aspx.cs">
+      <DependentUpon>LCPODetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\LC\LCPODetails.aspx.designer.cs">
+      <DependentUpon>LCPODetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\LC\TrApproval.aspx.cs">
+      <DependentUpon>TrApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\LC\TrApproval.aspx.designer.cs">
+      <DependentUpon>TrApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\PendingDisplayer.aspx.cs">
+      <DependentUpon>PendingDisplayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\PendingDisplayer.aspx.designer.cs">
+      <DependentUpon>PendingDisplayer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\ShiipingDashBoard.aspx.cs">
+      <DependentUpon>ShiipingDashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\ShiipingDashBoard.aspx.designer.cs">
+      <DependentUpon>ShiipingDashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\ShipmentClosing.aspx.cs">
+      <DependentUpon>ShipmentClosing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\ShipmentClosing.aspx.designer.cs">
+      <DependentUpon>ShipmentClosing.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MasterPage.master" />
+    <Content Include="packages.config" />
+    <Content Include="vwd.webinfo" />
+    <EntityDeploy Include="DataModels\ArtDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ArtDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataModels\ArtDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ArtDataModel.edmx</DependentUpon>
+      <LastGenOutput>ArtDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModels\ArtDataModel.edmx.diagram">
+      <DependentUpon>ArtDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataModels\ArtDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ArtDataModel.edmx</DependentUpon>
+      <LastGenOutput>ArtDataModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="ReportData.xsc">
+      <DependentUpon>ReportData.xsd</DependentUpon>
+    </Content>
+    <EntityDeploy Include="DataModelAtcWorld\AtcWorldModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AtcWorldModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataModelAtcWorld\AtcWorldModel.edmx.diagram">
+      <DependentUpon>AtcWorldModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\ArtwebApp.pubxml" />
+    <None Include="Properties\PublishProfiles\ArtWebTrial.pubxml" />
+    <None Include="ReportData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportData.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="ReportData.xss">
+      <DependentUpon>ReportData.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\Dataset\ReportDataSet.xsc">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\Dataset\ReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reports\Dataset\ReportDataSet.xss">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\RDLC\DocReport.rdlc" />
+    <Content Include="Reports\RDLC\ExportReport.rdlc" />
+    <Content Include="User Manual\quality_files\themedata.thmx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Web.sitemap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="licenses.licx" />
+    <Content Include="Reports\RDLC\APO.rdlc" />
+    <Content Include="Reports\RDLC\BOM.rdlc" />
+    <Content Include="Reports\RDLC\costing.rdlc" />
+    <Content Include="Reports\RDLC\DELIVERYORDER.rdlc" />
+    <Content Include="Reports\RDLC\FPO.rdlc" />
+    <Content Include="Reports\RDLC\MRN.rdlc" />
+    <Content Include="Reports\RDLC\POPACK.rdlc" />
+    <Content Include="Reports\RDLC\SERVICE PO.rdlc" />
+    <Content Include="Reports\RDLC\SPO.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ASNREPORT.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ASQShuffleReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CorierDetailsReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\costingreport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CutOrder.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CutOrderNew.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CutOrderSummary.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CuttingBOM.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CuttingDetailsReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\DailyReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\DO Physical.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\do.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\DOR.RDLC" />
+    <EmbeddedResource Include="Reports\RDLC\ExtraReqQty.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\FinalCosting.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Goodsintransist.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\GoodsintransistLinear.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Gstock.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\GstockReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Inventory.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\InventoryMissedReplaced.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\InventorySummary.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\InvoiceReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\jc-cm.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\JC-OTHER.RDLC" />
+    <EmbeddedResource Include="Reports\RDLC\LaySheetReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\LOAN.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\PHYSICAL DOR.RDLC" />
+    <EmbeddedResource Include="Reports\RDLC\PHYSICAL PO.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Postatus.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RDLC\ProductionReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Profitability.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\PUR.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\PurchaseReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ro.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\s-ro.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\SalesDO.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Shipment Handover.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\SPOstatus.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\SPURREPORT.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\sro.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\STOCK-MRN.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\stockdo.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\WIPReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\WrongPoReport.rdlc" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56909</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56909/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,486 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Merchandiser_AtcRawMaterial" Codebehind="AtcRawMaterial.aspx.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.GridControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.WebUI.WebDataInput.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.WebUI.WebDataInput" tagprefix="igtxt" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+        width: 100%;
+    }
+    .auto-style2 {
+        width: 93px;
+        height: 60px;
+    }
+
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+    .auto-style3 {
+        height: 60px;
+    }
+    .auto-style4 {
+        height: 60px;
+        width: 213px;
+    }
+    .auto-style5 {
+        width: 93px;
+        height: 61px;
+    }
+    .auto-style6 {
+            height: 61px;
+            width: 213px;
+        }
+    .auto-style7 {
+        height: 61px;
+    }
+        .auto-style8 {
+        }
+        .auto-style9 {
+            height: 60px;
+            width: 5px;
+        }
+        .auto-style10 {
+            height: 61px;
+            width: 5px;
+        }
+    </style>
+    <script type="text/javascript" id="igClientScript">
+<!--
+
+        //function Validate() {
+        //    var isValid = false;
+        //    isValid = Page_ClientValidate('VG1');
+        //    if (isValid) {
+        //        isValid = Page_ClientValidate('VG2');
+        //    }
+
+        //    return isValid;
+        //}
+</script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1"   Runat="Server">
+    <table class="auto-style1">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="auto-style1">
+                <tr>
+                    <td class="auto-style2">&nbsp;Atc # :&nbsp;</td>
+                    <td class="auto-style4">
+                             
+                    <ig:WebDropDown ID="cmb_atc" runat="server" Width="200px" 
+                    DataSourceID="atcmasterdata" TextField="Atcnum" ValueField="AtcId" 
+                                       OnSelectionChanged="cmb_atc_SelectionChanged" CurrentValue="Select Atc">
+                    <DropDownItemBinding TextField="Atcnum" ValueField="AtcId" />
+                </ig:WebDropDown>
+                    </td>
+                    <td class="auto-style9">
+                                 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="cmb_atc" ErrorMessage="Select Atc" ForeColor="#FF0066" InitialValue="Select Atc" ValidationGroup="AtcValidation">*</asp:RequiredFieldValidator>
+                     
+                            </td>
+                    <td class="auto-style3">
+                                 
+                    <asp:Button ID="buttonAtc" runat="server" Text="S" Height="26px" OnClick="buttonAtc_Click" ValidationGroup="AtcValidation" />
+                     
+                            </td>
+                    <td class="auto-style8" rowspan="3">
+                <asp:SqlDataSource ID="atcmasterdata" runat="server" 
+                    ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    SelectCommand="SELECT DISTINCT [AtcNum], [AtcId] FROM [AtcMaster] ORDER BY [AtcNum], [AtcId]">
+                </asp:SqlDataSource>
+                    
+               
+                               
+                            <asp:HiddenField ID="HiddenField1" runat="server" Value="0" />
+                <asp:SqlDataSource ID="ItemMasterData" runat="server" 
+                    ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    SelectCommand="SELECT Template_PK, TemplateCode, Description FROM Template_Master ORDER BY TemplateCode">
+                </asp:SqlDataSource>
+                    
+               
+                               
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [AtcRawMaterialMaster] WHERE [AtcRaw_PK] = @original_AtcRaw_PK AND (([Template_PK] = @original_Template_PK) OR ([Template_PK] IS NULL AND @original_Template_PK IS NULL)) AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([TempCode] = @original_TempCode) OR ([TempCode] IS NULL AND @original_TempCode IS NULL)) AND (([TemplateName] = @original_TemplateName) OR ([TemplateName] IS NULL AND @original_TemplateName IS NULL)) AND (([TemplateCount] = @original_TemplateCount) OR ([TemplateCount] IS NULL AND @original_TemplateCount IS NULL))" InsertCommand="INSERT INTO [AtcRawMaterialMaster] ([Template_PK], [Atc_id], [TempCode], [TemplateName], [TemplateCount]) VALUES (@Template_PK, @Atc_id, @TempCode, @TemplateName, @TemplateCount)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [AtcRaw_PK], [Template_PK], [Atc_id], [TempCode], [TemplateName], [TemplateCount] FROM [AtcRawMaterialMaster ] WHERE ([Atc_id] = @Atc_id) ORDER BY [TempCode]" UpdateCommand="UPDATE [AtcRawMaterialMaster] SET [Template_PK] = @Template_PK, [Atc_id] = @Atc_id, [TempCode] = @TempCode, [TemplateName] = @TemplateName, [TemplateCount] = @TemplateCount WHERE [AtcRaw_PK] = @original_AtcRaw_PK AND (([Template_PK] = @original_Template_PK) OR ([Template_PK] IS NULL AND @original_Template_PK IS NULL)) AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([TempCode] = @original_TempCode) OR ([TempCode] IS NULL AND @original_TempCode IS NULL)) AND (([TemplateName] = @original_TemplateName) OR ([TemplateName] IS NULL AND @original_TemplateName IS NULL)) AND (([TemplateCount] = @original_TemplateCount) OR ([TemplateCount] IS NULL AND @original_TemplateCount IS NULL))">
+                            <DeleteParameters>
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_TempCode" Type="String" />
+                                <asp:Parameter Name="original_TemplateName" Type="String" />
+                                <asp:Parameter Name="original_TemplateCount" Type="Decimal" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="TempCode" Type="String" />
+                                <asp:Parameter Name="TemplateName" Type="String" />
+                                <asp:Parameter Name="TemplateCount" Type="Decimal" />
+                            </InsertParameters>
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="HiddenField1" DefaultValue="0" Name="Atc_id" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="TempCode" Type="String" />
+                                <asp:Parameter Name="TemplateName" Type="String" />
+                                <asp:Parameter Name="TemplateCount" Type="Decimal" />
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_TempCode" Type="String" />
+                                <asp:Parameter Name="original_TemplateName" Type="String" />
+                                <asp:Parameter Name="original_TemplateCount" Type="Decimal" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
+                    
+               
+                               
+                            <ig:WebDataGrid ID="WebDataGrid1" runat="server" AutoGenerateColumns="False" DataKeyFields="AtcRaw_PK" DataSourceID="SqlDataSource1" Height="350px" Width="800px">
+                                <Columns>
+                                    <ig:BoundDataField DataFieldName="AtcRaw_PK" Key="AtcRaw_PK">
+                                        <Header Text="AtcRaw_PK">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="Template_PK" Key="Template_PK">
+                                        <Header Text="Template_PK">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="Atc_id" Key="Atc_id">
+                                        <Header Text="Atc_id">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TempCode" Key="TempCode">
+                                        <Header Text="TempCode">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TemplateName" Key="TemplateName">
+                                        <Header Text="TemplateName">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                    <ig:BoundDataField DataFieldName="TemplateCount" Key="TemplateCount">
+                                        <Header Text="TemplateCount">
+                                        </Header>
+                                    </ig:BoundDataField>
+                                </Columns>
+                                <Behaviors>
+                                    <ig:EditingCore>
+                                        <Behaviors>
+                                            <ig:CellEditing>
+                                            </ig:CellEditing>
+                                        </Behaviors>
+                                    </ig:EditingCore>
+                                </Behaviors>
+                        </ig:WebDataGrid>
+                    
+               
+                               
+                            </td>
+                </tr>
+                <tr>
+                    <td class="auto-style5">Items</td>
+                    <td class="auto-style6">
+                             
+                    <ig:WebDropDown ID="cmb_item" runat="server" Width="200px" 
+                    DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk" 
+                                       OnSelectionChanged="cmb_item_SelectionChanged" EnableMultipleSelection="True" EnableClosingDropDownOnSelect="False" CurrentValue="Select Raw Material">
+                    <DropDownItemBinding TextField="Description" ValueField="Template_pk" />
+                       
+                </ig:WebDropDown>
+                    </td>
+                    <td class="auto-style10">
+                                 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cmb_item" ErrorMessage="Select Raw Material" ForeColor="#FF0066" InitialValue="Select Raw Material">*</asp:RequiredFieldValidator>
+                     
+                        </td>
+                    <td class="auto-style7">
+                                 
+                    <asp:Button ID="btn_item" runat="server" Text="S" Height="26px"  OnClick="btn_item_Click" />
+                     
+                        </td>
+                </tr>
+                <tr>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td class="auto-style6">
+                             
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" Height="52px" Font-Italic="True" Font-Size="Small" />
+                    </td>
+                    <td class="auto-style10">
+                                 
+                        &nbsp;</td>
+                    <td class="auto-style7">
+                                 
+                        &nbsp;</td>
+                </tr>
+                </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="auto-style1">
+                <tr>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Generate SKU" />
+                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [SkuRawMaterialMaster] WHERE [Sku_Pk] = @original_Sku_Pk AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([AtcRaw_PK] = @original_AtcRaw_PK) OR ([AtcRaw_PK] IS NULL AND @original_AtcRaw_PK IS NULL)) AND (([Template_pk] = @original_Template_pk) OR ([Template_pk] IS NULL AND @original_Template_pk IS NULL)) AND (([RMNum] = @original_RMNum) OR ([RMNum] IS NULL AND @original_RMNum IS NULL)) AND (([Composition] = @original_Composition) OR ([Composition] IS NULL AND @original_Composition IS NULL)) AND (([Construction] = @original_Construction) OR ([Construction] IS NULL AND @original_Construction IS NULL)) AND (([OrderMulti] = @original_OrderMulti) OR ([OrderMulti] IS NULL AND @original_OrderMulti IS NULL)) AND (([OrderMin] = @original_OrderMin) OR ([OrderMin] IS NULL AND @original_OrderMin IS NULL)) AND (([Weight] = @original_Weight) OR ([Weight] IS NULL AND @original_Weight IS NULL)) AND (([Width] = @original_Width) OR ([Width] IS NULL AND @original_Width IS NULL)) AND (([AltUOM_pk] = @original_AltUOM_pk) OR ([AltUOM_pk] IS NULL AND @original_AltUOM_pk IS NULL)) AND (([isCommon] = @original_isCommon) OR ([isCommon] IS NULL AND @original_isCommon IS NULL)) AND (([IsCD] = @original_IsCD) OR ([IsCD] IS NULL AND @original_IsCD IS NULL)) AND (([IsSD] = @original_IsSD) OR ([IsSD] IS NULL AND @original_IsSD IS NULL)) AND (([Currency_pk] = @original_Currency_pk) OR ([Currency_pk] IS NULL AND @original_Currency_pk IS NULL)) AND (([Rate] = @original_Rate) OR ([Rate] IS NULL AND @original_Rate IS NULL))" InsertCommand="INSERT INTO [SkuRawMaterialMaster] ([Atc_id], [AtcRaw_PK], [Template_pk], [RMNum], [Composition], [Construction], [OrderMulti], [OrderMin], [Weight], [Width], [AltUOM_pk], [isCommon], [IsCD], [IsSD], [Currency_pk], [Rate]) VALUES (@Atc_id, @AtcRaw_PK, @Template_pk, @RMNum, @Composition, @Construction, @OrderMulti, @OrderMin, @Weight, @Width, @AltUOM_pk, @isCommon, @IsCD, @IsSD, @Currency_pk, @Rate)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT SkuRawMaterialMaster.Sku_Pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.AtcRaw_PK, Template_Master.TemplateCode, Template_Master.Description, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.OrderMulti, SkuRawMaterialMaster.OrderMin, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, SkuRawMaterialMaster.AltUOM_pk, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, SkuRawMaterialMaster.IsSD, SkuRawMaterialMaster.Rate, SkuRawMaterialMaster.Template_pk, CurrencyMaster.CurrencyCode FROM SkuRawMaterialMaster INNER JOIN Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK LEFT OUTER JOIN CurrencyMaster ON SkuRawMaterialMaster.Currency_pk = CurrencyMaster.CurrencyID WHERE (SkuRawMaterialMaster.Atc_id = @Atc_id)" UpdateCommand="UPDATE [SkuRawMaterialMaster] SET [Atc_id] = @Atc_id, [AtcRaw_PK] = @AtcRaw_PK, [Template_pk] = @Template_pk, [RMNum] = @RMNum, [Composition] = @Composition, [Construction] = @Construction, [OrderMulti] = @OrderMulti, [OrderMin] = @OrderMin, [Weight] = @Weight, [Width] = @Width, [AltUOM_pk] = @AltUOM_pk, [isCommon] = @isCommon, [IsCD] = @IsCD, [IsSD] = @IsSD, [Currency_pk] = @Currency_pk, [Rate] = @Rate WHERE [Sku_Pk] = @original_Sku_Pk AND (([Atc_id] = @original_Atc_id) OR ([Atc_id] IS NULL AND @original_Atc_id IS NULL)) AND (([AtcRaw_PK] = @original_AtcRaw_PK) OR ([AtcRaw_PK] IS NULL AND @original_AtcRaw_PK IS NULL)) AND (([Template_pk] = @original_Template_pk) OR ([Template_pk] IS NULL AND @original_Template_pk IS NULL)) AND (([RMNum] = @original_RMNum) OR ([RMNum] IS NULL AND @original_RMNum IS NULL)) AND (([Composition] = @original_Composition) OR ([Composition] IS NULL AND @original_Composition IS NULL)) AND (([Construction] = @original_Construction) OR ([Construction] IS NULL AND @original_Construction IS NULL)) AND (([OrderMulti] = @original_OrderMulti) OR ([OrderMulti] IS NULL AND @original_OrderMulti IS NULL)) AND (([OrderMin] = @original_OrderMin) OR ([OrderMin] IS NULL AND @original_OrderMin IS NULL)) AND (([Weight] = @original_Weight) OR ([Weight] IS NULL AND @original_Weight IS NULL)) AND (([Width] = @original_Width) OR ([Width] IS NULL AND @original_Width IS NULL)) AND (([AltUOM_pk] = @original_AltUOM_pk) OR ([AltUOM_pk] IS NULL AND @original_AltUOM_pk IS NULL)) AND (([isCommon] = @original_isCommon) OR ([isCommon] IS NULL AND @original_isCommon IS NULL)) AND (([IsCD] = @original_IsCD) OR ([IsCD] IS NULL AND @original_IsCD IS NULL)) AND (([IsSD] = @original_IsSD) OR ([IsSD] IS NULL AND @original_IsSD IS NULL)) AND (([Currency_pk] = @original_Currency_pk) OR ([Currency_pk] IS NULL AND @original_Currency_pk IS NULL)) AND (([Rate] = @original_Rate) OR ([Rate] IS NULL AND @original_Rate IS NULL))">
+                            <DeleteParameters>
+                                <asp:Parameter Name="original_Sku_Pk" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_pk" Type="Decimal" />
+                                <asp:Parameter Name="original_RMNum" Type="String" />
+                                <asp:Parameter Name="original_Composition" Type="String" />
+                                <asp:Parameter Name="original_Construction" Type="String" />
+                                <asp:Parameter Name="original_OrderMulti" Type="Decimal" />
+                                <asp:Parameter Name="original_OrderMin" Type="Decimal" />
+                                <asp:Parameter Name="original_Weight" Type="String" />
+                                <asp:Parameter Name="original_Width" Type="String" />
+                                <asp:Parameter Name="original_AltUOM_pk" Type="String" />
+                                <asp:Parameter Name="original_isCommon" Type="String" />
+                                <asp:Parameter Name="original_IsCD" Type="String" />
+                                <asp:Parameter Name="original_IsSD" Type="String" />
+                                <asp:Parameter Name="original_Currency_pk" Type="Decimal" />
+                                <asp:Parameter Name="original_Rate" Type="Decimal" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="Template_pk" Type="Decimal" />
+                                <asp:Parameter Name="RMNum" Type="String" />
+                                <asp:Parameter Name="Composition" Type="String" />
+                                <asp:Parameter Name="Construction" Type="String" />
+                                <asp:Parameter Name="OrderMulti" Type="Decimal" />
+                                <asp:Parameter Name="OrderMin" Type="Decimal" />
+                                <asp:Parameter Name="Weight" Type="String" />
+                                <asp:Parameter Name="Width" Type="String" />
+                                <asp:Parameter Name="AltUOM_pk" Type="String" />
+                                <asp:Parameter Name="isCommon" Type="String" />
+                                <asp:Parameter Name="IsCD" Type="String" />
+                                <asp:Parameter Name="IsSD" Type="String" />
+                                <asp:Parameter Name="Currency_pk" Type="Decimal" />
+                                <asp:Parameter Name="Rate" Type="Decimal" />
+                            </InsertParameters>
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="HiddenField1" DefaultValue="0" Name="Atc_id" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="Template_pk" Type="Decimal" />
+                                <asp:Parameter Name="RMNum" Type="String" />
+                                <asp:Parameter Name="Composition" Type="String" />
+                                <asp:Parameter Name="Construction" Type="String" />
+                                <asp:Parameter Name="OrderMulti" Type="Decimal" />
+                                <asp:Parameter Name="OrderMin" Type="Decimal" />
+                                <asp:Parameter Name="Weight" Type="String" />
+                                <asp:Parameter Name="Width" Type="String" />
+                                <asp:Parameter Name="AltUOM_pk" Type="String" />
+                                <asp:Parameter Name="isCommon" Type="String" />
+                                <asp:Parameter Name="IsCD" Type="String" />
+                                <asp:Parameter Name="IsSD" Type="String" />
+                                <asp:Parameter Name="Currency_pk" Type="Decimal" />
+                                <asp:Parameter Name="Rate" Type="Decimal" />
+                                <asp:Parameter Name="original_Sku_Pk" Type="Decimal" />
+                                <asp:Parameter Name="original_Atc_id" Type="Decimal" />
+                                <asp:Parameter Name="original_AtcRaw_PK" Type="Decimal" />
+                                <asp:Parameter Name="original_Template_pk" Type="Decimal" />
+                                <asp:Parameter Name="original_RMNum" Type="String" />
+                                <asp:Parameter Name="original_Composition" Type="String" />
+                                <asp:Parameter Name="original_Construction" Type="String" />
+                                <asp:Parameter Name="original_OrderMulti" Type="Decimal" />
+                                <asp:Parameter Name="original_OrderMin" Type="Decimal" />
+                                <asp:Parameter Name="original_Weight" Type="String" />
+                                <asp:Parameter Name="original_Width" Type="String" />
+                                <asp:Parameter Name="original_AltUOM_pk" Type="String" />
+                                <asp:Parameter Name="original_isCommon" Type="String" />
+                                <asp:Parameter Name="original_IsCD" Type="String" />
+                                <asp:Parameter Name="original_IsSD" Type="String" />
+                                <asp:Parameter Name="original_Currency_pk" Type="Decimal" />
+                                <asp:Parameter Name="original_Rate" Type="Decimal" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        <asp:Panel ID="Panel1" runat="server" Width="445px">
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ig:WebDataGrid ID="WebDataGrid2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2" DefaultColumnWidth="10%" Height="350px" Width="100%">
+                <Columns>
+                    <ig:BoundDataField DataFieldName="Sku_Pk" Hidden="True" Key="Sku_Pk">
+                        <Header Text="Sku_Pk">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Atc_id" Hidden="True" Key="Atc_id">
+                        <Header Text="Atc_id">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="AtcRaw_PK" Hidden="True" Key="AtcRaw_PK">
+                        <Header Text="AtcRaw_PK">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="TemplateCode" Key="TemplateCode">
+                        <Header Text="TemplateCode">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Description" Hidden="True" Key="Description">
+                        <Header Text="Description">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="RMNum" Key="RMNum">
+                        <Header Text="RMNum">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Composition" Key="Composition">
+                        <Header Text="Composition">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Construction" Key="Construction">
+                        <Header Text="Construction">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="OrderMulti" Key="OrderMulti">
+                        <Header Text="OrderMulti">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="OrderMin" Hidden="True" Key="OrderMin">
+                        <Header Text="OrderMin">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Weight" Key="Weight">
+                        <Header Text="Weight">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Width" Key="Width">
+                        <Header Text="Width">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="AltUOM_pk" Key="AltUOM_pk">
+                        <Header Text="AltUOM_pk">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="isCommon" Hidden="True" Key="isCommon">
+                        <Header Text="isCommon">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="IsCD" DataType="System.Boolean" Hidden="True" Key="IsCD">
+                        <Header Text="IsCD">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="IsSD" Hidden="True" Key="IsSD">
+                        <Header Text="IsSD">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Rate" Key="Rate">
+                        <Header Text="Rate">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="Template_pk" Hidden="True" Key="Template_pk">
+                        <Header Text="Template_pk">
+                        </Header>
+                    </ig:BoundDataField>
+                    <ig:BoundDataField DataFieldName="CurrencyCode" Key="CurrencyCode">
+                        <Header Text="CurrencyCode">
+                        </Header>
+                    </ig:BoundDataField>
+                </Columns>
+            </ig:WebDataGrid>
+        </td>
+    </tr>
+</table>
+</asp:Content>
+

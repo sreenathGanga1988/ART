@@ -1,0 +1,110 @@
+﻿using ArtWebApp.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Merchandiser_Styledetails : System.Web.UI.Page
+{
+    int atc_id = 0;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if(!IsPostBack )
+        {
+            try
+            {
+
+                atc_id = int.Parse(Request.QueryString["atcid"]);
+                ViewState.Add("AtcID", atc_id);
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void Btn_addSize_Click(object sender, EventArgs e)
+    {
+        AddSize();
+    }
+    protected void btn_AddColor_Click(object sender, EventArgs e)
+    {
+        
+        AddColor();
+    }
+
+
+    public void AddSize()
+    {
+
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            if (!enty.StyleSizes.Any(f => f.SizeName == drp_size.SelectedItem.Text.ToString() && f.OurStyle == drp_ourstyle.SelectedItem.Text.ToString()))
+            {
+
+                StyleSize stsz = new StyleSize();
+                int ourstyleid = int.Parse(Session["ourstyleID"].ToString());
+                stsz.OurStyle = drp_ourstyle.SelectedItem.Text.ToString();
+                stsz.OurStyleID = int.Parse(drp_ourstyle.SelectedValue.ToString());
+                stsz.SizeName = drp_size.SelectedItem.ToString();
+                stsz.SizeCode = drp_size.SelectedValue.ToString();
+                stsz.AtcId = int.Parse(ViewState["AtcID"].ToString());
+                
+                enty.StyleSizes.Add(stsz);
+                enty.SaveChanges();
+                GridView2.DataBind();
+            }
+        }
+    }
+
+
+
+    /// <summary>
+    /// Add color to the Stylecolor
+    /// </summary>
+    public void AddColor()
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            if (!enty.StyleColors.Any(f => f.GarmentColorCode == drp_color.SelectedValue.ToString() && f.OurStyle == drp_ourstyle.SelectedItem.Text.ToString()))
+            {
+                StyleColor clr = new StyleColor();
+
+
+
+                int ourstyleid = int.Parse(Session["ourstyleID"].ToString());
+                clr.OurStyle = drp_ourstyle.SelectedItem.Text.ToString();
+                clr.OurStyleID = int.Parse(drp_ourstyle.SelectedValue.ToString());
+                clr.GarmentColor = drp_color.SelectedItem.ToString();
+                clr.GarmentColorCode = drp_color.SelectedValue.ToString();
+                clr.AtcId = int.Parse(ViewState["AtcID"].ToString());
+
+                enty.StyleColors.Add(clr);
+                enty.SaveChanges();
+                //  ColorDetailsData.DataBind();
+                GridView1.DataBind();
+            }
+        }
+    }
+    protected void WebDropDown2_SelectionChanged(object sender, Infragistics.Web.UI.ListControls.DropDownSelectionChangedEventArgs e)
+    {
+
+    }
+    protected void drp_ourstyle_SelectionChanged(object sender, Infragistics.Web.UI.ListControls.DropDownSelectionChangedEventArgs e)
+    {
+       
+    }
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+        Session["ourstyleID"] = int.Parse(drp_ourstyle.SelectedValue.ToString());
+        GridView1.DataBind();
+        GridView2.DataBind();
+    }
+}

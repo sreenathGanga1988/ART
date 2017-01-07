@@ -1,0 +1,149 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.NavigationControls" tagprefix="ig" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="height: 136px" >
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Header-Mail1-750x140.png" Width="100%" Height="100%" />
+
+        </div>
+          
+        <div>
+
+                
+            <ig:WebDataMenu ID="WebDataMenu1" runat="server" OnItemClick="WebDataMenu1_ItemClick">
+                <groupsettings orientation="Horizontal" />
+                <Items>
+                    <ig:DataMenuItem  Text ="Masters" Value="Master">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Merchandising" Value="Merchandising" >
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Inventory" Value="Inventory">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Production" Value="Production">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Accounts" Value="Accounts">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Reports">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Administrator" Value="Administrator">
+                    </ig:DataMenuItem>
+                    <ig:DataMenuItem Text="Root Item">
+                    </ig:DataMenuItem>
+                </Items>
+            </ig:WebDataMenu>
+                
+        </div>
+        <div style="float: left; width: 20%; height: 373px;"  >
+            
+            <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="90%" Height="347px">
+                <Groups>
+                    <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Masters" Visible="True" >
+                        <Items>
+                            <ig:ExplorerBarItem Text="Item ">
+                                <Items>
+                                    <ig:ExplorerBarItem Text="Item Group" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Group">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="Item Construction" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Construction">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="Item Composition" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Composition">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="Item Master" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Master">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Width" Text="Item Width">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Weight" Text="Item Weight">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Garments">
+                                <Items>
+                                    <ig:ExplorerBarItem Text="Garment Details" NavigateUrl="~/Masters/GarmentMaster.aspx">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Supplier">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Buyer">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/Buyermaster.aspx" Text="Buyer Creation">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Bank">
+                                <Items>
+                                    <ig:ExplorerBarItem Text="Currency Creation">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="General">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/CountryCreation.aspx" Text="Country">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Payment">
+                                <Items>
+                                    <ig:ExplorerBarItem Text="Payment Mode" NavigateUrl="~/Masters/PaymentMode.aspx">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                        </Items>
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Merchandising" Visible="True" >
+                        <Items>
+                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcCreation.aspx" Text="Atc Creation">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Styledetails.aspx" Text="Style">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/POPack.aspx" Text="POPack">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Atc">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcCreation.aspx" Text="Atc Creation">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/POPack.aspx" Text="PO Pack">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcRawMaterial.aspx" Text="Raw Material">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/StyleCosting.aspx" Text="Style Costing">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                        </Items>
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Inventory" Visible="True">
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Production" Visible="True">
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Shipping" Visible="True">
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Accounts" Visible="True">
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Reports" Visible="True">
+                    </ig:ExplorerBarGroup>
+                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Administrator" Visible="True">
+                    </ig:ExplorerBarGroup>
+                </Groups>
+            </ig:WebExplorerBar>
+            
+        </div>
+    <div style="float: left; width: 75%" >
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

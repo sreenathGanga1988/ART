@@ -1,0 +1,36 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Masters_ItemGroup" Codebehind="ItemGroup.aspx.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.NavigationControls" tagprefix="ig" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+.ig_Control
+{
+	background-color:White;
+	font-size:xx-small;
+	font-family: verdana;
+	color:Black;
+}
+
+
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    
+            <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="250px" DataSourceID="XmlDataSource1">
+            </ig:WebExplorerBar>
+            
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/Menubar.xml"></asp:XmlDataSource>
+    
+    </div>
+    </form>
+</body>
+</html>

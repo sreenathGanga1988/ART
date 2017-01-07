@@ -1,0 +1,1690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AtcDetails">
+          <Key>
+            <PropertyRef Name="OurStyleID" />
+          </Key>
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OurStyle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BuyerStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FOB" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="CategoryID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="AtcMaster">
+          <Key>
+            <PropertyRef Name="AtcId" />
+          </Key>
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcNum" Type="nvarchar" MaxLength="10" />
+          <Property Name="Buyer_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Country_ID" Type="numeric" Precision="5" Scale="0" />
+          <Property Name="MerchandiserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoofStyles" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="HouseDate" Type="datetime" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="FinishDate" Type="datetime" />
+          <Property Name="AddedBy" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsCompleted" Type="nchar" MaxLength="10" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="AtcRawMaterialMaster">
+          <Key>
+            <PropertyRef Name="AtcRaw_PK" />
+          </Key>
+          <Property Name="AtcRaw_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Template_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Atc_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TempCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemplateCount" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="BuyerMaster">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prefix" Type="nchar" MaxLength="10" />
+          <Property Name="Adress" Type="nvarchar(max)" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryCode" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="CurrencyCode" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="PaymentModeCode" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="Agent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Allowance" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AccountCode" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Debitaccid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Br" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ColorMaster">
+          <Key>
+            <PropertyRef Name="ColorId" />
+          </Key>
+          <Property Name="ColorId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColorCode" Type="nchar" MaxLength="5" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortName" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="FactoryStores" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CurrencyMaster">
+          <Key>
+            <PropertyRef Name="CurrencyID" />
+          </Key>
+          <Property Name="CurrencyID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrencyCode" Type="nchar" MaxLength="10" />
+          <Property Name="CurrencyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GarmentCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ItemGroupMaster">
+          <Key>
+            <PropertyRef Name="ItemGroupID" />
+          </Key>
+          <Property Name="ItemGroupID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemGroupName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ItemGroupDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentModeMaster">
+          <Key>
+            <PropertyRef Name="PaymentModeID" />
+          </Key>
+          <Property Name="PaymentModeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentModeCode" Type="nchar" MaxLength="10" />
+          <Property Name="PaymentModeDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentTermMaster">
+          <Key>
+            <PropertyRef Name="PaymentTermID" />
+          </Key>
+          <Property Name="PaymentTermID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentTermCode" Type="nchar" MaxLength="10" />
+          <Property Name="PaymentCodeDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="POPackDetails">
+          <Key>
+            <PropertyRef Name="PoPack_Detail_PK" />
+          </Key>
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="POPackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorCode" Type="nchar" MaxLength="5" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SIzeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PoPackMaster">
+          <Key>
+            <PropertyRef Name="PoPackId" />
+          </Key>
+          <Property Name="PoPackId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoPacknum" Type="nvarchar" MaxLength="10" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerPO" Type="nvarchar" MaxLength="50" />
+          <Property Name="PackingInstruction" Type="nvarchar(max)" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="AddedDate" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="SizeMaster">
+          <Key>
+            <PropertyRef Name="SizeID" />
+          </Key>
+          <Property Name="SizeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SkuRawmaterialDetail">
+          <Key>
+            <PropertyRef Name="SkuDet_PK" />
+          </Key>
+          <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sku_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SkuDet_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorCode" Type="nchar" MaxLength="5" />
+          <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemColor" Type="nchar" MaxLength="10" />
+          <Property Name="SupplierColor" Type="nchar" MaxLength="10" />
+          <Property Name="ItemSize" Type="nchar" MaxLength="10" />
+          <Property Name="SupplierSize" Type="nchar" MaxLength="10" />
+          <Property Name="UnitRate" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="RqdQty" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SkuRawMaterialMaster">
+          <Key>
+            <PropertyRef Name="Sku_Pk" />
+          </Key>
+          <Property Name="Sku_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Atc_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AtcRaw_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Template_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RMNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Composition" Type="nvarchar" MaxLength="50" />
+          <Property Name="Construction" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderMulti" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="OrderMin" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="Width" Type="nvarchar" MaxLength="50" />
+          <Property Name="AltUOM_pk" Type="nchar" MaxLength="10" />
+          <Property Name="isCommon" Type="nchar" MaxLength="10" />
+          <Property Name="IsCD" Type="nchar" MaxLength="10" />
+          <Property Name="IsSD" Type="nchar" MaxLength="10" />
+          <Property Name="Currency_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Rate" Type="numeric" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="StyleColor">
+          <Key>
+            <PropertyRef Name="StyleColorid" />
+          </Key>
+          <Property Name="StyleColorid" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="GarmentColorCode" Type="nchar" MaxLength="5" />
+          <Property Name="GarmentColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="OurStyle" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StyleCostingDetails">
+          <Key>
+            <PropertyRef Name="CostingDetail_PK" />
+          </Key>
+          <Property Name="CostingDetail_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Costing_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Sku_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Consumption" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="Rate" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="IsRequired" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="StyleCostingMaster">
+          <Key>
+            <PropertyRef Name="Costing_PK" />
+          </Key>
+          <Property Name="Costing_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CreatedBy" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBy" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="CostingCount" Type="numeric" Precision="5" Scale="0" />
+          <Property Name="IsApplicable" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="StyleSize">
+          <Key>
+            <PropertyRef Name="StyleSizeID" />
+          </Key>
+          <Property Name="StyleSizeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Template_Master">
+          <Key>
+            <PropertyRef Name="Template_PK" />
+          </Key>
+          <Property Name="Template_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemGroup_PK" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="HCCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Uom_PK" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Wastage" Type="numeric" Precision="11" Scale="4" Nullable="false" />
+          <Property Name="IsItemColor" Type="nchar" MaxLength="10" />
+          <Property Name="IsItemSize" Type="nchar" MaxLength="10" />
+          <Property Name="IsStock" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TemplateComposition">
+          <Key>
+            <PropertyRef Name="TemplateCom_Pk" />
+          </Key>
+          <Property Name="TemplateCom_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Template_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Composition" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TemplateConstruction">
+          <Key>
+            <PropertyRef Name="TemplateCon_Pk" />
+          </Key>
+          <Property Name="TemplateCon_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Template_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Construct" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TemplateWeight">
+          <Key>
+            <PropertyRef Name="TemplateWeight_Pk" />
+          </Key>
+          <Property Name="TemplateWeight_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Template_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TemplateWidth">
+          <Key>
+            <PropertyRef Name="TemplateWidth_Pk" />
+          </Key>
+          <Property Name="TemplateWidth_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Template_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Width" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UOMMaster">
+          <Key>
+            <PropertyRef Name="Uom_PK" />
+          </Key>
+          <Property Name="Uom_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UomCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="UomName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_AtcDetails_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="1" />
+          <End Role="AtcDetails" Type="Self.AtcDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="AtcDetails">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtcMaster_AtcMaster">
+          <End Role="BuyerMaster" Type="Self.BuyerMaster" Multiplicity="1" />
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuyerMaster">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="AtcMaster">
+              <PropertyRef Name="Buyer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtcRawMaterialMaster_tbl_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="AtcRawMaterialMaster" Type="Self.AtcRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="AtcRawMaterialMaster">
+              <PropertyRef Name="Atc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtcRawMaterialMaster_tbl_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="AtcRawMaterialMaster" Type="Self.AtcRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="AtcRawMaterialMaster">
+              <PropertyRef Name="Template_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_AtcDetails">
+          <End Role="AtcDetails" Type="Self.AtcDetails" Multiplicity="0..1" />
+          <End Role="POPackDetails" Type="Self.POPackDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetails">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="POPackDetails">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_PoPackMaster">
+          <End Role="PoPackMaster" Type="Self.PoPackMaster" Multiplicity="0..1" />
+          <End Role="POPackDetails" Type="Self.POPackDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoPackMaster">
+              <PropertyRef Name="PoPackId" />
+            </Principal>
+            <Dependent Role="POPackDetails">
+              <PropertyRef Name="POPackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_POPackDetails_SizeMaster" />-->
+        <Association Name="FK_PoPackMaster_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="PoPackMaster" Type="Self.PoPackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="PoPackMaster">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkuMaster_tbl_SkuMaster_tbl">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="SkuRawMaterialMaster" Type="Self.SkuRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Atc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkuMaster_tbl_SkuMaster_tbl1">
+          <End Role="AtcRawMaterialMaster" Type="Self.AtcRawMaterialMaster" Multiplicity="0..1" />
+          <End Role="SkuRawMaterialMaster" Type="Self.SkuRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcRawMaterialMaster">
+              <PropertyRef Name="AtcRaw_PK" />
+            </Principal>
+            <Dependent Role="SkuRawMaterialMaster">
+              <PropertyRef Name="AtcRaw_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkuRawmaterialDetail_SkuRawMaterialMaster">
+          <End Role="SkuRawMaterialMaster" Type="Self.SkuRawMaterialMaster" Multiplicity="0..1" />
+          <End Role="SkuRawmaterialDetail" Type="Self.SkuRawmaterialDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Sku_Pk" />
+            </Principal>
+            <Dependent Role="SkuRawmaterialDetail">
+              <PropertyRef Name="Sku_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StyleCostingDetails_SkuRawMaterialMaster">
+          <End Role="SkuRawMaterialMaster" Type="Self.SkuRawMaterialMaster" Multiplicity="0..1" />
+          <End Role="StyleCostingDetails" Type="Self.StyleCostingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Sku_Pk" />
+            </Principal>
+            <Dependent Role="StyleCostingDetails">
+              <PropertyRef Name="Sku_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StyleCostingDetails_StyleCostingDetails">
+          <End Role="StyleCostingMaster" Type="Self.StyleCostingMaster" Multiplicity="0..1" />
+          <End Role="StyleCostingDetails" Type="Self.StyleCostingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StyleCostingMaster">
+              <PropertyRef Name="Costing_PK" />
+            </Principal>
+            <Dependent Role="StyleCostingDetails">
+              <PropertyRef Name="Costing_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StyleCostingMaster_AtcDetails">
+          <End Role="AtcDetails" Type="Self.AtcDetails" Multiplicity="0..1" />
+          <End Role="StyleCostingMaster" Type="Self.StyleCostingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetails">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="StyleCostingMaster">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Master_ItemGroupMaster">
+          <End Role="ItemGroupMaster" Type="Self.ItemGroupMaster" Multiplicity="1" />
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGroupMaster">
+              <PropertyRef Name="ItemGroupID" />
+            </Principal>
+            <Dependent Role="Template_Master">
+              <PropertyRef Name="ItemGroup_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Master_UOMMaster">
+          <End Role="UOMMaster" Type="Self.UOMMaster" Multiplicity="1" />
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="Template_Master">
+              <PropertyRef Name="Uom_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateComposition_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="TemplateComposition" Type="Self.TemplateComposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateComposition">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateConstruction_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="TemplateConstruction" Type="Self.TemplateConstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateConstruction">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateWeight_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="TemplateWeight" Type="Self.TemplateWeight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateWeight">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateWidth_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="TemplateWidth" Type="Self.TemplateWidth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateWidth">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtModelStoreContainer">
+          <EntitySet Name="AtcDetails" EntityType="Self.AtcDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtcMaster" EntityType="Self.AtcMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtcRawMaterialMaster" EntityType="Self.AtcRawMaterialMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuyerMaster" EntityType="Self.BuyerMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ColorMaster" EntityType="Self.ColorMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountryMaster" EntityType="Self.CountryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrencyMaster" EntityType="Self.CurrencyMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarmentCategory" EntityType="Self.GarmentCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemGroupMaster" EntityType="Self.ItemGroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentModeMaster" EntityType="Self.PaymentModeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentTermMaster" EntityType="Self.PaymentTermMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POPackDetails" EntityType="Self.POPackDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoPackMaster" EntityType="Self.PoPackMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SizeMaster" EntityType="Self.SizeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SkuRawmaterialDetail" EntityType="Self.SkuRawmaterialDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SkuRawMaterialMaster" EntityType="Self.SkuRawMaterialMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StyleColor" EntityType="Self.StyleColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StyleCostingDetails" EntityType="Self.StyleCostingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StyleCostingMaster" EntityType="Self.StyleCostingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StyleSize" EntityType="Self.StyleSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Template_Master" EntityType="Self.Template_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateComposition" EntityType="Self.TemplateComposition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateConstruction" EntityType="Self.TemplateConstruction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateWeight" EntityType="Self.TemplateWeight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateWidth" EntityType="Self.TemplateWidth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UOMMaster" EntityType="Self.UOMMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AtcDetails_AtcMaster" Association="Self.FK_AtcDetails_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="AtcDetails" EntitySet="AtcDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtcMaster_AtcMaster" Association="Self.FK_AtcMaster_AtcMaster">
+            <End Role="BuyerMaster" EntitySet="BuyerMaster" />
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtcRawMaterialMaster_tbl_AtcMaster" Association="Self.FK_AtcRawMaterialMaster_tbl_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtcRawMaterialMaster_tbl_Template_Master" Association="Self.FK_AtcRawMaterialMaster_tbl_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_AtcDetails" Association="Self.FK_POPackDetails_AtcDetails">
+            <End Role="AtcDetails" EntitySet="AtcDetails" />
+            <End Role="POPackDetails" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_PoPackMaster" Association="Self.FK_POPackDetails_PoPackMaster">
+            <End Role="PoPackMaster" EntitySet="PoPackMaster" />
+            <End Role="POPackDetails" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PoPackMaster_AtcMaster" Association="Self.FK_PoPackMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="PoPackMaster" EntitySet="PoPackMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkuMaster_tbl_SkuMaster_tbl" Association="Self.FK_SkuMaster_tbl_SkuMaster_tbl">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkuMaster_tbl_SkuMaster_tbl1" Association="Self.FK_SkuMaster_tbl_SkuMaster_tbl1">
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMaster" />
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkuRawmaterialDetail_SkuRawMaterialMaster" Association="Self.FK_SkuRawmaterialDetail_SkuRawMaterialMaster">
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMaster" />
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StyleCostingDetails_SkuRawMaterialMaster" Association="Self.FK_StyleCostingDetails_SkuRawMaterialMaster">
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMaster" />
+            <End Role="StyleCostingDetails" EntitySet="StyleCostingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StyleCostingDetails_StyleCostingDetails" Association="Self.FK_StyleCostingDetails_StyleCostingDetails">
+            <End Role="StyleCostingMaster" EntitySet="StyleCostingMaster" />
+            <End Role="StyleCostingDetails" EntitySet="StyleCostingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StyleCostingMaster_AtcDetails" Association="Self.FK_StyleCostingMaster_AtcDetails">
+            <End Role="AtcDetails" EntitySet="AtcDetails" />
+            <End Role="StyleCostingMaster" EntitySet="StyleCostingMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Master_ItemGroupMaster" Association="Self.FK_Template_Master_ItemGroupMaster">
+            <End Role="ItemGroupMaster" EntitySet="ItemGroupMaster" />
+            <End Role="Template_Master" EntitySet="Template_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Master_UOMMaster" Association="Self.FK_Template_Master_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMaster" />
+            <End Role="Template_Master" EntitySet="Template_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateComposition_Template_Master" Association="Self.FK_TemplateComposition_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateComposition" EntitySet="TemplateComposition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateConstruction_Template_Master" Association="Self.FK_TemplateConstruction_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateConstruction" EntitySet="TemplateConstruction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateWeight_Template_Master" Association="Self.FK_TemplateWeight_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateWeight" EntitySet="TemplateWeight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateWidth_Template_Master" Association="Self.FK_TemplateWidth_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateWidth" EntitySet="TemplateWidth" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AtcRawMaterialMaster">
+          <Key>
+            <PropertyRef Name="AtcRaw_PK" />
+          </Key>
+          <Property Name="AtcRaw_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atc_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TempCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateCount" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Template_Master" Relationship="Self.FK_AtcRawMaterialMaster_tbl_Template_Master" FromRole="AtcRawMaterialMaster" ToRole="Template_Master" />
+          <NavigationProperty Name="SkuRawMaterialMasters" Relationship="Self.FK_SkuMaster_tbl_SkuMaster_tbl1" FromRole="AtcRawMaterialMaster" ToRole="SkuRawMaterialMaster" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" FromRole="AtcRawMaterialMaster" ToRole="AtcMaster" />
+        </EntityType>
+        <EntityType Name="BuyerMaster">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prefix" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="CurrencyCode" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="PaymentModeCode" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Agent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Allowance" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AccountCode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Debitaccid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Br" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AtcMasters" Relationship="ArtModel.FK_AtcMaster_AtcMaster" FromRole="BuyerMaster" ToRole="AtcMaster" />
+        </EntityType>
+        <EntityType Name="ColorMaster">
+          <Key>
+            <PropertyRef Name="ColorId" />
+          </Key>
+          <Property Name="ColorId" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorCode" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryStores" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CurrencyMaster">
+          <Key>
+            <PropertyRef Name="CurrencyID" />
+          </Key>
+          <Property Name="CurrencyID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrencyCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CurrencyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GarmentCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ItemGroupMaster">
+          <Key>
+            <PropertyRef Name="ItemGroupID" />
+          </Key>
+          <Property Name="ItemGroupID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemGroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ItemGroupDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_Template_Master_ItemGroupMaster" FromRole="ItemGroupMaster" ToRole="Template_Master" />
+        </EntityType>
+        <EntityType Name="PaymentModeMaster">
+          <Key>
+            <PropertyRef Name="PaymentModeID" />
+          </Key>
+          <Property Name="PaymentModeID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentModeCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PaymentModeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PaymentTermMaster">
+          <Key>
+            <PropertyRef Name="PaymentTermID" />
+          </Key>
+          <Property Name="PaymentTermID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentTermCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PaymentCodeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="POPackDetail">
+          <Key>
+            <PropertyRef Name="PoPack_Detail_PK" />
+          </Key>
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SIzeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PoPackMaster" Relationship="Self.FK_POPackDetails_PoPackMaster" FromRole="POPackDetails" ToRole="PoPackMaster" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="POPackDetail" ToRole="AtcDetail" />
+        </EntityType>
+        <EntityType Name="PoPackMaster">
+          <Key>
+            <PropertyRef Name="PoPackId" />
+          </Key>
+          <Property Name="PoPackId" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PoPacknum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PackingInstruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedDate" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="POPackDetails" Relationship="Self.FK_POPackDetails_PoPackMaster" FromRole="PoPackMaster" ToRole="POPackDetails" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_PoPackMaster_AtcMaster" FromRole="PoPackMaster" ToRole="AtcMaster" />
+        </EntityType>
+        <EntityType Name="SizeMaster">
+          <Key>
+            <PropertyRef Name="SizeID" />
+          </Key>
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SkuRawMaterialMaster">
+          <Key>
+            <PropertyRef Name="Sku_Pk" />
+          </Key>
+          <Property Name="Sku_Pk" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Atc_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcRaw_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Template_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RMNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Composition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Construction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderMulti" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OrderMin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AltUOM_pk" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="isCommon" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsCD" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsSD" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Currency_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="AtcRawMaterialMaster" Relationship="Self.FK_SkuMaster_tbl_SkuMaster_tbl1" FromRole="SkuRawMaterialMaster" ToRole="AtcRawMaterialMaster" />
+          <NavigationProperty Name="StyleCostingDetails" Relationship="ArtModel.FK_StyleCostingDetails_SkuRawMaterialMaster" FromRole="SkuRawMaterialMaster" ToRole="StyleCostingDetail" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl" FromRole="SkuRawMaterialMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="SkuRawmaterialDetails" Relationship="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster" FromRole="SkuRawMaterialMaster" ToRole="SkuRawmaterialDetail" />
+        </EntityType>
+        <EntityType Name="StyleColor">
+          <Key>
+            <PropertyRef Name="StyleColorid" />
+          </Key>
+          <Property Name="StyleColorid" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="GarmentColorCode" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="GarmentColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StyleSize">
+          <Key>
+            <PropertyRef Name="StyleSizeID" />
+          </Key>
+          <Property Name="StyleSizeID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Template_Master">
+          <Key>
+            <PropertyRef Name="Template_PK" />
+          </Key>
+          <Property Name="Template_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemGroup_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="HCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Uom_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Wastage" Type="Decimal" Precision="11" Scale="4" Nullable="false" />
+          <Property Name="IsItemColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsItemSize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsStock" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AtcRawMaterialMasters" Relationship="Self.FK_AtcRawMaterialMaster_tbl_Template_Master" FromRole="Template_Master" ToRole="AtcRawMaterialMaster" />
+          <NavigationProperty Name="ItemGroupMaster" Relationship="ArtModel.FK_Template_Master_ItemGroupMaster" FromRole="Template_Master" ToRole="ItemGroupMaster" />
+          <NavigationProperty Name="UOMMaster" Relationship="ArtModel.FK_Template_Master_UOMMaster" FromRole="Template_Master" ToRole="UOMMaster" />
+          <NavigationProperty Name="TemplateCompositions" Relationship="ArtModel.FK_TemplateComposition_Template_Master" FromRole="Template_Master" ToRole="TemplateComposition" />
+          <NavigationProperty Name="TemplateConstructions" Relationship="ArtModel.FK_TemplateConstruction_Template_Master" FromRole="Template_Master" ToRole="TemplateConstruction" />
+          <NavigationProperty Name="TemplateWeights" Relationship="ArtModel.FK_TemplateWeight_Template_Master" FromRole="Template_Master" ToRole="TemplateWeight" />
+          <NavigationProperty Name="TemplateWidths" Relationship="ArtModel.FK_TemplateWidth_Template_Master" FromRole="Template_Master" ToRole="TemplateWidth" />
+        </EntityType>
+        <EntityType Name="UOMMaster">
+          <Key>
+            <PropertyRef Name="Uom_PK" />
+          </Key>
+          <Property Name="Uom_PK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UomCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_Template_Master_UOMMaster" FromRole="UOMMaster" ToRole="Template_Master" />
+        </EntityType>
+        <Association Name="FK_AtcRawMaterialMaster_tbl_Template_Master">
+          <End Role="Template_Master" Type="Self.Template_Master" Multiplicity="0..1" />
+          <End Role="AtcRawMaterialMaster" Type="Self.AtcRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="AtcRawMaterialMaster">
+              <PropertyRef Name="Template_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkuMaster_tbl_SkuMaster_tbl1">
+          <End Role="AtcRawMaterialMaster" Type="Self.AtcRawMaterialMaster" Multiplicity="0..1" />
+          <End Role="SkuRawMaterialMaster" Type="Self.SkuRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcRawMaterialMaster">
+              <PropertyRef Name="AtcRaw_PK" />
+            </Principal>
+            <Dependent Role="SkuRawMaterialMaster">
+              <PropertyRef Name="AtcRaw_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_PoPackMaster">
+          <End Role="PoPackMaster" Type="Self.PoPackMaster" Multiplicity="0..1" />
+          <End Role="POPackDetails" Type="Self.POPackDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoPackMaster">
+              <PropertyRef Name="PoPackId" />
+            </Principal>
+            <Dependent Role="POPackDetails">
+              <PropertyRef Name="POPackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtEntitiesnew" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AtcRawMaterialMasters" EntityType="Self.AtcRawMaterialMaster" />
+          <EntitySet Name="BuyerMasters" EntityType="Self.BuyerMaster" />
+          <EntitySet Name="ColorMasters" EntityType="Self.ColorMaster" />
+          <EntitySet Name="CountryMasters" EntityType="Self.CountryMaster" />
+          <EntitySet Name="CurrencyMasters" EntityType="Self.CurrencyMaster" />
+          <EntitySet Name="GarmentCategories" EntityType="Self.GarmentCategory" />
+          <EntitySet Name="ItemGroupMasters" EntityType="Self.ItemGroupMaster" />
+          <EntitySet Name="PaymentModeMasters" EntityType="Self.PaymentModeMaster" />
+          <EntitySet Name="PaymentTermMasters" EntityType="Self.PaymentTermMaster" />
+          <EntitySet Name="POPackDetails" EntityType="Self.POPackDetail" />
+          <EntitySet Name="PoPackMasters" EntityType="Self.PoPackMaster" />
+          <EntitySet Name="SizeMasters" EntityType="Self.SizeMaster" />
+          <EntitySet Name="SkuRawMaterialMasters" EntityType="Self.SkuRawMaterialMaster" />
+          <EntitySet Name="StyleColors" EntityType="Self.StyleColor" />
+          <EntitySet Name="StyleSizes" EntityType="Self.StyleSize" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Template_Master" EntityType="Self.Template_Master" />
+          <EntitySet Name="UOMMasters" EntityType="Self.UOMMaster" />
+          <AssociationSet Name="FK_AtcRawMaterialMaster_tbl_Template_Master" Association="Self.FK_AtcRawMaterialMaster_tbl_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkuMaster_tbl_SkuMaster_tbl1" Association="Self.FK_SkuMaster_tbl_SkuMaster_tbl1">
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMasters" />
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_PoPackMaster" Association="Self.FK_POPackDetails_PoPackMaster">
+            <End Role="PoPackMaster" EntitySet="PoPackMasters" />
+            <End Role="POPackDetails" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Master_ItemGroupMaster" Association="ArtModel.FK_Template_Master_ItemGroupMaster">
+            <End Role="ItemGroupMaster" EntitySet="ItemGroupMasters" />
+            <End Role="Template_Master" EntitySet="Template_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Master_UOMMaster" Association="ArtModel.FK_Template_Master_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMasters" />
+            <End Role="Template_Master" EntitySet="Template_Master" />
+          </AssociationSet>
+          <EntitySet Name="TemplateCompositions" EntityType="ArtModel.TemplateComposition" />
+          <EntitySet Name="TemplateConstructions" EntityType="ArtModel.TemplateConstruction" />
+          <AssociationSet Name="FK_TemplateComposition_Template_Master" Association="ArtModel.FK_TemplateComposition_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateComposition" EntitySet="TemplateCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateConstruction_Template_Master" Association="ArtModel.FK_TemplateConstruction_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateConstruction" EntitySet="TemplateConstructions" />
+          </AssociationSet>
+          <EntitySet Name="TemplateWeights" EntityType="ArtModel.TemplateWeight" />
+          <EntitySet Name="TemplateWidths" EntityType="ArtModel.TemplateWidth" />
+          <AssociationSet Name="FK_TemplateWeight_Template_Master" Association="ArtModel.FK_TemplateWeight_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateWeight" EntitySet="TemplateWeights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateWidth_Template_Master" Association="ArtModel.FK_TemplateWidth_Template_Master">
+            <End Role="Template_Master" EntitySet="Template_Master" />
+            <End Role="TemplateWidth" EntitySet="TemplateWidths" />
+          </AssociationSet>
+          <EntitySet Name="StyleCostingMasters" EntityType="ArtModel.StyleCostingMaster" />
+          <EntitySet Name="StyleCostingDetails" EntityType="ArtModel.StyleCostingDetail" />
+          <AssociationSet Name="FK_StyleCostingDetails_SkuRawMaterialMaster" Association="ArtModel.FK_StyleCostingDetails_SkuRawMaterialMaster">
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMasters" />
+            <End Role="StyleCostingDetail" EntitySet="StyleCostingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StyleCostingDetails_StyleCostingDetails" Association="ArtModel.FK_StyleCostingDetails_StyleCostingDetails">
+            <End Role="StyleCostingMaster" EntitySet="StyleCostingMasters" />
+            <End Role="StyleCostingDetail" EntitySet="StyleCostingDetails" />
+          </AssociationSet>
+          <EntitySet Name="AtcMasters" EntityType="ArtModel.AtcMaster" />
+          <AssociationSet Name="FK_AtcMaster_AtcMaster" Association="ArtModel.FK_AtcMaster_AtcMaster">
+            <End Role="BuyerMaster" EntitySet="BuyerMasters" />
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtcRawMaterialMaster_tbl_AtcMaster" Association="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PoPackMaster_AtcMaster" Association="ArtModel.FK_PoPackMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="PoPackMaster" EntitySet="PoPackMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkuMaster_tbl_SkuMaster_tbl" Association="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMasters" />
+          </AssociationSet>
+          <EntitySet Name="SkuRawmaterialDetails" EntityType="ArtModel.SkuRawmaterialDetail" />
+          <AssociationSet Name="FK_SkuRawmaterialDetail_SkuRawMaterialMaster" Association="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster">
+            <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMasters" />
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
+          </AssociationSet>
+          <EntitySet Name="AtcDetails" EntityType="ArtModel.AtcDetail" />
+          <AssociationSet Name="FK_AtcDetails_AtcMaster" Association="ArtModel.FK_AtcDetails_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_AtcDetails" Association="ArtModel.FK_POPackDetails_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StyleCostingMaster_AtcDetails" Association="ArtModel.FK_StyleCostingMaster_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="StyleCostingMaster" EntitySet="StyleCostingMasters" />
+          </AssociationSet>
+          </EntityContainer>
+        <Association Name="FK_Template_Master_ItemGroupMaster">
+          <End Type="ArtModel.ItemGroupMaster" Role="ItemGroupMaster" Multiplicity="1" />
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGroupMaster">
+              <PropertyRef Name="ItemGroupID" />
+            </Principal>
+            <Dependent Role="Template_Master">
+              <PropertyRef Name="ItemGroup_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Master_UOMMaster">
+          <End Type="ArtModel.UOMMaster" Role="UOMMaster" Multiplicity="1" />
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="Template_Master">
+              <PropertyRef Name="Uom_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TemplateComposition">
+          <Key>
+            <PropertyRef Name="TemplateCom_Pk" />
+          </Key>
+          <Property Name="TemplateCom_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Composition" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_TemplateComposition_Template_Master" FromRole="TemplateComposition" ToRole="Template_Master" />
+        </EntityType>
+        <EntityType Name="TemplateConstruction">
+          <Key>
+            <PropertyRef Name="TemplateCon_Pk" />
+          </Key>
+          <Property Name="TemplateCon_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Construct" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_TemplateConstruction_Template_Master" FromRole="TemplateConstruction" ToRole="Template_Master" />
+        </EntityType>
+        <Association Name="FK_TemplateComposition_Template_Master">
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="0..1" />
+          <End Type="ArtModel.TemplateComposition" Role="TemplateComposition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateComposition">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateConstruction_Template_Master">
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="0..1" />
+          <End Type="ArtModel.TemplateConstruction" Role="TemplateConstruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateConstruction">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TemplateWeight">
+          <Key>
+            <PropertyRef Name="TemplateWeight_Pk" />
+          </Key>
+          <Property Name="TemplateWeight_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Weight" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_TemplateWeight_Template_Master" FromRole="TemplateWeight" ToRole="Template_Master" />
+        </EntityType>
+        <EntityType Name="TemplateWidth">
+          <Key>
+            <PropertyRef Name="TemplateWidth_Pk" />
+          </Key>
+          <Property Name="TemplateWidth_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Width" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_TemplateWidth_Template_Master" FromRole="TemplateWidth" ToRole="Template_Master" />
+        </EntityType>
+        <Association Name="FK_TemplateWeight_Template_Master">
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="0..1" />
+          <End Type="ArtModel.TemplateWeight" Role="TemplateWeight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateWeight">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateWidth_Template_Master">
+          <End Type="ArtModel.Template_Master" Role="Template_Master" Multiplicity="0..1" />
+          <End Type="ArtModel.TemplateWidth" Role="TemplateWidth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Master">
+              <PropertyRef Name="Template_PK" />
+            </Principal>
+            <Dependent Role="TemplateWidth">
+              <PropertyRef Name="Template_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StyleCostingMaster">
+          <Key>
+            <PropertyRef Name="Costing_PK" />
+          </Key>
+          <Property Name="Costing_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedBy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="CostingCount" Type="Decimal" Precision="5" Scale="0" />
+          <NavigationProperty Name="StyleCostingDetails" Relationship="ArtModel.FK_StyleCostingDetails_StyleCostingDetails" FromRole="StyleCostingMaster" ToRole="StyleCostingDetail" />
+          <Property Name="IsApplicable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_StyleCostingMaster_AtcDetails" FromRole="StyleCostingMaster" ToRole="AtcDetail" />
+        </EntityType>
+        <EntityType Name="StyleCostingDetail">
+          <Key>
+            <PropertyRef Name="CostingDetail_PK" />
+          </Key>
+          <Property Name="CostingDetail_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Costing_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Sku_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Consumption" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="IsRequired" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SkuRawMaterialMaster" Relationship="ArtModel.FK_StyleCostingDetails_SkuRawMaterialMaster" FromRole="StyleCostingDetail" ToRole="SkuRawMaterialMaster" />
+          <NavigationProperty Name="StyleCostingMaster" Relationship="ArtModel.FK_StyleCostingDetails_StyleCostingDetails" FromRole="StyleCostingDetail" ToRole="StyleCostingMaster" />
+        </EntityType>
+        <Association Name="FK_StyleCostingDetails_SkuRawMaterialMaster">
+          <End Type="ArtModel.SkuRawMaterialMaster" Role="SkuRawMaterialMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.StyleCostingDetail" Role="StyleCostingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Sku_Pk" />
+            </Principal>
+            <Dependent Role="StyleCostingDetail">
+              <PropertyRef Name="Sku_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StyleCostingDetails_StyleCostingDetails">
+          <End Type="ArtModel.StyleCostingMaster" Role="StyleCostingMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.StyleCostingDetail" Role="StyleCostingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StyleCostingMaster">
+              <PropertyRef Name="Costing_PK" />
+            </Principal>
+            <Dependent Role="StyleCostingDetail">
+              <PropertyRef Name="Costing_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AtcMaster">
+          <Key>
+            <PropertyRef Name="AtcId" />
+          </Key>
+          <Property Name="AtcId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcNum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Buyer_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Country_ID" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="MerchandiserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoofStyles" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="HouseDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="BuyerMaster" Relationship="ArtModel.FK_AtcMaster_AtcMaster" FromRole="AtcMaster" ToRole="BuyerMaster" />
+          <NavigationProperty Name="AtcRawMaterialMasters" Relationship="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" FromRole="AtcMaster" ToRole="AtcRawMaterialMaster" />
+          <NavigationProperty Name="PoPackMasters" Relationship="ArtModel.FK_PoPackMaster_AtcMaster" FromRole="AtcMaster" ToRole="PoPackMaster" />
+          <NavigationProperty Name="SkuRawMaterialMasters" Relationship="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl" FromRole="AtcMaster" ToRole="SkuRawMaterialMaster" />
+          <NavigationProperty Name="AtcDetails" Relationship="ArtModel.FK_AtcDetails_AtcMaster" FromRole="AtcMaster" ToRole="AtcDetail" />
+        </EntityType>
+        <Association Name="FK_AtcMaster_AtcMaster">
+          <End Type="ArtModel.BuyerMaster" Role="BuyerMaster" Multiplicity="1" />
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuyerMaster">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="AtcMaster">
+              <PropertyRef Name="Buyer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtcRawMaterialMaster_tbl_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.AtcRawMaterialMaster" Role="AtcRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="AtcRawMaterialMaster">
+              <PropertyRef Name="Atc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PoPackMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.PoPackMaster" Role="PoPackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="PoPackMaster">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkuMaster_tbl_SkuMaster_tbl">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SkuRawMaterialMaster" Role="SkuRawMaterialMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Atc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SkuRawmaterialDetail">
+          <Key>
+            <PropertyRef Name="SkuDet_PK" />
+          </Key>
+          <Property Name="SkuDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sku_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SkuDet_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorCode" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SupplierColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ItemSize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SupplierSize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UnitRate" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="RqdQty" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SkuRawMaterialMaster" Relationship="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster" FromRole="SkuRawmaterialDetail" ToRole="SkuRawMaterialMaster" />
+        </EntityType>
+        <Association Name="FK_SkuRawmaterialDetail_SkuRawMaterialMaster">
+          <End Type="ArtModel.SkuRawMaterialMaster" Role="SkuRawMaterialMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawMaterialMaster">
+              <PropertyRef Name="Sku_Pk" />
+            </Principal>
+            <Dependent Role="SkuRawmaterialDetail">
+              <PropertyRef Name="Sku_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AtcDetail">
+          <Key>
+            <PropertyRef Name="OurStyleID" />
+          </Key>
+          <Property Name="OurStyleID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="OurStyle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FOB" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_AtcDetails_AtcMaster" FromRole="AtcDetail" ToRole="AtcMaster" />
+          <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="AtcDetail" ToRole="POPackDetail" />
+          <NavigationProperty Name="StyleCostingMasters" Relationship="ArtModel.FK_StyleCostingMaster_AtcDetails" FromRole="AtcDetail" ToRole="StyleCostingMaster" />
+        </EntityType>
+        <Association Name="FK_AtcDetails_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="1" />
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="AtcDetail">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="POPackDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StyleCostingMaster_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.StyleCostingMaster" Role="StyleCostingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="StyleCostingMaster">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArtModelStoreContainer" CdmEntityContainer="ArtEntitiesnew">
+          <EntitySetMapping Name="AtcRawMaterialMasters">
+            <EntityTypeMapping TypeName="ArtModel.AtcRawMaterialMaster">
+              <MappingFragment StoreEntitySet="AtcRawMaterialMaster">
+                <ScalarProperty Name="AtcRaw_PK" ColumnName="AtcRaw_PK" />
+                <ScalarProperty Name="Template_PK" ColumnName="Template_PK" />
+                <ScalarProperty Name="Atc_id" ColumnName="Atc_id" />
+                <ScalarProperty Name="TempCode" ColumnName="TempCode" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="TemplateCount" ColumnName="TemplateCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuyerMasters">
+            <EntityTypeMapping TypeName="ArtModel.BuyerMaster">
+              <MappingFragment StoreEntitySet="BuyerMaster">
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+                <ScalarProperty Name="PaymentModeCode" ColumnName="PaymentModeCode" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Agent" ColumnName="Agent" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="Debitaccid" ColumnName="Debitaccid" />
+                <ScalarProperty Name="Br" ColumnName="Br" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ColorMasters">
+            <EntityTypeMapping TypeName="ArtModel.ColorMaster">
+              <MappingFragment StoreEntitySet="ColorMaster">
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountryMasters">
+            <EntityTypeMapping TypeName="ArtModel.CountryMaster">
+              <MappingFragment StoreEntitySet="CountryMaster">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FactoryStores" ColumnName="FactoryStores" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrencyMasters">
+            <EntityTypeMapping TypeName="ArtModel.CurrencyMaster">
+              <MappingFragment StoreEntitySet="CurrencyMaster">
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+                <ScalarProperty Name="CurrencyName" ColumnName="CurrencyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarmentCategories">
+            <EntityTypeMapping TypeName="ArtModel.GarmentCategory">
+              <MappingFragment StoreEntitySet="GarmentCategory">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemGroupMasters">
+            <EntityTypeMapping TypeName="ArtModel.ItemGroupMaster">
+              <MappingFragment StoreEntitySet="ItemGroupMaster">
+                <ScalarProperty Name="ItemGroupID" ColumnName="ItemGroupID" />
+                <ScalarProperty Name="ItemGroupName" ColumnName="ItemGroupName" />
+                <ScalarProperty Name="ItemGroupDescription" ColumnName="ItemGroupDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentModeMasters">
+            <EntityTypeMapping TypeName="ArtModel.PaymentModeMaster">
+              <MappingFragment StoreEntitySet="PaymentModeMaster">
+                <ScalarProperty Name="PaymentModeID" ColumnName="PaymentModeID" />
+                <ScalarProperty Name="PaymentModeCode" ColumnName="PaymentModeCode" />
+                <ScalarProperty Name="PaymentModeDescription" ColumnName="PaymentModeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTermMasters">
+            <EntityTypeMapping TypeName="ArtModel.PaymentTermMaster">
+              <MappingFragment StoreEntitySet="PaymentTermMaster">
+                <ScalarProperty Name="PaymentTermID" ColumnName="PaymentTermID" />
+                <ScalarProperty Name="PaymentTermCode" ColumnName="PaymentTermCode" />
+                <ScalarProperty Name="PaymentCodeDescription" ColumnName="PaymentCodeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POPackDetails">
+            <EntityTypeMapping TypeName="ArtModel.POPackDetail">
+              <MappingFragment StoreEntitySet="POPackDetails">
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="SIzeCode" ColumnName="SIzeCode" />
+                <ScalarProperty Name="PoQty" ColumnName="PoQty" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoPackMasters">
+            <EntityTypeMapping TypeName="ArtModel.PoPackMaster">
+              <MappingFragment StoreEntitySet="PoPackMaster">
+                <ScalarProperty Name="PoPackId" ColumnName="PoPackId" />
+                <ScalarProperty Name="PoPacknum" ColumnName="PoPacknum" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="BuyerPO" ColumnName="BuyerPO" />
+                <ScalarProperty Name="PackingInstruction" ColumnName="PackingInstruction" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SizeMasters">
+            <EntityTypeMapping TypeName="ArtModel.SizeMaster">
+              <MappingFragment StoreEntitySet="SizeMaster">
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="SizeCode" ColumnName="SizeCode" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkuRawMaterialMasters">
+            <EntityTypeMapping TypeName="ArtModel.SkuRawMaterialMaster">
+              <MappingFragment StoreEntitySet="SkuRawMaterialMaster">
+                <ScalarProperty Name="Sku_Pk" ColumnName="Sku_Pk" />
+                <ScalarProperty Name="Atc_id" ColumnName="Atc_id" />
+                <ScalarProperty Name="AtcRaw_PK" ColumnName="AtcRaw_PK" />
+                <ScalarProperty Name="Template_pk" ColumnName="Template_pk" />
+                <ScalarProperty Name="RMNum" ColumnName="RMNum" />
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
+                <ScalarProperty Name="Construction" ColumnName="Construction" />
+                <ScalarProperty Name="OrderMulti" ColumnName="OrderMulti" />
+                <ScalarProperty Name="OrderMin" ColumnName="OrderMin" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="AltUOM_pk" ColumnName="AltUOM_pk" />
+                <ScalarProperty Name="isCommon" ColumnName="isCommon" />
+                <ScalarProperty Name="IsCD" ColumnName="IsCD" />
+                <ScalarProperty Name="IsSD" ColumnName="IsSD" />
+                <ScalarProperty Name="Currency_pk" ColumnName="Currency_pk" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StyleColors">
+            <EntityTypeMapping TypeName="ArtModel.StyleColor">
+              <MappingFragment StoreEntitySet="StyleColor">
+                <ScalarProperty Name="StyleColorid" ColumnName="StyleColorid" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="GarmentColorCode" ColumnName="GarmentColorCode" />
+                <ScalarProperty Name="GarmentColor" ColumnName="GarmentColor" />
+                <ScalarProperty Name="OurStyle" ColumnName="OurStyle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StyleSizes">
+            <EntityTypeMapping TypeName="ArtModel.StyleSize">
+              <MappingFragment StoreEntitySet="StyleSize">
+                <ScalarProperty Name="StyleSizeID" ColumnName="StyleSizeID" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="OurStyle" ColumnName="OurStyle" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="SizeCode" ColumnName="SizeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ArtModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Template_Master">
+            <EntityTypeMapping TypeName="ArtModel.Template_Master">
+              <MappingFragment StoreEntitySet="Template_Master">
+                <ScalarProperty Name="Template_PK" ColumnName="Template_PK" />
+                <ScalarProperty Name="TemplateCode" ColumnName="TemplateCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ItemGroup_PK" ColumnName="ItemGroup_PK" />
+                <ScalarProperty Name="HCCode" ColumnName="HCCode" />
+                <ScalarProperty Name="Uom_PK" ColumnName="Uom_PK" />
+                <ScalarProperty Name="Wastage" ColumnName="Wastage" />
+                <ScalarProperty Name="IsItemColor" ColumnName="IsItemColor" />
+                <ScalarProperty Name="IsItemSize" ColumnName="IsItemSize" />
+                <ScalarProperty Name="IsStock" ColumnName="IsStock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UOMMasters">
+            <EntityTypeMapping TypeName="ArtModel.UOMMaster">
+              <MappingFragment StoreEntitySet="UOMMaster">
+                <ScalarProperty Name="Uom_PK" ColumnName="Uom_PK" />
+                <ScalarProperty Name="UomCode" ColumnName="UomCode" />
+                <ScalarProperty Name="UomName" ColumnName="UomName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateCompositions">
+            <EntityTypeMapping TypeName="ArtModel.TemplateComposition">
+              <MappingFragment StoreEntitySet="TemplateComposition">
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
+                <ScalarProperty Name="Template_Pk" ColumnName="Template_Pk" />
+                <ScalarProperty Name="TemplateCom_Pk" ColumnName="TemplateCom_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateConstructions">
+            <EntityTypeMapping TypeName="ArtModel.TemplateConstruction">
+              <MappingFragment StoreEntitySet="TemplateConstruction">
+                <ScalarProperty Name="Construct" ColumnName="Construct" />
+                <ScalarProperty Name="Template_Pk" ColumnName="Template_Pk" />
+                <ScalarProperty Name="TemplateCon_Pk" ColumnName="TemplateCon_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateWeights">
+            <EntityTypeMapping TypeName="ArtModel.TemplateWeight">
+              <MappingFragment StoreEntitySet="TemplateWeight">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Template_Pk" ColumnName="Template_Pk" />
+                <ScalarProperty Name="TemplateWeight_Pk" ColumnName="TemplateWeight_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateWidths">
+            <EntityTypeMapping TypeName="ArtModel.TemplateWidth">
+              <MappingFragment StoreEntitySet="TemplateWidth">
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Template_Pk" ColumnName="Template_Pk" />
+                <ScalarProperty Name="TemplateWidth_Pk" ColumnName="TemplateWidth_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StyleCostingMasters">
+            <EntityTypeMapping TypeName="ArtModel.StyleCostingMaster">
+              <MappingFragment StoreEntitySet="StyleCostingMaster">
+                <ScalarProperty Name="IsApplicable" ColumnName="IsApplicable" />
+                <ScalarProperty Name="CostingCount" ColumnName="CostingCount" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="Costing_PK" ColumnName="Costing_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StyleCostingDetails">
+            <EntityTypeMapping TypeName="ArtModel.StyleCostingDetail">
+              <MappingFragment StoreEntitySet="StyleCostingDetails">
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Consumption" ColumnName="Consumption" />
+                <ScalarProperty Name="Sku_PK" ColumnName="Sku_PK" />
+                <ScalarProperty Name="Costing_PK" ColumnName="Costing_PK" />
+                <ScalarProperty Name="CostingDetail_PK" ColumnName="CostingDetail_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtcMasters">
+            <EntityTypeMapping TypeName="ArtModel.AtcMaster">
+              <MappingFragment StoreEntitySet="AtcMaster">
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="HouseDate" ColumnName="HouseDate" />
+                <ScalarProperty Name="NoofStyles" ColumnName="NoofStyles" />
+                <ScalarProperty Name="MerchandiserName" ColumnName="MerchandiserName" />
+                <ScalarProperty Name="Country_ID" ColumnName="Country_ID" />
+                <ScalarProperty Name="Buyer_ID" ColumnName="Buyer_ID" />
+                <ScalarProperty Name="AtcNum" ColumnName="AtcNum" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkuRawmaterialDetails">
+            <EntityTypeMapping TypeName="ArtModel.SkuRawmaterialDetail">
+              <MappingFragment StoreEntitySet="SkuRawmaterialDetail">
+                <ScalarProperty Name="RqdQty" ColumnName="RqdQty" />
+                <ScalarProperty Name="UnitRate" ColumnName="UnitRate" />
+                <ScalarProperty Name="SupplierSize" ColumnName="SupplierSize" />
+                <ScalarProperty Name="ItemSize" ColumnName="ItemSize" />
+                <ScalarProperty Name="SupplierColor" ColumnName="SupplierColor" />
+                <ScalarProperty Name="ItemColor" ColumnName="ItemColor" />
+                <ScalarProperty Name="SizeCode" ColumnName="SizeCode" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="SkuDet_id" ColumnName="SkuDet_id" />
+                <ScalarProperty Name="Sku_PK" ColumnName="Sku_PK" />
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtcDetails">
+            <EntityTypeMapping TypeName="ArtModel.AtcDetail">
+              <MappingFragment StoreEntitySet="AtcDetails">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="FOB" ColumnName="FOB" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BuyerStyle" ColumnName="BuyerStyle" />
+                <ScalarProperty Name="OurStyle" ColumnName="OurStyle" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

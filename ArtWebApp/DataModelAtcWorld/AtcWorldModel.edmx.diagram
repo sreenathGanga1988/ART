@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="11a350ffee1248daa8a59c565414fcb9" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="AtcModelModel.ASQAllocationMaster_tbl" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AtcModelModel.LocationMaster_tbl" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AtcModelModel.PackingListMasterAtcPro" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AtcModelModel.ASQShuffleDetailsAtc" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AtcModelModel.ASQShuffleMasterAtc" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AtcModelModel.PackingListDetailsAtc" Width="1.5" PointX="7.375" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

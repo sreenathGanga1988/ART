@@ -1,0 +1,141 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="StyleCosting.aspx.cs" Inherits="ArtWebApp.Merchandiser.StyleCosting" %>
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+    .auto-style1 {
+        width: 100%;
+    }
+    .auto-style2 {
+        width: 48px;
+        height: 23px;
+    }
+    .auto-style4 {
+        width: 149px;
+        height: 23px;
+    }
+    .auto-style5 {
+        height: 23px;
+    }
+    .auto-style6 {
+        height: 23px;
+        width: 119px;
+    }
+</style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <table class="auto-style1">
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="auto-style1">
+                <tr>
+                    <td class="auto-style2">&nbsp;</td>
+                    <td class="auto-style5">
+                        <asp:SqlDataSource ID="AtcSource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT AtcId, AtcNum, IsClosed FROM AtcMaster WHERE (IsClosed = N'N')"></asp:SqlDataSource>
+                        <asp:HiddenField ID="hdf_atcid" runat="server" />
+                    </td>
+                    <td class="auto-style5">
+                        &nbsp;</td>
+                    <td class="auto-style6">
+                        <asp:SqlDataSource ID="ourstylesource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [OurStyleID], [OurStyle] FROM [AtcDetails] WHERE ([AtcId] = @AtcId)">
+                            <SelectParameters>
+                                <asp:ControlParameter ControlID="hdf_atcid" DefaultValue="0" Name="AtcId" PropertyName="Value" Type="Decimal" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+                    </td>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style2">Atc # :</td>
+                    <td class="auto-style5">
+                        <ig:WebDropDown ID="ddl_atc" runat="server" AutoPostBack="True" DataSourceID="AtcSource" TextField="Atcnum" ValueField="AtcId" Width="176px" Height="18px" OnSelectionChanged="WebDropDown1_SelectionChanged">
+                            <DropDownItemBinding TextField="Atcnum" ValueField="AtcId" />
+                        </ig:WebDropDown>
+                    </td>
+                    <td class="auto-style5">OurStyle # :</td>
+                    <td class="auto-style6">
+                        <ig:WebDropDown ID="ddl_ourstyle" runat="server" DataSourceID="ourstylesource" TextField="OurStyle" ValueField="OurstyleId" Width="184px" AutoPostBack="True" Height="26px" OnSelectionChanged="ddl_ourstyle_SelectionChanged">
+                            <DropDownItemBinding TextField="OurStyle" ValueField="OurstyleId" />
+                        </ig:WebDropDown>
+                    </td>
+                    <td>
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="s" />
+                    </td>
+                    <td class="auto-style4">Style Qty :</td>
+                    <td class="auto-style5">
+                        <asp:Label ID="lbl_styleqty" runat="server" Text="0" Height="0px"></asp:Label>
+                    </td>
+                    <td class="auto-style5">Fob/Pc :</td>
+                    <td class="auto-style5">
+                        <asp:Label ID="lbl_stylefob" runat="server" Text="0"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:GridView ID="tbl_costing" runat="server" AutoGenerateColumns="False" OnRowDataBound="tbl_costing_RowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None">
+                <AlternatingRowStyle BackColor="White" />
+                <Columns>
+                    <asp:TemplateField HeaderText="Sku_Pk" SortExpression="Sku_Pk">
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_sku" runat="server" Text='<%# Bind("Sku_Pk") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="IsRequired" SortExpression="IsRequired">
+                       
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_isrequired"  Visible="false"  runat="server" Text='<%# Bind("IsRequired") %>' Height="0"></asp:Label>
+                            <br />
+                            <asp:CheckBox ID="chk_isrequired" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="RMNum" HeaderText="RMNum" ReadOnly="True" SortExpression="RMNum" />
+                    <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
+                    <asp:BoundField DataField="Construction" HeaderText="Construction" ReadOnly="True" SortExpression="Construction" />
+                    <asp:BoundField DataField="Weight" HeaderText="Weight" ReadOnly="True" SortExpression="Weight" />
+                    <asp:BoundField DataField="Width" HeaderText="Width" ReadOnly="True" SortExpression="Width" />
+                    <asp:BoundField DataField="RATE" HeaderText="RATE" ReadOnly="True" SortExpression="RATE" />
+                    <asp:TemplateField HeaderText="Consumption" SortExpression="Consumption">
+                      
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_consumption" Visible="false" runat="server" Text='<%# Bind("Consumption") %>'></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txt_consumption" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txt_consumption" ErrorMessage="RequiredFieldValidator" ForeColor="#CC3300">*</asp:RequiredFieldValidator>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+                <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                <SortedDescendingHeaderStyle BackColor="#820000" />
+            </asp:GridView>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div >
+                <asp:Button ID="Button2" runat="server" Text="Create Costing" OnClick="Button2_Click" />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+</asp:Content>

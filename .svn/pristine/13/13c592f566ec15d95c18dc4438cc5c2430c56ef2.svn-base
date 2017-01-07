@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using ArtWebApp.DataModels;
+public partial class Masters_ItemMaster : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        String navtype = Request.QueryString["navtype"];
+
+        string v = Request.QueryString["navtype"];
+        if (navtype == "Item Group")
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else if (navtype == "Item Group")
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else if (navtype == "Item Color")
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else if (navtype == "Item Size")
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
+        else if (navtype == "Item Master")
+        {
+            MultiView1.ActiveViewIndex = 1;
+        }
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        {
+            Template_Master tmpmstr = new Template_Master();
+            tmpmstr.TemplateCode = txt_itemcode.Text.Trim();
+            tmpmstr.Description = txt_itemname.Text.Trim();
+            tmpmstr.ItemGroup_PK = int.Parse(cmb_itemgroup.SelectedValue.ToString());
+            tmpmstr.HCCode = txt_hscode.Text.Trim();
+            tmpmstr.Wastage = int.Parse ( txt_wastage.Text.Trim());
+            tmpmstr.Uom_PK = int.Parse(cmb_uom.SelectedValue.ToString());
+            enty.Template_Master.Add(tmpmstr);
+
+            enty.SaveChanges();
+        }
+    }
+}

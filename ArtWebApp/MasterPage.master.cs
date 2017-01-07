@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class MasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void WebDataMenu1_ItemClick(object sender, Infragistics.Web.UI.NavigationControls.DataMenuItemEventArgs e)
+    {
+
+
+        if(e.Item.Value=="Master")
+        {
+            WebExplorerBar1.Groups[0].Visible =true;
+        }
+        else if(e.Item.Value=="Merchandising")
+        {
+             WebExplorerBar1.Groups[1].Visible =true;
+        }
+         else if(e.Item.Value=="Inventory")
+        {
+              WebExplorerBar1.Groups[2].Visible =true;
+        }
+         else if(e.Item.Value=="Production")
+        {
+              WebExplorerBar1.Groups[3].Visible =true;
+        }
+
+              else if(e.Item.Value=="Accounts")
+        {
+ WebExplorerBar1.Groups[4].Visible =true;
+        }
+              else if(e.Item.Value=="Reports")
+        {
+ WebExplorerBar1.Groups[5].Visible =true;
+        }
+              else if(e.Item.Value=="Administrator")
+        {
+                   WebExplorerBar1.Groups[6].Visible =true;
+        }
+        }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        FormsAuthentication.SignOut();
+        Response.Redirect("Login.aspx");
+    }
+      
+
+      
+    
+}

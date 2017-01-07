@@ -1,0 +1,221 @@
+@import url('style.css');
+.RedHeadding {
+    color: #FFFFFF;
+    text-align: center;
+    background-color: #780202;
+   font-weight: bold;
+    font-family: Calibri;
+    font-size: large;
+    height: 22px;
+    width: 191px;
+    text-align:center;
+}
+.RedHeaddingdIV {
+    color: #FFFFFF;
+    text-align: center;
+    background-color: #780202;
+   font-weight: bold;
+    font-family: Calibri;
+    font-size: large;
+    height: 22px;
+    width: 100%;
+    text-align:center;
+}
+.SUBRedHeadding {
+    color: #FFFFFF;
+    text-align: center;
+    background-color: #780202;
+   font-weight: bold;
+    font-family: Calibri;
+    font-size: medium;
+    height: 22px;
+    width: 191px;
+    text-align:center;
+}
+.FullTable {
+   
+    text-align: center;
+  
+   font-weight: bold;
+    font-family: Calibri;
+    font-size: large;
+    height: 100%;
+    width: 100%;
+    text-align:center;
+    text-transform: uppercase;
+}
+.gridtable {  
+   
+  
+   font-weight:normal;
+    font-family: Calibri;
+    font-size: small;
+    height: 100%;
+    width: 100%;
+    text-align:left;
+    text-transform: uppercase;
+}
+.smallgridtable {  
+   
+  
+   font-weight:100;
+    font-family: Calibri;
+    font-size: 6px;
+    height: 100%;
+    width: 100%;
+    text-align:left;
+    text-transform: uppercase;
+}
+
+  .hidden {
+            display: none;
+        }
+
+  .SmallSearchButton
+  {
+       height: inherit;
+    width: 100%;
+     text-align: center;
+     align-content:center;
+      background-color: #dfedbd;
+    text-transform: uppercase;
+  }
+
+  .DataEntryTable {
+   
+    text-align: left;
+  
+   font-weight:normal;
+    font-family: Calibri;
+    font-size: medium;
+    height: 100%;
+    width: 100%;
+    text-align:left;
+    background-color: #f3f2e5;
+    text-transform: uppercase;
+}
+
+      .Textboxtd {
+            width: 90px;
+        }
+        .ButtonTD {
+              width: 55px;
+        }
+      
+ 
+
+
+  .info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+
+
+
+
+ .error-message {
+    background: #ecc6c6 ;
+    background-color:orangered;
+     background-image:url('../Image/warning.png');
+}
+ .success {
+color: #4F8A10;
+background-color: #DFF2BF;
+background-image:url('../Image/tick.jpg');
+}
+   .NormalTD {
+          height: 27px;
+          width:200px;
+          }
+
+
+   .SearchButtonTD{
+        height: 27px;
+          width:25px;
+   }
+  .IntegerTextbox{
+    width:50px;
+    Width:50px;
+   
+}
+   
+   .ButtonTR {
+          background-color:#bdd484;
+        }
+
+
+    .ReportViewSection{
+   
+    text-align: left;
+  
+    height: 100%;
+    width: 100%;
+    text-align:left;
+    background-image: none ;
+    background-color:white;
+    text-transform: uppercase;
+}
+
+.Headerdiv{
+    background-color:red;
+   text-align:center;
+   padding:10px;
+   color:#fff;
+}
+.test-class{
+    background-color:#4F8A10;
+    width:100px;
+    height:30px;
+}
+   
+   
+.coldiv{
+   width:200px;
+   float:left;
+   margin:15px
+}
+
+
+.SearchButton
+{
+	color: #fff;
+	background-color:#2ecc71;
+	height: 23px;
+	width: 50px;
+	padding:10px;
+	border:none 0px transparent;
+	font-size: 20px;
+	font-weight: lighter;
+	
+	-moz-border-radius:  2px 16px 16px 16px;
+	border-radius:  2px 16px 16px 16px;
+}
+.SearchButton:hover
+{
+	background-color: #e74c3c;
+	border:solid 1px #fff;
+}
+.SearchButton:focus
+{
+	color: #383838;
+	background-color: #fff;
+	border:solid 3px rgba(98,176,255,0.3);
+}
+
+.dynamicentrytable
+{
+    width:400px;
+  border: solid 1px black;
+    text-align: center;
+    background-color:#bdd484;
+}
+.Widthclass
+{
+  width:20px;
+    text-align: center;
+    background-color:brown;
+    height:20px
+}

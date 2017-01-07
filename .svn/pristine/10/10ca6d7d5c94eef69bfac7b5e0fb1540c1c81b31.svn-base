@@ -1,0 +1,240 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Merchandiser_AtcCreation" Codebehind="AtcCreation.aspx.cs" %>
+
+<%@ Register assembly="Infragistics4.WebUI.Misc.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.WebUI.Misc" tagprefix="igmisc" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.GridControls" tagprefix="ig" %>
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.EditorControls" tagprefix="ig" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            width: 23%;
+        }
+    </style>
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+
+
+    <div>
+          <table class="auto-style1">
+    <tr>
+        <td class="auto-style11"></td>
+        <td class="auto-style2"></td>
+        <td class="auto-style13"></td>
+        <td class="auto-style14"></td>
+        <td class="auto-style14"></td>
+        <td class="auto-style14"></td>
+    </tr>
+               <tr>
+        <td class="auto-style2">&nbsp;</td>
+        <td class="auto-style2">
+           
+        </td>
+        <td class="auto-style9">&nbsp;</td>
+        <td>
+           
+        </td>
+        <td>Atc#</td>
+        <td>
+           
+            <asp:Label ID="lbl_atc" runat="server" Text=""></asp:Label>
+           
+            <asp:Label ID="lbl_atcid" runat="server" Visible="False"></asp:Label>
+           
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style2">Buyer/Dept :</td>
+        <td class="auto-style2">
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [BuyerName], [BuyerID] FROM [BuyerMaster] ORDER BY [BuyerName]"></asp:SqlDataSource>
+            
+            <ig:WebDropDown ID="cmb_Buyer" runat="server" DataSourceID="SqlDataSource1" Width="200px" CurrentValue="Select Buyer">
+                <DropDownItemBinding TextField="BuyerName" ValueField="BuyerID" />
+            </ig:WebDropDown><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="cmb_Buyer" EnableTheming="True" ErrorMessage="Buyer Required" ForeColor="#FF3300" InitialValue="Select Buyer">*</asp:RequiredFieldValidator>
+        </td>
+        <td class="auto-style9">Country :</td>
+        <td>
+            <ig:WebDropDown ID="cmb_country" runat="server" DataSourceID="SqlDataSource2" Width="200px" TextField="BuyerName" ValueField="BuyerID" CurrentValue="Select Country">
+                <DropDownItemBinding TextField="Description" ValueField="CountryID" />
+            </ig:WebDropDown>
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Description], [CountryID] FROM [CountryMaster]"></asp:SqlDataSource>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="cmb_country" EnableTheming="True" ErrorMessage="Buyer Required" ForeColor="#FF3300" InitialValue="Select Country">*</asp:RequiredFieldValidator>
+        </td>
+        <td>House Date :</td>
+        <td>
+            
+            <ig:WebDatePicker ID="dtp_housedate" runat="server">
+               
+            </ig:WebDatePicker>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="dtp_housedate" EnableTheming="True" ErrorMessage="Select HouseDate" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+        </td>
+    </tr>
+   
+    <tr>
+        <td class="auto-style3">No of Style Group : </td>
+        <td class="auto-style2">
+            <asp:TextBox ID="txt_stylenum" runat="server"></asp:TextBox>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txt_stylenum" ErrorMessage="Only Numbers Allowed" ForeColor="#FF3300" ValidationExpression="\d+">*</asp:RegularExpressionValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txt_stylenum" EnableTheming="True" ErrorMessage="Style No  Required" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+        </td>
+        <td class="auto-style10">Ship Start Date :</td>
+        <td class="auto-style4">
+            <ig:WebDatePicker ID="dtp_shipStartdate" runat="server">
+            </ig:WebDatePicker>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="dtp_shipStartdate" EnableTheming="True" ErrorMessage="Select Ship Date" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+        </td>
+        <td class="auto-style4">Finish Date : </td>
+        <td class="auto-style4">
+            <ig:WebDatePicker ID="dtp_finishdate" runat="server">
+
+            </ig:WebDatePicker>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="dtp_finishdate" EnableTheming="True" ErrorMessage="Select Finish Date" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style2">ShipIT Reference :</td>
+        <td class="auto-style2">
+            <asp:TextBox ID="txt_shipitrefernce" runat="server"></asp:TextBox>
+        </td>
+        <td class="auto-style9">Merchandiser</td>
+        <td>
+            <asp:TextBox ID="txt_merchandiser" runat="server"></asp:TextBox>
+        </td>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td class="auto-style2">
+            <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:CourierDetailsConnectionString %>" SelectCommand="SELECT DISTINCT [Style] FROM [OrderBooking_TBL ]"></asp:SqlDataSource>
+        </td>
+        <td class="auto-style2">&nbsp;</td>
+        <td class="auto-style9">&nbsp;</td>
+        <td rowspan="2">
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" Height="52px" Font-Italic="True" Font-Size="Small" />
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="auto-style2">&nbsp;</td>
+        <td class="auto-style2">&nbsp;</td>
+        <td class="auto-style9">
+            <asp:Button ID="Button1" runat="server" Text="Add " OnClick="Button1_Click" style="height: 26px; margin-bottom: 0px;" />
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+    </div>
+
+    <div>
+
+       
+                <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [AtcDetails] WHERE [OutStyleID] = @original_OutStyleID AND [AtcId] = @original_AtcId AND (([OurStyle] = @original_OurStyle) OR ([OurStyle] IS NULL AND @original_OurStyle IS NULL)) AND (([BuyerStyle] = @original_BuyerStyle) OR ([BuyerStyle] IS NULL AND @original_BuyerStyle IS NULL)) AND (([Quantity] = @original_Quantity) OR ([Quantity] IS NULL AND @original_Quantity IS NULL)) AND (([FOB] = @original_FOB) OR ([FOB] IS NULL AND @original_FOB IS NULL))" InsertCommand="INSERT INTO [AtcDetails] ([AtcId], [OurStyle], [BuyerStyle], [Quantity], [FOB]) VALUES (@AtcId, @OurStyle, @BuyerStyle, @Quantity, @FOB)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [AtcDetails] WHERE ([AtcId] = @AtcId)" UpdateCommand="UPDATE [AtcDetails] SET [AtcId] = @AtcId, [OurStyle] = @OurStyle, [BuyerStyle] = @BuyerStyle, [Quantity] = @Quantity, [FOB] = @FOB WHERE [OutStyleID] = @original_OutStyleID AND [AtcId] = @original_AtcId AND (([OurStyle] = @original_OurStyle) OR ([OurStyle] IS NULL AND @original_OurStyle IS NULL)) AND (([BuyerStyle] = @original_BuyerStyle) OR ([BuyerStyle] IS NULL AND @original_BuyerStyle IS NULL)) AND (([Quantity] = @original_Quantity) OR ([Quantity] IS NULL AND @original_Quantity IS NULL)) AND (([FOB] = @original_FOB) OR ([FOB] IS NULL AND @original_FOB IS NULL))">
+                    <DeleteParameters>
+                        <asp:Parameter Name="original_OutStyleID" Type="Decimal" />
+                        <asp:Parameter Name="original_AtcId" Type="Decimal" />
+                        <asp:Parameter Name="original_OurStyle" Type="String" />
+                        <asp:Parameter Name="original_BuyerStyle" Type="String" />
+                        <asp:Parameter Name="original_Quantity" Type="Decimal" />
+                        <asp:Parameter Name="original_FOB" Type="Decimal" />
+                    </DeleteParameters>
+                    <InsertParameters>
+                        <asp:Parameter Name="AtcId" Type="Decimal" />
+                        <asp:Parameter Name="OurStyle" Type="String" />
+                        <asp:Parameter Name="BuyerStyle" Type="String" />
+                        <asp:Parameter Name="Quantity" Type="Decimal" />
+                        <asp:Parameter Name="FOB" Type="Decimal" />
+                    </InsertParameters>
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="lbl_atcid" DefaultValue="" Name="AtcId" PropertyName="Text" Type="Decimal" />
+                    </SelectParameters>
+                    <UpdateParameters>
+                        <asp:Parameter Name="AtcId" Type="Decimal" />
+                        <asp:Parameter Name="OurStyle" Type="String" />
+                        <asp:Parameter Name="BuyerStyle" Type="String" />
+                        <asp:Parameter Name="Quantity" Type="Decimal" />
+                        <asp:Parameter Name="FOB" Type="Decimal" />
+                        <asp:Parameter Name="original_OutStyleID" Type="Decimal" />
+                        <asp:Parameter Name="original_AtcId" Type="Decimal" />
+                        <asp:Parameter Name="original_OurStyle" Type="String" />
+                        <asp:Parameter Name="original_BuyerStyle" Type="String" />
+                        <asp:Parameter Name="original_Quantity" Type="Decimal" />
+                        <asp:Parameter Name="original_FOB" Type="Decimal" />
+                    </UpdateParameters>
+                </asp:SqlDataSource>
+           
+
+                <br />
+
+       
+                <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [CategoryID], [CategoryName] FROM [GarmentCategory]">
+                </asp:SqlDataSource>
+           
+
+    </div>
+     <div>
+
+       
+
+         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" ShowHeaderWhenEmpty="True" OnRowDataBound="GridView1_RowDataBound">
+             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+             <Columns>
+                 <asp:BoundField DataField="OurStyleID" HeaderText="OurStyleID" />
+                 <asp:BoundField DataField="atcid" HeaderText="atcid" />
+                 <asp:BoundField DataField="Ourstyle" HeaderText="Ourstyle" />
+                 <asp:TemplateField HeaderText="BuyerStyle" SortExpression="BuyerStyle">
+                     <ItemTemplate>
+                         <asp:DropDownList ID="Mydrop" runat="server"  DataSourceID="BuyerStyle1" DataTextField="Style" DataValueField="Style"></asp:DropDownList>
+                     </ItemTemplate>                     
+                 </asp:TemplateField>
+                 <asp:TemplateField HeaderText="Qty" SortExpression="Qty">
+                    <ItemTemplate>
+                         <asp:TextBox ID="txtQty" runat="server" Text='<%# Bind("Qty") %>'></asp:TextBox>
+                     </ItemTemplate>
+                     <%--<ItemTemplate>
+                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("Qty") %>'></asp:Label>
+                     </ItemTemplate>--%>
+                 </asp:TemplateField>
+                 <asp:TemplateField HeaderText="FOB" SortExpression="Fob">
+                      <ItemTemplate>
+                         <asp:TextBox ID="txtfob" Text='<%# Bind("Fob") %>' runat="server"></asp:TextBox>
+                     </ItemTemplate>
+                 </asp:TemplateField>
+                 <asp:TemplateField HeaderText="Category">
+                     <ItemTemplate>
+                         <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource4" DataTextField="CategoryName" DataValueField="CategoryID">
+                         </asp:DropDownList>
+                     </ItemTemplate>
+                 </asp:TemplateField>
+             </Columns>
+             <EditRowStyle BackColor="#999999" />
+             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+             <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+             <SortedAscendingCellStyle BackColor="#E9E7E2" />
+             <SortedAscendingHeaderStyle BackColor="#506C8C" />
+             <SortedDescendingCellStyle BackColor="#FFFDF8" />
+             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+         </asp:GridView>
+
+       
+
+    </div>
+    <div>
+
+        <asp:Button ID="Btn_addetails" runat="server" OnClick="Button2_Click" Text="Save" />
+
+    </div>
+  
+</asp:Content>
+

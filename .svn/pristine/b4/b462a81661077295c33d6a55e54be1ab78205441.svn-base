@@ -1,0 +1,305 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Merchandiser_Styledetails" Codebehind="Styledetails.aspx.cs" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.LayoutControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.GridControls" tagprefix="ig1" %>
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.NavigationControls" tagprefix="ig2" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    .auto-style2 {
+        height: 23px;
+    }
+    .auto-style3 {
+        height: 31px;
+    }
+    .auto-style4 {
+        width: 131px;
+    }
+    .auto-style5 {
+        }
+    .auto-style6 {
+            width: 202px;
+        }
+
+
+.igdd_ControlArea
+{
+	border:solid 1px #BBBBBB;
+	table-layout: fixed;
+}
+
+
+.igdd_ValueDisplay
+{
+	background-color:Transparent;
+	font-weight:normal;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	width: 100%;
+}
+.igdd_DropDownButton
+{
+	width: 17px;
+	z-index: 9999;
+}
+
+.igdd_DropDownListContainer
+{
+	background-color:White;
+	border:solid 1px #BBBBBB;
+	float: left;
+}
+
+
+.igdd_DropDownList
+{
+	background-color:White;
+	font-size:10pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:1px;
+}
+
+
+        .auto-style7 {
+            width: 131px;
+            height: 27px;
+        }
+        .auto-style8 {
+            height: 27px;
+        width: 204px;
+    }
+        .auto-style9 {
+            width: 114px;
+            height: 56px;
+        }
+        .auto-style10 {
+            width: 202px;
+            height: 56px;
+        }
+        .auto-style11 {
+            height: 56px;
+        }
+        .auto-style12 {
+            height: 56px;
+            width: 3px;
+        }
+        .auto-style13 {
+            width: 3px;
+        }
+
+
+        .auto-style14 {
+            height: 56px;
+            width: 408px;
+        }
+        .auto-style15 {
+            width: 408px;
+        }
+        .auto-style16 {
+            height: 24px;
+        }
+        .auto-style17 {
+            width: 202px;
+            height: 24px;
+        }
+        .auto-style18 {
+            width: 3px;
+            height: 24px;
+        }
+        .auto-style19 {
+            width: 408px;
+            height: 24px;
+        }
+
+
+    .auto-style20 {
+        width: 204px;
+    }
+
+
+    </style>
+    <script type="text/javascript" id="igClientScript">
+
+ function load() {
+            var wdd = $find('<%=drp_ourstyle .ClientID %>');
+            wdd.get_selectedItems();
+        }
+
+</script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server" >
+    <table class="auto-style1">
+        <tr>
+            <td class="auto-style3">
+                &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT OurStyle, OurStyleID FROM AtcDetails WHERE (AtcId = @AtcId)">
+                    <SelectParameters>
+                        <asp:QueryStringParameter DefaultValue="0" Name="AtcId" QueryStringField="atcid" Type="Decimal" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [SizeCode], [SizeName] FROM [SizeMaster] ORDER BY [SizeCode]"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [ColorCode], [ColorName] FROM [ColorMaster]">
+                </asp:SqlDataSource>
+                        <asp:SqlDataSource ID="ColorDetailsData" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [StyleColor] WHERE [StyleColorid] = @original_StyleColorid AND (([AtcId] = @original_AtcId) OR ([AtcId] IS NULL AND @original_AtcId IS NULL)) AND (([OurStyleID] = @original_OurStyleID) OR ([OurStyleID] IS NULL AND @original_OurStyleID IS NULL)) AND (([GarmentColorCode] = @original_GarmentColorCode) OR ([GarmentColorCode] IS NULL AND @original_GarmentColorCode IS NULL)) AND (([GarmentColor] = @original_GarmentColor) OR ([GarmentColor] IS NULL AND @original_GarmentColor IS NULL)) AND (([OurStyle] = @original_OurStyle) OR ([OurStyle] IS NULL AND @original_OurStyle IS NULL))" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT StyleColorid, AtcId, OurStyleID, GarmentColorCode, GarmentColor, OurStyle FROM StyleColor WHERE (OurStyleID = @OurStyle) ORDER BY OurStyleID, GarmentColorCode">
+                            <DeleteParameters>
+                                <asp:Parameter Name="original_StyleColorid" Type="Decimal" />
+                                <asp:Parameter Name="original_AtcId" Type="Decimal" />
+                                <asp:Parameter Name="original_OurStyleID" Type="Decimal" />
+                                <asp:Parameter Name="original_GarmentColorCode" Type="String" />
+                                <asp:Parameter Name="original_GarmentColor" Type="String" />
+                                <asp:Parameter Name="original_OurStyle" Type="String" />
+                            </DeleteParameters>
+                            <SelectParameters>
+                                <asp:SessionParameter DefaultValue="0" Name="OurStyle" SessionField="ourstyleID" Type="String" />
+                            </SelectParameters>
+                </asp:SqlDataSource>
+                <asp:SqlDataSource ID="SizeDetails" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" DeleteCommand="DELETE FROM [StyleSize] WHERE [StyleSizeID] = @original_StyleSizeID AND (([OurStyle] = @original_OurStyle) OR ([OurStyle] IS NULL AND @original_OurStyle IS NULL)) AND (([SizeName] = @original_SizeName) OR ([SizeName] IS NULL AND @original_SizeName IS NULL)) AND (([SizeCode] = @original_SizeCode) OR ([SizeCode] IS NULL AND @original_SizeCode IS NULL))" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [OurStyle], [SizeName], [SizeCode], [StyleSizeID] FROM [StyleSize] WHERE ([OurStyleID] = @OurStyleID)">
+                    <DeleteParameters>
+                        <asp:Parameter Name="original_StyleSizeID" Type="Decimal" />
+                        <asp:Parameter Name="original_OurStyle" Type="String" />
+                        <asp:Parameter Name="original_SizeName" Type="String" />
+                        <asp:Parameter Name="original_SizeCode" Type="String" />
+                    </DeleteParameters>
+                    <SelectParameters>
+                        <asp:SessionParameter DefaultValue="0" Name="OurStyleID" SessionField="OurstyleId" Type="Decimal" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+                <table class="auto-style1">
+                    <tr>
+                        <td class="auto-style7">OurStyle :</td>
+                        <td class="auto-style8">
+                            <ig:webdropdown ID="drp_ourstyle" runat="server"  DataSourceID="SqlDataSource1" TextField="OurStyle" ValueField="OurStyleID" Width="200px" OnSelectionChanged="drp_ourstyle_SelectionChanged" CurrentValue="Select" >
+                                <dropdownitembinding textfield="OurStyle" valuefield="OurStyleID" />
+                              
+                                <ClientEvents DataBound="load" />
+                              
+                            </ig:webdropdown>
+                        </td>
+                        <td>
+                            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="S" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style4">&nbsp;</td>
+                        <td class="auto-style20">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <table class="auto-style1">
+                    <tr>
+                        <td class="auto-style9">New Size :</td>
+                        <td class="auto-style10">
+                            <ig:webdropdown ID="drp_size" runat="server" DataSourceID="SqlDataSource2" TextField="SizeName" ValueField="SizeCode" Width="200px" CurrentValue="Select Size" OnSelectionChanged="WebDropDown2_SelectionChanged" EnableMultipleSelection="True">
+                                <dropdownitembinding textfield="SizeName" valuefield="SizeCode" />
+                                
+                            </ig:webdropdown>
+                        </td>
+                        <td class="auto-style12">
+                            <asp:Button ID="Btn_addSize" runat="server" Text="Add Size" OnClick="Btn_addSize_Click"  />
+                        </td>
+                        <td class="auto-style11">&nbsp;</td>
+                        <td class="auto-style14">
+                            <asp:HiddenField ID="HiddenField1" runat="server" />
+                        </td>
+                        <td class="auto-style11"></td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style5">New Color :</td>
+                        <td class="auto-style6">
+                            <ig:webdropdown ID="drp_color" runat="server" Width="200px" DataSourceID="SqlDataSource3" TextField="ColorName" ValueField="ColorCode" CurrentValue="Select Color">
+                                <DropDownItemBinding TextField="ColorName" ValueField="ColorCode" />
+                            </ig:webdropdown>
+                        </td>
+                        <td class="auto-style13">
+                            <asp:Button ID="btn_AddColor" runat="server" Text="Add Color" OnClick="btn_AddColor_Click"  />
+                        </td>
+                        <td>&nbsp;</td>
+                        <td class="auto-style15">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style5">&nbsp;</td>
+                        <td class="auto-style6">
+                            &nbsp;</td>
+                        <td class="auto-style13">&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td class="auto-style15">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style16"></td>
+                        <td class="auto-style17">
+                            </td>
+                        <td class="auto-style18"></td>
+                        <td class="auto-style16"></td>
+                        <td class="auto-style19"></td>
+                        <td class="auto-style16"></td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style5" colspan="2" style="width: 30%">
+                            <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="StyleColorid" DataSourceID="ColorDetailsData">
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <Columns>
+                                    <asp:BoundField DataField="StyleColorid" HeaderText="StyleColorid" InsertVisible="False" ReadOnly="True" SortExpression="StyleColorid" Visible="False" />
+                                    <asp:BoundField DataField="AtcId" HeaderText="AtcId" SortExpression="AtcId" Visible="False" />
+                                    <asp:BoundField DataField="OurStyleID" HeaderText="OurStyleID" SortExpression="OurStyleID" Visible="False" />
+                                    <asp:BoundField DataField="GarmentColorCode" HeaderText="GarmentColorCode" SortExpression="GarmentColorCode" />
+                                    <asp:BoundField DataField="GarmentColor" HeaderText="GarmentColor" SortExpression="GarmentColor" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                </Columns>
+                                <EditRowStyle BackColor="#999999" />
+                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                            </asp:GridView>
+                        </td>
+                        <td class="auto-style13">&nbsp;</td>
+                        <td colspan="2" style="width: 30%">
+                            <asp:GridView ID="GridView2" runat="server" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" DataKeyNames="StyleSizeID" DataSourceID="SizeDetails">
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <Columns>
+                                    <asp:CommandField ShowDeleteButton="True" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                    <asp:BoundField DataField="SizeCode" HeaderText="SizeCode" SortExpression="SizeCode" />
+                                    <asp:BoundField DataField="SizeName" HeaderText="SizeName" SortExpression="SizeName" />
+                                    <asp:BoundField DataField="StyleSizeID" HeaderText="StyleSizeID" ReadOnly="True" SortExpression="StyleSizeID" Visible="False" />
+                                </Columns>
+                                <EditRowStyle BackColor="#999999" />
+                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                            </asp:GridView>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</asp:Content>
+

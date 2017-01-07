@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using ArtWebApp.DataModels;
+
+namespace ArtWebApp.DBTransaction
+{
+    public class SkuCreator
+    {
+       
+
+        public void CreateSkuMaster(int atcid)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+
+                var q = from rawmtrial in entty.AtcRawMaterialMasters
+                        join atcmaster in entty.AtcMasters on rawmtrial.Atc_id equals atcmaster.AtcId
+                        where rawmtrial.Atc_id == atcid
+                        select new
+                        {
+                            rawmtrial.AtcRaw_PK,
+                            rawmtrial.Template_PK,
+                            rawmtrial.TempCode,
+                            rawmtrial.TemplateCount,
+                           atcmaster.AtcId,
+                           atcmaster.AtcNum,
+                          
+
+                        };
+
+                foreach (var element in q)
+                {
+                    int templatepk = int.Parse(element.Template_PK.ToString());
+                    int atc_rawPK = int.Parse(element.AtcRaw_PK.ToString());
+                    string templateCode = element.TempCode;
+                    String Atcnum = element.AtcNum;
+                    int atc_id = int.Parse(element.AtcId.ToString());
+                    int templatecount = int.Parse(element.TemplateCount.ToString());
+                    String rmnum = "";
+                    if (templatecount > 0)
+                    {
+                        
+
+                        var existingrawmaterialcount = (from skumstr in entty.SkuRawMaterialMasters
+                                                where skumstr.Atc_id == atc_id && skumstr.AtcRaw_PK == atc_rawPK
+
+                                                select skumstr).Count();
+                        if (templatecount > int.Parse(existingrawmaterialcount.ToString()))
+                        {
+
+
+                            //if template is present in the skumaster
+                            if (int.Parse(existingrawmaterialcount.ToString()) > 0)
+                            {
+                                //loop start with existing count+1
+                                for (int j = existingrawmaterialcount + 1; j <= templatecount; j++)
+                                {
+                                    rmnum = Atcnum + templateCode + j.ToString();
+                                    SkuRawMaterialMaster skumasterddata = new SkuRawMaterialMaster();
+                                    skumasterddata.Atc_id = atc_id;
+                                    skumasterddata.AtcRaw_PK = atc_rawPK;
+                                    skumasterddata.RMNum = rmnum.Trim();
+                                    skumasterddata.Template_pk = templatepk;
+
+
+                                    entty.SkuRawMaterialMasters.Add(skumasterddata);
+                                }
+                            }
+                            //if template is not present in skumaster
+                            else
+                            {
+                                //loopstarts from 1 
+                                for (int j = 1; j <= templatecount; j++)
+                                {
+
+                                    rmnum = Atcnum + templateCode + j.ToString();
+                                    SkuRawMaterialMaster skumasterddata = new SkuRawMaterialMaster();
+                                    skumasterddata.Atc_id = atc_id;
+                                    skumasterddata.AtcRaw_PK = atc_rawPK;
+                                    skumasterddata.RMNum = rmnum.Trim();
+                                    skumasterddata.Template_pk = templatepk;
+
+
+                                    entty.SkuRawMaterialMasters.Add(skumasterddata);
+                                }
+
+                            }
+
+
+                           
+
+
+                        }
+                        else
+                        {
+
+
+                        }
+
+                        
+
+
+
+
+                    }
+                }
+
+
+
+                entty.SaveChanges();
+
+            }
+
+
+        }
+
+
+
+
+
+
+    }
+}

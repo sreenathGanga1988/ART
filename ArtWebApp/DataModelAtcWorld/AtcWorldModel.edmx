@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AtcModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ASQAllocationMaster_tbl">
+          <Key>
+            <PropertyRef Name="ASQAllocation_PK" />
+          </Key>
+          <Property Name="ASQAllocation_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="POPackID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="ArtLocaion_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Atcnum" Type="nvarchar" MaxLength="50" />
+          <Property Name="OurStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="ASQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyerPO" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyerStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="Destination" Type="nvarchar" MaxLength="50" />
+          <Property Name="GarmentCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="Season" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ChannelID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerDestination_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Season_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Atc_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ChannelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyerStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AllocatedQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ArtAllocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="POType" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ASQShuffleDetailsAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffleDet_PK" />
+          </Key>
+          <Property Name="AsqShuffleDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AsqShuffle_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ASQShuffleMasterAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffle_PK" />
+          </Key>
+          <Property Name="AsqShuffle_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromPOPackID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AsqShuffleNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LocationMaster_tbl">
+          <Key>
+            <PropertyRef Name="Location_PK" />
+          </Key>
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationPrefix" Type="nchar" MaxLength="4" />
+          <Property Name="LocationAddress" Type="nvarchar(max)" />
+          <Property Name="LocationType_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LocType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="20" />
+          <Property Name="CurrencyID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CountryID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PaymentModeID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PaymentTermID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="nchar" MaxLength="1" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="ArtLocation_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PackingListDetailsAtc">
+          <Key>
+            <PropertyRef Name="PackingDetails_PK" />
+          </Key>
+          <Property Name="PackingDetails_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackingMaster_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="POPackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PcperCtn" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TotalQty" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PackingListMasterAtcPro">
+          <Key>
+            <PropertyRef Name="PackingMaster_PK" />
+          </Key>
+          <Property Name="PackingMaster_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Atc_ID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NoofCTN" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PCPerCtn" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CtnDimension" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsConfirmed" Type="nchar" MaxLength="10" />
+          <Property Name="PackListNum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="AtcModelModelStoreContainer">
+          <EntitySet Name="ASQAllocationMaster_tbl" EntityType="Self.ASQAllocationMaster_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ASQShuffleDetailsAtc" EntityType="Self.ASQShuffleDetailsAtc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ASQShuffleMasterAtc" EntityType="Self.ASQShuffleMasterAtc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationMaster_tbl" EntityType="Self.LocationMaster_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackingListDetailsAtc" EntityType="Self.PackingListDetailsAtc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackingListMasterAtcPro" EntityType="Self.PackingListMasterAtcPro" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AtcModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AtcWorldEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
+          <EntitySet Name="LocationMaster_tbl" EntityType="AtcModelModel.LocationMaster_tbl" />
+          <EntitySet Name="PackingListMasterAtcProes" EntityType="AtcModelModel.PackingListMasterAtcPro" />
+          <EntitySet Name="ASQShuffleDetailsAtcs" EntityType="AtcModelModel.ASQShuffleDetailsAtc" />
+          <EntitySet Name="ASQShuffleMasterAtcs" EntityType="AtcModelModel.ASQShuffleMasterAtc" />
+          <EntitySet Name="PackingListDetailsAtcs" EntityType="AtcModelModel.PackingListDetailsAtc" />
+        </EntityContainer>
+        <EntityType Name="ASQAllocationMaster_tbl">
+          <Key>
+            <PropertyRef Name="ASQAllocation_PK" />
+          </Key>
+          <Property Name="ASQAllocation_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ArtLocaion_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atcnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ASQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GarmentCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Season" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ChannelID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerDestination_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Season_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atc_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ChannelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AllocatedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ArtAllocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LocationMaster_tbl">
+          <Key>
+            <PropertyRef Name="Location_PK" />
+          </Key>
+          <Property Name="Location_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationPrefix" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="LocationAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LocationType_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CountryID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentModeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentTermID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PackingListMasterAtcPro">
+          <Key>
+            <PropertyRef Name="PackingMaster_PK" />
+          </Key>
+          <Property Name="PackingMaster_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Atc_ID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NoofCTN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PCPerCtn" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CtnDimension" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsConfirmed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PackListNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ASQShuffleDetailsAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffleDet_PK" />
+          </Key>
+          <Property Name="AsqShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ASQShuffleMasterAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffle_PK" />
+          </Key>
+          <Property Name="AsqShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromPOPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AsqShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PackingListDetailsAtc">
+          <Key>
+            <PropertyRef Name="PackingDetails_PK" />
+          </Key>
+          <Property Name="PackingDetails_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackingMaster_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PcperCtn" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TotalQty" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AtcModelModelStoreContainer" CdmEntityContainer="AtcWorldEntities">
+          <EntitySetMapping Name="ASQAllocationMaster_tbl">
+            <EntityTypeMapping TypeName="AtcModelModel.ASQAllocationMaster_tbl">
+              <MappingFragment StoreEntitySet="ASQAllocationMaster_tbl">
+                <ScalarProperty Name="POType" ColumnName="POType" />
+                <ScalarProperty Name="ArtAllocation_PK" ColumnName="ArtAllocation_PK" />
+                <ScalarProperty Name="AllocatedQty" ColumnName="AllocatedQty" />
+                <ScalarProperty Name="BuyerStyleID" ColumnName="BuyerStyleID" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="Atc_Id" ColumnName="Atc_Id" />
+                <ScalarProperty Name="Season_PK" ColumnName="Season_PK" />
+                <ScalarProperty Name="BuyerDestination_PK" ColumnName="BuyerDestination_PK" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="GarmentCategory" ColumnName="GarmentCategory" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="BuyerStyle" ColumnName="BuyerStyle" />
+                <ScalarProperty Name="BuyerPO" ColumnName="BuyerPO" />
+                <ScalarProperty Name="ASQ" ColumnName="ASQ" />
+                <ScalarProperty Name="OurStyle" ColumnName="OurStyle" />
+                <ScalarProperty Name="Atcnum" ColumnName="Atcnum" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="SizeCode" ColumnName="SizeCode" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ArtLocaion_PK" ColumnName="ArtLocaion_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
+                <ScalarProperty Name="POPackID" ColumnName="POPackID" />
+                <ScalarProperty Name="ASQAllocation_PK" ColumnName="ASQAllocation_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationMaster_tbl">
+            <EntityTypeMapping TypeName="AtcModelModel.LocationMaster_tbl">
+              <MappingFragment StoreEntitySet="LocationMaster_tbl">
+                <ScalarProperty Name="ArtLocation_PK" ColumnName="ArtLocation_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PaymentTermID" ColumnName="PaymentTermID" />
+                <ScalarProperty Name="PaymentModeID" ColumnName="PaymentModeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="LocType" ColumnName="LocType" />
+                <ScalarProperty Name="LocationType_PK" ColumnName="LocationType_PK" />
+                <ScalarProperty Name="LocationAddress" ColumnName="LocationAddress" />
+                <ScalarProperty Name="LocationPrefix" ColumnName="LocationPrefix" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackingListMasterAtcProes">
+            <EntityTypeMapping TypeName="AtcModelModel.PackingListMasterAtcPro">
+              <MappingFragment StoreEntitySet="PackingListMasterAtcPro">
+                <ScalarProperty Name="PackListNum" ColumnName="PackListNum" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="CtnDimension" ColumnName="CtnDimension" />
+                <ScalarProperty Name="PCPerCtn" ColumnName="PCPerCtn" />
+                <ScalarProperty Name="NoofCTN" ColumnName="NoofCTN" />
+                <ScalarProperty Name="Atc_ID" ColumnName="Atc_ID" />
+                <ScalarProperty Name="PackingMaster_PK" ColumnName="PackingMaster_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleDetailsAtcs">
+            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleDetailsAtc">
+              <MappingFragment StoreEntitySet="ASQShuffleDetailsAtc">
+                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
+                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
+                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+                <ScalarProperty Name="AsqShuffleDet_PK" ColumnName="AsqShuffleDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleMasterAtcs">
+            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleMasterAtc">
+              <MappingFragment StoreEntitySet="ASQShuffleMasterAtc">
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="AsqShuffleNum" ColumnName="AsqShuffleNum" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="FromPOPackID" ColumnName="FromPOPackID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackingListDetailsAtcs">
+            <EntityTypeMapping TypeName="AtcModelModel.PackingListDetailsAtc">
+              <MappingFragment StoreEntitySet="PackingListDetailsAtc">
+                <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
+                <ScalarProperty Name="PcperCtn" ColumnName="PcperCtn" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="PackingMaster_PK" ColumnName="PackingMaster_PK" />
+                <ScalarProperty Name="PackingDetails_PK" ColumnName="PackingDetails_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
