@@ -189,7 +189,7 @@
                     var txt_syard = gridView.rows[i].getElementsByClassName("txt_syard")[0];
                    
                     fablength = parseFloat(txt_weight1.value) / (((parseFloat(txt_width1.value) * parseFloat(txt_gms1.value)) / 1550) / 1000);
-
+                    fablength = fablength * 0.0277778;
                     txt_syard.value = fablength;
                   
                 }

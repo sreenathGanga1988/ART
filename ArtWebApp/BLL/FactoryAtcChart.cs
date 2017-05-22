@@ -26,7 +26,7 @@ namespace ArtWebApp.BLL
             {
                BomData = GetBOMofStyle(ourstyleid);
             }
-            else if (type == "po")
+            else if (type == "PO")
             {
                 BomData = GetBOM(atcid);
             }
@@ -178,7 +178,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
 
                 }
             }
-            else if (type == "po")
+            else if (type == "PO")
             {
                 try
                 {
@@ -582,6 +582,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
                         if(type=="PO")
                         {
                             string condition = HttpContext.Current.Session["condition"].ToString().Trim();
+                            requiredqty = GroupDependantCommonQtyForPO(skudetpk,condition);
                         }
                         else
                         {
@@ -594,6 +595,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
                         if (type == "PO")
                         {
                             string condition = HttpContext.Current.Session["condition"].ToString().Trim();
+                            requiredqty = GroupDependantColorQtyforPO(skudetpk, condition);
 
                         }
                         else
@@ -608,6 +610,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
                         if (type == "PO")
                         {
                             string condition = HttpContext.Current.Session["condition"].ToString().Trim();
+                            requiredqty = GroupDependantSizeQtyforPO(skudetpk, condition);
                         }
                         else
                         {
@@ -621,7 +624,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
                         if (type == "PO")
                         {
                             string condition = HttpContext.Current.Session["condition"].ToString().Trim();
-
+                            requiredqty = GroupDependantSizeandColorQtyforPO(skudetpk, condition);
                         }
                         else
                         {
@@ -951,6 +954,9 @@ HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
         public static float GroupDependantCommonQtyForPO(int skudetpk ,String Condition)
         {
             float requiredqty = 0;
+          
+            Condition = Condition.Replace("PoPackId ", "POPackDetails.POPackId");
+
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = @"SELECT        ISNULL(MAX(StyleCostingDetails.Consumption), 0) AS Consumption, ISNULL(SUM(POPackDetails.PoQty), 0) AS PoQty, ISNULL(AVG(SkuRawMaterialMaster.WastagePercentage), 0) AS WastagePercentage
@@ -961,9 +967,8 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
                          POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
                          GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
-WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
-GROUP BY SkuRawmaterialDetail.SkuDet_PK
-HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y') and ("+ Condition + @" )
+GROUP BY SkuRawmaterialDetail.SkuDet_PK HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
 
             cmd.Parameters.AddWithValue("@param1", skudetpk);
@@ -1061,6 +1066,73 @@ HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
         }
 
 
+
+
+
+        /// <summary>
+        /// Group Dependant and Color for Selected PO
+        /// </summary>
+        /// <param name="skudetpk"></param>
+        /// <returns></returns>
+        public static float GroupDependantColorQtyforPO(int skudetpk, String Condition)
+        {
+            float requiredqty = 0;
+            Condition = Condition.Replace("PoPackId ", "POPackDetails.POPackId");
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        ISNULL(MAX(StyleCostingDetails.Consumption), 0) AS Consumption, ISNULL(SUM(POPackDetails.PoQty), 0) AS PoQty, ISNULL(AVG(SkuRawMaterialMaster.WastagePercentage), 0) AS WastagePercentage
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         GroupDependantItems ON SkuRawMaterialMaster.Sku_Pk = GroupDependantItems.Sku_PK INNER JOIN
+                         StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
+                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
+                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
+                         SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y') and (" + Condition + @" )
+GROUP BY SkuRawmaterialDetail.SkuDet_PK
+HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
+
+
+            cmd.Parameters.AddWithValue("@param1", skudetpk);
+
+
+
+            DataTable dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+            try
+            {
+
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        var sum = dt.Rows[0]["PoQty"];
+                        var CONSUMPTION = dt.Rows[0]["Consumption"];
+                        var wastage = dt.Rows[0]["WastagePercentage"];
+                        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+                        requiredqty = requiredqty + wastageqty;
+                        garqty = (float.Parse(sum.ToString()));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return requiredqty;
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// Group Dependant and Size
         /// </summary>
@@ -1080,6 +1152,65 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
                          SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode  AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
 WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
+GROUP BY SkuRawmaterialDetail.SkuDet_PK
+HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
+
+
+            cmd.Parameters.AddWithValue("@param1", skudetpk);
+
+
+
+            DataTable dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+            try
+            {
+
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        var sum = dt.Rows[0]["PoQty"];
+                        var CONSUMPTION = dt.Rows[0]["Consumption"];
+                        var wastage = dt.Rows[0]["WastagePercentage"];
+                        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+                        requiredqty = requiredqty + wastageqty;
+                        garqty = (float.Parse(sum.ToString()));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return requiredqty;
+        }
+
+
+
+        /// <summary>
+        /// Group Dependant and Size for Selected PO
+        /// </summary>
+        /// <param name="skudetpk"></param>
+        /// <returns></returns>
+        public static float GroupDependantSizeQtyforPO(int skudetpk, String Condition)
+        {
+            float requiredqty = 0;
+            Condition = Condition.Replace("PoPackId ", "POPackDetails.POPackId");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        ISNULL(MAX(StyleCostingDetails.Consumption), 0) AS Consumption, ISNULL(SUM(POPackDetails.PoQty), 0) AS PoQty, ISNULL(AVG(SkuRawMaterialMaster.WastagePercentage), 0) AS WastagePercentage
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         GroupDependantItems ON SkuRawMaterialMaster.Sku_Pk = GroupDependantItems.Sku_PK INNER JOIN
+                         StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
+                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
+                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
+                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode  AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y') and (" + Condition + @" )
 GROUP BY SkuRawmaterialDetail.SkuDet_PK
 HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
@@ -1183,6 +1314,65 @@ HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
 
 
+
+
+
+        /// <summary>
+        /// Group Dependant and Color and Size
+        /// </summary>
+        /// <param name="skudetpk"></param>
+        /// <returns></returns>
+        public static float GroupDependantSizeandColorQtyforPO(int skudetpk, String Condition)
+        {
+            float requiredqty = 0;
+            Condition = Condition.Replace("PoPackId ", "POPackDetails.POPackId");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        ISNULL(MAX(StyleCostingDetails.Consumption), 0) AS Consumption, ISNULL(SUM(POPackDetails.PoQty), 0) AS PoQty, ISNULL(AVG(SkuRawMaterialMaster.WastagePercentage), 0) AS WastagePercentage
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         GroupDependantItems ON SkuRawMaterialMaster.Sku_Pk = GroupDependantItems.Sku_PK INNER JOIN
+                         StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
+                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
+                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
+                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode and     SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode  AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y') and (" + Condition + @" )
+GROUP BY SkuRawmaterialDetail.SkuDet_PK
+HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
+
+
+            cmd.Parameters.AddWithValue("@param1", skudetpk);
+
+
+
+            DataTable dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+            try
+            {
+
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        var sum = dt.Rows[0]["PoQty"];
+                        var CONSUMPTION = dt.Rows[0]["Consumption"];
+                        var wastage = dt.Rows[0]["WastagePercentage"];
+                        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+                        requiredqty = requiredqty + wastageqty;
+                        garqty = (float.Parse(sum.ToString()));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return requiredqty;
+        }
 
 
 

@@ -98,11 +98,11 @@
 
 
     
-    <div class="RedHeaddingdIV"> PENDING&nbsp; PO</div>
+    <div class="RedHeaddingdIV"> CUTPLAN CREATED</div>
     <div id="MasterDiv"  runat="server">
     
         Cutplan given</div>
-    <div class="RedHeaddingdIV"> CutOrder given</div>
+    <div class="RedHeaddingdIV"> CUTORDER GIVEN</div>
      <div id="MasterDiv2" runat="server">
        
     </div>

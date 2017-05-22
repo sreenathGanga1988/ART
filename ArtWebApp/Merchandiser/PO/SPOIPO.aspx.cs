@@ -90,24 +90,9 @@ FROM            ODOOGPOMaster INNER JOIN
             }
             html.Append("</tr></thead>");
 
-            html.Append(" <thead class='filters'> <tr>");
-            foreach (DataColumn column in dt.Columns)
-            {
-                html.Append("<td>");
-                html.Append(column.ColumnName);
-                html.Append("</td>");
-            }
-            html.Append("</tr></thead>");
+         
 
 
-            html.Append(" <tfoot> <tr>");
-            foreach (DataColumn column in dt.Columns)
-            {
-                html.Append("<th>");
-                html.Append(column.ColumnName);
-                html.Append("</th>");
-            }
-            html.Append("</tr></tfoot>");
 
 
 
@@ -127,17 +112,7 @@ FROM            ODOOGPOMaster INNER JOIN
                 html.Append("</tr>");
             }
 
-            foreach (DataRow row in dt.Rows)
-            {
-                html.Append("<tr>");
-                foreach (DataColumn column in dt.Columns)
-                {
-                    html.Append("<td>");
-                    html.Append(row[column.ColumnName]);
-                    html.Append("</td>");
-                }
-                html.Append("</tr>");
-            }
+        
 
 
             //Table end.

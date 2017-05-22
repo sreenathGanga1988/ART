@@ -577,6 +577,7 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locat
                     fbmstr.IsSaved = "N";
                     fbmstr.IsDelivered = "N";
                     fbmstr.SGsm = rolldata.SGSM;
+                    fbmstr.SWeight = rolldata.Sweight;
                     fbmstr.SupplierDoc_pk = rolldata.SUpplierDoc_PK;
 
                     fbmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
@@ -786,7 +787,7 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locat
                         element.Remark = rolldata.Remark; ;
                         element.RollNum = rolldata.RollNum;
                         element.SWidth = rolldata.SWidth; ;
-
+                        element.SWeight = rolldata.Sweight;
 
 
                     }
@@ -1341,6 +1342,7 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locat
         public string UOM { get; set; }
         public string Remark { get; set; }
         public string SShrink { get; set; }
+        public string Sweight { get; set; }
         public string SYard { get; set; }
         public string SShade { get; set; }
         public string SWidth { get; set; }
@@ -1603,7 +1605,7 @@ WHERE        (MrnDetails.MrnDet_PK = @mrndet_pk)";
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT        Roll_PK, RollNum, Qty, UOM, Remark, SShrink, SYard, SShade, SWidth,SGsm
+                cmd.CommandText = @"SELECT        Roll_PK, RollNum, Qty, UOM, Remark, SShrink, SYard, SShade, SWidth,SGsm,SWeight
 FROM            FabricRollmaster
 WHERE        (SkuDet_PK = @skudetpk) AND (SupplierDoc_pk = @asn_pk) ";
                 cmd.Parameters.AddWithValue("@asn_pk", asn_pk);

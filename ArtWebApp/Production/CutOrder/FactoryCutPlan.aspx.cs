@@ -385,8 +385,11 @@ namespace ArtWebApp.Production.CutOrder
             float balanccetocutinlocation = float.Parse(lbl_allocatedQty.Text) - float.Parse(cddet.alreadycutoflocation.ToString());
 
 
+            lbl_balyard.Text = ((float.Parse(cddet.rollYard.ToString()) + float.Parse(cddet.DeliverdrollYard.ToString())) - locationcutplanyardage).ToString();
 
-             lbl_balyard.Text = (float.Parse(cddet.rollYard.ToString()) - locationcutplanyardage).ToString();
+
+
+            // lbl_balyard.Text = (float.Parse(cddet.rollYard.ToString())  + float.Parse(cddet.DeliverdrollYard.ToString())) - locationcutplanyardage).ToString());
 
 
 

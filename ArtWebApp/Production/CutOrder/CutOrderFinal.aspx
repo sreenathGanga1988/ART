@@ -465,7 +465,7 @@
                                                 <tr>
                                                     <td class="NormalTD">Fabric req</td>
                                                     <td class="NormalTD">
-                                                        <asp:Label ID="lbl_fabreq" runat="server" CssClass="lbl_fabreq12344" Text="0"></asp:Label>
+                                                        <asp:TextBox ID="lbl_fabreq" runat="server" CssClass="lbl_fabreq12344" Text="0"></asp:TextBox>
                                                     </td>
                                                     <td class="NormalTD">&nbsp;</td>
                                                     <td class="NormalTD">&nbsp;</td>

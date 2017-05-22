@@ -271,7 +271,7 @@ namespace ArtWebApp.Production.CutOrder {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_fabreq;
+        protected global::System.Web.UI.WebControls.TextBox lbl_fabreq;
         
         /// <summary>
         /// upd_cutno control.

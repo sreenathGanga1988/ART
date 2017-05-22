@@ -49,7 +49,7 @@ namespace ArtWebApp.Production.Cutting
         }
         public void fillCutorderDO(int atcid)
         {
-            DataTable dt = fillCutorderDOROLLofatc(atcid);
+            DataTable dt = fillCutorderDOofatc(atcid);
             filldataforAll(dt, MasterDiv3);
 
         }
@@ -236,24 +236,9 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (FabricRollmaster.IsDeli
             }
             html.Append("</tr></thead>");
 
-            html.Append(" <thead class='filters'> <tr>");
-            foreach (DataColumn column in dt.Columns)
-            {
-                html.Append("<td>");
-                html.Append(column.ColumnName);
-                html.Append("</td>");
-            }
-            html.Append("</tr></thead>");
 
 
-            html.Append(" <tfoot> <tr>");
-            foreach (DataColumn column in dt.Columns)
-            {
-                html.Append("<th>");
-                html.Append(column.ColumnName);
-                html.Append("</th>");
-            }
-            html.Append("</tr></tfoot>");
+         
 
 
 

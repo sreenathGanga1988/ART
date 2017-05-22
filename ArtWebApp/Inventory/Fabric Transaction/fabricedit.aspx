@@ -306,6 +306,14 @@
                                             </ItemTemplate>
                                                 <HeaderStyle Width="70px" />
                                         </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Weight">
+                                           
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txt_sweight" CssClass="txt_weight1"  Text='<%# Bind("SGsm") %>' runat="server" Width="70px"  ></asp:TextBox>
+                                            </ItemTemplate>
+                                                <HeaderStyle Width="70px" />
+                                         
+                                        </asp:TemplateField>
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

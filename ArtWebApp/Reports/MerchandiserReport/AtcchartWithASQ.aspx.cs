@@ -690,11 +690,11 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
                     if (i == 0)
                     {
-                        condition = condition + " PoPackId=" + popaklist[i].ToString().Trim();
+                        condition = condition + " PoPackId =" + popaklist[i].ToString().Trim();
                     }
                     else
                     {
-                        condition = condition + "  or  PoPackId=" + popaklist[i].ToString().Trim();
+                        condition = condition + "  or PoPackId =" + popaklist[i].ToString().Trim();
                     }
 
 
@@ -707,7 +707,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
                 DataTable sizedata = BLL.FactoryAtcChart.createdatatable(newresult);
                 GenerateSmallTable(sizedata);
-                ShowBOM("po", 0);
+                ShowBOM("PO", 0);
             }
         }
 
