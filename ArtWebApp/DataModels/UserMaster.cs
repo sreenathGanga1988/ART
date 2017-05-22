@@ -26,7 +26,10 @@ namespace ArtWebApp.DataModels
         public string PassCode { get; set; }
         public string IsAdmin { get; set; }
         public Nullable<System.DateTime> LastLogin { get; set; }
+        public Nullable<decimal> UserProfile_Pk { get; set; }
+        public Nullable<decimal> Department_PK { get; set; }
     
         public virtual ICollection<ApprovalTable> ApprovalTables { get; set; }
+        public virtual UserProfileMaster UserProfileMaster { get; set; }
     }
 }

@@ -97,6 +97,36 @@ body
                                   <td></td>
                             </tr>
                               <tr>
+                                  <td class="NormalTD">Season</td>
+                                  <td class="NormalTD">       <asp:UpdatePanel ID="upd_season" runat="server" UpdateMode="Conditional">
+                                          <ContentTemplate>
+                                              <ucc:DropDownListChosen ID="DropDownListChosen1" runat="server"  Height="17px" Width="200px">
+                                              </ucc:DropDownListChosen>
+                                          </ContentTemplate>
+                                      </asp:UpdatePanel></td>
+                                  <td class="SearchButtonTD">&nbsp;</td>
+                                  <td class="NormalTD">&nbsp;</td>
+                                  <td class="NormalTD">&nbsp;</td>
+                                  <td>&nbsp;</td>
+                            </tr>
+                              <tr>
+                                  <td class="NormalTD">OurStyle</td>
+                                  <td class="NormalTD">
+                                      <asp:UpdatePanel ID="UpdatePanel13" runat="server" >
+                                          <ContentTemplate>
+                                              <ucc:DropDownListChosen ID="cmb_ourstyle" runat="server" DataTextField="name" DataValueField="pk" DisableSearchThreshold="10" Height="17px" Width="200px">
+                                              </ucc:DropDownListChosen>
+                                          </ContentTemplate>
+                                      </asp:UpdatePanel>
+                                  </td>
+                                  <td class="SearchButtonTD">&nbsp;</td>
+                                  <td class="NormalTD">
+                                      <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show Atc Chart of Style" />
+                                  </td>
+                                  <td class="NormalTD">&nbsp;</td>
+                                  <td>&nbsp;</td>
+                            </tr>
+                              <tr>
                                 <td >RMNUM</td>
                                
                                       <td class="NormalTD">
@@ -178,9 +208,10 @@ body
                                 <td><asp:CheckBox ID="chk_f" Text=" OnhandQty F only" runat="server" /></td>
                                 <td><asp:CheckBox ID="chk_W" Text="OnhandQty W only" runat="server" /></td>
                                 <td><asp:CheckBox ID="chk_ct" Text="Show Cutorder" runat="server"  /></td>
-                                 <td><asp:CheckBox ID="chk_doc" Text="Show ADN" runat="server"  /></td>
-                                  <td><asp:CheckBox ID="chk_remark" Text="Show Remark" runat="server"  /></td>
+                                 <td><asp:CheckBox ID="chk_doc" Text="Show ADN" runat="server" Checked="True"  /></td>
+                                  <td><asp:CheckBox ID="chk_remark" Text="Show Remark" runat="server" Checked="True"  /></td>
                                  <td><asp:CheckBox ID="chk_rcpt" Text="Show Store Receipt" runat="server"  /></td>
+                                <td><asp:CheckBox ID="chk_consum" Text="Show Style Consumption" runat="server"  /></td>
                                 <td>
                                     
                                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Export to Excel" />
@@ -196,7 +227,9 @@ body
 
         <table class="auto-style12">
             <tr>
-                 <td style="width: 100%"><div id="grid" style="overflow:auto" >
+                 <td style="width: 100%">
+                     
+                     <div id="grid" style="overflow:auto" ;height:300; >
                             <asp:UpdatePanel ID="Upd_maingrid" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                                  <ContentTemplate>
                        
@@ -367,10 +400,13 @@ body
                                              BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
                                              <Columns>
                                                  <asp:BoundField DataField="DocNum" HeaderText="ADN" />
-                                                <asp:BoundField DataField="ContainerNum" HeaderText="ContainerNum" />
+                                                <asp:BoundField DataField="ContainerNum" HeaderText="Ref#" />
+                                                 <asp:BoundField DataField="BOENum" HeaderText="Cont#" />
                                                  <asp:BoundField DataField="PONum" HeaderText="PONum" />
                                                  <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                                          
+                                                  <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
+                                                  <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
+                                                 
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
@@ -433,6 +469,31 @@ body
                                          </asp:GridView>
                                      </ItemTemplate>
                                  </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Styles">
+                                     <ItemTemplate>
+                                         <asp:GridView ID="tbl_style" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
+                                             BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" />
+                                               
+                                                 <asp:BoundField DataField="Consumption" HeaderText="Consumption" />
+                                                 
+                                          
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="SkuDet_PK" InsertVisible="False" SortExpression="SkuDet_PK">
                                    
                                     <ItemTemplate>
@@ -449,7 +510,7 @@ body
                        
                             </Columns>
                             <FooterStyle BackColor="#FFFFCC" ForeColor="#000066" />
-                            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                            <HeaderStyle CssClass="HeaderFreez" BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
                             <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
                             <RowStyle BackColor="White" ForeColor="#330099" />
                             <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Black" />
@@ -501,7 +562,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum"></asp:SqlData
                     ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
                     SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') ORDER BY AtcNum, AtcId">
                 </asp:SqlDataSource>
-       <asp:UpdateProgress ID="PageUpdateProgress" runat="server" AssociatedUpdatePanelID="upd_buttons" DisplayAfter="0" DynamicLayout="true">
+<%--       <asp:UpdateProgress ID="PageUpdateProgress" runat="server" AssociatedUpdatePanelID="upd_buttons" DisplayAfter="0" DynamicLayout="true">
                                 <ProgressTemplate>
                                    <div class="modal">
         <div class="center">
@@ -512,6 +573,6 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum"></asp:SqlData
                                        
                                         
                                 </ProgressTemplate>
-                            </asp:UpdateProgress>
+                            </asp:UpdateProgress>--%>
 </asp:Content>
 

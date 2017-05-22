@@ -250,8 +250,8 @@ namespace ArtWebApp.Reports.Inventoryreport
         this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\Inventory.rdlc";
         ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
     }
-
-    protected void Button3_Click(object sender, EventArgs e)
+     
+        protected void Button3_Click(object sender, EventArgs e)
     {
 
     }

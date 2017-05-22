@@ -22,6 +22,9 @@ namespace ArtWebApp.DataModels
         public string IsPresent { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> Addeddate { get; set; }
+        public string DeliveredVia { get; set; }
+        public Nullable<decimal> NewRollInventory_PK { get; set; }
+        public Nullable<decimal> FactId { get; set; }
     
         public virtual FabricRollmaster FabricRollmaster { get; set; }
     }

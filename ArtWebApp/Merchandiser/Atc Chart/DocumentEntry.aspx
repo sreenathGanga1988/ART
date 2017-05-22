@@ -158,8 +158,41 @@
                                          <asp:ListItem Value="IntlSupplier">International ADN</asp:ListItem>
                                      </ucc:DropDownListChosen>
                                  </td>
+                                 <td>From Country</td>
+                                 <td>
+                                     <asp:TextBox ID="txt_fromcountry" runat="server"></asp:TextBox>
+                                 </td>
                                  <td>&nbsp;</td>
                                  <td>&nbsp;</td>
+                             </tr>
+                             <tr>
+                                 <td>To</td>
+                                 <td>
+                                     <ucc:DropDownListChosen ID="drp_ToWarehouse" runat="server" Width="200px">
+                                     </ucc:DropDownListChosen>
+                                 </td>
+                                 <td>Shipment Mode</td>
+                                 <td>
+                                     <ucc:DropDownListChosen ID="drp_deliverymode" runat="server" Width="200px">
+                        </ucc:DropDownListChosen>
+                                 </td>
+                                 <td>&nbsp;</td>
+                                 <td>&nbsp;</td>
+                             </tr>
+                             <tr>
+                                 <td>estimated Cost(USD)</td>
+                                 <td>
+                                     <asp:TextBox ID="txt_estimatedcost" runat="server"></asp:TextBox>
+                                 </td>
+                                 <td>Payment term</td>
+                                 <td>
+                                     <ucc:DropDownListChosen ID="ddl_paymentterm" runat="server" DisableSearchThreshold="10" Width="200px">
+                                         <asp:ListItem>Select</asp:ListItem>
+                                         <asp:ListItem Value="FOB">FOB</asp:ListItem>
+                                         <asp:ListItem Value="CNF">CNF</asp:ListItem>
+                                         <asp:ListItem Value="Ex-Factory">Ex-Factory</asp:ListItem>
+                                     </ucc:DropDownListChosen>
+                                 </td>
                                  <td>&nbsp;</td>
                                  <td>&nbsp;</td>
                              </tr>

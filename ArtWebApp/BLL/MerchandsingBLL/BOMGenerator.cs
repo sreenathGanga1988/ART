@@ -10,32 +10,267 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 {
     public static class BOMGenerator
     {
+        static float garqty = 0;
+        static  String connStr = ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+        //   public static DataTable CalculateRequiredPOIssued(DataTable dt,int atcid)
+        //   {
+        //       DataTable skudata = GetSKUData(atcid);
+        //       DataTable EBOMData = GetEBOMData(atcid);
+        //       DataTable POData = GetPOData(atcid);
+        //       DataTable WPOData = GetWPOData(atcid);
 
-      static  String connStr = ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
-        public static DataTable CalculateRequiredPOIssued(DataTable dt,int atcid)
+
+
+
+        //  DBTransaction.BOMTransaction bomtrans = new DBTransaction.BOMTransaction();
+        //       for (int i = 0; i < dt.Rows.Count; i++)
+        //       {
+        //           float requiredqty = 0;
+        //           int extrabomqty = 0;
+        //           int posiisued = 0;
+        //           int wrongpoissued = 0;
+
+
+        //           int balanceqty = 0;
+
+        //           int skudetpk = int.Parse(dt.Rows[i]["SkuDet_PK"].ToString().Trim());
+
+        //           if(skudetpk== 56771)
+        //           {
+        //               int k = 9;
+        //           }
+        //           int uom_pk = int.Parse(dt.Rows[i]["uom_pk"].ToString().Trim());
+        //           String isCD = dt.Rows[i]["IsCD"].ToString().Trim();
+        //           String isSD = dt.Rows[i]["IsSD"].ToString().Trim();
+        //           String isCM = dt.Rows[i]["isCommon"].ToString().Trim();
+        //           String IsGD = dt.Rows[i]["IsGD"].ToString().Trim();
+
+
+
+        //           int reqty = (int)Math.Round(requiredQtyCalculate(skudetpk, isCD, isSD, isCM, IsGD, skudata), 0);
+
+        //           try
+        //           {
+        //               int ordermin = (int)Math.Round(float.Parse(dt.Rows[i]["OrderMin"].ToString()));
+        //               if (reqty < ordermin)
+        //               {
+        //                   reqty = ordermin;
+        //               }
+
+        //           }
+        //           catch (Exception)
+        //           {
+
+
+        //           }
+        //           try
+        //           {
+        //               extrabomqty = (int)Math.Round(GetExtraBOMRequest(skudetpk, EBOMData));
+        //       }
+        //           catch (Exception)
+        //       {
+
+
+        //       }
+        //           try
+        //           {
+        //               posiisued = (int)Math.Round(GetPoIssuedQtyinBaseUOM(skudetpk, uom_pk, POData), 0);
+        //   }
+        //           catch (Exception)
+        //           {
+
+
+        //           }
+        //           try
+        //           {
+        //               wrongpoissued = (int)Math.Round(GetWrongPoIssuedQtyinBaseUOMwithApproval(skudetpk, uom_pk,WPOData), 0);
+        //    }
+        //           catch (Exception)
+        //           {
+
+
+        //           }
+        //           try
+        //           {
+        //               balanceqty = (reqty - posiisued) + wrongpoissued + extrabomqty;
+
+        //}
+        //           catch (Exception)
+        //           {
+
+
+        //           }
+
+        //           dt.Rows[i]["RqdQty"] = reqty;
+        //           dt.Rows[i]["PoIssuedQty"] = posiisued;
+        //           dt.Rows[i]["BalanceQty"] = balanceqty;
+
+
+        //       }
+        //       return dt;
+        //   }
+        //public static float requiredQtyCalculate(int skudetpk, String isCD, String isSD, String isCM, String IsGD, DataTable skudata)
+        //{
+        //    float requiredqty = 0;
+        //    if (isCM == "Y" && isCD == "N" && isSD == "N" && IsGD == "N")
+        //    {
+        //        try
+        //        {
+        //            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + "").CopyToDataTable();
+
+        //        var sum = newresult.Compute("SUM(PoQty)", "");
+        //        var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+        //        var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+        //        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+        //        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+        //        requiredqty = requiredqty + wastageqty;
+        //    }
+        //        catch (Exception)
+        //    {
+
+
+        //    }
+        //}
+        //    else if (isCM == "N" && isCD == "Y" && isSD == "N" && IsGD == "N")
+        //    {
+
+        //        try
+        //        {
+        //            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and ColorCode =SKUColorCode").CopyToDataTable();
+
+        //            var sum = newresult.Compute("SUM(PoQty)", "");
+        //            var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+        //            var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+        //            requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+        //            float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+        //            requiredqty = requiredqty + wastageqty;
+        //        }
+        //        catch (Exception)
+        //        {
+
+
+        //        }
+
+        //    }
+        //    else if (isCM == "N" && isCD == "N" && isSD == "Y" && IsGD == "N")
+        //    {
+        //        try
+        //        {
+        //            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode").CopyToDataTable();
+
+        //        var sum = newresult.Compute("SUM(PoQty)", "");
+        //        var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+        //        var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+        //        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+        //        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+        //        requiredqty = requiredqty + wastageqty;
+        //        }
+        //        catch (Exception)
+        //        {
+
+
+        //        }
+        //    }
+        //    else if (isCM == "N" && isCD == "Y" && isSD == "Y" && IsGD == "N")
+        //    {
+        //            try
+        //            {
+        //                DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode and ColorCode =SKUColorCode").CopyToDataTable();
+
+        //        var sum = newresult.Compute("SUM(PoQty)", "");
+        //        var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+        //        var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+        //        requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+        //        float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+
+        //        requiredqty = requiredqty + wastageqty;
+        //        }
+        //        catch (Exception exp)
+        //        {
+
+
+        //        }
+        //    }
+        //    else if (IsGD == "Y")
+        //    {
+        //        // if ggroup dependa
+
+        //        try
+        //        {
+        //            if (isCM == "Y" && isCD == "N" && isSD == "N" && IsGD == "Y")
+        //        {
+        //            requiredqty = GroupDependantCommonQty(skudetpk);
+        //        }
+        //        else if (isCM == "N" && isCD == "Y" && isSD == "N" && IsGD == "Y")
+        //        {
+        //            requiredqty = GroupDependantColorQty(skudetpk);
+
+        //        }
+        //        else if (isCM == "N" && isCD == "N" && isSD == "Y" && IsGD == "Y")
+        //        {
+        //            requiredqty = GroupDependantSizeQty(skudetpk);
+
+        //        }
+        //        else if (isCM == "N" && isCD == "Y" && isSD == "Y" && IsGD == "Y")
+        //        {
+        //            requiredqty = GroupDependantSizeandColorQty(skudetpk);
+
+        //        }
+        //        }
+        //        catch (Exception)
+        //        {
+
+
+        //        }
+        //    }
+
+        //    return requiredqty;
+        //}
+
+
+        public static DataTable CalculateRequiredPOIssued(DataTable dt, int atcid)
         {
             DataTable skudata = GetSKUData(atcid);
             DataTable EBOMData = GetEBOMData(atcid);
             DataTable POData = GetPOData(atcid);
             DataTable WPOData = GetWPOData(atcid);
-            
-          
+            DataTable MissedData = GetInventorymisplacedData(atcid);
+            DataTable RoOutQtyData = GetROOutQtyData(atcid);
+            DataView ourstyleview = new DataView(skudata);
+            DataTable distinctOurstyleData = ourstyleview.ToTable(true, "OurStyleID");
 
 
-       DBTransaction.BOMTransaction bomtrans = new DBTransaction.BOMTransaction();
+
+            DBTransaction.BOMTransaction bomtrans = new DBTransaction.BOMTransaction();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 float requiredqty = 0;
                 int extrabomqty = 0;
                 int posiisued = 0;
                 int wrongpoissued = 0;
-
-
+                int missedqty = 0;
+                int garmentqty = 0;
                 int balanceqty = 0;
+                int roqty = 0;
 
                 int skudetpk = int.Parse(dt.Rows[i]["SkuDet_PK"].ToString().Trim());
 
-                if(skudetpk== 56771)
+                if (skudetpk == 57591)
                 {
                     int k = 9;
                 }
@@ -46,9 +281,15 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 String IsGD = dt.Rows[i]["IsGD"].ToString().Trim();
 
 
-              
-                int reqty = (int)Math.Round(requiredQtyCalculate(skudetpk, isCD, isSD, isCM, IsGD, skudata), 0);
 
+
+
+
+
+
+
+                //int reqty = (int)Math.Round(requiredQtyCalculate(skudetpk, isCD, isSD, isCM, IsGD, skudata), 0);
+                int reqty = (int)Math.Round(requiredQtyCalculate(skudetpk, isCD, isSD, isCM, IsGD, skudata, distinctOurstyleData), 0);
                 try
                 {
                     int ordermin = (int)Math.Round(float.Parse(dt.Rows[i]["OrderMin"].ToString()));
@@ -65,17 +306,28 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 }
                 try
                 {
-                    extrabomqty = (int)Math.Round(GetExtraBOMRequest(skudetpk, EBOMData));
-            }
+                    garmentqty = (int)Math.Round(garqty, 0);
+
+
+                }
                 catch (Exception)
-            {
+                {
 
 
-            }
+                }
+                try
+                {
+                    extrabomqty = (int)Math.Round(GetExtraBOMRequest(skudetpk, EBOMData));
+                }
+                catch (Exception)
+                {
+
+
+                }
                 try
                 {
                     posiisued = (int)Math.Round(GetPoIssuedQtyinBaseUOM(skudetpk, uom_pk, POData), 0);
-        }
+                }
                 catch (Exception)
                 {
 
@@ -83,8 +335,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 }
                 try
                 {
-                    wrongpoissued = (int)Math.Round(GetWrongPoIssuedQtyinBaseUOMwithApproval(skudetpk, uom_pk,WPOData), 0);
-         }
+                    wrongpoissued = (int)Math.Round(GetWrongPoIssuedQtyinBaseUOMwithApproval(skudetpk, uom_pk, WPOData), 0);
+                }
                 catch (Exception)
                 {
 
@@ -92,9 +344,30 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 }
                 try
                 {
-                    balanceqty = (reqty - posiisued) + wrongpoissued + extrabomqty;
+                    missedqty = (int)Math.Round(GetMissplacedQtyinBaseUOMwithApproval(skudetpk, uom_pk, MissedData), 0);
+                }
+                catch (Exception)
+                {
 
-     }
+
+                }
+
+
+                try
+                {
+                    roqty = (int)Math.Round(GetROOutQtyinBaseUOMwithApproval(skudetpk, uom_pk, RoOutQtyData), 0);
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+                try
+                {
+                    balanceqty = (reqty - posiisued) + wrongpoissued + extrabomqty+ missedqty+roqty;
+
+                }
                 catch (Exception)
                 {
 
@@ -104,70 +377,120 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 dt.Rows[i]["RqdQty"] = reqty;
                 dt.Rows[i]["PoIssuedQty"] = posiisued;
                 dt.Rows[i]["BalanceQty"] = balanceqty;
+                dt.Rows[i]["GarmentQty"] = garmentqty;
+
 
 
             }
             return dt;
         }
 
-
-
-
-
-
-
-
-
-
-
-        public static float requiredQtyCalculate(int skudetpk, String isCD, String isSD, String isCM, String IsGD, DataTable skudata)
+        public static float requiredQtyCalculate(int skudetpk, String isCD, String isSD, String isCM, String IsGD, DataTable skudata, DataTable ourstyles)
         {
             float requiredqty = 0;
+
+            garqty = 0;
+
+
             if (isCM == "Y" && isCD == "N" && isSD == "N" && IsGD == "N")
             {
                 try
                 {
-                    DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + "").CopyToDataTable();
-
-                var sum = newresult.Compute("SUM(PoQty)", "");
-                var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
-                var wastage = newresult.Compute("MAX(WastagePercentage)", "");
-
-                requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
-
-                float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
 
 
-                requiredqty = requiredqty + wastageqty;
-            }
+                    for (int i = 0; i < ourstyles.Rows.Count; i++)
+                    {
+                        try
+                        {
+                            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and OurStyleID=" + int.Parse(ourstyles.Rows[i]["OurStyleID"].ToString()) + "").CopyToDataTable();
+                            float ourstylereq = 0;
+                            var ourstylesum = newresult.Compute("SUM(PoQty)", "");
+                            var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                            var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+                            ourstylereq = float.Parse((float.Parse(ourstylesum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                            float wastageqty = ourstylereq * (float.Parse(wastage.ToString()) / 100);
+                            ourstylereq = ourstylereq + wastageqty;
+                            requiredqty = requiredqty + ourstylereq;
+                            garqty = garqty + (float.Parse(ourstylesum.ToString()));
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+                    }
+
+
+
+
+
+
+
+                }
                 catch (Exception)
-            {
+                {
 
 
+                }
             }
-        }
             else if (isCM == "N" && isCD == "Y" && isSD == "N" && IsGD == "N")
             {
 
                 try
                 {
-                    DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and ColorCode =SKUColorCode").CopyToDataTable();
 
-                    var sum = newresult.Compute("SUM(PoQty)", "");
-                    var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
-                    var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+                    for (int i = 0; i < ourstyles.Rows.Count; i++)
+                    {
+                        try
+                        {
+                            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and OurStyleID=" + int.Parse(ourstyles.Rows[i]["OurStyleID"].ToString()) + "  and ColorCode =SKUColorCode").CopyToDataTable();
+                            float ourstylereq = 0;
+                            var ourstylesum = newresult.Compute("SUM(PoQty)", "");
+                            var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                            var wastage = newresult.Compute("MAX(WastagePercentage)", "");
 
-                    requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+                            ourstylereq = float.Parse((float.Parse(ourstylesum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
 
-                    float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+                            float wastageqty = ourstylereq * (float.Parse(wastage.ToString()) / 100);
+                            ourstylereq = ourstylereq + wastageqty;
+                            requiredqty = requiredqty + ourstylereq;
+                            garqty = garqty + (float.Parse(ourstylesum.ToString()));
+                        }
+                        catch (Exception)
+                        {
 
 
-                    requiredqty = requiredqty + wastageqty;
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+                    //DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and ColorCode =SKUColorCode").CopyToDataTable();
+
+                    //var sum = newresult.Compute("SUM(PoQty)", "");
+                    //var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                    //var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+                    //requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                    //float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+                    //garqty = (float.Parse(sum.ToString()));
+                    //requiredqty = requiredqty + wastageqty;
                 }
                 catch (Exception)
                 {
 
-                    
+
                 }
 
             }
@@ -175,18 +498,53 @@ namespace ArtWebApp.BLL.MerchandsingBLL
             {
                 try
                 {
-                    DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode").CopyToDataTable();
-
-                var sum = newresult.Compute("SUM(PoQty)", "");
-                var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
-                var wastage = newresult.Compute("MAX(WastagePercentage)", "");
-
-                requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
-
-                float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
 
 
-                requiredqty = requiredqty + wastageqty;
+
+                    for (int i = 0; i < ourstyles.Rows.Count; i++)
+                    {
+                        try
+                        {
+                            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and OurStyleID=" + int.Parse(ourstyles.Rows[i]["OurStyleID"].ToString()) + "  and SIzeCode =SKUSizeCode").CopyToDataTable();
+                            float ourstylereq = 0;
+                            var ourstylesum = newresult.Compute("SUM(PoQty)", "");
+                            var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                            var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+                            ourstylereq = float.Parse((float.Parse(ourstylesum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                            float wastageqty = ourstylereq * (float.Parse(wastage.ToString()) / 100);
+                            ourstylereq = ourstylereq + wastageqty;
+                            requiredqty = requiredqty + ourstylereq;
+                            garqty = garqty + (float.Parse(ourstylesum.ToString()));
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+                    //DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode").CopyToDataTable();
+
+                    //var sum = newresult.Compute("SUM(PoQty)", "");
+                    //var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                    //var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+                    //requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                    //float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+                    //garqty = (float.Parse(sum.ToString()));
+                    //requiredqty = requiredqty + wastageqty;
                 }
                 catch (Exception)
                 {
@@ -196,20 +554,56 @@ namespace ArtWebApp.BLL.MerchandsingBLL
             }
             else if (isCM == "N" && isCD == "Y" && isSD == "Y" && IsGD == "N")
             {
-                    try
+                try
+                {
+
+
+                    for (int i = 0; i < ourstyles.Rows.Count; i++)
                     {
-                        DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode and ColorCode =SKUColorCode").CopyToDataTable();
+                        try
+                        {
+                            DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and OurStyleID=" + int.Parse(ourstyles.Rows[i]["OurStyleID"].ToString()) + "  and SIzeCode =SKUSizeCode and ColorCode =SKUColorCode").CopyToDataTable();
+                            float ourstylereq = 0;
+                            var ourstylesum = newresult.Compute("SUM(PoQty)", "");
+                            var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                            var wastage = newresult.Compute("MAX(WastagePercentage)", "");
 
-                var sum = newresult.Compute("SUM(PoQty)", "");
-                var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
-                var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+                            ourstylereq = float.Parse((float.Parse(ourstylesum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
 
-                requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+                            float wastageqty = ourstylereq * (float.Parse(wastage.ToString()) / 100);
+                            ourstylereq = ourstylereq + wastageqty;
+                            requiredqty = requiredqty + ourstylereq;
+                            garqty = garqty + (float.Parse(ourstylesum.ToString()));
+                        }
+                        catch (Exception)
+                        {
 
-                float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+                        }
+                    }
 
 
-                requiredqty = requiredqty + wastageqty;
+
+
+
+
+
+
+
+
+
+                    //DataTable newresult = skudata.Select("SkuDet_PK = " + skudetpk + " and SIzeCode =SKUSizeCode and ColorCode =SKUColorCode").CopyToDataTable();
+
+                    //var sum = newresult.Compute("SUM(PoQty)", "");
+                    //var CONSUMPTION = newresult.Compute("MAX(Consumption)", "");
+                    //var wastage = newresult.Compute("MAX(WastagePercentage)", "");
+
+                    //requiredqty = float.Parse((float.Parse(sum.ToString()) * float.Parse(CONSUMPTION.ToString())).ToString());
+
+                    //float wastageqty = requiredqty * (float.Parse(wastage.ToString()) / 100);
+
+                    //garqty = (float.Parse(sum.ToString()));
+                    //requiredqty = requiredqty + wastageqty;
                 }
                 catch (Exception exp)
                 {
@@ -224,24 +618,24 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 try
                 {
                     if (isCM == "Y" && isCD == "N" && isSD == "N" && IsGD == "Y")
-                {
-                    requiredqty = GroupDependantCommonQty(skudetpk);
-                }
-                else if (isCM == "N" && isCD == "Y" && isSD == "N" && IsGD == "Y")
-                {
-                    requiredqty = GroupDependantColorQty(skudetpk);
+                    {
+                        requiredqty = GroupDependantCommonQty(skudetpk);
+                    }
+                    else if (isCM == "N" && isCD == "Y" && isSD == "N" && IsGD == "Y")
+                    {
+                        requiredqty = GroupDependantColorQty(skudetpk);
 
-                }
-                else if (isCM == "N" && isCD == "N" && isSD == "Y" && IsGD == "Y")
-                {
-                    requiredqty = GroupDependantSizeQty(skudetpk);
+                    }
+                    else if (isCM == "N" && isCD == "N" && isSD == "Y" && IsGD == "Y")
+                    {
+                        requiredqty = GroupDependantSizeQty(skudetpk);
 
-                }
-                else if (isCM == "N" && isCD == "Y" && isSD == "Y" && IsGD == "Y")
-                {
-                    requiredqty = GroupDependantSizeandColorQty(skudetpk);
+                    }
+                    else if (isCM == "N" && isCD == "Y" && isSD == "Y" && IsGD == "Y")
+                    {
+                        requiredqty = GroupDependantSizeandColorQty(skudetpk);
 
-                }
+                    }
                 }
                 catch (Exception)
                 {
@@ -252,6 +646,14 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
             return requiredqty;
         }
+
+
+
+
+
+
+
+
 
 
         public static float GetExtraBOMRequest(int skudetpk, DataTable EBomData)
@@ -446,6 +848,89 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)", con);
             return poissuedqty;
         }
 
+        public static float GetROOutQtyinBaseUOMwithApproval(int skudetpk, int baseuom_pk, DataTable RoData)
+        {
+            float poissuedqty = 0;
+            DataTable dt = RoData.Select("SkuDet_PK = " + skudetpk + "").CopyToDataTable();
+
+
+
+
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (dt.Rows[i]["Uom_PK"].ToString().Trim() == baseuom_pk.ToString().Trim())
+                        {
+                            poissuedqty = poissuedqty + float.Parse(dt.Rows[i]["RoQty"].ToString());
+                        }
+                        else
+                        {
+                            poissuedqty = poissuedqty + UOMConvertortoAlt(baseuom_pk, int.Parse(dt.Rows[i]["Uom_PK"].ToString()), float.Parse(dt.Rows[i]["RoQty"].ToString()));
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return poissuedqty;
+        }
+
+        public static float GetMissplacedQtyinBaseUOMwithApproval(int skudetpk, int baseuom_pk, DataTable MissedData)
+        {
+            float poissuedqty = 0;
+            DataTable dt = MissedData.Select("SkuDet_PK = " + skudetpk + "").CopyToDataTable();
+
+
+
+
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (dt.Rows[i]["Uom_PK"].ToString().Trim() == baseuom_pk.ToString().Trim())
+                        {
+                            poissuedqty = poissuedqty + float.Parse(dt.Rows[i]["Qty"].ToString());
+                        }
+                        else
+                        {
+                            poissuedqty = poissuedqty + UOMConvertortoAlt(baseuom_pk, int.Parse(dt.Rows[i]["Uom_PK"].ToString()), float.Parse(dt.Rows[i]["Qty"].ToString()));
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return poissuedqty;
+        }
 
         /// <summary>
         /// Group Dependant and Common
@@ -463,8 +948,8 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          GroupDependantItems ON SkuRawMaterialMaster.Sku_Pk = GroupDependantItems.Sku_PK INNER JOIN
                          StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
-                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId
-WHERE        (StyleCostingMaster.IsApproved = N'A')
+                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
 GROUP BY SkuRawmaterialDetail.SkuDet_PK
 HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
@@ -523,8 +1008,8 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
                          POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
-                         SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode
-WHERE        (StyleCostingMaster.IsApproved = N'A')
+                         SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
 GROUP BY SkuRawmaterialDetail.SkuDet_PK
 HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
@@ -581,8 +1066,8 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
                          POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
-                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode
-WHERE        (StyleCostingMaster.IsApproved = N'A')
+                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
 GROUP BY SkuRawmaterialDetail.SkuDet_PK
 HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
@@ -641,8 +1126,8 @@ FROM            SkuRawmaterialDetail INNER JOIN
                          StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
                          POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID AND GroupDependantItems.POPackID = POPackDetails.POPackId AND 
-                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode and     SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode
-WHERE        (StyleCostingMaster.IsApproved = N'A')
+                         SkuRawmaterialDetail.SizeCode = POPackDetails.SizeCode and     SkuRawmaterialDetail.ColorCode = POPackDetails.ColorCode AND GroupDependantItems.OurStyleID = POPackDetails.OurStyleID
+WHERE        (StyleCostingMaster.IsApproved = N'A') and (GroupDependantItems.IsDepenant='Y')
 GROUP BY SkuRawmaterialDetail.SkuDet_PK
 HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
@@ -803,12 +1288,62 @@ HAVING        (WrongPOMaster.IsApproved = N'Y') AND (ProcurementMaster.AtcId = @
 
 
 
+        public static System.Data.DataTable GetInventorymisplacedData(int ATCID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+
+                cmd.CommandText = @"SELECT        SUM(InventoryMissingDetails.Qty) AS Qty, InventoryMaster.SkuDet_Pk, InventoryMaster.Uom_Pk
+FROM            InventoryMissingDetails INNER JOIN
+                         InventoryMissingRequest ON InventoryMissingDetails.MisplaceApp_PK = InventoryMissingRequest.MisplaceApp_pk INNER JOIN
+                         InventoryMaster ON InventoryMissingDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK
+GROUP BY InventoryMaster.SkuDet_Pk, InventoryMissingRequest.Atc_id, InventoryMissingRequest.IsApproved, InventoryMaster.Uom_Pk
+HAVING(InventoryMissingRequest.Atc_id = @ATCID) AND(InventoryMissingRequest.IsApproved = N'Y')";
+
+
+
+                cmd.Parameters.AddWithValue("@ATCID", ATCID);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
 
 
 
 
+        public static System.Data.DataTable GetROOutQtyData(int ATCID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
 
 
+                cmd.CommandText = @"SELECT        RoInDetails.RoQty, InventoryMaster.Uom_Pk, RoInDetails.FromSkuDet_PK as SkuDet_PK, SkuRawMaterialMaster.Atc_id
+FROM            RoInDetails INNER JOIN
+                         InventoryMaster ON RoInDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+WHERE        (SkuRawMaterialMaster.Atc_id = @Param1)";
+
+
+
+                cmd.Parameters.AddWithValue("Param1", ATCID);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
 
 
 

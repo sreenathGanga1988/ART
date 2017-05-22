@@ -219,3 +219,10 @@ background-image:url('../Image/tick.jpg');
     background-color:brown;
     height:20px
 }
+.HeaderFreez
+{
+position:relative ;
+top:expression(this.offsetParent.scrollTop);
+z-index: 10;
+}
+

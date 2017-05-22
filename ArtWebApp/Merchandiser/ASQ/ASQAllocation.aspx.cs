@@ -14,10 +14,17 @@ namespace ArtWebApp.Merchandiser.ASQ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+            if(Session["UserLoc_pk"].ToString ()=="6")
+            {
+                Button1.Enabled = true;
+            }
+            else
             {
 
+                Button1.Enabled = false;
             }
+          
         }
 
         protected void buttonAtc_Click(object sender, EventArgs e)
@@ -196,7 +203,7 @@ namespace ArtWebApp.Merchandiser.ASQ
                 {
                     int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
                     int popackid = int.Parse((e.Row.FindControl("lbl_popackid") as Label).Text);
-
+                    CheckBox chkBx = (CheckBox)e.Row.FindControl("chk_select");
                     GenerateTable(BLL.popackupdater.createdatatable(ourstyleid, popackid), e.Row);
 
 
@@ -209,6 +216,7 @@ namespace ArtWebApp.Merchandiser.ASQ
                     if (lbl_iscutable.Trim() == "N")
                     {
                         e.Row.Enabled = false;
+                        chkBx.Enabled = false;
                     }
 
 
@@ -217,11 +225,63 @@ namespace ArtWebApp.Merchandiser.ASQ
                     {
                         DropDownList factlist = (e.Row.FindControl("drp_loc") as DropDownList);
                         factlist.Visible = true;
+
+                        try
+                        {
+                            int lbl_recfactid = int.Parse((e.Row.FindControl("lbl_recfactid") as Label).Text);
+                            factlist.SelectedValue = lbl_recfactid.ToString();
+                            factlist.Enabled = false;
+                        }
+                        catch (Exception)
+                        {
+
+                         
+                        }
+                         
+                    }
+                    else if(lbl_iscutable.Trim() == "N" && lbl_location.Trim() != "NA")
+                    {
+
+                        DropDownList factlist = (e.Row.FindControl("drp_loc") as DropDownList);
+                        factlist.Visible = true;
+                        e.Row.Enabled = true;
+                        chkBx.Enabled = false;
+                        try
+                        {
+                            int lbl_recfactid = int.Parse((e.Row.FindControl("lbl_recfactid") as Label).Text);
+                            factlist.SelectedValue = lbl_recfactid.ToString();
+                            factlist.Enabled = false;
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+                    }
+                    else if (lbl_iscutable.Trim() == "Y" && lbl_location.Trim() != "NA")
+                    {
+
+                        DropDownList factlist = (e.Row.FindControl("drp_loc") as DropDownList);
+                        factlist.Visible = true;
+                        e.Row.Enabled = true;
+                        try
+                        {
+                            int lbl_recfactid = int.Parse((e.Row.FindControl("lbl_recfactid") as Label).Text);
+                            factlist.SelectedValue = lbl_recfactid.ToString();
+                            factlist.Enabled = false;
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
                     }
                     else
                     {
                         DropDownList factlist = (e.Row.FindControl("drp_loc") as DropDownList);
-                        factlist.Visible = false;
+                        factlist.Visible = true;
+                      
+                      
                     }
 
                   
@@ -430,8 +490,10 @@ namespace ArtWebApp.Merchandiser.ASQ
                     pdata.Season_PK = int.Parse((row.FindControl("lbl_Season_PK") as Label).Text);
                     pdata.atcid = int.Parse((row.FindControl("lbl_atcid") as Label).Text);
 
-                    pdata.AllocatePO(popackid, ourstyleid, factid);
-
+                   // pdata.AllocatePO(popackid, ourstyleid, factid);
+                 pdata.AllocatePONew(popackid, ourstyleid, factid);
+                //    pdata.AllocatePOinDubaionly(popackid, ourstyleid, factid);
+                    
                     k++;
 
                 }

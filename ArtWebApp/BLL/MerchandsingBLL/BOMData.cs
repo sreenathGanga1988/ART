@@ -176,7 +176,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                  GROUP BY StyleCostingDetails.Sku_PK, StyleCostingMaster.IsApproved
                                  HAVING        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)), SkuRawmaterialDetail.UnitRate) AS UnitRate, SkuRawmaterialDetail.RqdQty, 
                          0000 AS PoIssuedQty, 0000 AS BalanceQty, SkuRawMaterialMaster.Uom_PK, SkuRawMaterialMaster.AltUom_pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, 
-                         SkuRawMaterialMaster.IsSD, UOMMaster.UomCode, SkuRawMaterialMaster.Template_pk, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin ,SizeMaster.SizeName,SkuRawMaterialMaster.IsGD
+                         SkuRawMaterialMaster.IsSD, UOMMaster.UomCode, SkuRawMaterialMaster.Template_pk, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin ,SizeMaster.SizeName,SkuRawMaterialMaster.IsGD,00 as garmentQty
 FROM            SkuRawmaterialDetail INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON SkuRawMaterialMaster.AltUom_pk = UOMMaster.Uom_PK  left outer JOIN

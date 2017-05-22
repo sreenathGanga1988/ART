@@ -111,10 +111,13 @@
                                      </td>
                                      <td >PROJECTION qTY</td>
                                      <td >
-                                         <cc2:NumericTextBox ID="NumericTextBox4" runat="server" />
+                                         <cc2:NumericTextBox ID="txt_projqty" runat="server" Enabled="False" >0</cc2:NumericTextBox>
                                      </td>
-                                     <td ></td>
-                                     <td ></td>
+                                     <td >Prod Country</td>
+                                     <td >
+                                         <ucc:DropDownListChosen ID="cmb_prodcountry" runat="server" DataSourceID="SqlDataSource2" DataTextField="Description" DataValueField="CountryID" DisableSearchThreshold="10" Width="200px">
+                                         </ucc:DropDownListChosen>
+                                     </td>
                                  </tr>
     <tr >
         <td >
@@ -137,7 +140,7 @@
     </tr>
     <tr>
         <td >
-            <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:CourierDetailsConnectionString %>" SelectCommand="SELECT DISTINCT Style FROM [OrderBooking_TBL ] ORDER BY Style DESC"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString  %>" SelectCommand="SELECT DISTINCT BuyerStyle FROM BuyerStyleMaster ORDER BY BuyerStyle DESC"></asp:SqlDataSource>
         </td>
         <td >
 
@@ -209,7 +212,7 @@
                  <asp:BoundField DataField="Ourstyle" HeaderText="Ourstyle" />
                  <asp:TemplateField HeaderText="BuyerStyle" SortExpression="BuyerStyle">
                      <ItemTemplate>
-                         <asp:DropDownList ID="Mydrop" runat="server"  DataSourceID="BuyerStyle1" DataTextField="Style" DataValueField="Style" Font-Names="Calibri" Font-Size="X-Small" Height="16px"></asp:DropDownList>
+                         <asp:DropDownList ID="Mydrop" runat="server"  DataSourceID="BuyerStyle1" DataTextField="BuyerStyle" DataValueField="BuyerStyle" Font-Names="Calibri" Font-Size="X-Small" Height="16px"></asp:DropDownList>
                      </ItemTemplate>                     
                  </asp:TemplateField>
                  <asp:TemplateField HeaderText="FOB" SortExpression="Fob">

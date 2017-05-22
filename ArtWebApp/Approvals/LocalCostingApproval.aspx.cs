@@ -43,7 +43,7 @@ namespace ArtWebApp.Approvals
                     //script += "'; }";
                     //ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
 
-                    Response.Redirect("../Authorisation.aspx");
+                    Response.Redirect("../Authorisation.aspx?navtype = Approval");
                 }
             }
         }

@@ -100,6 +100,8 @@
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="RecievedQty" />
                                         <asp:BoundField DataField="DeliveredQty" HeaderText="DeliveredQty" />
+                                        <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                        <asp:BoundField DataField="BlockedQty" HeaderText="Blocked Qty" />
                                         <asp:TemplateField HeaderText="OnhandQty">
                                             
                                             <ItemTemplate>

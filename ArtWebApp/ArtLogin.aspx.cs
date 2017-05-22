@@ -1,6 +1,8 @@
 ﻿using ArtWebApp.BLL.UserBLL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -27,6 +29,24 @@ namespace ArtWebApp
 
 
                 FormsAuthentication.RedirectFromLoginPage(email.Text, false);
+
+                string sessionId = System.Web.HttpContext.Current.Session.SessionID;
+
+                Application.Lock();
+
+                DataTable userdata = (DataTable)(Application["SessionData"]);
+
+                userdata.Rows.Add(Session["Username"], sessionId, Session["lOC_Code"]);
+              
+                Application["SessionData"] = userdata;
+                Application.UnLock();
+
+
+
+
+
+
+
                 Response.Redirect("~/Default2.aspx");
             }
         }

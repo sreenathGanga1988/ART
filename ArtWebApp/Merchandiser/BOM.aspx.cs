@@ -114,7 +114,13 @@ namespace ArtWebApp.Merchandiser
                     }
                     else if (POtype.Trim() == "FOC")
                     {
+                        
                         Response.Redirect("~/Merchandiser/PO/FOCPO.aspx");
+                    }
+                    else if (POtype.Trim() == "AppendPO")
+                    {
+                        
+                        Response.Redirect("~/Merchandiser/PO/POAppend.aspx");
                     }
                 }
 
@@ -455,6 +461,12 @@ namespace ArtWebApp.Merchandiser
         {
             Session["atcid"] = int.Parse(cmb_atc.SelectedValue.ToString());
             GeneratePO1("FOC");
+        }
+
+        protected void btn_addtoPO_Click(object sender, EventArgs e)
+        {
+            Session["atcid"] = int.Parse(cmb_atc.SelectedValue.ToString());
+            GeneratePO1("AppendPO");
         }
     }
 }

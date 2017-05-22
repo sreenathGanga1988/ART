@@ -22,13 +22,11 @@ namespace ArtWebApp.DataModels
             this.DeliveryOrderStockMasters = new HashSet<DeliveryOrderStockMaster>();
             this.DeliveryOrderStockMasters1 = new HashSet<DeliveryOrderStockMaster>();
             this.DeliveryReceiptMasters = new HashSet<DeliveryReceiptMaster>();
-            this.DocMasters = new HashSet<DocMaster>();
             this.FactWareLinkMasters = new HashSet<FactWareLinkMaster>();
             this.FactWareLinkMasters1 = new HashSet<FactWareLinkMaster>();
             this.InventoryLoanMasters = new HashSet<InventoryLoanMaster>();
             this.InventoryMasters = new HashSet<InventoryMaster>();
             this.InventorySalesMasters = new HashSet<InventorySalesMaster>();
-            this.JobContractMasters = new HashSet<JobContractMaster>();
             this.JobContractOptionalMasters = new HashSet<JobContractOptionalMaster>();
             this.MrnMasters = new HashSet<MrnMaster>();
             this.RecieptMasters = new HashSet<RecieptMaster>();
@@ -42,6 +40,9 @@ namespace ArtWebApp.DataModels
             this.StockRecieptMasters = new HashSet<StockRecieptMaster>();
             this.StockSDocMasters = new HashSet<StockSDocMaster>();
             this.TransferToGstockMasters = new HashSet<TransferToGstockMaster>();
+            this.JobContractMasters = new HashSet<JobContractMaster>();
+            this.CutPlanMasters = new HashSet<CutPlanMaster>();
+            this.DocMasters = new HashSet<DocMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -68,13 +69,11 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters { get; set; }
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters1 { get; set; }
         public virtual ICollection<DeliveryReceiptMaster> DeliveryReceiptMasters { get; set; }
-        public virtual ICollection<DocMaster> DocMasters { get; set; }
         public virtual ICollection<FactWareLinkMaster> FactWareLinkMasters { get; set; }
         public virtual ICollection<FactWareLinkMaster> FactWareLinkMasters1 { get; set; }
         public virtual ICollection<InventoryLoanMaster> InventoryLoanMasters { get; set; }
         public virtual ICollection<InventoryMaster> InventoryMasters { get; set; }
         public virtual ICollection<InventorySalesMaster> InventorySalesMasters { get; set; }
-        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual ICollection<JobContractOptionalMaster> JobContractOptionalMasters { get; set; }
         public virtual ICollection<MrnMaster> MrnMasters { get; set; }
         public virtual ICollection<RecieptMaster> RecieptMasters { get; set; }
@@ -88,5 +87,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<StockRecieptMaster> StockRecieptMasters { get; set; }
         public virtual ICollection<StockSDocMaster> StockSDocMasters { get; set; }
         public virtual ICollection<TransferToGstockMaster> TransferToGstockMasters { get; set; }
+        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
+        public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
+        public virtual ICollection<DocMaster> DocMasters { get; set; }
     }
 }

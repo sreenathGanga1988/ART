@@ -9,42 +9,103 @@
 
        <script type="text/javascript">
 
-       //calculate the sum of qty on keypress
-      <%-- function sumofQty(objText) {
-       
+        var gridID = "<%= tbl_RollDetails.ClientID %>";
 
-           debugger;
-           enter(objText)
+    
+           function calculatesumofyardage()
+        {
+            var gridView = document.getElementById("<%= tbl_RollDetails.ClientID %>");
+            var sum = 0
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_ayard = gridView.rows[i].getElementsByClassName("txtayard")[0];
 
-            if (document.getElementById('<%= txt_Laylength.ClientID %>').value=="")
+                    sum = sum + parseFloat(txt_ayard.innerHTML);
+                }
+
+            } 
+            var totalyardfooter = document.getElementsByClassName("totalyardfooter")[0];
+            totalyardfooter.value = sum;
+        }
+           function calculatesumoffab()
            {
-                 alert("Laylength can not be blank");
-                 document.getElementById("<%=txt_Laylength.ClientID%>").focus();
-                 return false;
+               debugger;
+            var gridView = document.getElementById("<%= tbl_RollDetails.ClientID %>");
+            var sum = 0
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txtFab = gridView.rows[i].getElementsByClassName("txtFab")[0];
+
+                    sum = sum + parseFloat(txtFab.value);
+                }
+
+            } 
+            var totalfabfooter = document.getElementsByClassName("totalfabfooter")[0];
+            totalfabfooter.value = sum;
+        }
+
+
+
+           function newselection(objrev)
+           {
+               
+               Check_Click(objrev)
+               calculatePliesSum();
+               calculatesumofyardage();
+               calculatesumoffab();
            }
-            else {
-                var cell = objText.parentNode;
-                var row = cell.parentNode;
-                var txtconsumption = row.getElementsByClassName("txtFab");
 
-                var txtplies = row.getElementsByClassName("txtPlies");
+           function newAllselection(objrev) {
+               checkAll(objrev)
+               calculatePliesSum();
+               calculatesumofyardage();
+               calculatesumoffab();
+           }
 
-                var fabutilised = parseFloat(document.getElementById('<%= txt_Laylength.ClientID %>').value) * parseFloat(txtplies[0].value);
-                txtconsumption[0].value = fabutilised.toString()
-            }      
-        
-         
+           function calculatePliesSum()
+           {
+               var gridView = document.getElementById(gridID);
+               var sum = 0;
+               var plotpliesvalue = 0;
+               for (var i = 1; i < gridView.rows.length - 1; i++) {
+                   var count = 0;
+                   var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                   if (chkConfirm.checked)
+                   {
+                       try {
+                           var txtplies = gridView.rows[i].getElementsByClassName("txtPlies");
+                           plotpliesvalue = parseFloat(txtplies[0].value);
+                       } 
+                       catch (e) 
+                       {
+                           txtplies[0].value = 0;
+                           plotpliesvalue = 0;
+                       }
 
-       }--%>
+                       sum = sum + plotpliesvalue;
+                      
+                   }
+               }
+               var footer = gridView.getElementsByClassName("qtyfooter")[0];
+
+  
+               footer.value = sum.toString();
+
+               calculatenewbalance(sum);
+           }
+
 
     
-    
-           function sumofQty(objText) {
-       
-
-           debugger;
+           function sumofQty(objText) {     
+                       
           
-           enter(objText)
+           enter(objText);
 
             if (document.getElementById('<%= txt_Laylength.ClientID %>').value=="")
            {
@@ -74,13 +135,71 @@
 
             }      
         
-         
+               calculatesumoffab();
 
        }
 
 
 
+
+
+
+           function calculatenewbalance(objvalue)
+           {
+
+               debugger;
+               
+               var title = "<%= Table1.ClientID %>";
+              // var  = document.getElementsByClassName("dynamicentrytablereal")[0];
+               var headertable = document.getElementById(title);
+               var balratiorow = headertable.rows[2];
+               var balqtyrow = headertable.rows[4];
+               var newbalqtyrow = headertable.rows[5];
+               var txtratio = balratiorow.getElementsByClassName("txtCalRatio");
+               for (var i = 0; i < txtratio.length; i++) {
+                  
+                   var ratio = txtratio[i].value;
+
+                   var balqty = balqtyrow.getElementsByClassName("txtCalbal")[i].value;
+
+                   var newbalqty = newbalqtyrow.getElementsByClassName("txtCalNewBal")[i];
+
+
+                   var newbal=0;
+
+                   newbal =    parseFloat(balqty)-(parseFloat(ratio) * parseFloat(objvalue));
+
+
+
+                   newbalqty.value = newbal;
+               }
+
+
+           }
+
+
+
+
+
+
+
+
+
 </script>
+
+
+ 
+   
+
+
+
+ 
+    <style type="text/css">
+        .auto-style1 {
+            width: 55px;
+            height: 27px;
+        }
+    </style>
 
 
  
@@ -98,47 +217,92 @@
         </tr>
         <tr>
             <td>
-                <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
+
+
+                <div>
+
+                    <table>
+                         <tr>
+                        <td class="NormalTD" >fACTORY</td>
+                        <td class="NormalTD" >
+                               <asp:UpdatePanel ID="UPD_FACT" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-
- <table class="tittlebar">
-                    <tr>
-                        <td class="NormalTD" >atc&nbsp; : </td>
-                        <td class="NormalTD" >
-                               
-                               <asp:UpdatePanel ID="upd_atc"  UpdateMode="Conditional" runat ="server">
-                                            <ContentTemplate>
-                              <ucc:DropDownListChosen ID="drp_atc" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
-                                    </ucc:DropDownListChosen>
-                                                 </ContentTemplate>
-                                        </asp:UpdatePanel>
-
+                               <ucc:DropDownListChosen ID="drp_fact" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
+                               </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                            </asp:UpdatePanel>
                         </td>
-                        <td><asp:UpdatePanel ID="UpdatePanel6" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate>
-                            <asp:Button ID="btn_atc" runat="server" Text="S" OnClick="btn_atc_Click" /></ContentTemplate>
-                                        </asp:UpdatePanel>  
-                        </td>
-                        <td class="NormalTD" >ourstyle&nbsp; #</td>
+                        <td class="SearchButtonTD
+                            ">&nbsp;</td>
+                        <td class="NormalTD" >&nbsp;</td>
                         <td class="NormalTD" >
 
-                               <asp:UpdatePanel ID="upd_ourstyle" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate>
-                                     <ucc:DropDownListChosen ID="drp_ourstyle" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
-                                    </ucc:DropDownListChosen>
-                                                 </ContentTemplate>
-                                        </asp:UpdatePanel>
-                        </td>
+                               &nbsp;</td>
                         <td class="ButtonTD" >
-                            <asp:UpdatePanel ID="UpdatePanel7" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate>
-                            <asp:Button ID="btn_OURSTYLE" runat="server" Text="S" OnClick="btn_OURSTYLE_Click" /></ContentTemplate>
-                                        </asp:UpdatePanel>  
+                            &nbsp;</td>
+                        <td class="NormalTD" >
+                            &nbsp;</td>
+                        <td class="NormalTD" >
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="NormalTD">atc&nbsp; : </td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_atc" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <ucc:DropDownListChosen ID="drp_atc" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                    </ucc:DropDownListChosen>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </td>
-                        <td class="NormalTD" >
-                            &nbsp;</td>
-                        <td class="NormalTD" >
-                            &nbsp;</td>
+                        <td class="SearchButtonTD">
+                            <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Button ID="btn_atc" runat="server" OnClick="btn_atc_Click" Text="S" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD">ourstyle&nbsp; #</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_ourstyle" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <ucc:DropDownListChosen ID="drp_ourstyle" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                    </ucc:DropDownListChosen>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">
+                            <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Button ID="btn_OURSTYLE" runat="server" OnClick="btn_OURSTYLE_Click" Text="S" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="NormalTD">Fabric</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_fabcolor" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <ucc:DropDownListChosen ID="drp_fabcolor" runat="server" Width="200px" DataTextField="ItemDescription" DataValueField="Skudet_pk">
+                                            </ucc:DropDownListChosen>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">
+                            <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Button ID="btn_color" runat="server" Text="S" OnClick="btn_color_Click" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD"></td>
+                        <td class="NormalTD"></td>
+                        <td class="auto-style1"></td>
+                        <td class="NormalTD"></td>
+                        <td class="NormalTD"></td>
                     </tr>
                     <tr>
                         <td class="NormalTD">Cutorder #</td>
@@ -152,7 +316,7 @@
                                      </ContentTemplate>
                                         </asp:UpdatePanel>            
                                                 </td>
-                        <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                       <td class="SearchButtonTD"><asp:UpdatePanel ID="UpdatePanel8" runat="server">
                                             <ContentTemplate>
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
@@ -168,7 +332,7 @@
                                                 
                                                 
                                                 </td>
-                        <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">
+                        <td class="SearchButtonTD"><asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
                             <asp:Button ID="btn_marker" runat="server" Text="S" OnClick="btn_marker_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
@@ -178,31 +342,121 @@
               
                
                     <tr>
-                        <td class="NormalTD">cutorder Lay Length</td>
+                        <td class="NormalTD">lay Sheet Roll #</td>
                         <td class="NormalTD">
-                            <asp:TextBox ID="txt_markerLaylength" runat="server" Enabled="False"></asp:TextBox>
+                            
+                               <asp:UpdatePanel ID="upd_layroll" runat="server" UpdateMode="Conditional">
+                                   <ContentTemplate>
+                                       <ucc:DropDownListChosen ID="drp_cutRoll" runat="server" DataTextField="LayRollRef" DataValueField="LaysheetRollmaster_Pk" Width="200px">
+                                       </ucc:DropDownListChosen>
+                                   </ContentTemplate>
+                               </asp:UpdatePanel>
+                                                </td>
+                       <td class="SearchButtonTD">
+                           <asp:Button ID="btn_showroll" runat="server" OnClick="btn_showroll_Click" Text="S" />
                         </td>
                         <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">New lay length</td>
                         <td class="NormalTD">
+                               &nbsp;</td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+              
+               
+                    <tr>
+                        <td class="NormalTD">cutorder Lay Length</td>
+                        <td class="NormalTD">
+                               <asp:UpdatePanel ID="Upd_markerLaylength" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
+                            <asp:TextBox ID="txt_markerLaylength" runat="server" Enabled="False"></asp:TextBox>
+                                                </ContentTemplate>
+                                        </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">Lay Length with Tolerance</td>
+                        <td class="NormalTD">
+                             <asp:UpdatePanel ID="upd_Laylength" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
                             <asp:TextBox ID="txt_Laylength"  runat="server"></asp:TextBox>
+                                                  </ContentTemplate>
+                                        </asp:UpdatePanel>
                         </td>
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
+
+               
+                    <tr>
+                        <td class="NormalTD">Number of Plies&nbsp;Already Cut</td>
+                        <td class="NormalTD">
+                               <asp:UpdatePanel ID="upd_pliescut" runat="server" UpdateMode="Conditional">
+                                   <ContentTemplate>
+                                       <asp:TextBox ID="txt_pliescut" runat="server" ReadOnly="True" Enabled="False"></asp:TextBox>
+                                   </ContentTemplate>
+                               </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">no of Plies</td>
+                        <td class="NormalTD">
+                             <asp:UpdatePanel ID="upd_noofplies" runat="server" UpdateMode="Conditional">
+                                 <ContentTemplate>
+                                     <asp:TextBox ID="txt_noofplies" runat="server" Enabled="False"></asp:TextBox>
+                                 </ContentTemplate>
+                             </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+
+               
+                    <tr>
+                        <td class="NormalTD">max&nbsp; Plies</td>
+                        <td class="NormalTD">
+                               <asp:UpdatePanel ID="upd_cutperplies" runat="server" UpdateMode="Conditional">
+                                   <ContentTemplate>
+                                       <asp:TextBox ID="txt_cutperplies" runat="server" Enabled="False"></asp:TextBox>
+                                   </ContentTemplate>
+                               </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">Balance Plies to cut</td>
+                        <td class="NormalTD">
+                             <asp:UpdatePanel ID="upd_baltocutnow" runat="server" UpdateMode="Conditional">
+                                 <ContentTemplate>
+                                     <asp:TextBox ID="txt_baltocutnow" runat="server" Enabled="False" OnTextChanged="txt_noofplies0_TextChanged"></asp:TextBox>
+                                 </ContentTemplate>
+                             </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+
+                    </table>
+
+                </div>
+                <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
+                                <ContentTemplate>
+
+                                    <div>
+
+                                        <table class="tittlebar">
+                   
               
                
                 
               
                
                     <tr>
-                        <td class="NormalTD" colspan="7">
-                            <strong>Marker Details</strong></td>
-                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD"  colspan="2">
+                            <strong>cut order Details</strong></td>
+                        
                     </tr>
                     <tr>
-                        <td class="NormalTD" colspan="7">
+                        <td class="NormalTD" colspan="2" >
 
 
                             <asp:UpdatePanel ID="upd_secndtable" UpdateMode="Conditional" runat="server">
@@ -222,17 +476,17 @@
 
                          
                         </td>
-                        <td class="NormalTD"></td>
+                        
                     </tr>
                     <tr>
-                        <td class="NormalTD" colspan="7"><strong>Cutorder Details</strong></td>
+                        <td class="NormalTD" colspan="2"><strong>marker Details</strong></td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="NormalTD" colspan="7">
+                        <td class="NormalTD" colspan="2">
                              <asp:UpdatePanel ID="upd_table" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:Panel ID="panel1" runat="server" ViewStateMode="Enabled">
+                                    <asp:Panel ID="panel1" runat="server" ViewStateMode="Enabled" Width="200px">
                                         <asp:Table ID="Table1" runat="server" ViewStateMode="Enabled">
                                         </asp:Table>
                                     </asp:Panel>
@@ -240,45 +494,46 @@
                             </asp:UpdatePanel>  </td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
-                  <tr>
-                        <td class="NormalTD">Number of Plies&nbsp; Cut</td>
-                        <td class="NormalTD"><asp:UpdatePanel ID="upd_pliescut" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate><asp:TextBox ID="txt_pliescut" runat="server"></asp:TextBox>  </ContentTemplate></asp:UpdatePanel></td>
-                        <td class="NormalTD">
-                           
-                        </td>
-                        <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
-                    </tr>
+                                           
+                
                
                 </table>
+
+
+                                    </div>
+
+ 
                                        </ContentTemplate>
                             </asp:UpdatePanel>
                
             </td>
         </tr>
 
-
         <tr>
             <td><asp:UpdatePanel ID="upd_grid"  UpdateMode="Conditional"  runat="server">
                   <ContentTemplate>
-                <asp:GridView ID="tbl_RollDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK">
+                <asp:GridView ID="tbl_RollDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK" ShowFooter="True">
                                     <Columns>
                                              <asp:TemplateField>  
                                     <HeaderTemplate>
-                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="newAllselection(this)"/>
                                     </HeaderTemplate>                                 
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="newselection(this)"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Roll_PK" InsertVisible="False" SortExpression="Roll_PK">
                                             
                                             <ItemTemplate>
                                                 <asp:Label ID="lbl_rollpk" runat="server" Text='<%# Bind("Roll_PK") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+
+                                        <asp:TemplateField HeaderText="Pk" InsertVisible="False" SortExpression="LaySheetRoll_Pk">
+                                            
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_LaySheetRoll_Pk" runat="server" Text='<%# Bind("LaySheetRoll_Pk") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                            
@@ -303,20 +558,36 @@
                                                  <ItemTemplate>
                                                      <asp:Label ID="lbl_ayard" CssClass="txtayard" runat="server" Text='<%# Bind("AYard") %>'></asp:Label>
                                                  </ItemTemplate>
+                                                 <FooterTemplate>
+                                                  <asp:TextBox ID="txt_totalyard" Width="70px" CssClass="totalyardfooter" runat="server"></asp:TextBox>
+
+                                              </FooterTemplate>
                                              </asp:TemplateField>
                                          
                                                                             
                                              <asp:TemplateField HeaderText="Plies">
                                                  
                                                  <ItemTemplate>
-                                                    <asp:TextBox ID="txt_plies"  Text="0" CssClass="txtPlies" Width="70px" onkeypress="return isNumberKey(event,this)"  onkeyup ="sumofQty(this)" runat="server" ></asp:TextBox>
+                                                    <asp:TextBox ID="txt_plies"  Text="0" CssClass="txtPlies" Width="70px" onkeypress="return isNumberKey(event,this)"  onkeyup ="sumofQty(this)"  onchange="calculatePliesSum()" runat="server" ></asp:TextBox>
                                                  </ItemTemplate>
+                                                    <FooterTemplate>
+
+                                          <asp:TextBox ID="lbl_qtyfooter" CssClass="qtyfooter" Width="70px" runat="server" ></asp:TextBox>
+                                   </FooterTemplate>
+
+                              
                                              </asp:TemplateField>
                                              <asp:TemplateField HeaderText="Fab Utilized">
                                                  
                                                  <ItemTemplate>
-                                                      <asp:TextBox ID="txt_fab"  Text="0" Width="70px" CssClass="txtFab" onkeypress="return isNumberKey(event,this)"  onkeyup="sumofQty(this)"  runat="server" ></asp:TextBox>
+                                                      <asp:TextBox ID="txt_fab"  Text="0" Width="70px" CssClass="txtFab" onkeypress="return isNumberKey(event,this)"  onkeyup="sumofQty(this)" onChange="calculatesumoffab()"   runat="server" ></asp:TextBox>
                                                  </ItemTemplate>
+
+                                                    <FooterTemplate>
+                                                  <asp:TextBox ID="txt_totalfab" Width="70px" CssClass="totalfabfooter" runat="server"></asp:TextBox>
+
+                                              </FooterTemplate>
+
                                              </asp:TemplateField>
                                              <asp:TemplateField HeaderText="Balance">
                                                  
@@ -330,7 +601,12 @@
                                                       <asp:TextBox ID="txt_excessshort"  CssClass="txt_excessshort" Text="0" Width="70px" onkeypress="return isNumberKey(event,this)"  onkeyup="sumofQty(this)"  runat="server" ></asp:TextBox>
                                                  </ItemTemplate>
                                              </asp:TemplateField>
-                                                                            
+                                                   <asp:TemplateField  HeaderText="Re Cuttable">
+                                                
+                                                 <ItemTemplate>
+                                                      <asp:CheckBox ID="chk_cutable" runat="server" ></asp:CheckBox>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>                    
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

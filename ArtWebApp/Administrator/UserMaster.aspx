@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="UserMaster.aspx.cs" Inherits="ArtWebApp.Administrator.UserMaster" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../css/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style2 {
+            height: 27px;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -32,16 +37,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td >USER LOCATION :</td>
+                            <td >User Profile</td>
                             <td >
                              
 
-                                 <ucc:DropDownListChosen ID="drp_userlocation" Width="200px"  runat="server" DataSourceID="SqlDataSource2" DataTextField="LocationName" DataValueField="Location_PK" DisableSearchThreshold="10" Height="16px"   >
+                                 <ucc:DropDownListChosen ID="drp_userprofilePK" runat="server" DataSourceID="userprofiledatasource" DataTextField="UserProfileName" DataValueField="UserProfile_Pk" DisableSearchThreshold="10" Height="16px" Width="200px">
                                      <asp:ListItem></asp:ListItem>
-                                        </ucc:DropDownListChosen>
+                                 </ucc:DropDownListChosen>
+                                 <asp:SqlDataSource ID="userprofiledatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [UserProfile_Pk], [UserProfileName], [UserProfileCode], [Description], [IsActive] FROM [UserProfileMaster] WHERE ([IsActive] = @IsActive)">
+                                     <SelectParameters>
+                                         <asp:Parameter DefaultValue="Y" Name="IsActive" Type="String" />
+                                     </SelectParameters>
+                                 </asp:SqlDataSource>
 
                                  
 
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>USER LOCATION :</td>
+                            <td>
+                                <ucc:DropDownListChosen ID="drp_userlocation" runat="server" DataSourceID="SqlDataSource2" DataTextField="LocationName" DataValueField="Location_PK" DisableSearchThreshold="10" Height="16px" Width="200px">
+                                    <asp:ListItem></asp:ListItem>
+                                </ucc:DropDownListChosen>
                             </td>
                         </tr>
                         
@@ -147,6 +166,46 @@
                 </table>
             </asp:View>
             <asp:View ID="View3" runat="server">
+                <table class="DataEntryTable">
+                    <tr>
+                        <td class="RedHeadding" colspan="3">User Profile Assignment</td>
+                       
+                    </tr>
+                    <tr>
+                        <td class="NormalTD">UserName</td>
+                        <td class="NormalTD">
+                            <ucc:DropDownListChosen ID="drp_user" runat="server" DataSourceID="Userdata" DataTextField="UserName" DataValueField="User_PK" DisableSearchThreshold="10" Height="17px" Width="200px">
+                            </ucc:DropDownListChosen>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td  class="NormalTD">User Profile</td>
+                        <td class="NormalTD">
+                            <ucc:DropDownListChosen ID="drp_userprofile" runat="server" datasourceid="userprofiledatasource0" DataTextField="UserProfileName" DataValueField="UserProfile_Pk" DisableSearchThreshold="10" Height="16px" Width="200px">
+                                <asp:ListItem></asp:ListItem>
+                            </ucc:DropDownListChosen>
+                            <asp:SqlDataSource ID="userprofiledatasource0" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [UserProfile_Pk], [UserProfileName], [UserProfileCode], [Description], [IsActive] FROM [UserProfileMaster] WHERE ([IsActive] = @IsActive)">
+                                <SelectParameters>
+                                    <asp:Parameter DefaultValue="Y" Name="IsActive" Type="String" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                            <asp:SqlDataSource ID="Userdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [User_PK], [UserName], [UserLoc_PK] FROM [UserMaster] ">
+                            </asp:SqlDataSource>
+                        </td>
+                          <td class="SearchButtonTD">&nbsp;</td>
+                       
+                    </tr>
+                 
+                    <tr>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">
+                            <asp:Button ID="Button2" runat="server" Text="Assign Profile" OnClick="Button2_Click" />
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                    </tr>
+                 
+                </table>
             </asp:View>
         </asp:MultiView>
 

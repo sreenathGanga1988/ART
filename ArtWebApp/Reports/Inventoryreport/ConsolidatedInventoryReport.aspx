@@ -37,6 +37,9 @@
                     <td class="NormalTD">
                         <asp:FileUpload ID="FileUpload1" runat="server" />
                          </td>
+                         <td>
+                             <asp:Button ID="Button1" runat="server"  Text="Fetch" OnClick="Button1_Click" />
+                         </td>
                   
                 </tr>
                 <tr>

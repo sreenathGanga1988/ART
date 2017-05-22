@@ -95,7 +95,7 @@ namespace ArtWebApp.DBTransaction
                 con.Open();
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        OurStyleID, AtcId, OurStyle, BuyerStyle, FOB, CategoryID
+                SqlCommand cmd = new SqlCommand(@"SELECT        OurStyleID, AtcId, OurStyle, BuyerStyle, FOB, CategoryID,Quantity
 FROM            AtcDetails
 WHERE        (AtcId = @Param1)", con);
 
@@ -163,7 +163,23 @@ WHERE        (AtcId = @Param1)", con);
 
 
 
+        public void ForwardAtcProjection(int atcApprove_PK)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
+                var q = from atcmstr in enty.AtcApprovals
+                        where atcmstr.AtcApproval_PK == atcApprove_PK
+                        select atcmstr;
+                foreach (var element in q)
+                {
+                    element.IsForwarded = "Y";
+                    element.ForwardedBY = HttpContext.Current.Session["Username"].ToString().Trim();
+                }
+
+                enty.SaveChanges();
+            }
+        }
 
 
 
@@ -233,7 +249,69 @@ WHERE        (AtcId = @Param1)", con);
         }
 
 
+        public void ApproveAtcProjection(int atcApprove_PK)
+        {
 
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                // gOTTHE OURSTYLE ID
+                var Ourstyledata = (from o in enty.AtcApprovals
+                                    where o.AtcApproval_PK == atcApprove_PK
+
+                                    select o.AtcId).FirstOrDefault();
+                int atcid = int.Parse(Ourstyledata.ToString());
+
+
+                Decimal qty = 0;
+
+
+                var datatoapprove = from cstingmstr in enty.AtcApprovals
+                                    where cstingmstr.AtcApproval_PK == atcApprove_PK && cstingmstr.AtcId == atcid
+                                    select cstingmstr;
+
+                foreach (var element123 in datatoapprove)
+                {
+
+
+
+                    if (!enty.AtcApprovals.Any(f => f.AtcId == atcid && f.IsApproved == "A"))
+                    {
+                        element123.IsFirst = "Y";
+                    }
+                    else
+                    {
+                        element123.IsFirst = "N";
+                    }
+
+                    element123.IsApproved = "A";
+
+                    element123.ApprovedBY = HttpContext.Current.Session["Username"].ToString();
+                    element123.ApprovedDate = DateTime.Now;
+                    qty = Decimal.Parse(element123.Quantity.ToString());
+                }
+
+
+
+                var datatounapprove = from atcdet in enty.AtcMasters
+                                      where atcdet.AtcId == atcid
+                                      select atcdet;
+                //mARKED ALL UNAPPROVED
+                foreach (var element in datatounapprove)
+                {
+                    element.ProjectionQty = qty;
+
+                }
+
+
+
+
+
+                enty.SaveChanges();
+            }
+
+
+        }
 
 
     }

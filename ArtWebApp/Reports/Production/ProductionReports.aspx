@@ -31,7 +31,9 @@
                         <asp:Button ID="btn_atc" runat="server" OnClick="btn_atc_Click" Text="Show Production Report" Font-Size="Smaller"  Width="168px" ToolTip="Display the locationwise production report of Atc" />
                     </td>
                     <td class="NormalTD"><asp:Button ID="btn_jc" runat="server" OnClick="btn_jc_Click" Text="Show JOB Contract" Font-Size="Smaller"  Width="168px" ToolTip="Show the Jobcontract of the selected Atc in Job Contract dropdown" /></td>
-                    <td class="NormalTD" ></td>
+                    <td class="NormalTD" >
+                        <asp:Button ID="btn_jc0" runat="server" Font-Size="Smaller" OnClick="btn_jc0_Click" Text="Show ShipmentHandOver" ToolTip="Show the Shipment handover of the selected Atc in  Shipment handover dropdown" Width="168px" />
+                    </td>
                     <td class="NormalTD" ></td>
                     <td class="NormalTD" ></td>
                     <td class="NormalTD" ></td>

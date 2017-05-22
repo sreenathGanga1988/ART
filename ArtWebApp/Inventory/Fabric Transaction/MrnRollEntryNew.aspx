@@ -2,7 +2,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link href="../../css/style.css" rel="stylesheet" />
-   
+ 
+    <script type="text/javascript" >
+
+      
+
+
+        function Onselection(objref)
+        {
+            Check_Click(objref)
+            GetSumofSelectedLabelinFooterTextbox('DataEntry', 'lbl_supplieryard', 'txt_syardfooter');
+        }
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
@@ -158,14 +170,21 @@
                     <td class="gridtable" colspan="5">
                         <asp:UpdatePanel ID="upd_grid"   UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
-                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK">
+                                <asp:GridView ID="tbl_InverntoryDetails" CssClass="DataEntry" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK" ShowFooter="True">
                                     <Columns>
-                                         <asp:TemplateField>
-                                       
-                                        <ItemTemplate>
-                                            <asp:CheckBox ID="Chk_select" runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+
+
+                                             <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_select" runat="server" onclick="calculateSyardSum(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+
+
                                         <asp:TemplateField HeaderText="Roll_PK" InsertVisible="False" SortExpression="Roll_PK">
                                           
                                             <ItemTemplate>
@@ -175,7 +194,17 @@
                                          <asp:BoundField DataField="Lotnum" HeaderText="Lot#" SortExpression="Lotnum" />
                                         <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
                                         <asp:BoundField DataField="SShrink" HeaderText="SShrink" SortExpression="SShrink" />
-                                        <asp:BoundField DataField="SYard" HeaderText="SYard" SortExpression="SYard" />
+                                             <asp:TemplateField HeaderText="SYard" SortExpression="SYard">
+                                                 
+                                                
+                                                 
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lbl_supplieryard" CssClass="lbl_supplieryard" runat="server" Text='<%# Bind("SYard") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                                  <FooterTemplate>
+                                                     <asp:TextBox ID="txt_syardfooter" CssClass="txt_syardfooter" runat="server"></asp:TextBox>
+                                                 </FooterTemplate>
+                                             </asp:TemplateField>
                                         <asp:BoundField DataField="SShade" HeaderText="SShade" SortExpression="SShade" />
                                         <asp:BoundField DataField="SWidth" HeaderText="SWidth" SortExpression="SWidth" />
                                         <asp:BoundField DataField="SGsm" HeaderText="SGsm" SortExpression="SGsm" />

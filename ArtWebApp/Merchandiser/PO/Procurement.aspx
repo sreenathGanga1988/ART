@@ -26,7 +26,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1"  runat="server">
     <table class="FullTable">
         <tr>
-            <td>
+           <td class="NormalTD">
                 <asp:UpdatePanel ID="Upd_Main" UpdateMode="Conditional"  ChildrenAsTriggers="false" runat="server">
                     <ContentTemplate>
                         <table class="DataEntryTable">
@@ -123,7 +123,7 @@
             </td>
         </tr>
         <tr class="error-message">
-            <td>
+           <td class="NormalTD">
                   <asp:UpdatePanel ID="upd_label" UpdateMode="Conditional"  runat="server">
                     <ContentTemplate>
                 <asp:Label ID="lbl_mssg" runat="server" Text="*"></asp:Label>
@@ -134,7 +134,7 @@
         </tr>
 
         <tr>
-            <td>
+           <td class="NormalTD">
                 <asp:UpdatePanel ID="upd_detail" UpdateMode="Conditional" ChildrenAsTriggers="false"   runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnRowDataBound="tbl_Podetails_RowDataBound" style="font-size: small; font-family: Calibri; margin-bottom: 0px;" Width="100%">
@@ -261,7 +261,7 @@
         </tr>
 
         <tr class="SmallSearchButton">
-            <td>
+           <td class="NormalTD">
                 <asp:Button ID="Btn_submit" runat="server" Text="Submit" Height="25px" OnClick="Btn_submit_Click" style="font-size: small; font-family: Calibri; text-align: center" />
                 <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                     <ContentTemplate>

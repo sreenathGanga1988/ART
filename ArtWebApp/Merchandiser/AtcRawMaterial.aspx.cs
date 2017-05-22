@@ -105,6 +105,24 @@ ArtWebApp.DBTransaction.SkuCreator skucrtr = null;
 
 
                 }
+                else
+                {
+                    var existingrawmaterialcount = (from atcmstr in enty.AtcRawMaterialMasters
+                                                    where atcmstr.Atc_id == atcid && atcmstr.Template_PK == templatepk && atcmstr.IsGD == "Y"
+
+                                                    select atcmstr).Count();
+                    AtcRawMaterialMaster stsz = new AtcRawMaterialMaster();
+
+
+
+                    stsz.TempCode = templatecode.ToString().Trim() +"G"+(int.Parse ( existingrawmaterialcount.ToString ())+1).ToString () + "GD";
+                    stsz.Template_PK = templatepk;
+                    stsz.Atc_id = atcid;
+                    stsz.TemplateName = templatename;
+                    stsz.TemplateCount = templatecount;
+                    stsz.IsGD = "Y";
+                    enty.AtcRawMaterialMasters.Add(stsz);
+                }
             }
             enty.SaveChanges();
         }
@@ -180,6 +198,7 @@ ArtWebApp.DBTransaction.SkuCreator skucrtr = null;
 
                 DropDownList ddl_comp = (tbl_skumaster.Rows[i].FindControl("ddl_comp") as DropDownList);
                 DropDownList ddl_con = (tbl_skumaster.Rows[i].FindControl("ddl_con") as DropDownList);
+                DropDownList ddl_body = (tbl_skumaster.Rows[i].FindControl("ddl_body") as DropDownList);
 
                 DropDownList ddl_AltUOM = (tbl_skumaster.Rows[i].FindControl("ddl_AltUOM") as DropDownList);
                 string AltUOM = ddl_AltUOM.SelectedItem.ToString().ToString().Trim();
@@ -253,6 +272,7 @@ ArtWebApp.DBTransaction.SkuCreator skucrtr = null;
                     element.Rate = decimal.Parse(rate.ToString());
                     element.WastagePercentage = decimal.Parse(wastagepercentage);
                     element.OrderMin = decimal.Parse(ordermin.ToString ().Trim ());
+                    element.BodyPartName= ddl_body.SelectedItem.ToString();
                 }
 
             }
@@ -466,6 +486,17 @@ ArtWebApp.DBTransaction.SkuCreator skucrtr = null;
 
             }
 
+            try
+            {
+                DropDownList ddl_body = (e.Row.FindControl("ddl_body") as DropDownList);
+                string lbl_body = (e.Row.FindControl("lbl_body") as Label).Text;
+                ddl_body.Items.FindByText(lbl_body).Selected = true;
+            }
+            catch (Exception)
+            {
+
+
+            }
 
 
         }

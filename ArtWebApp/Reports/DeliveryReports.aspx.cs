@@ -179,13 +179,36 @@ namespace ArtWebApp.Reports
             //this.reportViewer1.LocalReport.ReportEmbeddedResource = "D:\\report1.rdlc";
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\DO Physical.rdlc";
         }
-        
+
+        protected void BTN_DOROLL_Click(object sender, EventArgs e)
+        {
+            loadDoWithRollReport();
+        }
 
 
 
-    
+
+        public void loadDoWithRollReport()
+        {
 
 
-       
+            DBTransaction.ReportTransactions.ReporterTrans rpttran = new DBTransaction.ReportTransactions.ReporterTrans();
+            DataTable dt = rpttran.GetDORollDataofSelectedRoll(int.Parse(drp_do.SelectedItem.Value.Trim()));
+            //DeliveryDataTableAdapter adapt = new DeliveryDataTableAdapter();
+            ////  adapt.Connection.ConnectionString = Program.ConnStr;
+            //DataTable dt = adapt.GetDataby(int.Parse( drp_do.SelectedItem.Value.Trim()));
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            //this.reportViewer1.LocalReport.ReportEmbeddedResource = "D:\\report1.rdlc";
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\DeliveryOrderRoll.rdlc";
+
+
+
+
+
+
+
+        }
     }
 }

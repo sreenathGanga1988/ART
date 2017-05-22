@@ -13,13 +13,22 @@ namespace ArtWebApp.Production.Cutting {
     public partial class Laysheet {
         
         /// <summary>
-        /// upd_main control.
+        /// UPD_FACT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_main;
+        protected global::System.Web.UI.UpdatePanel UPD_FACT;
+        
+        /// <summary>
+        /// drp_fact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_fact;
         
         /// <summary>
         /// upd_atc control.
@@ -94,6 +103,42 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.Button btn_OURSTYLE;
         
         /// <summary>
+        /// upd_fabcolor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_fabcolor;
+        
+        /// <summary>
+        /// drp_fabcolor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_fabcolor;
+        
+        /// <summary>
+        /// UpdatePanel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        
+        /// <summary>
+        /// btn_color control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_color;
+        
+        /// <summary>
         /// upd_cutorder control.
         /// </summary>
         /// <remarks>
@@ -166,6 +211,42 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.Button btn_marker;
         
         /// <summary>
+        /// upd_layroll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_layroll;
+        
+        /// <summary>
+        /// drp_cutRoll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_cutRoll;
+        
+        /// <summary>
+        /// btn_showroll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_showroll;
+        
+        /// <summary>
+        /// Upd_markerLaylength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upd_markerLaylength;
+        
+        /// <summary>
         /// txt_markerLaylength control.
         /// </summary>
         /// <remarks>
@@ -175,6 +256,15 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.TextBox txt_markerLaylength;
         
         /// <summary>
+        /// upd_Laylength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_Laylength;
+        
+        /// <summary>
         /// txt_Laylength control.
         /// </summary>
         /// <remarks>
@@ -182,6 +272,87 @@ namespace ArtWebApp.Production.Cutting {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_Laylength;
+        
+        /// <summary>
+        /// upd_pliescut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_pliescut;
+        
+        /// <summary>
+        /// txt_pliescut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_pliescut;
+        
+        /// <summary>
+        /// upd_noofplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_noofplies;
+        
+        /// <summary>
+        /// txt_noofplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_noofplies;
+        
+        /// <summary>
+        /// upd_cutperplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_cutperplies;
+        
+        /// <summary>
+        /// txt_cutperplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_cutperplies;
+        
+        /// <summary>
+        /// upd_baltocutnow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_baltocutnow;
+        
+        /// <summary>
+        /// txt_baltocutnow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_baltocutnow;
+        
+        /// <summary>
+        /// upd_main control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_main;
         
         /// <summary>
         /// upd_secndtable control.
@@ -236,24 +407,6 @@ namespace ArtWebApp.Production.Cutting {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table Table1;
-        
-        /// <summary>
-        /// upd_pliescut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_pliescut;
-        
-        /// <summary>
-        /// txt_pliescut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_pliescut;
         
         /// <summary>
         /// upd_grid control.

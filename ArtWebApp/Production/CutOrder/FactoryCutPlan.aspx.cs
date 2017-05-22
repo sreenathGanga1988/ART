@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.DataModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace ArtWebApp.Production.CutOrder
 {
     public partial class FactoryCutPlan : System.Web.UI.Page
     {
-    
-       
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           // Button2.Attributes.Add("onclick", "return totalcalculation();return false;");
+            // Button2.Attributes.Add("onclick", "return totalcalculation();return false;");
             if (!IsPostBack)
             {
                 FillAtcCombo();
@@ -62,7 +63,7 @@ namespace ArtWebApp.Production.CutOrder
 
                 drp_fact.DataSource = q1.ToList();
                 drp_fact.DataBind();
-               
+
 
 
             }
@@ -88,17 +89,36 @@ namespace ArtWebApp.Production.CutOrder
             }
         }
 
+        public void FillBOdyCombo()
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from ponmbr in entty.BodyPartMasters
+
+                        select new
+                        {
+                            name = ponmbr.BodyPartName,
+                            pk = ponmbr.BodyPartName
+                        };
+
+                drp_fabrication.DataSource = q.ToList();
+                drp_fabrication.DataBind();
+                upd_fabrication.Update();
 
 
-    
-        public void fillColorcombo(int ourstyleid , String COLORCODE)
+
+            }
+        }
+
+
+        public void fillColorcombo(int ourstyleid, String COLORCODE)
         {
 
 
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
 
-                if(COLORCODE=="CM")
+                if (COLORCODE == "CM")
                 {
                     var data = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid).Select(i => new { i.ColorName, i.ColorCode }).Distinct();
                     ddl_color.DataSource = data.ToList();
@@ -111,38 +131,38 @@ namespace ArtWebApp.Production.CutOrder
                     ddl_color.DataSource = data.ToList();
                     ddl_color.DataBind();
                 }
-             
-               upd_garmentColor.Update();
+
+                upd_garmentColor.Update();
             }
-           
+
         }
 
 
 
 
-      
-
-       
-
-
-       
-
-
-        
 
 
 
 
 
 
-    
+
+
+
+
+
+
+
+
+
+
 
 
 
 
         protected void btn_saveCutorder_Click(object sender, EventArgs e)
         {
-       
+
         }
 
 
@@ -152,8 +172,8 @@ namespace ArtWebApp.Production.CutOrder
 
 
 
-   
-       
+
+
 
         public System.Data.DataTable createdatatable(int ourstyleid)
         {
@@ -211,32 +231,35 @@ namespace ArtWebApp.Production.CutOrder
         }
 
 
-    
+
         protected void btn_show_Click(object sender, EventArgs e)
         {
             cleargrid();
+
             FillOurStyleCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
-           
+            FillBOdyCombo();
+
+
         }
 
 
 
-    
 
 
 
 
-       
-     
+
+
+
 
         protected void btn_color_Click(object sender, EventArgs e)
         {
 
 
 
-           
 
-          
+
+
 
 
 
@@ -247,16 +270,39 @@ namespace ArtWebApp.Production.CutOrder
         {
             try
             {
+
+
+                lbl_alreadycutelectedFactory.Text = "0";
+                lbl_rollinspected.Text = "0";
+                lbl_ayard.Text = "0";
+                lbl_consumption.Text = "0";
+                lbl_balyard.Text = "0";
+                lbl_alreadycut.Text = "0";
+                lbl_deliveredrolls.Text = "0";
+                lbl_deliveredYard.Text = "0";
+                lbl_balroll.Text = "0";
+
+                lbl_baltocutlocation.Text ="0";
+                lbl_totalcutplanyardage.Text = "0";
+                lbl_locationcutplanyardage.Text = "0";
+                lbl_apprQty.Text = "0";
+                lbl_balancetodeliveryardage.Text = "0";
+
+
+
                 Session["dt"] = null;
                 tbl_podata.DataSource = null;
                 tbl_podata.DataBind();
                 updgrid.Update();
-                lbl_msg.Text = "*";
+                upd_rolldetails.Update();
+                Upd_consumption.Update();
+                upd_alreadyCut.Update();
+                upd_garmentDetail.Update();
             }
             catch (Exception)
             {
 
-              
+
             }
 
         }
@@ -272,53 +318,122 @@ namespace ArtWebApp.Production.CutOrder
 
         public void fillgrid()
         {
-            Session["dt"] = BLL.CutOrderBLL.CutPlan.GetPODataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString ().Trim ());
+            Session["dt"] = BLL.CutOrderBLL.CutPlan.GetPODataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString().Trim());
 
+
+            Session["Alreadycut"] = BLL.CutOrderBLL.CutPlan.GetAlreadyCutofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString().Trim(), int.Parse(drp_fabcolor.SelectedValue.ToString()));
             fillsmalltable();
-          
-            tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString().Trim());
+
+            //  tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString().Trim());
+
+            tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColorandLocation(int.Parse(drp_ourstyle.SelectedValue.ToString()), ddl_color.SelectedValue.ToString().Trim(), int.Parse(drp_fact.SelectedValue.ToString()));
+            tbl_podata.DataBind();
+            updgrid.Update();
+        }
+        public void fillgridCommon()
+        {
+            Session["dt"] = BLL.CutOrderBLL.CutPlan.GetPODataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim());
+
+
+            Session["Alreadycut"] = BLL.CutOrderBLL.CutPlan.GetAlreadyCutofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim(), int.Parse(drp_fabcolor.SelectedValue.ToString()));
+            fillsmalltable();
+
+            // tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim());
+            tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColorandLocation(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim(), int.Parse(drp_fabcolor.SelectedValue.ToString()));
             tbl_podata.DataBind();
             updgrid.Update();
         }
 
-
         public void filltable()
         {
-            BLL.CutOrderBLL.CutPlanDetailsData  cddet = BLL.CutOrderBLL.CutPlan.GetRollDetails(int.Parse(drp_ourstyle.SelectedValue.ToString()),int.Parse(drp_fabcolor.SelectedValue.ToString()), drp_shrink.SelectedValue.ToString(), drp_width.SelectedValue.ToString(),drp_markerType.SelectedValue.ToString());
+            int skudetpk = int.Parse(drp_fabcolor.SelectedValue.ToString());
+            int ourtyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
+                String shrinkagegroup = drp_shrink.SelectedValue.ToString();
+            String widthgroup = drp_width.SelectedValue.ToString();
+            String markergroup = drp_markerType.SelectedValue.ToString();
+            int warehouselocation = int.Parse(Session["UserLoc_pk"].ToString());
 
+            int factorylocation = int.Parse(drp_fact.SelectedValue.ToString());
+
+
+            //   BLL.CutOrderBLL.CutPlanDetailsData  cddet = BLL.CutOrderBLL.CutPlan.GetRollDetails(int.Parse(drp_ourstyle.SelectedValue.ToString()),int.Parse(drp_fabcolor.SelectedValue.ToString()), drp_shrink.SelectedValue.ToString(), drp_width.SelectedValue.ToString(),drp_markerType.SelectedValue.ToString());
+            BLL.CutOrderBLL.CutPlanDetailsData cddet = BLL.CutOrderBLL.CutPlan.GetRollDetailsoflocation(ourtyleid, skudetpk, shrinkagegroup, widthgroup, markergroup, warehouselocation, factorylocation);
+
+
+            lbl_alreadycutelectedFactory.Text = cddet.alreadycutoflocation.ToString();
             lbl_rollinspected.Text = cddet.RollCount.ToString();
             lbl_ayard.Text = cddet.rollYard.ToString();
             lbl_consumption.Text = cddet.bomconsumption.ToString();
-            lbl_balyard.Text = cddet.balanceyard.ToString();
+         //   lbl_balyard.Text = cddet.balanceyard.ToString();
             lbl_alreadycut.Text = cddet.alreadycut.ToString();
+            lbl_deliveredrolls.Text = cddet.DeliverdRollCount.ToString();
+            lbl_deliveredYard.Text = cddet.DeliverdrollYard.ToString();
+            lbl_balroll.Text = cddet.balRollCount.ToString();
 
-            lbl_apprQty.Text = (float.Parse(cddet.rollYard.ToString()) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+        //    lbl_reqyardforstyle.Text= cddet.bomconsumption.ToString()*
+
+
+
+
+
+            float totalcutplanyardage = float.Parse(cddet.alreadycut.ToString()) * float.Parse(cddet.bomconsumption.ToString());
+
+            float locationcutplanyardage = BLL.CutOrderBLL.CutPlan.GetCutplanfabutilisedofAGroup(skudetpk, ourtyleid, factorylocation, shrinkagegroup, widthgroup, markergroup);
+
+        //  float locationcutplanyardage = float.Parse(cddet.alreadycutoflocation.ToString()) * float.Parse(cddet.bomconsumption.ToString());
+
+            float balanccetocutinlocation = float.Parse(lbl_allocatedQty.Text) - float.Parse(cddet.alreadycutoflocation.ToString());
+
+
+
+             lbl_balyard.Text = (float.Parse(cddet.rollYard.ToString()) - locationcutplanyardage).ToString();
+
+
+
+
+            lbl_baltocutlocation.Text = balanccetocutinlocation.ToString();
+            lbl_totalcutplanyardage.Text = totalcutplanyardage.ToString();
+            lbl_locationcutplanyardage.Text = locationcutplanyardage.ToString();
+
+
+
+
+            //lbl_apprQty.Text = (float.Parse(cddet.balanceyard.ToString()) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+
+            lbl_apprQty.Text = (float.Parse(lbl_balyard.Text) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+
+            float balancetodeliveryardage = (float.Parse(lbl_locationcutplanyardage.Text.ToString()) - float.Parse(lbl_deliveredYard.Text.ToString()));
+
+            lbl_balancetodeliveryardage.Text = balancetodeliveryardage.ToString();
             upd_rolldetails.Update();
             Upd_consumption.Update();
             upd_alreadyCut.Update();
             upd_garmentDetail.Update();
+
         }
 
 
         public void FillCombo(int skudet_pk)
         {
+            int warehouselocation = int.Parse(Session["UserLoc_pk"].ToString());
+
             BLL.CutOrderBLL.CutOrderData cdata = new BLL.CutOrderBLL.CutOrderData();
 
 
-            drp_shrink.DataSource = cdata.GetFabricShrinkage(skudet_pk);
+            drp_shrink.DataSource = cdata.GetFabricShrinkageLocation(skudet_pk, warehouselocation);
             drp_shrink.DataTextField = "ShrinkageGroup";
             drp_shrink.DataValueField = "ShrinkageGroup";
             drp_shrink.DataBind();
-           upd_shrnk.Update();
+            upd_shrnk.Update();
 
-            drp_width.DataSource = cdata.GetFabricWidth(skudet_pk);
+            drp_width.DataSource = cdata.GetFabricWidthLocation(skudet_pk, warehouselocation);
             drp_width.DataTextField = "WidthGroup";
             drp_width.DataValueField = "WidthGroup";
             drp_width.DataBind();
             upd_width.Update();
 
 
-            drp_markerType.DataSource = cdata.GetFabricMarkertype(skudet_pk);
+            drp_markerType.DataSource = cdata.GetFabricMarkertypeLocation(skudet_pk, warehouselocation);
             drp_markerType.DataTextField = "MarkerType";
             drp_markerType.DataValueField = "MarkerType";
             drp_markerType.DataBind();
@@ -342,7 +457,7 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void btnMarkerconfirm_Click(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -447,7 +562,7 @@ namespace ArtWebApp.Production.CutOrder
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                         }
-                        
+
                         else
                         {
                             tb.CssClass = "Qty";
@@ -460,14 +575,14 @@ namespace ArtWebApp.Production.CutOrder
 
                         //  Set a unique ID for each TextBox added
                         // tb.ReadOnly = true;
-                      
+
                         tb.ID = "tb" + i + j;
                         tb.Text = dt.Rows[i][j].ToString();
 
                         //    Add the control to the TableCell
                         cell.Controls.Add(tb);
                         //    Add the TableCell to the TableRow
-                       cell.CssClass = "td";
+                        cell.CssClass = "td";
                         row.CssClass = "tr";
                         row.Cells.Add(cell);
 
@@ -577,19 +692,20 @@ namespace ArtWebApp.Production.CutOrder
                         }
                         else if (dt.Columns[j].ColumnName == "ColorTotal")
                         {
-                           
+
                             tb.Enabled = false;
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                             if (i == dt.Rows.Count - 1)
                             {
                                 tb.CssClass = "GrandTotal";
-                            }else
+                            }
+                            else
                             {
                                 tb.CssClass = "ColorTotal";
                             }
                         }
-                        else if (i==dt.Rows.Count-1)
+                        else if (i == dt.Rows.Count - 1)
                         {
                             tb.CssClass = "Qty";
                             tb.Enabled = true;
@@ -653,14 +769,29 @@ namespace ArtWebApp.Production.CutOrder
             {
                 int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
                 int popackid = int.Parse((e.Row.FindControl("lbl_popackid") as Label).Text);
-                DataTable dt = BLL.popackupdater.createdatatable((DataTable)Session["dt"], popackid);
-                if(dt!=null&& dt.Rows.Count>0)
+                DataTable datatemp = (DataTable)Session["Alreadycut"];
+                DataTable alrdeaycut = new DataTable();
+                alrdeaycut = null;
+
+
+                try
                 {
-                    dt = BLL.CutOrderBLL.CutPlan.AddToTalQty(dt);
+                    alrdeaycut = datatemp.Select("PoPackId=" + popackid + " and OurStyleID=" + ourstyleid + "").CopyToDataTable();
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+                DataTable dt = BLL.popackupdater.createdatatable((DataTable)Session["dt"], popackid);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    dt = BLL.CutOrderBLL.CutPlan.AddToTalQty(dt, alrdeaycut);
                     GenerateTable(dt, e.Row);
                 }
 
-               
+
             }
 
         }
@@ -675,15 +806,35 @@ namespace ArtWebApp.Production.CutOrder
             {
                 GridViewRow row = tbl_podata.Rows[i];
                 int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                int ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+                DataTable datatemp = (DataTable)Session["Alreadycut"];
+                DataTable alrdeaycut = new DataTable();
+                alrdeaycut = null;
+
+
+                try
+                {
+                    alrdeaycut = datatemp.Select("PoPackId=" + popackid + " and OurStyleID=" + ourstyleid + "").CopyToDataTable();
+                }
+                catch (Exception)
+                {
+
+
+                }
                 DataTable dt = BLL.popackupdater.createdatatable((DataTable)Session["dt"], popackid);
-                dt = BLL.CutOrderBLL.CutPlan.AddToTalQty(dt);
-                GenerateTable(dt, row);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    dt = BLL.CutOrderBLL.CutPlan.AddToTalQty(dt, alrdeaycut);
+                    GenerateTable(dt, row);
+                }
+                //dt = BLL.CutOrderBLL.CutPlan.AddToTalQty(dt);
+                //GenerateTable(dt, row);
             }
         }
         protected void tbl_podata_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-           
+
 
 
 
@@ -700,10 +851,10 @@ namespace ArtWebApp.Production.CutOrder
                 {
 
                     //int CutOrderDet_PK = int.Parse((row.FindControl("lbl_CutOrderDet_PK") as Label).Text);
-                //    BLL.CutOrderBLL.CutDetailsData cddetdata = new BLL.CutOrderBLL.CutDetailsData();
-                   // cddetdata.CutSizeDetailsDataCollection = 
-                        GetSizedata(0);
-                   // cddetdata.InsertCutOrderSizeData();
+                    //    BLL.CutOrderBLL.CutDetailsData cddetdata = new BLL.CutOrderBLL.CutDetailsData();
+                    // cddetdata.CutSizeDetailsDataCollection = 
+                    GetSizedata(0);
+                    // cddetdata.InsertCutOrderSizeData();
                 }
             }
             else if (e.CommandName == "ShowDropDown")
@@ -715,14 +866,14 @@ namespace ArtWebApp.Production.CutOrder
 
 
 
-    
 
 
 
 
 
 
-       
+
+
 
         protected void tbl_cutorderdata_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -759,12 +910,16 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void btn_shostyle_Click(object sender, EventArgs e)
         {
+
+
             drp_fabcolor.DataSource = BLL.CutOrderBLL.CutPlan.fillFabColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), "");
             drp_fabcolor.DataBind();
             upd_fabcolor.Update();
+            lbl_stylename.Text = BLL.CutOrderBLL.CutPlan.getStylename(int.Parse(drp_ourstyle.SelectedValue.ToString()));
 
             cleargrid();
 
+            upd_garmentDetail.Update();
 
 
         }
@@ -787,33 +942,79 @@ namespace ArtWebApp.Production.CutOrder
             String Colorcode = BLL.CutOrderBLL.CutPlan.getGarmentColor(int.Parse(drp_fabcolor.SelectedValue.ToString()));
             lbl_labelcode.Text = Colorcode;
 
-            lbl_labelcode.Text = "CM";
+            // lbl_labelcode.Text = "CM";
+            int skudetpk = 0;
+            int locationpk = 0;
 
+            skudetpk = int.Parse(drp_fabcolor.SelectedValue.ToString());
+            
+            locationpk = int.Parse(Session["UserLoc_pk"].ToString());
             Session["Colorcode"] = Colorcode;
             int ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
+            int allocatedlocation = int.Parse(drp_fact.SelectedValue.ToString());
+            lbl_skudet_pk.Text = skudetpk.ToString()+"/"+ ourstyleid.ToString();
             if (Colorcode == "CM")
             {
-                
+
 
             }
             else
             {
                 using (ArtEntitiesnew entty = new ArtEntitiesnew())
                 {
-                    var colorname = entty.ColorMasters.Where(i =>  i.ColorCode == Colorcode.Trim ()).Select(i =>  i.ColorName ).FirstOrDefault();
+                    var colorname = entty.ColorMasters.Where(i => i.ColorCode == Colorcode.Trim()).Select(i => i.ColorName).FirstOrDefault();
                     lbl_garmentColor.Text = colorname.ToString();
 
 
-                    var sum = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid && i.ColorCode == Colorcode.Trim() && i.IsCutable == "Y").Select(i => i.PoQty).Sum();
+                    var sum = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid && i.ColorCode == Colorcode.Trim() && i.IsCutable == "Y").Select(i => i.PoQty).DefaultIfEmpty(0).Sum();
 
                     lbl_garmentQty.Text = sum.ToString();
 
+
+
+                    try
+                    {
+                        var allocatedqty = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid && i.ColorCode == Colorcode.Trim() && i.IsCutable == "Y" && i.PoPackMaster.ExpectedLocation_PK == allocatedlocation).Select(i => i.PoQty).DefaultIfEmpty(0).Sum();
+
+                        lbl_allocatedQty.Text = allocatedqty.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+                        lbl_allocatedQty.Text = "0";
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    try
+                    {
+                        var onhandsum = entty.InventoryMasters.Where(i => i.SkuDet_Pk == skudetpk && i.Location_PK == locationpk).Select(i => i.OnhandQty).Sum();
+
+
+                        lbl_onhand.Text = onhandsum.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+                        lbl_onhand.Text = "0";
+                    }
+
                     upd_garmentDetail.Update();
+                    upd_alreadyCut.Update();
+                    upd_skudetPK.Update();
                 }
             }
 
 
-            fillColorcombo(int.Parse(drp_ourstyle.SelectedValue.ToString()),Colorcode);
+            fillColorcombo(int.Parse(drp_ourstyle.SelectedValue.ToString()), Colorcode);
             FillCombo(int.Parse(drp_fabcolor.SelectedValue.ToString()));
             cleargrid();
         }
@@ -826,20 +1027,20 @@ namespace ArtWebApp.Production.CutOrder
         protected void btn_showgrid_Click(object sender, EventArgs e)
         {
             filltable();
-            
+
         }
 
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
             try
             {
-               
+
                 fillgrid();
             }
             catch (Exception ex)
             {
-               
-                
+
+
             }
         }
 
@@ -849,7 +1050,7 @@ namespace ArtWebApp.Production.CutOrder
             BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
             cmstrdata.OurStyleID = int.Parse(drp_ourstyle.SelectedValue.ToString());
             cmstrdata.SkuDet_PK = int.Parse(drp_fabcolor.SelectedValue.ToString());
-            
+
             cmstrdata.ColorName = ddl_color.Text.ToString();
             cmstrdata.ColorCode = ddl_color.SelectedValue.ToString();
             cmstrdata.ShrinkageGroup = drp_shrink.Text.ToString();
@@ -858,14 +1059,39 @@ namespace ArtWebApp.Production.CutOrder
             cmstrdata.AddedDate = DateTime.Now;
             cmstrdata.location_PK = int.Parse(drp_fact.SelectedValue.ToString());
             cmstrdata.FabDescription = drp_fabcolor.SelectedItem.Text.Trim();
+            cmstrdata.Fabrication = drp_fabrication.Text;
             cmstrdata.MarkerType = drp_markerType.SelectedItem.Text.Trim();
-            cmstrdata.BOMConsumption =Decimal.Parse ( lbl_consumption.Text.Trim());
-            
+            cmstrdata.MakerMade = drp_markermade.Text;
+            cmstrdata.BOMConsumption = Decimal.Parse(lbl_consumption.Text.Trim());
+            cmstrdata.CutPlanMarkerTypeDataDataCollection = getmarkertype();
+            cmstrdata.Maxmarkerlength = txt_maximumMarkerlength.Text;
             String msg = cmstrdata.InsertNewCutPlanMaster();
             //msg = msg + "  Created Sucessfully .  Add ASQ Details";
             //ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
 
             return msg;
+        }
+
+
+        public List<BLL.CutOrderBLL.CutPlanMarkerTypeData> getmarkertype()
+        {
+            List<BLL.CutOrderBLL.CutPlanMarkerTypeData> rk = new List<BLL.CutOrderBLL.CutPlanMarkerTypeData>();
+            ArrayList popaklist = new ArrayList();
+            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
+            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
+            {
+
+                String markertype = item.Value.ToString();
+
+                BLL.CutOrderBLL.CutPlanMarkerTypeData cutdet = new BLL.CutOrderBLL.CutPlanMarkerTypeData();
+                cutdet.MarkerType = markertype.Trim();
+
+
+
+                rk.Add(cutdet);
+            }
+
+            return rk;
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -875,19 +1101,21 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void btn_asqdetails_Click(object sender, EventArgs e)
         {
-            String msg = "";
-            msg = InsertCutPlanMasterData();
-            msg = msg + "  Created Sucessfully ";
-            BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
-            cmstrdata.CutPlanDetailsDataCollection = GetSizedata(int.Parse(Session["CutPlan_PK"].ToString()));
-            cmstrdata.InsertCutASQDetailsPlan();
-          msg = msg + " and  ASQ Details Added Sucessfully Add marker Details" ;
-            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
-            tbl_podata.DataSource = null;
-            tbl_podata.DataBind();
-            updgrid.Update();
+            if (float.Parse(lbl_consumption.Text) != 0)
+            {
+                String msg = "";
+                msg = InsertCutPlanMasterData();
+                msg = msg + "  Created Sucessfully ";
+                BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
+                cmstrdata.CutPlanDetailsDataCollection = GetSizedata(int.Parse(Session["CutPlan_PK"].ToString()));
+                cmstrdata.InsertCutASQDetailsPlan();
+                msg = msg + " and  ASQ Details Added Sucessfully Add marker Details";
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+                tbl_podata.DataSource = null;
+                tbl_podata.DataBind();
+                updgrid.Update();
+            }
         }
-
 
 
 
@@ -896,7 +1124,7 @@ namespace ArtWebApp.Production.CutOrder
 
             List<BLL.CutOrderBLL.CutPlanDetailsData> rk = new List<BLL.CutOrderBLL.CutPlanDetailsData>();
 
-            for (int i=0;i<tbl_podata.Rows.Count; i++)
+            for (int i = 0; i < tbl_podata.Rows.Count; i++)
             {
                 GridViewRow row = tbl_podata.Rows[i];
                 CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
@@ -980,26 +1208,53 @@ namespace ArtWebApp.Production.CutOrder
 
                     }
                 }
-                
 
 
-               
+
+
 
 
             }
 
 
-           
 
 
 
 
-        
+
+
             return rk;
         }
 
-     
-        
+        protected void btn_cutordermnum_Click(object sender, EventArgs e)
+        {
+            try
+            {
 
+                fillgridCommon();
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+
+        protected void lbl_deliveredrolls_Click(object sender, EventArgs e)
+        {
+
+            OpenNewWindow("~/Production/RollDisplayer.aspx");
+          //  Response.Write("  <script language='javascript'> window.open('.\\Production\\RollDisplayer.aspx','','width=1020,Height=720,fullscreen=1,location=0,scrollbars=1,menubar=1,toolbar=1'); </script>");
+        }
+
+
+        public void OpenNewWindow(string url)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "SubWindow", String.Format("<script>window.open('{0}');</script>", url),true);
+
+         //   ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ApprovalHistory", "window.open(MarkerDetails.aspx', '_blank');", true);
+
+
+        }
     }
 }

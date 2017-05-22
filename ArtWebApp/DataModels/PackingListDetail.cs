@@ -26,5 +26,6 @@ namespace ArtWebApp.DataModels
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual PoPackMaster PoPackMaster { get; set; }
+        public virtual PackingListMaster PackingListMaster { get; set; }
     }
 }

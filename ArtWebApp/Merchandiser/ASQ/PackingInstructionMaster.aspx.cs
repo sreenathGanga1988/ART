@@ -23,7 +23,7 @@ namespace ArtWebApp.Merchandiser.ASQ
             }
             else
             {
-              
+                filldata();
             }
         }
 
@@ -495,36 +495,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void buttonAtc0_Click(object sender, EventArgs e)
         {
-            ArrayList popaklist = new ArrayList();
-            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
-            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
-            {
-
-                int popackid = int.Parse(item.Value.ToString());
-                popaklist.Add(popackid);
-            }
-
-
-            if (popaklist.Count > 0 && popaklist != null)
-            {
-
-                BLL.MerchandsingBLL.AllocationBLL  pkmstrdata = new BLL.MerchandsingBLL.AllocationBLL();
-                //DataTable wholedata = pkmstrdata.GetAllAllocatedPODetailsforPacking(popaklist);
-                DataTable wholedata = pkmstrdata.GetAllASQqDetailsforPacking(popaklist);
-                ViewState["sizecolordata"] = wholedata;
-
-                
-
-                //DataTable mstrdata = pkmstrdata.GetAllAllocatedPOforPacking(popaklist);
-                DataTable mstrdata = pkmstrdata.GetAllASQforPacking(popaklist);
-                ViewState["mstrdata"] = mstrdata;
-                tbl_podata.DataSource = mstrdata;
-                //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
-                tbl_podata.DataBind();
-                updgrid.Update();
-
-
-            }
+           
         }
 
 
@@ -539,19 +510,21 @@ namespace ArtWebApp.Merchandiser.ASQ
                 int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
                 int lbl_Location_PK = int.Parse((row.FindControl("lbl_Location_PK") as Label).Text);
 
+              //  GenerateTable(BLL.MerchandsingBLL.AllocationBLL.createdatatable(ourstyleid, popackid, lbl_Location_PK, (DataTable)(ViewState["sizecolordata"])), row);
+
+            //    GeneratesubTable(BLL.MerchandsingBLL.AllocationBLL.createdatatable(ourstyleid, popackid, lbl_Location_PK, (DataTable)(ViewState["sizecolordata"])), row);
+                //  string lbl_iscutable = BLL.popackupdater.IsASQCutable(ourstyleid, popackid);
+
                 GenerateTable(BLL.MerchandsingBLL.AllocationBLL.createdatatable(ourstyleid, popackid, lbl_Location_PK, (DataTable)(ViewState["sizecolordata"])), row);
-
+                GenerateCalTable(BLL.MerchandsingBLL.AllocationBLL.createdatatable(ourstyleid, popackid, lbl_Location_PK, (DataTable)(ViewState["sizecolordata"])), row);
                 GeneratesubTable(BLL.MerchandsingBLL.AllocationBLL.createdatatable(ourstyleid, popackid, lbl_Location_PK, (DataTable)(ViewState["sizecolordata"])), row);
-              //  string lbl_iscutable = BLL.popackupdater.IsASQCutable(ourstyleid, popackid);
-
-
 
             }
         }
         protected void btn_savelist_Click(object sender, EventArgs e)
         {
-            filldata();
-            insertPackinglist();
+           
+          insertPackinglist();
         }
         public void insertPackinglist()
         {
@@ -560,17 +533,38 @@ namespace ArtWebApp.Merchandiser.ASQ
             int atcid = int.Parse(cmb_atc.SelectedValue.ToString());
             int noofctn = int.Parse(txt_totalctn.Text);
             int pcperctn = int.Parse(txt_pcperctn.Text);
-            String ctndiemension = txt_ctndiemension.Text.ToString();
+
+            decimal txt_length = decimal.Parse(txt_alllength.Text);
+            decimal txt_width = decimal.Parse(txt_allwidth.Text);
+            decimal txt_height = decimal.Parse(txt_allheight.Text);
+            decimal txt_NNWeight = decimal.Parse(txt_NNWeightAll.Text);
+            decimal txt_Netweight = decimal.Parse(txt_NetAll.Text);
+            decimal txt_gross = decimal.Parse(txt_grossAll.Text);
+            string drp_weightuom = drp_weightuomll.SelectedValue.ToString();
+            string drp_NetUOM = drp_NetUOMALL.SelectedValue.ToString();
+
+
             pdata.Atc_ID = atcid;
             pdata.NoofCTN = noofctn;
             pdata.PCPerCtn = pcperctn;
-            pdata.CtnDimension = ctndiemension;
+            pdata.PcPerPolybag = int.Parse(txt_polybagperctn.Text);
+            pdata.PackingInstruction = txt_instruction.InnerText;
+            //pdata.CtnDimension = ctndiemension;
+            pdata.Length = txt_length;
+            pdata.Width = txt_width;
+            pdata.Height = txt_height;
+            pdata.NetWeight = txt_Netweight;
+            pdata.NNWeight = txt_NNWeight;
+            pdata.Grossweight = txt_gross;
+            pdata.WeightUOM = drp_weightuom;
+            pdata.CtnUOM = drp_NetUOM;
+
 
             pdata.PackingListdetailDataDataCollection = GetSizeColordata();
             pdata.insertPackinglistMaster();
-                tbl_podata.DataSource = null;
-                tbl_podata.DataBind();
-                String msg = " ASQ Details Added Sucessfully ";
+            tbl_podata.DataSource = null;
+            tbl_podata.DataBind();
+            String msg = " ASQ Details Added Successfully ";
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
             
         }
@@ -604,7 +598,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
 
 
-                    for (int tabroindex = 1; tabroindex < Table1.Rows.Count - 1; tabroindex++)
+                    for (int tabroindex = 1; tabroindex < Table1.Rows.Count; tabroindex++)
                     {
                         TableRow tbrow = Table1.Rows[tabroindex];
 
@@ -635,7 +629,7 @@ namespace ArtWebApp.Merchandiser.ASQ
                                         Label lblsize = (Label)ctrlsize;
 
 
-                                        if (txtsize.Text.Trim() != "ColorTotal")
+                                        if (txtsize.Text.Trim() != "ColorTotal" && int.Parse(txtqty.Text)>0)
                                         {
 
                                             BLL.MerchandsingBLL.PackingListdetailDataBLL pkdet = new BLL.MerchandsingBLL.PackingListdetailDataBLL();
@@ -669,6 +663,62 @@ namespace ArtWebApp.Merchandiser.ASQ
             return rk;
         }
 
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            ArrayList popaklist = new ArrayList();
+            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
+            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
+            {
+
+                int popackid = int.Parse(item.Value.ToString());
+                popaklist.Add(popackid);
+            }
+
+
+            if (popaklist.Count > 0 && popaklist != null)
+            {
+
+                BLL.MerchandsingBLL.AllocationBLL pkmstrdata = new BLL.MerchandsingBLL.AllocationBLL();
+                //DataTable wholedata = pkmstrdata.GetAllAllocatedPODetailsforPacking(popaklist);
+                DataTable wholedata = pkmstrdata.GetAllASQqDetailsforPacking(popaklist);
+                ViewState["sizecolordata"] = wholedata;
+
+                if (drp_type.SelectedValue.ToString().Trim() == "Ass Color Ass Size")
+                {
+                    DataTable mstrdata = pkmstrdata.GetAllASQforPacking(popaklist);
+                    ViewState["mstrdata"] = mstrdata;
+                    tbl_podata.DataSource = mstrdata;
+
+                    tbl_podata.DataBind();
+                    updgrid.Update();
+
+
+                }
+
+                else if (drp_type.SelectedValue.ToString().Trim() == "Solid Color Assc Size")
+                {
+                    DataTable mstrdata = pkmstrdata.GetAllASQforPackingWithColor(popaklist);
+                    Session["mstrdata"] = mstrdata;
+                    Session["sizecolordata"] = wholedata;
+
+                    Response.Redirect(@"~\Merchandiser\ASQ\Packing\SolidColorpackingInstruction.aspx?atcid=" + cmb_atc.SelectedValue.ToString());
+                    
+                }
+                else if (drp_type.SelectedValue.ToString().Trim() == "Solid Color Solid Size")
+                {
+                    DataTable mstrdata = pkmstrdata.GetAllASQforPackingWithColorandSize(popaklist);
+                    Session["mstrdata"] = mstrdata;
+                    Response.Redirect(@"~\Merchandiser\ASQ\Packing\SolidSizeColorPackingInstruction.aspx");
+                }
+                else
+                {
+                    DataTable mstrdata = pkmstrdata.GetAllASQforPacking(popaklist);
+                    ViewState["mstrdata"] = mstrdata;
+                    tbl_podata.DataSource = mstrdata;
+
+                    tbl_podata.DataBind();
+                    updgrid.Update();
+                }
 
 
 
@@ -677,5 +727,13 @@ namespace ArtWebApp.Merchandiser.ASQ
 
 
 
+
+
+
+
+
+
+            }
+        }
     }
 }

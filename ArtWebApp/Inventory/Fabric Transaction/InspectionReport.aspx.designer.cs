@@ -40,13 +40,13 @@ namespace ArtWebApp.Inventory.Fabric_Transaction {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// upd_grid control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_grid;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
         /// tbl_InverntoryDetails control.
@@ -55,16 +55,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Infragistics.Web.UI.GridControls.WebDataGrid tbl_InverntoryDetails;
-        
-        /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.GridView tbl_InverntoryDetails;
         
         /// <summary>
         /// atcdata control.

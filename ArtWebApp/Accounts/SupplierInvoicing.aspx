@@ -1,10 +1,29 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="SupplierInvoicing.aspx.cs" Inherits="ArtWebApp.Accounts.SupplierInvoicing" %>
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.EditorControls" tagprefix="ig" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../css/style.css" rel="stylesheet" />
     <script src="../JQuery/GridJQuery.js"></script>
+    <style type="text/css">
+    .modalBackground
+    {
+        background-color: Black;
+        filter: alpha(opacity=90);
+        opacity: 0.8;
+    }
+    .modalPopup
+    {
+        background-color: #FFFFFF;
+        border-width: 3px;
+        border-style: solid;
+        border-color: black;
+        padding-top: 10px;
+        padding-left: 10px;
+        width: 400px;
+        height: 200px;
+    }
+</style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -126,11 +145,11 @@
                                      <asp:TemplateField HeaderText="POQty">
                                         
                                          <ItemTemplate>
-                                             <asp:Label ID="Label2" runat="server" Text='<%# Bind("POQty") %>'></asp:Label>
+                                             <asp:Label ID="Label2" runat="server" Width="70px"  Text='<%# Bind("POQty") %>'></asp:Label>
                                          </ItemTemplate>
-                                           <FooterTemplate>
+         <%--                                  <FooterTemplate>
          <asp:TextBox ID="lbl_footerPOQTY" runat="server" Text="0" Enabled="false" >0</asp:TextBox>
-    </FooterTemplate>
+    </FooterTemplate>--%>
                                          <FooterStyle BackColor="#CCFFFF" />
                                      </asp:TemplateField>
                                      <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
@@ -148,14 +167,14 @@
                                             <asp:Label ID="lbl_Currency" runat="server" Text='<%# Bind("CurrencyCode") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="RcvdQty">
+                                     <asp:TemplateField HeaderText="Rcvd Qty">
                                         
                                          <ItemTemplate>
-                                             <asp:Label ID="Label1" runat="server" Text='<%# Bind("ReceivedQty") %>'></asp:Label>
+                                             <asp:Label ID="Label1" runat="server" Width="70px"  Text='<%# Bind("ReceivedQty") %>'></asp:Label>
                                          </ItemTemplate>
-                                         <FooterTemplate>
+      <%--                                   <FooterTemplate>
          <asp:TextBox ID="lbl_RcvdQty" runat="server" Text="0" Enabled="false" >0</asp:TextBox>
-    </FooterTemplate>
+    </FooterTemplate>--%>
                                      </asp:TemplateField>
                                      <asp:BoundField DataField="InvQty" HeaderText="InvQty" />
                                      
@@ -164,9 +183,9 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lbl_balncetoinvqty" runat="server" Text='<%# Bind("BaltoINV") %>'></asp:Label>
                                         </ItemTemplate>
-                                          <FooterTemplate>
+                                        <%--  <FooterTemplate>
          <asp:TextBox ID="lbl_footerbalncetoinvqty" runat="server" Text="0" Enabled="false" >0</asp:TextBox>
-    </FooterTemplate>
+    </FooterTemplate>--%>
                                          <FooterStyle BackColor="#CCFFFF" />
                                     </asp:TemplateField>
 
@@ -182,18 +201,27 @@
 
 
                                    
-                                    <asp:BoundField DataField="ExtraQty" HeaderText="ExtraQty" >
+                                    <asp:BoundField DataField="ExtraQty" HeaderText="Extra Qty" >
                                      <HeaderStyle Width="70px" />
                                      <ItemStyle Width="70px" />
+                                        <ControlStyle Width="70px" />
+                                        <FooterStyle Width="70px" />
                                      </asp:BoundField>
                                     <asp:BoundField DataField="ExtraPer" HeaderText="ExtraPer">
                                       <HeaderStyle Width="70px" />
                                      <ItemStyle Width="70px" />
                                      </asp:BoundField>
+                                    <asp:BoundField DataField="LastMRNDATE" HeaderText="Last MRN" DataFormatString="{0:MM/dd/yyyy}"  />
+                                   
+                                     <asp:TemplateField HeaderText="Show MRN">
+                                         <ItemTemplate>
+                                             <asp:LinkButton ID="lnkbtn_mrn" runat="server" OnClick="lnkbtn_mrn_Click">Show MRN</asp:LinkButton>
+                                         </ItemTemplate>
+                                     </asp:TemplateField>
 
                                    
                                 </Columns>
-                                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" Font-Bold="true" />
                                 <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
                                 <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
                                 <RowStyle BackColor="White" ForeColor="#330099" />
@@ -203,6 +231,63 @@
                                 <SortedDescendingCellStyle BackColor="#F6F0C0" />
                                 <SortedDescendingHeaderStyle BackColor="#7E0000" />
                             </asp:GridView>
+
+
+
+                         <asp:LinkButton ID="lnkFake" runat="server"></asp:LinkButton>
+                         <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="lnkFake" CancelControlID="btnClose" 
+
+
+ 
+
+
+PopupControlID="Panel1" DropShadow="True">
+
+
+ 
+
+
+</asp:ModalPopupExtender>
+
+
+ 
+
+
+<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" style = "display:none">
+
+      <asp:UpdatePanel ID="upd_subgrid"   UpdateMode="Conditional" runat="server">
+                     <ContentTemplate>
+   <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="400px" ShowFooter="True">
+                                <Columns>
+
+                                    
+                                    <asp:BoundField DataField="MrnNum" HeaderText="MrnNum" />
+                                    <asp:BoundField DataField="AddedDate" HeaderText="AddedDate"  DataFormatString="{0:MM/dd/yyyy}"/>
+                                    <asp:BoundField DataField="ReceiptQty" HeaderText="ReceiptQty" />
+                                    <asp:BoundField DataField="ExtraQty" HeaderText="ExtraQty" />
+                                                           
+                                    
+                                    
+
+                                   
+                                </Columns>
+                                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" Font-Bold="true" />
+                                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                <RowStyle BackColor="White" ForeColor="#330099" />
+                                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                            </asp:GridView> <br />
+    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                          </ContentTemplate>
+                            </asp:UpdatePanel>
+</asp:Panel>
+
+
+
                      </ContentTemplate>
                             </asp:UpdatePanel>
                 

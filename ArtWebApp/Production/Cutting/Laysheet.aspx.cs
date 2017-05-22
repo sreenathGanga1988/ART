@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.DataModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -43,9 +44,17 @@ namespace ArtWebApp.Production.Cutting
                 drp_atc.DataBind();
                 upd_atc.Update();
 
+                var q1 = from order in entty.LocationMasters
+                         where order.LocType == "F"
+                         select new
+                         {
+                             name = order.LocationName,
+                             pk = order.Location_PK
+                         };
+                drp_fact.DataSource = q1.ToList();
+                drp_fact.DataBind();
 
-
-
+                UPD_FACT.Update();
             }
         }
         public void FillOurStyleCombo(int atcid)
@@ -87,16 +96,21 @@ namespace ArtWebApp.Production.Cutting
             String num = "";
             BLL.ProductionBLL.LaysheetMasterData lblmstr = new BLL.ProductionBLL.LaysheetMasterData();
             lblmstr.AddedDate = DateTime.Now;
+            lblmstr.atcid = int.Parse(drp_atc.SelectedValue.ToString());
+            lblmstr.ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
             lblmstr.CutOrderDet_PK = int.Parse(drp_markernum.SelectedValue.ToString());
-
+            lblmstr.Location_PK= int.Parse(drp_fact.SelectedValue.ToString());
+            lblmstr.cutnum = "NA";
+            lblmstr.LayRollRef = drp_cutRoll.SelectedItem.Text;
+            lblmstr.LaysheetRollmaster_Pk = int.Parse(drp_cutRoll.SelectedValue.ToString());
             lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
 
             num = lblmstr.InsertLaySheet();
 
-            msg = "Invoice # : " + num + " is generated Sucessfully";
+            msg = "Laysheet # : " + num + " is generated Successfully";
             tbl_RollDetails.DataSource = null;
             tbl_RollDetails.DataBind();
-
+            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
         }
 
 
@@ -120,23 +134,36 @@ namespace ArtWebApp.Production.Cutting
                 {
 
 
-
-
                     int lbl_rollpk = int.Parse(((di.FindControl("lbl_rollpk") as Label).Text.ToString()));
 
+                    int lbl_LaySheetRoll_Pk = int.Parse(((di.FindControl("lbl_LaySheetRoll_Pk") as Label).Text.ToString()));
+
                     int txt_plies = int.Parse(((di.FindControl("txt_plies") as TextBox).Text.ToString()));
-                    int txt_fab = int.Parse(((di.FindControl("txt_fab") as TextBox).Text.ToString()));
-                    decimal txt_endbit = decimal.Parse(((di.FindControl("txt_txtBalance") as TextBox).Text.ToString()));
-                    decimal txt_bal = decimal.Parse(((di.FindControl("txt_excessshort") as TextBox).Text.ToString()));
+                    Decimal txt_fab = Decimal.Parse(((di.FindControl("txt_fab") as TextBox).Text.ToString()));
+                    decimal txt_balance = decimal.Parse(((di.FindControl("txt_txtBalance") as TextBox).Text.ToString()));
+                    decimal txt_excessshortage = decimal.Parse(((di.FindControl("txt_excessshort") as TextBox).Text.ToString()));
+
+
+                    CheckBox chk_cutable = (di.FindControl("chk_cutable") as CheckBox);
+                    
+
                     BLL.ProductionBLL.LaysheetDetaolsData lsdetdata = new BLL.ProductionBLL.LaysheetDetaolsData();
 
 
                     lsdetdata.Roll_PK = lbl_rollpk;
                     lsdetdata.NoOfPlies = txt_plies;
                     lsdetdata.fabqty = txt_fab;
-                    lsdetdata.Balance = txt_endbit;
-                    lsdetdata.ExceSShortage = txt_bal;
-
+                    lsdetdata.Balance = txt_balance;
+                    lsdetdata.LaySheetRoll_Pk = lbl_LaySheetRoll_Pk;
+                    lsdetdata.ExceSShortage = txt_excessshortage;
+                    if (chk_cutable.Checked == true)
+                    {
+                        lsdetdata.IsRecuttable = "Y";
+                    }
+                    else
+                    {
+                        lsdetdata.IsRecuttable = "N";
+                    }
                     rk.Add(lsdetdata);
                 }
             }
@@ -150,14 +177,14 @@ namespace ArtWebApp.Production.Cutting
             FillOurStyleCombo(int.Parse(drp_atc.SelectedValue.ToString()));
         }
 
-        public void FillAllcutorder(int ourstyleid)
+        public void FillAllcutorder(int ourstyleid,int skudet_pk)
         {
 
 
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutOrderMasters
-                        where ponmbr.OurStyleID == ourstyleid
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk== skudet_pk
                         select new
                         {
                             name = ponmbr.Cut_NO,
@@ -203,7 +230,16 @@ namespace ArtWebApp.Production.Cutting
             }
 
         }
+        public void fillColorcombo(int ourstyleid)
+        {
 
+
+            drp_fabcolor.DataSource = BLL.CutOrderBLL.CutPlan.fillFabColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), "");
+            drp_fabcolor.DataBind();
+            upd_fabcolor.Update();
+
+
+        }
 
         protected void btn_OURSTYLE_Click(object sender, EventArgs e)
         {
@@ -212,8 +248,8 @@ namespace ArtWebApp.Production.Cutting
             //ViewState["sizedata"] = dt;
             //GenerateTable(dt);
             fillsizedata();
-            FillAllcutorder(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
-
+           
+            fillColorcombo(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
         }
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
@@ -292,6 +328,29 @@ namespace ArtWebApp.Production.Cutting
         }
 
 
+
+
+        public void Filllaysheetroll(int cutid)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+
+                var sizedetails = (from ponmbr in entty.LaySheetRollMasters
+                                   where ponmbr.CutID == cutid
+                                   select new
+                                   {
+                                       ponmbr.LaysheetRollmaster_Pk,
+                                       ponmbr.LayRollRef
+                                   }).Distinct();
+
+                drp_cutRoll.DataSource = sizedetails.ToList();
+                drp_cutRoll.DataBind();
+                upd_layroll.Update();
+
+
+
+            }
+        }
 
 
         public DataTable fillsizedata()
@@ -392,6 +451,17 @@ namespace ArtWebApp.Production.Cutting
 
             dt = ArtWebApp.Controls.DataTableFunction.SumOfDataColumns(1, dt.Columns.Count - 2, 0, dt.Rows.Count - 1, dt.Columns.Count - 1, dt.Rows.Count - 1, dt);
 
+
+
+            DataRow row123 = dt.NewRow();
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                row123[i] = dt.Rows[dt.Rows.Count-1][i].ToString ();
+            }
+
+            dt.Rows.Add(row123);
+
             //Creat the Table and Add it to the Page
             Table1.Rows.Clear();
 
@@ -448,7 +518,7 @@ namespace ArtWebApp.Production.Cutting
 
                                 tb.ID = "tb" + i + j;
                                 tb.Text = "Qty";
-                                tb.CssClass = "txtqty";
+                                tb.CssClass = "txtqtycap";
 
                                 tb.Width = 40;
                                 tb.Enabled = false;
@@ -472,7 +542,7 @@ namespace ArtWebApp.Production.Cutting
 
                                 tb.ID = "tb" + i + j;
                                 tb.Text = "Ratio";
-                                tb.CssClass = "txtratio";
+                                tb.CssClass = "txtratiocap";
                                 tb.Enabled = false;
                                 tb.Width = 40;
                                 //      Add the control to the TableCell
@@ -494,7 +564,7 @@ namespace ArtWebApp.Production.Cutting
 
                                 tb.ID = "tb" + i + j;
                                 tb.Text = "Cut Qty";
-                                tb.CssClass = "txt_cutQTY";
+                                tb.CssClass = "txt_cutQTYcap";
                                 tb.Enabled = false;
                                 tb.Width = 40;
                                 //      Add the control to the TableCell
@@ -515,7 +585,28 @@ namespace ArtWebApp.Production.Cutting
 
                                 tb.ID = "tb" + i + j;
                                 tb.Text = "BAL Qty";
-                                tb.CssClass = "txt_balQty";
+                                tb.CssClass = "txt_balQtycap";
+                                tb.Enabled = false;
+                                tb.Width = 40;
+                                //      Add the control to the TableCell
+                                cell.Controls.Add(tb);
+                                //   Add the TableCell to the TableRow
+                                //  cell.CssClass = "Widthclass";
+                                row.Cells.Add(cell);
+                            }
+                            else if (i == 4)
+                            {
+                                TableCell cell = new TableCell();
+                                cell.Width = 40;
+
+                                TextBox tb = new TextBox();
+
+
+                                //  Set a unique ID for each TextBox added
+
+                                tb.ID = "tb" + i + j;
+                                tb.Text = "BAL Qty";
+                                tb.CssClass = "txt_newbalQtycab";
                                 tb.Enabled = false;
                                 tb.Width = 40;
                                 //      Add the control to the TableCell
@@ -609,7 +700,7 @@ namespace ArtWebApp.Production.Cutting
 
                                 tb.ID = "tb" + i + j;
                                 tb.Text = dt.Rows[i][j].ToString();
-                                tb.CssClass = "balRow";
+                                tb.CssClass = "totalbalRow";
                                 tb.Enabled = false;
                                 tb.Width = 40;
 
@@ -619,151 +710,36 @@ namespace ArtWebApp.Production.Cutting
                                 //  cell.CssClass = "Widthclass";
                                 row.Cells.Add(cell);
                             }
+                            else if (i == 4)
+                            {
+                                TableCell cell = new TableCell();
+                                cell.Width = 40;
 
-                            //else if (i == 2)
-                            //{
-                            //    TableCell cell = new TableCell();
-                            //    cell.Width = 40;
-
-                            //    TextBox tb = new TextBox();
-
-
-                            //    //   Set a unique ID for each TextBox added
-
-                            //    tb.ID = "tb" + i + j;
-                            //    tb.Text = "0";
-                            //    tb.CssClass = "totalRatioRow";
-                            //    tb.Enabled = false;
-                            //    tb.Width = 40;
-
-                            //    //   Add the control to the TableCell
-                            //    cell.Controls.Add(tb);
-                            //    //  Add the TableCell to the TableRow
-                            //    //  cell.CssClass = "Widthclass";
-                            //    row.Cells.Add(cell);
-                            //}
-                            //else if (i == 1)
-                            //{
-                            //    TableCell cell = new TableCell();
-                            //    cell.Width = 40;
-
-                            //    TextBox tb = new TextBox();
+                                TextBox tb = new TextBox();
 
 
-                            //    //   Set a unique ID for each TextBox added
+                                //  Set a unique ID for each TextBox added
 
-                            //    tb.ID = "tb" + i + j;
-                            //    tb.Text = "0";
-                            //    tb.CssClass = "totalRatioRow";
-                            //    tb.Enabled = false;
-                            //    tb.Width = 40;
+                                tb.ID = "tb" + i + j;
+                                tb.Text = dt.Rows[i][j].ToString();
+                                tb.CssClass = "txt_totalnewbalQty";
+                                tb.Enabled = false;
+                                tb.Width = 40;
+                                //      Add the control to the TableCell
+                                cell.Controls.Add(tb);
+                                //   Add the TableCell to the TableRow
+                                //  cell.CssClass = "Widthclass";
+                                row.Cells.Add(cell);
+                            }
 
-                            //    //   Add the control to the TableCell
-                            //    cell.Controls.Add(tb);
-                            //    //  Add the TableCell to the TableRow
-                            //    //  cell.CssClass = "Widthclass";
-                            //    row.Cells.Add(cell);
-                            //}
+                        
                         }
 
 
 
 
 
-                        //if (j == 0 && i == 0)
-                        //{
-                        //    TableCell cell = new TableCell();
-                        //    cell.Width = 40;
-
-                        //    TextBox tb = new TextBox();
-
-
-                        //    //  Set a unique ID for each TextBox added
-
-                        //    tb.ID = "tb" + i + j;
-                        //    tb.Text = "Qty";
-                        //    tb.CssClass = "txtqty";
-
-                        //    tb.Width = 40;
-                        //    tb.Enabled = false;
-                        //    //  Add the control to the TableCell
-                        //    cell.Controls.Add(tb);
-
-                        //    //   Add the TableCell to the TableRow
-                        //    //   cell.CssClass = "Widthclass";
-                        //    row.Cells.Add(cell);
-
-
-                        //}
-                        //else if (j == 0 && i == 1)
-                        //{
-                        //    TableCell cell = new TableCell();
-                        //    cell.Width = 40;
-
-                        //    TextBox tb = new TextBox();
-
-
-                        //    //  Set a unique ID for each TextBox added
-
-                        //    tb.ID = "tb" + i + j;
-                        //    tb.Text = "Ratio";
-                        //    tb.CssClass = "txtratio";
-                        //    tb.Enabled = false;
-                        //    tb.Width = 40;
-                        //    //      Add the control to the TableCell
-                        //    cell.Controls.Add(tb);
-                        //    //   Add the TableCell to the TableRow
-                        //    //  cell.CssClass = "Widthclass";
-                        //    row.Cells.Add(cell);
-
-                        //}
-
-                        //else if (j == dt.Columns.Count - 1 && i == 0)
-                        //{
-
-                        //    //TableCell cell = new TableCell();
-                        //    //cell.Width = 40;
-
-                        //    //TextBox tb = new TextBox();
-
-
-                        //    ////   Set a unique ID for each TextBox added
-
-                        //    //tb.ID = "sum";
-                        //    //tb.Text = "0";
-                        //    //tb.CssClass = "totalQtyRow";
-
-                        //    //tb.Enabled = false;
-                        //    ////  Add the control to the TableCell
-                        //    //cell.Controls.Add(tb);
-                        //    //tb.Width = 40;
-                        //    ////  Add the TableCell to the TableRow
-                        //    //// cell.CssClass = "Widthclass";
-                        //    //row.Cells.Add(cell);
-                        //}
-                        //else if (j == dt.Columns.Count - 1 && i == 1)
-                        //{
-                        //    //TableCell cell = new TableCell();
-                        //    //cell.Width = 40;
-
-                        //    //TextBox tb = new TextBox();
-
-
-                        //    ////   Set a unique ID for each TextBox added
-
-                        //    //tb.ID = "tb" + i + j;
-                        //    //tb.Text = "0";
-                        //    //tb.CssClass = "totalRatioRow";
-                        //    //tb.Enabled = false;
-                        //    //tb.Width = 40;
-
-                        //    ////   Add the control to the TableCell
-                        //    //cell.Controls.Add(tb);
-                        //    ////  Add the TableCell to the TableRow
-                        //    ////  cell.CssClass = "Widthclass";
-                        //    //row.Cells.Add(cell);
-
-                        //}
+                   
                         else
                         {
 
@@ -818,7 +794,7 @@ namespace ArtWebApp.Production.Cutting
 
                                 TextBox tb = new TextBox();
 
-                                tb.CssClass = "txtCalRatio";
+                                tb.CssClass = "txtCalcut";
                                 //  Set a unique ID for each TextBox added
                                 tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
                                 tb.Attributes.Add("onchange", "sumofRatio(this)");
@@ -838,10 +814,31 @@ namespace ArtWebApp.Production.Cutting
 
                                 TextBox tb = new TextBox();
 
-                                tb.CssClass = "txtCalRatio";
+                                tb.CssClass = "txtCalbal";
                                 //  Set a unique ID for each TextBox added
                                 tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
                                 tb.Attributes.Add("onchange", "sumofRatio(this)");
+                                tb.ID = "tb" + i + j;
+                                tb.Text = dt.Rows[i][j].ToString();
+                                tb.Width = 40;
+                                //    Add the control to the TableCell
+                                cell.Controls.Add(tb);
+                                //    Add the TableCell to the TableRow
+                                //  cell.CssClass = "Widthclass";
+                                row.Cells.Add(cell);
+                            }
+
+                            else if (i == 4)
+                            {
+                                TableCell cell = new TableCell();
+                                cell.Width = 40;
+
+                                TextBox tb = new TextBox();
+
+                                tb.CssClass = "txtCalNewBal";
+                                //  Set a unique ID for each TextBox added
+                                //tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
+                                //tb.Attributes.Add("onchange", "sumofRatio(this)");
                                 tb.ID = "tb" + i + j;
                                 tb.Text = dt.Rows[i][j].ToString();
                                 tb.Width = 40;
@@ -1304,31 +1301,91 @@ namespace ArtWebApp.Production.Cutting
 
         protected void btn_marker_Click(object sender, EventArgs e)
         {
+
             BLL.ProductionBLL.LaysheetBLL lblldata = new BLL.ProductionBLL.LaysheetBLL();
-            DataTable dt = lblldata.getRollofaCutorder(int.Parse(drp_cutorder.SelectedValue.ToString()));
+
 
             float plies = 0;
 
             try
             {
                 plies = lblldata.GetCutPlies(int.Parse(drp_markernum.SelectedValue.ToString()));
+
+
                 txt_pliescut.Text = plies.ToString();
                 upd_pliescut.Update();
+
+
+                ArrayList ary = lblldata.getcutplanMarkerdata(int.Parse(drp_markernum.SelectedValue.ToString()));
+                txt_cutperplies.Text = ary[0].ToString();
+                txt_noofplies.Text = ary[1].ToString();
+                upd_cutperplies.Update();
+                upd_noofplies.Update();
+
+                float balancecut = float.Parse(txt_noofplies.Text) - float.Parse(txt_pliescut.Text);
+
+                txt_baltocutnow.Text = balancecut.ToString();
+                upd_baltocutnow.Update();
+
+
             }
             catch (Exception exp)
             {
-
+                txt_pliescut.Text = plies.ToString();
+                upd_pliescut.Update();
 
             };
 
+          
+            //GenerateTable(fillsizedata());
+            showlaylength(int.Parse(drp_markernum.SelectedValue.ToString()));
+            Upd_markerLaylength.Update();
+            upd_Laylength.Update();
+            Filllaysheetroll(int.Parse(drp_cutorder.SelectedValue.ToString()));
+        }
+
+
+
+
+        public void showlaylength(int cutorderdet_pk)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+
+            {
+                var q = from cddet in entty.CutOrderDetails
+                        join cdplnmrkdet in entty.CutPlanMarkerDetails on cddet.CutPlanMarkerDetails_PK equals cdplnmrkdet.CutPlanMarkerDetails_PK
+                        where cddet.CutOrderDet_PK== cutorderdet_pk
+                        select new { cdplnmrkdet.Tolerancelength, cdplnmrkdet.MarkerLength };
+
+                foreach(var element in q)
+                {
+                    txt_markerLaylength.Text = element.MarkerLength.ToString ();
+                    txt_Laylength.Text = (Decimal.Parse(element.Tolerancelength.ToString()) * Decimal.Parse("0.0278") + Decimal.Parse(element.MarkerLength.ToString())).ToString();
+                }
+            }
+            }
+
+        protected void btn_color_Click(object sender, EventArgs e)
+        {
+            FillAllcutorder(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()), int.Parse(drp_fabcolor.SelectedValue.ToString().ToString()));
+        }
+
+        protected void btn_showroll_Click(object sender, EventArgs e)
+        {
+
+            int plies =int.Parse ( txt_pliescut.Text);
+            BLL.ProductionBLL.LaysheetBLL lblldata = new BLL.ProductionBLL.LaysheetBLL();
+            DataTable dt = lblldata.getRollSelectedAgainstALaysheetroll(drp_cutRoll.SelectedItem.Text);
             tbl_RollDetails.DataSource = dt;
             tbl_RollDetails.DataBind();
             upd_grid.Update();
-            //GenerateTable(fillsizedata());
-
             GenerateTable(fillsizedata(), plies);
             GenerateCutorderTable(fillsizedata());
             Table1.Enabled = false;
+        }
+
+        protected void txt_noofplies0_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

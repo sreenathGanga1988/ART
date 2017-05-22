@@ -471,13 +471,28 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
 
 
+//                SqlCommand cmd = new SqlCommand(@"SELECT        RequestOrderDetails.RODet_Pk, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawmaterialDetail.SupplierColor, 
+//                         SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.Qty, RequestOrderDetails.CUnitPrice, RequestOrderDetails.FromSkuDet_PK, RequestOrderDetails.ToSkuDet_PK, 
+//                         RequestOrderDetails.InventoryItem_PK
+//FROM            SkuRawMaterialMaster INNER JOIN
+//                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+//                         RequestOrderDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.ToSkuDet_PK
+//WHERE        (RequestOrderDetails.RO_Pk = @ropk)", con);
+
+
+
+
+
                 SqlCommand cmd = new SqlCommand(@"SELECT        RequestOrderDetails.RODet_Pk, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawmaterialDetail.SupplierColor, 
-                         SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.Qty, RequestOrderDetails.CUnitPrice, RequestOrderDetails.FromSkuDet_PK, RequestOrderDetails.ToSkuDet_PK, 
-                         RequestOrderDetails.InventoryItem_PK
+                         SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.Qty, RequestOrderDetails.CUnitPrice, RequestOrderDetails.FromSkuDet_PK, RequestOrderDetails.ToSkuDet_PK, RequestOrderDetails.InventoryItem_PK,
+                          InventoryMaster.OnhandQty, InventoryMaster.Refnum
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
-                         RequestOrderDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.ToSkuDet_PK
+                         RequestOrderDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.ToSkuDet_PK INNER JOIN
+                         InventoryMaster ON RequestOrderDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK
 WHERE        (RequestOrderDetails.RO_Pk = @ropk)", con);
+
+
                 cmd.Parameters.AddWithValue("@ropk", ro_pk);
 
 
@@ -724,6 +739,41 @@ WHERE        (ServicePOMaster.IsApproved = 'N') AND (ServicePOMaster.IsDeleted =
 
 
         }
+
+
+
+        public DataTable GetServicepo(int PO_PK)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+
+                cmd.CommandText = @" SELECT        ServicePOMaster.ServicePO_PK, ServicePOMaster.ServicePOnumber, ServicePOMaster.DebitFrom, ServicePOMaster.DebitName, ServicePOMaster.Amount, ServicePOMaster.Description, 
+                         ServicePOMaster.AddedBy, ServicePOMaster.AddedDate, ServicePOMaster.ApprovedBy, ServicePOMaster.ApprovedDate, ServiceTypeMaster.ServiceType, CurrencyMaster.CurrencyCode, 
+                         ServicePOMaster.IsApproved
+FROM            ServicePOMaster INNER JOIN
+                         CurrencyMaster ON ServicePOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
+                         ServiceTypeMaster ON ServicePOMaster.ServiceType_Pk = ServiceTypeMaster.ServiceType_Pk
+WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
+
+
+
+                cmd.Parameters.AddWithValue("@Param1", PO_PK);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
         #endregion
 
         #endregion

@@ -230,15 +230,19 @@ HAVING        (DeliveryOrderMaster.DeliveryDate &gt; CONVERT(DATETIME, '2016-12-
                                 <RowStyle CssClass="rows" />
                             </asp:GridView>
                             <asp:SqlDataSource ID="PendingInvoicing" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        ShipmentHandOverCode, LocationName, ShipmentHandOverDate, ShippedQty, InvoiceQty ,(ShippedQty-InvoiceQty) as Diff
-FROM            (SELECT        ShipmentHandOverMaster.ShipmentHandOverCode, ShipmentHandOverMaster.IsCompleted, SUM(ShipmentHandOverDetails.ShippedQty) AS ShippedQty, 
-                                                    ShipmentHandOverDetails.ShipmentHandOverDate, SUM(ISNULL(InvoiceDetail.InvoiceQty, 0)) AS InvoiceQty, LocationMaster.LocationName
-                          FROM            ShipmentHandOverDetails INNER JOIN
-                                                    ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK INNER JOIN
-                                                    LocationMaster ON ShipmentHandOverMaster.Location_Pk = LocationMaster.Location_PK LEFT OUTER JOIN
-                                                    InvoiceDetail ON ShipmentHandOverDetails.ShipmentHandOver_PK = InvoiceDetail.ShipmentHandOver_PK
-                          GROUP BY ShipmentHandOverMaster.ShipmentHandOverCode, ShipmentHandOverMaster.IsCompleted, ShipmentHandOverDetails.ShipmentHandOverDate, LocationMaster.LocationName
-                          HAVING         (ShipmentHandOverMaster.IsCompleted = N'N')) AS tt
-WHERE        (ShippedQty &lt;&gt; InvoiceQty)"></asp:SqlDataSource>
+FROM            (SELECT        ShipmentHandOverMaster.ShipmentHandOverCode, ShipmentHandOverMaster.IsCompleted, SUM(ShipmentHandOverDetails.ShippedQty) AS ShippedQty, ShipmentHandOverDetails.ShipmentHandOverDate, 
+                         LocationMaster.LocationName  ,isnull((
+SELECT        SUM(InvoiceDetail.InvoiceQty) 
+FROM            InvoiceDetail INNER JOIN
+                         ShipmentHandOverDetails ON InvoiceDetail.ShipmentHandOver_PK = ShipmentHandOverDetails.ShipmentHandOver_PK
+WHERE        (ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK)),0) as InvoiceQty
+FROM            ShipmentHandOverDetails INNER JOIN
+                         ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK INNER JOIN
+                         LocationMaster ON ShipmentHandOverMaster.Location_Pk = LocationMaster.Location_PK
+GROUP BY ShipmentHandOverMaster.ShipmentHandMaster_PK, ShipmentHandOverMaster.ShipmentHandOverCode, ShipmentHandOverMaster.IsCompleted, ShipmentHandOverDetails.ShipmentHandOverDate, LocationMaster.LocationName
+HAVING        (ShipmentHandOverMaster.IsCompleted = N'N')) AS tt
+WHERE        (ShippedQty &lt;&gt; InvoiceQty)
+"></asp:SqlDataSource>
                         </td>
                         <td>&nbsp;</td>
                     </tr>

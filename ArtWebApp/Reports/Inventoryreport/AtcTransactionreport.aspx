@@ -85,6 +85,7 @@
                                 <td><asp:CheckBox ID="chk_ct" Text="Show Cutorder" runat="server"  /></td>
                                   <td><asp:CheckBox ID="chk_doc" Text="Show ADN" runat="server"  /></td>
                                   <td><asp:CheckBox ID="chk_remark" Text="Show Remark" runat="server"  /></td>
+                                <td>&nbsp;</td>
                                 <td>
                                     
                                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Export to Excel" />
@@ -364,6 +365,38 @@
                                          </asp:GridView>
                                      </ItemTemplate>
                                  </asp:TemplateField>
+
+
+
+                                
+                                <asp:TemplateField HeaderText="CutorderDO">
+                                     <ItemTemplate>
+                                         <asp:GridView ID="tbl_cutDO" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="Cut_NO" HeaderText="Cut_NO" />
+                                                <asp:BoundField DataField="DONum" HeaderText="DONum" />
+                                                   <asp:BoundField DataField="DeliveryQty" HeaderText="DeliveryQty" />
+                                                  
+                  
+                                                 
+                                                                       
+                                                 
+                                                
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
+
+
 
                                 <asp:TemplateField HeaderText="SkuDet_PK" InsertVisible="False" SortExpression="SkuDet_PK">
                                    

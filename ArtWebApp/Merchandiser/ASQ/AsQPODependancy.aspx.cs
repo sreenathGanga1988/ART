@@ -223,6 +223,11 @@ namespace ArtWebApp.Merchandiser.ASQ
                                 pdata.PoPackId = lbl_popackid;
                                 pdata.Ourstyleid = lbl_ourstyleid;
                                 pdata.skuPK = int.Parse(item.Value.ToString());
+                                if(pdata.skuPK== 56623)
+                                {
+                                    String k = "Boss stop here";
+                                }
+
 
                                 pdata.InsertPoPackGDitems();
                             }

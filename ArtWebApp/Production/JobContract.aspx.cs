@@ -70,6 +70,7 @@ namespace ArtWebApp.Production
             jcmstrdata.Location_Pk = int.Parse(drp_factory.SelectedValue.ToString());
             jcmstrdata.AddedBy = Session["Username"].ToString().Trim();
             jcmstrdata.AddedDate = DateTime.Now;
+            jcmstrdata.remark = txt_remark.Text;
 
             return jcmstrdata;
         }

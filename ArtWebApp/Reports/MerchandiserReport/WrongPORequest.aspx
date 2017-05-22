@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
     <tr>
-        <td>
+       <td class="NormalTD">
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
@@ -80,7 +80,7 @@
         </td>
     </tr>
     <tr>
-        <td><asp:SqlDataSource ID="MisplacedReq" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [WrongPO_Pk], [Reqnum] FROM [WrongPOMaster]">
+       <td class="NormalTD"><asp:SqlDataSource ID="MisplacedReq" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [WrongPO_Pk], [Reqnum] FROM [WrongPOMaster]">
                         </asp:SqlDataSource>
             <asp:SqlDataSource ID="Extrabom" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [ExtraBOM_PK], [Reqnum] FROM [ExtraBOMRequestMaster] ORDER BY [ExtraBOM_PK] DESC"></asp:SqlDataSource>
         </td>

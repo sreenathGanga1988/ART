@@ -18,13 +18,13 @@ namespace ArtWebApp.DataModels
         {
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
-            this.CutPlanMasters = new HashSet<CutPlanMaster>();
             this.ExtraBOMRequestDetails = new HashSet<ExtraBOMRequestDetail>();
             this.InventoryMasters = new HashSet<InventoryMaster>();
             this.MrnDetails = new HashSet<MrnDetail>();
             this.ProcurementDetails = new HashSet<ProcurementDetail>();
             this.ProcurmentPlanDetails = new HashSet<ProcurmentPlanDetail>();
             this.TransferToGstockDetails = new HashSet<TransferToGstockDetail>();
+            this.CutPlanMasters = new HashSet<CutPlanMaster>();
         }
     
         public decimal SkuDet_PK { get; set; }
@@ -44,13 +44,13 @@ namespace ArtWebApp.DataModels
     
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
-        public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
         public virtual ICollection<ExtraBOMRequestDetail> ExtraBOMRequestDetails { get; set; }
         public virtual ICollection<InventoryMaster> InventoryMasters { get; set; }
         public virtual ICollection<MrnDetail> MrnDetails { get; set; }
         public virtual ICollection<ProcurementDetail> ProcurementDetails { get; set; }
         public virtual ICollection<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
-        public virtual SkuRawMaterialMaster SkuRawMaterialMaster { get; set; }
         public virtual ICollection<TransferToGstockDetail> TransferToGstockDetails { get; set; }
+        public virtual SkuRawMaterialMaster SkuRawMaterialMaster { get; set; }
+        public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
     }
 }

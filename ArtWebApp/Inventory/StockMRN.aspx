@@ -7,6 +7,42 @@
     </style>
     <link href="../css/style.css" rel="stylesheet" />
     <script src="../JQuery/GridJQuery.js"></script>
+
+
+   <script type="text/javascript">
+      
+       function validateQTY ()
+       {
+
+
+           var tbl_podetails = document.getElementsByClassName("tbl_podetails")[0];
+           for (var i = 1; i < tbl_podetails.rows.length; i++)
+           {
+              
+               var newQty = tbl_podetails.rows[i].getElementsByClassName("txt_reci")[0].value;
+               var balqty = tbl_podetails.rows[i].getElementsByClassName("lblbal")[0].innerHTML;
+
+               if (parseFloat(newQty) > parseFloat(balqty))
+               {
+                   alert("Extra Not allowed More Than POQTY");
+                   newQty = 0;
+                   tbl_podetails.rows[i].getElementsByClassName("txt_reci")[0].value = 0;
+
+               }
+               else {
+              
+               }
+
+
+           }
+
+       }
+
+    
+
+
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
@@ -144,6 +180,20 @@
                                         <asp:TextBox ID="txt_deliverynote" runat="server" CssClass="auto-style39"></asp:TextBox>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td >PO Type</td>
+                                    <td >
+                                        
+
+                                          <asp:Label ID="lbl_potype" runat="server" Text="Local"></asp:Label>
+                                    </td>
+                                    <td >
+                                        &nbsp;</td>
+                                    <td >MRN Done At</td>
+                                    <td >
+                                        <asp:Label ID="lbl_country" runat="server" Text="UAE"></asp:Label>
+                                    </td>
+                                </tr>
                             </table>
                                 
                             
@@ -151,7 +201,7 @@
                     </tr>
                     <tr class="gridtable">
                         <td>
-                            <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%">
+                            <asp:GridView ID="tbl_Podetails" CssClass="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%">
                                 <Columns>
                                   
 
@@ -174,6 +224,10 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lbl_Template_PK" runat="server" Text='<%# Bind("Template_PK") %>'></asp:Label>
                                         </ItemTemplate>
+                                       
+<HeaderStyle CssClass="hidden"></HeaderStyle>
+
+<ItemStyle CssClass="hidden"></ItemStyle>
                                        
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Composition">
@@ -220,11 +274,19 @@
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="POQty" HeaderText="POQty" />
                                     <asp:BoundField DataField="ReceivedQty" HeaderText="RecievedQty" />
-                                    <asp:BoundField DataField="BalanceQty" HeaderText="BalanceQty" />
+                                    
+
+                                     <asp:TemplateField HeaderText="BalanceQty">
+                                        
+                                         <ItemTemplate>
+                                             <asp:Label ID="Label1" CssClass="lblbal" runat="server" Text='<%# Bind("BalanceQty") %>'></asp:Label>
+                                         </ItemTemplate>
+                                     </asp:TemplateField>
+
                                      
                                     <asp:TemplateField HeaderText="RecieptQty">
                                         <ItemTemplate>
-                                            <asp:TextBox ID="txt_reciept"  onkeypress="return isNumberKey(event,this)" Text="0"  runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txt_reciept" CssClass="txt_reci"  onchange="validateQTY()" runat="server" onkeypress="return isNumberKey(event,this)" Text='<%# Bind("BalanceQty") %>'  ></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Extra">
@@ -291,9 +353,7 @@
             <asp:HiddenField ID="hdn_rcptnum" runat="server" />
         </td>
         <td class="style6">
-            <asp:SqlDataSource ID="podata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum
-FROM            StockPOMaster INNER JOIN
-                         StockRecieptMaster ON StockPOMaster.Supplier_Pk = StockRecieptMaster.Supplier_PK  WHERE (StockRecieptMaster.SReciept_Pk = @Param1)">
+            <asp:SqlDataSource ID="podata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPOMaster.IsApproved FROM StockPOMaster INNER JOIN StockRecieptMaster ON StockPOMaster.Supplier_Pk = StockRecieptMaster.Supplier_PK WHERE (StockRecieptMaster.SReciept_Pk = @Param1) AND (StockPOMaster.IsApproved = N'Y')">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="hdn_rcptnum" DefaultValue="0" Name="Param1" PropertyName="Value" />
                 </SelectParameters>

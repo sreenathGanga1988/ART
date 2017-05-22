@@ -63,7 +63,7 @@ namespace ArtWebApp.DBTransaction
                                  HAVING        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)), 0) AS Consumption ,SkuRawmaterialDetail.RqdQty, 
                          0000 AS PoIssuedQty, 0000 AS BalanceQty, SkuRawMaterialMaster.Uom_PK, SkuRawMaterialMaster.AltUom_pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, 
                          SkuRawMaterialMaster.IsSD, SkuRawMaterialMaster.IsGD,UOMMaster.UomCode, SkuRawMaterialMaster.Template_pk, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin, Template_Master.ItemGroup_PK, 
-                         SizeMaster.SizeName
+                         SizeMaster.SizeName,00 AS GarmentQty
 FROM            SkuRawmaterialDetail INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON SkuRawMaterialMaster.AltUom_pk = UOMMaster.Uom_PK INNER JOIN
@@ -835,7 +835,10 @@ SELECT isnull(@COLOR,'') as supcolor,isnull(@SIZE,'') as supsize";
             Boolean isPOGiven = false;
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
-                if (!entty.ProcurementDetails.Any(f => f.SkuDet_PK == skudetPK ))
+
+
+
+                if (!entty.ProcurementDetails.Any(f => f.SkuDet_PK == skudetPK))
                 {
                     isPOGiven = false;
                 }
@@ -843,7 +846,7 @@ SELECT isnull(@COLOR,'') as supcolor,isnull(@SIZE,'') as supsize";
                 {
                     isPOGiven = true;
                 }
-            
+
             }
             return isPOGiven;
         }

@@ -21,6 +21,8 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<System.DateTime> ShipmentHandOverDate { get; set; }
         public Nullable<decimal> ShipmentHandMaster_PK { get; set; }
+        public Nullable<decimal> POPackId { get; set; }
+        public Nullable<decimal> OurStyleID { get; set; }
     
         public virtual JobContractDetail JobContractDetail { get; set; }
         public virtual ShipmentHandOverMaster ShipmentHandOverMaster { get; set; }

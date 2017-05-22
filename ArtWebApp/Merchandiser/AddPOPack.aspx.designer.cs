@@ -103,24 +103,6 @@ namespace ArtWebApp.Merchandiser {
         protected global::CustomDropDown.DropDownListChosen drp_dest;
         
         /// <summary>
-        /// txt_packdetail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_packdetail;
-        
-        /// <summary>
-        /// RequiredFieldValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
-        
-        /// <summary>
         /// dtp_deliverydate control.
         /// </summary>
         /// <remarks>
@@ -137,6 +119,42 @@ namespace ArtWebApp.Merchandiser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_inhousedate;
+        
+        /// <summary>
+        /// dtp_rsd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_rsd;
+        
+        /// <summary>
+        /// dtp_hd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_hd;
+        
+        /// <summary>
+        /// drp_season control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_season;
+        
+        /// <summary>
+        /// drp_loc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drp_loc;
         
         /// <summary>
         /// drp_pogroup control.
@@ -157,13 +175,22 @@ namespace ArtWebApp.Merchandiser {
         protected global::CustomDropDown.DropDownListChosen drp_taggroup;
         
         /// <summary>
-        /// drp_season control.
+        /// txt_packdetail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_season;
+        protected global::System.Web.UI.WebControls.TextBox txt_packdetail;
+        
+        /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// btn_save control.
@@ -236,5 +263,14 @@ namespace ArtWebApp.Merchandiser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource popack;
+        
+        /// <summary>
+        /// FACTORYDATASOURCE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource FACTORYDATASOURCE;
     }
 }

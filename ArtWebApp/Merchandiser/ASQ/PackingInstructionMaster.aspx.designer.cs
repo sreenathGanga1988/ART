@@ -76,6 +76,24 @@ namespace ArtWebApp.Merchandiser.ASQ {
         protected global::System.Web.UI.WebControls.Button buttonAtc0;
         
         /// <summary>
+        /// drp_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_type;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
         /// txt_totalctn control.
         /// </summary>
         /// <remarks>
@@ -92,15 +110,6 @@ namespace ArtWebApp.Merchandiser.ASQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_pcperctn;
-        
-        /// <summary>
-        /// txt_ctndiemension control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_ctndiemension;
         
         /// <summary>
         /// lbl_totalpcexpected control.
@@ -121,6 +130,87 @@ namespace ArtWebApp.Merchandiser.ASQ {
         protected global::System.Web.UI.WebControls.Label lbl_totalpcadded;
         
         /// <summary>
+        /// txt_polybagperctn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_polybagperctn;
+        
+        /// <summary>
+        /// txt_alllength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_alllength;
+        
+        /// <summary>
+        /// txt_allwidth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_allwidth;
+        
+        /// <summary>
+        /// txt_allheight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_allheight;
+        
+        /// <summary>
+        /// drp_weightuomll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drp_weightuomll;
+        
+        /// <summary>
+        /// txt_NNWeightAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_NNWeightAll;
+        
+        /// <summary>
+        /// txt_NetAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_NetAll;
+        
+        /// <summary>
+        /// txt_grossAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_grossAll;
+        
+        /// <summary>
+        /// drp_NetUOMALL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drp_NetUOMALL;
+        
+        /// <summary>
         /// updgrid control.
         /// </summary>
         /// <remarks>
@@ -137,6 +227,15 @@ namespace ArtWebApp.Merchandiser.ASQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tbl_podata;
+        
+        /// <summary>
+        /// txt_instruction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txt_instruction;
         
         /// <summary>
         /// upd_bttn control.
@@ -209,5 +308,14 @@ namespace ArtWebApp.Merchandiser.ASQ {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource3;
+        
+        /// <summary>
+        /// PageUpdateProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress PageUpdateProgress;
     }
 }

@@ -35,7 +35,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_sdo.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\SalesDO.rdlc";
 
 
@@ -53,7 +53,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_loan.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\LOAN.rdlc";
 
 

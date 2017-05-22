@@ -50,11 +50,12 @@ original_sample,spec,style_diagram,pattern,PocketIn,InterLinin,MainLable,CareLab
 SizeLable,Joker,TapeLable,Thread,Button,Zippernick,Lined,Others,ButtonHoles,
 WashingInstruction,size1,size2,size3,size4,qty1,qty2,qty3,qty4,Total,development,
 Proto,firstsample,secondsample,thirdsample,sizeset,styling,mtl,design,costing,
-booking,master)values(@param1,@param2,@param3,@param4,@param5,@param6,@param7,
+booking,master,PPSample,PhotoSample)values(@param1,@param2,@param3,@param4,@param5,@param6,@param7,
 @param8,@param9,@param10,@param11,@param12,@param13,@param14,@param15,@param16,
 @param17,@param18,@param19,@param20,@param21,@param22,@param23,@param24,@param25,@param26,@param27,@param28,@param29,@param30,@param31,@param32,
-@param33,@param34,@param35,@param36,@param37,@param38,@param39,@param40,@param41,@param42,@param43,@param44,@param45,@param46,@param47,@param48);SELECT @@IDENTITY";
-
+@param33,@param34,@param35,@param36,@param37,@param38,@param39,@param40,@param41,@param42,@param43,@param44,@param45,@param46,@param47,@param48,@param49,@param50);SELECT @@IDENTITY";
+                
+                    
 
                 SqlCommand cmd1 = new SqlCommand(query1, con);
 
@@ -269,10 +270,33 @@ booking,master)values(@param1,@param2,@param3,@param4,@param5,@param6,@param7,
 
                 }
 
+                if (chk_ppsample.Checked == true)
+                {
 
+                    cmd1.Parameters.AddWithValue("@param49", true);
 
+                }
+                else
+                {
 
+                    cmd1.Parameters.AddWithValue("@param49", false);
 
+                }
+                if (chk_photosample.Checked == true)
+                {
+
+                    cmd1.Parameters.AddWithValue("@param50", true);
+
+                }
+                else
+                {
+
+                    cmd1.Parameters.AddWithValue("@param50", false);
+
+                }
+
+                //cmd1.Parameters.AddWithValue("@param36", txt_total.Text.Trim());
+                //cmd1.Parameters.AddWithValue("@param48", txt_master.Text.Trim());
 
                 int result = int.Parse(cmd1.ExecuteScalar().ToString());
 
@@ -348,7 +372,7 @@ booking,master)values(@param1,@param2,@param3,@param4,@param5,@param6,@param7,
 
         protected void btn_print_Click(object sender, EventArgs e)
         {
-            Response.Redirect(@"\Reports\General Reports\GeneralReportform.aspx?navtype=CuttingTicket&&ID="+ Session["ID"].ToString ().Trim ());
+            Response.Redirect(@"\Reports\SamplingReport\CuttingTicket.aspx?navtype=CuttingTicket&&ID=" + Session["ID"].ToString ().Trim ());
         }
     }
 

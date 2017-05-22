@@ -23,6 +23,7 @@
        function validateQty() {
            debugger;
 
+           var isallzer = true;
         
            var headertable = document.getElementsByClassName("Headernewtable");
 
@@ -33,22 +34,21 @@
 
            for (var j = 0; j < balancetext.length; j++)
            {
-               if (parseFloat(balancetext[0].value) ==0 ) {
+               if (parseFloat(balancetext[j].value) == 0) {
 
                   
                  
-                   return true;
+                  
                }
                else
                {
                    alert("Extra Qty Cannot be Allowed against Cut");
-                   return false;
+                   isallzer= false;
 
                }
            }
-
-         
-
+          
+           return isallzer;
        }
 
 
@@ -61,6 +61,7 @@
 
           function totalcalculation()
        {
+           //   debugger;
 
            var gridView = document.getElementById("<%= tbl_cutorderdata.ClientID %>");
 
@@ -275,6 +276,7 @@
 
          if (SplitQty(element[0]) == false)
          {
+            
              return false
          }
          else
@@ -307,10 +309,17 @@
 
                if (z > 0)
                {
+                   //if (confirm('Cannot split the Quanity in this ratio"?'))
+                   //{
+                   //     Save it!
+                   //} else {
+                   //     Do nothing!
+                   //}
                    alert("Cannot split the Quanity in this ratio");
                  //  objText.value = 0;
                    objText.focus();
                    return false;
+                 
                   
                }
                else {
@@ -592,7 +601,7 @@
                                                                      <asp:TextBox ID="txt_totalplies" Text="0" CssClass="totalplies" Width="70px" Enabled="false" runat="server"></asp:TextBox>
                                                                  </ItemTemplate>
                                                              </asp:TemplateField>
-                                                             <asp:TemplateField HeaderText=" 1 Cut consist of how many Plies ">
+                                                             <asp:TemplateField HeaderText=" Maximum Plies ">
                                                                 
                                                                  <ItemTemplate>
                                                                     <asp:TextBox ID="txt_totalcut" Text="0" CssClass="totalcut" Width="70px" onkeypress="return isNumberKey(event,this)"   onkeyup="calculateply(this)" runat="server"></asp:TextBox>

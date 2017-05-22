@@ -198,4 +198,100 @@ function checkAll(objRef) {
 }
 
 
+function GetSumoftextboxinfooterTextBox(gridname, columntocalculate, footername) {
+    var sum = 0;
+    debugger;
+    var grid = document.getElementsByClassName(gridname)[0];
+    var textboxbox = grid.getElementsByClassName(columntocalculate);
+    for (i = 1; textboxbox.length - 1; i++) {
+        try {
+            var newvalue = parseFloat(textboxbox[i].value);
+            sum = parseFloat(sum) + parseFloat(textboxbox[i].value)
+            textboxbox[i].style.backgroundColor = "yellow";
+        }
+        catch (e) {
+            textboxbox[i].value = 0;
+            textboxbox[i].style.backgroundColor = "white";
+        }
+
+    }
+
+    var sumbox = document.getElementsByClassName(footername);
+    sumbox[0].value = sum.toString();
+}
+
+function GetSumofSelectedTextboxinFooterTextbox(gridname, columntocalculate, footername) {
+    var sum = 0;
+    debugger;
+    var gridView = document.getElementsByClassName(gridname)[0];
+    for(var i=1;i<gridView.rows.length-1;i++)
+    {
+        var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+        if (chkConfirm.checked) {
+            var textboxbox = gridView.rows[i].getElementsByClassName(columntocalculate);
+            try {
+                var newvalue = parseFloat(textboxbox[0].value);
+ 
+                sum = parseFloat(sum) + parseFloat(newvalue)
+                   
+
+                if(parseFloat(newvalue.toString())==0)
+                {
+                    textboxbox[0].style.backgroundColor = "Yellow";
+                }
+                else{
+                    textboxbox[0].style.backgroundColor = "white";
+                }
+            }
+            catch (e) {
+                textboxbox[0].value = 0;
+                textboxbox[0].style.backgroundColor = "yellow";
+            }
+
+
+        }
+    }
+
+    var sumbox = document.getElementsByClassName(footername);
+    sumbox[0].value = sum.toString();
+
+}
+
+//Calculate the Sum of All Selected rows label and  show to the textbox in Bottom 
+function GetSumofSelectedLabelinFooterTextbox(gridname, columntocalculate, footername) {
+    var sum = 0;
+    debugger;
+    var gridView = document.getElementsByClassName(gridname)[0];
+    for (var i = 1; i < gridView.rows.length - 1; i++) {
+        var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+        if (chkConfirm.checked) {
+            var textboxbox = gridView.rows[i].getElementsByClassName(columntocalculate);
+            try {
+                var newvalue = parseFloat(textboxbox[0].innerHTML);
+
+                sum = parseFloat(sum) + parseFloat(newvalue)
+
+
+                if (parseFloat(newvalue.toString()) == 0) {
+                    textboxbox[0].style.backgroundColor = "Yellow";
+                }
+                else {
+                    textboxbox[0].style.backgroundColor = "white";
+                }
+            }
+            catch (e) {
+                textboxbox[0].innerHTML = 0;
+                textboxbox[0].style.backgroundColor = "yellow";
+            }
+
+
+        }
+    }
+
+    var sumbox = document.getElementsByClassName(footername);
+    sumbox[0].value = sum.toString();
+
+}
+
+
 

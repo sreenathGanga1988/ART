@@ -45,9 +45,15 @@
                     </ContentTemplate>
                 </asp:UpdatePanel></td>
             <td class="NormalTD" >
+                <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btn_showApprovedcutplan" runat="server" Font-Size="Smaller" OnClick="btn_showApprovedcutplan_Click" Text="Show Approved Cutplan" ToolTip="Show All Cut Plan  of Selected Atc Approved By QAD " Width="190px" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
                 </td>
             <td class="NormalTD">
-                &nbsp;</td>
+                <asp:Button ID="btn_showApprovedcutplan0" runat="server" Font-Size="Smaller" Text="Show Cutplan History" ToolTip="Show All Cut Plan  and Cutorder Details of Atc" Width="190px" OnClick="btn_showApprovedcutplan0_Click" />
+            </td>
             <td class="NormalTD"></td>
             <td class="NormalTD"></td>
         </tr>
@@ -111,6 +117,27 @@
             <td>
                 <asp:Button ID="Button8" runat="server" OnClick="Button8_Click" Text="Button" />
             </td>
+            <td >&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+      
+        <tr>
+            <td >cut plan #</td>
+        <td class="NormalTD">
+                <asp:UpdatePanel ID="upd_cutplan" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <ucc:DropDownListChosen ID="drp_cutplan" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                        </ucc:DropDownListChosen>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        <td class="NormalTD">
+                <asp:Button ID="btn_showCutplam" runat="server" Font-Size="Smaller" OnClick="btn_showCutplam_Click" Text="Show Cut Plan Report" />
+            </td>
+            <td>
+                &nbsp;</td>
             <td >&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

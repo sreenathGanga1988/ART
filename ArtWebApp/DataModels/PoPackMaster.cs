@@ -20,8 +20,8 @@ namespace ArtWebApp.DataModels
             this.GroupDependantItems = new HashSet<GroupDependantItem>();
             this.JobContractDetails = new HashSet<JobContractDetail>();
             this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
-            this.POPackDetails = new HashSet<POPackDetail>();
             this.PackingListDetails = new HashSet<PackingListDetail>();
+            this.POPackDetails = new HashSet<POPackDetail>();
         }
     
         public decimal PoPackId { get; set; }
@@ -39,6 +39,10 @@ namespace ArtWebApp.DataModels
         public string TagGroup { get; set; }
         public string SeasonName { get; set; }
         public string IsCutable { get; set; }
+        public Nullable<System.DateTime> FirstDeliveryDate { get; set; }
+        public Nullable<System.DateTime> HandoverDate { get; set; }
+        public Nullable<decimal> ExpectedLocation_PK { get; set; }
+        public string IsDeleted { get; set; }
     
         public virtual BuyerDestinationMaster BuyerDestinationMaster { get; set; }
         public virtual ChannelMaster ChannelMaster { get; set; }
@@ -46,8 +50,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<GroupDependantItem> GroupDependantItems { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
         public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
-        public virtual ICollection<POPackDetail> POPackDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
+        public virtual AtcMaster AtcMaster { get; set; }
+        public virtual ICollection<POPackDetail> POPackDetails { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_spo.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\sPO.rdlc";
 
 
@@ -63,7 +63,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_smrn.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\STOCK-MRN.rdlc";
 
 
@@ -80,7 +80,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_sdo.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\stockdo.rdlc";
 
 

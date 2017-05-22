@@ -84,7 +84,11 @@
        
 <td >
 
-    </style><link href="../css/style.css" rel="stylesheet" />
+        .auto-style22 {
+            width: 100%;
+        }
+
+        </style><link href="../css/style.css" rel="stylesheet" />
     <script type="text/javascript" id="igClientScript">
 
  function load() {
@@ -96,11 +100,20 @@
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server" >
-    <table class="DataEntryTable">
-                    <tr>
+
+
+
+
+    <table class="FullTable">
+        <tr>
+            <td>
+                <div>
+
+                    <table class="DataEntryTable">
+                          <tr>
                         <td class="RedHeadding" colspan="3">STYLE DETAILS</td>
                     </tr>
-                    <tr>
+                       <tr>
                         <td class="NormalTD">Atc # </td>
                         <td class="NormalTD" >
                              
@@ -118,7 +131,7 @@
                             </asp:UpdatePanel>
                         </td>
                     </tr>
-                    <tr>
+                        <tr>
                         <td class="NormalTD">OurStyle </td>
                         <td class="NormalTD" >
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
@@ -138,7 +151,8 @@
                             </asp:UpdatePanel>
                         </td>
                     </tr>
-                    <tr>
+
+                        <tr>
                         <td class="NormalTD">New Size :</td>
                         <td class="NormalTD" >
                             <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -157,7 +171,8 @@
                             </asp:UpdatePanel>
                         </td>
                     </tr>
-                    <tr>
+
+                        <tr>
                         <td class="NormalTD">New Color :</td>
                         <td class="NormalTD" >
                             <asp:UpdatePanel ID="UpdatePanel5" runat="server">
@@ -176,9 +191,19 @@
                             </asp:UpdatePanel>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="3" >&nbsp;</td>
-                    </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <table class="DataEntryTable">               
+
+                                      
+                    
+                 
                     <tr>
                         <td class="auto-style27">
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -258,6 +283,12 @@
                                                     <asp:Label ID="lbl_sizename" runat="server" Text='<%# Bind("SizeName") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                             <asp:TemplateField HeaderText="Order" SortExpression="Order">
+                                             
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="txt_order" runat="server" Text='<%# Bind("orderof") %>' Font-Size="Smaller" Height="16px" Width="32px"></asp:TextBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:ButtonField CommandName="Delete" Text="Delete" />
                                         </Columns>
                                         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
@@ -274,14 +305,86 @@
                             </asp:UpdatePanel>
                         </td>
                     </tr>
+
+                                      
+                    
+                 
+                    <tr>
+                        <td class="auto-style27">
+                            &nbsp;</td>
+                        <td class="NormalTD">
+                            &nbsp;</td>
+                        <td>
+                            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Update Size Order" />
+                        </td>
+                    </tr>
                 </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    
        <table class="FullTable">
         <tr>
-            <td class="auto-style3">
-                &nbsp;
-                <table class="auto-style1">
+            <td class=NormalTD>
+                &nbsp;All Atc Styles<table class="auto-style1">
                     <tr>
-                        <td class="auto-style7">&nbsp;</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                                <ContentTemplate>
+                                    <asp:GridView ID="grd_stylesize0" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="StyleSizeID" DataSourceID="AtcSizeDetails" OnRowCommand="grd_stylesize_RowCommand" style="font-size: small; font-family: Calibri" Width="100%">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="StyleSizeID" SortExpression="StyleSizeID">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_stylesizeid0" runat="server" Text='<%# Bind("StyleSizeID") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="OurStyleID" SortExpression="OurStyleID">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_ourstyleid0" runat="server" Text='<%# Bind("OurStyleID") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                            <asp:TemplateField HeaderText="SizeCode" SortExpression="SizeCode">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_sizecode0" runat="server" Text='<%# Bind("SizeCode") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="SizeName" SortExpression="SizeName">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_sizename0" runat="server" Text='<%# Bind("SizeName") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Order" SortExpression="Order">
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="txt_order0" runat="server" Font-Size="Smaller" Height="16px" Text='<%# Bind("orderof") %>' Width="32px"></asp:TextBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:ButtonField CommandName="Delete" Text="Delete" />
+                                        </Columns>
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                    </asp:GridView>
+                                    <asp:SqlDataSource ID="AtcSizeDetails" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT StyleSize.OurStyle, StyleSize.SizeName, StyleSize.SizeCode, StyleSize.StyleSizeID, StyleSize.OurStyleID, StyleSize.Orderof, AtcDetails.AtcId FROM StyleSize INNER JOIN AtcDetails ON StyleSize.OurStyleID = AtcDetails.OurStyleID WHERE (AtcDetails.AtcId = @Param1) ORDER BY StyleSize.Orderof">
+                                        <SelectParameters>
+                                            <asp:ControlParameter ControlID="cmb_atc" Name="Param1" PropertyName="SelectedValue" />
+                                        </SelectParameters>
+                                    </asp:SqlDataSource>
+                                    <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Update Order" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
                         <td class="auto-style8">
                             &nbsp;</td>
                         <td>
@@ -338,7 +441,7 @@
                     </tr>
                     <tr>
                         <td class="NormalTD">
-                <asp:SqlDataSource ID="SizeDetails" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT OurStyle, SizeName, SizeCode, StyleSizeID, OurStyleID FROM StyleSize WHERE (OurStyleID = @OurStyleID)">
+                <asp:SqlDataSource ID="SizeDetails" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT OurStyle, SizeName, SizeCode, StyleSizeID, OurStyleID, Orderof FROM StyleSize WHERE (OurStyleID = @OurStyleID) ORDER BY Orderof">
                     <SelectParameters>
                         <asp:SessionParameter DefaultValue="0" Name="OurStyleID" SessionField="OurstyleId" Type="Decimal" />
                     </SelectParameters>

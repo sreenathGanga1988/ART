@@ -34,6 +34,11 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> DocValue { get; set; }
         public Nullable<decimal> Currency_PK { get; set; }
         public string ADNType { get; set; }
+        public string ShipmentMode { get; set; }
+        public string FromCountry { get; set; }
+        public string ToLocation { get; set; }
+        public string EstimatedCost { get; set; }
+        public string PaymentTerm { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual SupplierMaster SupplierMaster { get; set; }

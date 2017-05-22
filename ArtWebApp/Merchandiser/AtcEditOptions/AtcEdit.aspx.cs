@@ -55,6 +55,7 @@ namespace ArtWebApp.Merchandiser
                     txt_stylenum.Text = element.NoofStyles.ToString();
                     lbl_stylenum.Text = element.NoofStyles.ToString();
                     Session["BuyerId"] = element.Buyer_ID;
+                    txt_projqty.Text = element.ProjectionQty.ToString();
                 }
 
 

@@ -229,10 +229,14 @@ namespace ArtWebApp.Reports
 
             DataTable dtTrim = dt.Select("ItemGroupName ='Trims'").CopyToDataTable();
 
+            DataView dv = dtTrim.DefaultView;
+            dv.Sort = "RMNum";
+            DataTable sortedDT = dv.ToTable();
+
             tbl_fabdet.DataSource = dtfab;
             tbl_fabdet.DataBind();
 
-            tbl_trmdet.DataSource = dtTrim;
+            tbl_trmdet.DataSource = sortedDT;
             tbl_trmdet.DataBind();
 
         }

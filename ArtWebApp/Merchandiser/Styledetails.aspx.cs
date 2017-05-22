@@ -208,7 +208,7 @@ public partial class Merchandiser_Styledetails : System.Web.UI.Page
             }
             else
             {
-                String Msg = " Cannot Delete Size  As PoPack is made for this Size";
+                String Msg = " Cannot Delete Size  As ASQ is made for this Size";
 
                 ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + Msg + "');", true);
             }
@@ -254,7 +254,7 @@ public partial class Merchandiser_Styledetails : System.Web.UI.Page
             }
             else
             {
-                String Msg = " Cannot Delete Color  As PoPack is made for this Color";
+                String Msg = " Cannot Delete Color  As ASQ is made for this Color";
 
                 ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + Msg + "');", true);
             }
@@ -263,5 +263,61 @@ public partial class Merchandiser_Styledetails : System.Web.UI.Page
         }
     }
 
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        if(grd_stylesize.Rows.Count>0)
+        {
+            foreach (GridViewRow di in grd_stylesize.Rows)
+            {
+                Label lbl_stylesizeid = (di.FindControl("lbl_stylesizeid") as Label);
+                TextBox txt_order = (di.FindControl("txt_order") as TextBox);
+                int stylesizeid = int.Parse(lbl_stylesizeid.Text. ToString());
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+                    var q = from ponmbr in enty.StyleSizes
+                            where ponmbr.StyleSizeID == stylesizeid
+                            select ponmbr;
 
+
+                    foreach (var element in q)
+                    {
+                        element.Orderof = int.Parse(txt_order.Text);
+
+                    }
+
+                    enty.SaveChanges();
+                }
+
+                }
+            }
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        if (grd_stylesize0.Rows.Count > 0)
+        {
+            foreach (GridViewRow di in grd_stylesize.Rows)
+            {
+                Label lbl_stylesizeid = (di.FindControl("lbl_stylesizeid0") as Label);
+                TextBox txt_order = (di.FindControl("txt_order0") as TextBox);
+                int stylesizeid = int.Parse(lbl_stylesizeid.Text.ToString());
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+                    var q = from ponmbr in enty.StyleSizes
+                            where ponmbr.StyleSizeID == stylesizeid
+                            select ponmbr;
+
+
+                    foreach (var element in q)
+                    {
+                        element.Orderof = int.Parse(txt_order.Text);
+
+                    }
+
+                    enty.SaveChanges();
+                }
+
+            }
+        }
+    }
 }

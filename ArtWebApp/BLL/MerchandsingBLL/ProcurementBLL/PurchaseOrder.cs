@@ -160,6 +160,84 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
 
         }
 
+
+
+
+
+
+       
+        public String AddnewContenttoPO(ProcurementMasterData Pmmstr)
+        {
+            String ponum = "";
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                using (var dbContextTransaction = entty.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+
+                        try
+                        {
+
+
+                            //   ponum = CodeGenerator.GetUniqueCode("APO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(POmstr.PO_Pk.ToString())); ;
+                            // POmstr.PONum = ponum;
+
+                            foreach (ProcurementDetails rdet in Pmmstr.ProcurementDetailsCollection)
+                            {
+
+                                ProcurementDetail pddetails = new ProcurementDetail();
+                                pddetails.SkuDet_PK = rdet.SkuDet_PK;
+                                pddetails.POQty = rdet.POQty;
+                                pddetails.POUnitRate = Convert.ToDecimal(rdet.POUnitRate);
+                                pddetails.SupplierColor = rdet.SupplierColor;
+                                pddetails.SupplierSize = rdet.SupplierSize;
+                                pddetails.PO_Pk = Pmmstr.PO_Pk;
+                                pddetails.Uom_PK = rdet.Uom_PK;
+                                pddetails.CURate = Convert.ToDecimal(rdet.CURate);
+                                entty.ProcurementDetails.Add(pddetails);
+                            }
+
+
+                            
+
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+                        entty.SaveChanges();
+
+
+
+
+
+
+                        dbContextTransaction.Commit();
+
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            }
+            return ponum;
+
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// Create POnum
         /// </summary>

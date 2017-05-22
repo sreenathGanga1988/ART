@@ -25,13 +25,13 @@
 
            if (parseFloat(htmlcell[0].value) < parseFloat(objText.value))
            {
-               var allowedexcess = (3 / 100) * parseFloat(htmlcell[0].value);
+               var allowedexcess = (1/ 100) * parseFloat(htmlcell[0].value);
 
                var allowedqty = allowedexcess + parseFloat(htmlcell[0].value);
 
                if (allowedqty < parseFloat(objText.value))
                {
-                   alert("Qty Cannot be greater than 3% extra of ASQ balance");
+                   alert("Qty Cannot be greater than 1% extra of ASQ balance");
                    objText.focus();
                }
 
@@ -199,7 +199,35 @@
 
            
          
+    function popWinDow()
+ 
+    {
+        debugger;
 
+        
+        
+        
+        
+        var drp_fabcolor = document.getElementById("<%= drp_fabcolor.ClientID %>");
+        var skudetpk = drp_fabcolor.options[drp_fabcolor.selectedIndex].value;
+
+        var drp_shrink = document.getElementById("<%= drp_shrink.ClientID %>");
+        var shrinkage = drp_shrink.options[drp_shrink.selectedIndex].value;
+
+        var drp_width = document.getElementById("<%= drp_width.ClientID %>");
+        var width = drp_width.options[drp_width.selectedIndex].value;
+
+        var drp_markerType = document.getElementById("<%= drp_markerType.ClientID %>");
+        var markertype = drp_markerType.options[drp_markerType.selectedIndex].value;
+
+
+        var drp_fact = document.getElementById("<%= drp_fact.ClientID %>");
+        var factid = drp_fact.options[drp_fact.selectedIndex].value;
+
+        window.open("DisplayRoll.aspx?skudetpk=" + skudetpk + "&shrinkage=" + shrinkage + "&width=" + width + "&markertype=" + markertype + "&factid=" + factid);
+       // window.open("WWW.google.co.in");
+ 
+        }
        
     
 
@@ -220,7 +248,8 @@
             border-top-style: solid;
             border-top-width: 1px;
             border-bottom: 1px solid #C0C0C0;
-             font-size: smaller;
+             font-size: x-small;
+            font-weight: 900;
         }
         
 
@@ -240,18 +269,30 @@
 .tr:nth-child(even) {
     background-color: #dddddd;
 }
+        .smalltableheader {
+            height: 27px;
+            text-align: center;
+            background-color: #FF9933;
+        }
+        .auto-style1 {
+            font-size: x-small;
+        }
+        .auto-style2 {
+            font-size: xx-small;
+        }
         </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <table class="FullTable">
-        <tr>
-            <td class="RedHeadding">New Cut Plan</td>
-        </tr>
-        <tr>
-           <td class="DataEntryTable"  >
-               <div>
-                <asp:UpdatePanel ID="upd_entry" UpdateMode="Conditional" runat="server">
+      <asp:UpdatePanel ID="Upd_full" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+
+
+                        <div class="RedHeaddingdIV">
+                            New Cut Plan
+                        </div>
+                        <div class="FullTable">
+                            <asp:UpdatePanel ID="upd_entry" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
                    <table class="DataEntryTable">
                             <tr>
@@ -268,11 +309,19 @@
                                      
                                     
                                      
+                                    
+                                    
+                                        <asp:UpdatePanel ID="upd_skudetPK" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                  <asp:Label ID="lbl_skudet_pk" runat="server" CssClass="auto-style2" Text="0"></asp:Label>
+                                     
+                                              </ContentTemplate>
+                                    </asp:UpdatePanel>
                                     </td>
                                  <td class="SearchButtonTD"  >
                                       <asp:UpdatePanel ID="upd_colorcodeupdate" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                                     <asp:Label ID="lbl_labelcode" runat="server"></asp:Label>
+                                     <asp:Label ID="lbl_labelcode" runat="server" CssClass="auto-style2"></asp:Label>
                         </ContentTemplate>
                                                         </asp:UpdatePanel>
                                     </td>
@@ -343,7 +392,7 @@
                                     <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
                                     <asp:Button ID="btn_color" runat="server" OnClick="btn_color_Click" Text="S" ValidationGroup="asdf" Visible="False" />
-                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="CMN" Visible="False" />
+                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="CMN" Visible="False" CssClass="auto-style2" />
                           </ContentTemplate>
                                                         </asp:UpdatePanel>
                                 </td>
@@ -383,148 +432,369 @@
                                     </td>
                             </tr>
                             <tr>
-                                <td class="NormalTD">Select garment Color</td>
+                                <td class="NormalTD">marker direction</td>
                                 <td class="NormalTD">
-                                       <asp:UpdatePanel ID="upd_garmentColor" UpdateMode="Conditional" runat="server">
-                    <ContentTemplate>
-                                    <ucc:DropDownListChosen ID="ddl_color" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
-                                    </ucc:DropDownListChosen>
-                          </ContentTemplate>
-                                                        </asp:UpdatePanel>
+                                    <ig:WebDropDown ID="drp_popack" runat="server" EnableClosingDropDownOnSelect="False" EnableMultipleSelection="True" TextField="POnum" ValueField="PoPackId" Width="200px">
+                                        <Items>
+                                            <ig:DropDownItem Selected="False" Text="Normal Marker" Value="Normal Marker">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="One Way ( All garment one direction)" Value="One Way ( All garment one direction)">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Two Way ( One Garment One direction)" Value="Two Way ( One Garment One direction)">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Nap UP" Value="Nap UP">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Nap Down" Value="Nap Down">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Plaid Match" Value="Plaid Match">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Horizontal cut" Value="Horizontal cut">
+                                            </ig:DropDownItem>
+                                            <ig:DropDownItem Selected="False" Text="Bias Cut" Value="Bias Cut">
+                                            </ig:DropDownItem>
+                                        </Items>
+                                        <DropDownItemBinding TextField="name" ValueField="pk" />
+                                    </ig:WebDropDown>
                                 </td>
-                                <td class="mergecell" colspan="2"><asp:UpdatePanel ID="upd_confirmgarmentcolor" runat="server" UpdateMode="Conditional">
+                                <td class="SearchButtonTD">&nbsp;</td>
+                                <td class="NormalTD">Marker Made </td>
+                                <td class="NormalTD">
+                                    <asp:UpdatePanel ID="upd_garmentColor0" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                            <asp:Button ID="btn_cutorder" runat="server" Text="Confirm" OnClick="btn_cutorder_Click" style="height: 26px" />
+                                            <ucc:DropDownListChosen ID="drp_markermade" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
+                                                <asp:ListItem>Gerber</asp:ListItem>
+                                                <asp:ListItem>Manual</asp:ListItem>
+                                            </ucc:DropDownListChosen>
                                         </ContentTemplate>
-                                    </asp:UpdatePanel></td>
-                                <td class="NormalTD">&nbsp;</td>
+                                    </asp:UpdatePanel>
+                                </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="NormalTD"  >
-                                     
-                                     <asp:UpdatePanel ID="upd_garmentDetail" runat="server" UpdateMode="Conditional">
+                                <td class="NormalTD">Fabrication</td>
+                                <td class="NormalTD">
+                                       <asp:UpdatePanel ID="upd_fabrication" runat="server" UpdateMode="Conditional">
+                                           <ContentTemplate>
+                                               <ucc:DropDownListChosen ID="drp_fabrication" runat="server" DataTextField="name" DataValueField="pk" Width="180px">
+                                                  
+                                               </ucc:DropDownListChosen>
+                                        <%--         <ucc:DropDownListChosen ID="DropDownListChosen1" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
+                                                   <asp:ListItem>Body</asp:ListItem>
+                                                   <asp:ListItem>Side Insert</asp:ListItem>
+                                                   <asp:ListItem>Side Panel</asp:ListItem>
+                                                   <asp:ListItem>Waist Band Rib</asp:ListItem>
+                                                   <asp:ListItem>Inner Lining</asp:ListItem>
+                                                   <asp:ListItem>Piping</asp:ListItem>
+                                                   <asp:ListItem>Contrast Yoke</asp:ListItem>
+                                                   <asp:ListItem>Elbow Patch</asp:ListItem>
+                                                   <asp:ListItem>Inner Shorts</asp:ListItem>
+                                                   <asp:ListItem>Waist  Band Contrast</asp:ListItem>
+                                                   <asp:ListItem>Inner Shorts</asp:ListItem>
+                                                   <asp:ListItem>Color Contrast</asp:ListItem>
+                                                   <asp:ListItem>Elbow Patch</asp:ListItem>
+                                                   <asp:ListItem>BodyColor Contrast</asp:ListItem>
+                                                   <asp:ListItem>Hood LiningPatch</asp:ListItem>
+                                                   <asp:ListItem>PocketingInside Mesh</asp:ListItem>
+                                                   <asp:ListItem>InterLining</asp:ListItem>
+                                                   <asp:ListItem>Pocketing</asp:ListItem>
+                                               </ucc:DropDownListChosen>--%>
+                                           </ContentTemplate>
+                                       </asp:UpdatePanel>
+                                </td>
+                                <td class="SearchButtonTD"></td>
+                                <td  class="NormalTD"  >Max marker length</td>
+                                <td class="NormalTD">
+                                    <asp:TextBox ID="txt_maximumMarkerlength" runat="server">0</asp:TextBox>
+                                </td>
+                                <td class="SearchButtonTD">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">Select garment Color</td>
+                                <td class="NormalTD">
+                                    <asp:UpdatePanel ID="upd_garmentColor" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                     
-                                  <table class="smalltablefordisplay">
-                                      <tr>
-                                          <td>Gmt Color</td>
-                                          <td><asp:Label ID="lbl_garmentColor" runat="server"></asp:Label></td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              Gmt Qty
-                                          </td>
-                                          <td><asp:Label ID="lbl_garmentQty" runat="server"></asp:Label></td>
-                                      </tr>
-                                  </table>
+                                            <ucc:DropDownListChosen ID="ddl_color" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
+                                            </ucc:DropDownListChosen>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
+                                </td>
+                                <td class="mergecell" >
                                   
-                                     
-                                 </td>  <td class="NormalTD"  >
-                                     <asp:UpdatePanel ID="upd_rolldetails" runat="server" UpdateMode="Conditional">
+                                </td>
+                                <td class="NormalTD">
+                                    <asp:UpdatePanel ID="upd_confirmgarmentcolor" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                      <table class="smalltablefordisplay">
-                                      <tr >
-                                          <td>Rolls Inspected :</td>
-                                          <td>
-                                              <asp:Label ID="lbl_rollinspected" runat="server" Text="0"></asp:Label>
-                                          </td>
-                                      </tr>
-                                      <tr >
-                                          <td>Total yards inspected :</td>
-                                          <td>
-                                              <asp:Label ID="lbl_ayard" runat="server" Text="0"></asp:Label>
-                                          </td>
-                                      </tr>
-                                          <tr >
-                                              <td>Rolls Cut</td>
-                                              <td>&nbsp;</td>
-                                          </tr>
-                                          <tr >
-                                              <td>&nbsp;</td>
-                                              <td>&nbsp;</td>
-                                          </tr>
-                                  </table>
-                                             </ContentTemplate>
+                                            <asp:Button ID="btn_cutorder" runat="server" Font-Size="Smaller" OnClick="btn_cutorder_Click" style="height: 26px" Text="Confirm" />
+                                        </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </td>
-                                <td class="SearchButtonTD"  >
-                                
-                               <td class="NormalTD"  >   <asp:UpdatePanel ID="upd_alreadyCut" runat="server" UpdateMode="Conditional">
+                                <td class="NormalTD">
+                                    <asp:UpdatePanel ID="upd_confirmgarmentcolor0" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                  <table class="smalltablefordisplay">
-                                   
-                                          <tr >
-                                              <td>issued cut plan qty:</td>
-                                              <td>
-                                                  <asp:Label ID="lbl_alreadycut" runat="server" Text="0"></asp:Label>
-                                              </td>
-                                          </tr>
-                                          <tr >
-                                              <td>new Cutplan Qty :</td>
-                                              <td>
-                                                  <asp:Label ID="lbl_newcutplan" runat="server" Text="0" CssClass="newcutqty"></asp:Label>
-                                              </td>
-                                          </tr>
-                                          <tr >
-                                              <td>New fab ReQ</td>
-                                              <td>
-                                                  <asp:Label ID="lbl_newyard0" runat="server" CssClass="newyardreq" Text="0"></asp:Label>
-                                              </td>
-                                          </tr>
-                                      </table>    </ContentTemplate>
+                                            <asp:Button ID="btn_cutordermnum" runat="server" OnClick="btn_cutordermnum_Click" style="height: 26px" Text="Common Color" CssClass="auto-style2" />
+                                        </ContentTemplate>
                                     </asp:UpdatePanel>
-                                   
                                 </td>
-                                <td class="NormalTD"  >
-                                      <asp:UpdatePanel ID="Upd_consumption" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                      <table class="smalltablefordisplay">
-                                       <tr>
-                                           <td>Bom Consuption:</td>
-                                           <td>
-                                               <asp:Label ID="lbl_consumption" CssClass="consumption" runat="server" Text="0"></asp:Label>
-                                           </td>
-                                       </tr>
-                                       <tr >
-                                           <td>balance yardage :</td>
-                                           <td>
-                                               <asp:Label ID="lbl_balyard" CssClass="balyard" runat="server" Text="0"></asp:Label>
-                                           </td>
-                                       </tr>
-                                          <tr >
-                                              <td>New balance</td>
-                                              <td><asp:Label ID="LNL" CssClass="newbalyard" runat="server" Text="0"></asp:Label></td>
-                                          </tr>
-                                          <tr >
-                                              <td>Apprx Cutplan Qty</td>
-                                              <td>
-                                                  <asp:Label ID="lbl_apprQty" CssClass="newbalyard" runat="server" Text="0"></asp:Label>
-                                                      </td>
-                                          </tr>
-                                   </table>
-                                              </ContentTemplate>
-                                    </asp:UpdatePanel></td>
-                                <td class="SearchButtonTD"  >
-                                    &nbsp;</td>
+                                <td class="SearchButtonTD">&nbsp;</td>
+
                             </tr>
+                         
+                            
+                        
+                            
                             <tr>
-                               <td class="auto-style8" colspan="6"  >
-                                   
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="mergecell">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="SearchButtonTD">&nbsp;</td>
+                            </tr>
+                         
+                            
+                        
+                            
+                        </table>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                        </div>
+
+                        <div class="FullTable">
+
+                              <table class="DataEntryTable">
+                                        <tr>
+                                            <td>
+                                                <asp:UpdatePanel ID="upd_garmentDetail" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <table class="smalltablefordisplay">
+                                                            <tr>
+                                                                <td class="smalltableheader" colspan="2">TOTAL All Location dETAILS (STYLEWISE)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Gmt Color</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_garmentColor" runat="server"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Gmt Qty (OF sTYLE)</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_garmentQty" runat="server"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">yARDAGE REQUIRED</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_reqyardforstyle" runat="server">0</asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Style</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_stylename" runat="server"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">BOM Consumtion(OF STYLE)</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_consumption" runat="server" CssClass="consumption" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">issued cut plan qty:</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_alreadycut" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Apprx cutplan Yardage</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_totalcutplanyardage" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td>
+                                                <asp:UpdatePanel ID="upd_rolldetails" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <table class="smalltablefordisplay">
+                                                            <tr>
+                                                                <td class="smalltableheader" colspan="2">Current Location</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Rolls Inspected :</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_rollinspected" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Total yards inspected :</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_ayard" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Rolls Delivered</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:LinkButton ID="lbl_deliveredrolls" runat="server" OnClientClick="popWinDow()" Text="0" o ></asp:LinkButton>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Delivered yards</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_deliveredYard" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">stores onhand (yards)</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_onhand" runat="server" CssClass="newyardreq" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Pending to Deliver</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_balancetodeliveryardage" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">&nbsp;</td>
+                                                                <td class="NormalTD">&nbsp;</td>
+                                                            </tr>
+                                                        </table>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td>
+                                                <asp:UpdatePanel ID="upd_alreadyCut" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <table class="smalltablefordisplay">
+                                                          <tr>
+                                                                <td class="smalltableheader" colspan="2">Current Location</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Allocated Qty for Location</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_allocatedQty" runat="server">0</asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Issued Cutplan qty (<span class="auto-style1">current selected location) </span></td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_alreadycutelectedFactory" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Issued/blocked yardage</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_locationcutplanyardage" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Balance to Cut qty</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_baltocutlocation" runat="server" Text="0" ForeColor="#FF3300"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">new Cutplan Qty :</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_newcutplan" runat="server" CssClass="newcutqty" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">New fab ReQ (yards)</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_newyard0" runat="server" CssClass="newyardreq" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <td class="NormalTD">&nbsp;</td>
+                                                                <td class="NormalTD">&nbsp;</td>
+                                                            </tr>
+                                                            
+                                                        </table>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td >
+                                                <asp:UpdatePanel ID="Upd_consumption" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <table class="smalltablefordisplay">
+                                                              <tr>
+                                                                <td class="smalltableheader" colspan="2">Current Location</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Available rolls</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_balroll" runat="server"  Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">balance yardage :</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_balyard" runat="server" CssClass="balyard" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">New balance</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="LNL" runat="server" CssClass="newbalyard" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Qty cuttable with onhand rolls</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_apprQty" runat="server" CssClass="newbalyard" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                              <tr>
+                                                                  <td class="NormalTD">
+                                                                      <asp:HyperLink ID="HyperLink1" runat="server">HyperLink</asp:HyperLink>
+                                                                  </td>
+                                                                  <td class="NormalTD">&nbsp;</td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td class="NormalTD">&nbsp;</td>
+                                                                  <td class="NormalTD">&nbsp;</td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td class="NormalTD">&nbsp;</td>
+                                                                  <td class="NormalTD">&nbsp;</td>
+                                                              </tr>
+                                                        </table>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+
+                        </div>
+
+
+                        <div class="FullTable">
+                            <table class="FullTable">
+     
+                 <tr>
+
+                                  <td colspan="6">
+
+                                      <div>
+                          
+                        </div>
                                 </td>
+
                             </tr>
+
                             <tr>
-                               <td class="auto-style8" colspan="6"  >
-                                   <div id="Messaediv" runat="server">
-                                       <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
-                                   </div>
-                                </td>
-                            </tr>
-                            <tr>
-                               <td class="auto-style8" colspan="6"  >
-                                   <asp:UpdatePanel ID="upd_mastertable" runat="server">
+                                  <td colspan="6">
+
+                                      <div>
+                                          <asp:UpdatePanel ID="upd_mastertable" runat="server">
                                        <ContentTemplate>
                                            <asp:Panel ID="masterpanel" runat="server" ViewStateMode="Enabled">
                                                <asp:Table ID="Mastertable" runat="server" ViewStateMode="Enabled" Width="400px">
@@ -532,16 +802,13 @@
                                            </asp:Panel>
                                        </ContentTemplate>
                                    </asp:UpdatePanel>
-                                </td>
+
+
+                                          </div>
+                                      </td>
                             </tr>
-                        </table>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-               </div>
-                        
-                 
-            </td>
-        </tr>
+
+                            
         <tr>
            <td class="DataEntryTable"  >
                 <asp:UpdatePanel ID="updgrid" UpdateMode="Conditional" runat="server">
@@ -568,20 +835,20 @@
                                                     <ItemTemplate>
                                                         <table class="tittlebar">
                                                             <tr>
-                                                                <td>POPAckid</td>
-                                                                <td>
+                                                               <td class="NormalTD">POPAckid</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="lbl_popackid" runat="server" Text='<%# Bind("PoPackId") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Outstyleid</td>
-                                                                <td>
+                                                               <td class="NormalTD">Outstyleid</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="lbl_ourstyleid" runat="server" Text='<%# Bind("OurStyleID") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>atcid</td>
-                                                                <td>
+                                                               <td class="NormalTD">atcid</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="lbl_atcid" runat="server" Text='<%# Bind("AtcId") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
@@ -598,38 +865,38 @@
                                                     <ItemTemplate>
                                                         <table class="tittlebar">
                                                             <tr>
-                                                                <td>ASQ</td>
-                                                                <td>
+                                                               <td class="NormalTD">ASQ</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("ASQ") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>PoPack#</td>
-                                                                <td>
+                                                               <td class="NormalTD">PoPack#</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="na" runat="server" Text='<%# Bind("PoPacknum") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>BuyerPO</td>
-                                                                <td>
+                                                               <td class="NormalTD">BuyerPO</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="na1" runat="server" Text='<%# Bind("BuyerPO") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>BuyerStyle</td>
-                                                                <td>
+                                                               <td class="NormalTD">BuyerStyle</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="na2" runat="server" Text='<%# Bind("BuyerStyle") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>OurStyle</td>
-                                                                <td>
+                                                               <td class="NormalTD">OurStyle</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="na3" runat="server" Text='<%# Bind("OurStyle") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
                                                              <tr>
-                                                                <td>SeasonName</td>
-                                                                <td>
+                                                               <td class="NormalTD">SeasonName</td>
+                                                               <td class="NormalTD">
                                                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("SeasonName") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
@@ -697,7 +964,7 @@ ORDER BY PoPackMaster.PoPackId">
                                     
                                <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                           <asp:Button ID="btn_asqdetails" runat="server" OnClick="btn_asqdetails_Click" Text="Submit PO Details" />
+                                           <asp:Button ID="btn_asqdetails" runat="server" OnClick="btn_asqdetails_Click" Text="Submit Cut Plan  PO Details" />
                                         </ContentTemplate>
                                     </asp:UpdatePanel> </td>
                             </tr>
@@ -718,15 +985,7 @@ ORDER BY PoPackMaster.PoPackId">
                             <tr>
                                 <td class="auto-style8" colspan="6">
                                    
-                                    <asp:UpdateProgress ID="PageUpdateProgress" runat="server" AssociatedUpdatePanelID="upd_entry" DisplayAfter="0" DynamicLayout="true">
-                                        <ProgressTemplate>
-                                            <div class="modal">
-                                                <div class="center">
-                                                    <img src="../../Image/loader.gif" style="position: relative; top: 45%;"> </img>
-                                                </div>
-                                            </div>
-                                        </ProgressTemplate>
-                                    </asp:UpdateProgress>
+                                    
                                    
                                 </td>
                             </tr>
@@ -742,5 +1001,29 @@ ORDER BY PoPackMaster.PoPackId">
             </td>
         </tr>
     </table>
+
+                        </div>
+                        
+ </ContentTemplate>
+  </asp:UpdatePanel>
+    <asp:UpdateProgress ID="PageUpdateProgress" runat="server" AssociatedUpdatePanelID="Upd_full" DisplayAfter="0" DynamicLayout="true">
+                                        <ProgressTemplate>
+                                            <div class="modal">
+                                                <div class="center">
+                                                    <img src="../../Image/loader.gif" style="position: relative; top: 45%;"> </img>
+                                                </div>
+                                            </div>
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
+
+    <asp:UpdateProgress ID="UpdateProgress2" runat="server" AssociatedUpdatePanelID="UpdatePanel6" DisplayAfter="0" DynamicLayout="true">
+                                        <ProgressTemplate>
+                                            <div class="modal">
+                                                <div class="center">
+                                                    <img src="../../Image/loader.gif" style="position: relative; top: 45%;"> </img>
+                                                </div>
+                                            </div>
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
 </asp:Content>
 

@@ -29,7 +29,7 @@ namespace ArtWebApp.DataModels
         public string Level1Approval { get; set; }
         public string Level1ApprovedBY { get; set; }
         public string IsApproved { get; set; }
-        public Nullable<decimal> ApprovedBy { get; set; }
+        public string ApprovedBy { get; set; }
         public string reqnum { get; set; }
     
         public virtual ICollection<InventoryMissingDetail> InventoryMissingDetails { get; set; }

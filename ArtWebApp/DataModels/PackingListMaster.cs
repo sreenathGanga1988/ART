@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class PackingListMaster
     {
+        public PackingListMaster()
+        {
+            this.PackingListDetails = new HashSet<PackingListDetail>();
+        }
+    
         public decimal PackingMaster_PK { get; set; }
         public Nullable<decimal> Atc_ID { get; set; }
         public Nullable<decimal> NoofCTN { get; set; }
@@ -23,7 +28,18 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string IsConfirmed { get; set; }
         public string PackListNum { get; set; }
+        public string Remark { get; set; }
+        public Nullable<decimal> PcPerPolybag { get; set; }
+        public Nullable<decimal> Length { get; set; }
+        public Nullable<decimal> Width { get; set; }
+        public Nullable<decimal> Height { get; set; }
+        public Nullable<decimal> NetWeight { get; set; }
+        public Nullable<decimal> NNWeight { get; set; }
+        public Nullable<decimal> Grossweight { get; set; }
+        public string WeightUOM { get; set; }
+        public string CtnUOM { get; set; }
     
+        public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
     }
 }

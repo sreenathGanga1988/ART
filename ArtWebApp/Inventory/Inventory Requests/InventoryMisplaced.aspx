@@ -3,7 +3,36 @@
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.EditorControls" tagprefix="ig" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    
+    <script type="text/javascript">
+
+        function sumofcolumn()
+        {
+            var tbl_InverntoryDetails = document.getElementsByClassName("tbl_InverntoryDetails")[0];
+            var sum = 0;
+            for(var i=1;i<tbl_InverntoryDetails.rows.length;i++)
+            {
+                var txt_deliveryQty = tbl_InverntoryDetails.rows[i].getElementsByClassName("txt_deliveryQty")[0];
+
+                var valuenow=0;
+                    
+                try {
+                    valuenow= parseFloat(txt_deliveryQty.value.toString())
+                } catch (e)
+                {
+                    valuenow=0;
+                }
+
+                sum = sum + valuenow;
+            }
+
+            var totalvalue = document.getElementsByClassName("totalvalue")[0];
+            totalvalue.value = sum.toString();
+           
+        }
+
+
+
+    </script>
     <link href="../../css/style.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -34,7 +63,7 @@
                         &nbsp;</td>
                     <td>
                         &nbsp;</td>
-                    <td c>
+                    <td >
                         &nbsp;</td>
                     <td >
                         &nbsp;</td>
@@ -90,7 +119,7 @@
                     <td class="gridtable" colspan="9">
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
-                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+                                <asp:GridView ID="tbl_InverntoryDetails" CssClass="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
                                     <Columns>
                                         <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
                                             <ItemTemplate>
@@ -111,6 +140,8 @@
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="RecievedQty" />
                                         <asp:BoundField DataField="DeliveredQty" HeaderText="DeliveredQty" />
+                                        <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                        <asp:BoundField DataField="BlockedQty" HeaderText="Blocked Qty" />
                                         <asp:TemplateField HeaderText="OnhandQty">
                                             
                                             <ItemTemplate>
@@ -120,7 +151,7 @@
                                         <asp:TemplateField HeaderText="MissPlacedQty">
                                            
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txt_deliveryQty" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txt_deliveryQty" CssClass="txt_deliveryQty" Text="0" onChange="sumofcolumn()" runat="server"></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -137,6 +168,27 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
+                </tr>
+                <tr class="ButtonTR">
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
+                    <td class="auto-style7" >
+                        &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                        <asp:TextBox ID="TextBox2" CssClass="totalvalue" runat="server"></asp:TextBox>
+                    </td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
                 </tr>
                 <tr class="ButtonTR">
                     <td >

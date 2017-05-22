@@ -13,20 +13,60 @@ namespace ArtWebApp.Approvals
         {
             String navtype = Request.QueryString["navtype"];
 
+
+          
+
             string v = Request.QueryString["navtype"];
             if (navtype == "Ro Approval")
             {
-                MultiView1.ActiveViewIndex = 0;
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" ||  HttpContext.Current.User.Identity.Name == "siraj")
+                {
+                    MultiView1.ActiveViewIndex = 0;
+                }
+                else
+                {
+
+                    Response.Redirect("../Authorisation.aspx?navtype=Approval");
+                }
+
+
+
+               
             }
             else if (navtype == "Loan Approval")
             {
-                MultiView1.ActiveViewIndex = 1;
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" ||HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
+                {
+                    MultiView1.ActiveViewIndex = 1;
+                }
+                else
+                {
+
+                    Response.Redirect("../Authorisation.aspx?navtype=Approval");
+                }
+
+
+              
             }
             else if (navtype == "Transfer")
             {
-                MultiView1.ActiveViewIndex = 2;
-            }
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
+                {
+                    MultiView1.ActiveViewIndex = 2;
+                }
+                else
+                {
 
+                    Response.Redirect("../Authorisation.aspx?navtype=Approval");
+                }
+
+
+              
+            }
+            else if (navtype == "Missplaced")
+            {
+                MultiView1.ActiveViewIndex = 3;
+            }
 
 
 
@@ -129,14 +169,14 @@ namespace ArtWebApp.Approvals
 
         public void ApproveTransfertoGstock()
         {
-            BLL.InventoryBLL.LoanTransfer lnmstr = new BLL.InventoryBLL.LoanTransfer();
+            BLL.InventoryBLL.AtcToGstockTransfermaster lnmstr = new BLL.InventoryBLL.AtcToGstockTransfermaster();
             for (int i = 0; i < tbl_transfer.Rows.Count; i++)
             {
                 String chk_isreq = ((tbl_transfer.Rows[i].FindControl("chk_select") as CheckBox).Checked == true ? "Y" : "N");
                 if (chk_isreq == "Y")
                 {
                     int loanpk = int.Parse(tbl_transfer.Rows[i].Cells[1].Text);
-                    lnmstr.GetLoanDeleted(loanpk);
+                    lnmstr.GetTransferApproved(loanpk);
                 }
 
             }
@@ -147,7 +187,26 @@ namespace ArtWebApp.Approvals
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            ApproveTransfertoGstock();
+        }
 
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            BLL.InventoryBLL.InventoryMissingRequestData dodata = new BLL.InventoryBLL.InventoryMissingRequestData();
+            for (int i = 0; i < tbl_misPlaced.Rows.Count; i++)
+            {
+               
+
+                String chk_isreq = ((tbl_misPlaced.Rows[i].FindControl("chk_select") as CheckBox).Checked == true ? "Y" : "N");
+                if (chk_isreq == "Y")
+                {
+                    int loanpk = int.Parse(tbl_misPlaced.Rows[i].Cells[1].Text);
+                    dodata.GetMissingInventoryApprovedLevel1(loanpk);
+                }
+              
+            }
+            InventoryMisPlaced.DataBind();
+            tbl_misPlaced.DataBind();
         }
     }
 }

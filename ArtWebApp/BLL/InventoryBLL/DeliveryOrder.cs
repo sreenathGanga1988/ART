@@ -413,7 +413,42 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                         }
 
+
+                        var q2 = from rllinvdata in enty.RollInventoryMasters
+                                where rllinvdata.Roll_PK == dorolldet.Roll_PK && rllinvdata.IsPresent == "Y"
+                                select rllinvdata;
+                        foreach (var element in q2)
+                        {
+                            element.IsPresent = "N";
+                            element.DeliveredVia = Donum;
+                       
+
                         }
+
+
+
+
+
+
+                        RollInventoryMaster rvinvmstr = new RollInventoryMaster();
+
+                        rvinvmstr.Addeddate = DateTime.Now;
+                        rvinvmstr.DocumentNum = Donum;
+                        rvinvmstr.AddedVia = "WF";
+                        rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        rvinvmstr.Location_Pk = Dodata.Domstrdata.ToLocation_PK; 
+                        rvinvmstr.Roll_PK = dorolldet.Roll_PK;
+                        rvinvmstr.IsPresent = "Y";
+                        rvinvmstr.FactId= Dodata.Domstrdata.ToLocation_PK;
+                        enty.RollInventoryMasters.Add(rvinvmstr);
+                        enty.SaveChanges();
+
+                      
+
+
+
+
+                    }
 
                     enty.SaveChanges();
                 }
@@ -626,6 +661,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                 domstr.MisplaceDate = Dodata.Domstrdata.DeliveryDate;
                 domstr.Level1Approval ="N";
                 domstr.Level1ApprovedBY = "";
+                domstr.IsApproved = "N";
                 //domstr.ApprovedBy ="N";
                 //domstr.IsApproved ="N";
                 enty.InventoryMissingRequests.Add(domstr);
@@ -660,8 +696,53 @@ namespace ArtWebApp.BLL.InventoryBLL
         }
 
 
+        public void GetMissingInventoryApproved(int loan_pk)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from lnmstr in enty.InventoryMissingRequests
+                        where lnmstr.MisplaceApp_pk == loan_pk
+                        select lnmstr;
+
+                foreach (var element in q)
+                {
+                  
+                    element.IsApproved = "Y";
+                    element.ApprovedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                    element.Addeddate = DateTime.Now;
+                    
+                }
+
+                enty.SaveChanges();
+
+            }
+        }
 
 
+
+        public void GetMissingInventoryApprovedLevel1(int loan_pk)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from lnmstr in enty.InventoryMissingRequests
+                        where lnmstr.MisplaceApp_pk == loan_pk
+                        select lnmstr;
+
+                foreach (var element in q)
+                {
+
+                    element.Level1Approval = "Y";
+                    element.Level1ApprovedBY = HttpContext.Current.Session["Username"].ToString().Trim();
+                
+
+                }
+
+                enty.SaveChanges();
+
+            }
+        }
     }
 
 

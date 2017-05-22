@@ -183,6 +183,51 @@ public partial class Merchandiser_Styledetails {
     protected global::System.Web.UI.WebControls.GridView grd_stylesize;
     
     /// <summary>
+    /// Button2 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button Button2;
+    
+    /// <summary>
+    /// UpdatePanel11 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdatePanel UpdatePanel11;
+    
+    /// <summary>
+    /// grd_stylesize0 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.GridView grd_stylesize0;
+    
+    /// <summary>
+    /// AtcSizeDetails control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.SqlDataSource AtcSizeDetails;
+    
+    /// <summary>
+    /// Button3 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button Button3;
+    
+    /// <summary>
     /// atcdata control.
     /// </summary>
     /// <remarks>

@@ -36,13 +36,17 @@ GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.Locat
 HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
       </Query>
       <Fields>
-        <Field Name="AtcNum">
-          <DataField>AtcNum</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="POPackId">
           <DataField>POPackId</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="LocationName">
           <DataField>LocationName</DataField>
@@ -50,6 +54,14 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
         </Field>
         <Field Name="LocationAddress">
           <DataField>LocationAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AtcNum">
+          <DataField>AtcNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CategoryName">
+          <DataField>CategoryName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="JOBContractNUM">
@@ -66,22 +78,10 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
         </Field>
         <Field Name="CMvalue">
           <DataField>CMvalue</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="OurStyle">
           <DataField>OurStyle</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CategoryName">
-          <DataField>CategoryName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PoQty">
-          <DataField>PoQty</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PoPacknum">
@@ -100,7 +100,19 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
           <DataField>POVAL</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Remark">
+          <DataField>Remark</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2015\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>JobContractCM</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>JobContractCMTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
     </DataSet>
   </DataSets>
   <ReportSections>
@@ -2830,6 +2842,38 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
             <Height>0.21875in</Height>
             <Width>2.11361in</Width>
             <ZIndex>34</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Remark">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Remark.Value, "DataSet1")</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Remark</rd:DefaultName>
+            <Top>3.33903in</Top>
+            <Left>1.33111in</Left>
+            <Height>0.23264in</Height>
+            <Width>4.40402in</Width>
+            <ZIndex>35</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>

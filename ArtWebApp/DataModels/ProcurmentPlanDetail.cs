@@ -20,6 +20,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> ETADate { get; set; }
         public string AddedBY { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public string IsDeleted { get; set; }
     
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
     }

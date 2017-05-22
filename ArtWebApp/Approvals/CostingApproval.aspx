@@ -112,12 +112,12 @@
                                 
                                   <asp:BoundField DataField="OurStyleApproval_PK" HeaderText="OurStyleApproval_PK" SortExpression="OurStyleApproval_PK" />
 
-                                <asp:TemplateField HeaderText="OurStyleID" InsertVisible="False" SortExpression="OurStyleID">
+                                <asp:TemplateField HeaderText="OurStyleID" InsertVisible="False" SortExpression="OurStyleID" ItemStyle-CssClass="hidden" ControlStyle-CssClass="hidden" FooterStyle-CssClass="hidden">
                                     <ItemTemplate>
                                         <asp:Label ID="lbl_OurStyleID" runat="server" Text='<%# Bind("OurStyleID") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="AtcId" HeaderText="AtcId" SortExpression="AtcId" />
+                                <asp:BoundField DataField="AtcId" HeaderText="AtcId" SortExpression="AtcId" ItemStyle-CssClass="hidden" ControlStyle-CssClass="hidden" FooterStyle-CssClass="hidden" />
                                 <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
                                 <asp:BoundField DataField="BuyerStyle" HeaderText="BuyerStyle" SortExpression="BuyerStyle" />
                                 <asp:BoundField DataField="FOB" HeaderText="FOB" SortExpression="FOB" />

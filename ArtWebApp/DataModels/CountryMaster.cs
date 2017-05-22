@@ -17,13 +17,16 @@ namespace ArtWebApp.DataModels
         public CountryMaster()
         {
             this.SupplierMasters = new HashSet<SupplierMaster>();
+            this.AtcMasters = new HashSet<AtcMaster>();
         }
     
         public decimal CountryID { get; set; }
         public string ShortName { get; set; }
         public string Description { get; set; }
         public string FactoryStores { get; set; }
+        public string Isthere { get; set; }
     
         public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
+        public virtual ICollection<AtcMaster> AtcMasters { get; set; }
     }
 }

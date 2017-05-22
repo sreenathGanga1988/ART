@@ -20,5 +20,6 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> OurStyleID { get; set; }
         public string SizeName { get; set; }
         public string SizeCode { get; set; }
+        public Nullable<decimal> Orderof { get; set; }
     }
 }

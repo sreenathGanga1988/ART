@@ -118,7 +118,12 @@ namespace ArtWebApp
 
 
 
-           public static DataTable ReturnQueryResultDatatable(SqlCommand cmd)
+     
+
+
+
+
+        public static DataTable ReturnQueryResultDatatable(SqlCommand cmd)
            {
                DataTable dt= new DataTable ();
                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString.ToString()))
@@ -135,7 +140,26 @@ namespace ArtWebApp
                return dt;
            }
 
+        public static DataTable ReturnQueryResultDatatable(String Qry)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString.ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = Qry;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    con.Open();
 
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    dt.Load(rdr);
+                }
+            }
+
+            return dt;
+        }
         public static DataTable ReturnQueryResultDatatableforSP(SqlCommand cmd)
         {
             DataTable dt = new DataTable();

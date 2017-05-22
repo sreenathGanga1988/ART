@@ -1,4 +1,5 @@
-﻿using Infragistics.Web.UI.ListControls;
+﻿using ArtWebApp.DataModels;
+using Infragistics.Web.UI.ListControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (!IsPostBack)
+            {
+                filltowarehouses();
+            }
+          
         }
 
         protected void btn_confirmPO_Click(object sender, EventArgs e)
@@ -20,7 +26,39 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             Adddata();
         }
 
+        public void filltowarehouses()
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from order in entty.LocationMasters
+                        where order.LocType == "W"
+                        select new
+                        {
+                            name = order.LocationName,
+                            pk = order.Location_PK
+                        };
+                var q1 = from order in entty.DeliveryMethodMasters
+                         select new
+                         {
+                             name = order.DeliveryMethod,
+                             pk = order.Deliverymethod_Pk
+                         };
+                // Create a table from the query.
+                drp_ToWarehouse.DataSource = q.ToList();
+                drp_ToWarehouse.DataValueField = "pk";
+                drp_ToWarehouse.DataTextField = "name";
+                drp_ToWarehouse.DataBind();
 
+                drp_deliverymode.DataSource = q1.ToList();
+                drp_deliverymode.DataValueField = "pk";
+                drp_deliverymode.DataTextField = "name";
+                drp_deliverymode.DataBind();
+
+                // Bind the table to a System.Windows.Forms.BindingSource object, 
+                // which acts as a proxy for a System.Windows.Forms.DataGridView object.
+
+            }
+        }
         public void Adddata()
         {
             List<DropDownItem> items = drp_po.SelectedItems;

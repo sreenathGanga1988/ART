@@ -15,11 +15,61 @@
             <td  class="RedHeadding" colspan="8" >LASYSHEET&nbsp; rEPORTS</td>
         </tr>
         <tr>
+            <td class="NormalTD"  >ATC#:</td>
+            <td class="NormalTD" >
+                <asp:UpdatePanel ID="Upd_atc0" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <ucc:DropDownListChosen ID="drp_Atc" runat="server" Width="200px" DataSourceID="AtcDataSource" DataTextField="AtcNum" DataValueField="AtcId" DisableSearchThreshold="10">
+                        </ucc:DropDownListChosen>
+                        <asp:SqlDataSource ID="AtcDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [AtcId], [AtcNum] FROM [AtcMaster]"></asp:SqlDataSource>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD" >
+                <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="Button5" runat="server" OnClick="Button4_Click" Text="S" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD" >
+                &nbsp;</td>
+            <td class="NormalTD">
+                &nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+        </tr>
+      
+        <tr>
+            <td class="NormalTD"  >Manul Laysheet #</td>
+            <td class="NormalTD" >
+                <asp:UpdatePanel ID="Upd_laysheetroll" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <ucc:DropDownListChosen ID="drp_laysheetroll" runat="server" Width="200px">
+                        </ucc:DropDownListChosen>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD" >
+                &nbsp;</td>
+            <td class="NormalTD">
+                <asp:Button ID="Button7" runat="server" Text="Print laysheet form" Font-Size="Smaller" OnClick="Button7_Click"  />
+            </td>
+            <td class="NormalTD" >
+                &nbsp;</td>
+            <td class="NormalTD">
+                &nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+        </tr>
+      
+        <tr>
             <td class="NormalTD"  >LAY SHEET # : </td>
             <td class="NormalTD" >
-                <asp:UpdatePanel ID="Upd_atc" runat="server" UpdateMode="Conditional">
+                 <asp:UpdatePanel ID="Upd_loc" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <ucc:DropDownListChosen ID="drp_Atc" runat="server" Width="200px">
+                        <ucc:DropDownListChosen ID="drp_laysheet" runat="server" Width="200px">
                         </ucc:DropDownListChosen>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -37,6 +87,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel></td>
             <td class="NormalTD" >
+                <asp:Button ID="Button6" runat="server" OnClick="Button6_Click" Text="Show Printable Laysheet" />
                 </td>
             <td class="NormalTD">
                 &nbsp;</td>

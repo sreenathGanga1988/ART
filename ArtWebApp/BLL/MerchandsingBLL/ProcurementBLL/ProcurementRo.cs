@@ -104,7 +104,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 romstrdb.IsDeleted = "N";
                 romstrdb.IsCompleted = "N";
                 romstrdb.AtcID = GetToAtcID(rmmstr.ToSkuDet_PK);
-
+                romstrdb.Location_PK = rmmstr.Location_Pk;
 
                 enty.RequestOrderMasters.Add(romstrdb);
 
@@ -197,6 +197,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 romstrdb.CreatedDate = DateTime.Now;
                 romstrdb.IsApproved = "N";
                 romstrdb.IsDeleted = "N";
+                romstrdb.Iscompleted = "N";
                 romstrdb.AtcID = GetToAtcID(rmmstr.ToSkuDet_PK);
 
 

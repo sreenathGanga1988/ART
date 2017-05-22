@@ -362,7 +362,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             return trnnum;
         }
 
-        public void GetLoanApproved(int trnsfr_pk)
+        public void GetTransferApproved(int trnsfr_pk)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
@@ -592,7 +592,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
         public string DoType { get; set; }
         public List<SalesDetailsData> SalesDetailsDataCollection { get; set; }
 
-        public String InsertSalesDO()
+        public String InsertSalesDOInternal()
         {
             String mrnum = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
@@ -607,7 +607,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 trnmstr.Deliverymethod_Pk = this.Deliverymethod_Pk;
                 trnmstr.SalesDODate = DateTime.Now;
                 trnmstr.ISApproved = "N";
-                
+                trnmstr.DoType = "Internal";
                 trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 trnmstr.AddedDate = DateTime.Now;
                 trnmstr.ContainerNumber = this.ContainerNumber;
@@ -653,7 +653,64 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
 
 
+        public String InsertSalesDOExternal()
+        {
+            String mrnum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                InventorySalesMaster trnmstr = new InventorySalesMaster();
 
+                trnmstr.SalesDate = this.SalesDate;
+
+                trnmstr.FromLocation_PK = this.FromLocation_PK;
+                trnmstr.ToLocation_PK = this.ToLocation_PK;
+                trnmstr.ContainerNumber = this.ContainerNumber;
+                trnmstr.Deliverymethod_Pk = this.Deliverymethod_Pk;
+                trnmstr.SalesDODate = DateTime.Now;
+                trnmstr.ISApproved = "N";
+                trnmstr.DoType = "External";
+                trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                trnmstr.AddedDate = DateTime.Now;
+                trnmstr.ContainerNumber = this.ContainerNumber;
+
+                enty.InventorySalesMasters.Add(trnmstr);
+                enty.SaveChanges();
+                mrnum = trnmstr.SalesDONum = CodeGenerator.GetUniqueCode("EDO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
+
+                foreach (SalesDetailsData sinvdet in this.SalesDetailsDataCollection)
+                {
+                    InventorySalesDetail sinvdetdb = new InventorySalesDetail();
+                    sinvdetdb.SalesDO_PK = trnmstr.SalesDO_PK;
+                    sinvdetdb.SInventoryItem_PK = sinvdet.SInventoryItem_PK;
+                    sinvdetdb.DeliveryQty = sinvdet.DeliveryQty;
+                    sinvdetdb.CuRate = sinvdet.CUrate;
+
+
+
+                    enty.InventorySalesDetails.Add(sinvdetdb);
+
+
+
+                    var q = from invitem in enty.StockInventoryMasters
+                            where invitem.SInventoryItem_PK == sinvdet.SInventoryItem_PK
+                            select invitem;
+
+                    foreach (var invitemdetail in q)
+                    {
+                        invitemdetail.DeliveredQty = invitemdetail.DeliveredQty + sinvdet.DeliveryQty;
+                        invitemdetail.OnHandQty = invitemdetail.OnHandQty - sinvdet.DeliveryQty;
+                    }
+
+                    enty.SaveChanges();
+                }
+
+                enty.SaveChanges();
+
+
+            }
+
+            return mrnum;
+        }
 
 
     }

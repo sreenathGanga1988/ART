@@ -281,6 +281,10 @@ FROM            FabricRollmaster
 WHERE        (SkuDet_PK = @Param1)", con);
 
 
+
+
+
+
                 cmd.Parameters.AddWithValue("@Param1", skudetpk);
 
                 SqlDataReader rdr = cmd.ExecuteReader();
@@ -350,11 +354,117 @@ WHERE        (SkuDet_PK = @Param1)", con);
         }
 
 
+
+
+
+        public DataTable GetFabricShrinkageLocation(int skudetpk, int locationpk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+     
+
+                SqlCommand cmd = new SqlCommand(@"SELECT DISTINCT FabricRollmaster.ShrinkageGroup
+FROM            FabricRollmaster INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
+WHERE        (FabricRollmaster.SkuDet_PK = @Param1) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @locationpk)", con);
+
+
+
+
+
+
+                cmd.Parameters.AddWithValue("@Param1", skudetpk);
+                cmd.Parameters.AddWithValue("@locationpk", locationpk);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+        public DataTable GetFabricWidthLocation(int skudetpk,int locationpk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                
+                SqlCommand cmd = new SqlCommand(@"SELECT DISTINCT FabricRollmaster.WidthGroup
+FROM            FabricRollmaster INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
+WHERE        (FabricRollmaster.SkuDet_PK = @Param1) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @locationpk)", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1", skudetpk);
+                cmd.Parameters.AddWithValue("@locationpk", locationpk);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+        public DataTable GetFabricMarkerTypeLocation(int skudetpk,int locationpk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT DISTINCT FabricRollmaster.MarkerType
+FROM            FabricRollmaster INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
+WHERE        (FabricRollmaster.SkuDet_PK = @Param1) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @locationpk)", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1", skudetpk);
+
+                cmd.Parameters.AddWithValue("@locationpk", locationpk);
+
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// update the marker with the qty
         /// </summary>
         /// <param name="cutdetpk"></param>
-       public void updatecutdet(int cutdetpk)
+        public void updatecutdet(int cutdetpk)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {

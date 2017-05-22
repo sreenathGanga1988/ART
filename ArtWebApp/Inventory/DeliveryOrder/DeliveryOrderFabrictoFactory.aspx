@@ -31,7 +31,7 @@
                                
                     </td>
                     <td  >
-                        <asp:Button ID="btn_confirmAtc" runat="server" Text="S" Width="33px" OnClick="btn_confirmAtc_Click" CssClass="auto-style10" />
+                        <asp:Button ID="btn_confirmAtc" runat="server" Text="S" Width="33px" OnClick="btn_confirmAtc_Click" CssClass="auto-style10" style="height: 26px" />
                     </td>
                     <td >
                         D O Date:</td>
@@ -125,8 +125,17 @@
                                         <asp:BoundField DataField="SupplierColor" HeaderText="SupColor" />
                                         <asp:BoundField DataField="Suppliersize" HeaderText="SupSize" />
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
+                                         <asp:BoundField DataField="Refnum" HeaderText="Rcvd Via" />
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="RcvdQty" />
                                         <asp:BoundField DataField="DeliveredQty" HeaderText="DeliveredQty" />
+                                            <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                         <asp:TemplateField HeaderText="Blocked Qty">
+                                             
+                                              <ItemTemplate>
+                                                 
+                                                  <asp:LinkButton ID="lnkbtn_mrn" Text='<%# Bind("BlockedQty") %>' runat="server" OnClick="lnkbtn_mrn_Click">Show MRN</asp:LinkButton>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
                                         <asp:TemplateField HeaderText="OnhandQty">
                                            
                                             <ItemTemplate>
@@ -180,7 +189,57 @@
                                     <SortedAscendingHeaderStyle BackColor="#AF0101" />
                                     <SortedDescendingCellStyle BackColor="#F6F0C0" />
                                     <SortedDescendingHeaderStyle BackColor="#7E0000" />
-                                </asp:GridView>
+                                </asp:GridView>                                       <asp:LinkButton ID="lnkFake" runat="server"></asp:LinkButton>
+                         <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="lnkFake" CancelControlID="btnClose" 
+
+
+ 
+
+
+PopupControlID="Panel1" DropShadow="True">
+
+
+ 
+
+
+</asp:ModalPopupExtender>
+
+
+ 
+
+
+<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" style = "display:none">
+
+      <asp:UpdatePanel ID="upd_subgrid"   UpdateMode="Conditional" runat="server">
+                     <ContentTemplate>
+   <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="400px" ShowFooter="True">
+                                <Columns>
+
+                                    
+                                    <asp:BoundField DataField="dOCNUM" HeaderText="Ref" />
+                                   
+                                    <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                 
+                                                           
+                                    
+                                    
+
+                                   
+                                </Columns>
+                                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" Font-Bold="true" />
+                                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                <RowStyle BackColor="White" ForeColor="#330099" />
+                                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                            </asp:GridView> <br />
+    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                          </ContentTemplate>
+                            </asp:UpdatePanel>
+</asp:Panel>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>

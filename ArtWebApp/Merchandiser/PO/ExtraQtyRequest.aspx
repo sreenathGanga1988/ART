@@ -13,9 +13,82 @@
 
 
       
-
     </style>
+    
+<script src="../../JQuery/GridJQuery.js"></script>
     <link href="../../css/style.css" rel="stylesheet" />
+
+      <script type="text/javascript">
+
+          function Onselection(objref) {
+              Check_Click(objref)
+              calculatesumofyardage();
+          }
+
+          function OnSelectAllClick(objref) {
+              checkAll(objref)
+              calculatesumofyardage();
+          }
+
+
+           function calculatesumofyardage()
+        {
+            var gridView = document.getElementById("<%= tbl_bom.ClientID %>");
+            var sum = 0
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_stotalqty = gridView.rows[i].getElementsByClassName("txtextraqty")[0];
+
+                    sum = sum + parseFloat(txt_stotalqty.value);
+                }
+
+            } 
+            var totalyardfooter = document.getElementsByClassName("totalqtyfooter")[0];
+            totalyardfooter.value = sum;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        //  function validateQTY()
+        //  {
+
+
+        //      var tbl_bom = document.getElementsByClassName("tbl_bom")[0];
+        //    for (var i = 1; i < tbl_bom.rows.length-1; i++)
+        //    {
+
+        //        var newQty = tbl_bom.rows[i].getElementsByClassName("txtextraqty")[0].value;
+        //        var balqty = tbl_bom.rows[i].getElementsByClassName("lblbal")[0].innerHTML;
+
+        //        if (parseFloat(newQty) > parseFloat(balqty)) {
+        //            alert("Extra Not allowed More Than POQTY");
+        //            newQty = 0;
+                 
+        //            tbl_bom.rows[i].getElementsByClassName("txtextraqty")[0].value = 0;
+
+        //        }
+        //        else {
+
+        //        }
+
+
+        //    }
+
+        //}
+
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       &nbsp;<table class="FullTable" style="font-family: Calibri">
@@ -97,13 +170,18 @@
                             <asp:UpdatePanel ID="Upd_maingrid" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                     <ContentTemplate>
                        
-                        <asp:GridView ID="tbl_bom" runat="server" AutoGenerateColumns="False" OnRowCommand="tbl_bom_RowCommand1" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="1033px" Font-Size="Large" OnDataBound="tbl_bom_DataBound">
-                            <Columns>                               
-                                <asp:TemplateField>                                   
+                        <asp:GridView ID="tbl_bom" runat="server" CssClass="tbl_bom" AutoGenerateColumns="False" OnRowCommand="tbl_bom_RowCommand1" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="1033px" Font-Size="Large" OnDataBound="tbl_bom_DataBound" ShowFooter="True">
+                            <Columns> 
+                                 <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="OnSelectAllClick(this)"/>
+                                    </HeaderTemplate>                                 
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chk_select" runat="server" />
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Onselection(this)"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                            
+                               
 
                                 <asp:BoundField DataField="RMNum" HeaderText="ITEM NUMBER" SortExpression="RMNum" />
                                 <asp:BoundField DataField="Description" HeaderText="DESCRIPTION" />
@@ -178,13 +256,17 @@
                                 <asp:TemplateField HeaderText="BALANCE QTY">
                                    
                                     <ItemTemplate>
-                                        <asp:Label ID="lbl_balanceqty" runat="server" Text='<%# Bind("BalanceQty") %>'></asp:Label>
+                                        <asp:Label ID="lbl_balanceqty" CssClass="lblbal" runat="server" Text='<%# Bind("BalanceQty") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                  <asp:TemplateField HeaderText="eXTRA QTY rEQUIRED">
-                                   
+                                    <FooterTemplate>
+                                                  <asp:TextBox ID="txt_totalqty" CssClass="totalqtyfooter" runat="server"></asp:TextBox>
+
+                                              </FooterTemplate>
+
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_extraqty" runat="server" Text="0" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_extraqty"  CssClass="txtextraqty" onchange="calculatesumofyardage()" Text="0" runat="server"  ></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="CM" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden" SortExpression="isCommon">

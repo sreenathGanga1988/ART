@@ -21,6 +21,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> FabUtilized { get; set; }
         public Nullable<decimal> EndBit { get; set; }
         public Nullable<decimal> BalToCut { get; set; }
+        public Nullable<decimal> ExcessOrShort { get; set; }
+        public string IsRecuttable { get; set; }
+        public Nullable<decimal> LaySheetRoll_Pk { get; set; }
     
         public virtual FabricRollmaster FabricRollmaster { get; set; }
         public virtual LaySheetMaster LaySheetMaster { get; set; }

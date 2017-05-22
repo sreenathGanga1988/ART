@@ -103,9 +103,11 @@ namespace ArtWebApp.Reports
             {
                 this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\APO.rdlc";
             }
-            
-           ;
-            
+
+
+
+            this.ReportViewer1.LocalReport.DisplayName = drp_PO.SelectedItem.ToString ();
+
         }
 
 
@@ -119,16 +121,80 @@ namespace ArtWebApp.Reports
 
             DataTable dt = potrsans.GetsPOData(int.Parse ( drp_spo.SelectedItem.Value.ToString()));
 
+
+            var potype= getIPOofSpo(int.Parse(drp_spo.SelectedItem.Value.ToString()));
+            ReportParameter rp1 = new ReportParameter("Potype", potype);
+
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-            
-                this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\sPO.rdlc";
-          
+            this.ReportViewer1.LocalReport.DisplayName = drp_spo.SelectedItem.ToString();
+           
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\sPO.rdlc";
+            this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
 
         }
 
 
+        public String getIPOofSpo(int spopk)
+        {
+            string potype = "";
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+
+                var sizedetails = (from stoforoodo in entty.StocPOForODOOs 
+                                   join oodogpo in entty.ODOOGPOMasters on stoforoodo.POId equals oodogpo.POId
+
+                                   where stoforoodo.Spo_PK == spopk
+                                   select new
+                                   {
+                                       oodogpo.PONum
+                                   }).Distinct();
+
+               foreach (var element in sizedetails)
+               {
+
+                    if (potype == "")
+                    {
+                        potype = potype +  element.PONum;
+                    }
+                    else
+                    {
+                        potype = potype + "/" + element.PONum;
+                    }
+                   
+               }
+
+
+
+            }
+
+            if(potype=="")
+            {
+                potype = "Local";
+            }
+
+            return potype;
+        }
+
+
+        public void loaDServicePOreport()
+        {
+
+
+
+            DBTransaction.ProcurementTransaction potrsans = new DBTransaction.ProcurementTransaction();
+
+            DataTable dt = potrsans.GetServicepo(int.Parse(drp_servicepo.SelectedItem.Value.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.DisplayName = drp_servicepo.SelectedItem.ToString();
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\servicepo.rdlc";
+
+
+        }
 
 
         public void loadPOStatusreport()
@@ -328,6 +394,11 @@ namespace ArtWebApp.Reports
         protected void Button3_Click(object sender, EventArgs e)
         {
             loadsPOStatusreport();
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            loaDServicePOreport();
         }
     }
 }

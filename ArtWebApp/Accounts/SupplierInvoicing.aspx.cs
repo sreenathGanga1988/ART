@@ -77,7 +77,8 @@ namespace ArtWebApp.Accounts
                 decimal POQty = dt.AsEnumerable().Sum(row => row.Field<decimal>("POQty"));
                 decimal ReceivedQty = dt.AsEnumerable().Sum(row => row.Field<decimal>("ReceivedQty"));
                 tbl_Podetails.FooterRow.Cells[14].Text = total.ToString("N2");
-                tbl_Podetails.FooterRow.Cells[10].Text = POQty.ToString("N2");
+                tbl_Podetails.FooterRow.Cells[8].Text = POQty.ToString("N2");
+                tbl_Podetails.FooterRow.Cells[12].Text = ReceivedQty.ToString("N2");
                 upd_Grid.Update();
             }
         }
@@ -348,6 +349,18 @@ namespace ArtWebApp.Accounts
 
         }
 
-       
+        protected void lnkbtn_mrn_Click(object sender, EventArgs e)
+        {
+            LinkButton txtcons = (LinkButton)sender;
+            GridViewRow currentRow = txtcons.ClosestContainer<GridViewRow>();
+            DBTransaction.InventoryTransaction.InventoryTransaction invtran = new DBTransaction.InventoryTransaction.InventoryTransaction();
+            int podetpk = int.Parse(((currentRow.FindControl("lbl_podet_pk") as Label).Text.ToString()));
+            DataTable dt = invtran.GetReceiptofPOItem(podetpk);
+
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+            upd_subgrid.Update();
+            ModalPopupExtender1.Show();
+        }
     }
 }

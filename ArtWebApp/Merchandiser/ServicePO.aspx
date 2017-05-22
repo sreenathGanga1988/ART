@@ -48,6 +48,7 @@
                                                 <asp:ListItem>Department</asp:ListItem>
                                                 <asp:ListItem>Factory</asp:ListItem>
                                                 <asp:ListItem>Individual</asp:ListItem>
+                                                <asp:ListItem>Atraco</asp:ListItem>
                                             </ucc:DropDownListChosen>
                                 </ContentTemplate>
                             </asp:UpdatePanel>

@@ -25,6 +25,10 @@ namespace ArtWebApp.DataModels
         public string AddedBY { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> CutOrderDet_PK { get; set; }
+        public Nullable<decimal> AtcID { get; set; }
+        public Nullable<decimal> OustyleID { get; set; }
+        public string LaySheetNum { get; set; }
+        public string LayCutNum { get; set; }
     
         public virtual CutOrderDetail CutOrderDetail { get; set; }
         public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }

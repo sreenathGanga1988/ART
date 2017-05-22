@@ -13,7 +13,12 @@
 
 
       
-
+        .HeaderFreez
+{
+position:relative ;
+top:expression(this.offsetParent.scrollTop);
+z-index: 10;
+}
 
 
       
@@ -50,38 +55,39 @@
                                    
                                 </td>
                                 <td >
-                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Regenerate BOM" />
+                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Regenerate BOM" Font-Bold="True" Font-Size="Smaller" />
                                 </td>
                                 <td >QTY :</td>
                                 <td >&nbsp;</td>
                             </tr>
                             <tr>
-                                <td >&nbsp;</td>
                                 <td >
-                                    <asp:Button ID="Button2" runat="server" Text="Generate Foc PO" OnClick="Button2_Click1" />
+                                    <asp:Button ID="btn_addtoPO" runat="server" Font-Bold="True" Font-Size="Smaller" OnClick="btn_addtoPO_Click" Text="Add to Existing PO" />
+                                </td>
+                                <td >
+                                    <asp:Button ID="Button2" runat="server" Text="Generate Foc PO" OnClick="Button2_Click1" Font-Bold="True" Font-Size="Smaller" />
                                 </td>
                                 <td >
                                    
-                                    <asp:Button ID="btn_PO" runat="server"  Text="Generate PO" OnClick="btn_PO_Click" CssClass="auto-style13" Height="22px" />
+                                    <asp:Button ID="btn_PO" runat="server"  Text="Generate PO" OnClick="btn_PO_Click" CssClass="auto-style13" Height="22px" Font-Bold="True" Font-Size="Smaller" />
                                    
                                 </td>
                                 <td >
                                    
-                                    <asp:Button ID="btn_RO" runat="server"  Text="Request  RO" OnClick="btn_RO_Click" CssClass="auto-style13" Height="22px" />
+                                    <asp:Button ID="btn_RO" runat="server"  Text="Request  RO" OnClick="btn_RO_Click" CssClass="auto-style13" Height="22px" Font-Bold="True" Font-Size="Smaller" />
                                    
                                 </td>
                                 <td >&nbsp;</td>
                                 <td >&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan="4" >
+                                <td colspan="6" >
                                 <asp:UpdateProgress ID="upProgClaimantSearch" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
                                     <ProgressTemplate>
             <img src="../Image/ProgressCircle.gif" alt="" class="auto-style8" />
                                     </ProgressTemplate>
                         </asp:UpdateProgress></td>
-                                <td >&nbsp;</td>
-                                <td >&nbsp;</td>
+                               
                             </tr>
                         </table>
 
@@ -94,7 +100,7 @@
                             <asp:UpdatePanel ID="Upd_maingrid" UpdateMode="Conditional" ChildrenAsTriggers="false" runat="server">
                     <ContentTemplate>
                        
-                        <asp:GridView ID="tbl_bom" runat="server" AutoGenerateColumns="False" OnRowCommand="tbl_bom_RowCommand1" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="1033px" Font-Size="Large" OnDataBound="tbl_bom_DataBound">
+                        <asp:GridView ID="tbl_bom" runat="server" HeaderStyle-CssClass="HeaderFreez" AutoGenerateColumns="False" OnRowCommand="tbl_bom_RowCommand1" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="1033px" Font-Size="Large" OnDataBound="tbl_bom_DataBound">
                             <Columns>                               
                                 <asp:TemplateField>                                   
                                     <ItemTemplate>

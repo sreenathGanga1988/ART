@@ -12,7 +12,12 @@ namespace ArtWebApp.Inventory
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
+                lbl_country.Text = prrrcpt.ShowCountry(int.Parse(Session["UserLoc_pk"].ToString()));
 
+            }
         }
         /// <summary>
         /// insert the reciept
@@ -60,6 +65,8 @@ namespace ArtWebApp.Inventory
         protected void btn_confirmPO_Click(object sender, EventArgs e)
         {
             BLL.ProcurementBLL.StockPODetailsdata spdata = new BLL.ProcurementBLL.StockPODetailsdata();
+            BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
+            lbl_potype.Text=prrrcpt.ShowPOType(int.Parse(drp_Po.SelectedValue.ToString()));
             tbl_Podetails.DataSource = spdata.GetSpoData(int.Parse(drp_Po.SelectedValue.ToString()));
             tbl_Podetails.DataBind();
         }
@@ -71,6 +78,8 @@ namespace ArtWebApp.Inventory
 
 
 
+
+       
 
 
         public void insertmrn()

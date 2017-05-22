@@ -24,5 +24,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> OurStyleId { get; set; }
         public string ColorName { get; set; }
         public string SizeName { get; set; }
+        public string MarkedUnCut { get; set; }
+        public string ReAllocated { get; set; }
+    
+        public virtual POPackDetail POPackDetail { get; set; }
     }
 }

@@ -296,5 +296,34 @@ WHERE        (InventoryMaster.ReceivedVia = N'LN') AND (SkuRawMaterialMaster.Atc
             return dt;
         }
 
+
+        public static System.Data.DataTable GetCutorderDO(int ATCID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+
+                cmd.CommandText = @"
+SELECT        DeliveryOrderMaster.DONum, CutOrderDO.Skudet_PK, CutOrderDO.DeliveryQty, CutOrderMaster.Cut_NO, CutOrderMaster.AtcID
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID INNER JOIN
+                         DeliveryOrderDetails ON CutOrderDO.DoDet_Pk = DeliveryOrderDetails.DODet_PK INNER JOIN
+                         DeliveryOrderMaster ON DeliveryOrderDetails.DO_PK = DeliveryOrderMaster.DO_PK
+WHERE        (CutOrderMaster.AtcID = @ATCID)";
+
+
+
+                cmd.Parameters.AddWithValue("@ATCID", ATCID);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
+
     }
 }

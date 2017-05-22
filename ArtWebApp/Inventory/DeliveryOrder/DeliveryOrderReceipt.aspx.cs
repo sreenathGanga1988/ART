@@ -44,7 +44,7 @@ namespace ArtWebApp.Inventory
                 String shipmentdocnum = "";
                 try
                 {
-                    shipmentdocnum = abll.GetShippingDocument(int.Parse(cmb_do.SelectedValue.ToString()));
+                    shipmentdocnum = abll.GetShippingDODocument(int.Parse(cmb_do.SelectedValue.ToString()));
                 }
                 catch (Exception)
                 {

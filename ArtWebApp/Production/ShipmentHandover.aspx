@@ -22,37 +22,42 @@
         function CheckBoxSelectionValidation(objText) {
             debugger;
             var gridView = document.getElementById(gridViewID);
-
-            for (var i = 1; i < gridView.rows.length; i++) {
+            var sum = 0;
+            for (var i = 1; i < gridView.rows.length-1; i++) {
                 var count = 0;
                 var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
 
                 var txtQty = gridView.rows[i].getElementsByClassName("txtQty")[0];
-                var lblbal = gridView.rows[i].row.getElementsByClassName("lblbal")[0];
+                var lblbal = gridView.rows[i].getElementsByClassName("lblbal")[0];
 
                 if (chkConfirm.checked) {
                     if (txtQty.value == "" || lblbal.value == "") {
                         gridView.rows[i].style.backgroundColor = "red";
-                        txtwidth.focus();
+                        txtQty.focus();
 
                         return false;
                     }
-                    else if (txtQty.value == "0" || lblbal.value == "0") {
+                   if (txtQty.value == "0" || lblbal.value == "0") {
                         gridView.rows[i].style.backgroundColor = "red";
-                        txtwidth.focus();
+                        txtQty.focus();
 
                         return false;
                     }
-                    else if (parseFloat(txtQty.value) > parseFloat(lblbal.innerText)) {
+                   if (parseFloat(txtQty.value) > parseFloat(lblbal.innerText)) {
 
                         newqtytextbox[0].value = 0;
                         alert("Extra Qty Cannot be Allowed");
                         newqtytextbox[0].focus();
-                    }
+                   } else
+                   {
+                       sum = sum + parseFloat(txtQty.value);
+
+                   }
                 }
             }
 
-
+            var footer = gridView.getElementsByClassName("qtyfooter")[0];
+            footer.innerHTML = sum.toString();
         }
    
      
@@ -128,7 +133,7 @@
          <asp:UpdatePanel ID="UpdatePanel2" runat="server">
          <ContentTemplate>
 
-        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large">
+        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large" ShowFooter="True">
                             <Columns>      
                 <asp:TemplateField>  
                                     <HeaderTemplate>
@@ -162,6 +167,11 @@
                                     <ItemTemplate>
                                        <asp:TextBox ID="txt_qty"  CssClass="txtQty" onkeypress="return isNumberKey(event,this)"  onkeyup ="validateQtyWithBalance(this)"  runat ="server" Text='<%# Bind("BalQty") %>' ></asp:TextBox>
                                     </ItemTemplate>
+                                   <FooterTemplate>
+
+                                          <asp:Label ID="lbl_qtyfooter" CssClass="qtyfooter" runat="server" ></asp:Label>
+                                   </FooterTemplate>
+
                                 </asp:TemplateField>
             </Columns>
             <FooterStyle BackColor="#FFFFCC" ForeColor="#000066" />

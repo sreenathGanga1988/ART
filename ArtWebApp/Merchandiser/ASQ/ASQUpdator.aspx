@@ -242,6 +242,17 @@
                                                             </ItemTemplate>
                                                 </asp:TemplateField>   
                                                        <asp:ButtonField CommandName="PackableUpdate" Text="Pack Update" ButtonType="Button" />
+
+                                                  <asp:TemplateField HeaderText="Delete">
+                                                           
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lbl_isDeletable" runat="server" Text='<%# Bind("IsDeleted") %>'></asp:Label>
+                                                            
+                                                                <asp:CheckBox ID="chK_IsDeleted"  onclick="ShowAlert(this)" runat="server"></asp:CheckBox>
+                                                            </ItemTemplate>
+                                                </asp:TemplateField>   
+                                                       <asp:ButtonField CommandName="Deleteupdate" Text="Delete " ButtonType="Button" />
+
                                             </Columns>
                                         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -294,7 +305,7 @@
                             </td>
                         <td class="NormalTD">
 
-                            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable ,POPackDetails.IsPackable FROM PoPackMaster INNER JOIN POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable,POPackDetails.IsPackable HAVING (PoPackMaster.AtcId = @Param1) ORDER BY PoPackMaster.PoPackId">
+                            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, POPackDetails.IsDeleted FROM PoPackMaster INNER JOIN POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, POPackDetails.IsDeleted HAVING (PoPackMaster.AtcId = @Param1) ORDER BY PoPackMaster.PoPackId">
                                 <SelectParameters>
                                     <asp:ControlParameter ControlID="cmb_atc" Name="Param1" PropertyName="SelectedValue" />
                                 </SelectParameters>

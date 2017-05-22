@@ -92,7 +92,7 @@ function validatefob(objText) {
         <tr>
             <td class="NormalTD">Shipment #:</td>
              <td class="NormalTD" >
-                <ig:WebDropDown ID="drp_shpcode" runat="server" Width="200px" EnableMultipleSelection="True" TextField="name" ValueField="pk">
+                <ig:WebDropDown ID="drp_shpcode" runat="server" Width="200px" EnableMultipleSelection="True"  EnableClosingDropDownOnSelect="False" TextField="name" ValueField="pk">
                       <DropDownItemBinding TextField="name" ValueField="pk" />
                   </ig:WebDropDown></td>
              <td class="auto-style7">

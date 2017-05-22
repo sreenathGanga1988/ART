@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
     <tr>
-        <td>
+       <td class="NormalTD">
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
@@ -96,7 +96,7 @@
         </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
+       <td class="NormalTD">&nbsp;</td>
     </tr>
 </table>
 </asp:Content>

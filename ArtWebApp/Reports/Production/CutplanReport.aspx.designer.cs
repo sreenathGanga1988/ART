@@ -94,13 +94,13 @@ namespace ArtWebApp.Reports.Production {
         protected global::System.Web.UI.WebControls.Label lbl_ourstyle;
         
         /// <summary>
-        /// lbl_ourstyle0 control.
+        /// lbl_loc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ourstyle0;
+        protected global::System.Web.UI.WebControls.Label lbl_loc;
         
         /// <summary>
         /// lbl_with control.
@@ -148,6 +148,60 @@ namespace ArtWebApp.Reports.Production {
         protected global::System.Web.UI.WebControls.Label lbl_fabric;
         
         /// <summary>
+        /// lbl_fabrication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_fabrication;
+        
+        /// <summary>
+        /// upd_markertype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_markertype;
+        
+        /// <summary>
+        /// tbl_markertype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tbl_markertype;
+        
+        /// <summary>
+        /// upd_mastertable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_mastertable;
+        
+        /// <summary>
+        /// masterpanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel masterpanel;
+        
+        /// <summary>
+        /// Mastertable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table Mastertable;
+        
+        /// <summary>
         /// upd_cutplanmarkergrid control.
         /// </summary>
         /// <remarks>
@@ -155,15 +209,6 @@ namespace ArtWebApp.Reports.Production {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upd_cutplanmarkergrid;
-        
-        /// <summary>
-        /// cutplanmarkerdetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource cutplanmarkerdetails;
         
         /// <summary>
         /// tbl_cutplanmarkerdata control.
@@ -193,6 +238,15 @@ namespace ArtWebApp.Reports.Production {
         protected global::System.Web.UI.WebControls.GridView tbl_ASQdata;
         
         /// <summary>
+        /// txt_refpattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_refpattern;
+        
+        /// <summary>
         /// UpdatePanel6 control.
         /// </summary>
         /// <remarks>
@@ -220,13 +274,13 @@ namespace ArtWebApp.Reports.Production {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Messaediv1;
         
         /// <summary>
-        /// lbl_msg0 control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_msg0;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// Messaediv control.
@@ -245,5 +299,23 @@ namespace ArtWebApp.Reports.Production {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_msg;
+        
+        /// <summary>
+        /// cutplanmarkerdetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource cutplanmarkerdetails;
+        
+        /// <summary>
+        /// cutplanmarkertypedata control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource cutplanmarkertypedata;
     }
 }

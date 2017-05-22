@@ -68,15 +68,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Pack Instruction : </td>
-                                            <td>
-                                                <asp:TextBox ID="txt_packdetail" runat="server" CssClass="auto-style39" Height="16px" Width="120px"></asp:TextBox>
-                                                <b>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txt_packdetail" CssClass="auto-style36" ErrorMessage="ENter Pack Instruction" ForeColor="Red" ValidationGroup="newpo">*</asp:RequiredFieldValidator>
-                                                </b></td>
                                             <td>Delivery date : </td>
                                             <td>
-                                                <ig:WebDatePicker ID="dtp_deliverydate" runat="server">
+                                                <ig:WebDatePicker ID="dtp_deliverydate" runat="server"  ValidationGroup="a" OnValueChanged="dtp_deliverydate_ValueChanged">
+                                                    <AutoPostBackFlags ValueChanged="On" />
                                                 </ig:WebDatePicker>
                                             </td>
                                             <td>Inhouse Date :</td>
@@ -84,42 +79,75 @@
                                                 <ig:WebDatePicker ID="dtp_inhousedate" runat="server">
                                                 </ig:WebDatePicker>
                                             </td>
+                                            <td>Revised Delivery date :</td>
+                                            <td>
+                                                 </b>
+                                                 <ig:WebDatePicker ID="dtp_rsd" runat="server">
+                                                 </ig:WebDatePicker>
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;Hand overdate</td>
+                                            <td>
+                                              
+
+                                                 
+                                                <ig:WebDatePicker ID="dtp_hd" runat="server">
+                                                </ig:WebDatePicker>
+                                              
+
+                                                 
+                                            </td>
+                                            <td>Season</td>
+                                            <td>
+                                               
+
+                                                   
+
+                                                <ucc:DropDownListChosen ID="drp_season" runat="server" DataSourceID="SeasonData" DataTextField="SeasonName" DataValueField="season_pk" DisableSearchThreshold="10" Width="200px">
+                                                </ucc:DropDownListChosen>
+                                               
+
+                                                   
+
+                                            </td>
+                                            <td>Factory(Recomended)</td>
+                                            <td> 
+                                                
+                                                 
+                                                <asp:DropDownList ID="drp_loc" runat="server" DataSourceID="FACTORYDATASOURCE" DataTextField="LocationName" DataValueField="Location_PK" Font-Size="Smaller">
+                                                </asp:DropDownList>
+                                                
+                                                 
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>PO Group</td>
                                             <td>
-                                              
-
-                                                 <ucc:DropDownListChosen ID="drp_pogroup" Width="120px" runat="server">
-                            <asp:ListItem Value="GP1">GP1</asp:ListItem>
-                            <asp:ListItem Value="GP2">GP2</asp:ListItem>
-                             <asp:ListItem Value="GP3">GP3</asp:ListItem>
-                            <asp:ListItem Value="GP4">GP4</asp:ListItem>
-                            
-                            
-                        </ucc:DropDownListChosen>
+                                                <ucc:DropDownListChosen ID="drp_pogroup" runat="server" Width="120px">
+                                                    <asp:ListItem Value="GP1">GP1</asp:ListItem>
+                                                    <asp:ListItem Value="GP2">GP2</asp:ListItem>
+                                                    <asp:ListItem Value="GP3">GP3</asp:ListItem>
+                                                    <asp:ListItem Value="GP4">GP4</asp:ListItem>
+                                                </ucc:DropDownListChosen>
                                             </td>
                                             <td>Tag group</td>
                                             <td>
-                                               
-
-                                                   <ucc:DropDownListChosen ID="drp_taggroup" Width="120px" runat="server">
-                            <asp:ListItem Value="TD1">TD1</asp:ListItem>
-                            <asp:ListItem Value="TD2">TD2</asp:ListItem>
-                             <asp:ListItem Value="TD3">TD3</asp:ListItem>
-                          
-                            
-                            
-                        </ucc:DropDownListChosen>
-
+                                                <ucc:DropDownListChosen ID="drp_taggroup" runat="server" Width="120px">
+                                                    <asp:ListItem Value="TD1">TD1</asp:ListItem>
+                                                    <asp:ListItem Value="TD2">TD2</asp:ListItem>
+                                                    <asp:ListItem Value="TD3">TD3</asp:ListItem>
+                                                </ucc:DropDownListChosen>
                                             </td>
-                                            <td>Season</td>
-                                            <td> 
+                                            <td>Packing Instruction</td>
+                                            <td>
                                                 
-                                                 <ucc:DropDownListChosen ID="drp_season" runat="server" DataSourceID="SeasonData" DataTextField="SeasonName" DataValueField="season_pk" DisableSearchThreshold="10" Width="200px">
-                                     </ucc:DropDownListChosen>
-
-
+                                                <asp:TextBox ID="txt_packdetail" runat="server" CssClass="auto-style39" Height="130px" Width="178px" Font-Size="Smaller" TextMode="MultiLine"></asp:TextBox>
+                                                <b>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txt_packdetail" CssClass="auto-style36" ErrorMessage="ENter Pack Instruction" ForeColor="Red" ValidationGroup="newpo">*</asp:RequiredFieldValidator>
+                                                </b>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
@@ -173,6 +201,11 @@
                             <asp:SqlDataSource ID="popack" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT BuyerPO FROM PoPackMaster WHERE (AtcId = @Param1)">
                                 <SelectParameters>
                                     <asp:QueryStringParameter DefaultValue="0" Name="Param1" QueryStringField="atcid" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                            <asp:SqlDataSource ID="FACTORYDATASOURCE" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Location_PK], [LocationName] FROM [LocationMaster] WHERE ([LocType] = @LocType)">
+                                <SelectParameters>
+                                    <asp:Parameter DefaultValue="F" Name="LocType" Type="String" />
                                 </SelectParameters>
                             </asp:SqlDataSource>
                 </td>

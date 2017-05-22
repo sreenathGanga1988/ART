@@ -61,10 +61,7 @@
         </td>
     </tr>
     <tr>
-        <td><asp:SqlDataSource ID="MisplacedReq" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [reqnum], [MisplaceApp_pk] FROM [InventoryMissingRequest] WHERE ([FromLctn_pk] = @FromLctn_pk)">
-                            <SelectParameters>
-                                <asp:SessionParameter DefaultValue="lctn_pk" Name="FromLctn_pk" SessionField="UserLoc_pk" Type="Decimal" />
-                            </SelectParameters>
+        <td><asp:SqlDataSource ID="MisplacedReq" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT reqnum, MisplaceApp_pk FROM InventoryMissingRequest">
                         </asp:SqlDataSource></td>
     </tr>
 </table>

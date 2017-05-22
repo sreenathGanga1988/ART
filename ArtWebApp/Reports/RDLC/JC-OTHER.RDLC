@@ -8,7 +8,6 @@
         <ConnectString>Data Source=192.168.1.4;Initial Catalog=Art</ConnectString>
         <Prompt>Specify a user name and password for data source DataSource1:</Prompt>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>ea16d9e5-0c25-4b3c-99e2-e07dae2c175d</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -1962,7 +1961,7 @@ HAVING      (JobContractOptionalMaster.JobContractOptionalNUM = N'JCO000022')</C
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>DZ</Value>
+                                  <Value>PC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2015,7 +2014,7 @@ HAVING      (JobContractOptionalMaster.JobContractOptionalNUM = N'JCO000022')</C
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Emb Printing/DZ</Value>
+                                  <Value>Emb Printing/PC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2068,7 +2067,7 @@ HAVING      (JobContractOptionalMaster.JobContractOptionalNUM = N'JCO000022')</C
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>CMPY Logistic/DZ</Value>
+                                  <Value>CMPY Logistic/PC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2121,7 +2120,7 @@ HAVING      (JobContractOptionalMaster.JobContractOptionalNUM = N'JCO000022')</C
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Factory Logistc/DZ</Value>
+                                  <Value>Factory Logistc/PC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>

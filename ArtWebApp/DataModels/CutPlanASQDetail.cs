@@ -23,9 +23,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CutQty { get; set; }
         public Nullable<decimal> Skudet_PK { get; set; }
     
+        public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
+        public virtual PoPackMaster PoPackMaster { get; set; }
         public virtual CutPlanMaster CutPlanMaster { get; set; }
         public virtual POPackDetail POPackDetail { get; set; }
-        public virtual PoPackMaster PoPackMaster { get; set; }
-        public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
     }
 }

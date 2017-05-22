@@ -37,6 +37,7 @@ namespace ArtWebApp.DataModels
         public string IsItemColor { get; set; }
         public string IsItemSize { get; set; }
         public string IsStock { get; set; }
+        public string IsEnabled { get; set; }
     
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
         public virtual ItemGroupMaster ItemGroupMaster { get; set; }

@@ -94,7 +94,7 @@ body
                                           </ContentTemplate>
                                       </asp:UpdatePanel>
                                   </td>
-                                  <td></td>
+                                 <td class="NormalTD"></td>
                             </tr>
                               <tr>
                                 <td >RMNUM</td>
@@ -124,17 +124,17 @@ body
                                               </ContentTemplate>
                                           </asp:UpdatePanel>
                                       </td>
-                                      <td></td>
+                                     <td class="NormalTD"></td>
                                  
                             </tr>
                             
                             <tr>
-                                <td>&nbsp;</td>
+                               <td class="NormalTD">&nbsp;</td>
                                 <td class="NormalTD" colspan="3">
                                     &nbsp;</td>
                                 
                                 <td class="NormalTD">&nbsp;</td>
-                                <td>&nbsp;</td>
+                               <td class="NormalTD">&nbsp;</td>
                             </tr>
                             
                         </table>
@@ -143,18 +143,18 @@ body
 
     <div ><table class="gridtable" >
                             <tr>
-                                <td><asp:CheckBox ID="chk_f" Text=" OnhandQty F only" runat="server" /></td>
-                                <td><asp:CheckBox ID="chk_W" Text="OnhandQty W only" runat="server" /></td>
-                                <td><asp:CheckBox ID="chk_ct" Text="Show Cutorder" runat="server"  /></td>
-                                  <td><asp:CheckBox ID="chk_doc" Text="Show ADN" runat="server"  /></td>
-                                  <td><asp:CheckBox ID="chk_remark" Text="Show Remark" runat="server"  /></td>
-                                  <td><asp:CheckBox ID="chk_rcpt" Text="Show Store Receipt" runat="server"  /></td>
-                                <td>
+                               <td class="NormalTD"><asp:CheckBox ID="chk_f" Text=" OnhandQty F only" runat="server" /></td>
+                               <td class="NormalTD"><asp:CheckBox ID="chk_W" Text="OnhandQty W only" runat="server" /></td>
+                               <td class="NormalTD"><asp:CheckBox ID="chk_ct" Text="Show Cutorder" runat="server"  /></td>
+                                 <td class="NormalTD"><asp:CheckBox ID="chk_doc" Text="Show ADN" runat="server"  /></td>
+                                 <td class="NormalTD"><asp:CheckBox ID="chk_remark" Text="Show Remark" runat="server"  /></td>
+                                 <td class="NormalTD"><asp:CheckBox ID="chk_rcpt" Text="Show Store Receipt" runat="server"  /></td>
+                               <td class="NormalTD">
                                     
                                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Export to Excel" />
                                 </td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
+                               <td class="NormalTD">&nbsp;</td>
+                               <td class="NormalTD">&nbsp;</td>
                             </tr>
                         </table></div>
     <div class="FullTable">
@@ -337,10 +337,13 @@ body
                                              BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
                                              <Columns>
                                                  <asp:BoundField DataField="DocNum" HeaderText="ADN" />
-                                                <asp:BoundField DataField="ContainerNum" HeaderText="ContainerNum" />
+                                                <asp:BoundField DataField="ContainerNum" HeaderText="Ref#" />
+                                                 <asp:BoundField DataField="BOENum" HeaderText="Cont#" />
                                                  <asp:BoundField DataField="PONum" HeaderText="PONum" />
                                                  <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                                          
+                                                  <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
+                                                  <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
+                                        
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />

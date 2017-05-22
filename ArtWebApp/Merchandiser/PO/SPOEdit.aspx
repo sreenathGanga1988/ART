@@ -236,7 +236,7 @@
                                                 <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         
-                                                          <ucc:DropDownListChosen ID="drp_itemsize" Width="170px" runat="server" AppendDataBoundItems="True">
+                                                          <ucc:DropDownListChosen ID="drp_itemsize" Width="170px" runat="server" >
                                                                      <asp:ListItem Selected="True"></asp:ListItem>
                                              </ucc:DropDownListChosen>
 
@@ -249,7 +249,7 @@
                                             <td class="NormalTD">
                                                 <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
-                                                        <ucc:DropDownListChosen ID="drp_weight" runat="server"  Height="16px" Width="198px" AppendDataBoundItems="True" >
+                                                        <ucc:DropDownListChosen ID="drp_weight" runat="server"  Height="16px" Width="198px" >
                                                             <asp:ListItem Selected="True"></asp:ListItem>
                                                         </ucc:DropDownListChosen>
                                                     </ContentTemplate>
@@ -259,7 +259,7 @@
                                             <td>Width</td>
                                             <td class="NormalTD">
 
-                                                <ucc:DropDownListChosen ID="drp_width" runat="server" Height="16px" Width="170px" AppendDataBoundItems="True">
+                                                <ucc:DropDownListChosen ID="drp_width" runat="server" Height="16px" Width="170px" >
                                                            <asp:ListItem Selected="True"></asp:ListItem>
                                                 </ucc:DropDownListChosen>
 

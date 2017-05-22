@@ -57,7 +57,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             txt_boe.Text = rcptmstrdata.BOENum;
             txt_container.Text = rcptmstrdata.ContainerNum;
             dtp_deliverydate.Value = rcptmstrdata.ETADate;
-
+            ddl_adnType.SelectedValue = rcptmstrdata.Adntype;
 
 
 
@@ -84,11 +84,11 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             rcptmstrdata.AddedBy = Session["Username"].ToString().Trim();
             rcptmstrdata.IsCompleted = "N";
             rcptmstrdata.Location_PK = int.Parse(Session["UserLoc_pk"].ToString());
-
+            rcptmstrdata.Adntype = ddl_adnType.SelectedValue.ToString();
             rcptnum = rcptmstrdata.UpdateReciptMstr();
 
 
-            String msg = "Doc # : " + drp_rcpt.SelectedItem.Text + " is Updated Sucessfully";
+            String msg = "Doc # : " + drp_rcptmstr.Text + " is Updated Sucessfully";
             
 
             return msg;
@@ -113,6 +113,9 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         {
             InsertPodetails();
             lbl_errordisplayer.Text = "Details Added";
+            tbl_Podetails.DataSource = null;
+            tbl_Podetails.DataBind();
+            upd_grid.Update();
         }
 
 
@@ -200,12 +203,14 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
 
                     int DocDet_Pk = int.Parse(((di.FindControl("lbl_DocDet_Pk") as Label).Text.ToString()));
                     decimal recieptqty = decimal.Parse((di.FindControl("txt_qty") as TextBox).Text.ToString());
+                    decimal txt_extraqty = decimal.Parse((di.FindControl("txt_extraqty") as TextBox).Text.ToString());
                     String invnum = (di.FindControl("txt_do") as TextBox).Text;
                     Infragistics.Web.UI.EditorControls.WebDatePicker wbdt = di.FindControl("wdp_etadate") as Infragistics.Web.UI.EditorControls.WebDatePicker;
                     BLL.MerchandsingBLL.DocPodetaildata podetdata = new BLL.MerchandsingBLL.DocPodetaildata();
 
                     podetdata.Doc_Pk = int.Parse(drp_rcpt.SelectedItem.Value.ToString());
                     podetdata.DocDet_Pk = DocDet_Pk;
+                    podetdata.eXCESSQty = txt_extraqty;
                     podetdata.Qty = recieptqty;
                     podetdata.InvNum = invnum;
                     //try

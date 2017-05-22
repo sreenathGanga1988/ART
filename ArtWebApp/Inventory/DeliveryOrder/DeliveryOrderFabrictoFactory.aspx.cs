@@ -300,6 +300,31 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                 MessgeboxUpdate("error", "Location Not Selected");
             }
         }
+
+
+
+
+
+        protected void lnkbtn_mrn_Click(object sender, EventArgs e)
+        {
+            LinkButton txtcons = (LinkButton)sender;
+            GridViewRow currentRow = txtcons.ClosestContainer<GridViewRow>();
+            DBTransaction.InventoryTransaction.InventoryTransaction invtran = new DBTransaction.InventoryTransaction.InventoryTransaction();
+            int podetpk = int.Parse(((currentRow.FindControl("lblInventoryItem_PK") as Label).Text.ToString()));
+            DataTable dt = invtran.GetNonCompletedTransactionofaIIT_PK(podetpk);
+
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+            upd_subgrid.Update();
+            ModalPopupExtender1.Show();
+        }
+
+
+
+
+
+
+
     }
 
 

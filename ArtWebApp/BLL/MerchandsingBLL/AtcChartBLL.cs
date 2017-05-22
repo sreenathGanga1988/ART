@@ -145,25 +145,47 @@ FROM            ProcurementDetails INNER JOIN
         public DataTable GetDetailsofADOC (int doc_PK)
         {
             DataTable dt = new DataTable();
-           
-
-           
 
 
-            String Query = @"SELECT        tt.PONum, tt.SkuDet_PK, tt.PODet_PK, tt.RMNum, tt.Description, tt.ItemColor, tt.ItemSize, tt.SupplierColor, tt.SupplierSize, tt.UomCode, tt.POQty, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, 
-                         DocDetails.Doc_Pk, DocDetails.DocDet_Pk
-FROM            (SELECT        ProcurementDetails.PODet_PK, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
-                                                    SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, 
-                                                    SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, 
-                                                    ProcurementMaster.PONum, ProcurementMaster.PO_Pk
-                          FROM            ProcurementDetails INNER JOIN
-                                                    SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
-                                                    SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
-                                                    UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
-                                                    ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk) AS tt INNER JOIN
-                         DocDetails ON tt.PODet_PK = DocDetails.PODet_Pk
-WHERE        (DocDetails.Doc_Pk = @Param1)";
 
+
+
+            //            String Query = @"SELECT        tt.PONum, tt.SkuDet_PK, tt.PODet_PK, tt.RMNum, tt.Description, tt.ItemColor, tt.ItemSize, tt.SupplierColor, tt.SupplierSize, tt.UomCode, tt.POQty, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, 
+            //                         DocDetails.Doc_Pk, DocDetails.DocDet_Pk
+            //FROM            (SELECT        ProcurementDetails.PODet_PK, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
+            //                                                    SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, 
+            //                                                    SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, 
+            //                                                    ProcurementMaster.PONum, ProcurementMaster.PO_Pk
+            //                          FROM            ProcurementDetails INNER JOIN
+            //                                                    SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+            //                                                    SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+            //                                                    UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+            //                                                    ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk) AS tt INNER JOIN
+            //                         DocDetails ON tt.PODet_PK = DocDetails.PODet_Pk
+            //WHERE        (DocDetails.Doc_Pk = @Param1)";
+
+
+            String Query = @"SELECT        ttt.PONum, ttt.SkuDet_PK, ttt.PODet_PK, ttt.RMNum, ttt.Description, ttt.ItemColor, ttt.ItemSize, ttt.SupplierColor, ttt.SupplierSize, ttt.UomCode, ttt.POQty, ttt.Qty, ttt.Eta, ttt.Donumber, ttt.Doc_Pk, ttt.DocDet_Pk, 
+                         ttt.ExtraQty, ttt.ReceivedExtra, ttt.ReceivedQty, SUM(DocDetails_1.Qty) AS TotalDocQty, SUM(DocDetails_1.ExtraQty) AS TotalExtraQty
+FROM            (SELECT        tt.PONum, tt.SkuDet_PK, tt.PODet_PK, tt.RMNum, tt.Description, tt.ItemColor, tt.ItemSize, tt.SupplierColor, tt.SupplierSize, tt.UomCode, tt.POQty, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, 
+                                                    DocDetails.Doc_Pk, DocDetails.DocDet_Pk, DocDetails.ExtraQty, ISNULL(SUM(MrnDetails.ExtraQty), 0) AS ReceivedExtra, ISNULL(SUM(MrnDetails.ReceiptQty), 0) AS ReceivedQty
+                          FROM            (SELECT        ProcurementDetails.PODet_PK, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
+                                                                              SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, 
+                                                                              SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, 
+                                                                              ProcurementMaster.PONum, ProcurementMaster.PO_Pk
+                                                    FROM            ProcurementDetails INNER JOIN
+                                                                              SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                                                                              SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                                                                              UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+                                                                              ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk) AS tt INNER JOIN
+                                                    DocDetails ON tt.PODet_PK = DocDetails.PODet_Pk LEFT OUTER JOIN
+                                                    MrnDetails ON DocDetails.PODet_Pk = MrnDetails.PODet_PK AND DocDetails.Doc_Pk = MrnDetails.Doc_Pk
+													WHERE        (DocDetails.Doc_Pk = @Param1)
+                          GROUP BY tt.PONum, tt.SkuDet_PK, tt.PODet_PK, tt.RMNum, tt.Description, tt.ItemColor, tt.ItemSize, tt.SupplierColor, tt.SupplierSize, tt.UomCode, tt.POQty, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, 
+                                                    DocDetails.Doc_Pk, DocDetails.DocDet_Pk, DocDetails.ExtraQty) AS ttt INNER JOIN
+                         DocDetails AS DocDetails_1 ON ttt.PODet_PK = DocDetails_1.PODet_PK
+GROUP BY ttt.PONum, ttt.SkuDet_PK, ttt.PODet_PK, ttt.RMNum, ttt.Description, ttt.ItemColor, ttt.ItemSize, ttt.SupplierColor, ttt.SupplierSize, ttt.UomCode, ttt.POQty, ttt.Qty, ttt.Eta, ttt.Donumber, ttt.Doc_Pk, ttt.DocDet_Pk, 
+                         ttt.ExtraQty, ttt.ReceivedExtra, ttt.ReceivedQty";
 
             SqlCommand cmd = new SqlCommand();
             
@@ -243,7 +265,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
         public int currency_Pk { get; set; }
         public Decimal docvalue { get; set; }
         public string DocType{ get; set; }
-
+        public string Adntype { get; set; }
         public DateTime geteta(int Doc_Pk)
         {
             DateTime dt = new DateTime();
@@ -273,7 +295,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                 dcmstr.ContainerNum = docreptmstr.ContainerNum;
                 dcmstr.BOENum = docreptmstr.BOENum;
                 dcmstr.Remark = docreptmstr.Remark;
-                dcmstr.InhouseDate = DateTime.Now;
+                dcmstr.InhouseDate = docreptmstr.InhouseDate;
                 dcmstr.ETADate = docreptmstr.ETADate;
                 dcmstr.Supplier_PK = docreptmstr.Supplier_PK;
                 dcmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
@@ -329,6 +351,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                     element.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                     element.AddedDate = DateTime.Now;
                     element.IsCompleted = this.IsCompleted;
+                    element.ADNType = this.Adntype;
                 }
 
 
@@ -419,7 +442,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                     {
 
                         element.Qty = mrnrdet.Qty;
-                      //  element.Eta = mrnrdet.ETADate;
+                      element.ExtraQty = mrnrdet.eXCESSQty;
                         element.Donumber = mrnrdet.InvNum;
                         element.AddedBy = mrnrdet.AddedBy;
                         element.AddedDate = mrnrdet.AddedDate;
@@ -454,6 +477,8 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                     this.Remark = element.Remark;
                     this.InhouseDate = DateTime.Parse(element.InhouseDate.ToString());
                     this.ETADate = DateTime.Parse ( element.ETADate.ToString ());
+                    this.Adntype = element.ADNType;
+                   // this.currency_Pk =int.Parse (element.Currency_PK.ToString ());
                 } 
 
             }
@@ -478,7 +503,15 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
             return dt;
 
         }
+     
+        public DataTable getSDOCData(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            DBTransaction.ShippingTransaction.DocumentTransaction shptran = new DBTransaction.ShippingTransaction.DocumentTransaction();
+            dt = shptran.GetSDOCData(shpdetlist);
+            return dt;
 
+        }
 
 
         public DataTable getDOData(ArrayList shpdetlist)
@@ -490,7 +523,14 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
 
         }
 
+        public DataTable getSDOData(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            DBTransaction.ShippingTransaction.DocumentTransaction shptran = new DBTransaction.ShippingTransaction.DocumentTransaction();
+            dt = shptran.GetSDOData(shpdetlist);
+            return dt;
 
+        }
 
 
         public string isADNMRNmakable(int adn_pk)
@@ -515,8 +555,8 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
 
                 SqlCommand cmd = new SqlCommand(@"SELECT        ShippingDocumentMaster.ShipDocNum
 FROM            ShippingDocumentMaster INNER JOIN
-                         ShippingDocumentDODetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDODetails.ShipingDoc_PK
-WHERE(ShippingDocumentDODetails.DO_PK = @Param1)
+                         ShippingDocumentDetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDetails.ShipingDoc_PK
+WHERE(ShippingDocumentDetails.Doc_Pk = @Param1)
 GROUP BY ShippingDocumentMaster.ShipDocNum");
 
             cmd.Parameters.AddWithValue("@Param1", adn_pk);
@@ -624,7 +664,7 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
 
                 entry.SaveChanges();
 
-                dcmstr.SDocNum = CodeGenerator.GetUniqueCode("DocumentCreation", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(dcmstr.SDoc_Pk.ToString()));
+                dcmstr.SDocNum = CodeGenerator.GetUniqueCode("SDocumentCreation", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(dcmstr.SDoc_Pk.ToString()));
 
                 //  dcmstr.DocNum = "R" + HttpContext.Current.Session["lOC_Code"].ToString().Trim() + dcmstr.Doc_Pk.ToString().PadLeft(6, '0');
                 num = dcmstr.SDocNum;
@@ -949,4 +989,9 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
             return sucess;
         }
     }
+
+
+
+
+
 }

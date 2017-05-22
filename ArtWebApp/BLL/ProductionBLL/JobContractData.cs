@@ -23,7 +23,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                 jcmstr.AddedDate = DateTime.Now;
                 jcmstr.AddedBy = jcdata.JCmstrdata.AddedBy;
                 jcmstr.Location_Pk = jcdata.JCmstrdata.Location_Pk;
-
+                jcmstr.Remark = JCmstrdata.remark;
                 enty.JobContractMasters.Add(jcmstr);
 
 
@@ -42,6 +42,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                     jcdetdata.OurStyleID = di.OurStyleID;
                     jcdetdata.PoPackID = di.PoPackID;
                     jcdetdata.CMvalue = decimal.Parse ( di.CMvalue.ToString ());
+                    
                     enty.JobContractDetails.Add(jcdetdata);
 
 
@@ -119,7 +120,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public int AtcID { get; set; }
         public DateTime AddedDate { get; set; }
         public string AddedBy { get; set; }
-
+        public string remark { get; set; }
 
 
 
@@ -224,6 +225,10 @@ FROM            JobContractDetail INNER JOIN
 
                 foreach (ShipmentHandOverData di in shpmstrdata.ShipmentHandOverMasterDataCollection)
                 {
+
+                    var ourstyleid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.OurStyleID).FirstOrDefault();
+                    var popackid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.PoPackID).FirstOrDefault();
+
                     //Add the delivery details
                     ShipmentHandOverDetail shpdert = new ShipmentHandOverDetail();
                     shpdert.ShipmentHandMaster_PK = shpmstr.ShipmentHandMaster_PK;
@@ -232,6 +237,8 @@ FROM            JobContractDetail INNER JOIN
                     shpdert.ShipmentHandOverDate = di.ShipmenthandOverdate;
                     shpdert.AddedBy = di.AddedBy;
                     shpdert.AddedDate = di.AddedDate;
+                    shpdert.POPackId = int.Parse(popackid.ToString());
+                    shpdert.OurStyleID = int.Parse(ourstyleid.ToString());
                     enty.ShipmentHandOverDetails.Add(shpdert);
 
 

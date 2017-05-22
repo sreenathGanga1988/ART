@@ -53,7 +53,7 @@
                         </ig:WebDropDown>
                     </td>
                     <td class="NormalTD">
-                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Show  wip" Width="112px" Font-Size="XX-Small" />
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Show  wip" Width="112px" Font-Size="XX-Small" style="height: 21px" />
                     </td>
                     <td class="NormalTD">
                         

@@ -6,6 +6,10 @@
 
 <%@ Register Assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.LayoutControls" TagPrefix="ig" %>
 
+<%@ Register src="Controls/MyMenuBar.ascx" tagname="MyMenuBar" tagprefix="uc1" %>
+<%@ Register Src="~/Controls/MyMenuBar.ascx" TagPrefix="uc2" TagName="MyMenuBar" %>
+
+
 <!DOCTYPE html>
 <meta http-equiv="Page-Enter" content="blendTrans(Duration=0)">
 
@@ -17,25 +21,134 @@
      
 
     
-
+        .headerclass
+        {
+            /*float :left;
+            width:100%;*/
+        }
        
 
     
 
         .menuclass {
             float: left;
-            width: 18%;
-            height: 50%;
+            width: 15%;
+            
+             height: 100%;
+     font-size:smaller;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+       overflow-y:hidden;
         }
-     
+     .menuclass .closebtn {
+          padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+ 
+}
+        .content
+{
+            float:right;
+    clear:both;
+	  width: 85%;
+	  position:relative;
+	  min-height:600px;
+      height: 100%;
+      font-size:smaller;
+}
+    
+
+      .footer
+{
+    position:relative;
+    height: 5em;
+    margin-bottom:-5em;
+    /* bottom:3px;
+    z-index:05px;
+    margin-top:-5em; */
+    background-image:url('bg_footer111.gif');
+    background-repeat:no-repeat;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color:#FFFFFF;
+    left:5px;
+    right:-5px;
+    width: 982px;
+
+} 
 
     
 
-       
-
+     
     
 
    </style>
+            <script src="/Scripts/jquery-1.6.4.js"></script>
+ 
+
+
+       <script type="text/javascript">
+        //$(function () {
+        //    try {
+        //        var connection = $.hubConnection()
+        //        var hub = connection.createHubProxy('artHub');
+        //        hub.on('SayMessage', function () {
+
+        //            alert('Dear user WebArt will be restarted for Updation in 5 Minutes.Please save your Data');
+        //        });
+
+
+        //        connection.start().done();
+        //    }
+        //    catch (err) {  
+               
+        //    }
+        //   // debugger;
+          
+        //    //connection.start(function () {
+
+        //    //    hub.invoke('SayMessage');
+        //    //});
+        //});
+
+    </script>
+     <script type="text/javascript">
+         function openNav() {
+             document.getElementById("mySidenav").style.width = "15%";
+             document.getElementById("main").style.width = "85%";
+             document.getElementById("main").style.marginLeft = "50px";
+             document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+         }
+
+         function closeNav() {
+             document.getElementById("mySidenav").style.width = "0";
+             document.getElementById("main").style.width = "100%";
+             document.getElementById("main").style.marginLeft = "100px";
+             document.body.style.backgroundColor = "white";
+         }
+
+         
+</script>
+
+
+
+
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="css/MasterPage.css" rel="stylesheet" type="text/css" />
@@ -53,15 +166,50 @@
                 
         </div>-->
 
+        <div >
+
+             <div class="headerclass">
+            
+            <div style="float: right;">
+                 
+                <table class="LoginColumn" border="0">
+                    <tr>
+                       <td >
+                            <asp:LoginName ID="LoginName1" runat="server" />
+                        </td>
+                        <td >
+                             <asp:Label ID="lbl_loc" runat="server" />
+                        </td>
+                       <td >
+                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" class="top-log-but">Logout</asp:LinkButton></td>
+                       <td >
+                           <span style="font-size:12px;float:left; cursor:pointer" onclick="openNav()">&#9776; </span>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            
+         
+
+        </div>
 
 
+        <div >
 
-        <div class="menuclass">
 
+             <div id="mySidenav" class="menuclass">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="left-logo-set">
-                <img src="../image/atrako-black-logo.png"></div>
+                <img src="/image/atrako-black-logo.png"></div>
 
-            <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="98%" Height="100%">
+   <%--         <uc2:MyMenuBar runat="server" id="MyMenuBar" />--%>
+
+              <%--<ig:WebExplorerBar ID="WebExplorerBar1" runat="server" EnableViewState="true" EnableAjaxViewState="true" AutoPostBackFlags-ItemClick="Off" Width="97.8%">
+            </ig:WebExplorerBar>--%>
+
+            <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="100%" Height="100%" Font-Size="Smaller" >
                 <Groups>
                     <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Masters" Visible="True" Value="M" >
                         <Items>
@@ -167,7 +315,13 @@
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/InternationalPO.aspx" Text="Intl General PO">
                                             </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/StockADN.aspx" Text="Item" Value="GPO ADN">
+                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/StockADN.aspx" Text="Stock ADN" Value="GPO ADN">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PurchaseHelper.aspx" Text="Item Search">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/GeneralPurchasedashBoard.aspx" Text="General Purchase DashBoard">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem  NavigateUrl="~/Merchandiser/PO/SPOIPO.aspx" Text="SPO/IPO Tracker" >
                                             </ig:ExplorerBarItem>
                                         </Items>
                                     </ig:ExplorerBarItem>
@@ -199,6 +353,9 @@
                                              </ig:ExplorerBarItem>
                                              <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQAllocation.aspx" Text="ASQ Allocation">
                                              </ig:ExplorerBarItem>
+                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQCuttableUpdate.aspx" Text="Mark ASQ Non Cuttable">
+                                             </ig:ExplorerBarItem>
+                                            
                                          </Items>
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcRawMaterial.aspx" Text="Raw Material">
@@ -243,6 +400,15 @@
                                     <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/AsQPODependancy.aspx" Text="PO Dependant">
                                     </ig:ExplorerBarItem>
                                   
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/Atcprojection.aspx" Text="Atc Projection">
+                                    </ig:ExplorerBarItem>
+                                  
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcClosing.aspx" Text="Atc Closing">
+                                    </ig:ExplorerBarItem>
+                                  
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ATC/AllAtcCLoser.aspx" Text="Atc Closing">
+                                    </ig:ExplorerBarItem>
+                                  
                                 </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="ATC Chart">
@@ -257,23 +423,22 @@
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/MerchandisingDashBoard.aspx" Text="Merchants DashBoard">
+                            </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
 
                     <ig:ExplorerBarGroup GroupContentsHeight="" Text="Quality" Value="Q">
                         <Items>
                             
-                           <%-- <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/InspectionEntry.aspx" Text="Pre QAD Validation OLd">
-                            </ig:ExplorerBarItem>--%>
+                          
                              <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityDashBoard.aspx" Text="QA DashBoard">
                             </ig:ExplorerBarItem>
                               <ig:ExplorerBarItem NavigateUrl="~/Quality/PreQADValidationEntry.aspx" Text="Pre QAD Validation ">
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityInspection.aspx" Text="Quality Inspection ">
                             </ig:ExplorerBarItem>
-                           <%-- <ig:ExplorerBarItem NavigateUrl="~/Quality/FabricGrouping.aspx" Text="Grouping">
-
-                            </ig:ExplorerBarItem>--%>
+                          
                              <ig:ExplorerBarItem NavigateUrl="~/Quality/ManualGrouping.aspx" Text="Manual Grouping">
 
                             </ig:ExplorerBarItem>
@@ -286,6 +451,11 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityInspectionEdit.aspx" Text="Inspection Edit">
                             </ig:ExplorerBarItem>
+                          
+                            
+                          
+                             <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanReport.aspx" Text="Cut Plan Approval">
+                             </ig:ExplorerBarItem>
                           
                             
                           
@@ -314,7 +484,7 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFactory.aspx" Text="Whs-Fact (TRIMS)(WF)">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFabrictoFactory.aspx" Text="Whs-Fact (FABRIC) (WF)">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFabrictoFactory.aspx" Text="Whs-Fact (FABRIC) (WF)" >
                                     </ig:ExplorerBarItem>
                                        <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFabrictoFactoryRollWise.aspx" Text="Whs-Fact (FABRIC Roll) (WF)">
                                     </ig:ExplorerBarItem>
@@ -332,15 +502,41 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="Fabric ">
                                 <Items>
-                                    <%--<ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/MRNRollEntry.aspx" Text="Rollwise MRN Details">
+                             
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/MrnRollEntryNew.aspx" Text="ASN-MRN Entry" Visible="False">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DORollTransaction.aspx" Text="Do Roll Entry" Visible="False">
-                                    </ig:ExplorerBarItem>--%>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/MrnRollEntryNew.aspx" Text="ASN-MRN Entry">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/InspectionReport.aspx" Text="Inspection Report">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Qualityreports/FabricRollReport.aspx" Text="Inspection Report">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/PreQadApproval.aspx" Text="Pre QAD Inspection Approval" Visible="False">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DORollTransaction.aspx" Text="WW-Roll Transaction">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RORollEntry.aspx" Text="ROIN-Roll Transaction">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/LoanRollTransaction.aspx" Text="Loan Roll Transaction">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="MRN" >
+                                        <Items>
+                                           
+                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/ASNCreation.aspx" Text="ASN Creation">
+                                            </ig:ExplorerBarItem>
+                                             <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/AddRollAgainstMRN.aspx" Text="MRN-ROLL Entry" ToolTip="creates rolls Against MRN">
+                                            </ig:ExplorerBarItem>
+                                             <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/fabricedit.aspx" Text="MRN-RollEdit">
+                                            </ig:ExplorerBarItem>
+                                        </Items>
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DORTransaction.aspx" Text="WR Roll Confirmation">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollSplit.aspx" Text="Roll Split">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollTracker.aspx" Text="Roll Tracker">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RollDataPrinter.aspx" Text="Roll Sticker Printer">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/AddRollAgainstWRfromAtraco.aspx" Text="Roll Entry Againt HO WW ">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DeliveryReturnTransaction.aspx" Text="Roll Transfer Against FW">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -352,7 +548,15 @@
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/Sales/InventorySales.aspx" Text="Inventory Sales">
+                            <ig:ExplorerBarItem Text="Inventory Sales">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Sales/InventorySales.aspx" Text="Internal Sales DO">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Sales/ExternalSales.aspx" Text="External Sales DO">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/InventoryDashBoard.aspx" Text="Inventory Dashboard">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -387,16 +591,45 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="Cutting">
                                 <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="Lay Sheet">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/CuttingDashBoard.aspx" Text="Cutting DashBoard">
+                                    </ig:ExplorerBarItem>
+
+                                    <ig:ExplorerBarItem Text="Cut Plan">
+                                        <Items>
+                                            <ig:ExplorerBarItem Text="New Cut Plan" NavigateUrl="~/Production/CutOrder/FactoryCutPlan.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerDetails.aspx" Text="Cut Plan Size Details">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/CuttingEditor.aspx" Text="Cut Plan Edit">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerEdit.aspx" Text="Cut Plan Marker Edit">
+                                            </ig:ExplorerBarItem>
+                                        </Items>
+
+                                    </ig:ExplorerBarItem>
+                                                                        <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="Lay Sheet">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LayesheetRoll.aspx" Text="Lay Sheet Rolls">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Cut Plan">
+                            <ig:ExplorerBarItem Text="Cut Plan" Visible="False">
                                 <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/FactoryCutPlan.aspx" Text="New Cut Plan">
+                                    <ig:ExplorerBarItem Text="New Cut Plan" NavigateUrl="~/Production/CutOrder/FactoryCutPlan.aspx">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerDetails.aspx" Text="Cut Plan Size Details">
                                     </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                          
+                            <ig:ExplorerBarItem Text=" Monthly Actions">
+                                <Items>
+                                      <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ASQMonthLocking.aspx" Text="Monthly Target/Projection lock">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ASQMonthShipmentClosing.aspx" Text="Monthly Shipment Close">
+                                    </ig:ExplorerBarItem>
+                                   <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQClosing.aspx" Text="ASQ Short Closing" Value="Short Close ASQ">
+                                             </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
                         </Items>
@@ -405,7 +638,13 @@
                         <Items>
                                 <ig:ExplorerBarItem NavigateUrl="~/Shipping/ShiipingDashBoard.aspx" Text="Shipping DashBoard">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text=" Inbound" NavigateUrl="~/Shipping/Documentreceipt.aspx">
+                            <ig:ExplorerBarItem Text=" Inbound">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/Documentreceipt.aspx" Text="New">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/InboundEdit.aspx" Text="Edit">
+                                    </ig:ExplorerBarItem>
+                                </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Shipping/Invoicing.aspx" Text="Invoicing">
                             </ig:ExplorerBarItem>
@@ -426,6 +665,12 @@
                             <ig:ExplorerBarItem NavigateUrl="~/Shipping/CourierEntry.aspx" Text="Courier Entry">
                             </ig:ExplorerBarItem>
                         
+                                <ig:ExplorerBarItem NavigateUrl="~/Shipping/ShippingTracker.aspx" Text="Doc Tracker">
+                                </ig:ExplorerBarItem>
+                        
+                                <ig:ExplorerBarItem NavigateUrl="~/Shipping/AtcExpenseMaster.aspx" Text="Atc Expense">
+                                </ig:ExplorerBarItem>
+                        
                         </Items>
                     </ig:ExplorerBarGroup>
                     <ig:ExplorerBarGroup GroupContentsHeight="" Text="Accounts" Visible="True">
@@ -435,6 +680,14 @@
                                     <ig:ExplorerBarItem NavigateUrl="~/Accounts/SupplierInvoicing.aspx" Text="Payable  Against PO ">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Accounts/StockSupplierInvoicing.aspx" Text="Payable Against SPO">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Debit/Credit Notes">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitnoteforFactory.aspx" Text="Debit Note to Factory Against SDO">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitNoteGenerator.aspx" Text="Credit Note  Creator">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -470,11 +723,21 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/ConsolidatedInventoryReport.aspx" Text="Consolidated Inventory">
                                     </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RollDataPrinter.aspx" Text="Item">
+                                    </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="ASQ Reports">
                                 <Items>
                                     <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQReports.aspx" Text="General ">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQStatusReport.aspx" Text="ASQ Status Report">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/AsqPOWiseReport.aspx" Text="ASQ SizeWise Details">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQMasterReport.aspx" Text="ASQ Total Report">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQTotalReport.aspx" Text="ASQ Complete Report">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -512,6 +775,32 @@
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanReport.aspx" Text="CutPlan">
                                             </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanHistory.aspx" Text="CutPlan History">
+                                            </ig:ExplorerBarItem>
+                                        </Items>
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/Proddata/ShippedReport.aspx" Text="Shipped ">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/Proddata/AllReportdata.aspx" Text="All in One">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="MIS Reports">
+                                        <Items>
+                                            <ig:ExplorerBarItem Text="Yearly shipped Report" NavigateUrl="~/Reports/Production/MSI/Yearly Shipment Report.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem Text="Yearly Order Onhand " NavigateUrl="~/Reports/Production/MSI/OrderOnhandReportofYear.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem Text="Yearly ShortClose" NavigateUrl="~/Reports/Production/MSI/YearlyShorClosed.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/MonthWiseTargetandShipped.aspx" Text="Month Wise Report ">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem Text="Atc wise Shipment Details" NavigateUrl="~/Reports/Production/MSI/AtcASQStatus.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem Text="Entries for the Month">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem Text="Yearly OrderonHand factoryWise" NavigateUrl="~/Reports/Production/MSI/OrderOnhandReportofyearfactorywise.aspx">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/ASQofMonthofFactory.aspx" Text="Factory wise ASQ of Month">
+                                            </ig:ExplorerBarItem>
                                         </Items>
                                     </ig:ExplorerBarItem>
                                 </Items>
@@ -536,6 +825,14 @@
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Sampling">
+                                <Items>
+                                    <ig:ExplorerBarItem Text="Cutting Ticket">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Sampling/ShowSamplingstatus.aspx" Text="Cutting Status">
+                                    </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
                     <ig:ExplorerBarGroup GroupContentsHeight="" Text="Administrator" Visible="True">
@@ -549,6 +846,10 @@
                                             <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=Password" Text="Change Password">
                                             </ig:ExplorerBarItem>
                                         </Items>
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserProfileCreation.aspx" Text="User Profile">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=Profile" Text="User Profile Addition">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -574,6 +875,8 @@
                             </ig:ExplorerBarItem>
                               <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=EBOM" Text="EXTRA BOM QTY Approval">
                             </ig:ExplorerBarItem>
+                              <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=Missplaced" Text="Inventory Misplaced">
+                            </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Approvals/ServicePoApproval.aspx" Text="Service PO Approval">
                             </ig:ExplorerBarItem>
 
@@ -586,9 +889,13 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Transfer" Text="Gstock Transfer Approval">
                                     </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Missplaced" Text="Inventory MisPlaced">
+                                    </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Item" NavigateUrl="~/Approvals/ResponsiveApproval.aspx">
+                            <ig:ExplorerBarItem Text="Atc projection Approval" NavigateUrl="~/Approvals/AtcprojectionApproval.aspx">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Item">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -598,7 +905,7 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Administrator/SupportTicket.aspx" Text="Support">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderFinal.aspx" Text="cut plan trial">
+                            <ig:ExplorerBarItem NavigateUrl="~/Administrator/Tester.aspx" Text="Trial Form">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -609,7 +916,13 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Sampling/CuttingTicketEdit.aspx" Text="Cutting Ticket (Edit)">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/SampleWithoutATC.aspx" Text="Item" Value="Cutting Ticket(without ATC)">
+                            <ig:ExplorerBarItem NavigateUrl="~/Reports/CutOrderReport.aspx" Text="Cut Plan / Cut Order Report" Value="Cutting Ticket(without ATC)">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/CutPlanPatternDetails.aspx" Text="CutPlan Pattern Details">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/FabricEntrynew.aspx" Text="Sampling fabric">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Reports/SamplingReport/SamplingFabReport.aspx" Text="Fabric Entry Report" Value="Fabric Entry">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -617,18 +930,20 @@
                         <Items>
                             <ig:ExplorerBarItem NavigateUrl="~/User Manual/MERCHANDISING MODULE final.htm" Text="Merchandising">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Production">
+                            <ig:ExplorerBarItem Text="Production" NavigateUrl="~/User Manual/Production MANUAL.htm">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Inventory">
+                            <ig:ExplorerBarItem Text="Inventory" NavigateUrl="~/User Manual/InventoryUserGuide.htm">
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/User Manual/quality.htm" Text="Quality">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
-                   <%-- <ig:ExplorerBarGroup GroupContentsHeight="" Text="Group">
-                    </ig:ExplorerBarGroup>--%>
+                 
                 </Groups>
             </ig:WebExplorerBar>
+
+       
+
         </div>
 
 
@@ -646,29 +961,30 @@
 
 
 
-        <div style="float: left; width: 80%">
+        
 
-            <div style="float: right;">
-                <table class="LoginColumn" border="0">
-                    <tr>
-                        <td>
-                            <asp:LoginName ID="LoginName1" runat="server" />
-                        </td>
-                        <td>
-                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" class="top-log-but">Logout</asp:LinkButton></td>
-                    </tr>
 
-                </table>
-            </div>
-
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+          <div id="main" class="content" >
+             
+   <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <div class="bodybackground">
                 </div>
 
             </asp:ContentPlaceHolder>
+            </div>
+
 
         </div>
 
+
+        </div>
+
+
+       
+
+
+  
+       
 
     </form>
 </body>

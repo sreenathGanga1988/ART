@@ -157,7 +157,7 @@
                                             <td class="auto-style45">
                                                 <asp:UpdatePanel ID="UpdatePanel13" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
-                                                        <ucc:DropDownListChosen ID="drp_OODO" runat="server" AppendDataBoundItems="True" Height="16px" Width="198px" DataSourceID="OODOPOSOURCE" DataTextField="PONum" DataValueField="POId" DisableSearchThreshold="10">
+                                                        <ucc:DropDownListChosen ID="drp_OODO" runat="server"  Height="16px" Width="198px" DataSourceID="OODOPOSOURCE" DataTextField="PONum" DataValueField="POId" DisableSearchThreshold="10">
                                                             <asp:ListItem Selected="True"></asp:ListItem>
                                                         </ucc:DropDownListChosen>
                                                     </ContentTemplate>
@@ -176,7 +176,7 @@
                                             <td class="auto-style24">
                                                 <asp:UpdatePanel ID="upd_odoitem" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
-                                                        <ucc:DropDownListChosen ID="drp_oodoitem" runat="server" AppendDataBoundItems="True" Height="16px" Width="198px" DataSourceID="oodoiTEMsOURCE" DataTextField="Description" DataValueField="POLineID" DisableSearchThreshold="10">
+                                                        <ucc:DropDownListChosen ID="drp_oodoitem" runat="server" Height="16px" Width="198px" DataSourceID="oodoiTEMsOURCE" DataTextField="Description" DataValueField="POLineID" DisableSearchThreshold="10">
                                                             <asp:ListItem Selected="True"></asp:ListItem>
                                                         </ucc:DropDownListChosen>
                                                     </ContentTemplate>
@@ -186,15 +186,22 @@
                                               
                                                 <asp:UpdatePanel ID="UpdatePanel16" runat="server">
                                                     <ContentTemplate>
-                                                        <asp:Button ID="Button5" runat="server" Text="S" Width="27px" />
+                                                        <asp:Button ID="Button5" runat="server" Text="S" Width="27px" OnClick="Button5_Click" />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                               
                                             </td>
                                             <td class="auto-style14">
-                                               
-                                                Balance Qty</td>
-                                            <td class="auto-style14">&nbsp;</td>
+                                                
+                                                Balance Qty
+                                                    </td>
+                                            <td class="auto-style14">
+                                                <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+                                                    <ContentTemplate>
+                                                <asp:Label ID="lbl_balaqty" runat="server" Font-Overline="False" ForeColor="#FF3300" Text="0"></asp:Label>
+                                                            </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="NormalTD">Item Type</td>
@@ -265,7 +272,7 @@
                                                 <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         
-                                                          <ucc:DropDownListChosen ID="drp_itemsize" Width="170px" runat="server" AppendDataBoundItems="True">
+                                                          <ucc:DropDownListChosen ID="drp_itemsize" Width="170px" runat="server" >
                                                                      <asp:ListItem Selected="True"></asp:ListItem>
                                              </ucc:DropDownListChosen>
 
@@ -278,7 +285,7 @@
                                             <td class="NormalTD">
                                                 <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
-                                                        <ucc:DropDownListChosen ID="drp_weight" runat="server"  Height="16px" Width="198px" AppendDataBoundItems="True" >
+                                                        <ucc:DropDownListChosen ID="drp_weight" runat="server"  Height="16px" Width="198px" >
                                                             <asp:ListItem Selected="True"></asp:ListItem>
                                                         </ucc:DropDownListChosen>
                                                     </ContentTemplate>
@@ -288,7 +295,7 @@
                                             <td>Width</td>
                                             <td class="NormalTD">
 
-                                                <ucc:DropDownListChosen ID="drp_width" runat="server" Height="16px" Width="170px" AppendDataBoundItems="True">
+                                                <ucc:DropDownListChosen ID="drp_width" runat="server" Height="16px" Width="170px" >
                                                            <asp:ListItem Selected="True"></asp:ListItem>
                                                 </ucc:DropDownListChosen>
 
@@ -344,7 +351,7 @@
                                             <td class="auto-style42">
                                                 <asp:SqlDataSource ID="oodoiTEMsOURCE" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT  [Description], [POLineID] FROM [ODOOGPOMaster] WHERE ([POId] = @POId)">
                                                     <SelectParameters>
-                                                        <asp:ControlParameter ControlID="drp_OODO" DefaultValue="0" Name="POId" PropertyName="SelectedValue" Type="Decimal" />
+                                                        <asp:ControlParameter ControlID="drp_OODO" DefaultValue="" Name="POId" PropertyName="SelectedValue" Type="Decimal" />
                                                     </SelectParameters>
                                                 </asp:SqlDataSource>
                                             </td>

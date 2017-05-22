@@ -25,5 +25,7 @@ namespace ArtWebApp.DataModels
         public string Status { get; set; }
         public string IsCompleted { get; set; }
         public Nullable<System.DateTime> CompletedDate { get; set; }
+        public string Remark { get; set; }
+        public string CompletedBy { get; set; }
     }
 }

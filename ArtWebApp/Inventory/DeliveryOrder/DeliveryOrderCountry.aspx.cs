@@ -75,7 +75,7 @@ namespace ArtWebApp.Inventory
 
             tbl_InverntoryDetails.DataSource = null;
             tbl_InverntoryDetails.DataBind();
-            String msg = "DO # : " + donum + " is generated Sucessfully";
+            String msg = "DO # : " + donum + " is generated Successfully";
 
 
           MessgeboxUpdate("sucess", msg);
@@ -206,7 +206,19 @@ namespace ArtWebApp.Inventory
               //  btn_saveDO.Enabled = false;
             }
         }
+        protected void lnkbtn_mrn_Click(object sender, EventArgs e)
+        {
+            LinkButton txtcons = (LinkButton)sender;
+            GridViewRow currentRow = txtcons.ClosestContainer<GridViewRow>();
+            DBTransaction.InventoryTransaction.InventoryTransaction invtran = new DBTransaction.InventoryTransaction.InventoryTransaction();
+            int podetpk = int.Parse(((currentRow.FindControl("lblInventoryItem_PK") as Label).Text.ToString()));
+            DataTable dt = invtran.GetNonCompletedTransactionofaIIT_PK(podetpk);
 
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+            upd_subgrid.Update();
+            ModalPopupExtender1.Show();
+        }
         public void MessgeboxUpdate(String Messagetype, String Messg)
         {
             if (Messagetype == "sucess")

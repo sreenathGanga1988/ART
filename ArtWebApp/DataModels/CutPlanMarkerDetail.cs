@@ -19,10 +19,18 @@ namespace ArtWebApp.DataModels
         public string MarkerNo { get; set; }
         public Nullable<decimal> NoOfPc { get; set; }
         public Nullable<decimal> Qty { get; set; }
-        public string MarkerLength { get; set; }
+        public Nullable<decimal> MarkerLength { get; set; }
         public string LayLength { get; set; }
         public Nullable<decimal> NoOfPlies { get; set; }
         public Nullable<decimal> CutPerPlies { get; set; }
         public Nullable<decimal> Cutreq { get; set; }
+        public Nullable<decimal> Tolerancelength { get; set; }
+        public Nullable<decimal> TotalfabReq { get; set; }
+        public string MarkerDetAddedBy { get; set; }
+        public Nullable<System.DateTime> MarkerDetAddedDate { get; set; }
+        public string PatternAddedBy { get; set; }
+        public Nullable<System.DateTime> PatternAddedDate { get; set; }
+        public string PaternMarkerName { get; set; }
+        public Nullable<decimal> Efficiency { get; set; }
     }
 }

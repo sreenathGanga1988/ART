@@ -25,7 +25,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = dll_reg.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\WrongPoReport.rdlc";
         }
 
@@ -41,7 +41,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
-
+            this.ReportViewer1.LocalReport.DisplayName = drp_extrabom.SelectedItem.ToString();
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\ExtraReqQty.rdlc";
         }
     }

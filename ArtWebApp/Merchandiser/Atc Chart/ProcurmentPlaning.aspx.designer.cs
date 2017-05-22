@@ -85,6 +85,51 @@ namespace ArtWebApp.Merchandiser.Atc_Chart {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_remark;
+        
+        /// <summary>
+        /// btn_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_remark;
+        
+        /// <summary>
+        /// dtp_deliverydateall control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dtp_deliverydateall;
+        
+        /// <summary>
+        /// dtp_deliverydate_CalendarExtender0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender dtp_deliverydate_CalendarExtender0;
+        
+        /// <summary>
+        /// btn_remark0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_remark0;
+        
+        /// <summary>
         /// Upd_maingrid control.
         /// </summary>
         /// <remarks>

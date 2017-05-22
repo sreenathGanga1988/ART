@@ -130,6 +130,24 @@ namespace ArtWebApp.Reports.Production.CutOrderReport {
         protected global::System.Web.UI.WebControls.Button Button5;
         
         /// <summary>
+        /// Upd_costing0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upd_costing0;
+        
+        /// <summary>
+        /// drp_costingpk0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_costingpk0;
+        
+        /// <summary>
         /// ReportViewer1 control.
         /// </summary>
         /// <remarks>

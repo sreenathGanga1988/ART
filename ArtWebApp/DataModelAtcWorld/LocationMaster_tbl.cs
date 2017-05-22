@@ -32,5 +32,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> ArtLocation_PK { get; set; }
+        public Nullable<decimal> HRLocation_PK { get; set; }
     }
 }

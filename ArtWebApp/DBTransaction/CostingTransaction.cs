@@ -911,7 +911,7 @@ WHERE        (StyleCostingMaster.Costing_PK = @Costing_PK) ", con);
 
 
 
-                 SqlCommand cmd = new SqlCommand(@" SELECT        SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition + '-' + SkuRawMaterialMaster.Construction AS ItemDescription, UOMMaster.UomCode as UOM, StyleCostingDetails.Rate, StyleCostingDetails.Consumption, 
+                 SqlCommand cmd = new SqlCommand(@" SELECT        SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition + '-' + SkuRawMaterialMaster.Construction + '-' + isnull( SkuRawMaterialMaster.Width,'') + '-' +  isnull( SkuRawMaterialMaster.Weight,'') AS ItemDescription, UOMMaster.UomCode as UOM, StyleCostingDetails.Rate, StyleCostingDetails.Consumption, 
                          StyleCostingDetails.Priceperpc, StyleCostingDetails.PriceperDozen, ItemGroupMaster.ItemGroupName
 FROM            ItemGroupMaster INNER JOIN
                          Template_Master ON ItemGroupMaster.ItemGroupID = Template_Master.ItemGroup_PK INNER JOIN

@@ -96,31 +96,43 @@ namespace ArtWebApp.Merchandiser.PO
 
         public void InsertSpoDetails()
         {
-            BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
-            spdetdata.SPO_PK = int.Parse(Session["spo_Pk"].ToString());
-            spdetdata.Template_PK = int.Parse(drp_templateforComp.SelectedValue.ToString());
-            spdetdata.TemplateColor = drp_itemcolor.Text.ToString().Trim();
-            spdetdata.TemplateSize = drp_itemsize.Text.ToString().Trim();
-            spdetdata.TemplateWeight = drp_weight.Text.ToString().Trim();
-            spdetdata.TemplateWidth = drp_width.Text.ToString().Trim();
-            spdetdata.Composition = drp_composition.SelectedItem.Text.ToString().Trim();
-            spdetdata.Construct = drp_construction.SelectedItem.Text.ToString().Trim();
-            spdetdata.Unitprice = Decimal.Parse(txt_unitPrice.Text.ToString());
-            spdetdata.POQty = Decimal.Parse(txt_qty.Text.ToString());
-            spdetdata.Uom_PK = int.Parse(drp_UOM.SelectedValue.ToString());
 
-
-            try
+            if(Decimal.Parse ( lbl_balaqty.Text)>=Decimal.Parse(txt_qty.Text.ToString()))
             {
-                spdetdata.oodoPo_PK = int.Parse(drp_OODO.SelectedValue.ToString());
-                spdetdata.oodoPolineid = int.Parse(drp_oodoitem.SelectedValue.ToString());
+                BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
+                spdetdata.SPO_PK = int.Parse(Session["spo_Pk"].ToString());
+                spdetdata.Template_PK = int.Parse(drp_templateforComp.SelectedValue.ToString());
+                spdetdata.TemplateColor = drp_itemcolor.SelectedItem.Text.ToString().Trim();
+                spdetdata.TemplateSize = drp_itemsize.SelectedItem.Text.ToString().Trim();
+                spdetdata.TemplateWeight = drp_weight.SelectedItem.Text.ToString().Trim();
+                spdetdata.TemplateWidth = drp_width.SelectedItem.Text.ToString().Trim();
+                spdetdata.Composition = drp_composition.SelectedItem.Text.ToString().Trim();
+                spdetdata.Construct = drp_construction.SelectedItem.Text.ToString().Trim();
+                spdetdata.Unitprice = Decimal.Parse(txt_unitPrice.Text.ToString());
+                spdetdata.POQty = Decimal.Parse(txt_qty.Text.ToString());
+                spdetdata.Uom_PK = int.Parse(drp_UOM.SelectedValue.ToString());
+
+
+                try
+                {
+                    spdetdata.oodoPo_PK = int.Parse(drp_OODO.SelectedValue.ToString());
+                    spdetdata.oodoPolineid = int.Parse(drp_oodoitem.SelectedValue.ToString());
+                }
+                catch (Exception)
+                {
+
+
+                }
+                spdetdata.InsertSpoDetails(spdetdata);
             }
-            catch (Exception)
+            else
             {
 
+                String Msg = " Cannot Create SPO greater than IPO Balance";
 
+                ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + Msg + "');", true);
             }
-            spdetdata.InsertSpoDetails(spdetdata);
+            
         }
 
         protected void btn_addItems_Click(object sender, EventArgs e)
@@ -296,7 +308,7 @@ namespace ArtWebApp.Merchandiser.PO
                 {
                     drp_itemcolor.DataSource = color.ToList();
                     drp_itemcolor.DataValueField = "TemplateColor_PK";
-                    drp_itemcolor.DataTextField = "TemplateColor";
+                    drp_itemcolor.DataTextField = "TemplateColor1";
                     drp_itemcolor.DataBind();
 
                 }
@@ -326,14 +338,26 @@ namespace ArtWebApp.Merchandiser.PO
         protected void Button3_Click(object sender, EventArgs e)
         {
             Session["spo_pk"] = int.Parse(drp_spo.SelectedValue.ToString());
+            String msg = drp_spo.SelectedItem.Text + " Selected for Update";
+            Spodata.DataBind();
+
+            MessgeboxUpdate("sucess", msg);
             GridView1.DataBind();
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
+            drp_oodoitem.DataSource = null;
+            upd_odoitem.Update();
             oodoiTEMsOURCE.DataBind();
             drp_oodoitem.DataBind();
             upd_odoitem.Update();
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
+            lbl_balaqty.Text = spdetdata.GetBalanceofIR(int.Parse(drp_OODO.SelectedValue.ToString()), int.Parse(drp_oodoitem.SelectedValue.ToString()));
         }
     }
 }

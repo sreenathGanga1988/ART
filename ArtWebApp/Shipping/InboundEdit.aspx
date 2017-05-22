@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
         <tr>
-            <td>&nbsp;</td>
+            <td class="RedHeadding">Inbound edit</td>
         </tr>
         <tr>
             <td><div>
@@ -17,7 +17,7 @@
                     <tr>
                         <td class="NormalTD">EXP#:</td>
                         <td class="NormalTD">
-                            <ucc:DropDownListChosen ID="drp_doc" runat="server" DataTextField="ShipingDoc_PK" DataValueField="ShipDocNum" Width="200px" DataSourceID="Expdatasource" DisableSearchThreshold="10">
+                            <ucc:DropDownListChosen ID="drp_doc" runat="server" DataTextField="ShipDocNum" DataValueField="ShipingDoc_PK" Width="200px" DataSourceID="Expdatasource" DisableSearchThreshold="10">
                             </ucc:DropDownListChosen>
                             <asp:SqlDataSource ID="Expdatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT [ShipingDoc_PK], [ShipDocNum] FROM [ShippingDocumentMaster] ORDER BY [ShipDocNum] DESC"></asp:SqlDataSource>
                         </td>
@@ -33,7 +33,7 @@
                             </ig:WebDropDown>
                          </td>
                         <td class="SearchButtonTD">
-                            <asp:Button ID="Button1" runat="server" Text="Add" />
+                            <asp:Button ID="Button1" runat="server" Text="Add" OnClick="Button1_Click" />
                          </td>
                     </tr>
                 </table>

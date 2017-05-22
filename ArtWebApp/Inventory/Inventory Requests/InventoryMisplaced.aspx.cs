@@ -25,7 +25,7 @@ namespace ArtWebApp.Inventory.Inventory_Requests
             DataTable dt = dotran.GetStockDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(drp_fromWarehouse.SelectedValue.ToString ()));
             tbl_InverntoryDetails.DataSource = dt;
             tbl_InverntoryDetails.DataBind();
-            filltowarehouses();
+          //  filltowarehouses();
         }
 
 

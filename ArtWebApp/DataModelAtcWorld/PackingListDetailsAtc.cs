@@ -23,5 +23,7 @@ namespace ArtWebApp.DataModelAtcWorld
         public string SizeName { get; set; }
         public Nullable<decimal> PcperCtn { get; set; }
         public Nullable<decimal> TotalQty { get; set; }
+    
+        public virtual PackingListMasterAtcPro PackingListMasterAtcPro { get; set; }
     }
 }

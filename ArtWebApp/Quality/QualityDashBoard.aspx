@@ -193,39 +193,9 @@
 <RowStyle CssClass="rows"></RowStyle>
                             </asp:GridView>
                             
-                            <asp:SqlDataSource ID="PendingValidation" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') 
-                         + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' ') AS itemDescription, 
-                         SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum, count (FabricRollmaster.Roll_PK) AS PendingRolls
-FROM            SkuRawmaterialDetail INNER JOIN
-                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
-                         FabricRollmaster INNER JOIN
-                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
-                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
-                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
-                         AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId
-WHERE        (FabricRollmaster.IsSaved = 'N') AND (SupplierDocumentMaster.SupplierETA &gt; CONVERT(DATETIME, '2016-12-20 00:00:00', 102))
-GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') 
-                         + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' '), SupplierDocumentMaster.SupplierDocnum, 
-                         ProcurementMaster.PONum"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="PendingValidation" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' ') AS itemDescription, SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum, COUNT(FabricRollmaster.Roll_PK) AS PendingRolls FROM SkuRawmaterialDetail INNER JOIN SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN FabricRollmaster INNER JOIN SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId WHERE (FabricRollmaster.IsSaved = 'N') AND (SupplierDocumentMaster.SupplierETA &gt; CONVERT (DATETIME, '2016-12-20 00:00:00', 102)) GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' '), SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum"></asp:SqlDataSource>
                            
-                            <asp:SqlDataSource ID="PendingInspection" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') 
-                         + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' ') AS itemDescription, 
-                         SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum, count (FabricRollmaster.Roll_PK) AS PendingRolls
-FROM            SkuRawmaterialDetail INNER JOIN
-                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
-                         FabricRollmaster INNER JOIN
-                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
-                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
-                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
-                         AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId
-WHERE        (FabricRollmaster.IsSaved &lt;&gt; N'N') AND (FabricRollmaster.IsApproved &lt;&gt; N'Y') AND (SupplierDocumentMaster.SupplierETA &gt; CONVERT(DATETIME, '2016-12-20 00:00:00', 102))
-GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') 
-                         + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' '), SupplierDocumentMaster.SupplierDocnum, 
-                         ProcurementMaster.PONum"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="PendingInspection" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' ') AS itemDescription, SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum, COUNT(FabricRollmaster.Roll_PK) AS PendingRolls FROM SkuRawmaterialDetail INNER JOIN SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN FabricRollmaster INNER JOIN SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId WHERE (FabricRollmaster.IsSaved &lt;&gt; N'N') AND (FabricRollmaster.IsApproved &lt;&gt; N'A') AND (SupplierDocumentMaster.SupplierETA &gt; CONVERT (DATETIME, '2016-12-20 00:00:00', 102)) GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.AtracotrackingNum, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' '), SupplierDocumentMaster.SupplierDocnum, ProcurementMaster.PONum"></asp:SqlDataSource>
                         </td>
                         <td class="smallgridtable">
                             <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingInspection" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView2_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
@@ -245,10 +215,10 @@ GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.Atracotrack
                     </tr>
                     <tr>
                         <td class="RedHeadding">Pending GROUPING</td>
-                        <td>&nbsp;</td>
+                        <td class="RedHeadding">Cut Plans Pending Approval</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="smallgridtable">
                             <asp:GridView ID="GridView3" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingGrouping" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView2_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
                                 <Columns>
                                   <asp:BoundField DataField="Containernum" HeaderText="Ref" SortExpression="Containernum" />
@@ -281,7 +251,27 @@ GROUP BY SupplierDocumentMaster.Containernum, SupplierDocumentMaster.Atracotrack
                          + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, ' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, ' '), SupplierDocumentMaster.SupplierDocnum, 
                          ProcurementMaster.PONum"></asp:SqlDataSource>
                         </td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <asp:GridView ID="GridView4" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" datasourceid="PendingGrouping0" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView2_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
+                                <Columns>
+                                    <asp:BoundField DataField="CutPlanNUM" HeaderText="CutPlanNUM" SortExpression="CutPlanNUM" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                    <asp:BoundField DataField="ColorName" HeaderText="ColorName" SortExpression="ColorName" />
+                                    <asp:BoundField DataField="FabDescription" HeaderText="FabDescription" SortExpression="FabDescription" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                    <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                                    <asp:BoundField DataField="IsApproved" HeaderText="IsApproved" SortExpression="IsApproved" />
+                                </Columns>
+                                <HeaderStyle CssClass="header" />
+                                <PagerStyle CssClass="pager" />
+                                <RowStyle CssClass="rows" />
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="PendingGrouping0" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMaster.CutPlanNUM, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.FabDescription, LocationMaster.LocationName, CutPlanMaster.MarkerType, CutPlanMaster.IsApproved
+FROM            CutPlanMaster INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
+WHERE        (CutPlanMaster.IsApproved = N'N')"></asp:SqlDataSource>
+                        </td>
                     </tr>
                 </table>
             </td>

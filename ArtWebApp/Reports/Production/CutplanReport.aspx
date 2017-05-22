@@ -11,150 +11,150 @@
    <script type="text/javascript">
 
        //calculate the sum of qty on keypress
-       function sumofQty(objText) {
+       //function sumofQty(objText) {
        
-        //   alert(objText.value);
-           var cell = objText.parentNode;
-           var row = cell.parentNode;
+       // //   alert(objText.value);
+       //    var cell = objText.parentNode;
+       //    var row = cell.parentNode;
 
-           var sum = 0;
-           var textboxs = row.getElementsByClassName("txtCalQty");
+       //    var sum = 0;
+       //    var textboxs = row.getElementsByClassName("txtCalQty");
 
-           for (var i = 0; i < textboxs.length; i++)
-           {
-               sum += parseFloat(textboxs[i].value);
-           }
+       //    for (var i = 0; i < textboxs.length; i++)
+       //    {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
 
 
 
-           var textboxtotalqtys = row.getElementsByClassName("totalQtyRow");
+       //    var textboxtotalqtys = row.getElementsByClassName("totalQtyRow");
 
-           textboxtotalqtys[0].value = sum.toString();
+       //    textboxtotalqtys[0].value = sum.toString();
          
 
-       }
+       //}
 
-       // calculate the sum of ratio
-       function sumofRatio(objText) {
+       //// calculate the sum of ratio
+       //function sumofRatio(objText) {
               
-           //   alert(objText.value);
-           var cell = objText.parentNode;
+       //    //   alert(objText.value);
+       //    var cell = objText.parentNode;
            
-           var row = cell.parentNode;
+       //    var row = cell.parentNode;
 
           
 
-           var sum = 0;
-           var textboxs = row.getElementsByClassName("txtCalRatio");
+       //    var sum = 0;
+       //    var textboxs = row.getElementsByClassName("txtCalRatio");
 
-           for (var i = 0; i < textboxs.length; i++) {
-               sum += parseFloat(textboxs[i].value);
-           }
+       //    for (var i = 0; i < textboxs.length; i++) {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
 
 
 
-           var textboxtotalqtys = row.getElementsByClassName("totalRatioRow");
+       //    var textboxtotalqtys = row.getElementsByClassName("totalRatioRow");
 
-           textboxtotalqtys[0].value = sum.toString();
-           // textboxtotalqtys.inn = sum;
-           var grdrow = row.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-           var element = grdrow.getElementsByClassName("num");
+       //    textboxtotalqtys[0].value = sum.toString();
+       //    // textboxtotalqtys.inn = sum;
+       //    var grdrow = row.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+       //    var element = grdrow.getElementsByClassName("num");
             
-         var totalqty = parseInt(element[0].value.toString());
+       //  var totalqty = parseInt(element[0].value.toString());
 
 
-         SplitQty(element[0]);
-       }
+       //  SplitQty(element[0]);
+       //}
 
 
-       //split the  size qty when size change
-       function SplitQty(objText) {
+       ////split the  size qty when size change
+       //function SplitQty(objText) {
             
             
-           try {
+       //    try {
 
-               var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-
-
-               var sum = 0;
-               var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
+       //        var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 
 
-
-               var totalqty = parseInt(objText.value.toString());
-
-               var totalpc = parseInt(textboxtotalqtys[0].value.toString());
-
-               var z = totalqty % totalpc;
+       //        var sum = 0;
+       //        var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
 
 
-               if (z > 0) {
 
-               }
-               else {
+       //        var totalqty = parseInt(objText.value.toString());
 
-                   var textqtys = grdrow.getElementsByClassName("txtCalQty");
-                   var textratio = grdrow.getElementsByClassName("txtCalRatio");
-                   var qtysum = 0;
-                   var ratiosum = 0;
-                   for (var i = 0; i < textqtys.length; i++) {
-                       var z = (totalqty / totalpc) * parseInt(textratio[i].value.toString());
-                       textqtys[i].value = z.toString();
-                       qtysum += textqtys[i].value;
-                       ratiosum += textratio[i].value;
+       //        var totalpc = parseInt(textboxtotalqtys[0].value.toString());
+
+       //        var z = totalqty % totalpc;
+
+
+       //        if (z > 0) {
+
+       //        }
+       //        else {
+
+       //            var textqtys = grdrow.getElementsByClassName("txtCalQty");
+       //            var textratio = grdrow.getElementsByClassName("txtCalRatio");
+       //            var qtysum = 0;
+       //            var ratiosum = 0;
+       //            for (var i = 0; i < textqtys.length; i++) {
+       //                var z = (totalqty / totalpc) * parseInt(textratio[i].value.toString());
+       //                textqtys[i].value = z.toString();
+       //                qtysum += textqtys[i].value;
+       //                ratiosum += textratio[i].value;
                       
-                   }
-                   var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
+       //            }
+       //            var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
 
-                   textboxtotalqtys[0].value = qtysum.toString();
+       //            textboxtotalqtys[0].value = qtysum.toString();
 
-                   var textboxtotalrat = grdrow.getElementsByClassName("totalRatioRow");
+       //            var textboxtotalrat = grdrow.getElementsByClassName("totalRatioRow");
 
-                   textboxtotalrat[0].value = ratiosum.toString();
+       //            textboxtotalrat[0].value = ratiosum.toString();
 
 
 
-                   var qty = parseInt(objText.value.toString());
-                   var totalqty = parseInt(objText.value.toString());
+       //            var qty = parseInt(objText.value.toString());
+       //            var totalqty = parseInt(objText.value.toString());
 
-               }
-           }
-           catch (e) {
+       //        }
+       //    }
+       //    catch (e) {
 
-           }
+       //    }
         
-           calaculateall(objText)
-       }
+       //    calaculateall(objText)
+       //}
 
 
 
-       function calaculateall(objText)
-       {
-           var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-           var textqtys = grdrow.getElementsByClassName("txtCalQty");
-        //   debugger;
+       //function calaculateall(objText)
+       //{
+       //    var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+       //    var textqtys = grdrow.getElementsByClassName("txtCalQty");
+       // //   debugger;
 
 
-           var sum = 0;
-           var textboxs = grdrow.getElementsByClassName("txtCalRatio");
+       //    var sum = 0;
+       //    var textboxs = grdrow.getElementsByClassName("txtCalRatio");
 
-           for (var i = 0; i < textboxs.length; i++) {
-               sum += parseFloat(textboxs[i].value);
-           }
-           var textboxtotalratio = grdrow.getElementsByClassName("totalRatioRow");
-           textboxtotalratio[0].value = sum.toString();
+       //    for (var i = 0; i < textboxs.length; i++) {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
+       //    var textboxtotalratio = grdrow.getElementsByClassName("totalRatioRow");
+       //    textboxtotalratio[0].value = sum.toString();
 
 
-           var qtysum = 0;
-           var textboxsqty = grdrow.getElementsByClassName("txtCalQty");
+       //    var qtysum = 0;
+       //    var textboxsqty = grdrow.getElementsByClassName("txtCalQty");
 
-           for (var i = 0; i < textboxsqty.length; i++) {
-               qtysum += parseFloat(textboxsqty[i].value);
-           }
-           var textboxtotalqtys = grdrow.getElementsByClassName("totalQtyRow");
-           textboxtotalqtys[0].value = qtysum.toString();
+       //    for (var i = 0; i < textboxsqty.length; i++) {
+       //        qtysum += parseFloat(textboxsqty[i].value);
+       //    }
+       //    var textboxtotalqtys = grdrow.getElementsByClassName("totalQtyRow");
+       //    textboxtotalqtys[0].value = qtysum.toString();
 
-       }
+       //}
 
     
 
@@ -196,7 +196,12 @@
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
                         <td class="NormalTD">
-                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlan_PK], [CutPlanNUM] FROM [CutPlanMaster]"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlan_PK], [CutPlanNUM] FROM [CutPlanMaster] WHERE (([IsApproved] = @IsApproved) AND ([IsRatioAdded] = @IsRatioAdded))">
+                                <SelectParameters>
+                                    <asp:Parameter DefaultValue="N" Name="IsApproved" Type="String" />
+                                    <asp:Parameter DefaultValue="Y" Name="IsRatioAdded" Type="String" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
                         </td>
                         <td class="NormalTD">
                                &nbsp;</td>
@@ -213,158 +218,170 @@
                         <td class="NormalTD" colspan="7" >
 
                              <asp:UpdatePanel ID="Upd_cutplandetails" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                            <table  width="100%">
-                                              <tr>
-                                <td class="NormalTD" >Atc</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_atc" runat="server" Text="0"></asp:Label>
-                                </td>
-                                <td class="NormalTD" >ourstyle</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_ourstyle" runat="server" Text="0"></asp:Label>
-                                </td>
-                                <td class="NormalTD" >Location</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_ourstyle0" runat="server" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="NormalTD" >Cutable Width</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_with" runat="server" Text="0"></asp:Label>
-                                </td>
-                                <td class="NormalTD" >Shrinkage</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_shrink" runat="server" Text="0"></asp:Label>
-                                </td>
-                                <td class="NormalTD" >marker Type</td>
-                                <td class="NormalTD" >
-                                    <asp:Label ID="lbl_Markertype" runat="server" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="NormalTD">bom Consumption</td>
-                               <td class="NormalTD"  >
-                                    <asp:Label ID="lbl_bomconsumption" runat="server" CssClass="lbl_newConsumption" Text="0"></asp:Label>
-                                </td>
-                               <td class="NormalTD"  >
-                                   
-                                   fabric</td>
-                               <td class="NormalTD"  >
-                                   
-                                   <asp:Label ID="lbl_fabric" runat="server" Font-Size="X-Small" Text="0"></asp:Label>
-                                </td>
-                               <td class="NormalTD"  >&nbsp;</td>
-                               <td class="NormalTD"  >&nbsp;</td>
-                            </tr>
-                                            </table>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                            <asp:UpdatePanel ID="upd_cutplanmarkergrid" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate>
-
-                                                <asp:SqlDataSource ID="cutplanmarkerdetails" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMarkerDetails_PK, CutPlan_PK, MarkerNo, NoOfPc, Qty, MarkerLength, LayLength, NoOfPlies, CutPerPlies, Cutreq
-FROM            CutPlanMarkerDetails
-WHERE        (CutPlan_PK = @CutPlan_PK) ">
-                                                    <SelectParameters>
-                                                        <asp:ControlParameter ControlID="drp_cutplan" DefaultValue="" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
-                                                    </SelectParameters>
-                                                </asp:SqlDataSource>
-                                                <br />
-                                                <asp:GridView ID="tbl_cutplanmarkerdata" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="CutPlanMarkerDetails_PK" DataSourceID="cutplanmarkerdetails" OnDataBound="tbl_cutorderdata_DataBound" Enabled="False">
-                                                    <Columns>
-
-                                                        <asp:TemplateField HeaderText="PK" InsertVisible="False" SortExpression="CutPlanMarkerDetails_PK">
-                                                          
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lbl_CutOrderDet_PK" runat="server" Text='<%# Bind("CutPlanMarkerDetails_PK") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="MarkerNo" SortExpression="MarkerNo">
-                                                         
-                                                            <ItemTemplate>                                                             
-                                                                 
-                                                                
-                                                                 
-                                                                  
-                                                               
-                                                                <table class="tittlebar" style=" width: inherit; border-style: solid; background-color: #FFFFFF">
-                                                                    <tr>
-                                                                        <td>Marker Num</td>
-                                                                        <td><asp:Label ID="Label1" runat="server" Text='<%# Bind("MarkerNo") %>'></asp:Label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>NoOfPc</td>
-                                                                        <td><asp:Label ID="Label2" runat="server" Text='<%# Bind("NoOfPc") %>'></asp:Label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Qty</td>
-                                                                        <td><asp:Label ID="lbl_totalQty" CssClass="num" runat="server" onkeypress="return isNumberKey(event,this)"  onkeyup ="SplitQty(this)"   Text ='<%# Bind("Qty") %>'> </asp:Label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>MarkerLength</td>
-                                                                        <td><asp:Label ID="Label4" runat="server" Text='<%# Bind("MarkerLength") %>'></asp:Label>;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>LayLength</td>
-                                                                        <td><asp:Label ID="Label5" runat="server" Text='<%# Bind("LayLength") %>'></asp:Label></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </ItemTemplate>
-                                                            <ControlStyle Width="200px" />
-                                                            <FooterStyle Width="200px" />
-                                                            <HeaderStyle Width="200px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="MarkerDetails" SortExpression="MarkerDetails">
-                                                          
-                                                            <ItemTemplate>
-
-
-
-                                                               
-                            <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
-                                            <ContentTemplate>
-                            
-                            <asp:Panel ID="panel1" runat="server" ViewStateMode="Enabled">
-                                <asp:Table ID="Table1" runat="server" ViewStateMode="Enabled" Width="400px">
-                                </asp:Table>
-                            </asp:Panel>
-                                                
-                                                </ContentTemplate>
-                                        </asp:UpdatePanel>
-
-
-
-                                                               
-                                                            </ItemTemplate>
-                                                                <ControlStyle Width="300px" />
-                                                            <FooterStyle Width="300px" />
-                                                            <HeaderStyle Width="300px" />
-                                                        </asp:TemplateField>
-                                                        
-                                                      
-                                                        <asp:ButtonField CommandName="Add" Text="Add" ButtonType="Button" />
-                                                     
-                                            
-                                                    </Columns>
-                                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
-                                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
-                                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
-                                    <RowStyle BackColor="White" ForeColor="#330099" />
-                                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
-                                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
-                                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
-                                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
-                                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
-                                </asp:GridView>
-
-                                                      </ContentTemplate>
-                                        </asp:UpdatePanel>
-                           
+                                 <ContentTemplate>
+                                     <table width="100%">
+                                         <tr>
+                                             <td class="NormalTD">Atc</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_atc" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">ourstyle</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_ourstyle" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">Location</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_loc" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td class="NormalTD">Cutable Width</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_with" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">Shrinkage</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_shrink" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">marker Type</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_Markertype" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td class="NormalTD">bom Consumption</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_bomconsumption" runat="server" CssClass="lbl_newConsumption" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">fabric</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_fabric" runat="server" Font-Size="X-Small" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                         </tr>
+                                         <tr>
+                                             <td class="NormalTD">Fabrication</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_fabrication" runat="server" Text="0"></asp:Label>
+                                             </td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
+                                         </tr>
+                                     </table>
+                                 </ContentTemplate>
+                             </asp:UpdatePanel>
                         </td>
                         <td class="NormalTD" >
-                            &nbsp;</td>
+                             <asp:UpdatePanel ID="upd_markertype" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                            <asp:GridView ID="tbl_markertype" runat="server" AutoGenerateColumns="False">
+                                <Columns>
+                                    <asp:BoundField DataField="CutPlanmarkerType" HeaderText="Marker Direction" />
+                                </Columns>
+                            </asp:GridView>
+                                    </ContentTemplate>
+                                 </asp:UpdatePanel>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td class="NormalTD" colspan="8">
+                            
+                                <asp:UpdatePanel ID="upd_mastertable" runat="server">
+                                       <ContentTemplate>
+                                           <asp:Panel ID="masterpanel" runat="server" ViewStateMode="Enabled">
+                                               <asp:Table ID="Mastertable" runat="server" ViewStateMode="Enabled" Width="400px">
+                                               </asp:Table>
+                                           </asp:Panel>
+                                       </ContentTemplate>
+                                   </asp:UpdatePanel></td>
+                    </tr>
+                    <tr>
+                        <td class="RedHeadding" colspan="8">Marker Details</td>
+                    </tr>
+                    <tr>
+                        <td class="NormalTD" colspan="7">
+                            <asp:UpdatePanel ID="upd_cutplanmarkergrid" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <br />
+                                    <asp:GridView ID="tbl_cutplanmarkerdata" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="CutPlanMarkerDetails_PK" Enabled="False" OnDataBound="tbl_cutorderdata_DataBound" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="PK" InsertVisible="False" SortExpression="CutPlanMarkerDetails_PK">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_CutOrderDet_PK" runat="server" Text='<%# Bind("CutPlanMarkerDetails_PK") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="MarkerNo" SortExpression="MarkerNo">
+                                                <ItemTemplate>
+                                                    <table class="tittlebar" style=" width: inherit; border-style: solid; background-color: #FFFFFF">
+                                                        <tr>
+                                                            <td>Marker Num</td>
+                                                            <td>
+                                                                <asp:Label ID="Label1" runat="server" Text='<%# Bind("MarkerNo") %>'></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                          <tr>
+                                                            <td>NoOfPlies</td>
+                                                            <td>
+                                                                <asp:Label ID="Label2" runat="server" Text='<%# Bind("NoOfPlies") %>'></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                          <tr>
+                                                            <td>Max Plies</td>
+                                                            <td>
+                                                                <asp:Label ID="Label3" runat="server" Text='<%# Bind("CutPerPlies") %>'></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                          <tr>
+                                                            <td> No of Cut req</td>
+                                                            <td>
+                                                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("Cutreq") %>'></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> No of Cut req</td>
+                                                            <td>
+                                                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("Cutreq") %>'></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </ItemTemplate>
+                                                <ControlStyle Width="200px" />
+                                                <FooterStyle Width="200px" />
+                                                <HeaderStyle Width="200px" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="MarkerDetails" SortExpression="MarkerDetails">
+                                                <ItemTemplate>
+                                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                                        <ContentTemplate>
+                                                            <asp:Panel ID="panel1" runat="server" ViewStateMode="Enabled">
+                                                                <asp:Table ID="Table1" runat="server" ViewStateMode="Enabled" Width="400px">
+                                                                </asp:Table>
+                                                            </asp:Panel>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </ItemTemplate>
+                                                <ControlStyle Width="300px" />
+                                                <FooterStyle Width="300px" />
+                                                <HeaderStyle Width="300px" />
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                    </asp:GridView>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
                     </tr>
                 </table>
                                        </ContentTemplate>
@@ -373,7 +390,7 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
             </td>
         </tr>
         <tr>
-            <td>ASQ Details</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -481,8 +498,10 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="NormalTD"></td>
-                                    <td class="NormalTD"></td>
+                                    <td class="NormalTD">Ref paattern if any </td>
+                                    <td class="NormalTD">
+                                        <asp:TextBox ID="txt_refpattern" runat="server" Height="144px" Width="198px"></asp:TextBox>
+                                    </td>
                                     <td class="NormalTD">
                                         &nbsp;</td>
                                     <td class="NormalTD">&nbsp;</td>
@@ -501,7 +520,8 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
                                     <asp:UpdatePanel ID="upd_Messaediv1" runat="server">
                                         <ContentTemplate>
                                             <div id="Messaediv1" runat="server">
-                                                <asp:Label ID="lbl_msg0" runat="server" Text="*"></asp:Label>
+                                                
+                                                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Approve Cut Plan " />
                                             </div>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -525,6 +545,17 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
                </div></td>
         </tr>
     </table>
-    
+    <asp:SqlDataSource ID="cutplanmarkerdetails" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMarkerDetails_PK, CutPlan_PK, MarkerNo, NoOfPc, Qty, MarkerLength, LayLength, NoOfPlies, CutPerPlies, Cutreq
+FROM            CutPlanMarkerDetails
+WHERE        (CutPlan_PK = @CutPlan_PK) ">
+                                        <SelectParameters>
+                                            <asp:ControlParameter ControlID="drp_cutplan" DefaultValue="" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
+                                        </SelectParameters>
+                                    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerType] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="drp_cutplan" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
+        </SelectParameters>
+    </asp:SqlDataSource>
 </asp:Content>
 

@@ -54,12 +54,15 @@ namespace ArtWebApp.Merchandiser
             pomstrdata.AtcId = int.Parse(Request.QueryString["atcid"].ToString());
             pomstrdata.Atcnum = txt_atcnum.Text;
             pomstrdata.BuyerPO = txt_buyerpo.Text.Trim();
-            pomstrdata.DeliveryDate = dtp_deliverydate.Date;
+            pomstrdata.DeliveryDate = dtp_rsd.Date;
+            pomstrdata.HandoverDate = dtp_hd.Date;
+            pomstrdata.firstDeliverydate = dtp_deliverydate.Date;
             pomstrdata.Inhousedate = dtp_inhousedate.Date;
             pomstrdata.PackingInstruction = txt_packdetail.Text.Trim();
             pomstrdata.POGroup = drp_pogroup.SelectedItem.Text;
             pomstrdata.POTag = drp_taggroup.SelectedItem.Text;
             pomstrdata.seasonName = drp_season.SelectedItem.Text;
+            pomstrdata.location_PK = int.Parse(drp_loc.SelectedValue.ToString());
             try
             {
                 pomstrdata.ChannelID = int.Parse(drp_channel.SelectedItem.Value.ToString());
@@ -83,7 +86,7 @@ namespace ArtWebApp.Merchandiser
 
 
             String ponum = pomstrdata.insertpopack(pomstrdata);
-             String Msg = "POPack # : " + ponum + " is generated Successfully";
+             String Msg = "ASQ # : " + ponum + " is generated Successfully";
              lbl_errordisplayer.Text = Msg;
              MessageBoxShow(Msg);
              clearcontrol();
@@ -128,7 +131,12 @@ namespace ArtWebApp.Merchandiser
          {
              txt_buyerpo.Text = DropDownListChosen1.Text;
          }
-             
-         }
+
+        protected void dtp_deliverydate_ValueChanged(object sender, Infragistics.Web.UI.EditorControls.TextEditorValueChangedEventArgs e)
+        {
+            dtp_rsd.Value = dtp_deliverydate.Value;
+            dtp_hd.Value = dtp_deliverydate.Value;
+        }
+    }
     
 }

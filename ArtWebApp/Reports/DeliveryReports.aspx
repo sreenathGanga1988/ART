@@ -75,7 +75,7 @@
 
                         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="DO Inspection Form" ToolTip="Show Physical Inspection Report" Font-Size="Smaller" />
                     </td>
-                    <td class="NormalTD"></td>
+                    <td class="NormalTD">   <asp:Button ID="BTN_DOROLL" runat="server" Text="Show DO with Rolls" ToolTip="Show Rolls Included in DO" Font-Size="Smaller" OnClick="BTN_DOROLL_Click" /></td>
                     <td class="NormalTD">
 
                         

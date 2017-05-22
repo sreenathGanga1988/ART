@@ -90,19 +90,48 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         {
 
 
-            if (checkdatagridValue(tbl_Podetails, "lbl_bal", "txt_qty"))
+
+            if (ArtWebApp.Controls.Gridviewvalidation.countofRowselected(tbl_Podetails, "chk_select") > 0)
             {
-                InsertPodetails();
-                tbl_Podetails.DataSource = null;
-                tbl_Podetails.DataBind();
-                upd_grid.Update();
-                lbl_errordisplayer.Text = "Details Added";
+                if (checkdatagridValue(tbl_Podetails, "lbl_bal", "txt_qty"))
+                {
+                    InsertPodetails();
+                    tbl_Podetails.DataSource = null;
+                    tbl_Podetails.DataBind();
+                    upd_grid.Update();
+                   lbl_errordisplayer.Text = "Details Added";
+                }
+                else
+                {
+                    string msg = "Entered CM is greater than Approved CM Please Revise the Costing";
+                    //     lbl_errordisplayer.Text = msg;
+                }
             }
             else
             {
-                string msg = "Entered CM is greater than Approved CM Please Revise the Costing";
-                lbl_errordisplayer.Text = msg;
+                string Msg = "alert('Please select the Items to be added in this ADN ')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", Msg, true);
             }
+
+
+
+
+
+
+
+            //if (checkdatagridValue(tbl_Podetails, "lbl_bal", "txt_qty"))
+            //{
+            //    InsertPodetails();
+            //    tbl_Podetails.DataSource = null;
+            //    tbl_Podetails.DataBind();
+            //    upd_grid.Update();
+            //    lbl_errordisplayer.Text = "Details Added";
+            //}
+            //else
+            //{
+            //    string msg = "Entered Qty Greater than balance Qty .Please recheck";
+            //    lbl_errordisplayer.Text = msg;
+            //}
 
 
         }
@@ -224,7 +253,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                 {
 
 
-                    int podet_pk = int.Parse(((di.FindControl("lbl_podet_pk") as Label).Text.ToString()));
+                    int podet_pk = int.Parse(((di.FindControl("lbl_SPODetails_PK") as Label).Text.ToString()));
                     decimal recieptqty = decimal.Parse((di.FindControl("txt_qty") as TextBox).Text.ToString());
                     decimal txt_newExcessqty = decimal.Parse((di.FindControl("txt_newExcessqty") as TextBox).Text.ToString());
                     String invnum = (di.FindControl("txt_do") as TextBox).Text;

@@ -114,6 +114,25 @@
         </tr>
       
         <tr>
+            <td >Cut Plan#</td>
+        <td class="NormalTD">
+                <asp:UpdatePanel ID="Upd_costing0" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <ucc:DropDownListChosen ID="drp_costingpk0" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                        </ucc:DropDownListChosen>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+        <td class="NormalTD">
+                &nbsp;</td>
+            <td>&nbsp;</td>
+            <td >&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+      
+        <tr>
             <td  class="ReportViewSection" colspan="8" >
                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%">
                 </rsweb:ReportViewer>

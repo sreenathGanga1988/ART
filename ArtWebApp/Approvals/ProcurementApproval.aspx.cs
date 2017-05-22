@@ -11,12 +11,18 @@ namespace ArtWebApp.Approvals
 {
     public partial class ProcurementApproval : System.Web.UI.Page
     {
+        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi" , "sree" });
+
+        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "vineeth" });
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             if (!IsPostBack)
             {
+                string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" || HttpContext.Current.User.Identity.Name == "vinod")
+                if (Approverlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase) || forwaderlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase))
                 {
                     String navtype = Request.QueryString["navtype"];
 
@@ -45,9 +51,12 @@ namespace ArtWebApp.Approvals
                     {
                         MultiView1.ActiveViewIndex = 5;
                     }
+                    else if (navtype == "Missplaced")
+                    {
+                        MultiView1.ActiveViewIndex = 6;
+                    }
 
-
-                    if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" || HttpContext.Current.User.Identity.Name == "vinod")
+                    if (forwaderlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase))
                     {
                         btn_approveAll.Visible = false;
                         btn_spoapproval.Visible = false;
@@ -55,23 +64,40 @@ namespace ArtWebApp.Approvals
                         btn_wrongpo.Visible = false;
                         btn__approveextrabom.Visible = false;
                         btn_ro.Visible = false;
-                        setgridview();
+                        if (navtype == "PO")
+                        {
+                            setgridviewPO();
+                        }
+                        else if (navtype == "SPOApproval")
+                        {
+                            setgridviewSPO();
+                        }
+
                     }
                 }
                 else
                 {
-                    //string message = "You are  not Authorised for this action .You will be redirected to the Home Page.";
-                    //string url = "./Default2.aspx";
-                    //string script = "window.onload = function(){ alert('";
-                    //script += message;
-                    //script += "');";
-                    //script += "window.location = '";
-                    //script += url;
-                    //script += "'; }";
-                    //ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
-
-                    Response.Redirect("../Authorisation.aspx");
+                    Response.Redirect("../Authorisation.aspx?navtype=Approval");
                 }
+
+                //    if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" || HttpContext.Current.User.Identity.Name == "vineeth" || HttpContext.Current.User.Identity.Name == "siraj")
+                //{
+                    
+                //}
+                //else
+                //{
+                //    //string message = "You are  not Authorised for this action .You will be redirected to the Home Page.";
+                //    //string url = "./Default2.aspx";
+                //    //string script = "window.onload = function(){ alert('";
+                //    //script += message;
+                //    //script += "');";
+                //    //script += "window.location = '";
+                //    //script += url;
+                //    //script += "'; }";
+                //    //ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
+
+                    
+                //}
             }
         }
 
@@ -137,10 +163,10 @@ namespace ArtWebApp.Approvals
 
             }
 
-            setgridview();
+            setgridviewPO();
         }
 
-        public void setgridview()
+        public void setgridviewPO()
         {
             if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
             {
@@ -161,6 +187,26 @@ HAVING        (ProcurementMaster.IsApproved = N'N') AND (ProcurementMaster.IsDel
 
         }
 
+
+        public void setgridviewSPO()
+        {
+            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" ||  HttpContext.Current.User.Identity.Name == "Seenu")
+            {
+
+                SqlDataSource2.SelectCommand = @"SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, StockPOMaster.DeliveryDate, StockPOMaster.AddedBy, StockPOMaster.AddedDate, 
+                         SUM(StockPODetails.Unitprice * StockPODetails.POQty) AS POvalue, CurrencyMaster.CurrencyCode, UserMaster.Department_PK
+FROM            StockPOMaster INNER JOIN
+                         StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
+                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
+                         CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
+                         UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName
+GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, StockPOMaster.DeliveryDate, StockPOMaster.AddedBy, StockPOMaster.AddedDate, CurrencyMaster.CurrencyCode, 
+                         StockPOMaster.IsApproved, UserMaster.Department_PK
+HAVING        (StockPOMaster.IsApproved = N'N') AND (UserMaster.Department_PK = "+int.Parse(Session["Department_PK"].ToString()) +")";
+            }
+            tbl_generalpo.DataBind();
+
+        }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
@@ -546,8 +592,26 @@ HAVING        (ProcurementMaster.IsApproved = N'N') AND (ProcurementMaster.IsDel
 
 
 
+
         #endregion
 
-       
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            BLL.InventoryBLL.InventoryMissingRequestData dodata = new BLL.InventoryBLL.InventoryMissingRequestData();
+            for (int i = 0; i < tbl_misPlaced.Rows.Count; i++)
+            {
+
+
+                String chk_isreq = ((tbl_misPlaced.Rows[i].FindControl("chk_select0") as CheckBox).Checked == true ? "Y" : "N");
+                if (chk_isreq == "Y")
+                {
+                    int loanpk = int.Parse(tbl_misPlaced.Rows[i].Cells[1].Text);
+                    dodata.GetMissingInventoryApproved(loanpk);
+                }
+
+            }
+            InventoryMisPlaced.DataBind();
+            tbl_misPlaced.DataBind();
+        }
     }
 }

@@ -104,6 +104,62 @@ WHERE        (DeliveryOrderMaster.DO_PK = @param1)", con);
             return dt;
         }
 
+        public DataTable GetDORollData(int dopk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.AWidth, FabricRollmaster.AYard, FabricRollmaster.MarkerType, 
+                         FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, DORollDetails.DO_PK
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (DORollDetails.DO_PK = @Param1)
+", con);
+                cmd.Parameters.AddWithValue("@Param1", dopk);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+        public DataTable GetDORollDataofSelectedRoll(int dopk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+
+                SqlCommand cmd = new SqlCommand("GetRollDetail_sp", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Do_Pk", dopk);
+
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+            }
+            return dt;
+        }
+
+
 
 
         /// <summary>
@@ -205,23 +261,22 @@ WHERE     (DeliveryOrderStockMaster.SDO_PK = @Param1)",con);
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT     POPackDetails.POPackId, SUM(POPackDetails.PoQty) AS PoQty, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, 
-                      AtcMaster.AtcNum, GarmentCategory.CategoryName, JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, 
-                      JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO,
-  Round(SUM(POPackDetails.PoQty) * (JobContractDetail.CMvalue / 12),2) AS POVAL
-FROM         POPackDetails INNER JOIN
-                      PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
-                      AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-                      AtcMaster ON PoPackMaster.AtcId = AtcMaster.AtcId AND AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
-                      JobContractMaster ON AtcMaster.AtcId = JobContractMaster.AtcID INNER JOIN
-                      JobContractDetail ON PoPackMaster.PoPackId = JobContractDetail.PoPackID AND AtcDetails.OurStyleID = JobContractDetail.OurStyleID AND 
-                      JobContractMaster.JobContract_pk = JobContractDetail.JobContract_pk INNER JOIN
-                      LocationMaster ON JobContractMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
-                      GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN
-                      CountryMaster ON LocationMaster.CountryID = CountryMaster.CountryID
-GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, 
-                      GarmentCategory.CategoryName, JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractDetail.CMvalue, 
-                      AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO,JobContractMaster.JobContract_pk
+                SqlCommand cmd = new SqlCommand(@"SELECT        POPackDetails.POPackId, SUM(POPackDetails.PoQty) AS PoQty, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, 
+                         JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, 
+                         PoPackMaster.BuyerPO, ROUND(SUM(POPackDetails.PoQty) * (JobContractDetail.CMvalue / 12), 2) AS POVAL, isnull( JobContractMaster.Remark,'') as Remark
+FROM            POPackDetails INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         AtcMaster ON PoPackMaster.AtcId = AtcMaster.AtcId AND AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
+                         JobContractMaster ON AtcMaster.AtcId = JobContractMaster.AtcID INNER JOIN
+                         JobContractDetail ON PoPackMaster.PoPackId = JobContractDetail.PoPackID AND AtcDetails.OurStyleID = JobContractDetail.OurStyleID AND 
+                         JobContractMaster.JobContract_pk = JobContractDetail.JobContract_pk INNER JOIN
+                         LocationMaster ON JobContractMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
+                         GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN
+                         CountryMaster ON LocationMaster.CountryID = CountryMaster.CountryID
+GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, JobContractMaster.JOBContractNUM, 
+                         JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, 
+                         JobContractMaster.JobContract_pk, JobContractMaster.Remark
 HAVING      (JobContractMaster.JobContract_pk =@Param1 )", con);
                 cmd.Parameters.AddWithValue("@Param1", JC_PK);
 
@@ -518,9 +573,9 @@ WHERE        (InvoiceMaster.Invoice_PK =@Param1)
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
-                string Query1 = @"SELECT        ShipmentHandOverMaster.ShipmentHandOverCode, LocationMaster.LocationName, ShipmentHandOverDetails.ShipmentHandOverDate, JobContractMaster.JobContract_pk, PoPackMaster.PoPacknum +' /'+PoPackMaster.BuyerPO as PoPacknum, 
-                         AtcMaster.AtcNum, AtcDetails.OurStyle, ShipmentHandOverDetails.ShippedQty, ShipmentHandOverDetails.AddedBy, ShipmentHandOverDetails.AddedDate, ShipmentHandOverDetails.ShipmentHandOver_PK, 
-                         JobContractMaster.JOBContractNUM, PoPackMaster.BuyerPO, PoPackMaster.AtcId
+                string Query1 = @"SELECT        ShipmentHandOverMaster.ShipmentHandOverCode, LocationMaster.LocationName, ShipmentHandOverDetails.ShipmentHandOverDate, JobContractMaster.JobContract_pk, 
+                         PoPackMaster.PoPacknum + ' /' + PoPackMaster.BuyerPO AS PoPacknum, AtcMaster.AtcNum, AtcDetails.OurStyle, ShipmentHandOverDetails.ShippedQty, ShipmentHandOverDetails.AddedBy, 
+                         ShipmentHandOverDetails.AddedDate, ShipmentHandOverDetails.ShipmentHandOver_PK, JobContractMaster.JOBContractNUM, PoPackMaster.BuyerPO, PoPackMaster.AtcId
 FROM            AtcMaster INNER JOIN
                          AtcDetails ON AtcMaster.AtcId = AtcDetails.AtcId INNER JOIN
                          JobContractDetail INNER JOIN
@@ -529,7 +584,7 @@ FROM            AtcMaster INNER JOIN
                          LocationMaster ON ShipmentHandOverMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
                          ShipmentHandOverDetails ON ShipmentHandOverMaster.ShipmentHandMaster_PK = ShipmentHandOverDetails.ShipmentHandMaster_PK ON 
                          JobContractDetail.JobContractDetail_pk = ShipmentHandOverDetails.JobContractDetail_pk INNER JOIN
-                         PoPackMaster ON JobContractDetail.PoPackID = PoPackMaster.PoPackId ON AtcDetails.AtcId = PoPackMaster.AtcId
+                         PoPackMaster ON JobContractDetail.PoPackID = PoPackMaster.PoPackId ON AtcDetails.OurStyleID = JobContractDetail.OurStyleID
 WHERE        (ShipmentHandOverMaster.ShipmentHandMaster_PK = @Param1)
 
 
@@ -547,6 +602,49 @@ WHERE        (ShipmentHandOverMaster.ShipmentHandMaster_PK = @Param1)
             }
             return dt;
         }
+
+
+
+        /// <summary>
+        /// gets the production report of a atc 
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public DataTable GetShipmentHandoverofAtc(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                string Query1 = @"SELECT        Distinct ShipmentHandOverMaster.ShipmentHandOverCode, ShipmentHandOverMaster.ShipmentHandMaster_PK
+FROM            ShipmentHandOverMaster INNER JOIN
+                         ShipmentHandOverDetails ON ShipmentHandOverMaster.ShipmentHandMaster_PK = ShipmentHandOverDetails.ShipmentHandMaster_PK INNER JOIN
+                         JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk INNER JOIN
+                         PoPackMaster ON JobContractDetail.PoPackID = PoPackMaster.PoPackId
+WHERE        (PoPackMaster.AtcId = @Param1)";
+
+
+                cmd.CommandText = Query1;
+                cmd.Parameters.AddWithValue("@Param1", atcid);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
+
+
 
 
 
@@ -784,11 +882,11 @@ WHERE        (PoPackMaster.AtcId = @Param1)
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 string Query1 = @"SELECT        ProcurementDetails.PODet_PK, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
-                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description,
-                          SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, 
-                         ProcurementDetails.POQty, ProcurementMaster.PONum, ProcurementMaster.PO_Pk, DocMaster.DocNum, DocMaster.ContainerNum, DocMaster.BOENum, 
-                         DocMaster.Remark, DocMaster.InhouseDate, DocMaster.ETADate, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, DocDetails.AddedBy, 
-                         DocDetails.AddedDate, DocMaster.AddedBy AS DocAddedBy, DocMaster.AddedDate AS DocAddedDate, SupplierMaster.SupplierName, AtcMaster.AtcNum
+                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, ProcurementMaster.PONum, ProcurementMaster.PO_Pk, 
+                         DocMaster.DocNum, DocMaster.ContainerNum, DocMaster.BOENum, DocMaster.Remark, DocMaster.InhouseDate, DocMaster.ETADate, DocDetails.Qty, DocDetails.Eta, DocDetails.Donumber, 
+                         DocDetails.AddedBy, DocDetails.AddedDate, DocMaster.AddedBy AS DocAddedBy, DocMaster.AddedDate AS DocAddedDate, SupplierMaster.SupplierName, AtcMaster.AtcNum, DocDetails.ExtraQty, 
+                         DocMaster.ADNType
 FROM            ProcurementDetails INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN

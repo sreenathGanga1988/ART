@@ -453,6 +453,12 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 enty.SaveChanges();
 
 
+                var supliername = enty.StockPOMasters.Where(u => u.SPO_Pk == detdata.SPO_PK).Select(u => u.SupplierMaster.SupplierName).FirstOrDefault();
+
+                var OdooLocation = enty.ODOOGPOMasters.Where(u => u.POLineID == detdata.oodoPolineid).Select(u => u.OdooLocation).FirstOrDefault();
+
+                
+
                 StocPOForODOO spoforpo = new StocPOForODOO();
                 spoforpo.SPoDet_PK = spodetal.SPODetails_PK;
                 spoforpo.Spo_PK = spodetal.SPO_PK;
@@ -462,6 +468,10 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 spoforpo.CuRate = spodetal.CUrate;
                 spoforpo.POQty = spodetal.POQty;
                 spoforpo.PoDate = DateTime.Now.Date;
+                spoforpo.NewPOId = 0;
+                spoforpo.NewPOLineId = 0;
+                spoforpo.SupplierName = supliername.ToString();
+                spoforpo.OdooLocation = OdooLocation.ToString();
                 enty.StocPOForODOOs.Add(spoforpo);
 
                 //try
@@ -498,6 +508,49 @@ namespace ArtWebApp.BLL.ProcurementBLL
 
 
 
+        public string GetBalanceofIR(int poid,int polineid)
+        {
+            float balance = 0;
+
+            float irqtytemp = 0;
+            float poqtytemp = 0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+
+
+                try
+                {
+                    var Irqty = enty.ODOOGPOMasters.Where(u => u.POId == poid && u.POLineID == polineid).Select(u => u.Qty ?? 0).Sum();
+                    irqtytemp = float.Parse(Irqty.ToString());
+                }
+                catch (Exception)
+                {
+
+                    irqtytemp = 0;
+                }
+                try
+                {
+                    var POqty = enty.StocPOForODOOs.Where(u => u.POId == poid && u.POLineID == polineid).Select(u => u.POQty ?? 0).Sum();
+                    poqtytemp = float.Parse(POqty.ToString());
+                }
+                catch (Exception)
+                {
+
+                    poqtytemp = 0;
+                }
+
+
+                balance = (irqtytemp - poqtytemp);
+            }
+
+
+            return balance.ToString();
+
+        }
+
+
         public String DeleteSpoDetailsPK(int spoDetpk)
         {
             String msg = "";
@@ -507,6 +560,10 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 if(isSMRMade(spoDetpk))
                 {
                     msg = "Cannot Delete Details Since SMRN Made";
+                }
+                else if(isSPODataPulled(spoDetpk))
+                {
+                    msg = "Cannot Pull Data as Data Already updated in Odoo";
                 }
                 else
                 {
@@ -547,6 +604,22 @@ namespace ArtWebApp.BLL.ProcurementBLL
         }
 
 
+        public Boolean isSPODataPulled(int spoDetpk)
+        {
+            Boolean ispulled = true;
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                if (!entty.StocPOForODOOs.Any(f => f.SPoDet_PK == spoDetpk  && f.NewPOLineId !=0))
+                {
+                    ispulled = false;
+                }
+             
+            }
+            return ispulled;
+        }
+
+
+
         public void Deletespodetail(int spoDetpk)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
@@ -562,6 +635,19 @@ namespace ArtWebApp.BLL.ProcurementBLL
                     enty.StockPODetails.Remove(element);
                    
                 }
+
+                var q1 = from ponmbrs in enty.StocPOForODOOs
+                        where ponmbrs.SPoDet_PK == spoDetpk
+                        select ponmbrs;
+
+
+                foreach (var element in q1)
+                {
+                    enty.StocPOForODOOs.Remove(element);
+
+                }
+
+
                 enty.SaveChanges();
             }
         }

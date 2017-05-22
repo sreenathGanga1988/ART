@@ -94,6 +94,15 @@ namespace ArtWebApp.Merchandiser.Atc_Chart {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txta_remark;
         
         /// <summary>
+        /// ddl_adnType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen ddl_adnType;
+        
+        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>

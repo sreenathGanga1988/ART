@@ -28,8 +28,11 @@
                               <asp:RadioButton ID="RadioButton2" runat="server" GroupName="A"  Text="IN DIRECT VIA ATRACO" />
                         </td>
                         <td>
-                            &nbsp;</td>
-                        <td class="NormalTD" >&nbsp;</td>
+                            <asp:RadioButton ID="rbt_viageneralitem" runat="server" GroupName="A" Text="IN DIRECT VIA ATRACO(General items)" />
+                        </td>
+                        <td class="NormalTD" >
+                            <asp:RadioButton ID="rbt_directgenitem" runat="server" GroupName="A" Text="DIRECT from Supplier (Stock ADN)" />
+                        </td>
                         <td class="NormalTD" >
 
 <%--                             <ucc:DropDownListChosen ID="drp_rcpt" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
@@ -49,7 +52,7 @@
                             </ucc:DropDownListChosen>
                         </td>
                         <td>
-                            <asp:Button ID="btn_showfromLoc" runat="server" OnClick="btn_showfromLoc_Click" Text="S" />
+                            <asp:Button ID="btn_showfromLoc" runat="server" OnClick="btn_showfromLoc_Click" Text="S" Width="23px" />
                         </td>
                         <td class="NormalTD">Document #</td>
                         <td class="NormalTD">
@@ -310,12 +313,79 @@
                                     </asp:GridView>
 
 
-                                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        DeliveryOrderMaster.DO_PK, DeliveryOrderMaster.DONum, DeliveryOrderMaster.DeliveryDate, AtcMaster.AtcNum, DeliveryOrderMaster.ExportContainer, DeliveryOrderMaster.ContainerNumber, 
-                         LocationMaster.LocationName AS [From], LocationMaster_1.LocationName AS [TO Location], DeliveryOrderMaster.AddedBy, DeliveryOrderMaster.AddedDate, DeliveryOrderMaster.DoType
-FROM            DeliveryOrderMaster INNER JOIN
-                         AtcMaster ON DeliveryOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
-                         LocationMaster ON DeliveryOrderMaster.FromLocation_PK = LocationMaster.Location_PK INNER JOIN
-                         LocationMaster AS LocationMaster_1 ON DeliveryOrderMaster.ToLocation_PK = LocationMaster_1.Location_PK"></asp:SqlDataSource>
+                                    
+
+
+                                    <asp:GridView ID="tbl_StockAdn" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="SDoc_Pk" style="font-size: small; font-family: Calibri" Width="90%">
+                                        <Columns>
+                                                 <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>    
+                                              <asp:TemplateField HeaderText="SDoc_Pk" InsertVisible="False" SortExpression="SDoc_Pk">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lbl_DO_PK" runat="server" Text='<%# Bind("SDoc_Pk") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>
+                                           
+                                            <asp:BoundField DataField="SDocNum" HeaderText="SDocNum" SortExpression="SDocNum" />
+                                            <asp:BoundField DataField="ContainerNum" HeaderText="ContainerNum" SortExpression="ContainerNum" />
+                                            <asp:BoundField DataField="BOENum" HeaderText="BOENum" SortExpression="BOENum" />
+                                            <asp:BoundField DataField="Remark" HeaderText="Remark" SortExpression="Remark" />
+                                            <asp:BoundField DataField="InhouseDate" HeaderText="InhouseDate" SortExpression="InhouseDate" />
+                                            <asp:BoundField DataField="ETADate" HeaderText="ETADate" SortExpression="ETADate" />
+                                            <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" SortExpression="SupplierName" />
+                                        </Columns>
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                    </asp:GridView>
+
+                                    <asp:GridView ID="tbl_stockDO" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="SalesDO_PK" style="font-size: small; font-family: Calibri" Width="90%">
+                                        <Columns>
+                                                 <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>  
+                                              <asp:TemplateField HeaderText="SalesDO_PK" InsertVisible="False" SortExpression="SalesDO_PK">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lbl_DO_PK" runat="server" Text='<%# Bind("SalesDO_PK") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>  
+                                            <asp:BoundField DataField="SalesDO_PK" HeaderText="SalesDO_PK" SortExpression="SalesDO_PK" InsertVisible="False" ReadOnly="True" />
+                                            <asp:BoundField DataField="SalesDONum" HeaderText="SalesDONum" SortExpression="SalesDONum" />
+                                            <asp:BoundField DataField="SalesDate" HeaderText="SalesDate" SortExpression="SalesDate" />
+                                            <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                            <asp:BoundField DataField="SalesDODate" HeaderText="SalesDODate" SortExpression="SalesDODate" />
+                                            <asp:BoundField DataField="ContainerNumber" HeaderText="ContainerNumber" SortExpression="ContainerNumber" />
+                                            <asp:BoundField DataField="BoeNum" HeaderText="BoeNum" SortExpression="BoeNum" />
+                                        </Columns>
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                    </asp:GridView>
 
 
                                 </ContentTemplate>
@@ -339,5 +409,10 @@ FROM            DeliveryOrderMaster INNER JOIN
                </div></td>
         </tr>
     </table>
-    
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        DeliveryOrderMaster.DO_PK, DeliveryOrderMaster.DONum, DeliveryOrderMaster.DeliveryDate, AtcMaster.AtcNum, DeliveryOrderMaster.ExportContainer, DeliveryOrderMaster.ContainerNumber, 
+                         LocationMaster.LocationName AS [From], LocationMaster_1.LocationName AS [TO Location], DeliveryOrderMaster.AddedBy, DeliveryOrderMaster.AddedDate, DeliveryOrderMaster.DoType
+FROM            DeliveryOrderMaster INNER JOIN
+                         AtcMaster ON DeliveryOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
+                         LocationMaster ON DeliveryOrderMaster.FromLocation_PK = LocationMaster.Location_PK INNER JOIN
+                         LocationMaster AS LocationMaster_1 ON DeliveryOrderMaster.ToLocation_PK = LocationMaster_1.Location_PK"></asp:SqlDataSource>
 </asp:Content>

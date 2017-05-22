@@ -174,13 +174,22 @@ public partial class Merchandiser_AtcCreation {
     protected global::CustomDropDown.DropDownListChosen drp_season;
     
     /// <summary>
-    /// NumericTextBox4 control.
+    /// txt_projqty control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::NumericTextBoxControl.NumericTextBox NumericTextBox4;
+    protected global::NumericTextBoxControl.NumericTextBox txt_projqty;
+    
+    /// <summary>
+    /// cmb_prodcountry control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::CustomDropDown.DropDownListChosen cmb_prodcountry;
     
     /// <summary>
     /// SqlDataSource1 control.

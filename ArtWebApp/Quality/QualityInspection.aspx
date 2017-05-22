@@ -177,6 +177,7 @@
                                                     <asp:ListItem Selected="True">REG</asp:ListItem>
                                                     <asp:ListItem>RSV</asp:ListItem>
                                                     <asp:ListItem>CSV</asp:ListItem>
+                                                    <asp:ListItem>GRYSL</asp:ListItem>
                                                 </asp:DropDownList>
                                   <td class="ButtonTD">
                                       <asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">
@@ -307,6 +308,7 @@
                                                     <asp:ListItem Selected="True">REG</asp:ListItem>
                                                     <asp:ListItem>RSV</asp:ListItem>
                                                     <asp:ListItem>CSV</asp:ListItem>
+                                                    <asp:ListItem>GRYSL</asp:ListItem>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>

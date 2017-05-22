@@ -43,7 +43,7 @@ namespace ArtWebApp.Inventory
 
             BLL.InventoryBLL.SalesMasterData slmstrdata = GetDoMasterData();
             slmstrdata.SalesDetailsDataCollection = GetDeliveryOrderDetailsData();
-            String donum = slmstrdata.InsertSalesDO();
+            String donum = slmstrdata.InsertSalesDOInternal();
 
 
             String msg = "DO # : " + donum + " is generated Sucessfully";

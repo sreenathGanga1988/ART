@@ -43,6 +43,7 @@ namespace ArtWebApp.DataModels
         public string IsGD { get; set; }
         public string IsTD { get; set; }
         public string IsPD { get; set; }
+        public string BodyPartName { get; set; }
     
         public virtual AtcRawMaterialMaster AtcRawMaterialMaster { get; set; }
         public virtual ICollection<GroupDependantItem> GroupDependantItems { get; set; }

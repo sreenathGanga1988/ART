@@ -72,7 +72,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
         {
 
             string onhandtype = "A";
-            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),"atc",0);
             DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable Inbounddata = BLL.FactoryAtcChart.GetInboundData(int.Parse(cmb_atc.SelectedValue.ToString()));
 

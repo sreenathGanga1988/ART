@@ -8,6 +8,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
+using OfficeOpenXml;
+
+
 namespace ArtWebApp.Controls
 {
     public static class Messagebox
@@ -239,7 +242,17 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)";
 
     public static class DataTableFunction
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fromcolumn">from which column</param>
+        /// <param name="tocolumn"> to which column</param>
+        /// <param name="fromrow">from which row</param>
+        /// <param name="torow"> to which row</param>
+        /// <param name="summarycolumn">summary column index</param>
+        /// <param name="summaryrow"></param>
+        /// <param name="dt"> d</param>
+        /// <returns></returns>
 
         public static DataTable SumOfDataColumns(int fromcolumn, int tocolumn, int fromrow, int torow, int summarycolumn, int summaryrow, DataTable dt)
         {
@@ -282,6 +295,9 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)";
 
         }
 
+
+
+
     }
 
 
@@ -313,4 +329,13 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)";
             return selectedrowscount;
         }
     }
+
+
+
+    
+
+
+
+
+
 }

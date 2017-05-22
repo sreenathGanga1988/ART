@@ -39,7 +39,16 @@ namespace ArtWebApp
 
                     generatednum = "DC" + Locationcode + pk.ToString().PadLeft(6, '0');
                          break;
+                case "SDocumentCreation":
+
+                    generatednum = "SDC" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
                 case "DO":
+
+                    generatednum = "DO" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
+                    break;
+                case "EDO":
 
                     generatednum = "DO" + Locationcode + pk.ToString().PadLeft(6, '0');
                     break;
@@ -49,6 +58,11 @@ namespace ArtWebApp
                          generatednum = "WF" + Locationcode + pk.ToString().PadLeft(6, '0');
                          break;
 
+
+                case "LS":
+
+                    generatednum = "LS" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
                 case "FW":
 
                     generatednum = "FW" + Locationcode + pk.ToString().PadLeft(6, '0');
@@ -154,6 +168,13 @@ namespace ArtWebApp
                     //CutPlan
                     generatednum = "CPL#" + Locationcode + pk.ToString().PadLeft(6, '0');
                     break;
+
+
+                case "ASN":
+
+                    generatednum = "ASN" + pk.ToString().PadLeft(6, '0');
+                    break;
+
                 default:
 
                     break;

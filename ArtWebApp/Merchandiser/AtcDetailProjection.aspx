@@ -6,12 +6,41 @@
     <link href="../css/style.css" rel="stylesheet" />
  
     <script src="../JQuery/GridJQuery.js"></script>
-
+ 
 <style type="text/css">
 
 </style>
  
-  
+  <script type="text/javascript">
+
+
+      function calculatesum()
+      {
+          var sum = 0;
+
+          var textboxs = document.getElementsByClassName("txt_qty");
+
+          for (var i = 0; i < textboxs.length; i++) {
+              var tempsum=0;
+              
+              try{
+                 
+                  tempsum=parseFloat(textboxs[i].value);
+
+              } 
+              catch(Exception)
+              {
+                  tempsum = 0;
+                  textboxs[i].value = 0;
+              }
+
+              sum = sum + parseFloat(tempsum);
+          }
+          var ourstylelbl = document.getElementsByClassName("lbl_ourstyleproj");
+          ourstylelbl[0].innerHTML = sum.toString();
+      }
+
+      </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -43,7 +72,7 @@
                                  
                                 <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                     <ContentTemplate>
-                                        <asp:Button ID="buttonAtc" runat="server" Text="S" Height="26px" OnClick="buttonAtc_Click" />
+                                        <asp:Button ID="buttonAtc" runat="server" Text="S" Height="26px" OnClick="buttonAtc_Click" style="width: 23px" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                      
@@ -88,13 +117,22 @@
                 <table class="DataEntryTable">
                     <tr>
                         <td class="NormalTD">
-                            &nbsp;</td>
+                            Atc Proj Qty</td>
                         <td class="NormalTD">
-                            &nbsp;</td>
+                              <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                    <ContentTemplate>
+                            <asp:Label ID="lbl_atcprojQty" runat="server" Text="Label"></asp:Label>
+                                             </ContentTemplate>
+                                </asp:UpdatePanel>
+                        </td>
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">
-                            &nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
+                            OurStyle proj Qty</td>
+                        <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                    <ContentTemplate>
+                            <asp:Label ID="lbl_ourstyleproj" CssClass="lbl_ourstyleproj" runat="server" Text="Label"></asp:Label>
+                                             </ContentTemplate>
+                                </asp:UpdatePanel></td>
                         <td class="NormalTD">
                                
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
@@ -163,7 +201,7 @@ WHERE        (AtcId = @Param1)">
                                     <asp:TemplateField HeaderText="RevisedQty" SortExpression="RevisedQty">
                                       
                                         <ItemTemplate>
-                                             <asp:TextBox ID="txt_qty" runat="server" Text='<%# Bind("RevisedQty") %>'></asp:TextBox>
+                                             <asp:TextBox ID="txt_qty"  CssClass="txt_qty" onchange="calculatesum()" runat="server" Text='<%# Bind("RevisedQty") %>'></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                    

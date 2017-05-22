@@ -91,7 +91,7 @@
                       </tr>
                                    <tr>
                                        <td>Projection Qty</td>
-                                       <td><cc2:NumericTextBox ID="NumericTextBox4" runat="server" /></td>
+                                       <td><cc2:NumericTextBox ID="txt_projqty" runat="server" Enabled="False" /></td>
                                        <td>&nbsp;</td>
                                        <td>&nbsp;</td>
                                        <td>&nbsp;</td>
@@ -131,7 +131,7 @@
                                 <asp:TemplateField HeaderText="BuyerStyle" SortExpression="BuyerStyle">
                                     <ItemTemplate>
                                         <asp:Label ID="lbl_Buyerstyle" Visible="false"  runat="server"  Text='<%# Bind("BuyerStyle") %>'></asp:Label>
-                                        <asp:DropDownList ID="ddl_Buyerstyle" runat="server" DataSourceID="BuyerStyle1"  DataTextField="BuyerStyle" DataValueField="StyleID"  Font-Names="Calibri" Font-Size="X-Small" Height="16px">
+                                        <asp:DropDownList ID="ddl_Buyerstyle" runat="server" DataSourceID="BuyerStyle1"  DataTextField="BuyerStyle" DataValueField="BuyerStyleID"  Font-Names="Calibri" Font-Size="X-Small" Height="16px">
                                         </asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -206,8 +206,8 @@
 
     </div>
 
-       <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:CourierDetailsConnectionString %>" 
-                SelectCommand="SELECT StyleID, BuyerStyle FROM BuyerStyleMaster"></asp:SqlDataSource>
+       <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                SelectCommand="SELECT BuyerStyle, BuyerStyleID FROM BuyerStyleMaster"></asp:SqlDataSource>
 
        
                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [CategoryID], [CategoryName] FROM [GarmentCategory]">

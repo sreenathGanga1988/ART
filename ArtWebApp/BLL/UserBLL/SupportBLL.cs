@@ -43,6 +43,8 @@ namespace ArtWebApp.BLL.UserBLL
                 foreach(var elemt in q)
                 {
                     elemt.IsCompleted = "Y";
+                    elemt.Status = "Completed";
+                    elemt.CompletedBy= HttpContext.Current.Session["Username"].ToString ();
                     elemt.CompletedDate = DateTime.Now;
                 }
 

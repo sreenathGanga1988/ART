@@ -420,8 +420,7 @@ ORDER BY UOMMaster_1.UomCode", con);
                                  select skudet;
 
 
-                if (skudetails.Count() > 0)
-                {
+             
 
                     foreach (var detail in skudetails)
                     {
@@ -437,7 +436,7 @@ ORDER BY UOMMaster_1.UomCode", con);
 
                     }
                     entty.SaveChanges();
-                }
+                
 
 
             }

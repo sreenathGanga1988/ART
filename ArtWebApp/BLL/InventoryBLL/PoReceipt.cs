@@ -134,6 +134,12 @@ namespace ArtWebApp.BLL.InventoryBLL
            
 
 
+
+
+
+
+
+
         }
 
       public class RecieptMasterData

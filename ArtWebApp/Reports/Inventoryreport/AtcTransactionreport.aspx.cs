@@ -82,6 +82,8 @@ namespace ArtWebApp.Reports.Inventoryreport
 
             DataTable LoanOutfatc = BLL.InventoryBLL.FactoryInventory.GetLoanOutDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable ROOutfatc = BLL.InventoryBLL.FactoryInventory.GetROOutDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable CutOrderDO = BLL.InventoryBLL.FactoryInventory.GetCutorderDO(int.Parse(cmb_atc.SelectedValue.ToString()));
+            
 
             if (chk_ct.Checked == true)
             {
@@ -132,7 +134,7 @@ namespace ArtWebApp.Reports.Inventoryreport
                 ViewState["DOfatc"] = DOfatc;
                 ViewState["LoanOutfatc"] = LoanOutfatc;
                 ViewState["ROOutfatc"] = ROOutfatc;
-                
+                ViewState["CutOrderDO"] = CutOrderDO;
                 fillrmnumber();
                 tbl_bom.DataSource = BomData;
                 tbl_bom.DataBind();
@@ -390,6 +392,10 @@ namespace ArtWebApp.Reports.Inventoryreport
 
                 }
 
+
+
+
+
                 try
                 {
 
@@ -443,6 +449,25 @@ namespace ArtWebApp.Reports.Inventoryreport
 
 
                 }
+                try
+                {
+
+
+                    DataTable dt12 = (DataTable)(ViewState["CutOrderDO"]);
+                    DataTable CutOrderDO = dt12.Select("Skudet_Pk=" + skudetpk).CopyToDataTable();
+
+                    GridView tbl_cutDO = (e.Row.FindControl("tbl_cutDO") as GridView);
+                    tbl_cutDO.DataSource = CutOrderDO;
+                    tbl_cutDO.DataBind();
+
+                }
+                catch (Exception)
+                {
+
+
+
+                }
+                
             }
         }
 

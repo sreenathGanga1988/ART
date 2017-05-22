@@ -18,6 +18,7 @@ namespace ArtWebApp.DataModels
         {
             this.CutOrderSizeDetails = new HashSet<CutOrderSizeDetail>();
             this.LaySheetMasters = new HashSet<LaySheetMaster>();
+            this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
         }
     
         public decimal CutOrderDet_PK { get; set; }
@@ -31,5 +32,6 @@ namespace ArtWebApp.DataModels
     
         public virtual ICollection<CutOrderSizeDetail> CutOrderSizeDetails { get; set; }
         public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
+        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
     }
 }

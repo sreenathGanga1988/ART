@@ -25,17 +25,55 @@ namespace ArtWebApp.DBTransaction
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
-                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
-                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
-                         InventoryMaster.OnhandQty
-FROM            UOMMaster INNER JOIN
-                         InventoryMaster INNER JOIN
-                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK INNER JOIN
-                         SkuRawMaterialMaster INNER JOIN
-                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK
-WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK = @loctn_pk) AND (InventoryMaster.OnhandQty > 0)
-ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode", con);
+//                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
+//                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+//                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
+//                         InventoryMaster.OnhandQty
+//FROM            UOMMaster INNER JOIN
+//                         InventoryMaster INNER JOIN
+//                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK INNER JOIN
+//                         SkuRawMaterialMaster INNER JOIN
+//                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK
+//WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK = @loctn_pk) AND (InventoryMaster.OnhandQty > 0)
+//ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode", con);
+
+
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryItem_PK, RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode, ReceivedQty, DeliveredQty, OnhandQty as TotalOnhand, BlockedQty,(OnhandQty-BlockedQty) as OnhandQty
+FROM            (SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
+                                                    SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, 
+                                                    SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, 
+                                                    InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, ISNULL
+                                                        ((SELECT        SUM(RequestOrderDetails.Qty) AS Expr1
+                                                            FROM            RequestOrderDetails INNER JOIN
+                                                                                     RequestOrderMaster ON RequestOrderDetails.RO_Pk = RequestOrderMaster.RO_Pk
+                                                            WHERE        (RequestOrderDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK) AND (RequestOrderMaster.IsDeleted = N'N') AND (RequestOrderMaster.IsCompleted = N'N')), 0) 
+                                                    + ISNULL
+                                                        ((SELECT        SUM(LoanQty) AS Expr1
+                                                            FROM            InventoryLoanMaster
+                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0) AS BlockedQty
+                          FROM            UOMMaster INNER JOIN
+                                                    InventoryMaster INNER JOIN
+                                                    ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK INNER JOIN
+                                                    SkuRawMaterialMaster INNER JOIN
+                                                    SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK
+ WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK = @loctn_pk) AND (InventoryMaster.OnhandQty > 0)) AS tt
+ORDER BY RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode
+
+", con);
+
+
+
+
+
+
+
+
+
+
                 cmd.Parameters.AddWithValue("@atcid", atcid);
                 cmd.Parameters.AddWithValue("@loctn_pk", lctn_pk);
 
@@ -72,19 +110,46 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
-                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' +  SkuRawMaterialMaster.Width + ' (  ' + ISNULL(SkuRawmaterialDetail.ColorCode, '')+ '  ) '     AS Description, SkuRawmaterialDetail.ItemColor, 
-                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
-                         InventoryMaster.OnhandQty, Template_Master.ItemGroup_PK
-FROM            Template_Master INNER JOIN
-                         SkuRawMaterialMaster INNER JOIN
-                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
-                         UOMMaster INNER JOIN
-                         InventoryMaster INNER JOIN
-                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON 
-                         SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk
-WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK =@loctn_pk) AND (Template_Master.ItemGroup_PK = @itemgroup) AND (InventoryMaster.OnhandQty > 0)
-ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode", con);
+//                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
+//                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' +  SkuRawMaterialMaster.Width + ' (  ' + ISNULL(SkuRawmaterialDetail.ColorCode, '')+ '  ) '     AS Description, SkuRawmaterialDetail.ItemColor, 
+//                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
+//                         InventoryMaster.OnhandQty, Template_Master.ItemGroup_PK
+//FROM            Template_Master INNER JOIN
+//                         SkuRawMaterialMaster INNER JOIN
+//                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+//                         UOMMaster INNER JOIN
+//                         InventoryMaster INNER JOIN
+//                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON 
+//                         SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk
+//WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK =@loctn_pk) AND (Template_Master.ItemGroup_PK = @itemgroup) AND (InventoryMaster.OnhandQty > 0)
+//ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode", con);
+
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryItem_PK, RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode, ReceivedQty, DeliveredQty,  OnhandQty as TotalOnhand, BlockedQty,(OnhandQty-BlockedQty) as OnhandQty, ItemGroup_PK,Refnum
+FROM            (SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
+                                                    SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width + ' (  ' + ISNULL(SkuRawmaterialDetail.ColorCode,
+                                                     '') + '  ) ' AS Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, 
+                                                    InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, Template_Master.ItemGroup_PK, ISNULL
+                                                        ((SELECT        SUM(RequestOrderDetails.Qty) AS Expr1
+                                                            FROM            RequestOrderDetails INNER JOIN
+                                                                                     RequestOrderMaster ON RequestOrderDetails.RO_Pk = RequestOrderMaster.RO_Pk
+                                                            WHERE        (RequestOrderDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK) AND (RequestOrderMaster.IsDeleted = N'N') AND (RequestOrderMaster.IsCompleted = N'N')), 0) 
+                                                    + ISNULL
+                                                        ((SELECT        SUM(LoanQty) AS Expr1
+                                                            FROM            InventoryLoanMaster
+                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0) AS BlockedQty, InventoryMaster.Refnum
+                          FROM            Template_Master INNER JOIN
+                                                    SkuRawMaterialMaster INNER JOIN
+                                                    SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                                                    UOMMaster INNER JOIN
+                                                    InventoryMaster INNER JOIN
+                                                    ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON 
+                                                    SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk
+WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (InventoryMaster.Location_PK =@loctn_pk) AND (Template_Master.ItemGroup_PK = @itemgroup) AND (InventoryMaster.OnhandQty > 0)) AS tt
+ORDER BY RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode", con);
                 cmd.Parameters.AddWithValue("@atcid", atcid);
                 cmd.Parameters.AddWithValue("@loctn_pk", lctn_pk);
 

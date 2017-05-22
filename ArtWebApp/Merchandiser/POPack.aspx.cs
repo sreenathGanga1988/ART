@@ -197,6 +197,7 @@ public partial class Merchandiser_POPack : System.Web.UI.Page
             if (VaildateASQwithProjection(pdata.PoPackId, pdata.Ourstyleid, newqty, int.Parse (lbl_projection.Text)))  
             {
                 pdata.insertPOPackDetails(pdata);
+                pdata.UpdateAllocatedData(pdata.PoPackId, pdata.Ourstyleid);
                 String Msg = " ASQ Details is generated Successfully";
 
                 ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + Msg + "');", true);

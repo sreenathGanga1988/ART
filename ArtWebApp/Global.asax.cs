@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -12,7 +14,17 @@ namespace ArtWebApp
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            DataTable table = new DataTable();
+            table.Columns.Add("Username", typeof(string));
+            table.Columns.Add("SessionID", typeof(string));
+            table.Columns.Add("Location", typeof(string));
+            Application["SessionData"] = table;
+
+
             Application["OnlineUsers"] = 0;
+
+            ArrayList User = new ArrayList();
+            Application["OnlineUsersname"] = User;
             ////when factories do mrn
             //Application["MRN"] = "MR";
             //Application["WWDO"] = "WW";
@@ -73,6 +85,17 @@ namespace ArtWebApp
         {
             Application.Lock();
             Application["OnlineUsers"] = (int)Application["OnlineUsers"] - 1;
+            DataTable userdata = (DataTable)(Application["SessionData"]);
+
+            for (int i = userdata.Rows.Count - 1; i >= 0; i--)
+            {
+                if (userdata.Rows[i]["Username"].ToString() == Session["Username"].ToString ())
+                {
+                    userdata.Rows[i].Delete();
+                }
+            }
+
+
             Application.UnLock();
 
         }

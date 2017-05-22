@@ -123,6 +123,71 @@ FROM            DeliveryOrderMaster INNER JOIN
 
         }
 
+
+        public DataTable GetSDOCData(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            string condition = "";
+            String query = "";
+            for (int i = 0; i < shpdetlist.Count; i++)
+            {
+                if (i == 0)
+                {
+                    condition = condition + " Where  SDocMaster.SDoc_Pk= " + shpdetlist[i].ToString().Trim();
+                }
+                else
+                {
+                    condition = condition + "  or SDocMaster.SDoc_Pk =" + shpdetlist[i].ToString().Trim();
+                }
+
+
+
+            }
+
+            if (condition != "where")
+            {
+                query = @"SELECT SDocMaster.SDoc_Pk, SDocMaster.SDocNum, SDocMaster.ContainerNum, SDocMaster.BOENum, SDocMaster.Remark, SDocMaster.InhouseDate, SDocMaster.ETADate, SupplierMaster.SupplierName FROM SDocMaster INNER JOIN SupplierMaster ON SDocMaster.Supplier_PK = SupplierMaster.Supplier_PK" + condition + "";
+
+            }
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+        }
+
+
+        public DataTable GetSDOData(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            string condition = "";
+            String query = "";
+            for (int i = 0; i < shpdetlist.Count; i++)
+            {
+                if (i == 0)
+                {
+                    condition = condition + " Where  InventorySalesMaster.SalesDO_PK = " + shpdetlist[i].ToString().Trim();
+                }
+                else
+                {
+                    condition = condition + "  or InventorySalesMaster.SalesDO_PK  =" + shpdetlist[i].ToString().Trim();
+                }
+
+
+
+            }
+
+            if (condition != "where")
+            {
+                query = @"SELECT InventorySalesMaster.SalesDO_PK, InventorySalesMaster.SalesDONum, InventorySalesMaster.SalesDate, LocationMaster.LocationName, InventorySalesMaster.SalesDODate, InventorySalesMaster.ContainerNumber, InventorySalesMaster.BoeNum FROM InventorySalesMaster INNER JOIN LocationMaster ON InventorySalesMaster.ToLocation_PK = LocationMaster.Location_PK" + condition + "";
+
+            }
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+        }
     }
 
 

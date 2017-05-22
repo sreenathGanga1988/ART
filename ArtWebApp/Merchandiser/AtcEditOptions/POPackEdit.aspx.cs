@@ -45,9 +45,21 @@ namespace ArtWebApp.Merchandiser
                     lbl_popackid.Text = element.PoPackId.ToString ();
                     txt_buyerpo.Text = (element.BuyerPO == null? "" : element.BuyerPO);
                     txt_packdetail.Text = (element.PackingInstruction == null ? "" : element.PackingInstruction);
-                    dtp_deliverydate.Value = (element.DeliveryDate == null ? DateTime.Now.Date : element.DeliveryDate);
+                    dtp_deliverydate.Value = (element.FirstDeliveryDate == null ? DateTime.Now.Date : element.FirstDeliveryDate);
+                    dtp_rsd.Value = (element.DeliveryDate == null ? DateTime.Now.Date : element.DeliveryDate);
+                    dtp_hd.Value = (element.HandoverDate == null ? DateTime.Now.Date : element.HandoverDate);
                     dtp_inhousedate.Value = (element.Inhousedate == null ? DateTime.Now.Date : element.Inhousedate);
+                   
+                    try
+                    {
+                        drp_loc.SelectedValue = element.ExpectedLocation_PK.ToString();
+                    }
+                    catch (Exception)
+                    {
+                        drp_loc.Items.Add(new ListItem("Select", "Select"));
+                        drp_loc.SelectedValue = "Select";
 
+                    }
                     try
                     {
                         drp_dest.SelectedValue = element.BuyerDestination_PK.ToString();
@@ -118,13 +130,25 @@ namespace ArtWebApp.Merchandiser
             
             pomstrdata.PoPackId = int.Parse(lbl_popackid.Text. ToString());
             pomstrdata.BuyerPO = txt_buyerpo.Text.Trim();
-            pomstrdata.DeliveryDate = dtp_deliverydate.Date;
+            pomstrdata.DeliveryDate = dtp_rsd.Date;
+            pomstrdata.HandoverDate = dtp_hd.Date;
             pomstrdata.Inhousedate = dtp_inhousedate.Date;
             pomstrdata.PackingInstruction = txt_packdetail.Text.Trim();
             pomstrdata.POGroup = drp_pogroup.SelectedItem.Text;
             pomstrdata.POTag = drp_taggroup.SelectedItem.Text;
             pomstrdata.seasonName = drp_season.SelectedItem.Text;
-            try
+            pomstrdata.location_PK = int.Parse(drp_loc.SelectedValue.ToString());
+
+            if(pomstrdata.DeliveryDate< pomstrdata.HandoverDate)
+            {
+                //if handoverdate is greater than deliverydate keep it same
+            }
+            else
+            {
+                pomstrdata.HandoverDate = pomstrdata.DeliveryDate;
+            }
+
+                try
             {
                 pomstrdata.ChannelID = int.Parse(drp_channel.SelectedItem.Value.ToString());
             }
@@ -145,7 +169,7 @@ namespace ArtWebApp.Merchandiser
 
             }
             pomstrdata.updatePOpAck(pomstrdata);
-            String Msg = "POPack # Updated";
+            String Msg = "ASQ # Updated";
             lbl_errordisplayer.Text = Msg;
 
             clearControl();

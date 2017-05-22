@@ -9,151 +9,151 @@
 
    <script type="text/javascript">
 
-       //calculate the sum of qty on keypress
-       function sumofQty(objText) {
+       ////calculate the sum of qty on keypress
+       //function sumofQty(objText) {
        
-        //   alert(objText.value);
-           var cell = objText.parentNode;
-           var row = cell.parentNode;
+       // //   alert(objText.value);
+       //    var cell = objText.parentNode;
+       //    var row = cell.parentNode;
 
-           var sum = 0;
-           var textboxs = row.getElementsByClassName("txtCalQty");
+       //    var sum = 0;
+       //    var textboxs = row.getElementsByClassName("txtCalQty");
 
-           for (var i = 0; i < textboxs.length; i++)
-           {
-               sum += parseFloat(textboxs[i].value);
-           }
+       //    for (var i = 0; i < textboxs.length; i++)
+       //    {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
 
 
 
-           var textboxtotalqtys = row.getElementsByClassName("totalQtyRow");
+       //    var textboxtotalqtys = row.getElementsByClassName("totalQtyRow");
 
-           textboxtotalqtys[0].value = sum.toString();
+       //    textboxtotalqtys[0].value = sum.toString();
          
 
-       }
+       //}
 
-       // calculate the sum of ratio
-       function sumofRatio(objText) {
+       //// calculate the sum of ratio
+       //function sumofRatio(objText) {
               
-           //   alert(objText.value);
-           var cell = objText.parentNode;
+       //    //   alert(objText.value);
+       //    var cell = objText.parentNode;
            
-           var row = cell.parentNode;
+       //    var row = cell.parentNode;
 
           
 
-           var sum = 0;
-           var textboxs = row.getElementsByClassName("txtCalRatio");
+       //    var sum = 0;
+       //    var textboxs = row.getElementsByClassName("txtCalRatio");
 
-           for (var i = 0; i < textboxs.length; i++) {
-               sum += parseFloat(textboxs[i].value);
-           }
+       //    for (var i = 0; i < textboxs.length; i++) {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
 
 
 
-           var textboxtotalqtys = row.getElementsByClassName("totalRatioRow");
+       //    var textboxtotalqtys = row.getElementsByClassName("totalRatioRow");
 
-           textboxtotalqtys[0].value = sum.toString();
-           // textboxtotalqtys.inn = sum;
-           var grdrow = row.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-           var element = grdrow.getElementsByClassName("num");
+       //    textboxtotalqtys[0].value = sum.toString();
+       //    // textboxtotalqtys.inn = sum;
+       //    var grdrow = row.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+       //    var element = grdrow.getElementsByClassName("num");
             
-         var totalqty = parseInt(element[0].value.toString());
+       //  var totalqty = parseInt(element[0].value.toString());
 
 
-         SplitQty(element[0]);
-       }
+       //  SplitQty(element[0]);
+       //}
 
 
-       //split the  size qty when size change
-       function SplitQty(objText) {
+       ////split the  size qty when size change
+       //function SplitQty(objText) {
             
             
-           try {
+       //    try {
 
-               var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-
-
-               var sum = 0;
-               var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
+       //        var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 
 
-
-               var totalqty = parseInt(objText.value.toString());
-
-               var totalpc = parseInt(textboxtotalqtys[0].value.toString());
-
-               var z = totalqty % totalpc;
+       //        var sum = 0;
+       //        var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
 
 
-               if (z > 0) {
 
-               }
-               else {
+       //        var totalqty = parseInt(objText.value.toString());
 
-                   var textqtys = grdrow.getElementsByClassName("txtCalQty");
-                   var textratio = grdrow.getElementsByClassName("txtCalRatio");
-                   var qtysum = 0;
-                   var ratiosum = 0;
-                   for (var i = 0; i < textqtys.length; i++) {
-                       var z = (totalqty / totalpc) * parseInt(textratio[i].value.toString());
-                       textqtys[i].value = z.toString();
-                       qtysum += textqtys[i].value;
-                       ratiosum += textratio[i].value;
+       //        var totalpc = parseInt(textboxtotalqtys[0].value.toString());
+
+       //        var z = totalqty % totalpc;
+
+
+       //        if (z > 0) {
+
+       //        }
+       //        else {
+
+       //            var textqtys = grdrow.getElementsByClassName("txtCalQty");
+       //            var textratio = grdrow.getElementsByClassName("txtCalRatio");
+       //            var qtysum = 0;
+       //            var ratiosum = 0;
+       //            for (var i = 0; i < textqtys.length; i++) {
+       //                var z = (totalqty / totalpc) * parseInt(textratio[i].value.toString());
+       //                textqtys[i].value = z.toString();
+       //                qtysum += textqtys[i].value;
+       //                ratiosum += textratio[i].value;
                       
-                   }
-                   var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
+       //            }
+       //            var textboxtotalqtys = grdrow.getElementsByClassName("totalRatioRow");
 
-                   textboxtotalqtys[0].value = qtysum.toString();
+       //            textboxtotalqtys[0].value = qtysum.toString();
 
-                   var textboxtotalrat = grdrow.getElementsByClassName("totalRatioRow");
+       //            var textboxtotalrat = grdrow.getElementsByClassName("totalRatioRow");
 
-                   textboxtotalrat[0].value = ratiosum.toString();
+       //            textboxtotalrat[0].value = ratiosum.toString();
 
 
 
-                   var qty = parseInt(objText.value.toString());
-                   var totalqty = parseInt(objText.value.toString());
+       //            var qty = parseInt(objText.value.toString());
+       //            var totalqty = parseInt(objText.value.toString());
 
-               }
-           }
-           catch (e) {
+       //        }
+       //    }
+       //    catch (e) {
 
-           }
+       //    }
         
-           calaculateall(objText)
-       }
+       //    calaculateall(objText)
+       //}
 
 
 
-       function calaculateall(objText)
-       {
-           var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-           var textqtys = grdrow.getElementsByClassName("txtCalQty");
-        //   debugger;
+       //function calaculateall(objText)
+       //{
+       //    var grdrow = objText.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+       //    var textqtys = grdrow.getElementsByClassName("txtCalQty");
+       // //   debugger;
 
 
-           var sum = 0;
-           var textboxs = grdrow.getElementsByClassName("txtCalRatio");
+       //    var sum = 0;
+       //    var textboxs = grdrow.getElementsByClassName("txtCalRatio");
 
-           for (var i = 0; i < textboxs.length; i++) {
-               sum += parseFloat(textboxs[i].value);
-           }
-           var textboxtotalratio = grdrow.getElementsByClassName("totalRatioRow");
-           textboxtotalratio[0].value = sum.toString();
+       //    for (var i = 0; i < textboxs.length; i++) {
+       //        sum += parseFloat(textboxs[i].value);
+       //    }
+       //    var textboxtotalratio = grdrow.getElementsByClassName("totalRatioRow");
+       //    textboxtotalratio[0].value = sum.toString();
 
 
-           var qtysum = 0;
-           var textboxsqty = grdrow.getElementsByClassName("txtCalQty");
+       //    var qtysum = 0;
+       //    var textboxsqty = grdrow.getElementsByClassName("txtCalQty");
 
-           for (var i = 0; i < textboxsqty.length; i++) {
-               qtysum += parseFloat(textboxsqty[i].value);
-           }
-           var textboxtotalqtys = grdrow.getElementsByClassName("totalQtyRow");
-           textboxtotalqtys[0].value = qtysum.toString();
+       //    for (var i = 0; i < textboxsqty.length; i++) {
+       //        qtysum += parseFloat(textboxsqty[i].value);
+       //    }
+       //    var textboxtotalqtys = grdrow.getElementsByClassName("totalQtyRow");
+       //    textboxtotalqtys[0].value = qtysum.toString();
 
-       }
+       //}
 
     
 
@@ -172,8 +172,8 @@
                var txt_fabAllocation = document.getElementsByClassName("txt_fabAllocation");
 
 
-               var consumption = parseFloat(txt_fabAllocation[0].value) / parseFloat(lbl_cutQty[0].innerHTML)
-               lbl_newConsumption[0].innerHTML = consumption.toString();
+               var consumption = parseFloat(txt_fabAllocation[0].value) / parseFloat(lbl_cutQty[0].value)
+               lbl_newConsumption[0].value = consumption.toString();
            }
            catch (e) {
 
@@ -457,9 +457,21 @@
                                    
                                    <asp:Label ID="lbl_fabric" runat="server" Font-Size="X-Small" Text="0"></asp:Label>
                                 </td>
-                               <td class="NormalTD"  >&nbsp;</td>
-                               <td class="NormalTD"  >&nbsp;</td>
+                               <td class="NormalTD"  >Cutorder Consumption</td>
+                               <td class="NormalTD"  >
+                                   <asp:Label ID="lbl_coconsumption" runat="server" Text="0"></asp:Label>
+                                </td>
                             </tr>
+                                                <tr>
+                                                    <td class="NormalTD">Fabric req</td>
+                                                    <td class="NormalTD">
+                                                        <asp:Label ID="lbl_fabreq" runat="server" CssClass="lbl_fabreq12344" Text="0"></asp:Label>
+                                                    </td>
+                                                    <td class="NormalTD">&nbsp;</td>
+                                                    <td class="NormalTD">&nbsp;</td>
+                                                    <td class="NormalTD">&nbsp;</td>
+                                                    <td class="NormalTD">&nbsp;</td>
+                                                </tr>
                                             </table>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -469,7 +481,11 @@
                             <tr>
                                 <td class="NormalTD">Cut order #</td>
                                <td class="NormalTD"  >
+                                    <asp:UpdatePanel ID="upd_cutno" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
                                     <asp:TextBox ID="txt_cutno" runat="server" Width="131px"></asp:TextBox>
+                                               </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                                <td class="NormalTD"  >&nbsp;</td>
                                <td class="NormalTD"  >
@@ -517,8 +533,11 @@
                             <tr>
                                 <td class="NormalTD" >CO fab Allocation</td>
                                 <td class="NormalTD" >
-                                    <asp:TextBox ID="txt_fabAllocation" AutoPostBack="false"  CssClass="txt_fabAllocation" onkeypress="return isNumberKey(event,this)"  onkeyup ="CalculateConsumption(this)" runat="server"></asp:TextBox>
-                                </td>
+                                    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
+                                    <asp:TextBox ID="txt_fabAllocation" AutoPostBack="true"  CssClass="txt_fabAllocation" onkeypress="return isNumberKey(event,this)"   runat="server" OnTextChanged="txt_fabAllocation_TextChanged"></asp:TextBox>
+                                </ContentTemplate>
+                                        </asp:UpdatePanel>  </td>
                                 <td class="NormalTD" >BOM Consumption</td>
                                 <td class="NormalTD" >
                                     
@@ -530,7 +549,11 @@
                             <tr>
                                 <td class="NormalTD">Consumption</td>
                                <td class="NormalTD"  >
-                                   <asp:Label ID="lbl_newConsumption" runat="server" CssClass="lbl_newConsumption" Text="0"></asp:Label>
+                                      <asp:UpdatePanel ID="upd_consumption" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
+                                   <asp:TextBox ID="lbl_newConsumption" runat="server" CssClass="lbl_newConsumption" Text="0" Enabled="False"></asp:TextBox>
+                                                  </ContentTemplate>
+                                        </asp:UpdatePanel> 
                                 </td>
                                <td class="NormalTD"  >&nbsp;</td>
                                <td class="NormalTD"  >

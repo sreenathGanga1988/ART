@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="DeliveryOrderCountry.aspx.cs" Inherits="ArtWebApp.Inventory.DeliveryOrderCountry" %>
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.EditorControls" tagprefix="ig" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%--    <style type="text/css">
       
@@ -10,6 +11,25 @@
     
     <link href="../../css/style.css" rel="stylesheet" />
     <script src="../../JQuery/GridJQuery.js"></script>
+
+   
+    <script type="text/javascript" >
+
+        function calculateSum()
+        {       
+            
+           
+            GetSumofSelectedTextboxinFooterTextbox('dataentry', 'IntegerTextbox', 'txt_deliveryfooter');
+        }
+
+
+        function Onselection(objref)
+        {
+            Check_Click(objref)
+            GetSumofSelectedTextboxinFooterTextbox('dataentry', 'IntegerTextbox', 'txt_deliveryfooter');
+        }
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
@@ -88,7 +108,7 @@
                     <td class="gridtable" colspan="9">
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
-                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+                                <asp:GridView ID="tbl_InverntoryDetails" CssClass="dataentry" ShowFooter="True" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
                                     <Columns>
                             
 
@@ -97,7 +117,7 @@
                                         <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
                                     </HeaderTemplate>                                 
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Onselection(this)"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
@@ -120,6 +140,14 @@
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="RecievedQty" />
                                         <asp:BoundField DataField="DeliveredQty" HeaderText="DeliveredQty" />
+                                         <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                          <asp:TemplateField HeaderText="Blocked Qty">
+                                             
+                                              <ItemTemplate>
+                                                 
+                                                  <asp:LinkButton ID="lnkbtn_mrn" Text='<%# Bind("BlockedQty") %>' runat="server" OnClick="lnkbtn_mrn_Click">Show MRN</asp:LinkButton>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
                                         <asp:TemplateField HeaderText="OnhandQty">
                                             
                                             <ItemTemplate>
@@ -129,8 +157,11 @@
                                         <asp:TemplateField HeaderText="DeliveryQty">
                                            
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txt_deliveryQty" Text="0" onkeypress="return isNumberKey(event,this)"  runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txt_deliveryQty" CssClass="IntegerTextbox" Text="0" onkeypress="return isNumberKey(event,this)"  OnChange="calculateSum()" runat="server"></asp:TextBox>
                                             </ItemTemplate>
+                                                   <FooterTemplate>
+                                                     <asp:TextBox ID="txt_deliveryfooter" Width="50px" CssClass="txt_deliveryfooter" runat="server"></asp:TextBox>
+                                                 </FooterTemplate>
                                         </asp:TemplateField>
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
@@ -143,6 +174,60 @@
                                     <SortedDescendingCellStyle BackColor="#F6F0C0" />
                                     <SortedDescendingHeaderStyle BackColor="#7E0000" />
                                 </asp:GridView>
+
+
+                                    <asp:LinkButton ID="lnkFake" runat="server"></asp:LinkButton>
+                         <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="lnkFake" CancelControlID="btnClose" 
+
+
+ 
+
+
+PopupControlID="Panel1" DropShadow="True">
+
+
+ 
+
+
+</asp:ModalPopupExtender>
+
+
+ 
+
+
+<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" style = "display:none">
+
+      <asp:UpdatePanel ID="upd_subgrid"   UpdateMode="Conditional" runat="server">
+                     <ContentTemplate>
+   <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="400px" ShowFooter="True">
+                                <Columns>
+
+                                    
+                                    <asp:BoundField DataField="dOCNUM" HeaderText="Ref" />
+                                   
+                                    <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                 
+                                                           
+                                    
+                                    
+
+                                   
+                                </Columns>
+                                <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" Font-Bold="true" />
+                                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                <RowStyle BackColor="White" ForeColor="#330099" />
+                                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                            </asp:GridView> <br />
+    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                          </ContentTemplate>
+                            </asp:UpdatePanel>
+</asp:Panel>
+
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>

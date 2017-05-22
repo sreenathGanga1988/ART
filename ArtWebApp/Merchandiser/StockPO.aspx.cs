@@ -98,10 +98,10 @@ namespace ArtWebApp.Merchandiser
             BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
             spdetdata.SPO_PK = int.Parse(Session["spo_Pk"].ToString());
             spdetdata.Template_PK = int.Parse(drp_templateforComp.SelectedValue.ToString());
-            spdetdata.TemplateColor = drp_itemcolor.Text.ToString().Trim ();
-            spdetdata.TemplateSize = drp_itemsize.Text.ToString().Trim();
-            spdetdata.TemplateWeight=drp_weight.Text.ToString().Trim();
-            spdetdata.TemplateWidth = drp_width.Text.ToString().Trim();
+            spdetdata.TemplateColor = drp_itemcolor.SelectedItem.Text.ToString().Trim ();
+            spdetdata.TemplateSize = drp_itemsize.SelectedItem.Text.ToString().Trim();
+            spdetdata.TemplateWeight=drp_weight.SelectedItem.Text.ToString().Trim();
+            spdetdata.TemplateWidth = drp_width.SelectedItem.Text.ToString().Trim();
             spdetdata.Composition = drp_composition.SelectedItem.Text.ToString().Trim();
             spdetdata.Construct = drp_construction.SelectedItem.Text.ToString().Trim();
             spdetdata.Unitprice=Decimal.Parse (txt_unitPrice .Text.ToString ());
@@ -286,7 +286,7 @@ namespace ArtWebApp.Merchandiser
                 {
                  drp_itemcolor.DataSource = color.ToList();
                  drp_itemcolor.DataValueField = "TemplateColor_PK";
-                 drp_itemcolor.DataTextField = "TemplateColor";
+                 drp_itemcolor.DataTextField = "TemplateColor1";
                  drp_itemcolor.DataBind();
             
                 }
@@ -308,15 +308,55 @@ namespace ArtWebApp.Merchandiser
             UpdatePanel7.Update();
             UpdatePanel8.Update();
             UpdatePanel9.Update();
+                
             }
 
 
+        }
+        public void fillspomasterdata()
+        {
+            int spopk = int.Parse(drp_spo.SelectedValue.ToString());
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from spmstr in enty.StockPOMasters
+                        where spmstr.SPO_Pk == spopk
+                        select spmstr;
+
+                foreach (var element in q)
+                {
+                    drp_supplier.SelectedValue = element.Supplier_Pk.ToString();
+                    drp_deliverymethod.SelectedValue = element.DeliveryMethod_Pk.ToString();
+                    drp_currency.SelectedValue = element.CurrencyID.ToString();
+                    drp_paymentterm.SelectedValue = element.PaymentTermID.ToString();
+                    drp_deliverydestination.SelectedValue = element.Location_PK.ToString();
+                    drp_deliveryterm.SelectedValue = element.DeliveryTerms_Pk.ToString();
+                    dtp_deliverydate.Date = DateTime.Parse(element.DeliveryDate.ToString());
+                    try
+                    {
+                        txt_remark.InnerText = element.Remark.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+                }
+
+            }
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
             Session["spo_pk"] = int.Parse(drp_spo.SelectedValue.ToString());
+            String msg = drp_spo.SelectedItem.Text + " Selected for Update";
+
+
+            MessgeboxUpdate("sucess", msg);
+            fillspomasterdata();
             GridView1.DataBind();
+            Spodata.DataBind();
+            UpdatePanel3.Update();
         }
 
         protected void Button4_Click(object sender, EventArgs e)

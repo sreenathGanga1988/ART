@@ -24,7 +24,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
     <tr>
-        <td>
+       <td class="NormalTD">
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
@@ -36,48 +36,48 @@
                     <td class="NormalTD" colspan="12" >&nbsp;<strong>Purchase Reports&nbsp;</strong></td>
                 </tr>
                 <tr>
-                    <td>
+                   <td class="NormalTD">
                         Mrn # from</td>
-                    <td>
+                   <td class="NormalTD">
                          <ucc:DropDownListChosen ID="ddl_Frommrn" Width="200px"  runat="server"   >
                                         </ucc:DropDownListChosen></td>
                     <td class="NormalTD">
                         &nbsp;</td>
-                    <td>mrn # to </td>
-                    <td> <ucc:DropDownListChosen ID="ddl_tomrn" Width="200px"  runat="server"   >
+                   <td class="NormalTD">mrn # to </td>
+                   <td class="NormalTD"> <ucc:DropDownListChosen ID="ddl_tomrn" Width="200px"  runat="server"   >
                                         </ucc:DropDownListChosen></td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">
                         <asp:Button ID="Button1" runat="server" Text="Show MRN Purchase" OnClick="Button1_Click" Font-Size="Smaller" />
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="NormalTD" colspan="12">&nbsp;<strong>Atc - location&nbsp; Reports</strong></td>
                 </tr>
                 <tr>
-                    <td>Atc</td>
-                    <td>
+                   <td class="NormalTD">Atc</td>
+                   <td class="NormalTD">
                         <ig:WebDropDown ID="drp_Atc" runat="server" DropDownAnimationType="EaseOut" DropDownContainerHeight="300px" DropDownContainerWidth="200px" EnableClosingDropDownOnSelect="False" EnableDropDownAsChild="false" EnableMultipleSelection="True" Height="21px" PageSize="12" TextField="name" ValueField="pk" Width="156px">
                             <DropDownItemBinding TextField="name" ValueField="pk" />
                         </ig:WebDropDown>
                     </td>
                     <td class="auto-style8" colspan="2">
                         &nbsp;</td>
-                    <td>
+                   <td class="NormalTD">
                         <asp:Button ID="Button2" runat="server" Font-Size="Smaller" OnClick="Button2_Click" Text="Show Purchase Report of Atc" />
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
+                   <td class="NormalTD">&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="NormalTD" >&nbsp;</td>
@@ -120,7 +120,7 @@
         </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
+       <td class="NormalTD">&nbsp;</td>
     </tr>
 </table>
 </asp:Content>

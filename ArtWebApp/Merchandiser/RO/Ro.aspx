@@ -211,6 +211,9 @@
                                                 <asp:Label ID="lbl_newUomPK" runat="server" Text='<%# Bind("Uom_Pk") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        
+
+                                         <asp:BoundField DataField="Refnum" HeaderText="Refnum" />
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

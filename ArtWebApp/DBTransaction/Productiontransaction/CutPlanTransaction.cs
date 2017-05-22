@@ -30,7 +30,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
                          StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
-WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') 
+WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric')  AND (StyleCostingMaster.IsApproved='A')
 GROUP BY SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
                          + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ''), SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
 HAVING        (StyleCostingMaster.OurStyleID = @ourstyleid)";
@@ -140,11 +140,13 @@ WHERE        (CutPlanMarkerDetails_PK = @CutPlan_PK)";
                 con.Open();
 
                 string query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
-                         AtcDetails.BuyerStyle, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.CutPlanASQDetails_PK
+                         AtcDetails.BuyerStyle, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.CutPlanASQDetails_PK, 
+                         StyleSize.Orderof
 FROM            CutPlanASQDetails INNER JOIN
                          POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK INNER JOIN
-                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
-                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         PoPackMaster ON CutPlanASQDetails.PoPackId = PoPackMaster.PoPackId INNER JOIN
+                         StyleSize ON POPackDetails.OurStyleID = StyleSize.OurStyleID AND POPackDetails.SizeName = StyleSize.SizeName
 WHERE        (CutPlanASQDetails.CutPlan_PK = @cutplanpk)";
 
 
@@ -198,6 +200,36 @@ HAVING        (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.ColorC
                     cmd.Parameters.AddWithValue("@colorcode", colorcode);
                 }
                 cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+        public static DataTable GetCutPlanMarkerDetails(int cutplanpk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                string query = @"SELECT        CutPlanMarkerDetails_PK, CutPlan_PK, NoOfPc, isnull((SELECT        SUM(Qty) 
+FROM            CutPlanMarkerSizeDetails
+WHERE        (CutPlanMarkerDetails_PK = CutPlanMarkerDetails.CutPlanMarkerDetails_PK)) ,0) as Qty, NoOfPlies, CutPerPlies, Cutreq, MarkerNo
+FROM            CutPlanMarkerDetails
+WHERE        (CutPlan_PK = @cutplanpk)";
+
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@cutplanpk", cutplanpk);
 
                 SqlDataReader rdr = cmd.ExecuteReader();
 

@@ -77,11 +77,12 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
         }
 
         public void FillMRNCombo(int poid)
-        {
+        {int lctnpk = int.Parse(Session["UserLoc_pk"].ToString().Trim());
+
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.MrnMasters
-                        where ponmbr.Po_PK == poid
+                        where ponmbr.Po_PK == poid && ponmbr.Location_Pk== lctnpk
                         select new
                         {
                             name = ponmbr.MrnNum,
@@ -202,7 +203,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 
             FillMRNQTY(int.Parse(drp_color.SelectedValue.ToString()));
 
-            tbl_InverntoryDetails.DataSource = fbrolldet.getRollDetailsofASNandMrnDetpk(int.Parse(drp_asn.SelectedValue.ToString()), int.Parse(drp_color.SelectedValue.ToString()));
+            tbl_InverntoryDetails.DataSource = fbrolldet.getRollDetailsofASNandMrnDetpk(int.Parse(drp_asn.SelectedValue.ToString()), int.Parse(drp_color.SelectedValue.ToString()), int.Parse(ddl_po.SelectedValue.ToString()));
             tbl_InverntoryDetails.DataBind();
             upd_grid.Update();
         }
@@ -266,6 +267,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             BLL.InventoryBLL.FabricRollEntryMRN mrnrolldata = new BLL.InventoryBLL.FabricRollEntryMRN();
             //mrnrolldata.rollinvdata = getmstrdetails();
             mrnrolldata.Rolldatacollection = GetRollDetailsData();
+         
             mrnrolldata.UpdateRollMRNDetails();
             tbl_InverntoryDetails.DataSource = null;
             tbl_InverntoryDetails.DataBind();

@@ -18,6 +18,98 @@
         }
    
     </style>
+
+<%--lbl_poqty
+lbl_docqty
+lbl_docextra
+lbl_mrnqty
+lbl_mrnextra
+lbl_totaldocqty
+lbl_totaldocextra
+txt_qty
+txt_extraqty--%>
+      <script type="text/javascript">
+
+       //calculate the sum of qty on keypress
+       function validateQty(objText) {
+           debugger;
+        
+           var cell = objText.parentNode;
+           var row = cell.parentNode; 
+
+           var sum = 0; 
+
+           var newqtytextbox = row.getElementsByClassName("txt_qty");
+           var poqty = row.getElementsByClassName("lbl_poqty");
+           var lbl_docqty = row.getElementsByClassName("lbl_docqty");
+           var lbl_totaldocqty = row.getElementsByClassName("lbl_totaldocqty");
+           var lbl_mrnqty = row.getElementsByClassName("lbl_mrnqty");
+           
+           if (parseFloat(newqtytextbox[0].value) >= parseFloat(lbl_docqty[0].innerText))
+           {
+               //if adding value
+
+               //if((totaldocqty-docqty)+newqty)>poqty)
+               if (parseFloat(((lbl_totaldocqty[0].innerText) - parseFloat(lbl_docqty[0].innerText)) + parseFloat(newqtytextbox[0].value)) > parseFloat(poqty[0].innerText) )
+               {
+                   newqtytextbox[0].value = 0;
+                   alert("Extra Qty Cannot be greater than POqty");
+               }
+               
+             
+           }else
+           {
+              // if reducing
+               if(parseFloat(newqtytextbox[0].value)< parseFloat(lbl_mrnqty[0].innerText) )
+               {
+                   newqtytextbox[0].value = 0;
+                   alert("Cannot Reduce Qty Mrn Already Done");
+               }
+           }
+
+
+       }
+
+    
+       function validateExcessQty(objText) {
+           debugger;
+           
+           
+           var cell = objText.parentNode;
+           var row = cell.parentNode;
+
+           var sum = 0; 
+           var txt_extraqty = row.getElementsByClassName("txt_extraqty");
+           var poqty = row.getElementsByClassName("lbl_poqty");
+           var lbl_docextra = row.getElementsByClassName("lbl_docextra");
+           var lbl_totaldocextra = row.getElementsByClassName("lbl_totaldocextra");
+           var lbl_mrnextra = row.getElementsByClassName("lbl_mrnextra");
+           var allowedexcess = 0;
+           if (txt_potype[0].innerText.trim() == "F")
+           {
+               allowedexcess = (3 / 100) * parseFloat(lbl_poqty[0].innerText);
+           }
+         
+
+           if (parseFloat(((lbl_totaldocextra[0].innerText) - parseFloat(lbl_docextra[0].innerText)) + parseFloat(txt_extraqty[0].value)) > parseFloat(allowedexcess))
+           {
+               txt_newExcessqty[0].value = 0;
+               alert("Extra Qty Cannot be Allowed over 3 %");
+           }
+
+          
+
+       }
+
+
+</script>
+
+
+
+
+
+
+
     <link href="../../css/style.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -95,6 +187,21 @@
                          <td class="NormalTD" ></td>
                          <td class="NormalTD" ></td>
                      </tr>
+                             <tr>
+                                 <td class="NormalTD">adn type</td>
+                                 <td class="NormalTD">
+                                     <ucc:DropDownListChosen ID="ddl_adnType" runat="server" DisableSearchThreshold="10" Width="200px">
+                                         <asp:ListItem>Select</asp:ListItem>
+                                         <asp:ListItem Value="LocalUAE">Local UAE ADN</asp:ListItem>
+                                         <asp:ListItem Value="LocalKenya">Local Kenyan ADN</asp:ListItem>
+                                         <asp:ListItem Value="IntlSupplier">International ADN</asp:ListItem>
+                                     </ucc:DropDownListChosen>
+                                 </td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                 <td class="NormalTD">&nbsp;</td>
+                             </tr>
                      <tr>
                          <td class="NormalTD" >&nbsp;</td>
                          <td class="NormalTD" >&nbsp;</td>
@@ -206,9 +313,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:UpdatePanel ID="upd_grid"  UpdateMode="Conditional"  runat="server">
+                            <div class="smallgridtable">
+                                <asp:UpdatePanel ID="upd_grid"  UpdateMode="Conditional"  runat="server">
                                 <ContentTemplate>
-                                    <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%">
+                                    <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%" >
                                         <Columns>
                                             <asp:TemplateField>
                                                 <ItemTemplate>
@@ -225,30 +333,79 @@
                                             <asp:BoundField DataField="Ponum" HeaderText="Ponum" />
                                             <asp:BoundField DataField="RMNum" HeaderText="RMNum" />
                                             <asp:BoundField DataField="Description" HeaderText="Description" />
-                                            <asp:BoundField DataField="ItemColor" HeaderText="ItemColor" />
+                                            <asp:BoundField DataField="ItemColor" HeaderText="I Color" />
                                             <asp:BoundField DataField="ItemSize" HeaderText="ItemSize" />
-                                            <asp:BoundField DataField="SupplierColor" HeaderText="SupplierColor" />
-                                            <asp:BoundField DataField="Suppliersize" HeaderText="Suppliersize" />
+                                            <asp:BoundField DataField="SupplierColor" HeaderText="S Color" />
+                                            <asp:BoundField DataField="Suppliersize" HeaderText="S size" />
                                             <asp:TemplateField HeaderText="UOM">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbl_UOM" runat="server" Text='<%# Bind("UOMCode") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="POQty" HeaderText="POQty" />
-                                            <asp:BoundField DataField="Qty" HeaderText="AddedQty" />
-                                            <asp:TemplateField HeaderText="Qty">
+                                            <asp:TemplateField HeaderText="POQty">
+                                               
                                                 <ItemTemplate>
-                                                    <asp:TextBox ID="txt_qty" Text='<%# Bind("Qty") %>' runat="server"></asp:TextBox>
+                                                    <asp:Label ID="lbl_poqty" CssClass="lbl_poqty" runat="server" Text='<%# Bind("POQty") %>'></asp:Label>
                                                 </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText=" dOC Qty">
+                                                
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_docqty" CssClass="lbl_docqty" runat="server" Text='<%# Bind("Qty") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="dOC Extra">
+                                              
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_docextra" CssClass="lbl_docextra" runat="server" Text='<%# Bind("ExtraQty") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="MRN Qty">
+                                               
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_mrnqty" CssClass="lbl_mrnqty" runat="server" Text='<%# Bind("ReceivedQty") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="MRN Extra">
+                                                
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_mrnextra" CssClass="lbl_mrnextra" runat="server" Text='<%# Bind("ReceivedExtra") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Total DocQty">
+                                             
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_totaldocqty" CssClass="lbl_totaldocqty" runat="server" Text='<%# Bind("TotalDocQty") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Total ExtraQty">
+                                              
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbl_totaldocextra"  CssClass="lbl_totaldocextra" runat="server" Text='<%# Bind("TotalExtraQty") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
+                                            
+                                            <asp:TemplateField HeaderText="Qty" ItemStyle-Font-Size="Smaller">
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="txt_qty" CssClass="txt_qty" Width="70px" Text='<%# Bind("Qty") %>' runat="server"  onChange="validateQty(this)" Font-Size="Smaller"></asp:TextBox>
+                                                </ItemTemplate>
+                                                <ItemStyle Font-Size="Smaller" />
+                                            </asp:TemplateField>
+                                             <asp:TemplateField HeaderText="ExtraQty" ItemStyle-Font-Size="Smaller">
+                                                <ItemTemplate>
+                                                    <asp:TextBox ID="txt_extraqty" CssClass="txt_extraqty" Width="70px" Text='<%# Bind("ExtraQty") %>' onChange="validateExcessQty(this)" runat="server" Font-Size="Smaller"></asp:TextBox>
+                                                </ItemTemplate>
+                                                <ItemStyle Font-Size="Smaller" />
                                             </asp:TemplateField>
                                              <asp:TemplateField HeaderText="DO/Inv#">
                                                 <ItemTemplate>
-                                                    <asp:TextBox ID="txt_do"  Text='<%# Bind("Donumber") %>' runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txt_do"  Text='<%# Bind("Donumber") %>' Font-Size="Smaller"  Width="70px" runat="server"></asp:TextBox>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="ETA">
                                                 <ItemTemplate>
-                                                    <ig:WebDatePicker ID="wdp_etadate"  runat="server">
+                                                    <ig:WebDatePicker ID="wdp_etadate"  Font-Size="Smaller" runat="server">
                                                     </ig:WebDatePicker>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
@@ -266,6 +423,8 @@
                                     </asp:GridView>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                             </div>
+                            
                         </td>
                     </tr>
                     <tr>

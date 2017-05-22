@@ -148,6 +148,33 @@ namespace ArtWebApp.Merchandiser {
         protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_inhousedate;
         
         /// <summary>
+        /// dtp_hd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_hd;
+        
+        /// <summary>
+        /// dtp_rsd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_rsd;
+        
+        /// <summary>
+        /// drp_loc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_loc;
+        
+        /// <summary>
         /// drp_pogroup control.
         /// </summary>
         /// <remarks>
@@ -227,6 +254,15 @@ namespace ArtWebApp.Merchandiser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SeasonData;
+        
+        /// <summary>
+        /// FACTORYDATASOURCE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource FACTORYDATASOURCE;
         
         /// <summary>
         /// Destinationdata control.

@@ -44,6 +44,12 @@
                         </asp:GridView>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+
+                          <asp:Button ID="btn_approveAll" runat="server" OnClick="btn_approveAll_Click" Text="Approve All selected Service PO" />
+                    </td>
+                </tr>
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>

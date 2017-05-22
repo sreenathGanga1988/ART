@@ -69,9 +69,9 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         {
 
 
-            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),"atc",0);
             DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
-
+            DataTable Remarkdata = BLL.FactoryAtcChart.GetPlanningRemark(int.Parse(cmb_atc.SelectedValue.ToString()));
 
             if (BomData.Rows.Count <= 0)
             {
@@ -82,6 +82,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                
                 ViewState["Bomdata"] = BomData;
                 ViewState["ProPlandata"] = procurementplandata;
+                ViewState["Remarkdata"] = Remarkdata;
                 tbl_bom.DataSource = BomData;
                 tbl_bom.DataBind();
                 Upd_maingrid.Update();
@@ -169,6 +170,8 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
 
         protected void ShowRawmaterialBOM_Click(object sender, EventArgs e)
         {
+            DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
+            ViewState["ProPlandata"] = procurementplandata;
             ArrayList popaklist = new ArrayList();
             List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_rmnum.SelectedItems;
             foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
@@ -302,7 +305,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             }
             else
             {
-                string msg = "Entered CM is greater than Approved CM Please Revise the Costing";
+              
              
             }
 
@@ -409,11 +412,17 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
 
 
                     TextBox remark = (row.FindControl("txt_remark") as TextBox);
+                    if(remark.Text!="")
+                    {
+                        deldet.Skudet_Pk = skudetpk;
+                        deldet.Remark = remark.Text;
+                        remark.Text = "";
+                        deldet.insertRemark();
+                   
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Remark Added SucessFully');", true);
+                    }
 
-                    deldet.Skudet_Pk = skudetpk;
-                    deldet.Remark = remark.Text;
-
-                    deldet.insertRemark();
+                   
 
 
                     
@@ -425,16 +434,30 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             {
                 int skudetpk = int.Parse(((row.FindControl("lbl_skudetpk") as Label).Text.ToString()));
 
-                decimal txt_qty = decimal.Parse(((row.FindControl("txt_qty") as TextBox).Text.ToString()));
+                TextBox qty = (row.FindControl("txt_qty") as TextBox);
+                decimal txt_qty = decimal.Parse(qty.Text.ToString());
 
                 TextBox dtp_deliverydate = (row.FindControl("dtp_deliverydate") as TextBox);
                 string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
 
                 BLL.MerchandsingBLL.ProcurementplanDetailsData deldet = new BLL.MerchandsingBLL.ProcurementplanDetailsData();
-                deldet.Skudet_Pk = skudetpk;
-                deldet.Qty = txt_qty;
-                deldet.ETADate = DateTime.Parse(s);
-                deldet.insertETA();
+                if (qty.Text != "")
+                {
+                    deldet.Skudet_Pk = skudetpk;
+                    deldet.Qty = txt_qty;
+                    deldet.ETADate = DateTime.Parse(s);
+                    qty.Text = "";
+                    deldet.insertETA();
+
+                    
+                   
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('ETA Added');", true);
+                //    ScriptManager.RegisterStartupScript(                UpdatePanelID,
+                //UpdatePanelID.GetType(),
+                //"Create Time Table",
+                //" alert('Time Table Created Successfully.'); window.location.href = 'create.aspx';",
+                //true);
+                }
             }
 
         }

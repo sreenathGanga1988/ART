@@ -25,5 +25,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> NewPOLineId { get; set; }
         public Nullable<System.DateTime> PoDate { get; set; }
         public Nullable<decimal> ReceivedQty { get; set; }
+        public string SupplierName { get; set; }
+        public string OdooLocation { get; set; }
     }
 }

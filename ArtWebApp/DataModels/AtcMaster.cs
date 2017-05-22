@@ -16,7 +16,6 @@ namespace ArtWebApp.DataModels
     {
         public AtcMaster()
         {
-            this.AtcDetails = new HashSet<AtcDetail>();
             this.AtcRawMaterialMasters = new HashSet<AtcRawMaterialMaster>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
@@ -44,9 +43,10 @@ namespace ArtWebApp.DataModels
         public string IsClosed { get; set; }
         public string SeasonName { get; set; }
         public Nullable<decimal> ProjectionQty { get; set; }
+        public string IsProjectionApproved { get; set; }
+        public Nullable<decimal> ProductionCountryID { get; set; }
     
-        public virtual ICollection<AtcDetail> AtcDetails { get; set; }
-        public virtual BuyerMaster BuyerMaster { get; set; }
+        public virtual CountryMaster CountryMaster { get; set; }
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }

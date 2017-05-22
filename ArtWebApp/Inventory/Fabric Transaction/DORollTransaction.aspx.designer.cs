@@ -103,6 +103,24 @@ namespace ArtWebApp.Inventory.Fabric_Transaction {
         protected global::CustomDropDown.DropDownListChosen drp_color;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
         /// upd_grid control.
         /// </summary>
         /// <remarks>
@@ -112,13 +130,13 @@ namespace ArtWebApp.Inventory.Fabric_Transaction {
         protected global::System.Web.UI.UpdatePanel upd_grid;
         
         /// <summary>
-        /// GridView1 control.
+        /// tbl_inventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView tbl_inventory;
         
         /// <summary>
         /// Button1 control.

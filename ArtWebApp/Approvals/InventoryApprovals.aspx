@@ -2,6 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
        
+        .auto-style1 {
+            height: 239px;
+        }
+       
     </style>
     <link href="../css/style.css" rel="stylesheet" />
 </asp:Content>
@@ -79,7 +83,7 @@ WHERE        (RequestOrderMaster.IsApproved = N'N')"></asp:SqlDataSource>
                             <asp:BoundField DataField="Toitem" HeaderText="To" />
                             <asp:BoundField DataField="LoanQty" HeaderText="LoanQty" />
                             <asp:BoundField DataField="UnitPrice" HeaderText="UnitPrice" />
-                            <asp:ButtonField ButtonType="Button" CommandName="Approve" HeaderText="Approve" Text="Approve" />
+                            <asp:ButtonField ButtonType="Button" CommandName="Approve" HeaderText="Approve" Text="Approve" Visible="False" />
                             <asp:ButtonField CommandName="Reject" HeaderText="Reject" Text="Reject" />
                             <asp:ButtonField CommandName="Show" HeaderText="Show" Text="Show" />
                         </Columns>
@@ -159,6 +163,60 @@ WHERE        (InventoryLoanMaster.IsApproved = N'N')"></asp:SqlDataSource>
                     <td>
                         <asp:SqlDataSource ID="transferData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TransferToGstockMaster.TransferToGSTock_PK, TransferToGstockMaster.TransferNumber, LocationMaster.LocationName, AtcMaster.AtcNum, SUM(TransferToGstockDetails.ReceivedQty * TransferToGstockDetails.NewUnitprice) AS TransferValue, TransferToGstockMaster.AddedBy, TransferToGstockMaster.IsApproved, TransferToGstockMaster.CreatedDate FROM TransferToGstockMaster INNER JOIN TransferToGstockDetails ON TransferToGstockMaster.TransferToGSTock_PK = TransferToGstockDetails.TransferToGSTock_PK INNER JOIN SkuRawmaterialDetail ON TransferToGstockDetails.FromSkudet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN LocationMaster ON TransferToGstockMaster.Location_Pk = LocationMaster.Location_PK GROUP BY TransferToGstockMaster.TransferToGSTock_PK, AtcMaster.AtcNum, TransferToGstockMaster.AddedBy, LocationMaster.LocationName, TransferToGstockMaster.IsApproved, TransferToGstockMaster.CreatedDate, TransferToGstockMaster.TransferNumber HAVING (TransferToGstockMaster.IsApproved = N'N')"></asp:SqlDataSource>
                     </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+        </table>
+        </asp:View>
+
+        <asp:View ID="View4" runat="server">
+            <table class="FullTable">
+            <tr>
+                <td class="RedHeadding"><strong>iNVENTORY mISpLACED</strong></td>
+            </tr>
+            <tr>
+                <td class="auto-style1"><asp:GridView ID="tbl_misPlaced" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="InventoryMisPlaced" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" DataKeyNames="MisplaceApp_pk">
+                        <Columns>  
+                            <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chk_select" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="MisplaceApp_pk" HeaderText="MisplaceApp_pk" InsertVisible="False" ReadOnly="True" SortExpression="MisplaceApp_pk" />
+                            <asp:BoundField DataField="reqnum" HeaderText="reqnum" SortExpression="reqnum" />
+                            <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                            <asp:BoundField DataField="AtcNum" HeaderText="AtcNum" SortExpression="AtcNum" />
+                            <asp:BoundField DataField="MisplaceDate" HeaderText="MisplaceDate" SortExpression="MisplaceDate" />
+                            <asp:BoundField DataField="Explanation" HeaderText="Explanation" SortExpression="Explanation" />
+                            <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" SortExpression="AddedBy" />
+                            <asp:BoundField DataField="IsApproved" HeaderText="IsApproved" SortExpression="IsApproved" />
+                        </Columns>
+                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                        <RowStyle BackColor="White" ForeColor="#330099" />
+                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                    </asp:GridView></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Approve Missplaced Inventory Request and Forward" />
+                    <td>
+                    
+                </td></td>
+            </tr>
+                <tr>
+                    <td>
+                        <asp:SqlDataSource ID="InventoryMisPlaced" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT InventoryMissingRequest.MisplaceApp_pk, InventoryMissingRequest.reqnum, LocationMaster.LocationName, AtcMaster.AtcNum, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, InventoryMissingRequest.AddedBy, InventoryMissingRequest.IsApproved FROM InventoryMissingRequest INNER JOIN LocationMaster ON InventoryMissingRequest.FromLctn_pk = LocationMaster.Location_PK INNER JOIN AtcMaster ON InventoryMissingRequest.Atc_id = AtcMaster.AtcId WHERE (InventoryMissingRequest.Level1Approval = N'N')"></asp:SqlDataSource>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
                 </tr>
         </table>
         </asp:View>

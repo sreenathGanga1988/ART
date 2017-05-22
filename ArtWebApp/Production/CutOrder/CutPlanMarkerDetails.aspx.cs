@@ -97,7 +97,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsRatioAdded=="N"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -898,7 +898,7 @@ namespace ArtWebApp.Production.CutOrder
             }
             if (k > 0)
             {
-                String msg = " Marker Details Added Sucessfully ";
+                String msg = " Marker Details Added Successfully ";
 
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
                 tbl_cutorderdata.DataSource = null;

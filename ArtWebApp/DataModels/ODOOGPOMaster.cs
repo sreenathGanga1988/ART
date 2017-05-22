@@ -25,5 +25,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CuRate { get; set; }
         public Nullable<decimal> SpoDet_PK { get; set; }
         public Nullable<decimal> SPO_PK { get; set; }
+        public Nullable<System.DateTime> PO_Date { get; set; }
+        public string Odoo_UOM { get; set; }
+        public string OdooLocation { get; set; }
     }
 }

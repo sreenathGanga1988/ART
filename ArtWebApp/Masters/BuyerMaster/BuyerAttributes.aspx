@@ -157,7 +157,7 @@
                     </tr>
 
                       <tr>
-                        <td><asp:FormView ID="FormView3" runat="server" DataKeyNames="StyleID" DataSourceID="BuyerStyle1">
+                        <td><asp:FormView ID="FormView3" runat="server" DataKeyNames="BuyerStyleID" DataSourceID="BuyerStyle1">
                                 
                                 
                                 <InsertItemTemplate>
@@ -166,7 +166,7 @@
                                     <br />
                                     ArtBuyerID:
                                    BuyerID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="Buyerdata" DataTextField="BuyerName" DataValueField="BuyerID" SelectedValue='<%# Bind("ArtBuyerID", "{0:N}") %>'>
+                                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="Buyerdata" DataTextField="BuyerName" DataValueField="BuyerID" SelectedValue='<%# Bind("BuyerID", "{0:N}") %>'>
                                     </asp:DropDownList>
                                     <br />
                                     <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
@@ -183,16 +183,16 @@
                         <td>
                             <ig:WebDataGrid ID="WebDataGrid3" runat="server" AutoGenerateColumns="False" DataSourceID="BuyerStyle1" >
                                 <Columns>
-                                    <ig:BoundDataField DataFieldName="StyleID" Key="StyleID">
-                                        <Header Text="StyleID">
+                                    <ig:BoundDataField DataFieldName="BuyerStyleID" Key="BuyerStyleID">
+                                        <Header Text="BuyerStyleID">
                                         </Header>
                                     </ig:BoundDataField>
                                     <ig:BoundDataField DataFieldName="BuyerStyle" Key="BuyerStyle">
                                         <Header Text="BuyerStyle">
                                         </Header>
                                     </ig:BoundDataField>
-                                    <ig:BoundDataField DataFieldName="ArtBuyerID" Key="ArtBuyerID">
-                                        <Header Text="ArtBuyerID">
+                                    <ig:BoundDataField DataFieldName="BuyerID" Key="BuyerID">
+                                        <Header Text="BuyerID">
                                         </Header>
                                     </ig:BoundDataField>
                                 </Columns>
@@ -280,14 +280,14 @@
             </asp:View>
              <asp:View ID="View5" runat="server">
                  <asp:SqlDataSource ID="Buyerdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [BuyerID], [BuyerName] FROM [BuyerMaster]"></asp:SqlDataSource>
-                 <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:CourierDetailsConnectionString %>" 
-                     SelectCommand="SELECT StyleID, BuyerStyle, ArtBuyerID FROM BuyerStyleMaster" DeleteCommand="DELETE FROM [BuyerStyleMaster] WHERE [StyleID] = @original_StyleID" 
-                     InsertCommand="INSERT INTO [BuyerStyleMaster] ([BuyerStyle], [ArtBuyerID]) VALUES (@BuyerStyle, @ArtBuyerID)" OldValuesParameterFormatString="original_{0}" 
-                     UpdateCommand="UPDATE [BuyerStyleMaster] SET [BuyerStyle] = @BuyerStyle, [ArtBuyerID] = @ArtBuyerID WHERE [StyleID] = @original_StyleID">
+                 <asp:SqlDataSource ID="BuyerStyle1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                     SelectCommand="SELECT BuyerStyleID, BuyerStyle, BuyerID FROM BuyerStyleMaster" DeleteCommand="DELETE FROM [BuyerStyleMaster] WHERE [BuyerStyleID] = @original_BuyerStyleID" 
+                     InsertCommand="INSERT INTO [BuyerStyleMaster] ([BuyerStyle], [BuyerID]) VALUES (@BuyerStyle, @BuyerID)" OldValuesParameterFormatString="original_{0}" 
+                     UpdateCommand="UPDATE [BuyerStyleMaster] SET [BuyerStyle] = @BuyerStyle, [BuyerID] = @BuyerID WHERE [BuyerStyleID] = @original_BuyerStyleID">
                      
                      <InsertParameters>
                          <asp:Parameter Name="BuyerStyle" Type="String" />
-                         <asp:Parameter Name="ArtBuyerID" Type="Decimal" />
+                         <asp:Parameter Name="BuyerID" Type="Decimal" />
                      </InsertParameters>
                      
                  </asp:SqlDataSource>

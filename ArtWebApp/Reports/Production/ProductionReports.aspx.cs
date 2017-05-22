@@ -113,6 +113,33 @@ namespace ArtWebApp.Reports.Production
         }
 
 
+
+
+
+        public void FillShipmentHandover(int atcid)
+        {
+            
+
+                  DBTransaction.ReportTransactions.ProductionReportsTrans prdtran = new DBTransaction.ReportTransactions.ProductionReportsTrans();
+            //  adapt.Connection.ConnectionString = Program.ConnStr;
+            DataTable dt = prdtran.GetShipmentHandoverofAtc(int.Parse(drp_Atc.SelectedValue.ToString()));
+
+          
+                // Create a table from the query.
+                drp_shipmentHandover.DataSource = dt;
+                drp_shipmentHandover.DataTextField = "ShipmentHandOverCode";
+                drp_shipmentHandover.DataValueField = "ShipmentHandMaster_PK";
+                drp_shipmentHandover.DataBind();
+
+
+
+
+            
+        }
+
+
+
+
         protected void btn_atc_Click(object sender, EventArgs e)
         {
             loadProductionreport();
@@ -195,6 +222,11 @@ namespace ArtWebApp.Reports.Production
         protected void btn_jcothers_Click(object sender, EventArgs e)
         {
             loadJCOthersreport();
+        }
+
+        protected void btn_jc0_Click(object sender, EventArgs e)
+        {
+            FillShipmentHandover(int.Parse(drp_Atc.SelectedValue.ToString()));
         }
     }
 }

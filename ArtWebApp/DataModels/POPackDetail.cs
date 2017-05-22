@@ -16,6 +16,7 @@ namespace ArtWebApp.DataModels
     {
         public POPackDetail()
         {
+            this.ASQAllocationMasters = new HashSet<ASQAllocationMaster>();
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
         }
     
@@ -33,7 +34,16 @@ namespace ArtWebApp.DataModels
         public string IsPackable { get; set; }
         public Nullable<decimal> ColorId { get; set; }
         public Nullable<decimal> SizeID { get; set; }
+        public string IsShortClosed { get; set; }
+        public Nullable<decimal> CutQty { get; set; }
+        public string IsHidden { get; set; }
+        public string IsDeleted { get; set; }
+        public string ShortClosedBy { get; set; }
+        public string MarkedCuttableBy { get; set; }
+        public Nullable<System.DateTime> ShortClosedDate { get; set; }
+        public Nullable<System.DateTime> MarkedCuttabledate { get; set; }
     
+        public virtual ICollection<ASQAllocationMaster> ASQAllocationMasters { get; set; }
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual PoPackMaster PoPackMaster { get; set; }

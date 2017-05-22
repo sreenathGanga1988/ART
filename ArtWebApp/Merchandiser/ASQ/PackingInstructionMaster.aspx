@@ -107,10 +107,10 @@
 
                 }
 
-
+                lbl_totalpcadded.innerHTML = grandtotal.toString();
             }
 
-            lbl_totalpcadded.innerHTML = grandtotal.toString();
+          
 
         }
           
@@ -190,6 +190,28 @@ body
             width: 100%;
         }
     </style>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
+    <style type="text/css">
+        .auto-style1 {
+            width: 542px;
+            height: 117px;
+        }
+    </style>
+    <style type="text/css">
+        .auto-style1 {
+            width: 5px;
+        }
+    </style>
+    <style type="text/css">
+        .auto-style1 {
+            width: 181px;
+            height: 45px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -263,8 +285,37 @@ body
                                
                                 &nbsp;</td>
                             </tr>
+                              <tr>
+                            <td class="NormalTD">
+                    
+      
+                                Packing Type</td>
+                                 <td class="NormalTD">
+
+                                     <ucc:DropDownListChosen ID="drp_type" runat="server" DisableSearchThreshold="10" Width="200px">
+                                         <asp:ListItem Value="Ass Color Ass Size">Ass Color Ass Size</asp:ListItem>
+                                          <asp:ListItem Value="Solid Color Assc Size">Solid Color Assc Size</asp:ListItem>
+                                          <asp:ListItem Value="Solid Color Solid Size">Solid Color Solid Size</asp:ListItem>
+                                          <asp:ListItem Value="Assc Color Solid Size">Assc Color Solid Size"</asp:ListItem>
+                                          
+                                         <asp:ListItem></asp:ListItem>
+                            </ucc:DropDownListChosen>
+
+
+                                    
+                                </td>
+                            <td class="SearchButtonTD">
+                                 
+                                
+                     
+                                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="S" />
+                                </td>
+                            <td>
+                               
+                                &nbsp;</td>
+                            </tr>
                             <tr>
-                                <td colspan="4"><table class="auto-style9">
+                                <td colspan="4"><table class="gridtable">
                                     <tr>
                                         <td  >No of ctn</td>
                                         <td>pc per ctn</td>
@@ -272,6 +323,7 @@ body
                                         <td>Dimension</td>
                                         <td>Total PC</td>
                                         <td>Added PC</td>
+                                        <td>Polybag Pc/Ctn</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -280,13 +332,73 @@ body
                                         <td> <asp:TextBox ID="txt_pcperctn" CssClass="txt_pcperctn" onchange="totalcalculation()"  Width="100px" runat="server"></asp:TextBox></td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <asp:TextBox ID="txt_ctndiemension" runat="server"></asp:TextBox>
+                                            
                                         </td>
                                         <td>
                                             <asp:Label ID="lbl_totalpcexpected" CssClass="lbl_totalpcexpected" runat="server" Text="0"></asp:Label>
                                         </td>
                                         <td>
                                             <asp:Label ID="lbl_totalpcadded" CssClass="lbl_totalpcadded" runat="server" Text="0"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txt_polybagperctn" runat="server">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <table style="border: thin double #C0C0C0; line-height: normal; vertical-align: middle;  text-align: center; white-space: normal; word-spacing: normal; letter-spacing: normal; background-color: #99CCFF; position: relative; width: 100%;">
+                                                
+                                                <tr>
+                                                  
+                                                    <td>
+                                                        <table class="auto-style1" style="background-color: #FF9966">
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:TextBox ID="txt_alllength" runat="server" CssClass="txt_alllength" placeholder="Length" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>X</td>
+                                                                <td>
+                                                                    <asp:TextBox ID="txt_allwidth" runat="server" CssClass="txt_allwidth" placeholder="Width" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>X</td>
+                                                                <td>
+                                                                    <asp:TextBox ID="txt_allheight" runat="server" CssClass="txt_allheight" placeholder="Height" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:DropDownList ID="drp_weightuomll" runat="server" CssClass="drp_weightuomll">
+                                                                        <asp:ListItem Value="KG">KG</asp:ListItem>
+                                                                        <asp:ListItem Value="LBS">LBS</asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                              
+                                                            </tr>
+                                                          
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table class="auto-style1" style="background-color: #00FFFF">
+                                                            <tr>
+                                                                <td style="background-color: #00FFFF">
+                                                                    <asp:TextBox ID="txt_NNWeightAll" runat="server" CssClass="txt_NNWeightAll" placeholder="NNWeight" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:TextBox ID="txt_NetAll" runat="server" CssClass="txt_NetAll" placeholder="Net" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:TextBox ID="txt_grossAll" runat="server" CssClass="txt_grossAll" placeholder="Gross" Width="50px"></asp:TextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:DropDownList ID="drp_NetUOMALL" runat="server" CssClass="drp_NetUOMALL">
+                                                                        <asp:ListItem Value="KG">KG</asp:ListItem>
+                                                                        <asp:ListItem Value="LBS">LBS</asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                                <td>&nbsp;</td> </tr>
+                                                         
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                 </table></td>
@@ -452,6 +564,7 @@ body
                                                         </asp:UpdatePanel>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
+                                                   
                                             </Columns>
                                             <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -466,15 +579,19 @@ body
                                      
                                     </tr>
                                     <tr>
-                                        <td class="auto-style10">
-                                             <asp:UpdatePanel ID="upd_bttn" UpdateMode="Conditional" runat="server">
-                                    <ContentTemplate>
-                                <asp:Button ID="btn_savelist" runat="server" OnClick="btn_savelist_Click" Text="Save packing List" />
-                                         </ContentTemplate>
-                                </asp:UpdatePanel>
-                                        </td>
+                                        <td >
+                                             <textarea id="txt_instruction" cols="20" runat="server" name="S1" rows="2"></textarea></td>
                                        
                                     </tr>
+                                               <tr>
+                                                   <td class="auto-style10">
+                                                       <asp:UpdatePanel ID="upd_bttn" runat="server" UpdateMode="Conditional">
+                                                           <ContentTemplate>
+                                                               <asp:Button ID="btn_savelist" runat="server" OnClick="btn_savelist_Click" Text="Save packing List" />
+                                                           </ContentTemplate>
+                                                       </asp:UpdatePanel>
+                                                   </td>
+                                               </tr>
                                 </table>
 
 
@@ -579,9 +696,18 @@ body
         </tr>
     </table>
    
-    <div>
-        
+  <asp:UpdateProgress ID="PageUpdateProgress" runat="server" AssociatedUpdatePanelID="upd_bttn" DisplayAfter="0" DynamicLayout="true">
+                                <ProgressTemplate>
+                                   <div class="modal">
+        <div class="center">
+          <img  src="../../Image/loader.gif" style="position: relative; top: 45%;" > </img>
+        </div>
     </div>
+                                     
+                                       
+                                        
+                                </ProgressTemplate>
+                            </asp:UpdateProgress>
     
 
 </asp:Content>

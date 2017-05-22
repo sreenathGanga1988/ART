@@ -1,8 +1,10 @@
 ﻿using ArtWebApp.DataModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 
 namespace ArtWebApp.BLL.UserBLL
 {
@@ -12,8 +14,8 @@ namespace ArtWebApp.BLL.UserBLL
         public int UserID { get; set; }
         public String UserName { get; set; }
         public String Password { get; set; }
-
-
+        public int UserPROFILE_PK { get; set; }
+        public int userloc_pk { get; set; }
 
 
 
@@ -79,7 +81,26 @@ namespace ArtWebApp.BLL.UserBLL
             }
         }
 
+        public void UpdateProfile()
+        {
+            using (DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+            {
 
+
+                var q = from user in enty.UserMasters
+                        where user.User_PK == this.UserID
+
+                        select user;
+
+
+                foreach (var element in q)
+                {
+                    element.UserProfile_Pk = this.UserPROFILE_PK;
+                }
+
+                enty.SaveChanges();
+            }
+        }
 
         public Boolean IsUserAuthenicated()
         {
@@ -140,7 +161,7 @@ namespace ArtWebApp.BLL.UserBLL
                             where usr.UserName.Trim() == username && usr.Password == Password
                             select new { 
                             
-                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK
+                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK
 
                             };
 
@@ -150,6 +171,9 @@ namespace ArtWebApp.BLL.UserBLL
                         HttpContext.Current.Session["User_PK"] = user.User_PK;
                         HttpContext.Current.Session["UserLoc_pk"] = user.UserLoc_PK;
                         HttpContext.Current.Session["lOC_Code"] = user.LocationPrefix;
+                        HttpContext.Current.Session["UserProfile_Pk"] = user.UserProfile_Pk;
+                        HttpContext.Current.Session["UserProfileName"] = user.UserProfileName;
+                        HttpContext.Current.Session["Department_PK"] = user.Department_PK;
                         isauthenicated = true;
 
                         var q1 = from usssr in enty.UserMasters
@@ -161,9 +185,13 @@ namespace ArtWebApp.BLL.UserBLL
                             userk.LastLogin = DateTime.Now;
                         }
 
-                       
 
-                        }
+
+                    }
+
+                  
+
+
                     enty.SaveChanges();
                 }
                 catch (Exception ex)
@@ -212,5 +240,50 @@ namespace ArtWebApp.BLL.UserBLL
 
 
 
+    }
+
+
+    public class UserRightmaster
+    {
+        public int profile_pk { get; set; }
+        public List<UserRight> UserRightDataCollection { get; set; }
+
+        public String InsertUserRight()
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                enty.UserProfileRights.RemoveRange(enty.UserProfileRights.Where(c => c.UserProfile_Pk == profile_pk));
+                enty.SaveChanges();
+                foreach (UserRight di in this.UserRightDataCollection)
+                {
+
+                    UserProfileRight invdet = new UserProfileRight();
+                    invdet.UserProfile_Pk = di.Profilepk;
+                    invdet.Menu_PK = di.Menu_pk;
+                 
+
+
+                    enty.UserProfileRights.Add(invdet);
+
+
+
+
+                }
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
+
+    }
+
+    public class UserRight
+    {
+
+        public int Profilepk { get; set; }
+        public int Menu_pk { get; set; }
     }
 }

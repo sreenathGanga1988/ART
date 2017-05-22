@@ -105,7 +105,30 @@ WHERE       (Supplier_Pk = @Param3) AND(" + condition + ")";
 
             if (condition.Trim () != "where")
             {
-                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType
+//                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType
+//FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
+//                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+//                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, ProcurementDetails.POUnitRate,  CurrencyMaster.CurrencyID, CurrencyMaster.CurrencyCode,
+//                         ProcurementDetails.CURate, ProcurementDetails.Uom_PK,
+//                             (SELECT        ISNULL(SUM(ReceiptQty), 0) AS Expr1
+//                               FROM            MrnDetails
+//                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK) AND (SkuDet_PK = ProcurementDetails.SkuDet_PK)) AS ReceivedQty,
+//							   (SELECT        ISNULL(SUM(ExtraQty), 0) AS Expr1
+//                               FROM            MrnDetails
+//                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK) AND (SkuDet_PK = ProcurementDetails.SkuDet_PK)) AS ExtraQty,
+//                             (SELECT        ISNULL(SUM(InvoiceQty), 0) AS Expr1
+//                               FROM            SupplierInvoiceDetail
+//                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK)) AS InvQty,ProcurementMaster.POType
+//FROM            ProcurementDetails INNER JOIN
+//                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+//                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+//                         UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+//                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+//                         CurrencyMaster ON ProcurementMaster.CurrencyID = CurrencyMaster.CurrencyID " + condition + " ) AS tt";
+
+
+
+                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType,tt.LastMRNDATE
 FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, ProcurementDetails.POUnitRate,  CurrencyMaster.CurrencyID, CurrencyMaster.CurrencyCode,
@@ -118,7 +141,10 @@ FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PON
                                WHERE        (PODet_PK = ProcurementDetails.PODet_PK) AND (SkuDet_PK = ProcurementDetails.SkuDet_PK)) AS ExtraQty,
                              (SELECT        ISNULL(SUM(InvoiceQty), 0) AS Expr1
                                FROM            SupplierInvoiceDetail
-                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK)) AS InvQty,ProcurementMaster.POType
+                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK)) AS InvQty,ProcurementMaster.POType,(SELECT        MAX(MrnMaster.AddedDate) 
+FROM            MrnMaster INNER JOIN
+                         MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK
+WHERE        (MrnDetails.PODet_PK = ProcurementDetails.PODet_PK)) as LastMRNDATE
 FROM            ProcurementDetails INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
@@ -235,7 +261,8 @@ FROM            StockPODetails INNER JOIN
                 Spinmstr.Remark = sinvmstrdata.Remark;
                 Spinmstr.IsPosted = "N";
                 Spinmstr.SupInvnum = sinvmstrdata.Supinvnum;
-               Donum= Spinmstr.SupplierInvoiceNum = CreateINVnum();
+                Spinmstr.Year = int.Parse(sinvmstrdata.AccountDate.Year.ToString ());
+               Donum= Spinmstr.SupplierInvoiceNum = CreateINVnum(int.Parse(sinvmstrdata.AccountDate.Year.ToString()));
                 enty.SupplierInvoiceMasters.Add(Spinmstr);
 
 
@@ -291,8 +318,9 @@ FROM            StockPODetails INNER JOIN
                 Spinmstr.IsPosted = "N";
                 Spinmstr.SupInvnum = sinvmstrdata.Supinvnum;
                 Spinmstr.Remark = sinvmstrdata.Remark;
+                Spinmstr.Year = int.Parse(sinvmstrdata.AccountDate.Year.ToString());
 
-                Donum = Spinmstr.SupplierStockInvoiceNum = CreateSTOCKINVnum();
+                Donum = Spinmstr.SupplierStockInvoiceNum = CreateSTOCKINVnum(int.Parse(sinvmstrdata.AccountDate.Year.ToString()));
                 enty.SupplierStockInvoiceMasters.Add(Spinmstr);
 
 
@@ -332,19 +360,21 @@ FROM            StockPODetails INNER JOIN
         /// Create PUR num
         /// </summary>
         /// <returns></returns>
-        public String CreateINVnum()
+        public String CreateINVnum( int year)
         {
             String invnum = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 var count = (from o in enty.SupplierInvoiceMasters
 
+                             where o.Year==year
                              select o).Count();
 
+                var result = year.ToString ().Substring(year.ToString().Length - 2);
 
-                invnum = "PUR" + (int.Parse(count.ToString()) + 50000).ToString().PadLeft(6, '0');
+                invnum = "PUR" + (int.Parse(count.ToString()) + 50000).ToString().PadLeft(6, '0')+"/"+result.ToString();
 
-
+               
 
             }
 
@@ -355,19 +385,20 @@ FROM            StockPODetails INNER JOIN
         /// Create SPUR num
         /// </summary>
         /// <returns></returns>
-        public String CreateSTOCKINVnum()
+        public String CreateSTOCKINVnum(int year)
         {
             String invnum = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 var count = (from o in enty.SupplierStockInvoiceMasters
 
+                             where o.Year == year
                              select o).Count();
 
 
-                invnum = "SPUR" + (int.Parse(count.ToString()) + 50000).ToString().PadLeft(6, '0');
-
-
+              
+                var result = year.ToString().Substring(year.ToString().Length - 2);
+                invnum = "SPUR" + (int.Parse(count.ToString()) + 50000).ToString().PadLeft(6, '0') + "/" + result.ToString();
 
             }
 
@@ -390,6 +421,79 @@ FROM            StockPODetails INNER JOIN
     }
 
 
+
+
+    public class DebitNoteAgainstSales
+    {
+        public List<DebitNoteAgainstSalesDetails> DebitNoteAgainstSalesDetailsDataCollection { get; set; }
+        public int fromLocationPK_pk { get; set; }
+        public int toLocationPK_pk { get; set; }
+
+        public int Year { get; set; }
+        public String Month { get; set; }
+        public String InsertSPOInvoice()
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+               SalesDebitNoteMaster Spinmstr = new SalesDebitNoteMaster();
+                Spinmstr.Month = this.Month;
+                Spinmstr.Year = this.Year;
+                Spinmstr.AddedBy = HttpContext.Current.Session["Username"].ToString ();
+                Spinmstr.AddedDate = DateTime.Now;
+                Spinmstr.FromLocation_PK = int.Parse(HttpContext.Current.Session["UserLoc_pk"].ToString());
+
+                Spinmstr.ToLocationPK = this.toLocationPK_pk;
+                Spinmstr.Remark = "NA";
+                Spinmstr.IsCompleted = "N";
+
+               
+                ////Spinmstr.IsPosted = "N";
+                ////Spinmstr.SupInvnum = sinvmstrdata.Supinvnum;
+
+                ////Spinmstr.Year = int.Parse(sinvmstrdata.AccountDate.Year.ToString());
+
+                //Donum = Spinmstr.SupplierStockInvoiceNum = CreateSTOCKINVnum(int.Parse(sinvmstrdata.AccountDate.Year.ToString()));
+                enty.SalesDebitNoteMasters.Add(Spinmstr);
+                enty.SaveChanges();
+                Spinmstr.SalesDebitNUM = "DBS" + Spinmstr.SalesDebitMasterID.ToString ().PadLeft(6, '0');
+              
+
+
+
+
+
+
+                foreach (DebitNoteAgainstSalesDetails di in this.DebitNoteAgainstSalesDetailsDataCollection)
+                {
+                    //Add the delivery details
+                    SalesDebitNoteDetail shpdert = new SalesDebitNoteDetail();
+                    shpdert.SalesDebitMasterID = Spinmstr.SalesDebitMasterID;
+                    shpdert.SDO_PK = di.SDO_PK;
+                   
+                    enty.SalesDebitNoteDetails.Add(shpdert);
+
+
+
+
+
+                }
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
+
+    }
+
+    public class DebitNoteAgainstSalesDetails
+    {
+        public int SDO_PK { get; set; }
+        public int SalesDebitMasterID { get; set; }
+    }
 
     public class StockInvoiceDetData
     {

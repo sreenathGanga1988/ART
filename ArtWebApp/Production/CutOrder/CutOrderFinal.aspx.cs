@@ -112,7 +112,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsPatternAdded=="Y"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -154,6 +154,11 @@ namespace ArtWebApp.Production.CutOrder
             String cutplnqty = BLL.CutOrderBLL.CutPlan.GetCutplanQty(int.Parse(drp_cutorder.SelectedValue.ToString().ToString())).ToString ();
             lbl_cutQty.Text = cutplnqty;
             upd_cutQty.Update();
+            String str = drp_cutorder.SelectedItem.Text.ToString();
+            str = str.Replace("CPL#", "");
+            txt_cutno.Text = str;
+
+            upd_cutno.Update();
             //ViewState["cutsizedata"] = null;
 
 
@@ -181,7 +186,7 @@ namespace ArtWebApp.Production.CutOrder
                         join ourstyledet in entty.AtcDetails on ponmbr.OurStyleID equals ourstyledet.OurStyleID
                         join atcmstr in entty.AtcMasters on ourstyledet.AtcId equals atcmstr.AtcId
                         where ponmbr.CutPlan_PK == cutplanpk
-                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle };
+                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle , ponmbr.CutplanConsumption,ponmbr.CutPlanFabReq};
 
                foreach(var element in q)
                 {
@@ -192,6 +197,8 @@ namespace ArtWebApp.Production.CutOrder
                     lbl_with.Text = element.WidthGroup.ToString();
                     lbl_bomconsumption.Text = element.BOMConsumption.ToString();
                     lbl_fabric.Text = element.FabDescription.ToString();
+                    lbl_coconsumption.Text = element.CutplanConsumption.ToString();
+                    lbl_fabreq.Text = element.CutPlanFabReq.ToString();
                 }
 
 
@@ -626,18 +633,6 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void tbl_cutorderdata_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //int templatepk = int.Parse((e.Row.FindControl("lbl_templatepk") as Label).Text);
-
-                int rowindex = e.Row.RowIndex;
-                //  GenerateTable(fillsizedata(), rowindex);
-
-
-
-
-
-            }
         }
 
         protected void tbl_cutorderdata_DataBound(object sender, EventArgs e)
@@ -711,6 +706,7 @@ namespace ArtWebApp.Production.CutOrder
                     //cdata.Tofactid = int.Parse(drp_fact.SelectedValue.ToString());
                     cdata.CutorderType = drp_cutorderType.SelectedItem.ToString().Trim();
                     cdata.CofabAllocation = int.Parse(txt_fabAllocation.Text);
+                    
                     //cdata.Cutablewidth = drp_width.Text.Trim();
                     //cdata.Shrinkage = drp_shrink.Text.Trim();
                     cdata.patername = txt_markername.Text.Trim();
@@ -872,11 +868,16 @@ namespace ArtWebApp.Production.CutOrder
                     return rk;
         }
 
+        protected void lbl_newConsumption_TextChanged(object sender, EventArgs e)
+        {
 
+        }
 
+        protected void txt_fabAllocation_TextChanged(object sender, EventArgs e)
+        {
+            lbl_newConsumption.Text = (float.Parse(txt_fabAllocation.Text) / float.Parse(lbl_cutQty.Text)).ToString();
 
-
-
-
+            upd_consumption.Update();
+        }
     }
 }

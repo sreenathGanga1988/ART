@@ -25,6 +25,10 @@ namespace ArtWebApp.Administrator
                 {
                     MultiView1.ActiveViewIndex = 1;
                 }
+                else if (navtype == "Profile")
+                {
+                    MultiView1.ActiveViewIndex = 2;
+                }
 
             }
 
@@ -50,8 +54,10 @@ namespace ArtWebApp.Administrator
             {
                 usmsdta.UserName = txt_username.Text.Trim();
                 usmsdta.Password = txt_password.Text.Trim();
-                drp_userlocation.DataValueField.ToString();
-                drp_userlocation.DataTextField.ToString();
+                usmsdta.userloc_pk = int.Parse(drp_userlocation.SelectedValue.ToString());
+
+
+              usmsdta.UserPROFILE_PK = int.Parse(drp_userlocation.SelectedValue.ToString());
                 usmsdta.insertUserdata();
                 Label3.Text = "User "+ txt_username.Text.Trim() + " Added Sucessfully";
 
@@ -93,6 +99,14 @@ namespace ArtWebApp.Administrator
             Updateuser();
         }
 
-       
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            
+            BLL.UserBLL.UserData usmsdta = new BLL.UserBLL.UserData();
+            usmsdta.UserID = int.Parse ( drp_user.SelectedValue.ToString());
+            usmsdta.UserPROFILE_PK = int.Parse(drp_userprofile.SelectedValue.ToString());
+            usmsdta.UpdateProfile();
+            Response.Write("<script>alert('Done');</script>");
         }
+    }
 }

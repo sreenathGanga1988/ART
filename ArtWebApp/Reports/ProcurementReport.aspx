@@ -14,8 +14,9 @@
     <tr>
         <td>
 
+            <div>
 
-            <table class="DataEntryTable">
+                <table class="DataEntryTable">
                 <tr>
                     <td class="RedHeadding" colspan="8">PO/MRN Reports</td>
                 </tr>
@@ -63,7 +64,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style13">Stock po </td>
+                    <td class="NormalTD">Stock po </td>
                     <td class="NormalTD">
 
                         <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -95,7 +96,38 @@
                     <td class="NormalTD">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style13">PO# :</td>
+                    <td class="NormalTD">sERVICE po</td>
+                    <td class="NormalTD">
+
+                        <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                            <ContentTemplate>
+                               <%-- <ig:WebDropDown ID="drp_spo" runat="server" DataSourceID="Spodatasource" TextField="SPONum" ValueField="SPO_Pk" Width="200px">
+                                    <DropDownItemBinding TextField="SPONum" ValueField="SPO_Pk" />
+                                </ig:WebDropDown>--%>
+
+                                  <ucc:DropDownListChosen ID="drp_servicepo" runat="server" DataSourceID="ServicePodataSource" DataTextField="ServicePOnumber" DataValueField="ServicePO_PK" DisableSearchThreshold="10" Width="200px">
+                                </ucc:DropDownListChosen>
+                                
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </td>
+                    <td>
+                         <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Show " ToolTip="Show the Selected Service PO" />
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td class="NormalTD">
+
+                        &nbsp;</td>
+                    <td class="NormalTD">
+
+
+                        &nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="NormalTD">PO# :</td>
                     <td class="NormalTD">
 
                         <asp:TextBox ID="txt_ponum" runat="server"></asp:TextBox>
@@ -115,6 +147,10 @@
                     <td class="NormalTD">&nbsp;</td>
                 </tr>
             </table>
+
+            </div>
+
+            
         </td>
     </tr>
     <tr>
@@ -134,6 +170,7 @@
     <tr>
         <td>
             <asp:SqlDataSource ID="Spodatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [SPO_Pk], [SPONum] FROM [StockPOMaster]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="ServicePodataSource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT [ServicePO_PK], [ServicePOnumber] FROM [ServicePOMaster] ORDER BY [ServicePOnumber] DESC"></asp:SqlDataSource>
         </td>
     </tr>
 </table>

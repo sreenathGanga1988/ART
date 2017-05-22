@@ -320,9 +320,39 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
 
 
+        public DataTable GetFabricShrinkageLocation(int skudetPk,int locationpk)
+        {
+            DataTable dt = new DataTable();
+            cuttrans = new CutOrderTransaction();
+            dt = cuttrans.GetFabricShrinkageLocation(skudetPk, locationpk);
 
 
-       
+            return dt;
+
+        }
+        public DataTable GetFabricWidthLocation(int skudetPk, int locationpk)
+        {
+            DataTable dt = new DataTable();
+            cuttrans = new CutOrderTransaction();
+            dt = cuttrans.GetFabricWidthLocation(skudetPk, locationpk);
+
+
+            return dt;
+
+        }
+
+        public DataTable GetFabricMarkertypeLocation(int skudetPk, int locationpk)
+        {
+            DataTable dt = new DataTable();
+            cuttrans = new CutOrderTransaction();
+            dt = cuttrans.GetFabricMarkerTypeLocation(skudetPk, locationpk);
+
+
+            return dt;
+
+        }
+
+
 
 
 
@@ -580,7 +610,7 @@ GROUP BY CutOrderMaster.CutID)tt";
                     this.MarkerType = element.MarkerType;
                     this.Tofactid = int.Parse ( element.Location_PK.ToString ());
                     this.Skudet_pk = int.Parse(element.SkuDet_PK.ToString());
-
+                    element.IsCutorderGiven = "Y";
 
                 }
                 CutOrderMaster ctmstr = new CutOrderMaster();
@@ -599,6 +629,7 @@ GROUP BY CutOrderMaster.CutID)tt";
                 ctmstr.CutOrderType = this.CutorderType;
                 ctmstr.CutQty = this.CutOrderQty;
                 ctmstr.FabQty = this.CofabAllocation;
+                
 
                 ctmstr.BalanceQty = 0;
                 ctmstr.DelivedQty = 0;

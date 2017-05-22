@@ -17,8 +17,9 @@ namespace ArtWebApp.DataModels
         public decimal ShippingDet_PK { get; set; }
         public Nullable<decimal> ShipingDoc_PK { get; set; }
         public Nullable<decimal> Doc_Pk { get; set; }
+        public string DocType { get; set; }
     
-        public virtual DocMaster DocMaster { get; set; }
         public virtual ShippingDocumentMaster ShippingDocumentMaster { get; set; }
+        public virtual DocMaster DocMaster { get; set; }
     }
 }

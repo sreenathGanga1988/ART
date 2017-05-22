@@ -5,7 +5,160 @@
   <style>
 
     </style>
-    <script src="../JQuery/GridJQuery.js"></script>
+    <script src="../JQuery/GridJQuery.js">
+    </script>
+
+
+    <script>
+
+        function Onselection(objref) {
+            Check_Click(objref)
+            
+        }
+
+        function OnSelectAllClick(objref) {
+            checkAll(objref)
+            
+        }
+
+
+
+
+            function Copywashing()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+                var txt_washing1 = document.getElementsByClassName("txt_washing1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_washing = gridView.rows[i].getElementsByClassName("txt_washing")[0];
+
+                    txt_washing.value = txt_washing1.value;
+                }
+            }
+            }
+
+          function DryPorocess()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+              var txt_dryprocess1 = document.getElementsByClassName("txt_dryprocess1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_dryprocess = gridView.rows[i].getElementsByClassName("txt_dryprocess")[0];
+
+                    txt_dryprocess.value = txt_dryprocess1.value;
+                }
+            }
+          }
+
+          function EMB()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+              var txt_emb1 = document.getElementsByClassName("txt_emb1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_emb = gridView.rows[i].getElementsByClassName("txt_emb")[0];
+
+                    txt_emb.value = txt_emb1.value;
+                }
+            }
+          }
+
+
+         function Factorylog()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+             var txt_factorylog1 = document.getElementsByClassName("txt_factorylog1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_factorylog = gridView.rows[i].getElementsByClassName("txt_factorylogistic")[0];
+
+                    txt_factorylog.value = txt_factorylog1.value;
+                }
+            }
+         }
+
+
+         function CompanyLog()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+             var txt_compnylog1 = document.getElementsByClassName("txt_compnylog1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_compnylog = gridView.rows[i].getElementsByClassName("txt_cmplogistic")[0];
+
+                    txt_compnylog.value = txt_compnylog1.value;
+                }
+            }
+          }
+
+
+           function FabCom()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+               var txt_fabcomm1 = document.getElementsByClassName("txt_fabcomm1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_fabcomm = gridView.rows[i].getElementsByClassName("txt_fabcomission")[0];
+
+                    txt_fabcomm.value = txt_fabcomm1.value;
+                }
+            }
+           }
+
+
+           function Garmentcom()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+               var txt_garmentcom1 = document.getElementsByClassName("txt_garmentcom1")[0];
+
+            for (var i = 1; i < gridView.rows.length; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_garmentcom = gridView.rows[i].getElementsByClassName("txt_garcomission")[0];
+
+                    txt_garmentcom.value = txt_garmentcom1.value;
+                }
+            }
+           }
+
+
+    </script>
+
+        
+
+
+
+
+
+
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -71,6 +224,8 @@
                 </asp:UpdatePanel>
 
             </td>
+
+
         </tr>
     </table>
          </ContentTemplate>
@@ -83,7 +238,91 @@
          <asp:UpdatePanel ID="upd_grid" UpdateMode="Conditional" runat="server">
          <ContentTemplate>
 
-        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large">
+            <table style="border: thin double #C0C0C0; line-height: normal; vertical-align: middle;  text-align: center; white-space: normal; word-spacing: normal; letter-spacing: normal; background-color: #99CCFF; position: relative; width: 100%;">
+                            <tr>
+                                <td class="auto-style11" colspan="12"><strong>Quick Fill </strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">
+                                    <div>
+                                        <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                                        </asp:UpdatePanel>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_washing" CssClass="txt_washing1" runat="server" placeholder="Enter Washing" Width="99px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_washing" runat="server" OnClientClick="Copywashing()" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_dryprocess" CssClass="txt_dryprocess1" runat="server" placeholder="Enter DryProcess" Width="93px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_dryprocess" OnClientClick="DryPorocess()" runat="server" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_emb" CssClass="txt_emb1" runat="server" placeholder="Enter EMB" Width="90px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_emb" OnClientClick="EMB()" runat="server" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_factorylog" CssClass="txt_factorylog1" runat="server" placeholder="Enter factorylog" Width="90px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_factorylog" OnClientClick="Factorylog()" runat="server" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_compnylog" CssClass="txt_compnylog1" runat="server" placeholder="Enter Compnylog" Width="90px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_companylog" OnClientClick="CompanyLog()" runat="server" Font-Bold="True" Font-Size="X-Small" Height="20px" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td class="Textboxtd">
+                                    <asp:TextBox ID="txt_fabcomm" CssClass="txt_fabcomm1" runat="server" placeholder="Enter fabcomm" Width="90px"></asp:TextBox>
+                                </td>
+                                <td class="ButtonTD">
+                                    <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_fabcomm" OnClientClick="FabCom()" runat="server" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
+                                <td><asp:TextBox ID="txt_garmentcom" CssClass="txt_garmentcom1" runat="server" placeholder="Enter Garmentcom" Width="90px"></asp:TextBox></td>
+                                <td> <asp:UpdatePanel ID="UpdatePanel11" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_garmentcom" OnClientClick="Garmentcom()" runat="server" Font-Bold="True" Font-Size="X-Small" Text="Apply" Width="54px" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel></td>
+                            </tr>
+                        </table>
+
+
+
+        <asp:GridView ID="tbl_podetails" CssClass="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large">
                             <Columns>      
               <asp:TemplateField>  
                                     <HeaderTemplate>
@@ -118,7 +357,7 @@
                                 <asp:TemplateField HeaderText="Washing">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_washing" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_washing"  CssClass="txt_washing"     Enabled ="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                     <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
@@ -126,7 +365,7 @@
                                   <asp:TemplateField HeaderText="DryProcess">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_dryprocess" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_dryprocess"  CssClass="txt_dryprocess"  Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                     <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
@@ -135,21 +374,21 @@
                                   <asp:TemplateField HeaderText="Emb/Printing">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_emb" Width="70px" Enabled="false"  Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_emb"    Width="70px" CssClass="txt_emb" Enabled="false"  Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                          <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
                                   <asp:TemplateField HeaderText="Factory Logistic">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_factorylogistic"  Enabled="false" Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_factorylogistic" CssClass="txt_factorylogistic" Enabled="false" Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                          <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
                                  <asp:TemplateField HeaderText="Company Logistic">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_cmplogistic" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_cmplogistic" CssClass="txt_cmplogistic" Enabled ="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                         <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
@@ -158,7 +397,7 @@
                                  <asp:TemplateField HeaderText="Fab Comission">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_fabcomission" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_fabcomission" CssClass="txt_fabcomission" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                         <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
@@ -166,7 +405,7 @@
                                    <asp:TemplateField HeaderText="Garment Comission">
                                  
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txt_garcomission" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
+                                        <asp:TextBox ID="txt_garcomission" CssClass="txt_garcomission" Enabled="false"  Width="70px" Text="0" runat="server" onkeypress="return isNumberKey(event,this)" ></asp:TextBox>
                                     </ItemTemplate>
                                         <HeaderStyle Width="70px" />
                                 </asp:TemplateField>
@@ -199,10 +438,14 @@
     </div>
 
        <div id="Messaediv" runat="server">
-                 
+                  <asp:UpdatePanel ID="upd_msg" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                            <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+                                         </ContentTemplate>
+                                    </asp:UpdatePanel>
 
 
-                           <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+                         
 
 
                      

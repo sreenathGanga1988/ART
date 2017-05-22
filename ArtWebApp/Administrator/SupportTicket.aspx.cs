@@ -57,5 +57,12 @@ namespace ArtWebApp.Administrator
             insertTicket();
             UpdatePanel2.Update();
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            supportticketcase.SelectCommand = "SELECT Support_pk, Supportnum, SupportTittle, SupportDescription, Priority, AddedBy, AddedDate, Status, IsCompleted, CompletedDate, Remark, CompletedBy FROM SupportTicket WHERE (IsCompleted= N'Y') ORDER BY Support_pk DESC";
+            tbl_loanApproval.DataBind();
+            UpdatePanel2.Update();
+        }
     }
 }

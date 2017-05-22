@@ -256,6 +256,33 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_fabric;
         
         /// <summary>
+        /// lbl_coconsumption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_coconsumption;
+        
+        /// <summary>
+        /// lbl_fabreq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_fabreq;
+        
+        /// <summary>
+        /// upd_cutno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_cutno;
+        
+        /// <summary>
         /// txt_cutno control.
         /// </summary>
         /// <remarks>
@@ -310,6 +337,15 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_cutQty;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// txt_fabAllocation control.
         /// </summary>
         /// <remarks>
@@ -319,13 +355,22 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.TextBox txt_fabAllocation;
         
         /// <summary>
+        /// upd_consumption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_consumption;
+        
+        /// <summary>
         /// lbl_newConsumption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_newConsumption;
+        protected global::System.Web.UI.WebControls.TextBox lbl_newConsumption;
         
         /// <summary>
         /// Button1 control.

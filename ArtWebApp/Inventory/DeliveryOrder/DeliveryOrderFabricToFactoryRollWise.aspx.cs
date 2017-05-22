@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ArtWebApp.BLL.InventoryBLL;
+using System.Collections;
+
 namespace ArtWebApp.Inventory.DeliveryOrder
 {
     public partial class DeliveryOrderFabricToFactoryRollWise : System.Web.UI.Page
@@ -159,7 +161,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             tbl_InverntoryDetails.DataSource = null;
             tbl_InverntoryDetails.DataBind();
 
-            String msg = "DO # : " + donum + " is generated Sucessfully";
+            String msg = "DO # : " + donum + " is generated Successfully";
 
             ViewState["Rolldata"] = null;
 
@@ -316,6 +318,9 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
 
+
+
+
                 CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
                 if (chkBx.Checked == true)
                 {
@@ -328,13 +333,49 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                         int cutid = int.Parse(((row.FindControl("ddl_cutorder") as DropDownList).SelectedValue.ToString()));
                         Session["cutid"] = cutid;
 
-                        DataTable dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorder(InventoryItem_PK, cutid);
+
+
+                        
+
+
+
+
+                        DataTable dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorder(InventoryItem_PK, cutid,int.Parse(Session["UserLoc_pk"].ToString ()));
                         if (dt.Rows.Count > 0)
                         {
-                            ModalPanel.Visible = true;
+                            DataView view = new DataView(dt);
+                            DataTable shadetable = view.ToTable(true, "ShadeGroup");
+                            drp_shade.DataSource = shadetable;
+                          
+                            drp_shade.DataBind();
+                           
+
+                            ViewState["rolldatafordo"] = null;
+
+
+                            ViewState["rolldatafordo"] = dt;
+
+
+
+                            if(dt.Rows.Count>0)
+                            {
+                                String shrinkagegrpe = dt.Rows[1]["ShrinkageGroup"].ToString();
+                                String WidthGroup = dt.Rows[1]["WidthGroup"].ToString();
+                                String MarkerType = dt.Rows[1]["MarkerType"].ToString();
+
+
+                                lbl_shringagegroup.Text = shrinkagegrpe;
+                                lbl_markerType.Text = MarkerType;
+                                lbl_widthgroup.Text = WidthGroup;
+                            }
+                           
+
+
                             tbl_rolldata.DataSource = dt;
                             tbl_rolldata.DataBind();
                             Upd_roll.Update();
+                            upd_shade.Update();
+                            ModalPanel.Visible = true;
                         }
                         else
                         {
@@ -387,8 +428,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
         }
 
 
-
-
+      
 
 
 
@@ -480,6 +520,52 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             tbl_rolldata.DataBind();
             Upd_roll.Update();
             ModalPanel.Visible = false;
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+
+            DataTable dt = (DataTable)ViewState["rolldatafordo"];
+
+
+            ArrayList shadegroup = new ArrayList();
+            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_shade.SelectedItems;
+            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
+            {
+
+                String popackid = item.Value.ToString();
+                shadegroup.Add(popackid);
+            }
+
+
+            if (shadegroup.Count > 0 && shadegroup != null)
+            {
+                string condition = "";
+                for (int i = 0; i < shadegroup.Count; i++)
+                {
+
+
+
+                    if (i == 0)
+                    {
+                        condition = condition + " ShadeGroup='" + shadegroup[i].ToString().Trim() + "'";
+                    }
+                    else
+                    {
+                        condition = condition + "  or  ShadeGroup='" + shadegroup[i].ToString().Trim() + "'";
+                    }
+
+
+
+                }
+                dt = dt.Select(condition).CopyToDataTable();
+               
+            }
+
+
+
+            tbl_rolldata.DataSource = dt;
+            tbl_rolldata.DataBind();
         }
     }
 

@@ -48,6 +48,43 @@ namespace ArtWebApp.BLL.InventoryBLL
 
         public List<BLL.ProcurementBLL.RoDetailsData> rodetaildata { get; set; }
 
+
+
+
+        public Boolean ifStockAvailable(int ro_pk)
+        {
+            Boolean isbalancethere = true;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                try
+                {
+                    var rodata = from rodet in enty.RequestOrderDetails
+                                 join inventry in enty.InventoryMasters
+                                 on rodet.InventoryItem_PK equals inventry.InventoryItem_PK
+                                 where rodet.RO_Pk == ro_pk
+                                 select new { rodet.Qty, inventry.OnhandQty };
+
+                    foreach (var element in rodata)
+                    {
+                        if (element.OnhandQty < element.Qty)
+                        {
+                            isbalancethere = false;
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                    isbalancethere = false;
+                }
+
+
+            }
+
+            return isbalancethere;
+            }
+
         public String insertRomaterial(ROIN roin)
         {
             string RONUM = "";

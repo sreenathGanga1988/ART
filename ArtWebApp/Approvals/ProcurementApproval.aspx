@@ -408,10 +408,66 @@ FROM            (SELECT        ExtraBOMRequestMaster.ExtraBOM_PK, ExtraBOMReques
 GROUP BY ExtraBOM_PK, Reqnum, AtcNum, MerchandiserName, Explanation, AddedBY, AddedDate, Isforwarded"></asp:SqlDataSource>
             </td>
         </tr>
+                      <tr>
+                          <td class="auto-style7">
+                              
+                          </td>
+                      </tr>
     </table>
             </asp:View>
 
-
+            <asp:View ID="View4" runat="server">
+                                  <table class="FullTable">
+                                      <tr>
+                                          <td class="RedHeadding"><strong>iNVENTORY mISpLACED Management</strong></td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <asp:GridView ID="tbl_misPlaced" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="MisplaceApp_pk" DataSourceID="InventoryMisPlaced" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%">
+                                                  <Columns>
+                                                      <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
+                                                          <ItemTemplate>
+                                                              <asp:CheckBox ID="chk_select0" runat="server" />
+                                                          </ItemTemplate>
+                                                      </asp:TemplateField>
+                                                      <asp:BoundField DataField="MisplaceApp_pk" HeaderText="MisplaceApp_pk" InsertVisible="False" ReadOnly="True" SortExpression="MisplaceApp_pk" />
+                                                      <asp:BoundField DataField="reqnum" HeaderText="reqnum" SortExpression="reqnum" />
+                                                      <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                                      <asp:BoundField DataField="AtcNum" HeaderText="AtcNum" SortExpression="AtcNum" />
+                                                      <asp:BoundField DataField="MisplaceDate" HeaderText="MisplaceDate" SortExpression="MisplaceDate" />
+                                                      <asp:BoundField DataField="Explanation" HeaderText="Explanation" SortExpression="Explanation" />
+                                                      <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" SortExpression="AddedBy" />
+                                                      <asp:BoundField DataField="IsApproved" HeaderText="IsApproved" SortExpression="IsApproved" />
+                                                  </Columns>
+                                                  <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                                  <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                                  <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                                  <RowStyle BackColor="White" ForeColor="#330099" />
+                                                  <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                                  <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                                  <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                                  <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                                  <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                              </asp:GridView>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <td>
+                                                  <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Approve Missplaced Inventory" />
+                                              </td>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <asp:SqlDataSource ID="InventoryMisPlaced" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT InventoryMissingRequest.MisplaceApp_pk, InventoryMissingRequest.reqnum, LocationMaster.LocationName, AtcMaster.AtcNum, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, InventoryMissingRequest.AddedBy, InventoryMissingRequest.IsApproved, InventoryMissingRequest.Level1Approval FROM InventoryMissingRequest INNER JOIN LocationMaster ON InventoryMissingRequest.FromLctn_pk = LocationMaster.Location_PK INNER JOIN AtcMaster ON InventoryMissingRequest.Atc_id = AtcMaster.AtcId WHERE (InventoryMissingRequest.IsApproved = N'N') AND (InventoryMissingRequest.Level1Approval = N'Y')"></asp:SqlDataSource>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>&nbsp;</td>
+                                      </tr>
+                                  </table>
+                              </asp:View>
         </asp:MultiView>
 
 

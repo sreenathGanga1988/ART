@@ -99,7 +99,7 @@ namespace ArtWebApp.BLL
             set { isclosed = value; }
         }
 
-
+        public Decimal Qty { get; set; }
         private DataTable ourstyledata;
 
         public DataTable Ourstyledata
@@ -202,6 +202,33 @@ namespace ArtWebApp.BLL
            
             atran.UpdatemasterData(atcdata);
         }
+
+
+
+
+        public void AtcForpproval()
+        {
+
+
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                AtcApproval atcdetapp = new AtcApproval();
+                atcdetapp.AtcId = this.atcid;
+                atcdetapp.Quantity = this.Qty;
+                //  atcdetapp.IsForwarded = "Y";
+                atcdetapp.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim(); 
+                atcdetapp.ForwardedBY = "N";
+                atcdetapp.AddedDate = DateTime.Now;
+                atcdetapp.IsApproved = "N";
+                atcdetapp.IsForwarded = "N";
+
+                entty.AtcApprovals.Add(atcdetapp);
+                entty.SaveChanges();
+
+            }
+        }
+
 
 
     }
@@ -340,7 +367,7 @@ namespace ArtWebApp.BLL
 
                     element.FOB = ourstl.Fob;
                     element.CategoryID = decimal.Parse(ourstl.Catid.ToString());
-                    element.BuyerStyle = ourstl.BuyerStyle1;
+                    element.BuyerStyle = ourstl.BuyerStyle1.Trim ();
 
                     if(oldfob== ourstl.Fob)
                     {
@@ -367,4 +394,8 @@ namespace ArtWebApp.BLL
 
        
     }
+
+
+
+   
 }

@@ -40,6 +40,24 @@ namespace ArtWebApp.Shipping {
         protected global::System.Web.UI.WebControls.RadioButton RadioButton2;
         
         /// <summary>
+        /// rbt_viageneralitem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbt_viageneralitem;
+        
+        /// <summary>
+        /// rbt_directgenitem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbt_directgenitem;
+        
+        /// <summary>
         /// drp_ToWarehouse control.
         /// </summary>
         /// <remarks>
@@ -256,13 +274,22 @@ namespace ArtWebApp.Shipping {
         protected global::System.Web.UI.WebControls.GridView tbl_dodetails;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// tbl_StockAdn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.GridView tbl_StockAdn;
+        
+        /// <summary>
+        /// tbl_stockDO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tbl_stockDO;
         
         /// <summary>
         /// btn_sumbit control.
@@ -290,5 +317,14 @@ namespace ArtWebApp.Shipping {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_msg;
+        
+        /// <summary>
+        /// SqlDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }

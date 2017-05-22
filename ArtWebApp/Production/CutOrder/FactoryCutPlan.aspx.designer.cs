@@ -13,6 +13,15 @@ namespace ArtWebApp.Production.CutOrder {
     public partial class FactoryCutPlan {
         
         /// <summary>
+        /// Upd_full control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upd_full;
+        
+        /// <summary>
         /// upd_entry control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,24 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_factoryshow;
+        
+        /// <summary>
+        /// upd_skudetPK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_skudetPK;
+        
+        /// <summary>
+        /// lbl_skudet_pk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_skudet_pk;
         
         /// <summary>
         /// upd_colorcodeupdate control.
@@ -256,6 +283,60 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Button btn_showgrid;
         
         /// <summary>
+        /// drp_popack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_popack;
+        
+        /// <summary>
+        /// upd_garmentColor0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_garmentColor0;
+        
+        /// <summary>
+        /// drp_markermade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_markermade;
+        
+        /// <summary>
+        /// upd_fabrication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_fabrication;
+        
+        /// <summary>
+        /// drp_fabrication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_fabrication;
+        
+        /// <summary>
+        /// txt_maximumMarkerlength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_maximumMarkerlength;
+        
+        /// <summary>
         /// upd_garmentColor control.
         /// </summary>
         /// <remarks>
@@ -292,6 +373,24 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Button btn_cutorder;
         
         /// <summary>
+        /// upd_confirmgarmentcolor0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_confirmgarmentcolor0;
+        
+        /// <summary>
+        /// btn_cutordermnum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cutordermnum;
+        
+        /// <summary>
         /// upd_garmentDetail control.
         /// </summary>
         /// <remarks>
@@ -317,6 +416,51 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_garmentQty;
+        
+        /// <summary>
+        /// lbl_reqyardforstyle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_reqyardforstyle;
+        
+        /// <summary>
+        /// lbl_stylename control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_stylename;
+        
+        /// <summary>
+        /// lbl_consumption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_consumption;
+        
+        /// <summary>
+        /// lbl_alreadycut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_alreadycut;
+        
+        /// <summary>
+        /// lbl_totalcutplanyardage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_totalcutplanyardage;
         
         /// <summary>
         /// upd_rolldetails control.
@@ -346,6 +490,42 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_ayard;
         
         /// <summary>
+        /// lbl_deliveredrolls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbl_deliveredrolls;
+        
+        /// <summary>
+        /// lbl_deliveredYard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_deliveredYard;
+        
+        /// <summary>
+        /// lbl_onhand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_onhand;
+        
+        /// <summary>
+        /// lbl_balancetodeliveryardage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_balancetodeliveryardage;
+        
+        /// <summary>
         /// upd_alreadyCut control.
         /// </summary>
         /// <remarks>
@@ -355,13 +535,40 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.UpdatePanel upd_alreadyCut;
         
         /// <summary>
-        /// lbl_alreadycut control.
+        /// lbl_allocatedQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_alreadycut;
+        protected global::System.Web.UI.WebControls.Label lbl_allocatedQty;
+        
+        /// <summary>
+        /// lbl_alreadycutelectedFactory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_alreadycutelectedFactory;
+        
+        /// <summary>
+        /// lbl_locationcutplanyardage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_locationcutplanyardage;
+        
+        /// <summary>
+        /// lbl_baltocutlocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_baltocutlocation;
         
         /// <summary>
         /// lbl_newcutplan control.
@@ -391,13 +598,13 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.UpdatePanel Upd_consumption;
         
         /// <summary>
-        /// lbl_consumption control.
+        /// lbl_balroll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_consumption;
+        protected global::System.Web.UI.WebControls.Label lbl_balroll;
         
         /// <summary>
         /// lbl_balyard control.
@@ -427,22 +634,13 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_apprQty;
         
         /// <summary>
-        /// Messaediv control.
+        /// HyperLink1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Messaediv;
-        
-        /// <summary>
-        /// lbl_msg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_msg;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
         
         /// <summary>
         /// upd_mastertable control.
@@ -551,5 +749,14 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdateProgress PageUpdateProgress;
+        
+        /// <summary>
+        /// UpdateProgress2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress UpdateProgress2;
     }
 }

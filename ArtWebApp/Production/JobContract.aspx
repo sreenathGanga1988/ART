@@ -48,6 +48,14 @@
             </td>
               <td>&nbsp;</td>
         </tr>
+                 <tr>
+                     <td class="NormalTD">Remark</td>
+                     <td class="NormalTD">
+                         <asp:TextBox ID="txt_remark" runat="server" Height="45px" TextMode="MultiLine" Width="184px"></asp:TextBox>
+                     </td>
+                     <td class="SearchButtonTD">&nbsp;</td>
+                     <td>&nbsp;</td>
+                 </tr>
         <tr>
             <td class="auto-style8">
                 </td>

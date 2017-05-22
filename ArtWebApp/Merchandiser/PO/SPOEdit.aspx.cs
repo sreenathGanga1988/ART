@@ -90,10 +90,14 @@ namespace ArtWebApp.Merchandiser.PO
             BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
             spdetdata.SPO_PK = int.Parse(Session["spo_Pk"].ToString());
             spdetdata.Template_PK = int.Parse(drp_templateforComp.SelectedValue.ToString());
-            spdetdata.TemplateColor = drp_itemcolor.Text.ToString().Trim();
-            spdetdata.TemplateSize = drp_itemsize.Text.ToString().Trim();
-            spdetdata.TemplateWeight = drp_weight.Text.ToString().Trim();
-            spdetdata.TemplateWidth = drp_width.Text.ToString().Trim();
+
+
+
+
+            spdetdata.TemplateColor = drp_itemcolor.SelectedItem.Text.ToString().Trim();
+            spdetdata.TemplateSize = drp_itemsize.SelectedItem.Text.ToString().Trim();
+            spdetdata.TemplateWeight = drp_weight.SelectedItem.Text.ToString().Trim();
+            spdetdata.TemplateWidth = drp_width.SelectedItem.Text.ToString().Trim();
             spdetdata.Composition = drp_composition.SelectedItem.Text.ToString().Trim();
             spdetdata.Construct = drp_construction.SelectedItem.Text.ToString().Trim();
             spdetdata.Unitprice = Decimal.Parse(txt_unitPrice.Text.ToString());
@@ -164,9 +168,10 @@ namespace ArtWebApp.Merchandiser.PO
             }
         }
 
+
         public void fillcontrils(int temmplatepk)
         {
-            ;
+            
 
 
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
@@ -233,11 +238,12 @@ namespace ArtWebApp.Merchandiser.PO
                 {
                     drp_itemsize.DataSource = size.ToList();
                     drp_itemsize.DataValueField = "TemplateSize_PK";
-                    drp_itemsize.DataTextField = "TemplateSize";
+                    drp_itemsize.DataTextField = "TemplateSize1";
                     drp_itemsize.DataBind();
 
+
                 }
-                catch (Exception)
+                catch (Exception exp)
                 {
 
 
@@ -274,7 +280,7 @@ namespace ArtWebApp.Merchandiser.PO
                 {
                     drp_itemcolor.DataSource = color.ToList();
                     drp_itemcolor.DataValueField = "TemplateColor_PK";
-                    drp_itemcolor.DataTextField = "TemplateColor";
+                    drp_itemcolor.DataTextField = "TemplateColor1";
                     drp_itemcolor.DataBind();
 
                 }
@@ -296,16 +302,26 @@ namespace ArtWebApp.Merchandiser.PO
                 UpdatePanel7.Update();
                 UpdatePanel8.Update();
                 UpdatePanel9.Update();
+
             }
 
 
         }
 
+      
+
         protected void Button3_Click(object sender, EventArgs e)
         {
+
+            
             Session["spo_pk"] = int.Parse(drp_spo.SelectedValue.ToString());
+            String msg =  drp_spo.SelectedItem.Text + " Selected for Update" ;
+
+
+            MessgeboxUpdate("sucess", msg);
             fillspomasterdata();
             tbl_spodetails.DataBind();
+            Spodata.DataBind();
             upd_grid.Update();
         }
 
@@ -357,8 +373,9 @@ namespace ArtWebApp.Merchandiser.PO
                 BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
                 int spodet_PK = int.Parse((row.FindControl("lbl_spodetpk") as Label).Text);
                 String msg = spdetdata.DeleteSpoDetailsPK(spodet_PK);
-                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
-
+                msg = "alert('"+msg+" ');";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", msg, true);
+              //  ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('sucess');", true);
 
             }
         }

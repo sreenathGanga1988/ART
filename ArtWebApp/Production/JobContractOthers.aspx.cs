@@ -57,8 +57,9 @@ namespace ArtWebApp.Production
             string msg = InsertDOdata();
             tbl_podetails.DataSource = null;
             tbl_podetails.DataBind();
-
+            upd_grid.Update();
             MessgeboxUpdate("sucess", msg);
+            upd_msg.Update();
         }
 
 

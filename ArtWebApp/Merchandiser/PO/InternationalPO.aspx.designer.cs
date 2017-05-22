@@ -229,6 +229,24 @@ namespace ArtWebApp.Merchandiser.PO {
         protected global::System.Web.UI.WebControls.Button Button5;
         
         /// <summary>
+        /// UpdatePanel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        
+        /// <summary>
+        /// lbl_balaqty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_balaqty;
+        
+        /// <summary>
         /// cmb_itemgroup control.
         /// </summary>
         /// <remarks>

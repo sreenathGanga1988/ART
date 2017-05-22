@@ -102,6 +102,32 @@ namespace ArtWebApp.Reports
             }
 
         }
+        public void FillAllcutPlan(int atcid)
+        {
+
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from ponmbr in entty.CutPlanMasters
+                        where ponmbr.AtcDetail.AtcId == atcid && ponmbr.IsApproved=="Y"
+                        select new
+                        {
+                            name = ponmbr.CutPlanNUM,
+
+                            //  name=ponmbr.CostingCount,
+                            pk = ponmbr.CutPlan_PK
+                        };
+
+
+                drp_cutplan.DataSource = q.ToList();
+                drp_cutplan.DataBind();
+                upd_cutplan.Update();
+
+
+
+            }
+
+        }
 
 
         public void FillAllSubmittedCostingnum(int ourstyleid)
@@ -237,6 +263,25 @@ namespace ArtWebApp.Reports
             Response.Redirect(String.Format("~/Reports/Production/CutOrderReport/CutorderReport.aspx?cutpk={0}", costingid));
 
 
+
+        }
+
+        protected void btn_showApprovedcutplan_Click(object sender, EventArgs e)
+        {
+            FillAllcutPlan(int.Parse(drp_Atc.SelectedValue.ToString()));
+        }
+
+        protected void btn_showCutplam_Click(object sender, EventArgs e)
+        {
+            Session["cutpkrpt"] = int.Parse(drp_cutplan.SelectedValue.ToString());
+            Response.Redirect("~/Reports/Production/CutPlanHtmlReport.aspx");
+        }
+
+        protected void btn_showApprovedcutplan0_Click(object sender, EventArgs e)
+        {
+            int atcid = int.Parse(drp_Atc.SelectedValue.ToString());
+            Response.Redirect(String.Format("~/Production/Cutting/CutplanAndRollofAtc.aspx?atcid={0}", atcid));
+           
 
         }
     }

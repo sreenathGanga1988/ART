@@ -25,7 +25,7 @@
                         <td>
                             <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="S" />
                         </td>
-                        <td>&nbsp;</td>
+                        <td>From II_PK</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
@@ -94,6 +94,8 @@
                                             <asp:Label ID="lbl_InventoryItem_PK" runat="server" Text='<%# Bind("InventoryItem_PK") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                      <asp:BoundField DataField="OnhandQty" HeaderText="OnhandQty" SortExpression="OnhandQty" />
+                                    <asp:BoundField DataField="Refnum" HeaderText="ReceivedVia" SortExpression="Refnum" />
                                 </Columns>
                                 <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                 <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -114,7 +116,10 @@
         </tr>
         <tr>
             <td>
-                <asp:SqlDataSource ID="Rodata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT RONum, RO_Pk, IsCompleted FROM RequestOrderMaster WHERE (IsApproved = N'Y') AND (IsCompleted = N'N') ORDER BY RONum DESC">
+                <asp:SqlDataSource ID="Rodata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT RONum, RO_Pk, IsCompleted, Location_PK FROM RequestOrderMaster WHERE (IsApproved = N'Y') AND (IsCompleted = N'N') AND (Location_PK = @Param1) ORDER BY RONum DESC">
+                    <SelectParameters>
+                        <asp:SessionParameter Name="Param1" SessionField="UserLoc_pk" />
+                    </SelectParameters>
                 </asp:SqlDataSource>
                 <asp:SqlDataSource ID="rodetailsdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT RequestOrderDetails.RODet_Pk, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawmaterialDetail.SupplierColor, SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.Qty, RequestOrderDetails.CUnitPrice FROM SkuRawMaterialMaster INNER JOIN SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN RequestOrderDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.FromSkuDet_PK WHERE (RequestOrderDetails.RO_Pk = @param1)">
                     <SelectParameters>

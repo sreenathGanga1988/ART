@@ -17,8 +17,9 @@ namespace ArtWebApp.DataModels
         public FabricRollmaster()
         {
             this.DORollDetails = new HashSet<DORollDetail>();
-            this.LaySheetDetails = new HashSet<LaySheetDetail>();
             this.RollInventoryMasters = new HashSet<RollInventoryMaster>();
+            this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
+            this.LaySheetDetails = new HashSet<LaySheetDetail>();
         }
     
         public decimal Roll_PK { get; set; }
@@ -62,9 +63,14 @@ namespace ArtWebApp.DataModels
         public string IsCut { get; set; }
         public string IsMRN { get; set; }
         public Nullable<decimal> BaltoCut { get; set; }
+        public string IsGrouped { get; set; }
+        public Nullable<System.DateTime> GroupedDate { get; set; }
+        public Nullable<System.DateTime> ValidatedDate { get; set; }
+        public Nullable<System.DateTime> InspectedDate { get; set; }
     
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
-        public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
         public virtual ICollection<RollInventoryMaster> RollInventoryMasters { get; set; }
+        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
+        public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
     }
 }

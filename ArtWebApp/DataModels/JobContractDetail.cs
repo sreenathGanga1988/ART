@@ -27,9 +27,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CMvalue { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
+        public virtual ICollection<ProductionReportDetail> ProductionReportDetails { get; set; }
         public virtual JobContractMaster JobContractMaster { get; set; }
         public virtual PoPackMaster PoPackMaster { get; set; }
-        public virtual ICollection<ProductionReportDetail> ProductionReportDetails { get; set; }
         public virtual ICollection<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
     }
 }

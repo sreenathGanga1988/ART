@@ -56,7 +56,15 @@ namespace ArtWebApp.Reports.MerchandiserReport
             drp_popack.DataBind();
 
 
-
+            var stylequery= from pckmsta in enty.AtcDetails
+                            where pckmsta.AtcId == atcid
+                            select new
+                            {
+                                name = pckmsta.OurStyle + " /" + pckmsta.BuyerStyle ,
+                                pk = pckmsta.OurStyleID
+                            };
+            cmb_ourstyle.DataSource = stylequery.ToList();
+            cmb_ourstyle.DataBind();
 
 
             //showAllPoPackATC();
@@ -81,11 +89,11 @@ namespace ArtWebApp.Reports.MerchandiserReport
             fillcontrol();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            ShowBOM();
+            ShowBOM("atc",0);
             //   Session["atcid"] = int.Parse(cmb_atc.SelectedValue.ToString());
             DataTable atcdetail = BLL.FactoryAtcChart.GetAtcDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
 
-            DataTable asqtable= BLL.FactoryAtcChart.GetASQDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable asqtable= BLL.FactoryAtcChart.GetASQDetailsWithSeasonAndLocationandStyle(int.Parse(cmb_atc.SelectedValue.ToString()));
 
             DataTable sizedata = BLL.FactoryAtcChart.createdatatable(asqtable);
             ViewState["asqtable"] = asqtable;
@@ -100,13 +108,15 @@ namespace ArtWebApp.Reports.MerchandiserReport
         }
 
 
-        public void ShowBOM()
+        public void ShowBOM(String type,int ourstyleid)
         {
 
             string onhandtype = "A";
-            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),type, ourstyleid);
             DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable Inbounddata = BLL.FactoryAtcChart.GetInboundData(int.Parse(cmb_atc.SelectedValue.ToString()));
+           
+
 
             DataTable Podataofatc = BLL.FactoryAtcChart.GetPODataofAtc(int.Parse(cmb_atc.SelectedValue.ToString()));
 
@@ -130,6 +140,12 @@ namespace ArtWebApp.Reports.MerchandiserReport
             {
                 DataTable RemarkofATC = BLL.FactoryAtcChart.GetPlanningRemark(int.Parse(cmb_atc.SelectedValue.ToString()));
                 ViewState["RemarkofATC"] = RemarkofATC;
+            }
+
+            if (chk_consum.Checked == true)
+            {
+                DataTable OurStyledata = BLL.FactoryAtcChart.GetOurStyleConsumption(int.Parse(cmb_atc.SelectedValue.ToString()));
+                ViewState["OurStyledata"] = OurStyledata;
             }
 
             if ((chk_f.Checked == true) && (chk_W.Checked == false))
@@ -439,6 +455,25 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
                 }
+
+
+                try
+                {
+                    if (chk_consum.Checked == true)
+                    {
+                        DataTable OurStyledata = (DataTable)(ViewState["OurStyledata"]);
+                        DataTable cutordertemp = OurStyledata.Select("Skudet_Pk=" + skudetpk).CopyToDataTable();
+
+                        GridView tbl_style = (e.Row.FindControl("tbl_style") as GridView);
+                        tbl_style.DataSource = cutordertemp;
+                        tbl_style.DataBind();
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
             }
         }
 
@@ -668,9 +703,47 @@ namespace ArtWebApp.Reports.MerchandiserReport
                 DataTable dt = (DataTable)(ViewState["asqtable"]);
                 DataTable newresult = dt.Select(condition).CopyToDataTable();
 
+                Session["condition"] = condition;
+
+                DataTable sizedata = BLL.FactoryAtcChart.createdatatable(newresult);
+                GenerateSmallTable(sizedata);
+                ShowBOM("po", 0);
+            }
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+          
+            
+       
+            ShowBOM("style",int.Parse (cmb_ourstyle.SelectedValue.ToString ()));
+
+
+            loadOurStyleData();
+
+
+
+
+        }
+
+
+
+
+
+        /// <summary>
+        /// createstable for Ourstyle in the header
+        /// </summary>
+        public void loadOurStyleData()
+        {
+            
+                DataTable dt = (DataTable)(ViewState["asqtable"]);
+                DataTable newresult = dt.Select("OurStyleID="+int.Parse (cmb_ourstyle.SelectedValue.ToString ())+"").CopyToDataTable();
+
                 DataTable sizedata = BLL.FactoryAtcChart.createdatatable(newresult);
                 GenerateSmallTable(sizedata);
             }
         }
-    }
+
+
+    
 }

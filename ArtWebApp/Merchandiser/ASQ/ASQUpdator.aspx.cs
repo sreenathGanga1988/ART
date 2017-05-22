@@ -76,8 +76,8 @@ namespace ArtWebApp.Merchandiser.ASQ
                     {
                         tb.Width = 60;
                     }
-                        
-                        hcell.Controls.Add(tb);
+                    tb.Font.Size = 8;
+                    hcell.Controls.Add(tb);
                         //  Add the TableCell to the TableRow
                         hrow.Cells.Add(hcell);
                         hrow.CssClass = "na";
@@ -129,9 +129,9 @@ namespace ArtWebApp.Merchandiser.ASQ
                                     tb.Attributes.Add("onchange", "sumofQty(this)");
                                     tb.ID = "tb" + i + j;
                                     tb.Text = dt.Rows[i][j].ToString();
-                                   
-                                    //    Add the control to the TableCell
-                                    cell.Controls.Add(tb);
+                        tb.Font.Size = 8;
+                        //    Add the control to the TableCell
+                        cell.Controls.Add(tb);
                                     //    Add the TableCell to the TableRow
                                     //  cell.CssClass = "Widthclass";
                                     row.Cells.Add(cell);
@@ -185,7 +185,13 @@ namespace ArtWebApp.Merchandiser.ASQ
                 }
 
 
-                
+                string lbl_isDeletable = BLL.popackupdater.IsDeleted(ourstyleid, popackid);
+                CheckBox chK_IsDeleted = (e.Row.FindControl("chK_IsDeleted") as CheckBox);
+                if (lbl_isDeletable.Trim() == "Y")
+                {
+                    chK_IsDeleted.Checked = true;
+                    chK_IsDeleted.Enabled = false;
+                }
 
 
 
@@ -266,6 +272,35 @@ namespace ArtWebApp.Merchandiser.ASQ
 
                 }
             }
+            else if (e.CommandName == "Deleteupdate")
+            {
+
+                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+
+
+                    int lbl_popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                    int lbl_ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+
+                    ArtWebApp.BLL.POPackDetailData pdata = new POPackDetailData();
+
+                    pdata.PoPackId = lbl_popackid;
+                    pdata.Ourstyleid = lbl_ourstyleid;
+                    CheckBox chK_IsDeleted = (CheckBox)row.FindControl("chK_IsDeleted");
+                    if (chK_IsDeleted.Checked == true)
+                    {
+                        pdata.MarkASQDeleted(true);
+                    }
+                    else
+                    {
+                        pdata.MarkASQDeleted(false);
+                    }
+
+
+                }
+            }
+
             else if (e.CommandName == "ShowDropDown")
             {
 

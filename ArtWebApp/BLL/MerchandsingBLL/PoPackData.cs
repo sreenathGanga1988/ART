@@ -8,7 +8,7 @@ using System.Collections;
 using System.Data.SqlClient;
 
 using System.Configuration;
-
+using ArtWebApp.DataModelAtcWorld;
 
 namespace ArtWebApp.BLL
 {
@@ -21,15 +21,30 @@ namespace ArtWebApp.BLL
         public String Atcnum { get; set; }
         public String PackingInstruction { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public DateTime firstDeliverydate { get; set; }
+        public DateTime HandoverDate { get; set; }
         public DateTime Inhousedate { get; set; }
         public DateTime AddedDate { get; set; }
         public String AddedBy { get; set; }
 
+
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int styleid { get; set; }
+        public Decimal AsqQty { get; set; }
         public String POGroup{ get; set; }
         public String POTag{ get; set; }
         public String seasonName { get; set; }
+        public String MonthName { get; set; }
         public int ChannelID { get; set; }
         public int BuyerDestination_PK { get; set; }
+
+        public int location_PK { get; set; }
+
+        public List<POPackDetailData> POPackDetailDataCollection { get; set; }
+
+
+
 
         /// <summary>
         /// Insert PO Pack Details
@@ -43,6 +58,8 @@ namespace ArtWebApp.BLL
                 pomstr.AtcId = pomdata.AtcId;
                 pomstr.BuyerPO = pomdata.BuyerPO.Trim ();
                 pomstr.DeliveryDate = pomdata.DeliveryDate;
+                pomstr.FirstDeliveryDate = pomdata.firstDeliverydate;
+                pomstr.HandoverDate = pomdata.HandoverDate;
                 pomstr.Inhousedate = pomdata.Inhousedate;
                 pomstr.PoPacknum = CreatePoPacknum(pomdata.AtcId, pomdata.Atcnum);
                 ponum=pomstr.PoPacknum ;
@@ -53,6 +70,8 @@ namespace ArtWebApp.BLL
                 pomstr.SeasonName = pomdata.seasonName;
                 pomstr.PoGroup = pomdata.POGroup;
                 pomstr.TagGroup = pomdata.POTag;
+                pomstr.ExpectedLocation_PK = pomdata.location_PK;
+               
                 enty.PoPackMasters.Add(pomstr);
 
                 enty.SaveChanges();
@@ -93,12 +112,19 @@ namespace ArtWebApp.BLL
             {
 
 
+               // var sizedetails = enty.StyleSizes.OrderBy(x => x.Orderof).Where(x => x.OurStyleID == ourstyleid).Select(c => new { c.SizeName }).Distinct();
+
                 var sizedetails = (from size in enty.StyleSizes
                                    where size.OurStyleID == ourstyleid
+                                   group size by size.SizeName into sizeGroup
+                                   orderby sizeGroup.Min(size => size.Orderof)
                                    select new
                                    {
-                                       size.SizeName
-                                   }).Distinct();
+                                       SizeName = sizeGroup.Key
+                                   });
+
+
+                //var sizedetails = enty .StyleSizes.Where(u => u.OurStyleID == ourstyleid).Select(u => u.SizeName ).Distinct();
 
                 foreach (var sizedet in sizedetails)
                 {
@@ -111,6 +137,7 @@ namespace ArtWebApp.BLL
 
                 var Colordetails = (from color in enty.StyleColors
                                     where color.OurStyleID == ourstyleid
+                                    
                                     select new
                                     {
                                         color.GarmentColor
@@ -252,51 +279,253 @@ namespace ArtWebApp.BLL
 
         public void updatePOpAck(PoPackMasterData pomdata)
         {
+            string ponum = "";
 
-
-            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
             {
-
-
-
-
-                var queryselecct = from pkmstr in enty.PoPackMasters
-                                   where pkmstr.PoPackId == pomdata.PoPackId
-                                   select pkmstr;
-
-
-
-
-                foreach (var pomstr in queryselecct)
+              
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
                 {
 
 
-                    pomstr.BuyerPO = pomdata.BuyerPO.Trim();
-                    pomstr.DeliveryDate = pomdata.DeliveryDate;
-                    pomstr.Inhousedate = pomdata.Inhousedate;
-                    pomstr.ChannelID = pomdata.ChannelID;
-                    pomstr.BuyerDestination_PK = pomdata.BuyerDestination_PK;
-                    pomstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
-                    pomstr.PackingInstruction = pomdata.PackingInstruction;
-                    pomstr.PoGroup = pomdata.POGroup;
-                    pomstr.TagGroup = pomdata.POTag;
-                    pomstr.SeasonName = pomdata.seasonName;
+
+
+                    var queryselecct = from pkmstr in enty.PoPackMasters
+                                       where pkmstr.PoPackId == pomdata.PoPackId
+                                       select pkmstr;
+
+
+
+
+                    foreach (var pomstr in queryselecct)
+                    {
+
+                         ponum = pomstr.PoPacknum;
+                        pomstr.BuyerPO = pomdata.BuyerPO.Trim();
+                        pomstr.DeliveryDate = pomdata.DeliveryDate;
+                        pomstr.Inhousedate = pomdata.Inhousedate;
+                        pomstr.ChannelID = pomdata.ChannelID;
+                        pomstr.BuyerDestination_PK = pomdata.BuyerDestination_PK;
+                        pomstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        pomstr.AddedDate = DateTime.Now;
+                        pomstr.PackingInstruction = pomdata.PackingInstruction;
+                        pomstr.ExpectedLocation_PK = pomdata.location_PK;
+                        pomstr.PoGroup = pomdata.POGroup;
+                        pomstr.TagGroup = pomdata.POTag;
+                        pomstr.HandoverDate = pomdata.HandoverDate;
+                        pomstr.SeasonName = pomdata.seasonName;
+                    }
+
+
+
+                    try
+                    {
+
+                        var atcworld = from asqatcwordmstr in atcenty.ASQAllocationMaster_tbl
+                                       where asqatcwordmstr.POPackID == pomdata.PoPackId
+                                       select asqatcwordmstr;
+                        foreach (var atcwordelement in atcworld.ToList())
+                        {
+
+                            var channelname = enty.ChannelMasters.Where(u => u.ChannelID == pomdata.ChannelID).Select(u => u.ChannelName).FirstOrDefault();
+
+                            var sesionid = enty.SeasonMasters.Where(u => u.SeasonName == pomdata.seasonName).Select(u => u.Season_PK).FirstOrDefault();
+                            var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == pomdata.location_PK).Select(u => u.Location_PK).FirstOrDefault();
+
+
+                            atcwordelement.BuyerPO = ponum +" / "+pomdata.BuyerPO.Trim();
+                            atcwordelement.BuyerPO = pomdata.BuyerPO.Trim();
+                            atcwordelement.DeliveryDate = pomdata.DeliveryDate;
+                            atcwordelement.HandOverDate = pomdata.HandoverDate;
+                            atcwordelement.ChannelID = pomdata.ChannelID;
+                            
+                            atcwordelement.BuyerDestination_PK = pomdata.BuyerDestination_PK;
+                            atcwordelement.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                            atcwordelement.Season_PK = int.Parse(sesionid.ToString());
+                            atcwordelement.ChannelName = channelname.ToString();
+                            atcwordelement.Season = pomdata.seasonName;
+
+                            atcwordelement.ArtLocaion_PK = pomdata.location_PK;
+                          
+                            atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+
+
+
+                        }
+                        atcenty.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+
+                        
+                    }
+                    enty.SaveChanges();
+                   
+
                 }
 
-
-
-
-                enty.SaveChanges();
-
-
             }
-
-
 
 
         }
 
 
+
+
+
+        public void updatePOpAckHD(PoPackMasterData pomdata)
+        {
+
+            using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
+            {
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+
+
+
+
+                    var queryselecct = from pkmstr in enty.PoPackMasters
+                                       where pkmstr.PoPackId == pomdata.PoPackId
+                                       select pkmstr;
+
+
+
+
+                    foreach (var pomstr in queryselecct)
+                    {
+
+
+                      
+                        pomstr.HandoverDate = pomdata.HandoverDate;
+                      
+                    }
+
+
+
+                    try
+                    {
+
+                        var atcworld = from asqatcwordmstr in atcenty.ASQAllocationMaster_tbl
+                                       where asqatcwordmstr.POPackID == pomdata.PoPackId
+                                       select asqatcwordmstr;
+                        foreach (var atcwordelement in atcworld.ToList())
+                        {
+
+                           
+
+
+                          
+                            atcwordelement.HandOverDate = pomdata.HandoverDate;
+              
+
+
+
+
+
+
+
+                        }
+                        atcenty.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                    enty.SaveChanges();
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+
+
+
+        public void Inserttarget()
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                LockedASQDetail lckasqdet = new DataModels.LockedASQDetail();
+                lckasqdet.POPackId = this.PoPackId;
+                lckasqdet.OurStyleID = this.styleid;
+                lckasqdet.Location_PK = this.location_PK;
+                lckasqdet.Qty = this.AsqQty;
+                lckasqdet.Year = this.Year;
+                lckasqdet.Month = this.Month;
+                lckasqdet.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                lckasqdet.AddedDate = DateTime.Now;
+
+                enty.LockedASQDetails.Add(lckasqdet);
+                enty.SaveChanges();
+            }
+
+           
+        }
+
+
+        public void LockMontofProjection(int year ,int month)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from yrmstr in enty.YearMonthMasters
+                    where yrmstr.YearName == year.ToString() && yrmstr.MonthNum == month
+                        select yrmstr;
+
+            foreach (var element in q)
+            {
+                element.IsTargetLocked = "Y";
+                element.TargetLockedDate = DateTime.Now;
+                element.TargetLockedBy= HttpContext.Current.Session["Username"].ToString().Trim(); ;
+            }
+                enty.SaveChanges();
+            }
+
+        }
+
+        public void LockShipment()
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                if (enty.YearMonthMasters.Any(f => f.YearName == this.Year.ToString () && f.MonthNum == this.Month && f.MonthName.Trim() == this.MonthName.Trim() && f.IsShipmentClose == "Y"))
+                {
+                  
+                }
+
+                else if (enty.YearMonthMasters.Any(f => f.YearName == this.Year.ToString() && f.MonthNum == this.Month && f.MonthName.Trim() == this.MonthName.Trim() && f.IsShipmentClose == "N"))
+                {
+                    var q = from yrmstr in enty.YearMonthMasters
+                            where yrmstr.YearName == this.Year.ToString() && yrmstr.MonthNum == this.Month && yrmstr.MonthName.Trim() == this.MonthName.Trim()
+                            select yrmstr;
+                        
+                    foreach(var element in q)
+                    {
+                        element.IsShipmentClose = "Y";
+                        element.ClosedDate = DateTime.Now;
+                        element.ClosedBy= HttpContext.Current.Session["Username"].ToString().Trim();
+                    }
+
+                }
+                else
+                {
+
+                    YearMonthMaster yrmstr = new DataModels.YearMonthMaster();
+
+                   
+                }
+               
+                enty.SaveChanges();
+            }
+
+
+        }
 
         public DataTable GetAllPOPackData(int atcid)
         {
@@ -358,7 +587,62 @@ FROM            PoPackMaster INNER JOIN
             return dt;
             
             }
-      
+
+
+
+
+
+        public String ShortCloseASQ()
+        {
+            string sucess = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                foreach (BLL.POPackDetailData pddata in this.POPackDetailDataCollection)
+                {
+
+                    var q = from popckdet in enty.POPackDetails
+                            where popckdet.OurStyleID == pddata.Ourstyleid && popckdet.POPackId == pddata.PoPackId
+                            select popckdet;
+                    foreach(var element in q) 
+                    {
+                        element.IsShortClosed = "Y";
+                        element.ShortClosedDate = DateTime.Now;
+                        element.ShortClosedBy= HttpContext.Current.Session["Username"].ToString().Trim();
+                    }
+                    using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
+                    {
+                        var atcworld = from asqatcwordmstr in atcenty.ASQAllocationMaster_tbl
+                                       where asqatcwordmstr.OurStyleId == pddata.Ourstyleid && asqatcwordmstr.POPackID == pddata.PoPackId
+                                       select asqatcwordmstr;
+                        foreach (var atcwordelement in atcworld.ToList())
+                        {
+
+
+
+
+
+                            atcwordelement.IsShortClosed =  "Y";
+
+
+
+
+
+
+
+
+                        }
+                        atcenty.SaveChanges();
+                    }
+
+                    }
+                enty.SaveChanges();
+            }
+
+            return sucess;
+        }
+
 
         
 
@@ -456,6 +740,7 @@ FROM            PoPackMaster INNER JOIN
         /// <param name="popackdata"></param>
         public void insertPOPackDetails(POPackDetailData popackdata)
         {
+            ;
             DataTable podet = popackdata.POPackdetcollection;
             for (int i = 0; i < podet.Rows.Count - 1; i++)
             {
@@ -490,6 +775,8 @@ FROM            PoPackMaster INNER JOIN
                                 pcpkdet.SizeID= newpopackdetdata.sizeid;
                                 pcpkdet.PoQty = newpopackdetdata.Poqty;
                                 pcpkdet.IsCutable = "N";
+                                pcpkdet.IsHidden = "N";
+                                pcpkdet.IsShortClosed = "N";
                                 pcpkdet.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                                 pcpkdet.AddedDate = DateTime.Now;
                                 enty.POPackDetails.Add(pcpkdet);
@@ -510,7 +797,13 @@ FROM            PoPackMaster INNER JOIN
                             foreach (var element in q)
                             {
                                 element.PoQty = newpopackdetdata.Poqty;
+                                
                             }
+
+
+
+
+
 
 
 
@@ -542,6 +835,8 @@ FROM            PoPackMaster INNER JOIN
                     if (iscutable)
                     {
                         element.IsCutable = "Y";
+                        element.MarkedCuttableBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        element.MarkedCuttabledate = DateTime.Now;
                     }
                     else
                     {
@@ -587,6 +882,58 @@ FROM            PoPackMaster INNER JOIN
         }
 
 
+
+        public void MarkASQDeleted(Boolean isdeleted)
+        {
+
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from ppc in enty.POPackDetails
+                        where ppc.OurStyleID == this.Ourstyleid && ppc.POPackId == this.PoPackId
+                        select ppc;
+                foreach (var element in q)
+                {
+                    if (isdeleted)
+                    {
+                        element.IsDeleted = "Y";
+                    }
+                    else
+                    {
+                        element.IsDeleted = "N";
+                    }
+
+                }
+                enty.SaveChanges();
+            }
+
+
+
+        }
+
+
+
+
+        public void  UpdateAllocatedData(int popackid, int ourstyleid)
+        {
+
+            popackupdater.UpdateAsqAllocation(popackid, Ourstyleid);
+            BLL.MerchandsingBLL.AllocationBLL abll = new MerchandsingBLL.AllocationBLL();
+            abll.UpdateAllocatedASQofAtcWord(popackid, ourstyleid);
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public class POPackGDitems
@@ -611,6 +958,18 @@ FROM            PoPackMaster INNER JOIN
                     cddetail.IsDepenant = "Y";
                     enty.GroupDependantItems.Add(cddetail);
                     enty.SaveChanges();
+                }
+                else
+                {
+                    var q1 = from gditems in enty.GroupDependantItems
+                            where gditems.OurStyleID == this.Ourstyleid && gditems.POPackID == this.PoPackId && gditems.Sku_PK == this.skuPK && gditems.IsDepenant=="N"
+                            select gditems;
+                    foreach (var element1 in q1)
+                    {
+                        element1.IsDepenant = "Y";
+                    }
+                    enty.SaveChanges();
+
                 }
 
             }
@@ -693,10 +1052,12 @@ FROM            PoPackMaster INNER JOIN
 
                 var sizedetails = (from size in enty.StyleSizes
                                    where size.OurStyleID == ourstyleid
+                                   group size by size.SizeName into sizeGroup
+                                   orderby sizeGroup.Min(size => size.Orderof)
                                    select new
                                    {
-                                       size.SizeName
-                                   }).Distinct();
+                                       SizeName = sizeGroup.Key
+                                   });
 
                 foreach (var sizedet in sizedetails)
                 {
@@ -769,7 +1130,7 @@ FROM            PoPackMaster INNER JOIN
             }
 
 
-
+           
 
             return dt;
         }
@@ -797,10 +1158,12 @@ FROM            PoPackMaster INNER JOIN
 
                 var sizedetails = (from size in enty.StyleSizes
                                    where size.OurStyleID == ourstyleid
+                                   group size by size.SizeName into sizeGroup
+                                   orderby sizeGroup.Min(size => size.Orderof)
                                    select new
                                    {
-                                       size.SizeName
-                                   }).Distinct();
+                                       SizeName = sizeGroup.Key
+                                   });
 
                 foreach (var sizedet in sizedetails)
                 {
@@ -858,6 +1221,45 @@ FROM            PoPackMaster INNER JOIN
             return icut;
         }
 
+
+        public static String IsAllocated(int ourstyleid, int popackid)
+        {
+            DataTable dt = new DataTable();
+            string IsAllocated = "";
+          
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                try
+                {
+                    var iscutable = enty.ASQAllocationMasters.Where(u => u.PoPackId == popackid && u.OurStyleId == ourstyleid).Select(u => u.ASQAllocation_PK).FirstOrDefault();
+
+                    if (iscutable == null || iscutable.ToString().Trim() == "" || iscutable.ToString().Trim() == "0")
+                    {
+                        IsAllocated = "N";
+                    }
+                    else
+                    {
+                        IsAllocated = "Y";
+                    }
+                }
+                catch (Exception)
+                {
+
+                    IsAllocated = "N";
+                }
+
+            }
+
+
+
+
+            return IsAllocated;
+        }
+
+
+
         public static String IsASQPackable(int ourstyleid, int popackid)
         {
             DataTable dt = new DataTable();
@@ -886,7 +1288,33 @@ FROM            PoPackMaster INNER JOIN
             return icut;
         }
 
+        public static String IsDeleted(int ourstyleid, int popackid)
+        {
+            DataTable dt = new DataTable();
+            string icut = "";
+            dt.Columns.Add("Color", typeof(String));
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
+
+                var IsDeleted = enty.POPackDetails.Where(u => u.POPackId == popackid && u.OurStyleID == ourstyleid).Select(u => u.IsDeleted).FirstOrDefault();
+
+                if (IsDeleted == null || IsDeleted.ToString().Trim() == "")
+                {
+                    icut = "N";
+                }
+                else
+                {
+                    icut = IsDeleted.ToString().Trim();
+                }
+
+            }
+
+
+
+
+            return icut;
+        }
         public static String OurStyleProjectionQty(int ourstyleid)
         {
             
@@ -909,6 +1337,28 @@ FROM            PoPackMaster INNER JOIN
             return qty;
         }
 
+
+        public static String AtcProjectionQty(int atcid)
+        {
+
+            string qty = "0";
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var styleqty = enty.AtcMasters.Where(u => u.AtcId == atcid).Select(u => u.ProjectionQty ?? 0).Sum();
+
+
+                qty = styleqty.ToString();
+
+
+
+            }
+
+
+
+
+            return qty;
+        }
 
         /// <summary>
         /// GET THE POPACK QTY OF OURSTYLE EXCLUDING THE GIVEN POPACK
@@ -971,9 +1421,14 @@ FROM            PoPackMaster INNER JOIN
             try
             {
                 AsqData = AsqData.Select("PoPackId=" + popackid + "").CopyToDataTable();
-                DataTable UniqueSize = AsqData.DefaultView.ToTable(true, "SizeName");
+
+                
+                DataTable UniqueSizeunsorted = AsqData.DefaultView.ToTable(true, "SizeName", "Orderof");
                 DataTable UniqueColor = AsqData.DefaultView.ToTable(true, "ColorName");
-              
+
+                DataView dv = UniqueSizeunsorted.DefaultView;
+                dv.Sort = "Orderof ASC";
+                DataTable UniqueSize = dv.ToTable();
 
                 dt.Columns.Add("Color", typeof(String));
 
@@ -1052,25 +1507,27 @@ FROM            PoPackMaster INNER JOIN
                 if (colorcode == "CM")
                 {
                     query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
-                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty,POPackDetails.ColorCode, PoPackMaster.SeasonName
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty, POPackDetails.ColorCode, PoPackMaster.SeasonName, StyleSize.Orderof
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
-                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         StyleSize ON POPackDetails.OurStyleID = StyleSize.OurStyleID AND POPackDetails.SizeName = StyleSize.SizeName
 GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
-                         PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty,POPackDetails.ColorCode,PoPackMaster.SeasonName, POPackDetails.IsCutable
-HAVING        (POPackDetails.OurStyleID = @OurStyleID)   AND (POPackDetails.IsCutable = N'Y')
+                         PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty, POPackDetails.ColorCode, PoPackMaster.SeasonName, POPackDetails.IsCutable,StyleSize.Orderof
+HAVING        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.IsCutable = N'Y')
 ORDER BY PoPackMaster.PoPackId";
                 }
                 else
                 {
                     query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
-                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty,POPackDetails.ColorCode, PoPackMaster.SeasonName
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty, POPackDetails.ColorCode, PoPackMaster.SeasonName, StyleSize.Orderof
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
-                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         StyleSize ON POPackDetails.OurStyleID = StyleSize.OurStyleID AND POPackDetails.SizeName = StyleSize.SizeName
 GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
-                         PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty,POPackDetails.ColorCode,PoPackMaster.SeasonName, POPackDetails.IsCutable
-HAVING        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)  AND (POPackDetails.IsCutable = N'Y')
+                         PoPackMaster.AtcId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty, POPackDetails.ColorCode, PoPackMaster.SeasonName, POPackDetails.IsCutable, StyleSize.Orderof
+HAVING        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode) AND (POPackDetails.IsCutable = N'Y')
 ORDER BY PoPackMaster.PoPackId";
                 }
 
@@ -1163,6 +1620,66 @@ ORDER BY PoPackMaster.PoPackId";
         }
 
 
+
+        public static DataTable GetASQMasterofAStyleAndColorofLocation(int ourstyleid, String colorcode,int location_PK)
+        {
+            DataTable dt = new DataTable();
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = "";
+                con.Open();
+                if (colorcode == "CM")
+                {
+                    query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+FROM            PoPackMaster INNER JOIN
+                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+WHERE        (POPackDetails.OurStyleID = @OurStyleID)
+GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
+                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+HAVING        (MAX(POPackDetails.IsCutable) = N'Y') AND (PoPackMaster.ExpectedLocation_PK = @location_PK)
+ORDER BY PoPackMaster.PoPackId";
+                }
+                else
+                {
+                    query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+FROM            PoPackMaster INNER JOIN
+                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+WHERE        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)
+GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
+                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+HAVING        (MAX(POPackDetails.IsCutable) = N'Y') AND (PoPackMaster.ExpectedLocation_PK = @location_PK)
+ORDER BY PoPackMaster.PoPackId";
+                }
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                if (colorcode != "")
+                {
+                    cmd.Parameters.AddWithValue("@ColorCode", colorcode);
+                }
+
+
+
+                cmd.Parameters.AddWithValue("@OurStyleID", ourstyleid);
+                cmd.Parameters.AddWithValue("@location_PK", location_PK);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+
+
+
+            return dt;
+        }
+
         public static DataTable GetCutPlanmarkerdetails(int cutplan_PK)
         {
             DataTable dt = new DataTable();
@@ -1236,6 +1753,45 @@ WHERE        (CutPlanMarkerDetails.CutPlan_PK = @cutplan_PK)";
             return dt;
         }
 
+
+        public static DataTable GetSizeofCutplan(int cutplan_PK)
+        {
+            DataTable dt = new DataTable();
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = "";
+                con.Open();
+
+                query = @"SELECT DISTINCT CutPlanMarkerSizeDetails.Size,StyleSize.Orderof
+FROM            CutPlanMarkerSizeDetails INNER JOIN
+                         CutPlanMaster ON CutPlanMarkerSizeDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK INNER JOIN
+                         StyleSize ON CutPlanMaster.OurStyleID = StyleSize.OurStyleID AND CutPlanMarkerSizeDetails.Size = StyleSize.SizeName
+WHERE        (CutPlanMaster.CutPlan_PK = @cutplan_PK)
+GROUP BY CutPlanMarkerSizeDetails.Size,StyleSize.Orderof
+ORDER BY StyleSize.Orderof";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+
+
+
+                cmd.Parameters.AddWithValue("@cutplan_PK", cutplan_PK);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+
+
+
+            return dt;
+        }
+
+
         /// <summary>
         /// Requery the database to get the size color asq matrix
         /// </summary>
@@ -1247,23 +1803,15 @@ WHERE        (CutPlanMarkerDetails.CutPlan_PK = @cutplan_PK)";
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Color", typeof(String));
-            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+
+            DataTable sizetemp = GetSizeofCutplan(cutplanpk);
+
+            if(sizetemp.Rows.Count>0)
             {
-
-
-                var sizedetails = (from size in enty.CutPlanMarkerSizeDetails
-
-                                   where size.CutPlan_PK == cutplanpk
-                                   select new
-                                   {
-                                       size.Size
-                                   }).Distinct();
-
-                foreach (var sizedet in sizedetails)
+                for(int i=0;i< sizetemp.Rows.Count;i++)
                 {
-                    dt.Columns.Add(sizedet.Size.Trim(), typeof(String));
+                    dt.Columns.Add(sizetemp.Rows[i]["Size"].ToString().Trim(), typeof(String));
                 }
-
                 dt.Columns.Add("Total", typeof(String));
                 DataRow row = dt.NewRow();
 
@@ -1280,12 +1828,48 @@ WHERE        (CutPlanMarkerDetails.CutPlan_PK = @cutplan_PK)";
                     row[i] = 0;
                 }
                 dt.Rows.Add(row1);
-
-
-                return dt;
             }
+            //using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            //{
 
 
+            //    var sizedetails = (from size in enty.CutPlanMarkerSizeDetails
+                                   
+                                                                
+
+            //                       where size.CutPlan_PK == cutplanpk
+            //                       select new
+            //                       {
+            //                           size.Size
+            //                       }).Distinct();
+
+            //    foreach (var sizedet in sizedetails)
+            //    {
+            //        dt.Columns.Add(sizedet.Size.Trim(), typeof(String));
+            //    }
+
+            //    dt.Columns.Add("Total", typeof(String));
+            //    DataRow row = dt.NewRow();
+
+            //    for (int i = 0; i < dt.Columns.Count; i++)
+            //    {
+            //        row[i] = 0;
+            //    }
+            //    dt.Rows.Add(row);
+
+            //    DataRow row1 = dt.NewRow();
+
+            //    for (int i = 0; i < dt.Columns.Count; i++)
+            //    {
+            //        row[i] = 0;
+            //    }
+            //    dt.Rows.Add(row1);
+
+
+              
+            //}
+
+            return dt;
         }
 
 
@@ -1304,10 +1888,13 @@ WHERE        (CutPlanMarkerDetails.CutPlan_PK = @cutplan_PK)";
             AsqData = AsqData.Select("PoPackId=" + popackid + "").CopyToDataTable();
 
 
-            DataTable UniqueSize = AsqData.DefaultView.ToTable(true, "SizeName");
+            DataTable UniqueSizeunsorted = AsqData.DefaultView.ToTable(true, "SizeName", "Orderof"); 
             DataTable UniqueColor = AsqData.DefaultView.ToTable(true, "ColorName");
-            DataTable dt = new DataTable();
 
+            DataTable dt = new DataTable();
+            DataView dv = UniqueSizeunsorted.DefaultView;
+            dv.Sort = "Orderof ASC";
+            DataTable UniqueSize = dv.ToTable();
             dt.Columns.Add("Color", typeof(String));
 
 
@@ -1359,6 +1946,96 @@ WHERE        (CutPlanMarkerDetails.CutPlan_PK = @cutplan_PK)";
 
             return dt;
         }
+
+
+
+
+
+        public static DataTable GetAlreadyCutQtyofAStyleAndColor(int ourstyleid, String colorcode,int skudetpk)
+        {
+            DataTable dt = new DataTable();
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = "";
+                con.Open();
+                if (colorcode == "CM")
+                {
+                    query = @"SELECT        CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.PoPackId, CutPlanASQDetails.PoPack_Detail_PK, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, 
+                         CutPlanASQDetails.CutPlanASQDetails_PK, POPackDetails.OurStyleID, CutPlanASQDetails.Skudet_PK
+FROM            CutPlanASQDetails INNER JOIN
+                         POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK
+WHERE(POPackDetails.OurStyleID = @OurStyleID) AND(CutPlanASQDetails.Skudet_PK = @skudetpk)";
+                }
+                else
+                {
+                    query = @"SELECT        CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.PoPackId, CutPlanASQDetails.PoPack_Detail_PK, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, 
+                         CutPlanASQDetails.CutPlanASQDetails_PK, POPackDetails.OurStyleID, POPackDetails.ColorCode
+FROM            CutPlanASQDetails INNER JOIN
+                         POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK
+WHERE        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)  AND(CutPlanASQDetails.Skudet_PK = @skudetpk)";
+                }
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                if (colorcode != "")
+                {
+                    cmd.Parameters.AddWithValue("@ColorCode", colorcode);
+                }
+
+
+
+
+                cmd.Parameters.AddWithValue("@OurStyleID", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+
+
+
+            return dt;
+        }
+
+
+
+        public static void UpdateAsqAllocation(int popackid, int ourstyleid)
+        {
+            DataTable dt = new DataTable();
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = @"UPDATE       ASQAllocationMaster
+SET ASQAllocationMaster.Qty = POPackDetails.PoQty
+FROM ASQAllocationMaster INNER JOIN
+                         POPackDetails ON ASQAllocationMaster.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK
+WHERE(POPackDetails.POPackId = @POPackId) AND(POPackDetails.OurStyleID = @OurStyleID) AND ASQAllocationMaster.MarkedUnCut = 'Y'";
+                con.Open();
+               
+                SqlCommand cmd = new SqlCommand(query, con);
+
+              
+
+
+                cmd.Parameters.AddWithValue("@POPackId", popackid);
+                cmd.Parameters.AddWithValue("@OurStyleID", ourstyleid);
+
+               cmd.ExecuteNonQuery();
+
+               
+
+
+
+            }
+
+
+
+         
+        }
+
 
     }
 }

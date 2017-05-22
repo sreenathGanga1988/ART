@@ -25,11 +25,12 @@ namespace ArtWebApp.DataModelAtcWorld
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
         public virtual DbSet<LocationMaster_tbl> LocationMaster_tbl { get; set; }
-        public virtual DbSet<PackingListMasterAtcPro> PackingListMasterAtcProes { get; set; }
         public virtual DbSet<ASQShuffleDetailsAtc> ASQShuffleDetailsAtcs { get; set; }
         public virtual DbSet<ASQShuffleMasterAtc> ASQShuffleMasterAtcs { get; set; }
         public virtual DbSet<PackingListDetailsAtc> PackingListDetailsAtcs { get; set; }
+        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
+        public virtual DbSet<PackingListMasterAtcPro> PackingListMasterAtcProes { get; set; }
+        public virtual DbSet<StyleSizeMaster> StyleSizeMasters { get; set; }
     }
 }

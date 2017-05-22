@@ -32,6 +32,7 @@ namespace ArtWebApp.DataModels
         public string IsAdvance { get; set; }
         public string IsPosted { get; set; }
         public string SupInvnum { get; set; }
+        public Nullable<decimal> Year { get; set; }
     
         public virtual ICollection<SupplierInvoiceDetail> SupplierInvoiceDetails { get; set; }
         public virtual SupplierMaster SupplierMaster { get; set; }

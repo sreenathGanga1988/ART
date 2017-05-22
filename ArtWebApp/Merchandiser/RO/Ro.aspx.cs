@@ -132,7 +132,7 @@ namespace ArtWebApp.Merchandiser
 
             rmstr.RoDetailsDataCollection = rk;
             rmstr.ToSkuDet_PK = toskudetpk;
-            //rmstr.Location_Pk
+            rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
       String ro= rmstr.insertRowmaterial(rmstr);
        string msg="Ro# '"+ro+"' Generated Successfully";
        MessgeboxUpdate("sucess", msg);
@@ -182,7 +182,7 @@ namespace ArtWebApp.Merchandiser
                 if (chkBx != null && chkBx.Checked)
                 {
                     skuuompk = int.Parse((di.FindControl("lbl_altuomPK") as Label).Text);
-                    skucurate = int.Parse((di.FindControl("lbl_costunitrate") as Label).Text);
+                    skucurate = float.Parse((di.FindControl("lbl_costunitrate") as Label).Text);
 
                 }
             }
@@ -200,7 +200,7 @@ namespace ArtWebApp.Merchandiser
 
                   
                         newuompk = int.Parse((di.FindControl("lbl_newUomPK") as Label).Text);
-                        newcurate = int.Parse((di.FindControl("lbl_fromcurate") as Label).Text);
+                        newcurate = float.Parse((di.FindControl("lbl_fromcurate") as Label).Text);
 
                         if (skuuompk != 0 && skucurate != 0 && newuompk != 0 && newcurate != 0)
                         {
@@ -269,7 +269,7 @@ namespace ArtWebApp.Merchandiser
             }
             else
             {
-                DataTable dt = potrans.getAltuomdata(uomPK, auomPk);
+                DataTable dt = potrans.getAltuomdata(auomPk, uomPK);
                 if (dt != null)
                 {
                     if (dt.Rows.Count > 0)
@@ -277,14 +277,14 @@ namespace ArtWebApp.Merchandiser
 
                         operendforUOM = float.Parse(dt.Rows[0]["Conv_fact"].ToString());
                         operatorusedforUOM = dt.Rows[0]["Operator"].ToString().Trim();
-                        if (operatorusedforUOM == "*")
+                        if (operatorusedforUOM == "/")
                         {
 
 
 
                             newunitrate = newunitrate / operendforUOM;
                         }
-                        else if (operatorusedforUOM == "/")
+                        else if (operatorusedforUOM == "*")
                         {
 
 

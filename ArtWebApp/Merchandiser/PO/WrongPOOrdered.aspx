@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">    
        
-
+     
        
         .hidden {
             display: none;
@@ -10,6 +10,83 @@
 
 
         </style>
+    <link href="../css/style.css" rel="stylesheet" />
+   
+    <script src="../../JQuery/GridJQuery.js"></script>
+     <script type="text/javascript">
+
+
+         function Onselection(objref) {
+             Check_Click(objref)
+           
+             calculatesumofpoqty();
+             
+         }
+
+         function OnSelectAllClick(objref) {
+             checkAll(objref)
+            
+             calculatesumofpoqty();
+             
+         }
+
+
+         function validationandsum()
+         {
+             validateQTY();
+
+             calculatesumofpoqty();
+           
+
+         }
+
+             function calculatesumofpoqty()
+        {
+            var gridView = document.getElementById("<%= tbl_podetails.ClientID %>");
+            var sum = 0
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_stotalqty = gridView.rows[i].getElementsByClassName("txtpoqty")[0];
+
+                    sum = sum + parseFloat(txt_stotalqty.value);
+                }
+
+            } 
+            var totalqtyfooter = document.getElementsByClassName("totalqtyfooter")[0];
+            totalqtyfooter.value = sum;
+        }
+
+
+         function validateQTY()
+         {
+
+
+            var tbl_podetails = document.getElementsByClassName("tbl_podetails")[0];
+            for (var i = 1; i < tbl_podetails.rows.length-1; i++) {
+
+                var newQty = tbl_podetails.rows[i].getElementsByClassName("txtpoqty")[0].value;
+                var balqty = tbl_podetails.rows[i].getElementsByClassName("lblbal")[0].innerHTML;
+
+                if (parseFloat(newQty) > parseFloat(balqty)) {
+                    alert("Extra Not allowed More Than POQTY");
+                    newQty = 0;
+                    tbl_podetails.rows[i].getElementsByClassName("txtpoqty")[0].value = 0;
+
+                }
+                else {
+
+                }
+
+
+            }
+
+        }
+
+
+    </script>
     <link href="../../css/style.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -96,14 +173,20 @@
             <td class="gridtable">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="PODet_PK" OnRowDataBound="tbl_podetails_RowDataBound" OnRowCommand="tbl_podetails_RowCommand">
+                        <asp:GridView ID="tbl_podetails" CssClass="tbl_podetails" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="PODet_PK" OnRowDataBound="tbl_podetails_RowDataBound" OnRowCommand="tbl_podetails_RowCommand" ShowFooter="True">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
-                                  <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
-                                            <ItemTemplate>
-                                                <asp:CheckBox ID="chk_select" runat="server" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
+
+                                   <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="OnSelectAllClick(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Onselection(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                
                                 <asp:TemplateField HeaderText="PDPK" InsertVisible="False" SortExpression="PODet_PK">
                                   
                                     <ItemTemplate>
@@ -128,21 +211,44 @@
                                     
                                     
                                     </ItemTemplate>
+
+
+
+
+
                                 </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="SupplierSize" SortExpression="SupplierSize">
                                    
                                     <ItemTemplate>
                                         <asp:Label ID="lbl_suppliersize" runat="server" Text='<%# Bind("SupplierSize") %>'></asp:Label>
                                         
                                     </ItemTemplate>
+
+
+
                                 </asp:TemplateField>
+
                                   <asp:BoundField DataField="POQty" HeaderText="poqty" SortExpression="poqty" />
-                                <asp:TemplateField HeaderText="POQty" SortExpression="POQty">
-                                  
+                                <asp:TemplateField HeaderText="POQty"  SortExpression="POQty">
+
+                                     <ItemTemplate>
+                                             <asp:Label ID="Label1" CssClass="lblbal" runat="server" Text='<%# Bind("POQty") %>'></asp:Label>
+                                         </ItemTemplate>
+                                     </asp:TemplateField>
+
+                                   <asp:TemplateField HeaderText="poQty">
+
+                                        <FooterTemplate>
+                                                  <asp:TextBox ID="txt_totalpoqty" CssClass="totalqtyfooter" runat="server"></asp:TextBox>
+
+                                              </FooterTemplate>
                                     <ItemTemplate>
-                                          <asp:TextBox ID="txt_poqty" runat="server" Text='<%# Bind("POQty") %>' Height="16px" Width="60px"></asp:TextBox>
+                                          <asp:TextBox ID="txt_poqty"  CssClass="txtpoqty" onchange="validationandsum()" runat="server" Text='<%# Bind("POQty") %>' Height="16px" Width="60px"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+
+
                                 <asp:BoundField DataField="UomCode" HeaderText="Uom" SortExpression="UomCode" />
                                 <asp:TemplateField HeaderText="UnitRate" SortExpression="POUnitRate">
                                   

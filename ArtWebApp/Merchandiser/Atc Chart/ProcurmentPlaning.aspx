@@ -2,6 +2,56 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../css/style.css" rel="stylesheet" />
+    <script src="../../JQuery/GridJQuery.js"></script>
+    <script>
+
+        
+        function Onselection(objref) {
+            Check_Click(objref)
+           // calculatesumofyardage();
+        }
+
+        function OnSelectAllClick(objref) {
+            checkAll(objref)
+         //   calculatesumofyardage();
+        }
+          function CopyRemark()
+        {
+            var gridView = document.getElementById("<%= tbl_bom.ClientID %>");
+              var txt_remark = document.getElementsByClassName("txt_remark")[0];
+
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var txt_remark1 = gridView.rows[i].getElementsByClassName("txt_remark1")[0];
+
+                    txt_remark1.value=txt_remark.value ;
+                }
+            }
+          }
+
+          function CopyDate()
+        {
+            var gridView = document.getElementById("<%= tbl_bom.ClientID %>");
+              var dtp_deliverydateall = document.getElementsByClassName("dtp_deliverydateall")[0];
+
+            for (var i = 1; i < gridView.rows.length - 1; i++)
+            {
+                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                if (chkConfirm.checked)
+                {
+                    var dtpdeliverydate = gridView.rows[i].getElementsByClassName("dtpdeliverydate")[0];
+
+                    dtpdeliverydate.value = dtp_deliverydateall.value;
+                }
+            }
+          }
+
+
+
+    </script>
 <style type="text/css">
 body
 {
@@ -47,6 +97,10 @@ body
         width: 120px;
     }
 
+    .auto-style9 {
+        height: 27px;
+    }
+
     </style>
     
       
@@ -88,8 +142,8 @@ body
                                 <td class="NormalTD" ></td>
                             </tr>
                             <tr>
-                                <td >RMNUM</td>
-                                <td >
+                                <td class="NormalTD"  >RMNUM</td>
+                                <td  class="NormalTD" >
                                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                                         <ContentTemplate>
                                             <ig:WebDropDown ID="drp_rmnum" runat="server" BorderStyle="None" EnableClosingDropDownOnSelect="False" EnableMultipleSelection="True" TextField="RMNum" ValueField="Sku_pk" Width="200px">
@@ -98,7 +152,7 @@ body
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </td>
-                                <td >
+                                <td class="SearchButtonTD" >
                                    
                                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                                         <ContentTemplate>
@@ -109,15 +163,28 @@ body
                                 <td class="SearchButtonTD" >
                                    
                                     pcd</td>
-                                <td >&nbsp;</td>
-                                <td >&nbsp;</td>
+                                <td class="auto-style9" ></td>
+                                <td class="auto-style9" ></td>
                             </tr>
                             <tr>
-                                <td colspan="4" >
+                                <td colspan="2" >
                                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Export to Excel" />
+                             &nbsp; <asp:TextBox ID="txt_remark" CssClass="txt_remark" runat="server" placeholder="Enter Remark" Width="99px" Font-Size="Smaller"></asp:TextBox>
+                                    <asp:Button ID="btn_remark" runat="server"  OnClientClick="CopyRemark()" Font-Bold="True" Font-Size="X-Small" Text="Apply to all" Width="92px" />
                              </td>
-                                <td >&nbsp;</td>
-                                <td >&nbsp;</td>
+                                 <td class="SearchButtonTD" ></td>
+                                <td class="NormalTD" ></td>
+                                <td >
+                                    <asp:TextBox ID="dtp_deliverydateall"  CssClass="dtp_deliverydateall" placeholder="Enter ETA" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
+                                    <asp:CalendarExtender ID="dtp_deliverydate_CalendarExtender0" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydateAll">
+
+                                    </asp:CalendarExtender>
+                                   <asp:Button ID="btn_remark0" runat="server" Font-Bold="True" Font-Size="X-Small" OnClientClick="CopyDate()" Text="Apply to all" Width="92px" />
+
+                                </td>
+                                <td >
+                                 
+                                </td>
                             </tr>
                         </table>
 
@@ -203,7 +270,7 @@ body
                                                 <%--     <ig:WebDatePicker ID="wdp_etadate" runat="server" Font-Size="Smaller" Height="16px" Width="120px">
                                                      </ig:WebDatePicker>--%>
 
-                                                     <asp:TextBox ID="dtp_deliverydate" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
+                                                     <asp:TextBox ID="dtp_deliverydate" CssClass="dtpdeliverydate" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
 
 
                                     <asp:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
@@ -245,8 +312,28 @@ body
                                  <asp:TemplateField HeaderText="Remark">
                                      
                                      <ItemTemplate>
-                                         <asp:Label ID="lbl_remark" runat="server" Text=""></asp:Label>
-                                     </ItemTemplate>
+                                     
+                                       <asp:GridView ID="tbl_Remark" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
+                                             BorderColor="#DEBA84" DataKeyNames="PlanRemark_PK" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="PlanRemark_PK" HeaderText="PlanRemark_PK" />
+                                                 <asp:BoundField DataField="Remark" HeaderText="Remark" />
+                                                <asp:BoundField DataField="AddedDate" HeaderText="AddedDate"  DataFormatString="{0:MM/dd/yyyy}"  />
+                                                 <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" />
+                                                 
+                                          
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                         </ItemTemplate>
                                  </asp:TemplateField>
 
 
@@ -271,7 +358,7 @@ body
                                          
                                          <table class="fillfull">
                                              <tr>
-                                                 <td><asp:TextBox ID="txt_remark" runat="server" Text="na" Font-Size="Smaller"></asp:TextBox></td>
+                                                 <td><asp:TextBox ID="txt_remark" CssClass="txt_remark1"  runat="server" Text="na" Font-Size="Smaller"></asp:TextBox></td>
                                                  <td>
                                                      <asp:LinkButton ID="btn_remark" runat="server" CausesValidation="false" CommandArgument='<%# Container.DataItemIndex %>' CommandName="AddRemark" Text="ADD"></asp:LinkButton>
                                                  </td>

@@ -12,15 +12,20 @@ namespace ArtWebApp.Approvals
 {
     public partial class CostingApproval : System.Web.UI.Page
     {
+        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi", "sree" });
+
+        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "vineeth" });
         protected void Page_Load(object sender, EventArgs e)
         {
 
 
             if (!IsPostBack)
             {
+                string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+                if (Approverlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase) || forwaderlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase))
                 {
+
 
                     String navtype = Request.QueryString["navtype"];
 
@@ -28,40 +33,25 @@ namespace ArtWebApp.Approvals
                     if (navtype == "Costing")
                     {
                         MultiView1.ActiveViewIndex = 0;
-                        if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+                        if (forwaderlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase))
                         {
                             btn_approveAll.Visible = false;
+                            //   btn_approveourStyle.Visible = false;
                             setgridview();
                         }
                     }
                     else if (navtype == "Ourstyle")
                     {
+                        //    btn_approveourStyle.Visible = false;
                         MultiView1.ActiveViewIndex = 1;
+                        setOurStyleGridview();
                     }
-
-
-
-
-
-
-
-                  
-                  
                 }
                 else
                 {
-                    //string message = "You are  not Authorised for this action .You will be redirected to the Home Page.";
-                    //string url = "./Default2.aspx";
-                    //string script = "window.onload = function(){ alert('";
-                    //script += message;
-                    //script += "');";
-                    //script += "window.location = '";
-                    //script += url;
-                    //script += "'; }";
-                    //ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
-
-                    Response.Redirect("../Authorisation.aspx");
+                    Response.Redirect("../Authorisation.aspx?navtype=Approval");
                 }
+             
             }
         }
 
@@ -152,6 +142,31 @@ WHERE(StyleCostingMaster.IsApproved = N'N') AND(StyleCostingMaster.IsSubmitted =
             GridView1.DataBind();
         }
 
+
+
+        public void setOurStyleGridview()
+        {
+
+
+            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+            {
+
+
+                OurStyleData.SelectCommand = @"SELECT        AtcDetailApproval_1.OurStyleApproval_PK, AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, ISNULL
+                             ((SELECT        SUM(Quantity) AS Expr1
+                                 FROM            AtcDetailApproval
+                                 WHERE        (IsFirst = N'Y') AND (OurStyleID = OurStyleID)), 0) AS IntialQty, AtcDetails.AtcId, AtcDetailApproval_1.Quantity, AtcDetails.FOB, AtcDetailApproval_1.IsForwarded, AtcDetailApproval_1.IsApproved, 
+                         UserMaster.Department_PK
+FROM            AtcDetails INNER JOIN
+                         AtcDetailApproval AS AtcDetailApproval_1 ON AtcDetails.OurStyleID = AtcDetailApproval_1.OurStyleID INNER JOIN
+                         UserMaster ON AtcDetailApproval_1.AddedBY = UserMaster.UserName
+WHERE        (AtcDetailApproval_1.IsApproved = N'N') AND (UserMaster.Department_PK =  " + int.Parse(Session["Department_PK"].ToString()) + ")";
+
+            }
+
+            tbl_podetails.DataBind();
+        }
+
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -192,8 +207,8 @@ WHERE(StyleCostingMaster.IsApproved = N'N') AND(StyleCostingMaster.IsSubmitted =
                 }
 
             }
-
-            tbl_podetails.DataBind();
+            setOurStyleGridview();
+           // tbl_podetails.DataBind();
         }
     }
 }

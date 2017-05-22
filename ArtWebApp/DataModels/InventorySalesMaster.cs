@@ -34,6 +34,8 @@ namespace ArtWebApp.DataModels
         public string ISApproved { get; set; }
         public string ApprovedBY { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
+        public string IsReceived { get; set; }
+        public string IsDebited { get; set; }
     
         public virtual ICollection<InventorySalesDetail> InventorySalesDetails { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }

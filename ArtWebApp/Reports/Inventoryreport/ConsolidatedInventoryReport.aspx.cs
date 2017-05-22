@@ -8,6 +8,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using OfficeOpenXml;
+
+using System.IO;
+using Infragistics.Web.UI.ListControls;
+
 namespace ArtWebApp.Reports.Inventoryreport
 {
     public partial class ConsolidatedInventoryReport : System.Web.UI.Page
@@ -125,7 +130,7 @@ namespace ArtWebApp.Reports.Inventoryreport
 
 
 
-
+        
 
 
 
@@ -140,6 +145,16 @@ namespace ArtWebApp.Reports.Inventoryreport
             ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
         }
 
+        public void showInventoryReportWithAging(DataTable dt, String Msg)
+        {
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            ReportParameter rp1 = new ReportParameter("Heading", Msg);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\InventorySummaryWithAging.rdlc";
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+        }
         protected void btn_showAtcLocTrimInventory_Click(object sender, EventArgs e)
         {
             ArrayList atcArraylist = getAtclist();
@@ -151,9 +166,13 @@ namespace ArtWebApp.Reports.Inventoryreport
             if (LocArraylist.Count > 0 && LocArraylist != null && atcArraylist.Count > 0 && atcArraylist != null)
             {
                 DBTransaction.InventoryTransaction.InventoryReportConsolidatedTransaction invtran = new DBTransaction.InventoryTransaction.InventoryReportConsolidatedTransaction();
-                DataTable dt = invtran.GetInventoryofLocListAndAtcAndType(atcArraylist, LocArraylist, "Trim");
+                //DataTable dt = invtran.GetInventoryofLocListAndAtcAndType(atcArraylist, LocArraylist, "Trim");
 
-                showInventoryReport(dt, Reportheading);
+                //showInventoryReport(dt, Reportheading);
+
+                DataTable dt = invtran.GetInventoryofLocListAndAtcAndTypeWithDate(atcArraylist, LocArraylist, "Trim");
+
+                showInventoryReportWithAging(dt, Reportheading);
 
             }
         }
@@ -169,10 +188,55 @@ namespace ArtWebApp.Reports.Inventoryreport
             if (LocArraylist.Count > 0 && LocArraylist != null && atcArraylist.Count > 0 && atcArraylist != null)
             {
                 DBTransaction.InventoryTransaction.InventoryReportConsolidatedTransaction invtran = new DBTransaction.InventoryTransaction.InventoryReportConsolidatedTransaction();
-                DataTable dt = invtran.GetInventoryofLocListAndAtcAndType(atcArraylist, LocArraylist, "Fabric");
+                //DataTable dt = invtran.GetInventoryofLocListAndAtcAndType(atcArraylist, LocArraylist, "Fabric");
 
-                showInventoryReport(dt, Reportheading);
+                //showInventoryReport(dt, Reportheading);
 
+
+                DataTable dt = invtran.GetInventoryofLocListAndAtcAndTypeWithDate(atcArraylist, LocArraylist, "Fabric");
+
+                showInventoryReportWithAging(dt, Reportheading);
+
+            }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (FileUpload1.HasFile)
+            {
+                if (Path.GetExtension(FileUpload1.FileName) == ".xlsx")
+                {
+                    ExcelPackage package = new ExcelPackage(FileUpload1.FileContent);
+                    DataTable dt = package.ToDataTable();
+
+                    if(dt!=null)
+                    {
+
+                        DataView view = new DataView(dt);
+                        DataTable distinctValues = view.ToTable(true,"Atc");
+                        distinctValues.Columns.Add("Atcid");
+                        for (int i=0;i<distinctValues.Rows.Count;i++)
+                        {
+                            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                            {
+
+                                String atcnum = dt.Rows[i][0].ToString();
+                                var atciddata = (from o in entty.AtcMasters
+                                                    where o.AtcNum == atcnum
+
+                                                    select o.AtcId).FirstOrDefault();
+                                distinctValues.Rows[i]["Atcid"] = atciddata.ToString();
+                            }
+                            DropDownItem item = drp_Atc.Items.FindItemByValue(distinctValues.Rows[i]["Atcid"].ToString ());
+
+                            item.Selected = true;
+                        }
+
+
+                 
+                    }
+                   
+                }
             }
         }
     }

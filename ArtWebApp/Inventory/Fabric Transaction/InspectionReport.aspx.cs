@@ -11,14 +11,19 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                tbl_InverntoryDetails.DataSource = null;
+                tbl_InverntoryDetails.DataBind();
+            }
 
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             BLL.InventoryBLL.RollInventoryData fbrolldet = new BLL.InventoryBLL.RollInventoryData();
-            tbl_InverntoryDetails.DataSource = fbrolldet.getRollDetailsofATC(int.Parse(drp_atc.SelectedValue.ToString()));
-         
+            tbl_InverntoryDetails.DataSource = fbrolldet.getRollAllDetailsofATC(int.Parse(drp_atc.SelectedValue.ToString()));
+            tbl_InverntoryDetails.DataBind();
             //upd_grid.Update();
         }
 

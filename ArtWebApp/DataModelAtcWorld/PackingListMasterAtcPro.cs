@@ -14,6 +14,12 @@ namespace ArtWebApp.DataModelAtcWorld
     
     public partial class PackingListMasterAtcPro
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PackingListMasterAtcPro()
+        {
+            this.PackingListDetailsAtcs = new HashSet<PackingListDetailsAtc>();
+        }
+    
         public decimal PackingMaster_PK { get; set; }
         public Nullable<decimal> Atc_ID { get; set; }
         public Nullable<decimal> NoofCTN { get; set; }
@@ -23,5 +29,16 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string IsConfirmed { get; set; }
         public string PackListNum { get; set; }
+        public Nullable<decimal> Length { get; set; }
+        public Nullable<decimal> Width { get; set; }
+        public Nullable<decimal> Height { get; set; }
+        public Nullable<decimal> NetWeight { get; set; }
+        public Nullable<decimal> NNWeight { get; set; }
+        public Nullable<decimal> Grossweight { get; set; }
+        public string WeightUOM { get; set; }
+        public string CtnUOM { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PackingListDetailsAtc> PackingListDetailsAtcs { get; set; }
     }
 }

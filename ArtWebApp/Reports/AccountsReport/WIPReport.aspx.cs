@@ -368,12 +368,20 @@ GROUP BY OurStyleID, OurStyle, PackProcessvalue ";
                 foreach (System.Data.DataColumn col in sytlecostingdetails.Columns) col.ReadOnly = false;
                 for (int j = 0; j < sytlecostingdetails.Rows.Count; j++)
                 {
+                    
+
                     int Sku_PK = int.Parse(sytlecostingdetails.Rows[j]["Sku_PK"].ToString());
                     int baseUom_PK = int.Parse(sytlecostingdetails.Rows[j]["Uom_PK"].ToString());
-
-                    float consumption = float.Parse(sytlecostingdetails.Rows[j]["Consumption"].ToString());
+                    if (Sku_PK == 53086)
+                    {
+                        int k = 0;
+                    }
+                        float consumption = float.Parse(sytlecostingdetails.Rows[j]["Consumption"].ToString());
 
                     float curate = calculateAvgrate(Sku_PK, baseUom_PK);
+
+                    sytlecostingdetails.Rows[j]["newcurate"] = curate;
+
                     sytlecostingdetails.Rows[j]["skuvalue"] = packedQty * consumption * curate;
 
                     sytlecostingdetails.Rows[j]["invskuvalue"] = InvoicedQty * consumption * curate;
@@ -445,8 +453,9 @@ GROUP BY OurStyleID, OurStyle, PackProcessvalue ";
         public DataTable filldetailsofourstyle(int ourstyleid)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"SELECT        StyleCostingDetails.Sku_PK, StyleCostingDetails.Consumption, Template_Master.ItemGroup_PK,00.00 AS skuvalue,SkuRawMaterialMaster.Uom_PK,00.00 AS invskuvalue
+            cmd.CommandText = @"SELECT        StyleCostingDetails.Sku_PK, StyleCostingDetails.Consumption, Template_Master.ItemGroup_PK,00.00 AS skuvalue,SkuRawMaterialMaster.Uom_PK,00.00 AS invskuvalue, StyleCostingDetails.Rate,000.000 as newcurate, StyleCostingDetails.Priceperpc 
 FROM            StyleCostingDetails INNER JOIN
+           
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
                          SkuRawMaterialMaster ON StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
@@ -463,11 +472,23 @@ WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurS
         {
             float curate = 0;
             SqlCommand cmd = new SqlCommand();
+//            cmd.CommandText = @"SELECT        AVG(InventoryMaster.CURate) AS curate, ISNULL(InventoryMaster.Uom_Pk, 0) AS Uom_Pk, SkuRawmaterialDetail.SkuDet_PK
+//FROM            InventoryMaster INNER JOIN
+//                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK
+//GROUP BY InventoryMaster.Uom_Pk, SkuRawmaterialDetail.SkuDet_PK, SkuRawmaterialDetail.Sku_PK
+//HAVING        (SkuRawmaterialDetail.Sku_PK = @skupk)";
+
+
             cmd.CommandText = @"SELECT        AVG(InventoryMaster.CURate) AS curate, ISNULL(InventoryMaster.Uom_Pk, 0) AS Uom_Pk, SkuRawmaterialDetail.SkuDet_PK
 FROM            InventoryMaster INNER JOIN
-                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK
-GROUP BY InventoryMaster.Uom_Pk, SkuRawmaterialDetail.SkuDet_PK, SkuRawmaterialDetail.Sku_PK
-HAVING        (SkuRawmaterialDetail.Sku_PK = @skupk)";
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK
+GROUP BY InventoryMaster.Uom_Pk, SkuRawmaterialDetail.SkuDet_PK, SkuRawmaterialDetail.Sku_PK,LocationMaster.LocType
+HAVING        (SkuRawmaterialDetail.Sku_PK = @skupk) AND (LocationMaster.LocType = N'F')";
+
+
+
+
             cmd.Parameters.AddWithValue("@skupk", sku_PK);
             DataTable dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
 

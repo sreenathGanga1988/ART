@@ -140,7 +140,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+           <td class="NormalTD">
                 <table class="DataEntryTable" style="height: 353px">
                     <tr>
                         <td colspan="2" class="gridtable">
@@ -372,6 +372,17 @@
                                         <ItemStyle CssClass="hidden" />
                                     </asp:TemplateField>
                               
+                                    <asp:TemplateField HeaderText="Body Part">
+                                       
+                                        <ItemTemplate>
+                                            <asp:Label ID="lbl_body" Text='<%# Bind("BodyPartName") %>' runat="server"></asp:Label>
+                                            <br />
+                                            <asp:DropDownList ID="ddl_body" runat="server" DataSourceID="bodyPart" DataTextField="BodyPartName" DataValueField="BodyPart_PK">
+                                            </asp:DropDownList>
+                                            <asp:SqlDataSource ID="bodyPart" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [BodyPartName], [BodyPart_PK] FROM [BodyPartMaster]"></asp:SqlDataSource>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                              
                                 </Columns>
                                 <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                 <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -420,9 +431,9 @@
                </td>
         </tr>
         <tr>
-            <td>
+           <td class="NormalTD">
 
-                <asp:SqlDataSource ID="Skumaster" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT SkuRawMaterialMaster.Sku_Pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.AtcRaw_PK, Template_Master.TemplateCode, Template_Master.Description, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.OrderMulti, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, SkuRawMaterialMaster.AltUom_pk, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, SkuRawMaterialMaster.IsSD,  SkuRawMaterialMaster.isGD, SkuRawMaterialMaster.IsTD, SkuRawMaterialMaster.IsPD, ISNULL(SkuRawMaterialMaster.Rate,0) as Rate , SkuRawMaterialMaster.Template_pk, UOMMaster.UomCode, UOMMaster.Uom_PK, SkuRawMaterialMaster.Uom_PK AS Expr1, ISNULL(SkuRawMaterialMaster.WastagePercentage, 0) AS WastagePercentage FROM SkuRawMaterialMaster INNER JOIN Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN UOMMaster ON Template_Master.Uom_PK = UOMMaster.Uom_PK WHERE (SkuRawMaterialMaster.Atc_id = @Atc_id)">
+                <asp:SqlDataSource ID="Skumaster" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT SkuRawMaterialMaster.Sku_Pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.AtcRaw_PK, Template_Master.TemplateCode, Template_Master.Description, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.OrderMulti, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, SkuRawMaterialMaster.AltUom_pk, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, SkuRawMaterialMaster.IsSD, SkuRawMaterialMaster.IsGD, SkuRawMaterialMaster.IsTD, SkuRawMaterialMaster.IsPD, ISNULL(SkuRawMaterialMaster.Rate, 0) AS Rate, SkuRawMaterialMaster.Template_pk, UOMMaster.UomCode, UOMMaster.Uom_PK, SkuRawMaterialMaster.Uom_PK AS Expr1, ISNULL(SkuRawMaterialMaster.WastagePercentage, 0) AS WastagePercentage, SkuRawMaterialMaster.BodyPartName FROM SkuRawMaterialMaster INNER JOIN Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN UOMMaster ON Template_Master.Uom_PK = UOMMaster.Uom_PK WHERE (SkuRawMaterialMaster.Atc_id = @Atc_id)">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="HiddenField1" DefaultValue="0" Name="Atc_id" PropertyName="Value" Type="Decimal" />
                     </SelectParameters>

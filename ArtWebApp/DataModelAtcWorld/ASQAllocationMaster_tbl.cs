@@ -50,5 +50,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<decimal> AllocatedQty { get; set; }
         public Nullable<decimal> ArtAllocation_PK { get; set; }
         public string POType { get; set; }
+        public Nullable<System.DateTime> FirstDeliveryDate { get; set; }
+        public Nullable<System.DateTime> HandOverDate { get; set; }
+        public string IsShortClosed { get; set; }
     }
 }

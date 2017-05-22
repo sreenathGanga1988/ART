@@ -11,9 +11,39 @@ namespace ArtWebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+
+                String navtype = Request.QueryString["navtype"];
+
+                if (navtype == "Approval")
+                {
+                    NoAuthorization();
+                }
+                else if (navtype == "Javascript")
+                {
+                    javascriptDisAbled();
+                }
+            }
+
+
+        
+        }
+
+
+        public void NoAuthorization()
+        {
             string message = "You are  not Authorised for this action .You will be redirected to the Home Page.";
             AuthorisationHeader.InnerText = message;
             AuthorisationHeader.Attributes["class"] = "error-message";
         }
+
+        public void javascriptDisAbled()
+        {
+            string message = "Javascript is Disabled in this Browser .WebArt requires Javascript to work Correctly  .Please Contact IT  .";
+            AuthorisationHeader.InnerText = message;
+            AuthorisationHeader.Attributes["class"] = "error-message";
+        }
+
     }
 }

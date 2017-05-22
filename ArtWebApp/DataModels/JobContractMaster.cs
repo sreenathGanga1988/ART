@@ -25,6 +25,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> AtcID { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string AddedBy { get; set; }
+        public string Remark { get; set; }
     
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }

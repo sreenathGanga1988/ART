@@ -40,16 +40,28 @@ namespace ArtWebApp.Inventory
         {
             String mrnum = "";
             BLL.InventoryBLL.ROIN roin = new BLL.InventoryBLL.ROIN();
-            roin.RoinmastrData = getRoInMasterData();
-            roin.rodetaildata = GetRODetailsData();
 
-            mrnum = roin.insertRomaterial(roin);
+            if(roin.ifStockAvailable(int.Parse(drp_ro.SelectedValue.ToString())))
+            {
+                roin.RoinmastrData = getRoInMasterData();
+                roin.rodetaildata = GetRODetailsData();
+
+                mrnum = roin.insertRomaterial(roin);
 
 
-            String msg = "Transfer # : " + mrnum + " is generated Sucessfully";
+                String msg = "Transfer # : " + mrnum + " is generated Successfully";
 
 
-            MessageBoxShow(msg);
+                MessageBoxShow(msg);
+            }
+            else
+            {
+                String msg = "Stock Not Available RO Location";
+
+
+                MessageBoxShow(msg);
+            }
+            
 
         }
 

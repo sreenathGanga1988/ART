@@ -82,6 +82,160 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
         }
+
+        public String ShowPOType(int popk)
+        {
+            String potype = "normal";
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ogpo in enty.StocPOForODOOs
+                        where ogpo.Spo_PK == popk
+                        select ogpo;
+                foreach(var element in q)
+                {
+                    potype = "IPO";
+                }
+            }
+
+            return potype;
+         }
+
+
+        public String ShowCountry(int LocationPK)
+        {
+            String countryname = "UAE";
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ogpo in enty.LocationMasters
+                        join contry in enty.CountryMasters on ogpo.CountryID equals contry.CountryID
+                        where ogpo.Location_PK == LocationPK
+                        select new { contry.ShortName};
+                foreach (var element in q)
+                {
+                    countryname = element.ShortName;
+                }
+            }
+
+            return countryname;
+        }
+
+
+        public String InsertSMRNDataIPO(StockPOreceipt SpoRcpt)
+        {
+            String mrnum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                StockMrnMaster smrnmstrdb = new StockMrnMaster();
+                smrnmstrdb.DoNumber = SpoRcpt.smrnmstrdata.DoNumber;
+                smrnmstrdb.AddedDate = DateTime.Now;
+                smrnmstrdb.SPo_PK = SpoRcpt.smrnmstrdata.SPo_PK;
+                smrnmstrdb.AddedBY = SpoRcpt.smrnmstrdata.AddedBY;
+
+                smrnmstrdb.Location_Pk = SpoRcpt.smrnmstrdata.Location_Pk;
+                smrnmstrdb.SReciept_Pk = int.Parse(SpoRcpt.smrnmstrdata.Reciept_Pk.ToString());
+                enty.StockMrnMasters.Add(smrnmstrdb);
+                enty.SaveChanges();
+
+
+                smrnmstrdb.SMrnNum = "SMR" + HttpContext.Current.Session["lOC_Code"].ToString().Trim() + smrnmstrdb.SMrn_PK.ToString().PadLeft(6, '0');
+
+
+
+
+                InventorySalesMaster trnmstr = new InventorySalesMaster();
+
+                trnmstr.SalesDate = DateTime.Now;
+
+                trnmstr.FromLocation_PK = SpoRcpt.smrnmstrdata.Location_Pk;
+                trnmstr.ToLocation_PK = SpoRcpt.smrnmstrdata.Location_Pk;
+
+                trnmstr.Deliverymethod_Pk = 5;
+                trnmstr.SalesDODate = DateTime.Now;
+                trnmstr.ISApproved = "N";
+                trnmstr.DoType = "Internal";
+                trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                trnmstr.AddedDate = DateTime.Now;
+                trnmstr.ContainerNumber = "AutoSales";
+
+                enty.InventorySalesMasters.Add(trnmstr);
+                enty.SaveChanges();
+                mrnum = trnmstr.SalesDONum = CodeGenerator.GetUniqueCode("DO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
+
+
+
+
+
+                foreach (StockMRNDetailsData mrnrdet in SpoRcpt.StockMRNDetailsDataCollection)
+                {
+                    StockMRNDetail smrndetdb = new StockMRNDetail();
+                    smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
+                    smrndetdb.SPODetails_PK = mrnrdet.SPODetails_PK;
+                    smrndetdb.SPO_PK = mrnrdet.SPO_PK;
+                    smrndetdb.ReceivedQty = mrnrdet.ReceivedQty;
+                    smrndetdb.Unitprice = mrnrdet.Unitprice;
+                    smrndetdb.Uom_PK = mrnrdet.Uom_PK1;
+                    smrndetdb.ExtraQty = mrnrdet.ExtraQty;
+                    enty.StockMRNDetails.Add(smrndetdb);
+
+                    enty.SaveChanges();
+
+
+
+                    StockInventoryMaster sinvmstr = new StockInventoryMaster();
+
+                    sinvmstr.SMRNDet_Pk = smrndetdb.SMRNDet_Pk;
+                    sinvmstr.SPODetails_PK = mrnrdet.SPODetails_PK;
+                    sinvmstr.Template_PK = mrnrdet.Template_PK;
+                    sinvmstr.OnHandQty = 0;
+                    sinvmstr.ReceivedQty = mrnrdet.ReceivedQty + mrnrdet.ExtraQty;
+                    sinvmstr.DeliveredQty = mrnrdet.ReceivedQty + mrnrdet.ExtraQty;
+                    sinvmstr.Unitprice = mrnrdet.Unitprice;
+                    sinvmstr.Composition = mrnrdet.Composition;
+                    sinvmstr.Construct = mrnrdet.Construct;
+                    sinvmstr.TemplateColor = mrnrdet.TemplateColor;
+                    sinvmstr.TemplateSize = mrnrdet.TemplateSize;
+                    sinvmstr.TemplateWidth = mrnrdet.TemplateWidth;
+                    sinvmstr.TemplateWeight = mrnrdet.TemplateWeight;
+                    sinvmstr.Uom_PK = smrndetdb.Uom_PK;
+                    sinvmstr.CuRate = mrnrdet.CuRate;
+                    sinvmstr.ReceivedVia = "SMR";
+                    sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
+                    sinvmstr.Refnum = smrnmstrdb.SMrnNum;
+                    sinvmstr.AddedDate = DateTime.Now.Date;
+                    enty.StockInventoryMasters.Add(sinvmstr);
+                    enty.SaveChanges();
+
+                    InventorySalesDetail sinvdetdb = new InventorySalesDetail();
+                    sinvdetdb.SalesDO_PK = trnmstr.SalesDO_PK;
+                    sinvdetdb.SInventoryItem_PK = sinvmstr.SInventoryItem_PK;
+                    sinvdetdb.DeliveryQty = sinvmstr.DeliveredQty;
+                    sinvdetdb.CuRate = sinvmstr.CuRate;
+                    enty.InventorySalesDetails.Add(sinvdetdb);
+
+
+
+
+
+
+
+
+                }
+
+                enty.SaveChanges();
+
+                mrnum = smrnmstrdb.SMrnNum;
+            }
+
+            return mrnum;
+
+
+
+
+
+
+        }
     }
 
     public class StockMRNDetailsData

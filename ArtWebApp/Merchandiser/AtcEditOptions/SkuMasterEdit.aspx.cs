@@ -43,13 +43,17 @@ namespace ArtWebApp.Merchandiser.AtcEditOptions
                Upd_label.Update();
                tbl_skumaster.DataBind();
 
-               upd_skugrid.Update();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Deleted');", true);
+                upd_skugrid.Update();
 
            }
            else
            {
                lbl_msg.Text = "Cannot Delete SKU since PO Given";
-               Upd_label.Update();
+
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Cannot Delete SKU since PO Given');", true);
+                Upd_label.Update();
               
            }
         }
