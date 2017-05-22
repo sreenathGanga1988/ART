@@ -3736,6 +3736,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RDLC\ProductionReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Profitability.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ProfitabilityofMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PUR.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PurchaseReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SampCutreqReport.rdlc" />
