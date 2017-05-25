@@ -115,7 +115,7 @@
                                      </td>
                                      <td >Prod Country</td>
                                      <td >
-                                         <ucc:DropDownListChosen ID="cmb_prodcountry" runat="server" DataSourceID="SqlDataSource2" DataTextField="Description" DataValueField="CountryID" DisableSearchThreshold="10" Width="200px">
+                                         <ucc:DropDownListChosen ID="cmb_prodcountry" runat="server" DataSourceID="ProductionCountry" DataTextField="Description" DataValueField="CountryID" DisableSearchThreshold="10" Width="200px">
                                          </ucc:DropDownListChosen>
                                      </td>
                                  </tr>
@@ -257,6 +257,11 @@
                     <asp:SqlDataSource ID="MerchandiserData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [MerChandiser_Pk], [MerchandiserName] FROM [MerchandiserMaster]"></asp:SqlDataSource>
                     <br />
                     <asp:SqlDataSource ID="SeasonData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Season_PK], [SeasonName] FROM [SeasonMaster] ORDER BY [Season_PK] DESC, [SeasonName]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="ProductionCountry" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Description], [CountryID], [Isthere] FROM [CountryMaster] WHERE ([Isthere] = @Isthere)">
+                        <SelectParameters>
+                            <asp:Parameter DefaultValue="Y" Name="Isthere" Type="String" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
                 </td>
             </tr>
 

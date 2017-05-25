@@ -19,7 +19,10 @@ namespace ArtWebApp.DataModelAtcWorld
             : base("name=AtcWorldEntities")
         {
         }
-    
+        public AtcWorldEntities(String EthiopiaConStr)
+              : base("name=AtcWorldEthiopiaEntities")
+        {
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

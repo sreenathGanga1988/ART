@@ -10,8 +10,14 @@
 
         function Onselection(objref)
         {
+            debugger;
             Check_Click(objref)
-            calculatesumofyardage();
+            try {
+              
+                calculatesumofyardage();
+            } catch (e) {
+
+            }
         }
 
         function OnSelectAllClick(objref) {

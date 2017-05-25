@@ -213,6 +213,7 @@
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
+    <Content Include="Production\JobContractNew\JObContractNew.aspx" />
     <Content Include="Production\RollDisplayer.aspx" />
     <Content Include="Production\Schedular\ASQMonthShipmentClosing.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
@@ -2147,6 +2148,13 @@
     </Compile>
     <Compile Include="Production\Cutting\CutplanAndRollofAtc.aspx.designer.cs">
       <DependentUpon>CutplanAndRollofAtc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\JobContractNew\JObContractNew.aspx.cs">
+      <DependentUpon>JObContractNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\JobContractNew\JObContractNew.aspx.designer.cs">
+      <DependentUpon>JObContractNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\RollDisplayer.aspx.cs">
       <DependentUpon>RollDisplayer.aspx</DependentUpon>

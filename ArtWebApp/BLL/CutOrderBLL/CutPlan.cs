@@ -179,7 +179,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 int deliveredcount = 0;
                 float deliveredayardsum = 0;
-
+                float deliveredayardsumdummy = 0;
+                
 
                 int balcountcount = 0;
                 float baldayardsum = 0;
@@ -192,7 +193,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 float alreadycut = 0;
                 var q = from rolldet in entty.FabricRollmasters
                         join rollinv in entty.RollInventoryMasters on rolldet.Roll_PK equals rollinv.Roll_PK
-                        where rolldet.SkuDet_PK == skudet_PK && rolldet.ShrinkageGroup == Shrinkagegroup && rolldet.WidthGroup == widthgroup && rolldet.MarkerType == markerTyple && rollinv.IsPresent=="Y" && rollinv.Location_Pk== locationpk
+                        where rolldet.SkuDet_PK == skudet_PK && rolldet.ShrinkageGroup == Shrinkagegroup && rolldet.WidthGroup == widthgroup 
+                        && rolldet.MarkerType == markerTyple && rollinv.IsPresent=="Y" && rollinv.Location_Pk== locationpk
                         select new { rolldet.AYard, rolldet.Roll_PK ,rolldet.IsDelivered};
 
                 foreach (var element in q)
@@ -202,7 +204,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                     {
                         deliveredcount++;
 
-                        deliveredayardsum += float.Parse(element.AYard.ToString());
+                        deliveredayardsumdummy += float.Parse(element.AYard.ToString());
                     }
                     else
                     {
@@ -303,8 +305,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 cddetdata.balRollCount = balcountcount;
                 cddetdata.balanceyard = baldayardsum;
-
-
+                cddetdata.deliveredayardsumdummy = deliveredayardsumdummy;
+                
                 cddetdata.DeliverdRollCount = deliveredcount;
                 cddetdata.DeliverdrollYard = deliveredayardsum;
 
@@ -312,6 +314,149 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 cddetdata.bomconsumption = consumption;
               //  cddetdata.balanceyard = ayardsum;
                 cddetdata.alreadycut = alreadycut;
+                return cddetdata;
+            }
+        }
+
+
+
+        public static CutPlanDetailsDatannEW GetRollDetailsoflocationNew(int ourstyleid, int skudet_PK, String Shrinkagegroup, String widthgroup, String markerTyple, int locationpk, int tofactid)
+        {
+
+
+            String colorname = "";
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                int RollinWharehousecount = 0;
+                float RollinWharehouseayardsum = 0;
+
+
+                int deliveredtofactorycount = 0;
+                float deliveredtofactorycayardsum = 0;
+
+
+                int balcountcount = 0;
+                float baldayardsum = 0;
+
+
+
+                float alreadycutforselectedfactory = 0;
+
+                float consumption = 0;
+                float CutplanQtyIssued = 0;
+                var q = from rolldet in entty.FabricRollmasters
+                        join rollinv in entty.RollInventoryMasters on rolldet.Roll_PK equals rollinv.Roll_PK
+                        where rolldet.SkuDet_PK == skudet_PK && rolldet.ShrinkageGroup == Shrinkagegroup && rolldet.WidthGroup == widthgroup
+                        && rolldet.MarkerType == markerTyple && rollinv.IsPresent == "Y" && rollinv.Location_Pk == locationpk
+                        select new { rolldet.AYard, rolldet.Roll_PK, rolldet.IsDelivered };
+
+                foreach (var element in q)
+                {
+
+                 
+                    RollinWharehousecount++;
+
+                    RollinWharehouseayardsum += float.Parse(element.AYard.ToString());
+
+                }
+
+                var deliveryedrol = from rolldet in entty.FabricRollmasters
+                                    join rollinv in entty.RollInventoryMasters on rolldet.Roll_PK equals rollinv.Roll_PK
+                                    where rolldet.SkuDet_PK == skudet_PK && rolldet.ShrinkageGroup == Shrinkagegroup &&
+                                    rolldet.WidthGroup == widthgroup && rolldet.MarkerType == markerTyple &&
+                                    rollinv.IsPresent == "Y" && rollinv.Location_Pk == tofactid
+                                    select new { rolldet.AYard, rolldet.Roll_PK, rolldet.IsDelivered };
+
+                foreach (var element123 in deliveryedrol.ToList())
+                {
+                    if (element123.IsDelivered.Trim() == "Y")
+                    {
+                        deliveredtofactorycount++;
+
+                        deliveredtofactorycayardsum += float.Parse(element123.AYard.ToString());
+                    }
+
+                }
+
+                var skupk = entty.SkuRawmaterialDetails.Where(u => u.SkuDet_PK == skudet_PK).Select(u => u.Sku_PK).FirstOrDefault();
+                int sku_pk = int.Parse(skupk.ToString());
+                var q1 = from stylmstr in entty.StyleCostingMasters
+                         join styldet in entty.StyleCostingDetails
+                         on stylmstr.Costing_PK equals styldet.Costing_PK
+                         where styldet.Sku_PK == sku_pk && stylmstr.IsApproved == "A" && stylmstr.OurStyleID == ourstyleid
+                         select new { styldet.Consumption };
+                foreach (var element in q1)
+                {
+
+                    consumption = float.Parse(element.Consumption.ToString()) * float.Parse("0.975");
+
+
+                }
+
+
+
+
+
+                var q3 = (from marasq in entty.CutPlanASQDetails
+                          join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
+                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.OurStyleID == ourstyleid
+                          select new { marasq.CutQty });
+                foreach (var element in q3)
+                {
+
+                    CutplanQtyIssued = float.Parse(element.CutQty.ToString()) + CutplanQtyIssued;
+
+
+                }
+
+
+
+
+
+
+
+
+                var q4 = (from marasq in entty.CutPlanASQDetails
+                          join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
+                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.Location_PK == tofactid && cutplnmstr.OurStyleID == ourstyleid
+                          select new { marasq.CutQty });
+                foreach (var element in q4)
+                {
+
+                    alreadycutforselectedfactory = float.Parse(element.CutQty.ToString()) + alreadycutforselectedfactory;
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+                CutPlanDetailsDatannEW cddetdata = new CutOrderBLL.CutPlanDetailsDatannEW();
+
+                cddetdata.RollsinWarehouse = RollinWharehousecount;
+                cddetdata.YardsofRollsinWhareHouse = RollinWharehouseayardsum;
+
+
+                cddetdata.balRollCount = balcountcount;
+                cddetdata.balanceyard = baldayardsum;
+
+
+                cddetdata.RollsAlreadyinFactory = deliveredtofactorycount;
+                cddetdata.YardsofRollDeliveredtoFactory = RollinWharehouseayardsum;
+
+                cddetdata.alreadycutoflocation = alreadycutforselectedfactory;
+                cddetdata.bomconsumption = consumption;
+                //  cddetdata.balanceyard = ayardsum;
+                cddetdata.CutplanQtyIssued = CutplanQtyIssued;
                 return cddetdata;
             }
         }
@@ -1081,7 +1226,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
 
         public int DeliverdRollCount { get; set; }
         public float DeliverdrollYard { get; set; }
-
+        public float deliveredayardsumdummy { get; set; }
+        
         public int RollCount { get; set; }
         public float rollYard { get; set; }
 
@@ -1097,6 +1243,54 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
 
 
     }
+
+
+
+    public class CutPlanDetailsDatannEW
+    {
+
+
+        public int CutPlanASQDetails_PK { get; set; }
+        public int CutPlan_PK { get; set; }
+        public int PoPackId { get; set; }
+        public int OurStyleId { get; set; }
+        public int skudet_PK { get; set; }
+        public int PoPack_Detail_PK { get; set; }
+        public float CutplanQtyIssued { get; set; }
+        public int CutQty { get; set; }
+        public String ColorName { get; set; }
+        public String SizeName { get; set; }
+
+        public int RollsinWarehouse { get; set; }
+        public float YardsofRollsinWhareHouse { get; set; }
+
+        public int RollsAlreadyinFactory { get; set; }
+        public float YardsofRollDeliveredtoFactory { get; set; }
+
+        public int TotalRolls { get; set; }
+        public float TotalRollYard { get; set; }
+
+        public float bomconsumption { get; set; }
+
+        public int balRollCount { get; set; }
+        public float balanceyard { get; set; }
+
+        public float alreadycutoflocation { get; set; }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
 
 
     public class CutPlanMarkerDetailsData

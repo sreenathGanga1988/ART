@@ -456,7 +456,7 @@
                                     <td>
                                         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Save Allocation" />
                                     </td>
-                                    <td>&nbsp;</td>
+                                    <td> <asp:Button ID="Button2" runat="server"  Text="Save Allocation Ethi0pia" OnClick="Button2_Click" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">

@@ -417,6 +417,130 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
 
 
+        public void AllocatePONewEthiopia(int popackid, int ourstyleid, int location_pk)
+        {
+            using (AtcWorldEntities enty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities("Ethiopia"))
+            {
+                using (ArtEntitiesnew artentty = new DataModels.ArtEntitiesnew())
+                {
+                    var atclocation_pk = enty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == location_pk).Select(u => u.Location_PK).FirstOrDefault();
+
+                    var q = from ppc in artentty.POPackDetails
+                            where ppc.OurStyleID == ourstyleid && ppc.POPackId == popackid
+                            select ppc;
+                    foreach (var element in q.ToList())
+                    {
+
+                        if (!enty.ASQAllocationMaster_tbl.Any(f => f.OurStyleId == ourstyleid && f.POPackID == popackid && f.PoPack_Detail_PK == element.PoPack_Detail_PK))
+                        {
+                            ASQAllocationMaster mstr = new DataModels.ASQAllocationMaster();
+                            mstr.Locaion_PK = location_pk;
+                            mstr.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                            mstr.Qty = element.PoQty;
+                            mstr.OurStyleId = element.OurStyleID;
+                            mstr.PoPackId = element.POPackId;
+                            mstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                            mstr.MarkedUnCut = "N";
+                            mstr.AddedDate = DateTime.Now;
+                            artentty.ASQAllocationMasters.Add(mstr);
+                            artentty.SaveChanges();
+
+                            ASQAllocationMaster_tbl asqmstr = new ASQAllocationMaster_tbl();
+                            asqmstr.OurStyleId = element.OurStyleID;
+                            asqmstr.POPackID = element.POPackId;
+                            asqmstr.Qty = element.PoQty;
+                            asqmstr.SizeName = element.SizeName;
+                            asqmstr.ColorName = element.ColorName;
+                            asqmstr.ArtLocaion_PK = location_pk;
+                            asqmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                            asqmstr.AddedDate = DateTime.Now;
+                            asqmstr.ColorCode = element.ColorCode;
+                            asqmstr.SizeCode = element.SIzeCode;
+                            asqmstr.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                            asqmstr.ColorID = element.ColorId;
+                            asqmstr.SizeID = element.SizeID;
+                            asqmstr.Location_PK = int.Parse(atclocation_pk.ToString());
+                            asqmstr.Atcnum = this.Atcnum;
+                            asqmstr.OurStyle = this.OurStyle;
+                            asqmstr.ASQ = this.ASQ;
+                            asqmstr.BuyerPO = this.BuyerPO;
+                            asqmstr.BuyerStyle = this.BuyerStyle;
+                            asqmstr.DeliveryDate = this.DeliveryDate;
+                            asqmstr.FirstDeliveryDate = this.DeliveryDate;
+                            asqmstr.Destination = this.Destination;
+                            asqmstr.GarmentCategory = this.Garmentcatagory;
+                            asqmstr.Season = this.seasonName;
+                            asqmstr.CategoryID = this.CategoryID;
+                            asqmstr.ChannelID = this.ChannelID;
+                            asqmstr.BuyerDestination_PK = this.BuyerDestination_PK;
+                            asqmstr.Season_PK = this.Season_PK;
+                            asqmstr.Atc_Id = this.atcid;
+                            asqmstr.ChannelName = this.ChannelName;
+                            asqmstr.BuyerID = this.BuyerID;
+                            asqmstr.BuyerName = this.BuyerName;
+                            asqmstr.AllocatedQty = element.PoQty;
+                            asqmstr.ArtAllocation_PK = mstr.ASQAllocation_PK;
+                            asqmstr.POType = this.Potype;
+
+                            enty.ASQAllocationMaster_tbl.Add(asqmstr);
+                            enty.SaveChanges();
+
+                        }
+                        else
+                        {
+
+
+                            var atcworld = from asqatcwordmstr in enty.ASQAllocationMaster_tbl
+                                           where asqatcwordmstr.OurStyleId == ourstyleid && asqatcwordmstr.POPackID == popackid && asqatcwordmstr.PoPack_Detail_PK == element.PoPack_Detail_PK
+                                           select asqatcwordmstr;
+                            foreach (var atcwordelement in atcworld.ToList())
+                            {
+
+                                atcwordelement.ArtLocaion_PK = location_pk;
+                                atcwordelement.Qty = element.PoQty;
+                                atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+
+                            }
+
+
+
+
+
+                            var atcalloc = from asqmstr in artentty.ASQAllocationMasters
+                                           where asqmstr.OurStyleId == ourstyleid && asqmstr.PoPackId == popackid && asqmstr.PoPack_Detail_PK == element.PoPack_Detail_PK
+                                           select asqmstr;
+                            foreach (var artallocation in atcalloc.ToList())
+                            {
+                                artallocation.Locaion_PK = location_pk;
+                                artallocation.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                                artallocation.Qty = element.PoQty;
+                                artallocation.AddedDate = DateTime.Now;
+
+
+                            }
+
+                            enty.SaveChanges();
+                            artentty.SaveChanges();
+
+
+
+                        }
+
+                    }
+
+
+
+
+
+                }
+
+            }
+
+
+        }
+
+
+
         public void UpdateAllocatedASQofAtcWord(int popackid, int ourstyleid)
         {
             using (ArtEntitiesnew artentty = new DataModels.ArtEntitiesnew())

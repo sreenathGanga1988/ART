@@ -98,7 +98,7 @@
     
 
    </style>
-            <script src="/Scripts/jquery-1.6.4.js"></script>
+          
  
 
 
@@ -582,6 +582,8 @@
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/JobContract.aspx" Text="Job Contract CM">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractOthers.aspx" Text="Job Contract Other">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JObContractNew.aspx" Text="Item">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>

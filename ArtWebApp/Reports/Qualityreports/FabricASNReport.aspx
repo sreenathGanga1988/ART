@@ -39,9 +39,11 @@
                 </td>
                 <td class="NormalTD">
 
-
+                       <asp:UpdatePanel ID="UpdatePanel2"  runat="server">
+                                                <ContentTemplate>
                     <asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click" />
-
+        </ContentTemplate>
+                                            </asp:UpdatePanel>
 
                 </td>
                 <td class="NormalTD">
@@ -110,8 +112,13 @@
     </tr>
     <tr>
         <td class="ReportViewSection">
-            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" >
-            </rsweb:ReportViewer>
+           <%-- <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" >
+            </rsweb:ReportViewer>--%>
+
+            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%">
+                        <LocalReport ReportPath="Reports\RDLC\APO.rdlc">
+                        </LocalReport>
+                    </rsweb:ReportViewer>
         </td>
     </tr>
     <tr>

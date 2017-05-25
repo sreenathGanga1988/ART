@@ -27,7 +27,9 @@
                     <td class ="NormalTD">
                         <asp:Button ID="btn_showpo" runat="server" OnClick="btn_showpo_Click" Text="Show  PO" />
                     </td>
-                    <td  class="NormalTD">&nbsp;</td>
+                    <td  class="NormalTD">
+                        <asp:Button ID="btn_salesdo" runat="server" OnClick="btn_salesdo_Click" Text="Sales DO" />
+                    </td>
                     <td class="NormalTD" >&nbsp;</td>
                     <td  class="NormalTD">&nbsp;</td>
                     <td class="NormalTD" >&nbsp;</td>
@@ -63,6 +65,22 @@
                         <ucc:DropDownListChosen ID="drp_sdo" runat="server" DataSourceID="sdodatasource" DataTextField="SDONum" DataValueField="SDO_PK" DisableSearchThreshold="10" Width="200px">
                         </ucc:DropDownListChosen></td>
                     <td class="NormalTD"><asp:Button ID="btn_sdo" runat="server" Font-Size="Smaller"  Text="Show SDO" OnClick="btn_sdo_Click" /></td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+         
+               
+                <tr>
+                    <td class="NormalTD">Sales DO</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>

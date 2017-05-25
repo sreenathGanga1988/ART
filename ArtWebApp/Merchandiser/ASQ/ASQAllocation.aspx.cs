@@ -514,5 +514,75 @@ namespace ArtWebApp.Merchandiser.ASQ
             //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
             tbl_podata.DataBind();
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            int k = 0;
+            foreach (GridViewRow row in tbl_podata.Rows)
+            {
+
+
+
+
+
+                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+
+                    ArtWebApp.BLL.MerchandsingBLL.AllocationBLL pdata = new ArtWebApp.BLL.MerchandsingBLL.AllocationBLL();
+
+                    int ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+                    int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                    DropDownList factlist = (row.FindControl("drp_loc") as DropDownList);
+                    int factid = int.Parse(factlist.SelectedValue.ToString());
+
+
+
+                    RadioButtonList potyelist = (row.FindControl("rbt_potype") as RadioButtonList);
+                    string potype = potyelist.SelectedValue;
+                    pdata.Ourstyleid = ourstyleid;
+                    pdata.PoPackId = popackid;
+
+                    pdata.ASQ = (row.FindControl("lbl_asq") as Label).Text;
+                    pdata.OurStyle = (row.FindControl("lbl_ourstyle") as Label).Text;
+                    pdata.BuyerPO = (row.FindControl("lbl_buyerpo") as Label).Text;
+                    pdata.BuyerStyle = (row.FindControl("lbl_buyerstyle") as Label).Text;
+                    pdata.Atcnum = (row.FindControl("lbl_atcnum") as Label).Text;
+                    pdata.Destination = (row.FindControl("lbl_destination") as Label).Text;
+                    pdata.Garmentcatagory = (row.FindControl("lbl_CategoryName") as Label).Text;
+                    pdata.seasonName = (row.FindControl("lbl_season") as Label).Text;
+                    pdata.ChannelName = (row.FindControl("lbl_ChannelName") as Label).Text;
+                    pdata.Potype = (row.FindControl("lbl_ChannelName") as Label).Text;
+
+                    pdata.BuyerName = (row.FindControl("lbl_BuyerName") as Label).Text;
+                    pdata.BuyerID = int.Parse((row.FindControl("lbl_BuyerID") as Label).Text);
+
+                    pdata.DeliveryDate = DateTime.Parse((row.FindControl("lbl_deliverydate") as Label).Text);
+
+
+
+                    pdata.CategoryID = int.Parse((row.FindControl("lbl_CategoryID") as Label).Text);
+                    pdata.ChannelID = int.Parse((row.FindControl("lbl_ChannelID") as Label).Text);
+                    pdata.BuyerDestination_PK = int.Parse((row.FindControl("lbl_BuyerDestination_PK") as Label).Text);
+                    pdata.Season_PK = int.Parse((row.FindControl("lbl_Season_PK") as Label).Text);
+                    pdata.atcid = int.Parse((row.FindControl("lbl_atcid") as Label).Text);
+
+                    // pdata.AllocatePO(popackid, ourstyleid, factid);
+                    pdata.AllocatePONewEthiopia(popackid, ourstyleid, factid);
+                    //    pdata.AllocatePOinDubaionly(popackid, ourstyleid, factid);
+
+                    k++;
+
+                }
+
+            }
+            if (k > 0)
+            {
+                tbl_podata.DataSource = null;
+                tbl_podata.DataBind();
+                String msg = " ASQ Details Added Sucessfully ";
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+            }
+        }
     }
 }

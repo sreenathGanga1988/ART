@@ -95,5 +95,10 @@ namespace ArtWebApp.Reports.Inventoryreport
         {
             loaDSDOeport();
         }
+
+        protected void btn_salesdo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -309,7 +309,7 @@
                                             <asp:TemplateField HeaderText="Weight">
                                            
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txt_sweight" CssClass="txt_weight1"  Text='<%# Bind("SGsm") %>' runat="server" Width="70px"  ></asp:TextBox>
+                                                <asp:TextBox ID="txt_sweight" CssClass="txt_weight1"  Text='<%# Bind("SWeight") %>' runat="server" Width="70px"  ></asp:TextBox>
                                             </ItemTemplate>
                                                 <HeaderStyle Width="70px" />
                                          

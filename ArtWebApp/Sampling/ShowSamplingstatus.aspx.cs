@@ -144,7 +144,7 @@ namespace ArtWebApp.Sampling
             string Qry = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
@@ -164,7 +164,7 @@ return QueryFunctions.ReturnQueryResultDatatable(Qry);
             string Qry = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
@@ -186,14 +186,14 @@ WHERE         (SamCutAssignmentMaster.ReceivedDate BETWEEN '" + DateTime.Parse(d
             string Qry = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
                          BuyerMaster ON SampCutReqMaster.BuyerID = BuyerMaster.BuyerID INNER JOIN
                          PatterRefMaster ON SampCutReqMaster.PatternRefID = PatterRefMaster.PatternRefID LEFT OUTER JOIN
                          PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID
-WHERE        (PatternMaster.PatternMasterID = "+int.Parse (drp_master.SelectedValue.ToString ())+") AND (SamCutAssignmentMaster.ReceivedDate BETWEEN '" + DateTime.Parse(dtp_fromdate.Value.ToString())+ "' AND '" + DateTime.Parse(dtp_todate.Value.ToString()) + "' )";
+WHERE        (PatternMaster.PatternMasterID = " + int.Parse (drp_master.SelectedValue.ToString ())+") AND (SamCutAssignmentMaster.ReceivedDate BETWEEN '" + DateTime.Parse(dtp_fromdate.Value.ToString())+ "' AND '" + DateTime.Parse(dtp_todate.Value.ToString()) + "' )";
 
 
 

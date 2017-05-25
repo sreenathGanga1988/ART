@@ -15593,6 +15593,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnPatternMasterID;
             
+            private global::System.Data.DataColumn columnAddedBy;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SamplingreqDataDataTable() {
@@ -15788,6 +15790,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AddedByColumn {
+                get {
+                    return this.columnAddedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -15842,7 +15852,8 @@ namespace ArtWebApp.Reports.Dataset {
                         System.DateTime PatternCompletedDate, 
                         string PaternMasterName, 
                         bool SignedBYMaster, 
-                        bool MarkCompleted) {
+                        bool MarkCompleted, 
+                        string AddedBy) {
                 SamplingreqDataRow rowSamplingreqDataRow = ((SamplingreqDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReqNum,
@@ -15864,7 +15875,8 @@ namespace ArtWebApp.Reports.Dataset {
                         PaternMasterName,
                         SignedBYMaster,
                         MarkCompleted,
-                        null};
+                        null,
+                        AddedBy};
                 rowSamplingreqDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSamplingreqDataRow);
                 return rowSamplingreqDataRow;
@@ -15907,6 +15919,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnSignedBYMaster = base.Columns["SignedBYMaster"];
                 this.columnMarkCompleted = base.Columns["MarkCompleted"];
                 this.columnPatternMasterID = base.Columns["PatternMasterID"];
+                this.columnAddedBy = base.Columns["AddedBy"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15952,6 +15965,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnMarkCompleted);
                 this.columnPatternMasterID = new global::System.Data.DataColumn("PatternMasterID", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPatternMasterID);
+                this.columnAddedBy = new global::System.Data.DataColumn("AddedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedBy);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPatternMasterID}, false));
                 this.columnReqNum.MaxLength = 50;
@@ -15973,6 +15988,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPatternMasterID.AutoIncrementStep = -1;
                 this.columnPatternMasterID.ReadOnly = true;
                 this.columnPatternMasterID.Unique = true;
+                this.columnAddedBy.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30395,6 +30411,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string AddedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableSamplingreqData.AddedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedBy\' in table \'SamplingreqData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSamplingreqData.AddedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsReqNumNull() {
                 return this.IsNull(this.tableSamplingreqData.ReqNumColumn);
             }
@@ -30583,6 +30615,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPatternMasterIDNull() {
                 this[this.tableSamplingreqData.PatternMasterIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAddedByNull() {
+                return this.IsNull(this.tableSamplingreqData.AddedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAddedByNull() {
+                this[this.tableSamplingreqData.AddedByColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -38414,6 +38458,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("SignedBYMaster", "SignedBYMaster");
             tableMapping.ColumnMappings.Add("MarkCompleted", "MarkCompleted");
             tableMapping.ColumnMappings.Add("PatternMasterID", "PatternMasterID");
+            tableMapping.ColumnMappings.Add("AddedBy", "AddedBy");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -38433,7 +38478,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             this._commandCollection[0].CommandText = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN

@@ -361,8 +361,10 @@ namespace ArtWebApp.Production.CutOrder
 
 
             lbl_alreadycutelectedFactory.Text = cddet.alreadycutoflocation.ToString();
-            lbl_rollinspected.Text = cddet.RollCount.ToString();
-            lbl_ayard.Text = cddet.rollYard.ToString();
+            // lbl_rollinspected.Text = cddet.RollCount.ToString();
+
+            lbl_rollinspected.Text = (cddet.RollCount+ cddet.DeliverdRollCount).ToString();
+            lbl_ayard.Text = (cddet.rollYard+ cddet.DeliverdrollYard).ToString();
             lbl_consumption.Text = cddet.bomconsumption.ToString();
          //   lbl_balyard.Text = cddet.balanceyard.ToString();
             lbl_alreadycut.Text = cddet.alreadycut.ToString();
@@ -385,7 +387,7 @@ namespace ArtWebApp.Production.CutOrder
             float balanccetocutinlocation = float.Parse(lbl_allocatedQty.Text) - float.Parse(cddet.alreadycutoflocation.ToString());
 
 
-            lbl_balyard.Text = ((float.Parse(cddet.rollYard.ToString()) + float.Parse(cddet.DeliverdrollYard.ToString())) - locationcutplanyardage).ToString();
+            lbl_balyard.Text = ((float.Parse(cddet.rollYard.ToString()) + float.Parse(cddet.DeliverdrollYard.ToString())) - (locationcutplanyardage + cddet.deliveredayardsumdummy)).ToString();
 
 
 

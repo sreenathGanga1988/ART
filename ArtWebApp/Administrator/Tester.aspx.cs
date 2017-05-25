@@ -35,7 +35,7 @@ namespace ArtWebApp.Administrator
             for (int i = 0; i < Sizeonart.Rows.Count; i++)
             {
                 int stylesizeid = int.Parse(Sizeonart.Rows[i]["StyleSizeID"].ToString());
-                string ourstyleid = Sizeonart.Rows[i]["StyleSizeID"].ToString().Trim();
+                string ourstyleid = Sizeonart.Rows[i]["OurStyleID"].ToString().Trim();
                 string OurStyle = Sizeonart.Rows[i]["OurStyle"].ToString().Trim();
                 string SizeName = Sizeonart.Rows[i]["SizeName"].ToString().Trim();
                 string SizeCode = Sizeonart.Rows[i]["SizeCode"].ToString().Trim();

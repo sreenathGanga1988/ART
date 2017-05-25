@@ -10,6 +10,7 @@
 
         function Onselection(objref)
         {
+            debugger;
             Check_Click(objref)
             calculatesumofyardage();
         }
@@ -500,20 +501,31 @@
                                 
                         <asp:UpdatePanel ID="UpdatePanel9"   UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
-                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowFooter="True">
+                                <asp:GridView ID="tbl_InverntoryDetails"
+                                     runat="server" AutoGenerateColumns="False" 
+                                    ShowHeaderWhenEmpty="True" style="font-size: small;
+ font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966"
+                                     BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowFooter="True">
                                     <Columns>
 
-                                         <asp:TemplateField  ControlStyle-Width="10px" HeaderStyle-Width="10px" FooterStyle-Width="10px">
+                                         <%--<asp:TemplateField  ControlStyle-Width="10px" HeaderStyle-Width="10px" FooterStyle-Width="10px">
                                                     <HeaderTemplate>
                                                         <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
                                                         <asp:CheckBox ID="Chk_select" runat="server" onclick="Onselection(this)" />
                                                     </ItemTemplate>
-                                                </asp:TemplateField>                                      
+                                                </asp:TemplateField>         --%>                             
                                        
                             
-
+                                                 <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                       <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                           <asp:CheckBox ID="Chk_select" runat="server" onclick="Onselection(this)" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
                                         <asp:TemplateField HeaderText="Roll#">
                                           
