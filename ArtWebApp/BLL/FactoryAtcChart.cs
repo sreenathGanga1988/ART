@@ -1559,7 +1559,7 @@ HAVING        (WrongPOMaster.IsApproved = N'Y') AND (ProcurementMaster.AtcId = @
 FROM            ProcurmentPlanDetails INNER JOIN
                          SkuRawmaterialDetail ON ProcurmentPlanDetails.Skudet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
-WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID)";
+WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID) and (ProcurmentPlanDetails.IsDeleted='N')";
 
 
 

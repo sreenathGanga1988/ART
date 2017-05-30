@@ -33,6 +33,10 @@ namespace ArtWebApp.BLL.MerchandsingBLL
         public String ASQ { get; set; }
         public String BuyerPO { get; set; }
         public DateTime DeliveryDate { get; set; }
+
+        public DateTime HandoverDate { get; set; }
+
+        public DateTime FirstDeliveryDate { get; set; }
         public DateTime Inhousedate { get; set; }
 
 
@@ -342,7 +346,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             asqmstr.BuyerPO = this.BuyerPO;
                             asqmstr.BuyerStyle = this.BuyerStyle;
                             asqmstr.DeliveryDate = this.DeliveryDate;
-                            asqmstr.FirstDeliveryDate = this.DeliveryDate;
+                            asqmstr.FirstDeliveryDate = this.FirstDeliveryDate;
+                            asqmstr.HandOverDate = this.HandoverDate;
                             asqmstr.Destination = this.Destination;
                             asqmstr.GarmentCategory = this.Garmentcatagory;
                             asqmstr.Season = this.seasonName;
@@ -678,7 +683,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                                           LocationMaster ON ASQAllocationMaster.Locaion_PK = LocationMaster.Location_PK
                                  WHERE        (ASQAllocationMaster.POPackID = PoPackMaster.PoPackId) AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID)), N'NA') AS LocationName, ChannelMaster.ChannelName, 
                          BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, 
-                         SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName
+                         SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate 
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN

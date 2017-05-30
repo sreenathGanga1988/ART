@@ -280,6 +280,10 @@
         .auto-style2 {
             font-size: xx-small;
         }
+        .auto-style3 {
+            height: 26px;
+            width: 200px;
+        }
         </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -595,7 +599,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="NormalTD">BOM Consumtion(OF STYLE)</td>
+                                                                <td class="NormalTD">BOM Consumtion(OF STYLE)(YDS)</td>
                                                                 <td class="NormalTD">
                                                                     <asp:Label ID="lbl_consumption" runat="server" CssClass="consumption" Text="0"></asp:Label>
                                                                 </td>
@@ -610,6 +614,12 @@
                                                                 <td class="NormalTD">Apprx cutplan Yardage</td>
                                                                 <td class="NormalTD">
                                                                     <asp:Label ID="lbl_totalcutplanyardage" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Bom Consumption</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_consumptionactual" runat="server" Text="0"></asp:Label>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -648,8 +658,8 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="NormalTD">stores onhand (yards)</td>
-                                                                <td class="NormalTD">
+                                                                <td class="auto-style3">stores onhand (yards)</td>
+                                                                <td class="auto-style3">
                                                                     <asp:Label ID="lbl_onhand" runat="server" CssClass="newyardreq" Text="0"></asp:Label>
                                                                 </td>
                                                             </tr>
@@ -657,6 +667,12 @@
                                                                 <td class="NormalTD">Pending to Deliver</td>
                                                                 <td class="NormalTD">
                                                                     <asp:Label ID="lbl_balancetodeliveryardage" runat="server" Text="0"></asp:Label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="NormalTD">Consumption uom</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_uom" runat="server" Text="0"></asp:Label>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -753,17 +769,22 @@
                                                             </tr>
                                                               <tr>
                                                                   <td class="NormalTD">
-                                                                      <asp:HyperLink ID="HyperLink1" runat="server">HyperLink</asp:HyperLink>
+                                                                      Available Weight</td>
+                                                                  <td class="NormalTD">
+                                                                      <asp:Label ID="lbl_weight" runat="server" Text="0"></asp:Label>
                                                                   </td>
-                                                                  <td class="NormalTD">&nbsp;</td>
                                                               </tr>
                                                               <tr>
-                                                                  <td class="NormalTD">&nbsp;</td>
-                                                                  <td class="NormalTD">&nbsp;</td>
+                                                                  <td class="NormalTD">GSM</td>
+                                                                  <td class="NormalTD">
+                                                                      <asp:TextBox ID="txt_gsm" runat="server" Width="50px">0</asp:TextBox>
+                                                                  </td>
                                                               </tr>
                                                               <tr>
-                                                                  <td class="NormalTD">&nbsp;</td>
-                                                                  <td class="NormalTD">&nbsp;</td>
+                                                                  <td class="NormalTD">Width</td>
+                                                                  <td class="NormalTD">
+                                                                      <asp:TextBox ID="txt_width" runat="server" Width="50px">0</asp:TextBox>
+                                                                  </td>
                                                               </tr>
                                                         </table>
                                                     </ContentTemplate>

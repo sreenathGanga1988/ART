@@ -12,20 +12,16 @@ namespace ArtWebApp.DataModels
     using System;
     using System.Collections.Generic;
     
-    public partial class LaySheetDetail
+    public partial class CutPlanRollDetail
     {
-        public decimal LaySheetDet_PK { get; set; }
-        public Nullable<decimal> LaySheet_PK { get; set; }
+        public decimal CutPlanRoll_PK { get; set; }
         public Nullable<decimal> Roll_PK { get; set; }
-        public Nullable<decimal> NoOfPlies { get; set; }
-        public Nullable<decimal> FabUtilized { get; set; }
-        public Nullable<decimal> EndBit { get; set; }
-        public Nullable<decimal> BalToCut { get; set; }
-        public Nullable<decimal> ExcessOrShort { get; set; }
-        public string IsRecuttable { get; set; }
-        public Nullable<decimal> LaySheetRoll_Pk { get; set; }
+        public Nullable<decimal> CutPlan_PK { get; set; }
+        public string IsDeleted { get; set; }
+        public string AddedBy { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
     
-        public virtual LaySheetMaster LaySheetMaster { get; set; }
+        public virtual CutPlanMaster CutPlanMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
     }
 }

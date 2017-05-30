@@ -12,6 +12,8 @@ using System.IO;
 using System.Drawing;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using System.Web.Services;
+using ArtWebApp.BLL.MerchandsingBLL;
 
 namespace ArtWebApp.Merchandiser.Atc_Chart
 {
@@ -461,5 +463,19 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             }
 
         }
+
+
+        [WebMethod]
+        public static string DeletePlanAysnc(int Planid)
+        {
+            ProcurementplanMasterBLL pbll = new ProcurementplanMasterBLL();
+
+            return pbll.DeletePlaning(Planid); ;
+        }
+
+
+
+
+
     }
 }

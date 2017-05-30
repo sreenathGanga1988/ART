@@ -482,6 +482,10 @@ namespace ArtWebApp.Merchandiser.ASQ
 
                     pdata.DeliveryDate = DateTime.Parse((row.FindControl("lbl_deliverydate") as Label).Text);
 
+                    pdata.HandoverDate = DateTime.Parse((row.FindControl("lbl_HandoverDate") as Label).Text);
+                    pdata.FirstDeliveryDate = DateTime.Parse((row.FindControl("lbl_FirstDeliveryDate") as Label).Text);
+
+
 
 
                     pdata.CategoryID = int.Parse((row.FindControl("lbl_CategoryID") as Label).Text);

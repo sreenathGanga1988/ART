@@ -395,6 +395,11 @@ namespace ArtWebApp.Quality
         {
 
         }
+
+        protected void Button4_Click2(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

@@ -270,7 +270,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
                 rolldata.AShrink = "";
                 rolldata.AShade = "";
                 rolldata.AWidth = "";
-                rolldata.AYard = "";
+                rolldata.AYard = "0";
                 rolldata.SGSM = txt_sgsm;
                 rolldata.Sweight = txt_sweight;
                 rolldata.Lotnum = Lotnum;
@@ -368,7 +368,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
                     TextBox txt_sgsm = tbl_InverntoryDetails.Rows[i].FindControl("txt_sgsm") as TextBox;
                     TextBox txt_sweight = tbl_InverntoryDetails.Rows[i].FindControl("txt_sweight") as TextBox;
 
-                    txt_syard.Enabled = false;
+                    txt_syard.ReadOnly = false;
                     txt_gsm.Enabled = true;
                     txt_sweight.Enabled = true;
 

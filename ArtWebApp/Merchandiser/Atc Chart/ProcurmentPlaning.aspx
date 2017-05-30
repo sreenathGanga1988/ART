@@ -49,7 +49,19 @@
             }
           }
 
-
+        function DeletePlan(objref)
+        {
+            var planpk = objref.innerHTML;
+            
+            PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
+            function onSucess(result) {
+                alert(result);
+            }
+            function onError(result) {
+                alert('Something wrong.');
+            }
+           
+        }
 
     </script>
 <style type="text/css">
@@ -292,8 +304,18 @@ body
                                      <ItemTemplate>
                                          <asp:GridView ID="tbl_eta" runat="server" AutoGenerateColumns="False">
                                              <Columns>
+
+                                                 
+                                                 <asp:TemplateField HeaderText="PPlan_PK">
+                                                   
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="ProcPlan_PK" onclick= "DeletePlan(this)" runat="server" Text='<%# Bind("ProcPlan_PK") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
                                                  <asp:BoundField DataField="Qty" HeaderText="Qty" />
                                                  <asp:BoundField DataField="ETADate" HeaderText="ETA" DataFormatString="{0:MM/dd/yyyy}"  />
+                                       
+                                                 
                                              </Columns>
                                              <HeaderStyle BackColor="#FF9933" Font-Names="Calibri" Font-Size="Smaller" />
                                          </asp:GridView>

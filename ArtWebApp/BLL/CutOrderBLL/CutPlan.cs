@@ -6,6 +6,8 @@ using System.Data;
 using ArtWebApp.DBTransaction;
 using ArtWebApp.DataModels;
 using System.Data.SqlClient;
+using System.Collections;
+
 namespace ArtWebApp.BLL.CutOrderBLL
 {
     public static class CutPlan
@@ -184,18 +186,18 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 int balcountcount = 0;
                 float baldayardsum = 0;
-
+                float balWeightSum = 0;
 
 
                 float alreadycutforselectedfactory = 0;
-
+                var UOMName = "";
                float consumption = 0;
                 float alreadycut = 0;
                 var q = from rolldet in entty.FabricRollmasters
                         join rollinv in entty.RollInventoryMasters on rolldet.Roll_PK equals rollinv.Roll_PK
                         where rolldet.SkuDet_PK == skudet_PK && rolldet.ShrinkageGroup == Shrinkagegroup && rolldet.WidthGroup == widthgroup 
                         && rolldet.MarkerType == markerTyple && rollinv.IsPresent=="Y" && rollinv.Location_Pk== locationpk
-                        select new { rolldet.AYard, rolldet.Roll_PK ,rolldet.IsDelivered};
+                        select new { rolldet.AYard, rolldet.Roll_PK ,rolldet.IsDelivered,rolldet.SWeight};
 
                 foreach (var element in q)
                 {
@@ -211,6 +213,16 @@ namespace ArtWebApp.BLL.CutOrderBLL
                         balcountcount++;
 
                         baldayardsum += float.Parse(element.AYard.ToString());
+
+                        try
+                        {
+                            balWeightSum += float.Parse(element.SWeight.ToString());
+                        }
+                        catch (Exception)
+                        {
+
+                            
+                        }
                     }
                     count++;
 
@@ -237,6 +249,10 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 }
 
                     var skupk = entty.SkuRawmaterialDetails.Where(u => u.SkuDet_PK == skudet_PK).Select(u => u.Sku_PK).FirstOrDefault();
+
+
+              
+
                 int sku_pk = int.Parse(skupk.ToString());
                 var q1 = from stylmstr in entty.StyleCostingMasters
                          join styldet in entty.StyleCostingDetails
@@ -251,7 +267,16 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 }
 
+                try
+                {
+                    UOMName = entty.SkuRawMaterialMasters.Where(u => u.Sku_Pk == skupk).Select(u => u.UOMMaster.UomCode).FirstOrDefault();
 
+                }
+                catch (Exception)
+                {
+
+                   
+                }
 
 
 
@@ -305,6 +330,9 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 cddetdata.balRollCount = balcountcount;
                 cddetdata.balanceyard = baldayardsum;
+                cddetdata.balWeightSum = balWeightSum;
+
+
                 cddetdata.deliveredayardsumdummy = deliveredayardsumdummy;
                 
                 cddetdata.DeliverdRollCount = deliveredcount;
@@ -312,7 +340,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 cddetdata.alreadycutoflocation = alreadycutforselectedfactory;
                 cddetdata.bomconsumption = consumption;
-              //  cddetdata.balanceyard = ayardsum;
+               cddetdata.UOMName = UOMName.ToString();
                 cddetdata.alreadycut = alreadycut;
                 return cddetdata;
             }
@@ -476,6 +504,23 @@ namespace ArtWebApp.BLL.CutOrderBLL
             return dt;
 
         }
+
+
+        public static float GetCutFabreq(int cutplanpk)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT       isnull( (SUM(CutPlanASQDetails.CutQty) *CutPlanMaster.BOMConsumption),0) as Fabreq
+FROM            CutPlanASQDetails INNER JOIN
+                         CutPlanMaster ON CutPlanASQDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK
+GROUP BY CutPlanMaster.CutPlan_PK, CutPlanMaster.BOMConsumption
+HAVING        (CutPlanMaster.CutPlan_PK = @Param1)";
+            cmd.Parameters.AddWithValue("@param1", cutplanpk);
+            float balqty = float.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+
+            return balqty;
+        }
+
+
 
 
 
@@ -1221,6 +1266,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
         public int CutQty { get; set; }
         public String ColorName { get; set; }
         public String SizeName { get; set; }
+        public String UOMName { get; set; }
         public int TotalRollCount { get; set; }
         public float TotalrollYard { get; set; }
 
@@ -1236,10 +1282,12 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
         public int balRollCount { get; set; }
         public float balanceyard { get; set; }
 
+        public float balWeightSum { get; set; }
+
         public float alreadycutoflocation { get; set; }
 
 
-
+        
 
 
     }
@@ -1501,6 +1549,49 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
             return Cutn;
 
         }
+
+
+
+        public string AddCutplanRoll(ArrayList Arry,int CutPlan_PK)
+        {
+            string sucess = "";
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                for(int i=0;i<Arry.Count;i++)
+                {
+
+                    CutPlanRollDetail cdrlldet = new DataModels.CutPlanRollDetail() ;
+                    cdrlldet.Roll_PK = int.Parse (Arry[i].ToString ());
+                    cdrlldet.CutPlan_PK = CutPlan_PK;
+                    cdrlldet.IsDeleted = "N";
+                    cdrlldet.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim(); ;
+                    cdrlldet.AddedDate = DateTime.Now;
+
+                    enty.CutPlanRollDetails.Add(cdrlldet);
+                }
+
+                enty.SaveChanges();
+
+                sucess = "Roll Details Added Successfully";
+            }
+
+
+
+
+                return sucess;
+        }
+
+
+
+
+
+
+
+
+
 
 
     }

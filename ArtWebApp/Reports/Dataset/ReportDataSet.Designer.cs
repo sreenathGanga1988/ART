@@ -15595,6 +15595,12 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnAddedBy;
             
+            private global::System.Data.DataColumn columnPendingReason;
+            
+            private global::System.Data.DataColumn columnCompletedQty;
+            
+            private global::System.Data.DataColumn columnQty1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SamplingreqDataDataTable() {
@@ -15798,6 +15804,30 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PendingReasonColumn {
+                get {
+                    return this.columnPendingReason;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CompletedQtyColumn {
+                get {
+                    return this.columnCompletedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Qty1Column {
+                get {
+                    return this.columnQty1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -15853,7 +15883,10 @@ namespace ArtWebApp.Reports.Dataset {
                         string PaternMasterName, 
                         bool SignedBYMaster, 
                         bool MarkCompleted, 
-                        string AddedBy) {
+                        string AddedBy, 
+                        string PendingReason, 
+                        decimal CompletedQty, 
+                        decimal Qty1) {
                 SamplingreqDataRow rowSamplingreqDataRow = ((SamplingreqDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReqNum,
@@ -15876,7 +15909,10 @@ namespace ArtWebApp.Reports.Dataset {
                         SignedBYMaster,
                         MarkCompleted,
                         null,
-                        AddedBy};
+                        AddedBy,
+                        PendingReason,
+                        CompletedQty,
+                        Qty1};
                 rowSamplingreqDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSamplingreqDataRow);
                 return rowSamplingreqDataRow;
@@ -15920,6 +15956,9 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnMarkCompleted = base.Columns["MarkCompleted"];
                 this.columnPatternMasterID = base.Columns["PatternMasterID"];
                 this.columnAddedBy = base.Columns["AddedBy"];
+                this.columnPendingReason = base.Columns["PendingReason"];
+                this.columnCompletedQty = base.Columns["CompletedQty"];
+                this.columnQty1 = base.Columns["Qty1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15967,6 +16006,12 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnPatternMasterID);
                 this.columnAddedBy = new global::System.Data.DataColumn("AddedBy", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAddedBy);
+                this.columnPendingReason = new global::System.Data.DataColumn("PendingReason", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPendingReason);
+                this.columnCompletedQty = new global::System.Data.DataColumn("CompletedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompletedQty);
+                this.columnQty1 = new global::System.Data.DataColumn("Qty1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQty1);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPatternMasterID}, false));
                 this.columnReqNum.MaxLength = 50;
@@ -15989,6 +16034,8 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPatternMasterID.ReadOnly = true;
                 this.columnPatternMasterID.Unique = true;
                 this.columnAddedBy.MaxLength = 50;
+                this.columnPendingReason.MaxLength = 2147483647;
+                this.columnQty1.Caption = "Qty";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30427,6 +30474,54 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PendingReason {
+                get {
+                    try {
+                        return ((string)(this[this.tableSamplingreqData.PendingReasonColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PendingReason\' in table \'SamplingreqData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSamplingreqData.PendingReasonColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal CompletedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSamplingreqData.CompletedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompletedQty\' in table \'SamplingreqData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSamplingreqData.CompletedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Qty1 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSamplingreqData.Qty1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Qty1\' in table \'SamplingreqData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSamplingreqData.Qty1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsReqNumNull() {
                 return this.IsNull(this.tableSamplingreqData.ReqNumColumn);
             }
@@ -30627,6 +30722,42 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAddedByNull() {
                 this[this.tableSamplingreqData.AddedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPendingReasonNull() {
+                return this.IsNull(this.tableSamplingreqData.PendingReasonColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPendingReasonNull() {
+                this[this.tableSamplingreqData.PendingReasonColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCompletedQtyNull() {
+                return this.IsNull(this.tableSamplingreqData.CompletedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCompletedQtyNull() {
+                this[this.tableSamplingreqData.CompletedQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsQty1Null() {
+                return this.IsNull(this.tableSamplingreqData.Qty1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetQty1Null() {
+                this[this.tableSamplingreqData.Qty1Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -38446,7 +38577,6 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("SampleRequiredDate", "SampleRequiredDate");
             tableMapping.ColumnMappings.Add("PatternReqDate", "PatternReqDate");
             tableMapping.ColumnMappings.Add("SizeDetail", "SizeDetail");
-            tableMapping.ColumnMappings.Add("Qty", "Qty");
             tableMapping.ColumnMappings.Add("ReceivedDate", "ReceivedDate");
             tableMapping.ColumnMappings.Add("ReceivedBy", "ReceivedBy");
             tableMapping.ColumnMappings.Add("AssignedDate", "AssignedDate");
@@ -38459,6 +38589,9 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("MarkCompleted", "MarkCompleted");
             tableMapping.ColumnMappings.Add("PatternMasterID", "PatternMasterID");
             tableMapping.ColumnMappings.Add("AddedBy", "AddedBy");
+            tableMapping.ColumnMappings.Add("PendingReason", "PendingReason");
+            tableMapping.ColumnMappings.Add("CompletedQty", "CompletedQty");
+            tableMapping.ColumnMappings.Add("Qty", "Qty1");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -38478,14 +38611,14 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             this._commandCollection[0].CommandText = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID, SampCutReqMaster.AddedBy, 
+                         SamCutAssignmentMaster.PendingReason, SamCutAssignmentMaster.CompletedQty
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
                          BuyerMaster ON SampCutReqMaster.BuyerID = BuyerMaster.BuyerID INNER JOIN
                          PatterRefMaster ON SampCutReqMaster.PatternRefID = PatterRefMaster.PatternRefID LEFT OUTER JOIN
-                         PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID
-";
+                         PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

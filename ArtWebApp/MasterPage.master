@@ -156,7 +156,7 @@
 <body class="bodybackground">
     <form id="form1" runat="server">
 
-          <asp:ScriptManager ID="ScriptManager1" runat="server">
+          <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server">
             </asp:ScriptManager>
         <!--<div>
            
@@ -564,17 +564,19 @@
                         <Items>
                             <ig:ExplorerBarItem Text="Cut Order">
                                 <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderForm.aspx" Text="New Cut Order">
+
+                                    
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderFinal.aspx" Text="New Cut Order Against Cutplan">
                                     </ig:ExplorerBarItem>
+                                  <%--  <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderForm.aspx" Text="New Cut Order">
+                                    </ig:ExplorerBarItem>--%>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderEdit.aspx" Text="Edit Cut Order">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/SamplingCutOrder.aspx" Text="Sampling CutOrder">
                                     </ig:ExplorerBarItem>
 
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderFinal.aspx" Text="New Cut Order Against Cutplan">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/MarkerDetails.aspx" Text="CutOrder details">
-                                    </ig:ExplorerBarItem>
+                                 <%--   <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/MarkerDetails.aspx" Text="CutOrder details">
+                                    </ig:ExplorerBarItem>--%>
                                 </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem  Text="Job Contract">
@@ -602,10 +604,13 @@
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerDetails.aspx" Text="Cut Plan Size Details">
                                             </ig:ExplorerBarItem>
+                                             <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanRollMapping.aspx" Text="Add Cut Plan Rolls" Value="Cut Plan Rolls">
+                                            </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/CuttingEditor.aspx" Text="Cut Plan Edit">
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerEdit.aspx" Text="Cut Plan Marker Edit">
                                             </ig:ExplorerBarItem>
+                                           
                                         </Items>
 
                                     </ig:ExplorerBarItem>

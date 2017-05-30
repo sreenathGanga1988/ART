@@ -387,6 +387,7 @@
                                          <asp:BoundField DataField="AWidth" HeaderText="AWidth" SortExpression="AWidth" />
                                          <asp:BoundField DataField="AShrink" HeaderText="AShrink" SortExpression="AShrink" />
                                          <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
+                                         <asp:BoundField DataField="SWeight" HeaderText="SWeight" SortExpression="SWeight" />                                        
                                         <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
                                         <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
                                         <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />

@@ -16,10 +16,11 @@ namespace ArtWebApp.DataModels
     {
         public FabricRollmaster()
         {
+            this.CutPlanRollDetails = new HashSet<CutPlanRollDetail>();
             this.DORollDetails = new HashSet<DORollDetail>();
-            this.RollInventoryMasters = new HashSet<RollInventoryMaster>();
-            this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
             this.LaySheetDetails = new HashSet<LaySheetDetail>();
+            this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
+            this.RollInventoryMasters = new HashSet<RollInventoryMaster>();
         }
     
         public decimal Roll_PK { get; set; }
@@ -37,7 +38,7 @@ namespace ArtWebApp.DataModels
         public string AShrink { get; set; }
         public string AShade { get; set; }
         public string AWidth { get; set; }
-        public string AYard { get; set; }
+        public Nullable<decimal> AYard { get; set; }
         public string IsSaved { get; set; }
         public string IsApproved { get; set; }
         public string IsAcceptable { get; set; }
@@ -68,9 +69,10 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> ValidatedDate { get; set; }
         public Nullable<System.DateTime> InspectedDate { get; set; }
     
+        public virtual ICollection<CutPlanRollDetail> CutPlanRollDetails { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
-        public virtual ICollection<RollInventoryMaster> RollInventoryMasters { get; set; }
-        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
         public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
+        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
+        public virtual ICollection<RollInventoryMaster> RollInventoryMasters { get; set; }
     }
 }

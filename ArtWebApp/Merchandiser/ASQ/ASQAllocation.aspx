@@ -350,16 +350,27 @@
                                                                 </td>
                                                             </tr>
                                                               <tr>
-                                                                <td>TYPE</td>
+                                                                <td>HandoverDate</td>
                                                                 <td> 
                                                                      
                                                                    
                                                                     
-                                                                    
+                                                                     <asp:Label ID="lbl_HandoverDate"  Text='<%# Bind("HandoverDate") %>' runat="server" ></asp:Label>
+
 
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>FirstDeliveryDate</td>
+                                                                <td> 
+                                                                     
+                                                                   
+                                                                    
+                                                                     <asp:Label ID="lbl_FirstDeliveryDate"  Text='<%# Bind("FirstDeliveryDate") %>' runat="server" ></asp:Label>
 
+
+                                                                </td>
+                                                            </tr>
                                                         </table>
                                                     </ItemTemplate>
                                                         <ControlStyle Width="200px" />
@@ -489,7 +500,7 @@
                             <asp:HiddenField ID="ourstylehiden" runat="server" />
                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT [AtcNum], [AtcId] FROM [AtcMaster] ORDER BY [AtcNum], [AtcId]"></asp:SqlDataSource>
                             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
-                                SelectCommand="SELECT PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, CAST(PoPackMaster.DeliveryDate AS date) AS DeliveryDate, PoPackMaster.SeasonName, ISNULL((SELECT DISTINCT LocationMaster.LocationName FROM ASQAllocationMaster INNER JOIN LocationMaster ON ASQAllocationMaster.Locaion_PK = LocationMaster.Location_PK WHERE (ASQAllocationMaster.PoPackId = PoPackMaster.PoPackId) AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID)), N'NA') AS LocationName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK FROM PoPackMaster INNER JOIN POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN ChannelMaster ON PoPackMaster.ChannelID = ChannelMaster.ChannelID INNER JOIN BuyerDestinationMaster ON PoPackMaster.BuyerDestination_PK = BuyerDestinationMaster.BuyerDestination_PK INNER JOIN AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN SeasonMaster ON PoPackMaster.SeasonName = SeasonMaster.SeasonName INNER JOIN BuyerMaster ON AtcMaster.Buyer_ID = BuyerMaster.BuyerID GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, PoPackMaster.DeliveryDate, PoPackMaster.SeasonName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK HAVING (PoPackMaster.AtcId = @Param1) ORDER BY PoPackMaster.PoPackId desc">
+                                SelectCommand="SELECT PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, CAST(PoPackMaster.DeliveryDate AS date) AS DeliveryDate, PoPackMaster.SeasonName, ISNULL((SELECT DISTINCT LocationMaster.LocationName FROM ASQAllocationMaster INNER JOIN LocationMaster ON ASQAllocationMaster.Locaion_PK = LocationMaster.Location_PK WHERE (ASQAllocationMaster.PoPackId = PoPackMaster.PoPackId) AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID)), N'NA') AS LocationName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate FROM PoPackMaster INNER JOIN POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN ChannelMaster ON PoPackMaster.ChannelID = ChannelMaster.ChannelID INNER JOIN BuyerDestinationMaster ON PoPackMaster.BuyerDestination_PK = BuyerDestinationMaster.BuyerDestination_PK INNER JOIN AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN SeasonMaster ON PoPackMaster.SeasonName = SeasonMaster.SeasonName INNER JOIN BuyerMaster ON AtcMaster.Buyer_ID = BuyerMaster.BuyerID GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, PoPackMaster.DeliveryDate, PoPackMaster.SeasonName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate HAVING (PoPackMaster.AtcId = @Param1) ORDER BY PoPackMaster.PoPackId DESC">
                                 <SelectParameters>
                                     <asp:ControlParameter ControlID="cmb_atc" Name="Param1" PropertyName="SelectedValue" />
                                 </SelectParameters>

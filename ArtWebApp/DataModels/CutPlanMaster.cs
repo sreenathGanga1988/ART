@@ -18,6 +18,7 @@ namespace ArtWebApp.DataModels
         {
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
             this.CutPlanMarkerTypes = new HashSet<CutPlanMarkerType>();
+            this.CutPlanRollDetails = new HashSet<CutPlanRollDetail>();
         }
     
         public decimal CutPlan_PK { get; set; }
@@ -54,11 +55,13 @@ namespace ArtWebApp.DataModels
         public string DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public string NewPatternName { get; set; }
+        public string ConsumptionUOM { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual ICollection<CutPlanMarkerType> CutPlanMarkerTypes { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
+        public virtual ICollection<CutPlanRollDetail> CutPlanRollDetails { get; set; }
     }
 }

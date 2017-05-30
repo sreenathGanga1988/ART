@@ -211,6 +211,7 @@
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
+    <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
@@ -1621,6 +1622,9 @@
     <Compile Include="DataModels\CutplanRefPattern.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\CutPlanRollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CuttingDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2134,6 +2138,13 @@
     </Compile>
     <Compile Include="Production\CutOrder\CutPlanMasterASQEdit.aspx.designer.cs">
       <DependentUpon>CutPlanMasterASQEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutPlanRollMapping.aspx.cs">
+      <DependentUpon>CutPlanRollMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutPlanRollMapping.aspx.designer.cs">
+      <DependentUpon>CutPlanRollMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\CutOrder\DisplayRoll.aspx.cs">
       <DependentUpon>DisplayRoll.aspx</DependentUpon>
@@ -3751,6 +3762,7 @@
     <EmbeddedResource Include="Reports\RDLC\ro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\s-ro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SalesDO.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\SampCutreqReportPending.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\servicepo.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Shipment Handover.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ShortclosedofMonth.rdlc" />

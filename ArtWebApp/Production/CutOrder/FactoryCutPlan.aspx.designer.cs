@@ -463,6 +463,15 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_totalcutplanyardage;
         
         /// <summary>
+        /// lbl_consumptionactual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_consumptionactual;
+        
+        /// <summary>
         /// upd_rolldetails control.
         /// </summary>
         /// <remarks>
@@ -524,6 +533,15 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_balancetodeliveryardage;
+        
+        /// <summary>
+        /// lbl_uom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_uom;
         
         /// <summary>
         /// upd_alreadyCut control.
@@ -634,13 +652,31 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_apprQty;
         
         /// <summary>
-        /// HyperLink1 control.
+        /// lbl_weight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Label lbl_weight;
+        
+        /// <summary>
+        /// txt_gsm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_gsm;
+        
+        /// <summary>
+        /// txt_width control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_width;
         
         /// <summary>
         /// upd_mastertable control.

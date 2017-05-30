@@ -366,16 +366,25 @@ namespace ArtWebApp.Production.CutOrder
             lbl_rollinspected.Text = (cddet.RollCount+ cddet.DeliverdRollCount).ToString();
             lbl_ayard.Text = (cddet.rollYard+ cddet.DeliverdrollYard).ToString();
             lbl_consumption.Text = cddet.bomconsumption.ToString();
+            lbl_consumptionactual.Text = cddet.bomconsumption.ToString();
+            lbl_weight.Text = cddet.balWeightSum.ToString();
+
+
+            lbl_uom.Text = cddet.UOMName;
          //   lbl_balyard.Text = cddet.balanceyard.ToString();
             lbl_alreadycut.Text = cddet.alreadycut.ToString();
             lbl_deliveredrolls.Text = cddet.DeliverdRollCount.ToString();
             lbl_deliveredYard.Text = cddet.DeliverdrollYard.ToString();
             lbl_balroll.Text = cddet.balRollCount.ToString();
 
-        //    lbl_reqyardforstyle.Text= cddet.bomconsumption.ToString()*
+            //    lbl_reqyardforstyle.Text= cddet.bomconsumption.ToString()*
 
 
 
+            if (lbl_uom.Text.Trim() == "KGS")
+            {
+                cddet.bomconsumption= calculateYadsConsumption();
+            }
 
 
             float totalcutplanyardage = float.Parse(cddet.alreadycut.ToString()) * float.Parse(cddet.bomconsumption.ToString());
@@ -394,7 +403,7 @@ namespace ArtWebApp.Production.CutOrder
             // lbl_balyard.Text = (float.Parse(cddet.rollYard.ToString())  + float.Parse(cddet.DeliverdrollYard.ToString())) - locationcutplanyardage).ToString());
 
 
-
+            
 
             lbl_baltocutlocation.Text = balanccetocutinlocation.ToString();
             lbl_totalcutplanyardage.Text = totalcutplanyardage.ToString();
@@ -405,7 +414,17 @@ namespace ArtWebApp.Production.CutOrder
 
             //lbl_apprQty.Text = (float.Parse(cddet.balanceyard.ToString()) / float.Parse(cddet.bomconsumption.ToString())).ToString();
 
-            lbl_apprQty.Text = (float.Parse(lbl_balyard.Text) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+          //if(lbl_uom.Text.Trim()=="KGS")
+          //  {
+          //      lbl_apprQty.Text = (float.Parse(lbl_weight.Text) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+
+          //  }
+          //  else
+          //  {
+                lbl_apprQty.Text = (float.Parse(lbl_balyard.Text) / float.Parse(cddet.bomconsumption.ToString())).ToString();
+
+            //}
+
 
             float balancetodeliveryardage = (float.Parse(lbl_locationcutplanyardage.Text.ToString()) - float.Parse(lbl_deliveredYard.Text.ToString()));
 
@@ -613,6 +632,18 @@ namespace ArtWebApp.Production.CutOrder
         }
 
 
+
+
+        public float calculateYadsConsumption()
+        {
+
+            float consumptioninyards = (float.Parse(lbl_consumptionactual.Text) *
+             float.Parse("1549996.9")) / (((float.Parse(txt_gsm.Text) * 36) * float.Parse(txt_width.Text)));
+            lbl_consumption.Text = consumptioninyards.ToString();
+
+            return consumptioninyards;
+
+        }
 
 
 

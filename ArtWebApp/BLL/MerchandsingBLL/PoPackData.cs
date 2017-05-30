@@ -333,7 +333,7 @@ namespace ArtWebApp.BLL
                             var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == pomdata.location_PK).Select(u => u.Location_PK).FirstOrDefault();
 
 
-                            atcwordelement.BuyerPO = ponum +" / "+pomdata.BuyerPO.Trim();
+                            atcwordelement.ASQ = ponum +" / "+pomdata.BuyerPO.Trim();
                             atcwordelement.BuyerPO = pomdata.BuyerPO.Trim();
                             atcwordelement.DeliveryDate = pomdata.DeliveryDate;
                             atcwordelement.HandOverDate = pomdata.HandoverDate;

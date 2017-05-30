@@ -915,7 +915,7 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
                     pkdet.Skudet_Pk = rdet.Skudet_Pk;
                     pkdet.Qty = rdet.Qty;
                     pkdet.ETADate = rdet.ETADate;
-
+                    pkdet.IsDeleted = "N";
                     pkdet.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim();
                     pkdet.AddedDate = DateTime.Now;
                     enty.ProcurmentPlanDetails.Add(pkdet);
@@ -934,9 +934,26 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
 
         }
 
-       
-    }
+        public String DeletePlaning(int prpl_pk)
+        {
+            string asqshuffle = "Error";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ppl in enty.ProcurmentPlanDetails
+                        where ppl.ProcPlan_PK == prpl_pk
+                        select ppl;
 
+                foreach (var element in q)
+                {
+                    element.IsDeleted = "Y";
+                }
+                enty.SaveChanges();
+                asqshuffle = "Sucessfully Deleted";
+            }
+
+            return asqshuffle;
+        }
+    }
     public class ProcurementplanDetailsData
     {
         public int Skudet_Pk { get; set; }

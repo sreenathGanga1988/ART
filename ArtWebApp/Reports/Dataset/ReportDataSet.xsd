@@ -1436,14 +1436,14 @@ FROM            (SELECT        PoPacknum, BuyerPO, AtcNum, Description, FOB, POP
                     <CommandText>SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
                          SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
                          SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID,SampCutReqMaster.AddedBy
+                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID, SampCutReqMaster.AddedBy, 
+                         SamCutAssignmentMaster.PendingReason, SamCutAssignmentMaster.CompletedQty
 FROM            SamCutAssignmentMaster INNER JOIN
                          SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
                          SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
                          BuyerMaster ON SampCutReqMaster.BuyerID = BuyerMaster.BuyerID INNER JOIN
                          PatterRefMaster ON SampCutReqMaster.PatternRefID = PatterRefMaster.PatternRefID LEFT OUTER JOIN
-                         PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID
-</CommandText>
+                         PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -1458,7 +1458,6 @@ FROM            SamCutAssignmentMaster INNER JOIN
               <Mapping SourceColumn="SampleRequiredDate" DataSetColumn="SampleRequiredDate" />
               <Mapping SourceColumn="PatternReqDate" DataSetColumn="PatternReqDate" />
               <Mapping SourceColumn="SizeDetail" DataSetColumn="SizeDetail" />
-              <Mapping SourceColumn="Qty" DataSetColumn="Qty" />
               <Mapping SourceColumn="ReceivedDate" DataSetColumn="ReceivedDate" />
               <Mapping SourceColumn="ReceivedBy" DataSetColumn="ReceivedBy" />
               <Mapping SourceColumn="AssignedDate" DataSetColumn="AssignedDate" />
@@ -1471,6 +1470,9 @@ FROM            SamCutAssignmentMaster INNER JOIN
               <Mapping SourceColumn="MarkCompleted" DataSetColumn="MarkCompleted" />
               <Mapping SourceColumn="PatternMasterID" DataSetColumn="PatternMasterID" />
               <Mapping SourceColumn="AddedBy" DataSetColumn="AddedBy" />
+              <Mapping SourceColumn="PendingReason" DataSetColumn="PendingReason" />
+              <Mapping SourceColumn="CompletedQty" DataSetColumn="CompletedQty" />
+              <Mapping SourceColumn="Qty" DataSetColumn="Qty1" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -4000,6 +4002,15 @@ FROM            SamCutAssignmentMaster INNER JOIN
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="PendingReason" msprop:Generator_ColumnVarNameInTable="columnPendingReason" msprop:Generator_ColumnPropNameInRow="PendingReason" msprop:Generator_ColumnPropNameInTable="PendingReasonColumn" msprop:Generator_UserColumnName="PendingReason" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CompletedQty" msprop:Generator_ColumnVarNameInTable="columnCompletedQty" msprop:Generator_ColumnPropNameInRow="CompletedQty" msprop:Generator_ColumnPropNameInTable="CompletedQtyColumn" msprop:Generator_UserColumnName="CompletedQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Qty1" msdata:Caption="Qty" msprop:Generator_ColumnVarNameInTable="columnQty1" msprop:Generator_ColumnPropNameInRow="Qty1" msprop:Generator_ColumnPropNameInTable="Qty1Column" msprop:Generator_UserColumnName="Qty1" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
