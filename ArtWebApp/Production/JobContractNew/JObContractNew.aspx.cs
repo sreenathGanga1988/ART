@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +21,7 @@ namespace ArtWebApp.Production.JobContractNew
 
         protected void btn_JCSubmit_Click(object sender, EventArgs e)
         {
-            if (checkdatagridValue(tbl_podetails, "lbl_apprcm", "txt_cm"))
+            if (Decimal.Parse (txt_approvecost.Text)>Decimal.Parse(txt_cmcost.Text))
             {
                 string msg = InsertDOdata();
                 tbl_podetails.DataSource = null;
@@ -45,7 +46,8 @@ namespace ArtWebApp.Production.JobContractNew
             jcmstrdata.AddedBy = Session["Username"].ToString().Trim();
             jcmstrdata.AddedDate = DateTime.Now;
             jcmstrdata.remark = txt_remark.Text;
-
+            jcmstrdata.Ourstyleid= int.Parse(cmb_ourstyle.SelectedValue.ToString());
+            jcmstrdata.CMCost = decimal.Parse(txt_cmcost.Text);
             return jcmstrdata;
         }
 
@@ -56,8 +58,8 @@ namespace ArtWebApp.Production.JobContractNew
             BLL.ProductionBLL.JobContractData jcdata = new BLL.ProductionBLL.JobContractData();
 
             jcdata.JCmstrdata = GetJCMasterData();
-            jcdata.JobContractDetailDataCollection = GetJobContractDetailData();
-            String jcnum = jcdata.insertJObContract(jcdata);
+          
+            String jcnum = jcdata.insertJObContractNewMaster();
 
 
             msg = "JobContract # : " + jcnum + " is generated Sucessfully";
@@ -70,87 +72,10 @@ namespace ArtWebApp.Production.JobContractNew
 
 
 
-        public List<BLL.ProductionBLL.JobContractDetailData> GetJobContractDetailData()
-        {
-
-            List<BLL.ProductionBLL.JobContractDetailData> rk = new List<BLL.ProductionBLL.JobContractDetailData>();
+      
 
 
-            foreach (GridViewRow di in tbl_podetails.Rows)
-            {
-                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
-
-                if (chkBx != null && chkBx.Checked)
-                {
-                    int ourstyleid = int.Parse(((di.FindControl("lbl_OurStyleID") as Label).Text.ToString()));
-                    int popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
-                    decimal JCnewcm = decimal.Parse(((di.FindControl("txt_cm") as TextBox).Text.ToString()));
-                    BLL.ProductionBLL.JobContractDetailData deldet = new BLL.ProductionBLL.JobContractDetailData();
-                    deldet.OurStyleID = ourstyleid;
-                    deldet.PoPackID = popackid;
-                    deldet.CMvalue = float.Parse(JCnewcm.ToString());
-                    rk.Add(deldet);
-                }
-            }
-            return rk;
-
-
-        }
-
-
-
-
-
-        public Boolean checkdatagridValue(GridView tblgrid, String lbl_Qty1, String txt_Qty2)
-        {
-
-            Boolean isQtyok = true;
-            for (int i = 0; i < tblgrid.Rows.Count; i++)
-            {
-                GridViewRow currentRow = tblgrid.Rows[i];
-                CheckBox chkBx = (CheckBox)currentRow.FindControl("chk_select");
-
-                if (chkBx != null && chkBx.Checked)
-                {
-                    try
-                    {
-
-                        float AllowedQty = float.Parse(((tblgrid.Rows[i].FindControl(lbl_Qty1) as Label).Text.ToString()));
-                        float Enterqty = float.Parse(((tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).Text.ToString()));
-                        if (!QuantityValidator.ISFloatQuantityLesser(AllowedQty, Enterqty))
-                        {
-                            isQtyok = false;
-                            (tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).BackColor = System.Drawing.Color.Red;
-
-
-                        }
-                        else
-                        {
-                            (tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).BackColor = System.Drawing.Color.White;
-                        }
-
-                    }
-                    catch (Exception)
-                    {
-                        isQtyok = false;
-                        (tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).BackColor = System.Drawing.Color.Red;
-
-                    }
-                }
-
-
-
-
-
-
-
-            }
-            return isQtyok;
-        }
-
-
-
-
+       
 
 
 
@@ -168,22 +93,19 @@ namespace ArtWebApp.Production.JobContractNew
             }
         }
 
+
+        Decimal Qty = 0;
         protected void tbl_podetails_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                String lbl_location = (e.Row.FindControl("lbl_jc") as Label).Text;
-                if (lbl_location.Trim() == "NA")
-                {
+               
+                    Decimal lbl_Qty = int.Parse((e.Row.FindControl("lbl_Qty") as Label).Text);
 
-                }
-                else
-                {
-                    CheckBox chklist = (e.Row.FindControl("chk_select") as CheckBox);
-                    chklist.Checked = false;
-                    chklist.Enabled = false;
+                Qty = Qty + lbl_Qty;
 
-                }
+                lbl_totalQty.Text = Qty.ToString();
+
             }
         }
 
@@ -194,7 +116,52 @@ namespace ArtWebApp.Production.JobContractNew
 
         protected void btn_showPO0_Click(object sender, EventArgs e)
         {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+             int   Ourstyleid = int.Parse(cmb_ourstyle.SelectedValue.ToString());
+                int Location_Pk = int.Parse(drp_factory.SelectedValue.ToString());
 
+                int jbid = 0;
+                String jcnum = "";
+                Decimal cm = 0;
+
+
+                var costingCM = enty.StyleCostingComponentDetails.Where(u => u.StyleCostingMaster.OurStyleID == Ourstyleid && u.StyleCostingMaster.IsApproved=="A"&&u.CostingComponentMaster.CostComp_PK==3).Select(u => u.CompValue).FirstOrDefault();
+                txt_approvecost.Text = costingCM.ToString();
+
+
+
+            
+
+                var q = (from jbmstr in enty.JobContractMasters
+                         where jbmstr.OurStyleID == Ourstyleid && jbmstr.Location_Pk == Location_Pk
+                         select jbmstr).ToList();
+                foreach(var element in q)
+                {
+                    jbid = int.Parse(element.JobContract_pk.ToString());
+                    jcnum = element.JOBContractNUM.ToString();
+                    cm = Decimal.Parse(element.CM.ToString());
+
+
+
+                }
+
+
+                txt_cmcost.Text = cm.ToString ();
+                lbl_jcnum.Text = jcnum.ToString();
+
+
+
+
+                tbl_podetails.DataSource = Podata;
+                tbl_podetails.DataBind();
+            }
+       }
+
+        protected void tbl_podetails_DataBound(object sender, EventArgs e)
+        {
+            
+            
         }
     }
 }

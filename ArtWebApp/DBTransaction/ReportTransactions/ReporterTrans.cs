@@ -290,6 +290,52 @@ HAVING      (JobContractMaster.JobContract_pk =@Param1 )", con);
             return dt;
         }
 
+
+
+        /// <summary>
+        /// Get All the details of a Jobcontract
+        /// </summary>
+        /// <param name="POnum"></param>
+        /// <returns></returns>
+        public DataTable GetJCDataNewBasedonAllocation(int JC_PK)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        POPackDetails.POPackId, SUM(POPackDetails.PoQty) AS PoQty, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName,
+                         JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractMaster.CM AS CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum,
+                         PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, ROUND(SUM(POPackDetails.PoQty) * (JobContractMaster.CM / 12), 2) AS POVAL, ISNULL(JobContractMaster.Remark, '') AS Remark
+FROM            JobContractMaster INNER JOIN
+                         AtcDetails ON JobContractMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         POPackDetails ON AtcDetails.OurStyleID = POPackDetails.OurStyleID INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId AND JobContractMaster.Location_Pk = PoPackMaster.ExpectedLocation_PK INNER JOIN
+                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
+                         GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN
+                         LocationMaster ON JobContractMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
+                         CountryMaster ON LocationMaster.CountryID = CountryMaster.CountryID
+
+                         GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, JobContractMaster.JOBContractNUM,
+                         JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractMaster.CM, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO,
+                         JobContractMaster.JobContract_pk, JobContractMaster.Remark
+HAVING(JobContractMaster.JobContract_pk = @Param1 )", con);
+                cmd.Parameters.AddWithValue("@Param1", JC_PK);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
         public DataTable GetSalesDO(int sdo_PK)
         {
             DataTable dt = new DataTable();

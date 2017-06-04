@@ -15601,6 +15601,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnQty1;
             
+            private global::System.Data.DataColumn columnStyleDescription;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SamplingreqDataDataTable() {
@@ -15828,6 +15830,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StyleDescriptionColumn {
+                get {
+                    return this.columnStyleDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -15886,7 +15896,8 @@ namespace ArtWebApp.Reports.Dataset {
                         string AddedBy, 
                         string PendingReason, 
                         decimal CompletedQty, 
-                        decimal Qty1) {
+                        decimal Qty1, 
+                        string StyleDescription) {
                 SamplingreqDataRow rowSamplingreqDataRow = ((SamplingreqDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReqNum,
@@ -15912,7 +15923,8 @@ namespace ArtWebApp.Reports.Dataset {
                         AddedBy,
                         PendingReason,
                         CompletedQty,
-                        Qty1};
+                        Qty1,
+                        StyleDescription};
                 rowSamplingreqDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSamplingreqDataRow);
                 return rowSamplingreqDataRow;
@@ -15959,6 +15971,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPendingReason = base.Columns["PendingReason"];
                 this.columnCompletedQty = base.Columns["CompletedQty"];
                 this.columnQty1 = base.Columns["Qty1"];
+                this.columnStyleDescription = base.Columns["StyleDescription"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16012,6 +16025,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnCompletedQty);
                 this.columnQty1 = new global::System.Data.DataColumn("Qty1", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQty1);
+                this.columnStyleDescription = new global::System.Data.DataColumn("StyleDescription", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStyleDescription);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPatternMasterID}, false));
                 this.columnReqNum.MaxLength = 50;
@@ -16036,6 +16051,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnAddedBy.MaxLength = 50;
                 this.columnPendingReason.MaxLength = 2147483647;
                 this.columnQty1.Caption = "Qty";
+                this.columnStyleDescription.MaxLength = 2147483647;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30522,6 +30538,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string StyleDescription {
+                get {
+                    try {
+                        return ((string)(this[this.tableSamplingreqData.StyleDescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StyleDescription\' in table \'SamplingreqData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSamplingreqData.StyleDescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsReqNumNull() {
                 return this.IsNull(this.tableSamplingreqData.ReqNumColumn);
             }
@@ -30758,6 +30790,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetQty1Null() {
                 this[this.tableSamplingreqData.Qty1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStyleDescriptionNull() {
+                return this.IsNull(this.tableSamplingreqData.StyleDescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStyleDescriptionNull() {
+                this[this.tableSamplingreqData.StyleDescriptionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -38592,6 +38636,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("PendingReason", "PendingReason");
             tableMapping.ColumnMappings.Add("CompletedQty", "CompletedQty");
             tableMapping.ColumnMappings.Add("Qty", "Qty1");
+            tableMapping.ColumnMappings.Add("StyleDescription", "StyleDescription");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -38608,17 +38653,25 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.PatterRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.SampleRequiredDate, 
-                         SamCutAssignmentMaster.PatternReqDate, SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.ReceivedDate, SamCutAssignmentMaster.ReceivedBy, 
-                         SamCutAssignmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignmentMaster.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.PatternCompletedDate, 
-                         PatternMaster.PaternMasterName, SamCutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaster.PatternMasterID, SampCutReqMaster.AddedBy, 
-                         SamCutAssignmentMaster.PendingReason, SamCutAssignmentMaster.CompletedQty
-FROM            SamCutAssignmentMaster INNER JOIN
-                         SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = SampCutReqMaster.SampCutreqID INNER JOIN
-                         SampleType ON SampCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN
-                         BuyerMaster ON SampCutReqMaster.BuyerID = BuyerMaster.BuyerID INNER JOIN
-                         PatterRefMaster ON SampCutReqMaster.PatternRefID = PatterRefMaster.PatternRefID LEFT OUTER JOIN
-                         PatternMaster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID";
+            this._commandCollection[0].CommandText = "SELECT        SampCutReqMaster.ReqNum, BuyerMaster.BuyerName, PatterRefMaster.Pat" +
+                "terRefNum, SampCutReqMaster.Fabric, SampleType.SampleType, SampCutReqMaster.Samp" +
+                "leRequiredDate, \r\n                         SamCutAssignmentMaster.PatternReqDate" +
+                ", SampCutReqMaster.SizeDetail, SampCutReqMaster.Qty, SamCutAssignmentMaster.Rece" +
+                "ivedDate, SamCutAssignmentMaster.ReceivedBy, \r\n                         SamCutAs" +
+                "signmentMaster.AssignedDate, SamCutAssignmentMaster.SignedDate, SamCutAssignment" +
+                "Master.CompletedDate, SamCutAssignmentMaster.Remark, SamCutAssignmentMaster.Patt" +
+                "ernCompletedDate, \r\n                         PatternMaster.PaternMasterName, Sam" +
+                "CutAssignmentMaster.SignedBYMaster, SampCutReqMaster.MarkCompleted, PatternMaste" +
+                "r.PatternMasterID, SampCutReqMaster.AddedBy, \r\n                         SamCutAs" +
+                "signmentMaster.PendingReason, SamCutAssignmentMaster.CompletedQty, SampCutReqMas" +
+                "ter.StyleDescription\r\nFROM            SamCutAssignmentMaster INNER JOIN\r\n       " +
+                "                  SampCutReqMaster ON SamCutAssignmentMaster.SampCutreqID = Samp" +
+                "CutReqMaster.SampCutreqID INNER JOIN\r\n                         SampleType ON Sam" +
+                "pCutReqMaster.SampleTypeID = SampleType.SampleTypeID INNER JOIN\r\n               " +
+                "          BuyerMaster ON SampCutReqMaster.BuyerID = BuyerMaster.BuyerID INNER JO" +
+                "IN\r\n                         PatterRefMaster ON SampCutReqMaster.PatternRefID = " +
+                "PatterRefMaster.PatternRefID LEFT OUTER JOIN\r\n                         PatternMa" +
+                "ster ON SamCutAssignmentMaster.PatternMasterID = PatternMaster.PatternMasterID";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

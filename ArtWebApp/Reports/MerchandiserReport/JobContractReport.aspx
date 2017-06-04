@@ -44,7 +44,7 @@
                     <td  class="NormalTD">
                         <asp:Button ID="btn_showjc" runat="server" Font-Size="Smaller" OnClick="btn_showjc_Click" Text="Show JC" />
                     </td>
-                    <td  class="NormalTD">&nbsp;</td>
+                    <td  class="NormalTD"><asp:Button ID="btn_jcnew" runat="server" Font-Size="Smaller" Text="Show JC New" OnClick="btn_jcnew_Click" /></td>
                     <td  class="NormalTD">&nbsp;</td>
                     <td  class="NormalTD">&nbsp;</td>
                     <td  class="NormalTD">&nbsp;</td>

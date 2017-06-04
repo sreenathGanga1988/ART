@@ -388,8 +388,24 @@ GROUP BY CutOrderMaster.CutID)tt";
 
             return balqty;
         }
-    
 
+
+
+
+
+
+        public int GetDeliveredQty(int cutid)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        SUM(ISNULL(DeliveryQty, 0)) AS DeliveredQty
+FROM            CutOrderDO
+GROUP BY CutID
+HAVING        (CutID = @Param1)";
+            cmd.Parameters.AddWithValue("@param1", cutid);
+            int balqty = int.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+
+            return balqty;
+        }
 
 
 

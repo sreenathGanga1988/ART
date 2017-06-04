@@ -410,6 +410,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                         foreach (var rolldet in m)
                         {
                             rolldet.IsDelivered = "Y";
+                            rolldet.IsCut = "N";
 
                         }
 

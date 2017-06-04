@@ -41,5 +41,26 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
         }
+        public void loaDjcreportNewBasedonAllocation()
+        {
+
+
+
+            DBTransaction.ReportTransactions.ReporterTrans repotrans = new DBTransaction.ReportTransactions.ReporterTrans();
+
+            DataTable dt = repotrans.GetJCDataNewBasedonAllocation(int.Parse(drp_jc.SelectedValue.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\JOB COntract-CM.rdlc";
+
+
+        }
+        protected void btn_jcnew_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

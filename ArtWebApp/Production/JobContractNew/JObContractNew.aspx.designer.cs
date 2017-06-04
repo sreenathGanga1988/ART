@@ -76,6 +76,24 @@ namespace ArtWebApp.Production.JobContractNew {
         protected global::System.Web.UI.WebControls.Button btn_showPO0;
         
         /// <summary>
+        /// txt_cmcost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_cmcost;
+        
+        /// <summary>
+        /// txt_approvecost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_approvecost;
+        
+        /// <summary>
         /// txt_remark control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,24 @@ namespace ArtWebApp.Production.JobContractNew {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_remark;
+        
+        /// <summary>
+        /// lbl_jcnum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_jcnum;
+        
+        /// <summary>
+        /// lbl_totalQty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_totalQty;
         
         /// <summary>
         /// UpdatePanel2 control.

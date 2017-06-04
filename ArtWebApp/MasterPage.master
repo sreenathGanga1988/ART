@@ -301,6 +301,8 @@
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Item">
+                            </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
                     <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Merchandising" Visible="True" Value="MR" >
@@ -494,7 +496,13 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderStockReciept.aspx" Text="SWR/SFR[STOCK]" ToolTip="SWR/SFR[STOCK]">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryReturn.aspx" Text="FW(Delivery Return)">
+                                    <ig:ExplorerBarItem Text="FW(Delivery Return)">
+                                        <Items>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryReturn.aspx" Text="FW(Trims)">
+                                            </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryReturnFabricAgainstCutOrder.aspx" Text="FW(Fabric)">
+                                            </ig:ExplorerBarItem>
+                                        </Items>
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderStockFactory.aspx" Text="Whs-Fact(STOCK)">
                                     </ig:ExplorerBarItem>
@@ -568,8 +576,8 @@
                                     
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderFinal.aspx" Text="New Cut Order Against Cutplan">
                                     </ig:ExplorerBarItem>
-                                  <%--  <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderForm.aspx" Text="New Cut Order">
-                                    </ig:ExplorerBarItem>--%>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderForm.aspx" Text="New Cut Order">
+                                    </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderEdit.aspx" Text="Edit Cut Order">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/SamplingCutOrder.aspx" Text="Sampling CutOrder">
@@ -581,15 +589,16 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem  Text="Job Contract">
                                 <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContract.aspx" Text="Job Contract CM">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JObContractNew.aspx" Text="Job Contract CM">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContract.aspx" Text="Job Contract CM" Visible="False">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractOthers.aspx" Text="Job Contract Other">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JObContractNew.aspx" Text="Item">
-                                    </ig:ExplorerBarItem>
+                                    
                                 </Items>
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandover.aspx" Text="Shipment Handover">
+                            <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandover.aspx" Text="Shipment Handover" Visible="False">
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Production/ProductionReporting.aspx" Text="Production Reporting">
                             </ig:ExplorerBarItem>
@@ -637,6 +646,12 @@
                                     </ig:ExplorerBarItem>
                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQClosing.aspx" Text="ASQ Short Closing" Value="Short Close ASQ">
                                              </ig:ExplorerBarItem>
+                                </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem Text="Shipment  HandOver">
+                                <Items>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandOver/ShipementHandoverfromAtcWorld.aspx" Text="Shipment HandOver From AtcWorld">
+                                    </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
                         </Items>

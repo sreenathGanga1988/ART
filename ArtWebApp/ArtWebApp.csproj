@@ -208,6 +208,7 @@
       <DependentUpon>AtcWorldModel.edmx</DependentUpon>
       <LastGenOutput>AtcWorldModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
@@ -217,6 +218,8 @@
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
     <Content Include="Production\RollDisplayer.aspx" />
     <Content Include="Production\Schedular\ASQMonthShipmentClosing.aspx" />
+    <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
+    <Content Include="Reports\Production\CutplanHTMLReportWithRoll.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
     <Content Include="Reports\Production\MSI\AtcASQStatus.aspx" />
     <Content Include="Reports\Production\MSI\AtcWiseShipmentofAMonth.aspx" />
@@ -1550,6 +1553,9 @@
     <Compile Include="DataModels\AtcRawMaterialMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\ATCWorldToArtShipData.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\BankMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2118,6 +2124,13 @@
     <Compile Include="DBTransaction\PoPackTransaction.cs" />
     <Compile Include="DBTransaction\ProcurementTransaction.cs" />
     <Compile Include="DBTransaction\Productiontransaction\CutPlanTransaction.cs" />
+    <Compile Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx.cs">
+      <DependentUpon>DeliveryReturnFabricAgainstCutOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx.designer.cs">
+      <DependentUpon>DeliveryReturnFabricAgainstCutOrder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx.cs">
       <DependentUpon>AddRollAgainstWRfromAtraco.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2180,6 +2193,20 @@
     </Compile>
     <Compile Include="Production\Schedular\ASQMonthShipmentClosing.aspx.designer.cs">
       <DependentUpon>ASQMonthShipmentClosing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx.cs">
+      <DependentUpon>ShipementHandoverfromAtcWorld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx.designer.cs">
+      <DependentUpon>ShipementHandoverfromAtcWorld.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Production\CutplanHTMLReportWithRoll.aspx.cs">
+      <DependentUpon>CutplanHTMLReportWithRoll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\CutplanHTMLReportWithRoll.aspx.designer.cs">
+      <DependentUpon>CutplanHTMLReportWithRoll.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Production\MSI\ASQofMonthofFactory.aspx.cs">
       <DependentUpon>ASQofMonthofFactory.aspx</DependentUpon>

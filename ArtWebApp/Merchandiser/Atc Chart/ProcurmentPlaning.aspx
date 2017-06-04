@@ -51,18 +51,55 @@
 
         function DeletePlan(objref)
         {
-            var planpk = objref.innerHTML;
-            
-            PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
-            function onSucess(result) {
-                alert(result);
-            }
-            function onError(result) {
-                alert('Something wrong.');
-            }
-           
+            debugger
+            var retVal = confirm("Do you want to continue  Deleting Plan ?");
+            if (retVal == true) {
+                var planpk = objref.innerHTML;
+
+                PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
+                function onSucess(result) {
+                    alert(result);
+                    objref.innerHTML = objref.innerHTML.strike();
+                    objref.innerHTML = objref.innerHTML.fontcolor("red");
+                }
+                function onError(result) {
+                    alert('Something wrong.');
+                }
+        }
+        else {
+
         }
 
+
+           
+           
+        }
+        
+
+        function DeletePlanRemark(objref) {
+            debugger
+            var retVal = confirm("Do you want to continue  Deleting Remark ?");
+            if (retVal == true) {
+                var planpk = objref.innerHTML;
+
+                PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
+                function onSucess(result) {
+                    alert(result);
+                    objref.innerHTML = objref.innerHTML.strike();
+                    objref.innerHTML = objref.innerHTML.fontcolor("red");
+                }
+                function onError(result) {
+                    alert('Something wrong.');
+                }
+            }
+            else {
+
+            }
+
+
+
+
+        }
     </script>
 <style type="text/css">
 body
@@ -338,6 +375,12 @@ body
                                        <asp:GridView ID="tbl_Remark" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
                                              BorderColor="#DEBA84" DataKeyNames="PlanRemark_PK" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
                                              <Columns>
+                                                  <asp:TemplateField HeaderText="PlanRemark_PK">
+                                                   
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="PlanRemark_PK" onclick= "DeletePlanRemark(this)" runat="server" Text='<%# Bind("PlanRemark_PK") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
                                                  <asp:BoundField DataField="PlanRemark_PK" HeaderText="PlanRemark_PK" />
                                                  <asp:BoundField DataField="Remark" HeaderText="Remark" />
                                                 <asp:BoundField DataField="AddedDate" HeaderText="AddedDate"  DataFormatString="{0:MM/dd/yyyy}"  />

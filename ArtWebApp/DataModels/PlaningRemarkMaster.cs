@@ -20,5 +20,6 @@ namespace ArtWebApp.DataModels
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string IsDeleted { get; set; }
+        public string DeletedBy { get; set; }
     }
 }

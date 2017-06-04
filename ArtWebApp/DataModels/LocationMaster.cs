@@ -40,9 +40,9 @@ namespace ArtWebApp.DataModels
             this.StockRecieptMasters = new HashSet<StockRecieptMaster>();
             this.StockSDocMasters = new HashSet<StockSDocMaster>();
             this.TransferToGstockMasters = new HashSet<TransferToGstockMaster>();
-            this.JobContractMasters = new HashSet<JobContractMaster>();
             this.CutPlanMasters = new HashSet<CutPlanMaster>();
             this.DocMasters = new HashSet<DocMaster>();
+            this.JobContractMasters = new HashSet<JobContractMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -87,8 +87,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<StockRecieptMaster> StockRecieptMasters { get; set; }
         public virtual ICollection<StockSDocMaster> StockSDocMasters { get; set; }
         public virtual ICollection<TransferToGstockMaster> TransferToGstockMasters { get; set; }
-        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
         public virtual ICollection<DocMaster> DocMasters { get; set; }
+        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
     }
 }

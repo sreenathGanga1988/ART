@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -1335,6 +1336,14 @@ namespace ArtWebApp.Production.CutOrder
 
 
 
+        [WebMethod]
+        public static string DeletePlanAysnc(int Planid)
+        {
+            BLL.CutOrderBLL.CutPlanMarkerDetailsData cddetdata = new BLL.CutOrderBLL.CutPlanMarkerDetailsData();
+
+
+            return cddetdata.DeleteCutOrderMarkerSizeData(Planid); ;
+        }
 
 
 

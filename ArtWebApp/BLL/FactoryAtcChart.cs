@@ -1583,7 +1583,7 @@ WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID) and (ProcurmentPlanDetails.I
             {
 
 
-                cmd.CommandText = @"SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA, ShippingDocumentMaster.Conatianer, DocDetails.Qty, ProcurementMaster.AtcId, ProcurementDetails.SkuDet_PK
+                cmd.CommandText = @"SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DocDetails.Qty, ProcurementMaster.AtcId, ProcurementDetails.SkuDet_PK
 FROM            ShippingDocumentMaster INNER JOIN
                          ShippingDocumentDetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDetails.ShipingDoc_PK INNER JOIN
                          DocMaster ON ShippingDocumentDetails.Doc_Pk = DocMaster.Doc_Pk INNER JOIN
@@ -1592,7 +1592,7 @@ FROM            ShippingDocumentMaster INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk
 WHERE(ProcurementMaster.AtcId = @ATCID)
 union
-SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA, ShippingDocumentMaster.Conatianer, DeliveryOrderDetails.DeliveryQty as Qty, DeliveryOrderMaster.AtcID, InventoryMaster.SkuDet_Pk
+SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DeliveryOrderDetails.DeliveryQty as Qty, DeliveryOrderMaster.AtcID, InventoryMaster.SkuDet_Pk
 FROM            ShippingDocumentMaster INNER JOIN
                          ShippingDocumentDODetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDODetails.ShipingDoc_PK INNER JOIN
                          DeliveryOrderMaster ON ShippingDocumentDODetails.DO_PK = DeliveryOrderMaster.DO_PK INNER JOIN
@@ -1842,7 +1842,7 @@ WHERE        (ProcurementMaster.AtcId = @ATCID)";
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          PlaningRemarkMaster ON SkuRawmaterialDetail.SkuDet_PK = PlaningRemarkMaster.SkuDet_PK
-WHERE(SkuRawMaterialMaster.Atc_id = @ATCID)";
+WHERE(SkuRawMaterialMaster.Atc_id = @ATCID)  AND (PlaningRemarkMaster.IsDeleted = 'N')";
 
 
 

@@ -286,6 +286,42 @@
 
                         
 
+                        <tr>
+                            <td class="auto-style1" colspan="3">No of ASQ Pending to transfer/Shortclose</td>
+                            <td>
+                                <asp:Label ID="lbl_pendingASQ" runat="server" Text="0"></asp:Label>
+                            </td>
+                            <td class="NormalTD">&nbsp;</td>
+                        </tr>
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
                 </table>
 
                 

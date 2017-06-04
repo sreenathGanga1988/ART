@@ -26,9 +26,11 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string AddedBy { get; set; }
         public string Remark { get; set; }
+        public Nullable<decimal> OurStyleID { get; set; }
+        public Nullable<decimal> CM { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

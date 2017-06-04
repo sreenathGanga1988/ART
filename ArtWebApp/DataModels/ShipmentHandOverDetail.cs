@@ -23,6 +23,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ShipmentHandMaster_PK { get; set; }
         public Nullable<decimal> POPackId { get; set; }
         public Nullable<decimal> OurStyleID { get; set; }
+        public string SDONum { get; set; }
     
         public virtual JobContractDetail JobContractDetail { get; set; }
         public virtual ShipmentHandOverMaster ShipmentHandOverMaster { get; set; }

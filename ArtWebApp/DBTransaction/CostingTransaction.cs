@@ -364,9 +364,25 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
         }
 
 
+        public int getLastCM(int fromstyle)
+        {
+            int costingpk = 0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
 
-#endregion
+                var costingpkc = (from o in enty.StyleCostingMasters
+                                  where o.IsLast == "Y" && o.OurStyleID == fromstyle
+                                  select o.Costing_PK).Max();
+
+
+                costingpk = int.Parse(costingpkc.ToString());
+            }
+
+            return costingpk;
+        }
+
+        #endregion
 
 
 
@@ -375,7 +391,7 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
 
 
 
-     
+
 
 
 

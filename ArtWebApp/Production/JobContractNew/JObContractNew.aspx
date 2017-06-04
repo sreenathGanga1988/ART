@@ -14,6 +14,7 @@
              <table class="DataEntryTable">
         <tr class="RedHeadding">
             <td colspan="4">JOB Contract CM Based on Allocation</td>
+            <td>&nbsp;</td>
         </tr>
                  <tr>
                      <td class="NormalTD">Factory</td>
@@ -23,6 +24,7 @@
                      </td>
                      <td class="SearchButtonTD"></td>
                      <td class="NormalTD"></td>
+                     <td class="NormalTD">&nbsp;</td>
                  </tr>
         <tr>
             <td class="NormalTD">atc</td>
@@ -34,6 +36,7 @@
                  <asp:Button ID="btn_showPO" runat="server" Text="S" OnClick="btn_showPO_Click" />
             </td>
              <td class="NormalTDauto-style7"></td>
+            <td class="NormalTDauto-style7">&nbsp;</td>
         </tr>
         
                  <tr>
@@ -49,6 +52,19 @@
                           </ContentTemplate>
      </asp:UpdatePanel>   </td>
                      <td class="NormalTDauto-style7">&nbsp;</td>
+                     <td class="NormalTDauto-style7">&nbsp;</td>
+                 </tr>
+        
+                 <tr>
+                     <td class="NormalTD">CM /PC</td>
+                     <td class="NormalTD">
+                         <asp:TextBox ID="txt_cmcost" runat="server">0</asp:TextBox>
+                     </td>
+                     <td class="SearchButtonTD">&nbsp;</td>
+                     <td class="NormalTDauto-style7">Appr CM</td>
+                     <td class="NormalTDauto-style7">
+                         <asp:TextBox ID="txt_approvecost" runat="server"></asp:TextBox>
+                     </td>
                  </tr>
         
                  <tr>
@@ -58,10 +74,20 @@
                      </td>
                      <td class="SearchButtonTD">&nbsp;</td>
                      <td>&nbsp;</td>
+                     <td>&nbsp;</td>
                  </tr>
         <tr>
-            <td class="auto-style8">
+            <td >
+                JC
                 </td>
+              <td class="NormalTD">
+                         <asp:Label ID="lbl_jcnum" runat="server" Text="NA"></asp:Label>
+                     </td>
+                     <td class="SearchButtonTD">Qty</td>
+                     <td>
+                         <asp:Label ID="lbl_totalQty" runat="server" Text="0"></asp:Label>
+            </td>
+                     <td>&nbsp;</td>
         </tr>
     </table>
          </ContentTemplate>
@@ -74,7 +100,7 @@
          <asp:UpdatePanel ID="UpdatePanel2" runat="server">
          <ContentTemplate>
 
-        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large" OnRowDataBound="tbl_podetails_RowDataBound" DataSourceID="Podata">
+        <asp:GridView ID="tbl_podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="100%" Font-Size="Large" OnRowDataBound="tbl_podetails_RowDataBound" OnDataBound="tbl_podetails_DataBound">
                             <Columns>      
                 <asp:BoundField DataField="PoPackId" HeaderText="PoPackId" InsertVisible="False" ReadOnly="True" SortExpression="PoPackId" />
                 <asp:BoundField DataField="PoPacknum" HeaderText="PoPacknum" SortExpression="PoPacknum" />
@@ -84,7 +110,12 @@
                                 <asp:BoundField DataField="BuyerDestination" HeaderText="BuyerDestination" SortExpression="BuyerDestination" />
                                 <asp:BoundField DataField="ChannelName" HeaderText="ChannelName" SortExpression="ChannelName" />
                                 <asp:BoundField DataField="SeasonName" HeaderText="SeasonName" SortExpression="SeasonName" />
-                                <asp:BoundField DataField="PoQty" HeaderText="PoQty" SortExpression="PoQty" />
+                                <asp:TemplateField HeaderText="PoQty" SortExpression="PoQty">
+                                  
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_Qty" runat="server" Text='<%# Bind("PoQty") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="FirstDeliveryDate" HeaderText="FirstDeliveryDate" SortExpression="FirstDeliveryDate" />
                                 <asp:BoundField DataField="HandoverDate" HeaderText="HandoverDate" SortExpression="HandoverDate" />
                                 <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />

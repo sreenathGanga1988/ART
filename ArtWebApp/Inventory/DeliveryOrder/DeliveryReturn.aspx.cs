@@ -19,7 +19,9 @@ namespace ArtWebApp.Inventory.DeliveryOrder
         protected void btn_confirmAtc_Click(object sender, EventArgs e)
         {
             DeliveryOrdertransaction dotran = new DeliveryOrdertransaction();
-            DataTable dt = dotran.GetStockDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()));
+          //  DataTable dt = dotran.GetStockDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()));
+
+            DataTable dt = dotran.GetStockItemDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()), "Trims");
             tbl_InverntoryDetails.DataSource = dt;
             tbl_InverntoryDetails.DataBind();
             filltowarehouses();

@@ -108,6 +108,75 @@ namespace ArtWebApp.BLL.ProductionBLL
             return Donum;
         }
 
+        /// <summary>
+        /// insert master data in new jobcontract
+        /// </summary>
+        /// <param name="jcdata"></param>
+        /// <returns></returns>
+
+        public String insertJObContractNewMaster()
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
+                {
+
+                    JobContractMaster jcmstr = new JobContractMaster();
+                    jcmstr.AtcID = this.JCmstrdata.AtcID;
+                    jcmstr.AddedDate = DateTime.Now;
+                    jcmstr.AddedBy = this.JCmstrdata.AddedBy;
+                    jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
+                    jcmstr.Remark = this.JCmstrdata.remark;
+                    jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                    jcmstr.CM = this.JCmstrdata.CMCost;
+                    enty.JobContractMasters.Add(jcmstr);
+
+
+                    enty.SaveChanges();
+
+                    Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
+
+
+
+
+
+                    enty.SaveChanges();
+                }
+                else
+                {
+
+                    var q = from jbmstr in enty.JobContractMasters
+                            where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
+                            select jbmstr;
+                    foreach (var element in q)
+                    {
+
+
+                        element.AddedDate = DateTime.Now;
+                        element.AddedBy = this.JCmstrdata.AddedBy;
+
+                        element.Remark = this.JCmstrdata.remark;
+                        Donum = element.JOBContractNUM;
+                        element.CM = this.JCmstrdata.CMCost;
+
+
+
+                    }
+                    enty.SaveChanges();
+
+                }
+
+
+         
+
+            }
+
+
+            return Donum;
+        }
     }
 
 
@@ -121,8 +190,9 @@ namespace ArtWebApp.BLL.ProductionBLL
         public DateTime AddedDate { get; set; }
         public string AddedBy { get; set; }
         public string remark { get; set; }
+        public int Ourstyleid { get; set; }
 
-
+        public Decimal CMCost { get; set; }
 
 
     }
@@ -254,7 +324,64 @@ FROM            JobContractDetail INNER JOIN
             return Donum;
         }
 
+        public String insertShipmentHandOverWithSDO(ShipmentHandOverMasterData shpmstrdata)
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
+                ShipmentHandOverMaster shpmstr = new ShipmentHandOverMaster();
+                shpmstr.Location_Pk = shpmstrdata.LocationPK_pk;
+                shpmstr.IsCompleted = "N";
+                enty.ShipmentHandOverMasters.Add(shpmstr);
+
+
+                enty.SaveChanges();
+
+                Donum = shpmstr.ShipmentHandOverCode = CodeGenerator.GetUniqueCode("SH", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(shpmstr.ShipmentHandMaster_PK.ToString()));
+
+
+
+
+                foreach (ShipmentHandOverData di in shpmstrdata.ShipmentHandOverMasterDataCollection)
+                {
+
+                    var ourstyleid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.OurStyleID).FirstOrDefault();
+                    var popackid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.PoPackID).FirstOrDefault();
+
+                    //Add the delivery details
+                    ShipmentHandOverDetail shpdert = new ShipmentHandOverDetail();
+                    shpdert.ShipmentHandMaster_PK = shpmstr.ShipmentHandMaster_PK;
+                     shpdert.SDONum = di.SDO;
+                    shpdert.ShippedQty = di.ShippedQty;
+                    shpdert.ShipmentHandOverDate = di.ShipmenthandOverdate;
+                    shpdert.AddedBy = di.AddedBy;
+                    shpdert.AddedDate = di.AddedDate;
+                    shpdert.POPackId = int.Parse(popackid.ToString());
+                    shpdert.OurStyleID = int.Parse(ourstyleid.ToString());
+                    enty.ShipmentHandOverDetails.Add(shpdert);
+
+
+
+                    var q = from atcshp in enty.ATCWorldToArtShipDatas
+                            where atcshp.ArtLocation_PK == shpmstrdata.LocationPK_pk && atcshp.POPackID == popackid && atcshp.OurStyleId == ourstyleid
+                            && atcshp.SDONo == di.SDO
+                            select atcshp;
+                    foreach(var element in q)
+                    {
+                        element.IsBooked = "Y";
+                        element.BookedBy = di.AddedBy;
+                        element.BookedDate = di.AddedDate;
+                    }
+
+                }
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
 
         public void markhipmentHandover(int shipment_PK)
         {
@@ -279,6 +406,12 @@ FROM            JobContractDetail INNER JOIN
         {
           return  ArtWebApp.DBTransaction.ShippingTransaction.ShippingTransaction.GetIncompletedShipmenthandover(locpk);
         }
+
+
+        public DataTable GetSDOData(String Condition)
+        {
+            return ArtWebApp.DBTransaction.ShippingTransaction.ShippingTransaction.GetSDODataFromAtcWorld(Condition);
+        }
     }
 
 
@@ -288,11 +421,16 @@ FROM            JobContractDetail INNER JOIN
             public int ShipmentHandOver_PK { get; set; }
 
             public int JobContractDetail_pk { get; set; }
-            public int ShippedQty { get; set; }
+        public int Popackid { get; set; }
+        public int OurStyleId { get; set; }
+
+        public int ShippedQty { get; set; }
             public DateTime AddedDate { get; set; }
             public string AddedBy { get; set; }
 
-            public DateTime ShipmenthandOverdate { get; set; }
+        public string SDO { get; set; }
+
+        public DateTime ShipmenthandOverdate { get; set; }
 
 
 

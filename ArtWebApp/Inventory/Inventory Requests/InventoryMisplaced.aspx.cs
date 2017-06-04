@@ -74,10 +74,13 @@ namespace ArtWebApp.Inventory.Inventory_Requests
 
       ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
 
+            MessageBoxShow(msg);
+    }
 
+        public void MessageBoxShow(String msg)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + msg + "');", true);
         }
-
-
 
 
         public BLL.InventoryBLL.DeliveryOrderMasterData GetDoMasterData()

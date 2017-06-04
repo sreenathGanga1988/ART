@@ -393,7 +393,37 @@
        }
 
     
+       function DeletePlanRemark(objref) {
+           debugger
+           var retVal = confirm("Do you want to continue  Deleting Ratio ?");
+           if (retVal == true) {
 
+               var GridView = objref.parentNode.parentNode;
+
+               alert(GridView);
+               var textboxs = GridView.getElementsByClassName("lbl_CutOrderDet_PKforedit")[0].innerHTML;
+               
+
+               var planpk = objref.innerHTML;
+
+               PageMethods.DeletePlanAysnc(textboxs, onSucess, onError);
+               function onSucess(result) {
+                   alert(result);
+                   objref.innerHTML = objref.innerHTML.strike();
+                   objref.innerHTML = objref.innerHTML.fontcolor("red");
+               }
+               function onError(result) {
+                   alert('Something wrong.');
+               }
+           }
+           else {
+
+           }
+
+
+
+
+       }
 
 
 </script>
@@ -541,7 +571,7 @@
                                                         <asp:TemplateField HeaderText="PK" InsertVisible="False" SortExpression="CutPlanMarkerDetails_PK">
                                                           
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lbl_CutOrderDet_PK" runat="server" Text='<%# Bind("CutPlanMarkerDetails_PK") %>'></asp:Label>
+                                                                <asp:Label ID="lbl_CutOrderDet_PK" CssClass="lbl_CutOrderDet_PKforedit" runat="server" Text='<%# Bind("CutPlanMarkerDetails_PK") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="MarkerNo" SortExpression="MarkerNo">
@@ -627,7 +657,15 @@
                                                                  </ItemTemplate>
                                                              </asp:TemplateField>
                                                  <asp:ButtonField CommandName="Delete" Text="Delete" ButtonType="Button" />
-                                                    </Columns>
+                                                  
+                                                          <asp:TemplateField HeaderText="Delete">
+                                                   
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="PlanRemark_PK"  onclick= "DeletePlanRemark(this)" runat="server" Text="Delete" ></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                                        
+                                                          </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
                                     <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />

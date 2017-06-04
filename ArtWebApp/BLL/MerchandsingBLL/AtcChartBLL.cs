@@ -946,6 +946,7 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
                 foreach (var element in q)
                 {
                     element.IsDeleted = "Y";
+                    element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 }
                 enty.SaveChanges();
                 asqshuffle = "Sucessfully Deleted";
@@ -1004,6 +1005,28 @@ GROUP BY ShippingDocumentMaster.ShipDocNum");
             }
 
             return sucess;
+        }
+
+
+        public String DeleteRemark(int prpl_pk)
+        {
+            string asqshuffle = "Error";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ppl in enty.PlaningRemarkMasters
+                        where ppl.PlanRemark_PK == prpl_pk
+                        select ppl;
+
+                foreach (var element in q)
+                {
+                    element.IsDeleted = "Y";
+                    element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                }
+                enty.SaveChanges();
+                asqshuffle = "Sucessfully Deleted";
+            }
+
+            return asqshuffle;
         }
     }
 

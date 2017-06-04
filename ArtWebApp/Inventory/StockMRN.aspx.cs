@@ -89,7 +89,16 @@ namespace ArtWebApp.Inventory
             prrrcpt.smrnmstrdata = getSMRNMasterData();
             prrrcpt.StockMRNDetailsDataCollection = GetMRnDetailsData();
 
-            mrnum = prrrcpt.InsertSMRNData(prrrcpt);
+
+            if(lbl_country.Text.Trim()!="UAE"&& lbl_potype.Text.Trim()=="IPO")
+            {
+                mrnum = prrrcpt.InsertSMRNDataIPO(prrrcpt);
+            }
+            else
+            {
+                mrnum = prrrcpt.InsertSMRNData(prrrcpt);
+            }
+          
 
 
             String msg = "MRN # : " + mrnum + " is generated Sucessfully";

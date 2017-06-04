@@ -35,7 +35,9 @@ namespace ArtWebApp.Production.Schedular
             lbl_fromdate.Text = startDate.ToString();
             lbl_todate.Text = endDate.ToString();
             getPOData();
+            getPendingASQData();
             showstatus(year.ToString(), month);
+            
 
         }
 
@@ -140,7 +142,50 @@ HAVING        (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(P
         }
 
 
+        public void getPendingASQData()
+        {
 
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"Select COUNT(PoPackId) from (SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
+FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
+                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
+                                 FROM            ShipmentHandOverDetails INNER JOIN
+                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
+                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
+                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate, MAX(POPackDetails.IsShortClosed) AS Expr1
+FROM PoPackMaster INNER JOIN
+                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+GROUP BY PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, POPackDetails.OurStyleID, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate
+HAVING(PoPackMaster.HandoverDate < @param1) AND(MIN(POPackDetails.IsShortClosed) = N'N') ) AS tt
+WHERE(POQty - ShipedQty > 0)
+)tt";
+
+                cmd.Parameters.AddWithValue("@param1", DateTime.Parse(lbl_fromdate.Text.ToString()));
+                
+
+               var count= QueryFunctions.ReturnQueryValue(cmd);
+
+                int pending = 0;
+
+
+                try
+                {
+                    pending = int.Parse(count.ToString());
+                }
+                catch (Exception)
+                {
+
+                   
+                }
+
+                lbl_pendingASQ.Text = pending.ToString();
+            }
+
+        }
 
 
 

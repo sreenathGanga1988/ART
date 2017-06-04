@@ -1586,8 +1586,55 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
 
 
 
+        public String DeleteCutOrderMarkerSizeData( int CutPlanMarkerDetails_PK)
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
 
+
+
+                var q1 = from cutplanmarksize in enty.CutPlanMarkerSizeDetails
+                         where cutplanmarksize.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK
+                         select cutplanmarksize;
+                foreach (var element1 in q1)
+                {
+
+                    enty.CutPlanMarkerSizeDetails.Remove(element1);
+                }
+                enty.SaveChanges();
+                var q = from cutplandet in enty.CutPlanMarkerDetails
+                            where cutplandet.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK
+                            select cutplandet;
+
+               foreach (var element in q)
+               {
+
+                    enty.CutPlanMarkerDetails.Remove(element);
+
+                }
+                   
+                       
+
+                    
+                    enty.SaveChanges();
+                }    
+
+               
+
+
+
+
+               
+
+
+
+         
+
+            return Cutn;
+
+        }
 
 
 

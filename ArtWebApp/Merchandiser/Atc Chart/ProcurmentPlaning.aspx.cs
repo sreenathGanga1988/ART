@@ -173,7 +173,11 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         protected void ShowRawmaterialBOM_Click(object sender, EventArgs e)
         {
             DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
+
+            DataTable Remarkdata = BLL.FactoryAtcChart.GetPlanningRemark(int.Parse(cmb_atc.SelectedValue.ToString()));
+
             ViewState["ProPlandata"] = procurementplandata;
+            ViewState["Remarkdata"] = Remarkdata;
             ArrayList popaklist = new ArrayList();
             List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_rmnum.SelectedItems;
             foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
@@ -286,11 +290,27 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                 }
 
 
+                try
+                {
+                    
+                        DataTable dt5 = (DataTable)(ViewState["Remarkdata"]);
+                        DataTable cutordertemp = dt5.Select("Skudet_Pk=" + skudetpk).CopyToDataTable();
+
+                        GridView tbl_Remark = (e.Row.FindControl("tbl_Remark") as GridView);
+                        tbl_Remark.DataSource = cutordertemp;
+                        tbl_Remark.DataBind();
+                    
+                }
+                catch (Exception)
+                {
+
+
+                }
 
                 
 
 
-                   
+
             }
         }
 
@@ -473,6 +493,14 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             return pbll.DeletePlaning(Planid); ;
         }
 
+
+        [WebMethod]
+        public static string DeleteRemarkAysnc(int Planid)
+        {
+            ProcurementplanRemarkData pbll = new ProcurementplanRemarkData();
+
+            return pbll.DeleteRemark(Planid); ;
+        }
 
 
 

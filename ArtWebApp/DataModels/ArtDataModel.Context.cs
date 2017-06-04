@@ -106,7 +106,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<POCurrExRate> POCurrExRates { get; set; }
         public virtual DbSet<ProcurementDetail> ProcurementDetails { get; set; }
         public virtual DbSet<ProcurementMaster> ProcurementMasters { get; set; }
-        public virtual DbSet<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
         public virtual DbSet<ProductionReportDetail> ProductionReportDetails { get; set; }
         public virtual DbSet<RecieptMaster> RecieptMasters { get; set; }
         public virtual DbSet<RequestOrderDetail> RequestOrderDetails { get; set; }
@@ -173,9 +172,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SupportTicket> SupportTickets { get; set; }
         public virtual DbSet<StyleSize> StyleSizes { get; set; }
         public virtual DbSet<StocPOForODOO> StocPOForODOOs { get; set; }
-        public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
         public virtual DbSet<InventoryMissingRequest> InventoryMissingRequests { get; set; }
-        public virtual DbSet<PlaningRemarkMaster> PlaningRemarkMasters { get; set; }
         public virtual DbSet<ASQAllocationMaster> ASQAllocationMasters { get; set; }
         public virtual DbSet<SupplierInvoiceMaster> SupplierInvoiceMasters { get; set; }
         public virtual DbSet<SupplierStockInvoiceMaster> SupplierStockInvoiceMasters { get; set; }
@@ -192,7 +189,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<RollInventoryMaster> RollInventoryMasters { get; set; }
         public virtual DbSet<LaySheetRollMaster> LaySheetRollMasters { get; set; }
         public virtual DbSet<LockedASQDetail> LockedASQDetails { get; set; }
-        public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
         public virtual DbSet<AtcMaster> AtcMasters { get; set; }
         public virtual DbSet<YearMonthMaster> YearMonthMasters { get; set; }
         public virtual DbSet<POPackDetail> POPackDetails { get; set; }
@@ -204,6 +200,11 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SalesDebitNoteMaster> SalesDebitNoteMasters { get; set; }
         public virtual DbSet<CutPlanRollDetail> CutPlanRollDetails { get; set; }
         public virtual DbSet<FabricRollmaster> FabricRollmasters { get; set; }
+        public virtual DbSet<PlaningRemarkMaster> PlaningRemarkMasters { get; set; }
+        public virtual DbSet<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
+        public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
+        public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
+        public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

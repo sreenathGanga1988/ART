@@ -136,6 +136,9 @@
         <td class="NormalTD">
                 <asp:Button ID="btn_showCutplam" runat="server" Font-Size="Smaller" OnClick="btn_showCutplam_Click" Text="Show Cut Plan Report" />
             </td>
+             <td class="NormalTD">
+                <asp:Button ID="btn_showCutplanRoll" runat="server" Font-Size="Smaller" Text="Show Cut Plan Report With Roll" OnClick="btn_showCutplanRoll_Click" />
+            </td>
             <td>
                 &nbsp;</td>
             <td >&nbsp;</td>

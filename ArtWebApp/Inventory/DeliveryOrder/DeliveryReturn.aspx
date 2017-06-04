@@ -13,7 +13,7 @@
 <table class="DataEntryTable">
                 <tr>
                     <td class="RedHeadding" colspan="9">
-                        delivery Return(Fabric &amp; Trims)(fw)</td>
+                        delivery Return( Trims)(fw)</td>
                 </tr>
                 <tr>
                     <td class="NormalTD">

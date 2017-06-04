@@ -284,5 +284,11 @@ namespace ArtWebApp.Reports
            
 
         }
+
+        protected void btn_showCutplanRoll_Click(object sender, EventArgs e)
+        {
+            Session["cutpkrpt"] = int.Parse(drp_cutplan.SelectedValue.ToString());
+            Response.Redirect("~/Reports/Production/CutPlanHtmlReportWithRoll.aspx");
+        }
     }
 }

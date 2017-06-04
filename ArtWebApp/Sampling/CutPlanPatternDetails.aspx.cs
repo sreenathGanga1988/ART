@@ -156,6 +156,7 @@ namespace ArtWebApp.Sampling
             fillsmalltable();
             tbl_markertype.DataSource = cutplanmarkertypedata;
             tbl_markertype.DataBind();
+            upd_markertype.Update();
             upd_grid.Update();
         }
 

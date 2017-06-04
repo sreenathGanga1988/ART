@@ -7,46 +7,73 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArtWebApp.Reports {
+namespace ArtWebApp.Inventory.DeliveryOrder {
     
     
-    public partial class AtcCrystalReporter {
+    public partial class DeliveryReturnFabricAgainstCutOrder {
         
         /// <summary>
-        /// Upd_atc control.
+        /// cmb_atc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Upd_atc;
+        protected global::CustomDropDown.DropDownListChosen cmb_atc;
         
         /// <summary>
-        /// drp_Atc control.
+        /// btn_confirmAtc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_Atc;
+        protected global::System.Web.UI.WebControls.Button btn_confirmAtc;
         
         /// <summary>
-        /// UpdatePanel5 control.
+        /// dtp_dodate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_dodate;
         
         /// <summary>
-        /// Button4 control.
+        /// txt_BOE_no control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button4;
+        protected global::System.Web.UI.WebControls.TextBox txt_BOE_no;
+        
+        /// <summary>
+        /// txt_containernum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_containernum;
+        
+        /// <summary>
+        /// drp_ToWarehouse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_ToWarehouse;
+        
+        /// <summary>
+        /// drp_deliverymode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_deliverymode;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -58,165 +85,156 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// btn_showApproved control.
+        /// tbl_InverntoryDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_showApproved;
+        protected global::System.Web.UI.WebControls.GridView tbl_InverntoryDetails;
         
         /// <summary>
-        /// UpdatePanel6 control.
+        /// Upd_roll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        protected global::System.Web.UI.UpdatePanel Upd_roll;
         
         /// <summary>
-        /// btn_showApprovedcutplan control.
+        /// ModalPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_showApprovedcutplan;
+        protected global::System.Web.UI.WebControls.Panel ModalPanel;
         
         /// <summary>
-        /// btn_showApprovedcutplan0 control.
+        /// upd_shade control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_showApprovedcutplan0;
+        protected global::System.Web.UI.UpdatePanel upd_shade;
         
         /// <summary>
-        /// Upd_ourstyle control.
+        /// drp_shade control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Upd_ourstyle;
+        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_shade;
         
         /// <summary>
-        /// drp_ourstyle control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_ourstyle;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// UPD_COLOR control.
+        /// lbl_shringagegroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UPD_COLOR;
+        protected global::System.Web.UI.WebControls.Label lbl_shringagegroup;
         
         /// <summary>
-        /// ddl_color control.
+        /// lbl_widthgroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen ddl_color;
+        protected global::System.Web.UI.WebControls.Label lbl_widthgroup;
         
         /// <summary>
-        /// Button7 control.
+        /// lbl_markerType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.Label lbl_markerType;
         
         /// <summary>
-        /// Upd_costing control.
+        /// tbl_rolldata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Upd_costing;
+        protected global::System.Web.UI.WebControls.GridView tbl_rolldata;
         
         /// <summary>
-        /// drp_costingpk control.
+        /// btn_confirmRolls control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_costingpk;
+        protected global::System.Web.UI.WebControls.Button btn_confirmRolls;
         
         /// <summary>
-        /// Button5 control.
+        /// btn_cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
+        protected global::System.Web.UI.WebControls.Button btn_cancel;
         
         /// <summary>
-        /// Button8 control.
+        /// btn_saveDO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button8;
+        protected global::System.Web.UI.WebControls.Button btn_saveDO;
         
         /// <summary>
-        /// upd_cutplan control.
+        /// Messaediv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_cutplan;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Messaediv;
         
         /// <summary>
-        /// drp_cutplan control.
+        /// lbl_msg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_cutplan;
+        protected global::System.Web.UI.WebControls.Label lbl_msg;
         
         /// <summary>
-        /// btn_showCutplam control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_showCutplam;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// btn_showCutplanRoll control.
+        /// SqlDataSource2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_showCutplanRoll;
-        
-        /// <summary>
-        /// ReportViewer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
     }
 }

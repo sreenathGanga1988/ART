@@ -145,6 +145,36 @@
           <Property Name="TemplateCount" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsGD" Type="nchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="ATCWorldToArtShipData">
+          <Key>
+            <PropertyRef Name="ArtShipID" />
+          </Key>
+          <Property Name="ArtShipID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ATCWorldLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LocationName" Type="varchar" MaxLength="150" />
+          <Property Name="PackingIns" Type="varchar" MaxLength="150" />
+          <Property Name="SDONo" Type="varchar" MaxLength="50" />
+          <Property Name="Mode" Type="varchar" MaxLength="100" />
+          <Property Name="PLID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ShipmentDate" Type="datetime" />
+          <Property Name="HandOverDate" Type="datetime" />
+          <Property Name="BuyerID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Atc_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Season_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerStyle" Type="varchar" MaxLength="150" />
+          <Property Name="CategoryID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="POPackID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Totalcarton" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ShipQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsBooked" Type="nchar" MaxLength="10" />
+          <Property Name="BookedDate" Type="datetime" />
+          <Property Name="BookedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="BankMaster">
           <Key>
             <PropertyRef Name="Bank_PK" />
@@ -1044,6 +1074,8 @@
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CM" Type="numeric" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="JobContractOptionalDetail">
           <Key>
@@ -1361,6 +1393,7 @@
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="POApproval">
           <Key>
@@ -1487,6 +1520,7 @@
           <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ProductionReportDetails">
           <Key>
@@ -1790,6 +1824,7 @@
           <Property Name="ShipmentHandMaster_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="POPackId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SDONum" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ShipmentHandOverMaster">
           <Key>
@@ -4978,6 +5013,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="AtcDetails" EntityType="Self.AtcDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtcMaster" EntityType="Self.AtcMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtcRawMaterialMaster" EntityType="Self.AtcRawMaterialMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ATCWorldToArtShipData" EntityType="Self.ATCWorldToArtShipData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankMaster" EntityType="Self.BankMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BodyPartMaster" EntityType="Self.BodyPartMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuyerDestinationMaster" EntityType="Self.BuyerDestinationMaster" Schema="dbo" store:Type="Tables" />
@@ -6118,7 +6154,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="POCurrExRates" EntityType="ArtModel.POCurrExRate" />
           <EntitySet Name="ProcurementDetails" EntityType="ArtModel.ProcurementDetail" />
           <EntitySet Name="ProcurementMasters" EntityType="ArtModel.ProcurementMaster" />
-          <EntitySet Name="ProcurmentPlanDetails" EntityType="ArtModel.ProcurmentPlanDetail" />
           <EntitySet Name="ProductionReportDetails" EntityType="ArtModel.ProductionReportDetail" />
           <EntitySet Name="RecieptMasters" EntityType="ArtModel.RecieptMaster" />
           <EntitySet Name="RequestOrderDetails" EntityType="ArtModel.RequestOrderDetail" />
@@ -6581,10 +6616,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="ProcurementMaster" EntitySet="ProcurementMasters" />
             <End Role="WrongPOMaster" EntitySet="WrongPOMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProcurmentPlanDetails_SkuRawmaterialDetail" Association="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail">
-            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
-            <End Role="ProcurmentPlanDetail" EntitySet="ProcurmentPlanDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_RecieptMaster_SupplierMaster" Association="ArtModel.FK_RecieptMaster_SupplierMaster">
             <End Role="SupplierMaster" EntitySet="SupplierMasters" />
             <End Role="RecieptMaster" EntitySet="RecieptMasters" />
@@ -6749,21 +6780,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="SupportTickets" EntityType="ArtModel.SupportTicket" />
           <EntitySet Name="StyleSizes" EntityType="ArtModel.StyleSize" />
           <EntitySet Name="StocPOForODOOs" EntityType="ArtModel.StocPOForODOO" />
-          <EntitySet Name="JobContractMasters" EntityType="ArtModel.JobContractMaster" />
-          <AssociationSet Name="FK_JobContractDetail_JobContractMaster" Association="ArtModel.FK_JobContractDetail_JobContractMaster">
-            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
-            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_JobContractMaster_JobContractMaster" Association="ArtModel.FK_JobContractMaster_JobContractMaster">
-            <End Role="LocationMaster" EntitySet="LocationMasters" />
-            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
-          </AssociationSet>
           <EntitySet Name="InventoryMissingRequests" EntityType="ArtModel.InventoryMissingRequest" />
           <AssociationSet Name="FK_InventoryMissingDetails_InventoryMissingRequest" Association="ArtModel.FK_InventoryMissingDetails_InventoryMissingRequest">
             <End Role="InventoryMissingRequest" EntitySet="InventoryMissingRequests" />
             <End Role="InventoryMissingDetail" EntitySet="InventoryMissingDetails" />
           </AssociationSet>
-          <EntitySet Name="PlaningRemarkMasters" EntityType="ArtModel.PlaningRemarkMaster" />
           <EntitySet Name="ASQAllocationMasters" EntityType="ArtModel.ASQAllocationMaster" />
           <EntitySet Name="SupplierInvoiceMasters" EntityType="ArtModel.SupplierInvoiceMaster" />
           <AssociationSet Name="FK_SupplierInvoiceDetails_SupplierInvoiceMaster" Association="ArtModel.FK_SupplierInvoiceDetails_SupplierInvoiceMaster">
@@ -6872,15 +6893,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="RollInventoryMasters" EntityType="ArtModel.RollInventoryMaster" />
           <EntitySet Name="LaySheetRollMasters" EntityType="ArtModel.LaySheetRollMaster" />
           <EntitySet Name="LockedASQDetails" EntityType="ArtModel.LockedASQDetail" />
-          <EntitySet Name="ShipmentHandOverDetails" EntityType="ArtModel.ShipmentHandOverDetail" />
-          <AssociationSet Name="FK_ShipmentHandOverDetails_JobContractDetail" Association="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail">
-            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
-            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster" Association="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
-            <End Role="ShipmentHandOverMaster" EntitySet="ShipmentHandOverMasters" />
-            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
-          </AssociationSet>
           <EntitySet Name="AtcMasters" EntityType="ArtModel.AtcMaster" />
           <AssociationSet Name="FK_AtcMaster_CountryMaster" Association="ArtModel.FK_AtcMaster_CountryMaster">
             <End Role="CountryMaster" EntitySet="CountryMasters" />
@@ -6897,10 +6909,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <AssociationSet Name="FK_DeliveryOrderMaster_AtcMaster" Association="ArtModel.FK_DeliveryOrderMaster_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMasters" />
             <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_JobContractMaster_AtcMaster" Association="ArtModel.FK_JobContractMaster_AtcMaster">
-            <End Role="AtcMaster" EntitySet="AtcMasters" />
-            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_JobContractOptionalMaster_AtcMaster" Association="ArtModel.FK_JobContractOptionalMaster_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMasters" />
@@ -7004,6 +7012,35 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="FabricRollmaster" EntitySet="FabricRollmasters" />
             <End Role="RollInventoryMaster" EntitySet="RollInventoryMasters" />
           </AssociationSet>
+          <EntitySet Name="PlaningRemarkMasters" EntityType="ArtModel.PlaningRemarkMaster" />
+          <EntitySet Name="ProcurmentPlanDetails" EntityType="ArtModel.ProcurmentPlanDetail" />
+          <AssociationSet Name="FK_ProcurmentPlanDetails_SkuRawmaterialDetail" Association="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail">
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
+            <End Role="ProcurmentPlanDetail" EntitySet="ProcurmentPlanDetails" />
+          </AssociationSet>
+          <EntitySet Name="JobContractMasters" EntityType="ArtModel.JobContractMaster" />
+          <AssociationSet Name="FK_JobContractMaster_AtcMaster" Association="ArtModel.FK_JobContractMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobContractDetail_JobContractMaster" Association="ArtModel.FK_JobContractDetail_JobContractMaster">
+            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
+            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobContractMaster_JobContractMaster" Association="ArtModel.FK_JobContractMaster_JobContractMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="JobContractMaster" EntitySet="JobContractMasters" />
+          </AssociationSet>
+          <EntitySet Name="ShipmentHandOverDetails" EntityType="ArtModel.ShipmentHandOverDetail" />
+          <AssociationSet Name="FK_ShipmentHandOverDetails_JobContractDetail" Association="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail">
+            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
+            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster" Association="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
+            <End Role="ShipmentHandOverMaster" EntitySet="ShipmentHandOverMasters" />
+            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
+          </AssociationSet>
+          <EntitySet Name="ATCWorldToArtShipDatas" EntityType="ArtModel.ATCWorldToArtShipData" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -8330,8 +8367,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="CMvalue" Type="Decimal" Precision="18" Scale="4" />
           <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_JobContractDetail_AtcDetails" FromRole="JobContractDetail" ToRole="AtcDetail" />
           <NavigationProperty Name="ProductionReportDetails" Relationship="ArtModel.FK_ProductionReportDetails_JobContractDetail" FromRole="JobContractDetail" ToRole="ProductionReportDetail" />
-          <NavigationProperty Name="JobContractMaster" Relationship="ArtModel.FK_JobContractDetail_JobContractMaster" FromRole="JobContractDetail" ToRole="JobContractMaster" />
           <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_JobContractDetail_PoPackMaster" FromRole="JobContractDetail" ToRole="PoPackMaster" />
+          <NavigationProperty Name="JobContractMaster" Relationship="ArtModel.FK_JobContractDetail_JobContractMaster" FromRole="JobContractDetail" ToRole="JobContractMaster" />
           <NavigationProperty Name="ShipmentHandOverDetails" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="JobContractDetail" ToRole="ShipmentHandOverDetail" />
         </EntityType>
         <EntityType Name="JobContractOptionalDetail">
@@ -8462,9 +8499,9 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="StockRecieptMasters" Relationship="ArtModel.FK_StockRecieptMaster_LocationMaster" FromRole="LocationMaster" ToRole="StockRecieptMaster" />
           <NavigationProperty Name="StockSDocMasters" Relationship="ArtModel.FK_StockSDocMaster_LocationMaster" FromRole="LocationMaster" ToRole="StockSDocMaster" />
           <NavigationProperty Name="TransferToGstockMasters" Relationship="ArtModel.FK_TransferToGstockMaster_LocationMaster" FromRole="LocationMaster" ToRole="TransferToGstockMaster" />
-          <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="LocationMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_LocationMaster" FromRole="LocationMaster" ToRole="CutPlanMaster" />
           <NavigationProperty Name="DocMasters" Relationship="ArtModel.FK_DocMaster_LocationMaster" FromRole="LocationMaster" ToRole="DocMaster" />
+          <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="LocationMaster" ToRole="JobContractMaster" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -8643,19 +8680,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="IsNormal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ProcurementDetails" Relationship="ArtModel.FK_ProcurementDetails_ProcurementMaster" FromRole="ProcurementMaster" ToRole="ProcurementDetail" />
           <NavigationProperty Name="WrongPOMasters" Relationship="ArtModel.FK_WrongPOMaster_ProcurementMaster" FromRole="ProcurementMaster" ToRole="WrongPOMaster" />
-        </EntityType>
-        <EntityType Name="ProcurmentPlanDetail">
-          <Key>
-            <PropertyRef Name="ProcPlan_PK" />
-          </Key>
-          <Property Name="ProcPlan_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Skudet_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ETADate" Type="DateTime" Precision="3" />
-          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="ProcurmentPlanDetail" ToRole="SkuRawmaterialDetail" />
-          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="ProductionReportDetail">
           <Key>
@@ -8996,10 +9020,10 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="InventoryMasters" Relationship="ArtModel.FK_InventoryMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="InventoryMaster" />
           <NavigationProperty Name="MrnDetails" Relationship="ArtModel.FK_MrnDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="MrnDetail" />
           <NavigationProperty Name="ProcurementDetails" Relationship="ArtModel.FK_ProcurementDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ProcurementDetail" />
-          <NavigationProperty Name="ProcurmentPlanDetails" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ProcurmentPlanDetail" />
           <NavigationProperty Name="TransferToGstockDetails" Relationship="ArtModel.FK_TransferToGstockDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="TransferToGstockDetail" />
           <NavigationProperty Name="SkuRawMaterialMaster" Relationship="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster" FromRole="SkuRawmaterialDetail" ToRole="SkuRawMaterialMaster" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutPlanMaster" />
+          <NavigationProperty Name="ProcurmentPlanDetails" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ProcurmentPlanDetail" />
         </EntityType>
         <EntityType Name="StockGoodsInTransit">
           <Key>
@@ -10754,18 +10778,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProcurmentPlanDetails_SkuRawmaterialDetail">
-          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.ProcurmentPlanDetail" Role="ProcurmentPlanDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkuRawmaterialDetail">
-              <PropertyRef Name="SkuDet_PK" />
-            </Principal>
-            <Dependent Role="ProcurmentPlanDetail">
-              <PropertyRef Name="Skudet_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RecieptMaster_SupplierMaster">
           <End Type="ArtModel.SupplierMaster" Role="SupplierMaster" Multiplicity="0..1" />
           <End Type="ArtModel.RecieptMaster" Role="RecieptMaster" Multiplicity="*" />
@@ -11386,45 +11398,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="SupplierName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="OdooLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="JobContractMaster">
-          <Key>
-            <PropertyRef Name="JobContract_pk" />
-          </Key>
-          <Property Name="JobContract_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JOBContractNUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Location_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="JobContractDetails" Relationship="ArtModel.FK_JobContractDetail_JobContractMaster" FromRole="JobContractMaster" ToRole="JobContractDetail" />
-          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="JobContractMaster" ToRole="LocationMaster" />
-          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="JobContractMaster" ToRole="AtcMaster" />
-        </EntityType>
-        <Association Name="FK_JobContractDetail_JobContractMaster">
-          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JobContractMaster">
-              <PropertyRef Name="JobContract_pk" />
-            </Principal>
-            <Dependent Role="JobContractDetail">
-              <PropertyRef Name="JobContract_pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_JobContractMaster_JobContractMaster">
-          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="JobContractMaster">
-              <PropertyRef Name="Location_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="InventoryMissingRequest">
           <Key>
             <PropertyRef Name="MisplaceApp_pk" />
@@ -11455,17 +11428,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PlaningRemarkMaster">
-          <Key>
-            <PropertyRef Name="PlanRemark_PK" />
-          </Key>
-          <Property Name="PlanRemark_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="ASQAllocationMaster">
           <Key>
             <PropertyRef Name="ASQAllocation_PK" />
@@ -12056,46 +12018,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="Year" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
-        <EntityType Name="ShipmentHandOverDetail">
-          <Key>
-            <PropertyRef Name="ShipmentHandOver_PK" />
-          </Key>
-          <Property Name="ShipmentHandOver_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobContractDetail_pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ShippedQty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="ShipmentHandOverDate" Type="DateTime" Precision="3" />
-          <Property Name="ShipmentHandMaster_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="ShipmentHandOverDetail" ToRole="JobContractDetail" />
-          <NavigationProperty Name="ShipmentHandOverMaster" Relationship="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" FromRole="ShipmentHandOverDetail" ToRole="ShipmentHandOverMaster" />
-        </EntityType>
-        <Association Name="FK_ShipmentHandOverDetails_JobContractDetail">
-          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JobContractDetail">
-              <PropertyRef Name="JobContractDetail_pk" />
-            </Principal>
-            <Dependent Role="ShipmentHandOverDetail">
-              <PropertyRef Name="JobContractDetail_pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
-          <End Type="ArtModel.ShipmentHandOverMaster" Role="ShipmentHandOverMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShipmentHandOverMaster">
-              <PropertyRef Name="ShipmentHandMaster_PK" />
-            </Principal>
-            <Dependent Role="ShipmentHandOverDetail">
-              <PropertyRef Name="ShipmentHandMaster_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AtcMaster">
           <Key>
             <PropertyRef Name="AtcId" />
@@ -12121,13 +12043,13 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="AtcRawMaterialMasters" Relationship="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" FromRole="AtcMaster" ToRole="AtcRawMaterialMaster" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="DeliveryOrderMaster" />
-          <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="JobContractOptionalMasters" Relationship="ArtModel.FK_JobContractOptionalMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractOptionalMaster" />
           <NavigationProperty Name="PackingListMasters" Relationship="ArtModel.FK_PackingListMaster_AtcMaster" FromRole="AtcMaster" ToRole="PackingListMaster" />
           <NavigationProperty Name="PoPackMasters" Relationship="ArtModel.FK_PoPackMaster_AtcMaster" FromRole="AtcMaster" ToRole="PoPackMaster" />
           <NavigationProperty Name="RequestOrderMasters" Relationship="ArtModel.FK_RequestOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="RequestOrderMaster" />
           <NavigationProperty Name="RequestOrderStockMasters" Relationship="ArtModel.FK_RequestOrderStockMaster_AtcMaster" FromRole="AtcMaster" ToRole="RequestOrderStockMaster" />
           <NavigationProperty Name="SkuRawMaterialMasters" Relationship="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl" FromRole="AtcMaster" ToRole="SkuRawMaterialMaster" />
+          <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractMaster" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -12173,18 +12095,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               <PropertyRef Name="AtcId" />
             </Principal>
             <Dependent Role="DeliveryOrderMaster">
-              <PropertyRef Name="AtcID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_JobContractMaster_AtcMaster">
-          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtcMaster">
-              <PropertyRef Name="AtcId" />
-            </Principal>
-            <Dependent Role="JobContractMaster">
               <PropertyRef Name="AtcID" />
             </Dependent>
           </ReferentialConstraint>
@@ -12678,6 +12588,168 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PlaningRemarkMaster">
+          <Key>
+            <PropertyRef Name="PlanRemark_PK" />
+          </Key>
+          <Property Name="PlanRemark_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProcurmentPlanDetail">
+          <Key>
+            <PropertyRef Name="ProcPlan_PK" />
+          </Key>
+          <Property Name="ProcPlan_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Skudet_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ETADate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="ProcurmentPlanDetail" ToRole="SkuRawmaterialDetail" />
+        </EntityType>
+        <Association Name="FK_ProcurmentPlanDetails_SkuRawmaterialDetail">
+          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ProcurmentPlanDetail" Role="ProcurmentPlanDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawmaterialDetail">
+              <PropertyRef Name="SkuDet_PK" />
+            </Principal>
+            <Dependent Role="ProcurmentPlanDetail">
+              <PropertyRef Name="Skudet_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobContractMaster">
+          <Key>
+            <PropertyRef Name="JobContract_pk" />
+          </Key>
+          <Property Name="JobContract_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JOBContractNUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CM" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="JobContractMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="JobContractDetails" Relationship="ArtModel.FK_JobContractDetail_JobContractMaster" FromRole="JobContractMaster" ToRole="JobContractDetail" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="JobContractMaster" ToRole="LocationMaster" />
+        </EntityType>
+        <Association Name="FK_JobContractMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="JobContractMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobContractDetail_JobContractMaster">
+          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobContractMaster">
+              <PropertyRef Name="JobContract_pk" />
+            </Principal>
+            <Dependent Role="JobContractDetail">
+              <PropertyRef Name="JobContract_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobContractMaster_JobContractMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.JobContractMaster" Role="JobContractMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="JobContractMaster">
+              <PropertyRef Name="Location_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShipmentHandOverDetail">
+          <Key>
+            <PropertyRef Name="ShipmentHandOver_PK" />
+          </Key>
+          <Property Name="ShipmentHandOver_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobContractDetail_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShippedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipmentHandOverDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipmentHandMaster_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SDONum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="ShipmentHandOverDetail" ToRole="JobContractDetail" />
+          <NavigationProperty Name="ShipmentHandOverMaster" Relationship="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" FromRole="ShipmentHandOverDetail" ToRole="ShipmentHandOverMaster" />
+        </EntityType>
+        <Association Name="FK_ShipmentHandOverDetails_JobContractDetail">
+          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobContractDetail">
+              <PropertyRef Name="JobContractDetail_pk" />
+            </Principal>
+            <Dependent Role="ShipmentHandOverDetail">
+              <PropertyRef Name="JobContractDetail_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
+          <End Type="ArtModel.ShipmentHandOverMaster" Role="ShipmentHandOverMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShipmentHandOverMaster">
+              <PropertyRef Name="ShipmentHandMaster_PK" />
+            </Principal>
+            <Dependent Role="ShipmentHandOverDetail">
+              <PropertyRef Name="ShipmentHandMaster_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ATCWorldToArtShipData">
+          <Key>
+            <PropertyRef Name="ArtShipID" />
+          </Key>
+          <Property Name="ArtShipID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ATCWorldLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocationName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PackingIns" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SDONo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PLID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="HandOverDate" Type="DateTime" Precision="3" />
+          <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atc_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Season_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerStyle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Totalcarton" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShipQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsBooked" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BookedDate" Type="DateTime" Precision="3" />
+          <Property Name="BookedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14253,19 +14325,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProcurmentPlanDetails">
-            <EntityTypeMapping TypeName="ArtModel.ProcurmentPlanDetail">
-              <MappingFragment StoreEntitySet="ProcurmentPlanDetails">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
-                <ScalarProperty Name="ETADate" ColumnName="ETADate" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Skudet_Pk" ColumnName="Skudet_Pk" />
-                <ScalarProperty Name="ProcPlan_PK" ColumnName="ProcPlan_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductionReportDetails">
             <EntityTypeMapping TypeName="ArtModel.ProductionReportDetail">
               <MappingFragment StoreEntitySet="ProductionReportDetails">
@@ -15236,19 +15295,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="JobContractMasters">
-            <EntityTypeMapping TypeName="ArtModel.JobContractMaster">
-              <MappingFragment StoreEntitySet="JobContractMaster">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
-                <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
-                <ScalarProperty Name="JOBContractNUM" ColumnName="JOBContractNUM" />
-                <ScalarProperty Name="JobContract_pk" ColumnName="JobContract_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="InventoryMissingRequests">
             <EntityTypeMapping TypeName="ArtModel.InventoryMissingRequest">
               <MappingFragment StoreEntitySet="InventoryMissingRequest">
@@ -15264,18 +15310,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="Atc_id" ColumnName="Atc_id" />
                 <ScalarProperty Name="FromLctn_pk" ColumnName="FromLctn_pk" />
                 <ScalarProperty Name="MisplaceApp_pk" ColumnName="MisplaceApp_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlaningRemarkMasters">
-            <EntityTypeMapping TypeName="ArtModel.PlaningRemarkMaster">
-              <MappingFragment StoreEntitySet="PlaningRemarkMaster">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
-                <ScalarProperty Name="PlanRemark_PK" ColumnName="PlanRemark_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -15578,21 +15612,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ShipmentHandOverDetails">
-            <EntityTypeMapping TypeName="ArtModel.ShipmentHandOverDetail">
-              <MappingFragment StoreEntitySet="ShipmentHandOverDetails">
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
-                <ScalarProperty Name="ShipmentHandMaster_PK" ColumnName="ShipmentHandMaster_PK" />
-                <ScalarProperty Name="ShipmentHandOverDate" ColumnName="ShipmentHandOverDate" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="ShippedQty" ColumnName="ShippedQty" />
-                <ScalarProperty Name="JobContractDetail_pk" ColumnName="JobContractDetail_pk" />
-                <ScalarProperty Name="ShipmentHandOver_PK" ColumnName="ShipmentHandOver_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AtcMasters">
             <EntityTypeMapping TypeName="ArtModel.AtcMaster">
               <MappingFragment StoreEntitySet="AtcMaster">
@@ -15815,6 +15834,95 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
                 <ScalarProperty Name="RollNum" ColumnName="RollNum" />
                 <ScalarProperty Name="Roll_PK" ColumnName="Roll_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaningRemarkMasters">
+            <EntityTypeMapping TypeName="ArtModel.PlaningRemarkMaster">
+              <MappingFragment StoreEntitySet="PlaningRemarkMaster">
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
+                <ScalarProperty Name="PlanRemark_PK" ColumnName="PlanRemark_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcurmentPlanDetails">
+            <EntityTypeMapping TypeName="ArtModel.ProcurmentPlanDetail">
+              <MappingFragment StoreEntitySet="ProcurmentPlanDetails">
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="ETADate" ColumnName="ETADate" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Skudet_Pk" ColumnName="Skudet_Pk" />
+                <ScalarProperty Name="ProcPlan_PK" ColumnName="ProcPlan_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobContractMasters">
+            <EntityTypeMapping TypeName="ArtModel.JobContractMaster">
+              <MappingFragment StoreEntitySet="JobContractMaster">
+                <ScalarProperty Name="CM" ColumnName="CM" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
+                <ScalarProperty Name="JOBContractNUM" ColumnName="JOBContractNUM" />
+                <ScalarProperty Name="JobContract_pk" ColumnName="JobContract_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShipmentHandOverDetails">
+            <EntityTypeMapping TypeName="ArtModel.ShipmentHandOverDetail">
+              <MappingFragment StoreEntitySet="ShipmentHandOverDetails">
+                <ScalarProperty Name="SDONum" ColumnName="SDONum" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="ShipmentHandMaster_PK" ColumnName="ShipmentHandMaster_PK" />
+                <ScalarProperty Name="ShipmentHandOverDate" ColumnName="ShipmentHandOverDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="ShippedQty" ColumnName="ShippedQty" />
+                <ScalarProperty Name="JobContractDetail_pk" ColumnName="JobContractDetail_pk" />
+                <ScalarProperty Name="ShipmentHandOver_PK" ColumnName="ShipmentHandOver_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ATCWorldToArtShipDatas">
+            <EntityTypeMapping TypeName="ArtModel.ATCWorldToArtShipData">
+              <MappingFragment StoreEntitySet="ATCWorldToArtShipData">
+                <ScalarProperty Name="BookedBy" ColumnName="BookedBy" />
+                <ScalarProperty Name="BookedDate" ColumnName="BookedDate" />
+                <ScalarProperty Name="IsBooked" ColumnName="IsBooked" />
+                <ScalarProperty Name="ShipQty" ColumnName="ShipQty" />
+                <ScalarProperty Name="Totalcarton" ColumnName="Totalcarton" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="POPackID" ColumnName="POPackID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="BuyerStyle" ColumnName="BuyerStyle" />
+                <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
+                <ScalarProperty Name="Season_PK" ColumnName="Season_PK" />
+                <ScalarProperty Name="Atc_Id" ColumnName="Atc_Id" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="HandOverDate" ColumnName="HandOverDate" />
+                <ScalarProperty Name="ShipmentDate" ColumnName="ShipmentDate" />
+                <ScalarProperty Name="PLID" ColumnName="PLID" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="SDONo" ColumnName="SDONo" />
+                <ScalarProperty Name="PackingIns" ColumnName="PackingIns" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="ATCWorldLocation_PK" ColumnName="ATCWorldLocation_PK" />
+                <ScalarProperty Name="ArtLocation_PK" ColumnName="ArtLocation_PK" />
+                <ScalarProperty Name="ArtShipID" ColumnName="ArtShipID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

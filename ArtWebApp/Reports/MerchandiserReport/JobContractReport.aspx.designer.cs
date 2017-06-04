@@ -58,6 +58,15 @@ namespace ArtWebApp.Reports.MerchandiserReport {
         protected global::System.Web.UI.WebControls.Button btn_showjc;
         
         /// <summary>
+        /// btn_jcnew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_jcnew;
+        
+        /// <summary>
         /// upl_rpt control.
         /// </summary>
         /// <remarks>
