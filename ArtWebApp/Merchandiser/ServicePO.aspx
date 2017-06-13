@@ -101,6 +101,14 @@
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
                     <tr>
+                        <td class="NormalTD">Remark</td>
+                        <td class="NormalTD" colspan="3">
+                            <asp:TextBox ID="txt_remark" runat="server" Height="60px" TextMode="MultiLine" Width="226px"></asp:TextBox>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+                    <tr>
                         <td class="NormalTD"></td>
                         <td class="NormalTD"></td>
                         <td class="NormalTD">

@@ -12,39 +12,39 @@ namespace ArtWebApp.BLL.InventoryBLL
     {
         public string LoanActionType = "";
         public LoanTransferData lftdata { get; set; }
-        public String  insertinvenloanmst(LoanTransferData inlmst)
+        public String insertinvenloanmst(LoanTransferData inlmst)
         {
             String LOANNUM = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
 
                 InventoryLoanMaster invloanmstr = new InventoryLoanMaster();
-                invloanmstr.FromSkudet_PK=inlmst.FromSkudet_PK;
-                    invloanmstr.FromIIT_Pk=inlmst.FromIIT_Pk;
-                    invloanmstr.ToSkuDet_PK = inlmst.ToSkuDet_PK;
-                    invloanmstr.LoanQty = inlmst.LoanQty;
-                    invloanmstr.UnitPrice = inlmst.UnitPrice;
-                    invloanmstr.PaidBackQty = 0;
-                    invloanmstr.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim();
-                    invloanmstr.AddedDate = DateTime.Now;
-                    invloanmstr.IsApproved = "N";
-                    invloanmstr.IsDeleted = "N";
-                    invloanmstr.LoanType = this.LoanActionType;
-                    invloanmstr.Location_PK = int.Parse(HttpContext.Current.Session["UserLoc_pk"].ToString().Trim());
-                
+                invloanmstr.FromSkudet_PK = inlmst.FromSkudet_PK;
+                invloanmstr.FromIIT_Pk = inlmst.FromIIT_Pk;
+                invloanmstr.ToSkuDet_PK = inlmst.ToSkuDet_PK;
+                invloanmstr.LoanQty = inlmst.LoanQty;
+                invloanmstr.UnitPrice = inlmst.UnitPrice;
+                invloanmstr.PaidBackQty = 0;
+                invloanmstr.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim();
+                invloanmstr.AddedDate = DateTime.Now;
+                invloanmstr.IsApproved = "N";
+                invloanmstr.IsDeleted = "N";
+                invloanmstr.LoanType = this.LoanActionType;
+                invloanmstr.Location_PK = int.Parse(HttpContext.Current.Session["UserLoc_pk"].ToString().Trim());
+
                 enty.InventoryLoanMasters.Add(invloanmstr);
 
-                    enty.SaveChanges();
+                enty.SaveChanges();
 
 
                 LOANNUM = invloanmstr.LoanNum = CodeGenerator.GetUniqueCode("LN", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(invloanmstr.Loan_PK.ToString()));
                 enty.SaveChanges();
 
             }
-      
-            return    LOANNUM;
 
-                    }
+            return LOANNUM;
+
+        }
 
 
 
@@ -137,9 +137,9 @@ namespace ArtWebApp.BLL.InventoryBLL
                     invmstr.Location_PK = element.Location_PK;
                     invmstr.CURate = curate;
                     invmstr.AddedDate = DateTime.Now.Date;
-                    invmstr.Refnum = element.LoanNum.ToString ();
+                    invmstr.Refnum = element.LoanNum.ToString();
                     enty.InventoryMasters.Add(invmstr);
-                
+
                 }
 
 
@@ -148,7 +148,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
 
-              
+
             }
         }
 
@@ -174,16 +174,16 @@ WHERE        (ToSkuDet_PK = @skudet_pk)";
         /// <param name="atcid"></param>
         /// <param name="Location_pk"></param>
         /// <returns></returns>
-        public DataTable GetFromIITDetailsOfALoan( int loan_pk)
+        public DataTable GetFromIITDetailsOfALoan(int loan_pk)
         {
             DataTable dt = new DataTable();
 
-          
 
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, InventoryMaster.SkuDet_Pk, SkuRawMaterialMaster.RMNum, 
+
+            SqlCommand cmd = new SqlCommand(@"SELECT        InventoryMaster.InventoryItem_PK, InventoryMaster.SkuDet_Pk, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.OnhandQty, ProcurementDetails_1.POUnitRate, 
                          SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.Template_pk, LocationMaster.LocationPrefix, ProcurementDetails.CURate, InventoryMaster.OnhandQty AS TransferQty, InventoryLoanMaster.Loan_PK, 
@@ -198,21 +198,12 @@ FROM            InventoryMaster INNER JOIN
                          InventoryLoanMaster ON InventoryMaster.InventoryItem_PK = InventoryLoanMaster.FromIIT_Pk
 WHERE        (InventoryLoanMaster.Loan_PK = @Loan_pk)
 ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode");
-                cmd.Parameters.AddWithValue("@Loan_pk", loan_pk);
+            cmd.Parameters.AddWithValue("@Loan_pk", loan_pk);
 
 
 
-                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            return QueryFunctions.ReturnQueryResultDatatable(cmd);
         }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -244,7 +235,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
     {
         public int InventoryItemPK { get; set; }
         public int FromSkudet_PK { get; set; }
-         public int Template_PK { get; set; }
+        public int Template_PK { get; set; }
         public string Composition { get; set; }
         public string Construct { get; set; }
         public string TemplateColor { get; set; }
@@ -320,15 +311,15 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 TransferToGstockMaster trnmstr = new TransferToGstockMaster();
-               
+
                 trnmstr.CreatedDate = DateTime.Now;
-              
+
                 trnmstr.AddedBy = Porcpt.AddedBy;
 
                 trnmstr.Location_Pk = Porcpt.Location_Pk;
                 trnmstr.IsApproved = "N";
                 trnmstr.IsDeleted = "N";
-                
+
                 enty.TransferToGstockMasters.Add(trnmstr);
                 enty.SaveChanges();
 
@@ -351,12 +342,12 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
                     enty.SaveChanges();
 
-                 
+
                 }
 
                 enty.SaveChanges();
 
-                
+
             }
 
             return trnnum;
@@ -386,18 +377,27 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
         public void transferQty(int trnsfr_pk)
         {
             int mrndet_pk = 0;
+
             int podet_pk = 0;
             int uom_pk = 0;
             decimal curate = 0;
             int skudetpk = 0;
-         
-            String  Construction = "";
+
+            String Construction = "";
             String Composition = "";
             String ItemColor = "";
             String ItemSize = "";
-           
+            String TransferNumber = "";
+            int location_pk = 0;
+
+            int templete_PK = 0;
+            Decimal NewUnitprice = 0;
+            Decimal receivedQty = 0;
+
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
+
+
 
 
                 var q = from lnmstr in enty.TransferToGstockMasters
@@ -407,173 +407,179 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 foreach (var element in q)
                 {
 
-                    int location_pk = int.Parse(element.Location_Pk.ToString());
+                    location_pk = int.Parse(element.Location_Pk.ToString());
 
-                    StockPOMaster spomstr = new StockPOMaster();             
-                     spomstr.Supplier_Pk = 1113;
-                    spomstr.DeliveryDate = DateTime.Now; 
-                    spomstr.DeliveryTerms_Pk = 1;
-                    spomstr.DeliveryMethod_Pk = 1;
-                    spomstr.PaymentTermID = 3;
-                    spomstr.PO_value = 0;
-                    spomstr.Location_PK = int.Parse(element.Location_Pk.ToString());
-                    spomstr.CurrencyID = 18;
-                    spomstr.Remark = "Po against Stock Transfer";
-                    spomstr.AddedBy = "Admin";
-                    spomstr.AddedDate = DateTime.Now;
-                    spomstr.IsApproved = "Y";
-                    spomstr.IsDeleted = "N";                   
-                    spomstr.SPONum = element.TransferNumber;
-                    enty.StockPOMasters.Add(spomstr);
-                    enty.SaveChanges();
-
-                    StockMrnMaster smrnmstrdb = new StockMrnMaster();
-                    smrnmstrdb.DoNumber = element.TransferNumber;
-                    smrnmstrdb.AddedDate = DateTime.Now;
-                    smrnmstrdb.SPo_PK = spomstr.SPO_Pk;
-                    smrnmstrdb.AddedBY = "Admin";
-
-                    smrnmstrdb.Location_Pk = int.Parse(element.Location_Pk.ToString());
-                    smrnmstrdb.SReciept_Pk = 30122;
-                    enty.StockMrnMasters.Add(smrnmstrdb);
-                    enty.SaveChanges();
-                    var transferdetails = from trndet in enty.TransferToGstockDetails
-                            where trndet.TransferToGSTock_PK == trnsfr_pk
-                            select trndet;
-
-                    foreach (var trdet in transferdetails)
-                    {
-
-
-                        var existinginventory = from invitem in enty.InventoryMasters
-                                                where invitem.InventoryItem_PK == trdet.InventoryItemPK
-                                                select invitem;
-
-                        foreach (var invitemdetail in existinginventory)
-                        {
-
-                            invitemdetail.DeliveredQty = invitemdetail.DeliveredQty + trdet.ReceivedQty;
-                            invitemdetail.OnhandQty = invitemdetail.OnhandQty - trdet.ReceivedQty;
-
-                            uom_pk = int.Parse(invitemdetail.Uom_Pk.ToString());
-                            skudetpk = int.Parse(invitemdetail.SkuDet_Pk.ToString());
-                        }
-
-
-                        var templatedata = from skudet in enty.SkuRawmaterialDetails
-                                              join skumstr in enty.SkuRawMaterialMasters on skudet.SkuDet_PK equals skumstr.Sku_Pk
-                                                where skudet.SkuDet_PK == skudetpk
-                                           select new { skumstr.Construction, skumstr.Composition, skudet.ItemColor, skudet.ItemSize };
-
-                        foreach (var elementtemplatedata in templatedata)
-                        {
-                            
-
-
-                            Construction = elementtemplatedata.Construction == null ? "" : elementtemplatedata.Construction.ToString();
-                             Composition = elementtemplatedata.Composition == null ? "" : elementtemplatedata.Composition.ToString();
-                             ItemColor = elementtemplatedata.ItemColor == null ? "" : elementtemplatedata.ItemColor.ToString();
-                          ItemSize = elementtemplatedata.ItemSize == null ? "" : elementtemplatedata.ItemSize.ToString();
-                        }
-                        StockPODetail spodetal = new StockPODetail();
-                        spodetal.SPO_PK = spomstr.SPO_Pk;
-                        spodetal.Template_PK = trdet.Template_PK;
-                     
-                        spodetal.Unitprice = trdet.NewUnitprice;
-                        spodetal.POQty = trdet.ReceivedQty;
-                        spodetal.Uom_PK = uom_pk;
-                        spodetal.CUrate = trdet.NewUnitprice;
-                        spodetal.Composition = Construction;
-                        spodetal.Construct = Composition;
-                        spodetal.TemplateColor = ItemColor;
-                        spodetal.TemplateSize = ItemSize;
-                        enty.StockPODetails.Add(spodetal);
-                        enty.SaveChanges();
-
-
-           
-                     
-
-                        StockMRNDetail smrndetdb = new StockMRNDetail();
-                        smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
-                        smrndetdb.SPODetails_PK = spodetal.SPODetails_PK;
-                        smrndetdb.SPO_PK = spomstr.SPO_Pk;
-                        smrndetdb.ReceivedQty = trdet.ReceivedQty;
-                        smrndetdb.Unitprice = trdet.NewUnitprice;
-                        smrndetdb.Uom_PK = uom_pk;
-                        smrndetdb.ExtraQty = 0;
-                        enty.StockMRNDetails.Add(smrndetdb);
-
-                        enty.SaveChanges();
-
-
-
-
-                        StockInventoryMaster sinvmstr = new StockInventoryMaster();
-
-                        sinvmstr.SMRNDet_Pk = smrndetdb.SMRNDet_Pk;
-                        sinvmstr.SPODetails_PK = spodetal.SPODetails_PK;
-                        sinvmstr.Template_PK = trdet.Template_PK;
-                        sinvmstr.OnHandQty = trdet.ReceivedQty ;
-                        sinvmstr.ReceivedQty = trdet.ReceivedQty;
-                        sinvmstr.DeliveredQty = 0;
-                        sinvmstr.Unitprice = smrndetdb.Unitprice;
-                        sinvmstr.Composition = Composition;
-                        sinvmstr.Construct =Construction;
-                        sinvmstr.TemplateColor = ItemColor;
-                        sinvmstr.TemplateSize = ItemSize;
-
-                        sinvmstr.Uom_PK = uom_pk;
-                        sinvmstr.CuRate = smrndetdb.Unitprice;
-                        sinvmstr.ReceivedVia = "GTR";
-                        sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
-                        sinvmstr.Refnum = smrnmstrdb.SMrnNum;
-                        sinvmstr.AddedDate = DateTime.Now.Date;
-                        enty.StockInventoryMasters.Add(sinvmstr);
-                        enty.SaveChanges();
-
-
-
-
-
-
-
-
-
-                    }
-
-
-
-
-
-
-
-
-
-
-                       
-
-                
+                    TransferNumber = element.TransferNumber.ToString();
 
                 }
 
 
+                StockPOMaster spomstr = new StockPOMaster();
+                spomstr.Supplier_Pk = 1113;
+                spomstr.DeliveryDate = DateTime.Now;
+                spomstr.DeliveryTerms_Pk = 1;
+                spomstr.DeliveryMethod_Pk = 1;
+                spomstr.PaymentTermID = 3;
+                spomstr.PO_value = 0;
+                spomstr.Location_PK = location_pk;
+                spomstr.CurrencyID = 18;
+                spomstr.Remark = "Po against Stock Transfer";
+                spomstr.AddedBy = "Admin";
+                spomstr.AddedDate = DateTime.Now;
+                spomstr.IsApproved = "Y";
+                spomstr.IsDeleted = "N";
+                spomstr.SPONum = TransferNumber;
+                enty.StockPOMasters.Add(spomstr);
+                enty.SaveChanges();
+
+                StockMrnMaster smrnmstrdb = new StockMrnMaster();
+                smrnmstrdb.DoNumber = TransferNumber;
+                smrnmstrdb.AddedDate = DateTime.Now;
+                smrnmstrdb.SPo_PK = spomstr.SPO_Pk;
+                smrnmstrdb.AddedBY = "Admin";
+
+                smrnmstrdb.Location_Pk = location_pk;
+                smrnmstrdb.SReciept_Pk = 30122;
+                enty.StockMrnMasters.Add(smrnmstrdb);
+                enty.SaveChanges();
+
+
+
+                var transferdetails = from trndet in enty.TransferToGstockDetails
+                                      where trndet.TransferToGSTock_PK == trnsfr_pk
+                                      select trndet;
+
+                foreach (var trdet in transferdetails)
+                {
+                    templete_PK = int.Parse(trdet.Template_PK.ToString());
+                    NewUnitprice = Decimal.Parse(trdet.NewUnitprice.ToString());
+                    receivedQty = Decimal.Parse(trdet.ReceivedQty.ToString());
+
+                    var existinginventory = from invitem in enty.InventoryMasters
+                                            where invitem.InventoryItem_PK == trdet.InventoryItemPK
+                                            select invitem;
+
+                    foreach (var invitemdetail in existinginventory)
+                    {
+
+                        invitemdetail.DeliveredQty = invitemdetail.DeliveredQty + trdet.ReceivedQty;
+                        invitemdetail.OnhandQty = invitemdetail.OnhandQty - trdet.ReceivedQty;
+
+                        uom_pk = int.Parse(invitemdetail.Uom_Pk.ToString());
+                        skudetpk = int.Parse(invitemdetail.SkuDet_Pk.ToString());
+                    }
+
+
+                    var templatedata = from skudet in enty.SkuRawmaterialDetails
+                                       join skumstr in enty.SkuRawMaterialMasters on skudet.SkuDet_PK equals skumstr.Sku_Pk
+                                       where skudet.SkuDet_PK == skudetpk
+                                       select new { skumstr.Construction, skumstr.Composition, skudet.ItemColor, skudet.ItemSize };
+
+                    foreach (var elementtemplatedata in templatedata)
+                    {
+
+
+
+                        Construction = elementtemplatedata.Construction == null ? "" : elementtemplatedata.Construction.ToString();
+                        Composition = elementtemplatedata.Composition == null ? "" : elementtemplatedata.Composition.ToString();
+                        ItemColor = elementtemplatedata.ItemColor == null ? "" : elementtemplatedata.ItemColor.ToString();
+                        ItemSize = elementtemplatedata.ItemSize == null ? "" : elementtemplatedata.ItemSize.ToString();
+                    }
+
+
+
+                }
+                StockPODetail spodetal = new StockPODetail();
+                spodetal.SPO_PK = spomstr.SPO_Pk;
+                spodetal.Template_PK = templete_PK;
+
+                spodetal.Unitprice = NewUnitprice;
+                spodetal.POQty = receivedQty;
+                spodetal.Uom_PK = uom_pk;
+                spodetal.CUrate = NewUnitprice;
+                spodetal.Composition = Construction;
+                spodetal.Construct = Composition;
+                spodetal.TemplateColor = ItemColor;
+                spodetal.TemplateSize = ItemSize;
+                enty.StockPODetails.Add(spodetal);
+                enty.SaveChanges();
+
+
+
+
+
+                StockMRNDetail smrndetdb = new StockMRNDetail();
+                smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
+                smrndetdb.SPODetails_PK = spodetal.SPODetails_PK;
+                smrndetdb.SPO_PK = spomstr.SPO_Pk;
+                smrndetdb.ReceivedQty = receivedQty;
+                smrndetdb.Unitprice = NewUnitprice;
+                smrndetdb.Uom_PK = uom_pk;
+                smrndetdb.ExtraQty = 0;
+                enty.StockMRNDetails.Add(smrndetdb);
 
                 enty.SaveChanges();
 
 
 
 
+                StockInventoryMaster sinvmstr = new StockInventoryMaster();
+
+                sinvmstr.SMRNDet_Pk = smrndetdb.SMRNDet_Pk;
+                sinvmstr.SPODetails_PK = spodetal.SPODetails_PK;
+                sinvmstr.Template_PK = templete_PK;
+                sinvmstr.OnHandQty = receivedQty;
+                sinvmstr.ReceivedQty = receivedQty;
+                sinvmstr.DeliveredQty = 0;
+                sinvmstr.Unitprice = smrndetdb.Unitprice;
+                sinvmstr.Composition = Composition;
+                sinvmstr.Construct = Construction;
+                sinvmstr.TemplateColor = ItemColor;
+                sinvmstr.TemplateSize = ItemSize;
+
+                sinvmstr.Uom_PK = uom_pk;
+                sinvmstr.CuRate = smrndetdb.Unitprice;
+                sinvmstr.ReceivedVia = "GTR";
+                sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
+                sinvmstr.Refnum = smrnmstrdb.SMrnNum;
+                sinvmstr.AddedDate = DateTime.Now.Date;
+                enty.StockInventoryMasters.Add(sinvmstr);
+                enty.SaveChanges();
+
+
+
+
+
+
+
+
+
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
-
-
     }
-
-
-
-
-
 
     public class SalesMasterData
     {
@@ -586,7 +592,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
         public string ContainerNumber { get; set; }
         public string BoeNum { get; set; }
         public int Deliverymethod_Pk { get; set; }
-   
+
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
         public string DoType { get; set; }
@@ -599,9 +605,9 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             {
                 InventorySalesMaster trnmstr = new InventorySalesMaster();
 
-                trnmstr.SalesDate =this.SalesDate;
+                trnmstr.SalesDate = this.SalesDate;
 
-                trnmstr.FromLocation_PK =  this.FromLocation_PK;
+                trnmstr.FromLocation_PK = this.FromLocation_PK;
                 trnmstr.ToLocation_PK = this.ToLocation_PK;
                 trnmstr.ContainerNumber = this.ContainerNumber;
                 trnmstr.Deliverymethod_Pk = this.Deliverymethod_Pk;
@@ -611,10 +617,11 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 trnmstr.AddedDate = DateTime.Now;
                 trnmstr.ContainerNumber = this.ContainerNumber;
-                
+
                 enty.InventorySalesMasters.Add(trnmstr);
                 enty.SaveChanges();
-                mrnum= trnmstr.SalesDONum=CodeGenerator.GetUniqueCode("DO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
+
+                mrnum = trnmstr.SalesDONum = ArtWebApp.CodeGenerator.GetUniqueCode("DO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
 
                 foreach (SalesDetailsData sinvdet in this.SalesDetailsDataCollection)
                 {
@@ -625,10 +632,10 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                     sinvdetdb.CuRate = sinvdet.CUrate;
 
 
-                   
-                        enty.InventorySalesDetails.Add(sinvdetdb);
 
-                 
+                    enty.InventorySalesDetails.Add(sinvdetdb);
+
+
 
                     var q = from invitem in enty.StockInventoryMasters
                             where invitem.SInventoryItem_PK == sinvdet.SInventoryItem_PK
@@ -675,7 +682,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
                 enty.InventorySalesMasters.Add(trnmstr);
                 enty.SaveChanges();
-                mrnum = trnmstr.SalesDONum = CodeGenerator.GetUniqueCode("EDO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
+                mrnum = trnmstr.SalesDONum = ArtWebApp.CodeGenerator.GetUniqueCode("EDO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
 
                 foreach (SalesDetailsData sinvdet in this.SalesDetailsDataCollection)
                 {
@@ -712,18 +719,19 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             return mrnum;
         }
 
-
-    }
-    public class SalesDetailsData
-    {
-        public int SalesDODet_PK { get; set; }
-        public int SalesDO_PK { get; set; }
-        public int SInventoryItem_PK { get; set; }
-        public Decimal DeliveryQty { get; set; }
-        public Decimal CUrate { get; set; }
-        public string Remark { get; set; }
-
-      
     }
 
-}
+     public class SalesDetailsData
+        {
+            public int SalesDODet_PK { get; set; }
+            public int SalesDO_PK { get; set; }
+            public int SInventoryItem_PK { get; set; }
+            public Decimal DeliveryQty { get; set; }
+            public Decimal CUrate { get; set; }
+            public string Remark { get; set; }
+
+
+        }
+
+    }
+

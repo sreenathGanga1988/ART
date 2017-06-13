@@ -124,7 +124,10 @@ namespace ArtWebApp.Production.Schedular
             using (SqlCommand cmd= new SqlCommand ())
             {
                 cmd.CommandText = @"SELECT        PoPackMaster.PoPackId, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, SUM(POPackDetails.PoQty) AS PoQty, POPackDetails.OurStyleID, 
-                        isnull( PoPackMaster.ExpectedLocation_PK,0) as LocationPK, MAX(POPackDetails.IsShortClosed) AS Expr1
+                        isnull( PoPackMaster.ExpectedLocation_PK,0) as LocationPK, MAX(POPackDetails.IsShortClosed) AS Expr1,isnull((SELECT        SUM(ShippedQty) AS Expr1
+FROM            ShipmentHandOverDetails
+GROUP BY POPackId, OurStyleID
+HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty
 FROM            AtcMaster INNER JOIN
                          PoPackMaster ON AtcMaster.AtcId = PoPackMaster.AtcId INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId
@@ -148,12 +151,10 @@ HAVING        (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(P
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = @"Select COUNT(PoPackId) from (SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
-FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
-                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
-                                 FROM            ShipmentHandOverDetails INNER JOIN
-                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
-                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
-                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, isnull((SELECT        SUM(ShippedQty) AS Expr1
+FROM            ShipmentHandOverDetails
+GROUP BY POPackId, OurStyleID
+HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
                          PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate, MAX(POPackDetails.IsShortClosed) AS Expr1
 FROM PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
@@ -186,8 +187,28 @@ WHERE(POQty - ShipedQty > 0)
             }
 
         }
+        int totalvalue = 0;
+        int totalvalueship = 0;
+        protected void tbl_podata_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //Check if the current row is datarow or not
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Add the value of column
+                totalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "PoQty"));
+                totalvalueship += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ShipedQty"));
 
-
-
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                //Find the control label in footer 
+                Label lblamount = (Label)e.Row.FindControl("lblTotalValue");
+                //Assign the total value to footer label control
+                lblamount.Text = "Total Qty is : " + totalvalue.ToString();
+                Label lblTotalValueship = (Label)e.Row.FindControl("lblTotalValueship");
+                //Assign the total value to footer label control
+                lblTotalValueship.Text = "Total ShippedQty is : " + totalvalueship.ToString();
+            }
+        }
     }
 }

@@ -318,5 +318,33 @@ ORDER BY StyleSize.Orderof";
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
+
+
+        public static DataTable getlaysheetpendingCutorder()
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color, FabQty, CutWidth, Shrinkage, MarkerType, PaternName, CutQty, layed, CutQty - layed AS Pending, CutPlan_Pk, LocationName
+FROM            (SELECT        CutOrderMaster.CutID, CutOrderMaster.Cut_NO, AtcMaster.AtcNum, AtcDetails.OurStyle, CutOrderMaster.Color, CutOrderMaster.CutQty, CutOrderMaster.FabQty, CutOrderMaster.CutWidth, 
+                         CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.PaternName, ISNULL
+                             ((SELECT        SUM(LaySheetDetails.NoOfPlies * CutOrderSizeDetails.Ratio) AS Alreadylayed
+                                 FROM            LaySheetDetails INNER JOIN
+                                                          LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                                                          CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                                                          CutOrderSizeDetails ON CutOrderDetails.CutOrderDet_PK = CutOrderSizeDetails.CutOrderDet_PK
+                                 WHERE        (CutOrderDetails.CutID = CutOrderMaster.CutID)
+                                 GROUP BY CutOrderDetails.CutID), 0) AS layed, CutOrderMaster.CutPlan_Pk, LocationMaster.LocationName, CutOrderMaster.CutOrderDate
+FROM            CutOrderMaster INNER JOIN
+                         AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
+                         LocationMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK
+WHERE        (CutOrderMaster.CutPlan_Pk IS NOT NULL) AND (CutOrderMaster.CutOrderDate > CONVERT(DATETIME, '2017-05-15 00:00:00', 102))) AS tt
+WHERE        (CutQty - layed > 0)
+";
+             
+
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
     }
 }

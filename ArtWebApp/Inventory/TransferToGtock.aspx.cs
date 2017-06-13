@@ -25,13 +25,16 @@ namespace ArtWebApp.Inventory
         protected void btn_confirmtransfer_Click(object sender, EventArgs e)
         {
           String reqnum=  getdata();
-
+            tbl_InverntoryDetails.DataSource = null;
+            tbl_InverntoryDetails.DataBind();
             String msg = "Transfer Request is submitted Sucessfully";
             MessageBoxShow(msg);
         }
         public void MessageBoxShow(String msg)
         {
             ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + msg + "');", true);
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + msg + "');", true);
         }
 
 

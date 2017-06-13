@@ -313,13 +313,20 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
 
 
+                int cutplanblockedroll = 0;
+                Decimal cutplanblockedyard = 0;
+
+             var cutplanrolldetail= (from cplndet in entty.CutPlanRollDetails
+                                    where cplndet.CutPlanMaster.SkuDet_PK == skudet_PK && cplndet.CutPlanMaster.ShrinkageGroup == Shrinkagegroup &&
+                                   cplndet.CutPlanMaster.WidthGroup == widthgroup && cplndet.CutPlanMaster.MarkerType == markerTyple
+                                    select new { cplndet.FabricRollmaster.AYard, cplndet.FabricRollmaster.Roll_PK });
+                foreach (var element in cutplanrolldetail)
+                {
+                    cutplanblockedroll++;
+                    cutplanblockedyard = Decimal.Parse(element.AYard.ToString()) + cutplanblockedyard;
 
 
-
-
-
-
-
+                }
 
 
                 CutPlanDetailsData cddetdata = new CutOrderBLL.CutPlanDetailsData();
@@ -342,6 +349,9 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 cddetdata.bomconsumption = consumption;
                cddetdata.UOMName = UOMName.ToString();
                 cddetdata.alreadycut = alreadycut;
+
+                cddetdata.CutplanBlockedRoll = cutplanblockedroll;
+                cddetdata.CutplanBlockedYardage= cutplanblockedyard;
                 return cddetdata;
             }
         }
@@ -719,14 +729,14 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
             //WHERE        (SkuDet_PK = @skudet_pk) AND (OurStyleID = @ouustyleid) AND (Location_PK = @location) AND (ShrinkageGroup = @ShrinkageGroup) AND (WidthGroup = @WidthGroup) AND (MarkerType = @MarkerType)) AS tt
             //GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
 
-            cmd.CommandText = @"SELECT        SUM(CutPlanFabReq) AS CutPlanFabReq
+            cmd.CommandText = @"Select  sum(CutPlanFabReq)from  (SELECT        SUM(CutPlanFabReq) AS CutPlanFabReq
 FROM            (SELECT        ISNULL(CutPlanFabReq,
                              (SELECT        ISNULL(SUM(CutQty), 0) AS CutQty
                                FROM            CutPlanASQDetails
                                WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)) * BOMConsumption) AS CutPlanFabReq, SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK, ShrinkageGroup, WidthGroup, MarkerType
 FROM            CutPlanMaster
 WHERE        (SkuDet_PK = @skudet_pk) AND (Location_PK = @location) AND (ShrinkageGroup = @ShrinkageGroup) AND (WidthGroup = @WidthGroup) AND (MarkerType = @MarkerType)) AS tt
-GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
+GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
             cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
             cmd.Parameters.AddWithValue("@ouustyleid", ouustyleid);
@@ -1287,7 +1297,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
         public float alreadycutoflocation { get; set; }
 
 
-        
+        public int CutplanBlockedRoll { get; set; }
+        public Decimal CutplanBlockedYardage { get; set; }
 
 
     }

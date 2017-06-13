@@ -40,7 +40,7 @@ WHERE(Location_Pk = @Param1) AND (IsCompleted = N'N')", con);
         }
 
 
-        public static DataTable GetSDODataFromAtcWorld(String  Condition)
+        public static DataTable GetSDODataFromAtcWorld(String  Condition,int location_pk)
         {
             DataTable dt = new DataTable();
 
@@ -56,11 +56,13 @@ FROM            POPackDetails INNER JOIN
                          ATCWorldToArtShipData ON POPackDetails.PoPack_Detail_PK = ATCWorldToArtShipData.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId  
-						"+ Condition + @"
-  GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId", con);
+						"+ Condition + @" 
+  GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId , 
+                         ATCWorldToArtShipData.ArtLocation_PK
+HAVING        (ATCWorldToArtShipData.ArtLocation_PK = @ArtLocation_PK)", con);
 
 
-
+                cmd.Parameters.AddWithValue("ArtLocation_PK", location_pk);
                 SqlDataReader rdr = cmd.ExecuteReader();
 
                 dt.Load(rdr);

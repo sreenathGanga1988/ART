@@ -17,9 +17,9 @@ namespace ArtWebApp.DataModels
         public CurrencyMaster()
         {
             this.POCurrExRates = new HashSet<POCurrExRate>();
-            this.ServicePOMasters = new HashSet<ServicePOMaster>();
             this.StockPOMasters = new HashSet<StockPOMaster>();
             this.SupplierMasters = new HashSet<SupplierMaster>();
+            this.ServicePOMasters = new HashSet<ServicePOMaster>();
         }
     
         public decimal CurrencyID { get; set; }
@@ -28,8 +28,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Ocur_ID { get; set; }
     
         public virtual ICollection<POCurrExRate> POCurrExRates { get; set; }
-        public virtual ICollection<ServicePOMaster> ServicePOMasters { get; set; }
         public virtual ICollection<StockPOMaster> StockPOMasters { get; set; }
         public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
+        public virtual ICollection<ServicePOMaster> ServicePOMasters { get; set; }
     }
 }

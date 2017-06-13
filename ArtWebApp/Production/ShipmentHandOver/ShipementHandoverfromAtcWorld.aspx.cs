@@ -89,7 +89,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
 
                 BLL.ProductionBLL.ShipmentHandOverMasterData SHPMSTR = new BLL.ProductionBLL.ShipmentHandOverMasterData();
 
-                tbl_podetails.DataSource = SHPMSTR.GetSDOData(condition);
+                tbl_podetails.DataSource = SHPMSTR.GetSDOData(condition,int.Parse (drp_factory.SelectedValue.ToString ()));
                 tbl_podetails.DataBind();
             }
         }
@@ -118,11 +118,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
 
             foreach (GridViewRow di in tbl_podetails.Rows)
             {
-                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
-
-                if (chkBx != null && chkBx.Checked)
-                {
-                    
+                
 
                         
                   
@@ -145,7 +141,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
                     shpdet.AddedDate = DateTime.Now;
 
                     rk.Add(shpdet);
-                }
+               
             }
             return rk;
 

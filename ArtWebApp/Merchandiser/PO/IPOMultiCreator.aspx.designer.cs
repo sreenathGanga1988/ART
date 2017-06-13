@@ -7,37 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArtWebApp.Reports.MerchandiserReport {
+namespace ArtWebApp.Merchandiser.PO {
     
     
-    public partial class AtcChart {
-        
-        /// <summary>
-        /// upd_buttons control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_buttons;
-        
-        /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
-        /// <summary>
-        /// cmb_atc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen cmb_atc;
+    public partial class IPOMultiCreator {
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -49,148 +22,157 @@ namespace ArtWebApp.Reports.MerchandiserReport {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// ShowBom control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ShowBom;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// UpdatePanel9 control.
+        /// drp_spo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        protected global::CustomDropDown.DropDownListChosen drp_spo;
         
         /// <summary>
-        /// lbl_qty control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_qty;
+        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
-        /// UpdatePanel7 control.
+        /// txt_remark control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txt_remark;
         
         /// <summary>
-        /// drp_rmnum control.
+        /// drp_supplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_rmnum;
+        protected global::CustomDropDown.DropDownListChosen drp_supplier;
         
         /// <summary>
-        /// UpdatePanel8 control.
+        /// dtp_deliverydate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel8;
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_deliverydate;
         
         /// <summary>
-        /// ShowRawmaterialBOM control.
+        /// drp_deliveryterm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ShowRawmaterialBOM;
+        protected global::CustomDropDown.DropDownListChosen drp_deliveryterm;
         
         /// <summary>
-        /// UpdatePanel10 control.
+        /// drp_deliverydestination control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        protected global::CustomDropDown.DropDownListChosen drp_deliverydestination;
         
         /// <summary>
-        /// lbl_pcd control.
+        /// drp_deliverymethod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_pcd;
+        protected global::CustomDropDown.DropDownListChosen drp_deliverymethod;
         
         /// <summary>
-        /// chk_f control.
+        /// drp_currency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_f;
+        protected global::CustomDropDown.DropDownListChosen drp_currency;
         
         /// <summary>
-        /// chk_W control.
+        /// drp_paymentterm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_W;
+        protected global::CustomDropDown.DropDownListChosen drp_paymentterm;
         
         /// <summary>
-        /// chk_ct control.
+        /// btn_AddSpo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_ct;
+        protected global::System.Web.UI.WebControls.Button btn_AddSpo;
         
         /// <summary>
-        /// chk_doc control.
+        /// Messaediv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_doc;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Messaediv;
         
         /// <summary>
-        /// chk_remark control.
+        /// lbl_msg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_remark;
+        protected global::System.Web.UI.WebControls.Label lbl_msg;
         
         /// <summary>
-        /// chk_rcpt control.
+        /// tbl_SpoEnterData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_rcpt;
+        protected global::System.Web.UI.WebControls.GridView tbl_SpoEnterData;
         
         /// <summary>
-        /// Button1 control.
+        /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
+        /// btn_addItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_addItems;
         
         /// <summary>
         /// UpdatePanel3 control.
@@ -202,57 +184,120 @@ namespace ArtWebApp.Reports.MerchandiserReport {
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
         
         /// <summary>
-        /// CheckBoxList1 control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList1;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// btnGet control.
+        /// supplierdata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGet;
+        protected global::System.Web.UI.WebControls.SqlDataSource supplierdata;
         
         /// <summary>
-        /// Upd_maingrid control.
+        /// convfact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Upd_maingrid;
+        protected global::System.Web.UI.WebControls.HiddenField convfact;
         
         /// <summary>
-        /// tbl_bom control.
+        /// currencydata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView tbl_bom;
+        protected global::System.Web.UI.WebControls.SqlDataSource currencydata;
         
         /// <summary>
-        /// SqlDataSource2 control.
+        /// PaymentMode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
+        protected global::System.Web.UI.WebControls.SqlDataSource PaymentMode;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// Paymenttermdata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.SqlDataSource Paymenttermdata;
+        
+        /// <summary>
+        /// Wharehousedata control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource Wharehousedata;
+        
+        /// <summary>
+        /// deliveryterm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource deliveryterm;
+        
+        /// <summary>
+        /// Spodata control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource Spodata;
+        
+        /// <summary>
+        /// DeliveryMethodData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource DeliveryMethodData;
+        
+        /// <summary>
+        /// itemgroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource itemgroup;
+        
+        /// <summary>
+        /// spodatasource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource spodatasource;
+        
+        /// <summary>
+        /// UOMdata control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource UOMdata;
     }
 }

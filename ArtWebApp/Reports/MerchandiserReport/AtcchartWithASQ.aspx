@@ -52,9 +52,105 @@ body
 
    
 
+    .auto-style13 {
+        font-size: xx-small;
+    }
+
+   
+
+  
+
+   
+
     </style>
     
-      
+         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+      <script type="text/javascript">
+
+        
+          $(document).ready(function ()
+          {
+           
+
+              $('[id*=btnGet]').click(function () {
+            debugger
+                 
+                  var $checkedvalue = $("input:checkbox:not(:checked)")
+
+                  var nonchecked_checkboxes = $("[id*=CheckBoxList1] input:checkbox:not(:checked)");
+
+                  nonchecked_checkboxes.each(function () {
+                      var $value = $(this).val();
+                      $(".tbl_onhand tr:contains('"+$value+"')").hide();
+                  });
+
+
+                  var nonchecked_checkboxes = $("[id*=CheckBoxList1] input:checked");
+                  nonchecked_checkboxes.each(function () {
+                      var $value = $(this).val();
+                      $(".tbl_onhand tr:contains('" + $value + "')").show();
+                  });
+
+                  calculateSumofOnHand();
+                
+                 
+
+                  return false
+              });
+
+
+
+           
+          });
+
+
+          function calculateSumofOnHand()
+          {
+
+
+              var onhandtablegroup = document.getElementsByClassName('tbl_onhand');
+
+              for (var i = 0; i < onhandtablegroup.length; i++)
+              {
+                  var onhandtable = onhandtablegroup[i];
+
+
+                  var lbl_OnhandQty = onhandtable.getElementsByClassName('lbl_OnhandQty');
+                //  var lbl_LocationPrefixTotal = onhandtable.getElementsByClassName('lbl_LocationPrefixTotal');
+                  var lbl_onhandQtyTotalclass = onhandtable.getElementsByClassName('lbl_onhandQtyTotalclass');
+                  
+
+                  var maingridrow = onhandtable.parentNode.parentNode.parentNode;
+
+                  
+                  var RqdQty = maingridrow.getElementsByClassName('RqdQty')[0];
+                  var lbl_pendingOnhand = maingridrow.getElementsByClassName('lbl_pendingOnhand')[0];
+                 var OnhandQty=0
+
+                 for (var j = 0 ; j < lbl_OnhandQty.length; j++)
+                 {
+                     var tr = lbl_OnhandQty[j].parentNode.parentNode;
+                   
+                     if (tr.style.display !="none")
+                     {
+                         OnhandQty = OnhandQty + parseFloat(lbl_OnhandQty[j].innerHTML);
+                     }
+                      
+
+                 }
+
+                // lbl_LocationPrefixTotal[0].innerHTML = OnhandQty.toString();
+                 lbl_onhandQtyTotalclass[0].innerHTML = OnhandQty.toString();
+               
+                 var BaltoreceiveQty = parseFloat(RqdQty.innerHTML.toString()) - parseFloat(OnhandQty.toString());
+                 lbl_pendingOnhand.innerHTML = BaltoreceiveQty.toString();
+              }
+
+
+          }
+
+
+      </script>
 
    
    
@@ -203,7 +299,8 @@ body
 
                         </ContentTemplate> </asp:UpdatePanel></div>
 
-    <div ><table class="gridtable" >
+    <div >
+        <table class="gridtable" >
                             <tr>
                                 <td><asp:CheckBox ID="chk_f" Text=" OnhandQty F only" runat="server" /></td>
                                 <td><asp:CheckBox ID="chk_W" Text="OnhandQty W only" runat="server" /></td>
@@ -215,6 +312,30 @@ body
                                 <td>
                                     
                                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Export to Excel" />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">
+                                    <Table>
+                                        <tr>
+                                            <td> <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                              <ContentTemplate>
+                                                <asp:CheckBoxList ID="CheckBoxList1" runat="server" RepeatDirection="Horizontal">
+                                        
+
+                                        
+                                    </asp:CheckBoxList>  </ContentTemplate> </asp:UpdatePanel>
+
+                                            </td>
+                                             <td>
+                                                 <asp:Button ID="btnGet" runat="server" CssClass="auto-style13" Text="Show" />
+                                            </td>
+                                        </tr>
+                                    </Table>
+                                    
+                                   
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -254,36 +375,17 @@ body
                                 <asp:TemplateField HeaderText="RqdQty" SortExpression="PoIssuedQty">
                                   
                                     <ItemTemplate>
-                                        <asp:Label ID="lbl_RqdQty" runat="server" Text='<%# Bind("RqdQty") %>'></asp:Label>
+                                        <asp:Label ID="lbl_RqdQty" CssClass="RqdQty" runat="server" Text='<%# Bind("RqdQty") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="UomCode" HeaderText="Uom" SortExpression="UomCode" />
-                                <asp:TemplateField HeaderText="Po Issued Qty" SortExpression="PoIssuedQty">
-                                  
-                                    <ItemTemplate>
-                                        <asp:Label ID="lbl_poissuedqty" runat="server" Text='<%# Bind("PoIssuedQty") %>'></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField DataField="BalanceQty" HeaderText="Balance Qty" ReadOnly="True" SortExpression="BalanceQty" />
-                          
-
-
-                                 <asp:TemplateField HeaderText="Planned Qty" SortExpression="PlannedQty">
+                                   <asp:TemplateField HeaderText="Planned Qty" SortExpression="PlannedQty">
                                     
                                      <ItemTemplate>
                                          <asp:Label ID="lbl_plannedqty" runat="server" ></asp:Label>
                                      </ItemTemplate>
                                 </asp:TemplateField>
-                          
-                                 <asp:TemplateField HeaderText="balance To Plan" SortExpression="BalanceQty">
-                                    
-                                     <ItemTemplate>
-                                         <asp:Label ID="lbl_balplanqty" runat="server" Text="0"></asp:Label>
-                                     </ItemTemplate>
-                                </asp:TemplateField>
-                          
-
-                                 <asp:TemplateField HeaderText="Planned Details" SortExpression="BalanceQty">
+                          <asp:TemplateField HeaderText="Planned Details" SortExpression="BalanceQty">
                                      <ItemTemplate>
                                          
                                                     <asp:GridView ID="tbl_eta" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
@@ -303,6 +405,73 @@ body
                                          </asp:GridView>
                                      </ItemTemplate>
                                  </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="balance To Plan" SortExpression="BalanceQty">
+                                    
+                                     <ItemTemplate>
+                                         <asp:Label ID="lbl_balplanqty" runat="server" Text="0"></asp:Label>
+                                     </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Po Issued Qty" SortExpression="PoIssuedQty">
+                                  
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_poissuedqty" runat="server" Text='<%# Bind("PoIssuedQty") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="PO Details">
+                                     <ItemTemplate>
+                                         <asp:GridView ID="tbl_PO" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="PONum" HeaderText="PONum" />
+                                               
+                                                 <asp:BoundField DataField="POQty" HeaderText="POQty" />
+                                                 <asp:BoundField DataField="UomCode" HeaderText="UomCode" />
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
+                                <asp:BoundField DataField="BalanceQty" HeaderText="Balance Qty" ReadOnly="True" SortExpression="BalanceQty" />
+                          
+
+
+                              <asp:TemplateField HeaderText="ADN Details">
+                                     <ItemTemplate>
+                                         <asp:GridView ID="tbl_ADN" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
+                                             BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="DocNum" HeaderText="ADN" />
+                                                <asp:BoundField DataField="ContainerNum" HeaderText="Ref#" />
+                                                 <asp:BoundField DataField="BOENum" HeaderText="Cont#" />
+                                                 <asp:BoundField DataField="PONum" HeaderText="PONum" />
+                                                 <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                                  <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
+                                                  <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
+                                                 
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
+                          
+
+                                 
 
 
                                  
@@ -330,19 +499,36 @@ body
                                      </ItemTemplate>
                                  </asp:TemplateField>
                            
-                                  <asp:TemplateField HeaderText="PO Details">
+                                  
+                                  <asp:TemplateField HeaderText="Onhand Details">
                                      <ItemTemplate>
-                                         <asp:GridView ID="tbl_PO" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                         <asp:GridView ID="tbl_onhand" CssClass="tbl_onhand"  runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller" ShowFooter="True" OnRowDataBound="tbl_onhand_RowDataBound">
                                              <Columns>
-                                                 <asp:BoundField DataField="PONum" HeaderText="PONum" />
-                                               
-                                                 <asp:BoundField DataField="POQty" HeaderText="POQty" />
-                                                 <asp:BoundField DataField="UomCode" HeaderText="UomCode" />
+                                                
+
+                                                 <asp:TemplateField HeaderText="LocationPrefix">
+                                                   <ItemTemplate>
+                                                         <asp:Label ID="lbl_LocationPrefix" CssClass="lbl_LocationPrefix" runat="server" Text='<%# Bind("LocationPrefix") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                       <FooterTemplate>
+                                          <asp:Label ID="lbl_LocationPrefixTotal" CssClass="lbl_LocationPrefixTotal" runat="server" Text="0"></asp:Label>
+                                      </FooterTemplate>
+                                                 </asp:TemplateField>
+                                          
+                                                 <asp:TemplateField HeaderText="Onhand Qty">
+                                                   <ItemTemplate>
+                                                         <asp:Label ID="lbl_OnhandQty" CssClass="lbl_OnhandQty" runat="server" Text='<%# Bind("OnhandQty") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                       <FooterTemplate>
+                                          <asp:Label ID="lbl_onhandQtyTotal" CssClass="lbl_onhandQtyTotalclass" runat="server" Text="0"></asp:Label>
+                                      </FooterTemplate>
+                                                 </asp:TemplateField>
+                                          
                                              </Columns>
-                                             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
                                              <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
-                                             <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
                                              <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
                                              <SortedAscendingCellStyle BackColor="#FFF1D4" />
                                              <SortedAscendingHeaderStyle BackColor="#B95C30" />
@@ -350,15 +536,35 @@ body
                                              <SortedDescendingHeaderStyle BackColor="#93451F" />
                                          </asp:GridView>
                                      </ItemTemplate>
+                                    
                                  </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Onhand Details">
+
+                                  <asp:TemplateField HeaderText="Pending to Recieve">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_pendingOnhand" CssClass="lbl_pendingOnhand" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderText="Transist Details">
                                      <ItemTemplate>
-                                         <asp:GridView ID="tbl_onhand" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                         <asp:GridView ID="tbl_transist" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller" OnRowDataBound="tbl_transist_RowDataBound">
                                              <Columns>
-                                                 <asp:BoundField DataField="LocationPrefix" HeaderText="Store" />
-                                               
-                                                 <asp:BoundField DataField="OnhandQty" HeaderText="Onhand Qty" />
+
+
+
+                                                 <asp:BoundField DataField="LocationPrefix" HeaderText="TO" />
+                                               <asp:BoundField DataField="DONum" HeaderText="From" />
+                                                 <asp:TemplateField HeaderText="Transit Qty">
+                                                        <FooterTemplate>
+                                          <asp:Label ID="lbl_transistQtyTotal" runat="server" Text="0"></asp:Label>
+                                      </FooterTemplate>
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("TransitQty") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
                                           
+                                                 
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
@@ -394,32 +600,7 @@ body
                                      </ItemTemplate>
                                  </asp:TemplateField>
                                 
-                                                                <asp:TemplateField HeaderText="ADN Details">
-                                     <ItemTemplate>
-                                         <asp:GridView ID="tbl_ADN" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
-                                             BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
-                                             <Columns>
-                                                 <asp:BoundField DataField="DocNum" HeaderText="ADN" />
-                                                <asp:BoundField DataField="ContainerNum" HeaderText="Ref#" />
-                                                 <asp:BoundField DataField="BOENum" HeaderText="Cont#" />
-                                                 <asp:BoundField DataField="PONum" HeaderText="PONum" />
-                                                 <asp:BoundField DataField="Qty" HeaderText="Qty" />
-                                                  <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
-                                                  <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
-                                                 
-                                             </Columns>
-                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
-                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
-                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
-                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
-                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
-                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
-                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
-                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
-                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
-                                         </asp:GridView>
-                                     </ItemTemplate>
-                                 </asp:TemplateField>
+                                                                
 
                                 <asp:TemplateField HeaderText="Receipt Details">
                                      <ItemTemplate>
@@ -500,6 +681,15 @@ body
                                         <asp:Label ID="lbl_skudetpk" runat="server" Text='<%# Bind("SkuDet_PK") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+
+
+                                
+
+                              
+                              
+                           
+                       
+                              
 
 
                                 

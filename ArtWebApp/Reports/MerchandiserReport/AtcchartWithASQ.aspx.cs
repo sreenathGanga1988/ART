@@ -119,7 +119,26 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
             DataTable Podataofatc = BLL.FactoryAtcChart.GetPODataofAtc(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable GoodsinTransit = BLL.FactoryAtcChart.GetTransistQty(int.Parse(cmb_atc.SelectedValue.ToString()));
+            DataTable onhandqty = BLL.FactoryAtcChart.GetOnhandQty(int.Parse(cmb_atc.SelectedValue.ToString()), onhandtype);
 
+
+            try
+            {
+                DataView view = new DataView(onhandqty);
+                DataTable distinctLocation = view.ToTable(true, "LocationPrefix");
+
+
+                CheckBoxList1.DataSource = distinctLocation;
+                CheckBoxList1.DataTextField = "LocationPrefix";
+                CheckBoxList1.DataValueField = "LocationPrefix";
+                CheckBoxList1.DataBind();
+            }
+            catch (Exception)
+            {
+
+
+            }
             if (chk_ct.Checked == true)
             {
                 DataTable cutorderofatc = BLL.FactoryAtcChart.GetCutOrderDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
@@ -160,9 +179,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
             {
                 onhandtype = "A";
             }
-            DataTable onhandqty = BLL.FactoryAtcChart.GetOnhandQty(int.Parse(cmb_atc.SelectedValue.ToString()), onhandtype);
-
-            if (BomData.Rows.Count <= 0)
+               if (BomData.Rows.Count <= 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('No BOM Available');", true);
             }
@@ -372,7 +389,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
                 }
-
+                float onhandqty = 0;
                 try
                 {
                     DataTable dt3 = (DataTable)(ViewState["onhandqty"]);
@@ -381,9 +398,48 @@ namespace ArtWebApp.Reports.MerchandiserReport
                     GridView tbl_onhand = (e.Row.FindControl("tbl_onhand") as GridView);
                     tbl_onhand.DataSource = onhandqtytemp;
                     tbl_onhand.DataBind();
+
+
+
+                    try
+                    {
+
+                        object onhandtotal = onhandqtytemp.Compute("Sum(onhandqty)", "");
+                        if (onhandtotal.ToString().Trim() == "")
+                        {
+                            onhandqty = 0;
+                        }
+                        else
+                        {
+                            onhandqty = float.Parse(onhandtotal.ToString());
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        onhandqty = 0;
+
+
+                    }
+                    float baltoget = lbl_RqdQty - onhandqty;
+                    (e.Row.FindControl("lbl_pendingOnhand") as Label).Text = baltoget.ToString();
                 }
                 catch (Exception)
                 {
+
+
+                }
+                try
+                {
+                    DataTable GoodsinTransit = (DataTable)(ViewState["GoodsinTransit"]);
+                    DataTable GoodsinTransittemp = GoodsinTransit.Select("Skudet_Pk=" + skudetpk).CopyToDataTable();
+
+                    GridView tbl_transist = (e.Row.FindControl("tbl_transist") as GridView);
+                    tbl_transist.DataSource = GoodsinTransittemp;
+                    tbl_transist.DataBind();
+                }
+                catch (Exception)
+                {
+
 
 
                 }
@@ -742,7 +798,46 @@ namespace ArtWebApp.Reports.MerchandiserReport
                 DataTable sizedata = BLL.FactoryAtcChart.createdatatable(newresult);
                 GenerateSmallTable(sizedata);
             }
+        //Variable to hold the total value
+
+        float totalvalue = 0;
+        protected void tbl_onhand_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            //Check if the current row is datarow or not
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Add the value of column
+                totalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "OnhandQty"));
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                //Find the control label in footer 
+                Label lblamount = (Label)e.Row.FindControl("lbl_onhandQtyTotal");
+                //Assign the total value to footer label control
+                lblamount.Text = totalvalue.ToString();
+
+                totalvalue = 0;
+            }
         }
+        float transisttotalvalue = 0;
+        protected void tbl_transist_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            
+if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Add the value of column
+                transisttotalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "OnhandQty"));
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                //Find the control label in footer 
+                Label lblamount = (Label)e.Row.FindControl("lbl_transistQtyTotal");
+                //Assign the total value to footer label control
+                lblamount.Text = transisttotalvalue.ToString();
+            }
+        }
+    }
 
 
     

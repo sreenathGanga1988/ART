@@ -120,7 +120,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SDocMaster> SDocMasters { get; set; }
         public virtual DbSet<SeasonMaster> SeasonMasters { get; set; }
         public virtual DbSet<SeasonType> SeasonTypes { get; set; }
-        public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
         public virtual DbSet<ServiceTypeMaster> ServiceTypeMasters { get; set; }
         public virtual DbSet<ShipmentHandOverMaster> ShipmentHandOverMasters { get; set; }
         public virtual DbSet<ShippingDocumentDetail> ShippingDocumentDetails { get; set; }
@@ -205,6 +204,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
         public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
         public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
+        public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

@@ -30,6 +30,7 @@ namespace ArtWebApp.DataModels
         public string ApprovedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
+        public string Remark { get; set; }
     
         public virtual CurrencyMaster CurrencyMaster { get; set; }
         public virtual ServiceTypeMaster ServiceTypeMaster { get; set; }

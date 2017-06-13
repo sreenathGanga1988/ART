@@ -18,5 +18,10 @@ namespace ArtWebApp.Merchandiser.PO
         {
 
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("IPOMultiCreator.aspx");
+        }
     }
 }

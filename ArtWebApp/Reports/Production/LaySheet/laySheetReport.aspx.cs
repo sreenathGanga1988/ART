@@ -1,6 +1,8 @@
 ﻿using ArtWebApp.DataModels;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -86,6 +88,18 @@ namespace ArtWebApp.Reports.Production.LaySheet
             string laysheetpk = drp_laysheetroll.SelectedValue.ToString();
             Response.Redirect(String.Format("~/Reports/Production/LaySheet/laysheetRollPrintable.aspx?laysheetpk={0}", laysheetpk));
 
+        }
+
+        protected void Button8_Click(object sender, EventArgs e)
+        {
+           
+            DataTable dt = DBTransaction.LaysheetTransaction.getlaysheetpendingCutorder();
+           
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CutOrderPendingToLay.rdlc";
         }
     }
 }

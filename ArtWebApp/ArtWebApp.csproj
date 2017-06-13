@@ -211,6 +211,7 @@
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
+    <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
@@ -2145,6 +2146,13 @@
     <Compile Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx.designer.cs">
       <DependentUpon>DeliveryReturnTransaction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Merchandiser\PO\IPOMultiCreator.aspx.cs">
+      <DependentUpon>IPOMultiCreator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\IPOMultiCreator.aspx.designer.cs">
+      <DependentUpon>IPOMultiCreator.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Production\CutOrder\CutPlanMasterASQEdit.aspx.cs">
       <DependentUpon>CutPlanMasterASQEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3748,6 +3756,7 @@
     <EmbeddedResource Include="Reports\RDLC\costingreport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrder.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderNew.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CutOrderPendingToLay.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CuttingBOM.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CuttingDetailsReport.rdlc" />

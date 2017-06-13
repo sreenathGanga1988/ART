@@ -156,6 +156,7 @@
 	}
     </style>
     <link href="../../css/style.css" rel="stylesheet" />
+    <script src="../../JQuery/GridJQuery.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
@@ -175,8 +176,19 @@
                     </tr>
                     <tr>
                         <td class="smallgridtable">
-                            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
+                            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="20" ShowFooter="True">
                                 <Columns>
+                                      <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField> 
+                                       <asp:BoundField DataField="POId" HeaderText="POId" SortExpression="POId" />
+                                    <asp:BoundField DataField="POLineID" HeaderText="POLineID" SortExpression="POLineID" />
+                               
                                     <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
                                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
                                     <asp:BoundField DataField="PO_Date" HeaderText="PO_Date" SortExpression="PO_Date" />
@@ -185,6 +197,7 @@
                                     <asp:BoundField DataField="OrderedQty" HeaderText="OrderedQty" ReadOnly="True" SortExpression="OrderedQty" />
                                     <asp:BoundField DataField="Balance" HeaderText="Balance" ReadOnly="True" SortExpression="Balance" />
                                     <asp:BoundField DataField="PendingFor" HeaderText="PendingFor" ReadOnly="True" SortExpression="PendingFor" />
+                                    <asp:ButtonField CommandName="Cancel" HeaderText="OrderNow" ShowHeader="True" Text="OrderNow" />
                                 </Columns>
 
 <HeaderStyle CssClass="header"></HeaderStyle>
@@ -194,12 +207,22 @@
 <RowStyle CssClass="rows"></RowStyle>
                             </asp:GridView>
                             
-                            <asp:SqlDataSource ID="PendingOrder" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        PONum, POId, Description, Qty, PO_Date, Odoo_UOM, OrderedQty,(Qty- OrderedQty) as Balance,DATEDIFF(day,PO_Date,GETDATE()) as PendingFor
+                            <asp:SqlDataSource ID="PendingOrder" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        PONum, POId, Description, Qty, PO_Date, Odoo_UOM, OrderedQty, Qty - OrderedQty AS Balance, DATEDIFF(day, PO_Date, GETDATE()) AS PendingFor, POLineID
 FROM            (SELECT        ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, 
-                                                    ISNULL(SUM(StocPOForODOO.POQty), 0) AS OrderedQty
+                                                    ISNULL(SUM(StocPOForODOO.POQty), 0) AS OrderedQty, ODOOGPOMaster.POLineID
                           FROM            ODOOGPOMaster LEFT OUTER JOIN
                                                     StocPOForODOO ON ODOOGPOMaster.POId = StocPOForODOO.POId AND ODOOGPOMaster.POLineID = StocPOForODOO.POLineID
-                          GROUP BY ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM) AS tt where (Qty- OrderedQty)&gt;0"></asp:SqlDataSource>
+                          GROUP BY ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, ODOOGPOMaster.POLineID) 
+                         AS tt
+WHERE        (Qty - OrderedQty &gt; 0)"></asp:SqlDataSource>
+                           
+                        </td>
+                        <td class="smallgridtable">
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="smallgridtable">
+                            <asp:Button ID="Button1" runat="server" Text="Order Now" OnClick="Button1_Click" />
                            
                         </td>
                         <td class="smallgridtable">

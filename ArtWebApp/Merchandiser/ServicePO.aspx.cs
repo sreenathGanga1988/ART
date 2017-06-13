@@ -36,8 +36,9 @@ namespace ArtWebApp.Merchandiser
             spdata.ServiceType_PK = int.Parse(drp_serviceType.SelectedValue.ToString());
             spdata.Amount = decimal.Parse(txt_amount.Text.ToString());
             spdata.Description = txt_description.Text.ToString();
+            spdata.Remark = txt_remark.Text.ToString();
             spdata.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
-
+            
             String servicePonum = spdata.insertServicePO(spdata);
             lbl_errordisplayer.Text = "Service PO " + servicePonum +  " Generated Successfully";
             clearcontrols();

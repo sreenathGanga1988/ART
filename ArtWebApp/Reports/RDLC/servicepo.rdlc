@@ -8,7 +8,6 @@
         <ConnectString>Data Source=192.168.1.4;Initial Catalog=Art</ConnectString>
         <Prompt>Specify a user name and password for data source OriART:</Prompt>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>c873b8fd-c3f6-4f36-8ce2-7e7df8afb498</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -41,50 +40,54 @@ FROM         ServicePOMaster INNER JOIN
           <DataField>DebitName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="AddedDate">
-          <DataField>AddedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="Amount">
           <DataField>Amount</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="AddedBy">
-          <DataField>AddedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ServiceType">
-          <DataField>ServiceType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Description">
           <DataField>Description</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="AddedBy">
+          <DataField>AddedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AddedDate">
+          <DataField>AddedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="ApprovedBy">
           <DataField>ApprovedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ApprovedDate">
+          <DataField>ApprovedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="ServiceType">
+          <DataField>ServiceType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CurrencyCode">
           <DataField>CurrencyCode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Approveddate">
-          <DataField>ApprovedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="IsApproved">
           <DataField>IsApproved</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Remark">
+          <DataField>Remark</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2013\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>ProcurementData</rd:TableName>
+        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2015\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>ServicePO</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>ProcurementDataTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>ServicePOTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -135,7 +138,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
             <rd:DefaultName>ReportTitle</rd:DefaultName>
-            <Left>0.048in</Left>
+            <Left>0.07659in</Left>
             <Height>0.61875in</Height>
             <Width>3.93924in</Width>
             <Style>
@@ -150,7 +153,7 @@ FROM         ServicePOMaster INNER JOIN
           </Textbox>
           <Line Name="Line1">
             <Top>0.80083in</Top>
-            <Left>0.048in</Left>
+            <Left>0.07659in</Left>
             <Height>0in</Height>
             <Width>6.27257in</Width>
             <ZIndex>1</ZIndex>
@@ -162,7 +165,7 @@ FROM         ServicePOMaster INNER JOIN
           </Line>
           <Line Name="Line2">
             <Top>1.09896in</Top>
-            <Left>0.048in</Left>
+            <Left>0.07659in</Left>
             <Height>0in</Height>
             <Width>6.27257in</Width>
             <ZIndex>2</ZIndex>
@@ -200,7 +203,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.81472in</Top>
-            <Left>1.29675in</Left>
+            <Left>1.32534in</Left>
             <Height>0.21479in</Height>
             <Width>3.45833in</Width>
             <ZIndex>3</ZIndex>
@@ -233,7 +236,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>PONum</rd:DefaultName>
             <Top>1.08208in</Top>
-            <Left>0.11967in</Left>
+            <Left>0.14826in</Left>
             <Height>0.16667in</Height>
             <Width>0.86458in</Width>
             <ZIndex>4</ZIndex>
@@ -266,7 +269,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>1.29042in</Top>
-            <Left>0.08842in</Left>
+            <Left>0.11701in</Left>
             <Height>0.1875in</Height>
             <Width>0.65972in</Width>
             <ZIndex>5</ZIndex>
@@ -301,7 +304,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>SupplierName</rd:DefaultName>
             <Top>1.30431in</Top>
-            <Left>0.81758in</Left>
+            <Left>0.84617in</Left>
             <Height>0.17361in</Height>
             <Width>2.8756in</Width>
             <ZIndex>6</ZIndex>
@@ -335,7 +338,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
             <Top>1.1684in</Top>
-            <Left>3.86918in</Left>
+            <Left>3.89777in</Left>
             <Height>0.22917in</Height>
             <Width>0.35417in</Width>
             <ZIndex>7</ZIndex>
@@ -445,8 +448,7 @@ FROM         ServicePOMaster INNER JOIN
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox28</rd:DefaultName>
-            <Top>2.70708in</Top>
-            <Left>0in</Left>
+            <Top>3.29041in</Top>
             <Height>1.17709in</Height>
             <Width>6.27257in</Width>
             <ZIndex>8</ZIndex>
@@ -462,7 +464,7 @@ FROM         ServicePOMaster INNER JOIN
           </Textbox>
           <Line Name="Line5">
             <Top>9.34896in</Top>
-            <Left>3.90217in</Left>
+            <Left>3.93076in</Left>
             <Height>0in</Height>
             <Width>2.16059in</Width>
             <ZIndex>9</ZIndex>
@@ -491,7 +493,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox32</rd:DefaultName>
             <Top>9.37375in</Top>
-            <Left>3.90217in</Left>
+            <Left>3.93076in</Left>
             <Height>0.18701in</Height>
             <Width>2.16059in</Width>
             <ZIndex>10</ZIndex>
@@ -525,7 +527,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox47</rd:DefaultName>
             <Top>2.45708in</Top>
-            <Left>0.03611in</Left>
+            <Left>0.0647in</Left>
             <Height>0.18403in</Height>
             <Width>0.79736in</Width>
             <ZIndex>11</ZIndex>
@@ -544,7 +546,7 @@ FROM         ServicePOMaster INNER JOIN
             <Value>atraco</Value>
             <Sizing>FitProportional</Sizing>
             <Top>0cm</Top>
-            <Left>12.37801cm</Left>
+            <Left>12.45063cm</Left>
             <Height>1.57162cm</Height>
             <Width>3.96286cm</Width>
             <ZIndex>12</ZIndex>
@@ -805,7 +807,7 @@ FROM         ServicePOMaster INNER JOIN
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
             <Top>4.70641cm</Top>
-            <Left>0.08912cm</Left>
+            <Left>0.16174cm</Left>
             <Height>1.53458cm</Height>
             <Width>15.96513cm</Width>
             <ZIndex>13</ZIndex>
@@ -836,7 +838,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>SupplierName</rd:DefaultName>
             <Top>2.45708in</Top>
-            <Left>0.84736in</Left>
+            <Left>0.87595in</Left>
             <Height>0.17361in</Height>
             <Width>3.7308in</Width>
             <ZIndex>14</ZIndex>
@@ -872,7 +874,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
             <Top>6.24099cm</Top>
-            <Left>11.62854cm</Left>
+            <Left>11.70116cm</Left>
             <Height>0.44097cm</Height>
             <Width>2.14671cm</Width>
             <ZIndex>15</ZIndex>
@@ -906,7 +908,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>AddedDate</rd:DefaultName>
             <Top>2.96016cm</Top>
-            <Left>10.72732cm</Left>
+            <Left>10.79994cm</Left>
             <Height>0.58967cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>16</ZIndex>
@@ -939,7 +941,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>1.54208in</Top>
-            <Left>0.0803in</Left>
+            <Left>0.10889in</Left>
             <Height>0.1875in</Height>
             <Width>0.65972in</Width>
             <ZIndex>17</ZIndex>
@@ -972,7 +974,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>DebitName</rd:DefaultName>
             <Top>3.91688cm</Top>
-            <Left>2.05604cm</Left>
+            <Left>2.12866cm</Left>
             <Height>0.47625cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>18</ZIndex>
@@ -1062,7 +1064,7 @@ FROM         ServicePOMaster INNER JOIN
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=First(Fields!Approveddate.Value, "DataSet1")</Value>
+                        <Value>=First(Fields!ApprovedDate.Value, "DataSet1")</Value>
                         <Style>
                           <FontFamily>Calibri</FontFamily>
                           <FontSize>8pt</FontSize>
@@ -1127,7 +1129,7 @@ FROM         ServicePOMaster INNER JOIN
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=First(Fields!Approveddate.Value, "DataSet1")</Value>
+                        <Value>=First(Fields!ApprovedDate.Value, "DataSet1")</Value>
                         <Style>
                           <FontFamily>Calibri</FontFamily>
                           <FontSize>8pt</FontSize>
@@ -1160,7 +1162,7 @@ FROM         ServicePOMaster INNER JOIN
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>22.35002cm</Top>
-            <Left>9.50118cm</Left>
+            <Left>9.5738cm</Left>
             <Height>1.38875cm</Height>
             <Width>6.35853cm</Width>
             <ZIndex>19</ZIndex>
@@ -1213,7 +1215,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>24.80675cm</Top>
-            <Left>12.4403cm</Left>
+            <Left>12.51292cm</Left>
             <Height>0.60799cm</Height>
             <Width>3.26295cm</Width>
             <ZIndex>20</ZIndex>
@@ -1249,7 +1251,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>24.81474cm</Top>
-            <Left>6.71724cm</Left>
+            <Left>6.78986cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>21</ZIndex>
@@ -1282,7 +1284,7 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox9</rd:DefaultName>
             <Top>24.81474cm</Top>
-            <Left>9.21724cm</Left>
+            <Left>9.28986cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>22</ZIndex>
@@ -1315,10 +1317,40 @@ FROM         ServicePOMaster INNER JOIN
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
             <Top>24.81474cm</Top>
-            <Left>3.66545cm</Left>
+            <Left>3.73807cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>23</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Remark">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Remark.Value, "DataSet1")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Remark</rd:DefaultName>
+            <Top>7.19349cm</Top>
+            <Left>0.37658cm</Left>
+            <Height>0.6cm</Height>
+            <Width>13.47129cm</Width>
+            <ZIndex>24</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1349,7 +1381,7 @@ FROM         ServicePOMaster INNER JOIN
           </RightBorder>
         </Style>
       </Body>
-      <Width>17.18321cm</Width>
+      <Width>17.25583cm</Width>
       <Page>
         <PageHeight>33cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>

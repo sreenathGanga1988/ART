@@ -309,6 +309,16 @@ namespace ArtWebApp.BLL
 
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
+                var q = from atcdet in entty.AtcDetailApprovals
+                        where atcdet.OurStyleID == this.ourstyleid &&
+                        atcdet.IsApproved == "N"
+                        select atcdet;
+                foreach(var element in q)
+                {
+                    entty.AtcDetailApprovals.Remove(element);
+                 
+                }
+                entty.SaveChanges();
                 AtcDetailApproval atcdetapp = new AtcDetailApproval();
                 atcdetapp.OurStyleID = this.ourstyleid;
                 atcdetapp.Quantity = this.ProjectionQty;

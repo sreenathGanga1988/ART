@@ -68,7 +68,7 @@
                     </td>
                     <td class="NormalTD"><asp:Button ID="btn_fabatc" runat="server" OnClick="btn_fabatc_Click" Text="Show ATC Fabric Inventory " ToolTip="Show Fabric Inventory of a ATC In All Location" Width="155px" Font-Size="Smaller" /></td>
                     <td class="NormalTD">
-                        <asp:Button ID="btn_atcgdtrnst" runat="server" Font-Size="Smaller" OnClick="btn_atcgdtrnst_Click" Text="Show Goods inTransist (Atcwise)" ToolTip="Show Goods inTransistof a ATC In All Location" Width="208px" />
+                        <asp:Button ID="btn_atcgdtrnst" runat="server" Font-Size="Smaller" OnClick="btn_atcgdtrnst_Click" Text="Show Goods inTransist (Atcwise)" ToolTip="Show Goods inTransist of selected  ATC In All Location" Width="208px" />
                     </td>
                   
                 </tr>

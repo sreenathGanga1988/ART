@@ -34,7 +34,8 @@
             </td>
             <td class="NormalTD">&nbsp;</td>
             <td class="NormalTD" >
-                &nbsp;</td>
+                <asp:Button ID="Button8" runat="server" Font-Size="Smaller" OnClick="Button8_Click" Text="Show laysheet pending of All location" ToolTip="Show laysheet pending of All location All Atc" />
+            </td>
             <td class="NormalTD">
                 &nbsp;</td>
             <td class="NormalTD">&nbsp;</td>

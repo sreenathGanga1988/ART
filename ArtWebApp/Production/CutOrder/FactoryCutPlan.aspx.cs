@@ -379,7 +379,7 @@ namespace ArtWebApp.Production.CutOrder
 
             //    lbl_reqyardforstyle.Text= cddet.bomconsumption.ToString()*
 
-
+            lbl_prevcutplanblocked.Text = cddet.CutplanBlockedRoll.ToString() + "Rolls" + " / " + cddet.CutplanBlockedYardage.ToString() +" Yards";
 
             if (lbl_uom.Text.Trim() == "KGS")
             {

@@ -873,6 +873,8 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=Profile" Text="User Profile Addition">
                                     </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/IPOMultiCreator.aspx" Text="test">
+                                    </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
                         </Items>

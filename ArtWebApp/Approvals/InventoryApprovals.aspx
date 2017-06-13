@@ -188,6 +188,9 @@ WHERE        (InventoryLoanMaster.IsApproved = N'N')"></asp:SqlDataSource>
                             <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
                             <asp:BoundField DataField="AtcNum" HeaderText="AtcNum" SortExpression="AtcNum" />
                             <asp:BoundField DataField="MisplaceDate" HeaderText="MisplaceDate" SortExpression="MisplaceDate" />
+                             <asp:BoundField DataField="Missedvalue" HeaderText="Missedvalue" SortExpression="Missedvalue" />
+
+                            
                             <asp:BoundField DataField="Explanation" HeaderText="Explanation" SortExpression="Explanation" />
                             <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" SortExpression="AddedBy" />
                             <asp:BoundField DataField="IsApproved" HeaderText="IsApproved" SortExpression="IsApproved" />
@@ -205,14 +208,23 @@ WHERE        (InventoryLoanMaster.IsApproved = N'N')"></asp:SqlDataSource>
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Approve Missplaced Inventory Request and Forward" />
+                    <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Confirming Selected Missplaced value will be debited to factory" />
                     <td>
                     
                 </td></td>
             </tr>
                 <tr>
                     <td>
-                        <asp:SqlDataSource ID="InventoryMisPlaced" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT InventoryMissingRequest.MisplaceApp_pk, InventoryMissingRequest.reqnum, LocationMaster.LocationName, AtcMaster.AtcNum, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, InventoryMissingRequest.AddedBy, InventoryMissingRequest.IsApproved FROM InventoryMissingRequest INNER JOIN LocationMaster ON InventoryMissingRequest.FromLctn_pk = LocationMaster.Location_PK INNER JOIN AtcMaster ON InventoryMissingRequest.Atc_id = AtcMaster.AtcId WHERE (InventoryMissingRequest.Level1Approval = N'N')"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="InventoryMisPlaced" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        InventoryMissingRequest.MisplaceApp_pk, InventoryMissingRequest.reqnum, LocationMaster.LocationName, AtcMaster.AtcNum, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, 
+                         InventoryMissingRequest.AddedBy, InventoryMissingRequest.IsApproved, SUM(InventoryMaster.CURate * InventoryMissingDetails.Qty) AS Missedvalue
+FROM            InventoryMissingRequest INNER JOIN
+                         LocationMaster ON InventoryMissingRequest.FromLctn_pk = LocationMaster.Location_PK INNER JOIN
+                         AtcMaster ON InventoryMissingRequest.Atc_id = AtcMaster.AtcId INNER JOIN
+                         InventoryMissingDetails ON InventoryMissingRequest.MisplaceApp_pk = InventoryMissingDetails.MisplaceApp_PK INNER JOIN
+                         InventoryMaster ON InventoryMissingDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK
+WHERE        (InventoryMissingRequest.Level1Approval = N'N')
+GROUP BY InventoryMissingRequest.MisplaceApp_pk, InventoryMissingRequest.reqnum, LocationMaster.LocationName, AtcMaster.AtcNum, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, 
+                         InventoryMissingRequest.AddedBy, InventoryMissingRequest.IsApproved"></asp:SqlDataSource>
                     </td>
                 </tr>
                 <tr>

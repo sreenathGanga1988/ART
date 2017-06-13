@@ -355,9 +355,9 @@
                                         <asp:GridView ID="tbl_podata" 
                                             Width="100%" 
                                             runat="server"
-                                             AutoGenerateColumns="False"                                          
+                                             AutoGenerateColumns="False"                                         
                                              DataKeyNames="PoPackId"
-                                             style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller">
+                                             style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller" OnRowDataBound="tbl_podata_RowDataBound" ShowFooter="True">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>         
                                                 <asp:TemplateField HeaderText="PoPackId" InsertVisible="False" SortExpression="PoPackId">
@@ -375,7 +375,21 @@
                                                     <ItemTemplate>
                                                         <asp:Label ID="lbl_qty" runat="server" Text='<%# Bind("PoQty") %>'></asp:Label>
                                                     </ItemTemplate>
+                                                         <FooterTemplate>
+                                <asp:Label runat="server" ID="lblTotalValue" ></asp:Label>
+                            </FooterTemplate>
                                                 </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="ShippedQty" SortExpression="ShippedQty">
+                                                    
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbl_qty" runat="server" Text='<%# Bind("ShipedQty") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                         <FooterTemplate>
+                                <asp:Label runat="server" ID="lblTotalValueship" ></asp:Label>
+                            </FooterTemplate>
+                                                </asp:TemplateField>
+                                   
                                                 <asp:TemplateField HeaderText="OurStyleID" SortExpression="OurStyleID">
                                                
                                                     <ItemTemplate>

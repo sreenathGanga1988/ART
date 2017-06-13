@@ -94,6 +94,15 @@ namespace ArtWebApp.Merchandiser {
         protected global::System.Web.UI.WebControls.TextBox txt_description;
         
         /// <summary>
+        /// txt_remark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_remark;
+        
+        /// <summary>
         /// btn_save control.
         /// </summary>
         /// <remarks>

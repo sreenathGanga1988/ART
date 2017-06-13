@@ -346,9 +346,7 @@ FROM            JobContractDetail INNER JOIN
                 foreach (ShipmentHandOverData di in shpmstrdata.ShipmentHandOverMasterDataCollection)
                 {
 
-                    var ourstyleid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.OurStyleID).FirstOrDefault();
-                    var popackid = enty.JobContractDetails.Where(u => u.JobContractDetail_pk == di.JobContractDetail_pk).Select(u => u.PoPackID).FirstOrDefault();
-
+                   
                     //Add the delivery details
                     ShipmentHandOverDetail shpdert = new ShipmentHandOverDetail();
                     shpdert.ShipmentHandMaster_PK = shpmstr.ShipmentHandMaster_PK;
@@ -357,14 +355,14 @@ FROM            JobContractDetail INNER JOIN
                     shpdert.ShipmentHandOverDate = di.ShipmenthandOverdate;
                     shpdert.AddedBy = di.AddedBy;
                     shpdert.AddedDate = di.AddedDate;
-                    shpdert.POPackId = int.Parse(popackid.ToString());
-                    shpdert.OurStyleID = int.Parse(ourstyleid.ToString());
+                    shpdert.POPackId = int.Parse(di.Popackid.ToString());
+                    shpdert.OurStyleID = int.Parse(di.OurStyleId.ToString());
                     enty.ShipmentHandOverDetails.Add(shpdert);
 
 
 
                     var q = from atcshp in enty.ATCWorldToArtShipDatas
-                            where atcshp.ArtLocation_PK == shpmstrdata.LocationPK_pk && atcshp.POPackID == popackid && atcshp.OurStyleId == ourstyleid
+                            where atcshp.ArtLocation_PK == shpmstrdata.LocationPK_pk && atcshp.POPackID == di.Popackid && atcshp.OurStyleId == di.OurStyleId
                             && atcshp.SDONo == di.SDO
                             select atcshp;
                     foreach(var element in q)
@@ -408,9 +406,9 @@ FROM            JobContractDetail INNER JOIN
         }
 
 
-        public DataTable GetSDOData(String Condition)
+        public DataTable GetSDOData(String Condition,int location_pk)
         {
-            return ArtWebApp.DBTransaction.ShippingTransaction.ShippingTransaction.GetSDODataFromAtcWorld(Condition);
+            return ArtWebApp.DBTransaction.ShippingTransaction.ShippingTransaction.GetSDODataFromAtcWorld(Condition,location_pk);
         }
     }
 
@@ -462,16 +460,19 @@ FROM            JobContractDetail INNER JOIN
 						  from (
 
 SELECT        ShipmentHandOverMaster.ShipmentHandOverCode, AtcDetails.OurStyle, AtcMaster.AtcNum, SUM(ShipmentHandOverDetails.ShippedQty) AS ShippedQty, 
-                         PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS POPackNUm, AtcDetails.FOB, JobContractDetail.PoPackID, JobContractDetail.OurStyleID, ShipmentHandOverDetails.ShipmentHandOver_PK,
-						 ISNULL((SELECT SUM(InvoiceQty) FROM  InvoiceDetail
-WHERE        (PoPackID = JobContractDetail.PoPackID) AND (OurStyleID = JobContractDetail.OurStyleID) AND (ShipmentHandOver_PK = ShipmentHandOverDetails.ShipmentHandOver_PK)),0) as InvoicedQty
-
-FROM            ShipmentHandOverMaster INNER JOIN
+                         PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS POPackNUm, AtcDetails.FOB, ShipmentHandOverDetails.POPackId, ShipmentHandOverDetails.OurStyleID, 
+                         ShipmentHandOverDetails.ShipmentHandOver_PK, ISNULL
+                             ((SELECT        SUM(InvoiceQty) AS Expr1
+                                 FROM            InvoiceDetail
+                                 WHERE        (PoPackID = ShipmentHandOverDetails.POPackId) AND (OurStyleID = ShipmentHandOverDetails.OurStyleID) AND (ShipmentHandOver_PK = ShipmentHandOverDetails.ShipmentHandOver_PK)), 0) 
+                         AS InvoicedQty
+FROM            AtcMaster INNER JOIN
+                         AtcDetails ON AtcMaster.AtcId = AtcDetails.AtcId INNER JOIN
+                         ShipmentHandOverMaster INNER JOIN
                          ShipmentHandOverDetails ON ShipmentHandOverMaster.ShipmentHandMaster_PK = ShipmentHandOverDetails.ShipmentHandMaster_PK INNER JOIN
-                         JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk INNER JOIN
-                         AtcDetails ON JobContractDetail.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
-                         PoPackMaster ON JobContractDetail.PoPackID = PoPackMaster.PoPackId" + condition + " GROUP BY ShipmentHandOverMaster.ShipmentHandOverCode, AtcDetails.OurStyle, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, AtcDetails.FOB,JobContractDetail.PoPackID, JobContractDetail.OurStyleID, ShipmentHandOverDetails.ShipmentHandOver_PK, ShipmentHandOverMaster.ShipmentHandMaster_PK) tt";
+                         PoPackMaster ON ShipmentHandOverDetails.POPackId = PoPackMaster.PoPackId ON AtcDetails.OurStyleID = ShipmentHandOverDetails.OurStyleID " + condition + @" 
+                        GROUP BY ShipmentHandOverMaster.ShipmentHandOverCode, AtcDetails.OurStyle, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, AtcDetails.FOB, 
+                         ShipmentHandOverDetails.POPackId, ShipmentHandOverDetails.OurStyleID, ShipmentHandOverDetails.ShipmentHandOver_PK, ShipmentHandOverMaster.ShipmentHandMaster_PK) tt";
                     DBTransaction.PoPackTransaction pktrans = new DBTransaction.PoPackTransaction();
                     dt = pktrans.getPodetails(query);
                 }

@@ -1562,7 +1562,8 @@ WHERE        (StockInventoryMaster.Location_Pk = 6) AND (StockInventoryMaster.On
                          + '' + ISNULL(ProcurementDetails.SupplierSize, '') + '' + ProcurementDetails.SupplierColor AS Description, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.OnhandQty, 
                          LocationMaster.LocationName, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, InventoryMissingRequest.AddedBy, InventoryMissingRequest.Addeddate, 
                          InventoryMissingRequest.Level1Approval, ISNULL(InventoryMissingRequest.reqnum, '') AS Reqnum, InventoryMissingDetails.MisplaceAppDet_PK, InventoryMissingDetails.Qty AS DeliveredQty, 
-                         InventoryMissingRequest.reqnum AS reqnum
+                         InventoryMissingRequest.reqnum AS reqnum, isnull( InventoryMissingRequest.Level1ApprovedBY,'') as Level1ApprovedBY, InventoryMissingRequest.IsApproved,  isnull( InventoryMissingRequest.ApprovedBy,'') as ApprovedBy, 
+                         isnull( InventoryMissingRequest.L1ApprovedDate,'') as L1ApprovedDate,isnull( InventoryMissingRequest.ApprovedDate,'') as ApprovedDate , InventoryMaster.CURate,(InventoryMaster.CURate*InventoryMissingDetails.Qty) as MisplacedValue
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN

@@ -98,7 +98,6 @@
         <EntityTypeShape EntityType="ArtModel.SDocMaster" Width="1.5" PointX="12.75" PointY="59.25" />
         <EntityTypeShape EntityType="ArtModel.SeasonMaster" Width="1.5" PointX="5.5" PointY="17.75" />
         <EntityTypeShape EntityType="ArtModel.SeasonType" Width="1.5" PointX="18.5" PointY="6.75" />
-        <EntityTypeShape EntityType="ArtModel.ServicePOMaster" Width="1.5" PointX="10.5" PointY="85.5" />
         <EntityTypeShape EntityType="ArtModel.ServiceTypeMaster" Width="1.5" PointX="8.25" PointY="91.875" />
         <EntityTypeShape EntityType="ArtModel.ShipmentHandOverMaster" Width="1.5" PointX="3.75" PointY="135.5" />
         <EntityTypeShape EntityType="ArtModel.ShippingDocumentDetail" Width="1.5" PointX="15" PointY="57.375" />
@@ -155,7 +154,6 @@
         <AssociationConnector Association="ArtModel.FK_StyleCostingComponentDetails_CostingComponentMaster" />
         <AssociationConnector Association="ArtModel.FK_SupplierMaster_CountryMaster" />
         <AssociationConnector Association="ArtModel.FK_POCurrExRate_CurrencyMaster" />
-        <AssociationConnector Association="ArtModel.FK_ServicePOMaster_CurrencyMaster" />
         <AssociationConnector Association="ArtModel.FK_StockPOMaster_CurrencyMaster" />
         <AssociationConnector Association="ArtModel.FK_SupplierMaster_CurrencyMaster" />
         <AssociationConnector Association="ArtModel.FK_CutOrderSizeDetails_CutOrderDetails" />
@@ -248,7 +246,6 @@
         <AssociationConnector Association="ArtModel.FK_RoInDetails_ROINMaster" />
         <AssociationConnector Association="ArtModel.FK_RoInStockDetails_RoInStockMaster" />
         <AssociationConnector Association="ArtModel.FK_SDocMaster_SupplierMaster" />
-        <AssociationConnector Association="ArtModel.ServiceTypePK" />
         <AssociationConnector Association="ArtModel.FK_ShippingDocumentDetails_ShippingDocumentDetails" />
         <AssociationConnector Association="ArtModel.FK_TransferToGstockDetails_SkuRawmaterialDetail" />
         <AssociationConnector Association="ArtModel.FK_StockGoodsInTransit_StockInventoryMaster" />
@@ -380,6 +377,9 @@
         <AssociationConnector Association="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" />
         <AssociationConnector Association="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" />
         <EntityTypeShape EntityType="ArtModel.ATCWorldToArtShipData" Width="1.5" PointX="23.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ArtModel.ServicePOMaster" Width="1.5" PointX="22.5" PointY="87.125" />
+        <AssociationConnector Association="ArtModel.FK_ServicePOMaster_CurrencyMaster" />
+        <AssociationConnector Association="ArtModel.ServiceTypePK" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

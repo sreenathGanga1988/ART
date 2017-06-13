@@ -17,6 +17,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
         public String DebitFrom { get; set; }
         public String DebitName { get; set; }
         public String ServiceType { get; set; }
+        public String Remark { get; set; }
         public Decimal  Amount { get; set; }
         public String Description { get; set; }
         public String AddedBy { get; set; }
@@ -144,7 +145,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 spmstr.Amount = srvdata.Amount;
                 spmstr.ServicePOnumber = Srpnum;
                 spmstr.CurrencyID = srvdata.CurrencyID;
-
+                spmstr.Remark = srvdata.Remark;
                 spmstr.Description = srvdata.Description;
                 spmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 spmstr.AddedDate = DateTime.Now;

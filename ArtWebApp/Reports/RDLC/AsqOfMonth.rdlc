@@ -1640,6 +1640,7 @@
                 </TablixMember>
               </TablixMembers>
               <KeepWithGroup>After</KeepWithGroup>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
             </TablixMember>
             <TablixMember>
               <Group Name="LocationName">
@@ -1903,11 +1904,12 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <DataSetName>DataSet1</DataSetName>
         <Top>0.51959in</Top>
         <Left>0.01042in</Left>
         <Height>1.25in</Height>
-        <Width>8.98958in</Width>
+        <Width>8.98959in</Width>
         <Style>
           <Border>
             <Style>None</Style>

@@ -1905,7 +1905,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Remark</rd:DefaultName>
-            <Top>7.89905cm</Top>
+            <Top>7.93431cm</Top>
             <Left>9.54063cm</Left>
             <Height>0.39158cm</Height>
             <Width>5.52037cm</Width>
@@ -2279,10 +2279,11 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Constant" />
+                    <Value>=Parameters!Potype.Value</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>

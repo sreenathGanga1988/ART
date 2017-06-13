@@ -752,7 +752,7 @@ WHERE        (ServicePOMaster.IsApproved = 'N') AND (ServicePOMaster.IsDeleted =
 
                 cmd.CommandText = @" SELECT        ServicePOMaster.ServicePO_PK, ServicePOMaster.ServicePOnumber, ServicePOMaster.DebitFrom, ServicePOMaster.DebitName, ServicePOMaster.Amount, ServicePOMaster.Description, 
                          ServicePOMaster.AddedBy, ServicePOMaster.AddedDate, ServicePOMaster.ApprovedBy, ServicePOMaster.ApprovedDate, ServiceTypeMaster.ServiceType, CurrencyMaster.CurrencyCode, 
-                         ServicePOMaster.IsApproved
+                         ServicePOMaster.IsApproved, ServicePOMaster.Remark
 FROM            ServicePOMaster INNER JOIN
                          CurrencyMaster ON ServicePOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
                          ServiceTypeMaster ON ServicePOMaster.ServiceType_Pk = ServiceTypeMaster.ServiceType_Pk

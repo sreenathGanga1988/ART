@@ -268,7 +268,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
                     GenerateTable(sizedata, e.Row);
 
-                //    GenerateTable(BLL.popackupdater.createdatatable(ourstyleid, popackid), e.Row);
+                    //    GenerateTable(BLL.popackupdater.createdatatable(ourstyleid, popackid), e.Row);
 
 
                     string IsAllocated = BLL.popackupdater.IsAllocated(ourstyleid, popackid);
@@ -276,7 +276,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                     (e.Row.FindControl("lbl_allocated") as Label).Text = IsAllocated;
 
 
-               }
+                }
 
 
 

@@ -1803,6 +1803,7 @@
           <Property Name="ApprovedBy" Type="nvarchar" MaxLength="20" />
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="Remark" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ServiceTypeMaster">
           <Key>
@@ -2035,7 +2036,7 @@
             <PropertyRef Name="SPO_Pk" />
           </Key>
           <Property Name="SPO_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SPONum" Type="nvarchar" MaxLength="10" />
+          <Property Name="SPONum" Type="nvarchar" MaxLength="20" />
           <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="Supplier_Pk" Type="numeric" Precision="18" Scale="0" />
@@ -6168,7 +6169,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="SDocMasters" EntityType="ArtModel.SDocMaster" />
           <EntitySet Name="SeasonMasters" EntityType="ArtModel.SeasonMaster" />
           <EntitySet Name="SeasonTypes" EntityType="ArtModel.SeasonType" />
-          <EntitySet Name="ServicePOMasters" EntityType="ArtModel.ServicePOMaster" />
           <EntitySet Name="ServiceTypeMasters" EntityType="ArtModel.ServiceTypeMaster" />
           <EntitySet Name="ShipmentHandOverMasters" EntityType="ArtModel.ShipmentHandOverMaster" />
           <EntitySet Name="ShippingDocumentDetails" EntityType="ArtModel.ShippingDocumentDetail" />
@@ -6275,10 +6275,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <AssociationSet Name="FK_POCurrExRate_CurrencyMaster" Association="ArtModel.FK_POCurrExRate_CurrencyMaster">
             <End Role="CurrencyMaster" EntitySet="CurrencyMasters" />
             <End Role="POCurrExRate" EntitySet="POCurrExRates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServicePOMaster_CurrencyMaster" Association="ArtModel.FK_ServicePOMaster_CurrencyMaster">
-            <End Role="CurrencyMaster" EntitySet="CurrencyMasters" />
-            <End Role="ServicePOMaster" EntitySet="ServicePOMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_StockPOMaster_CurrencyMaster" Association="ArtModel.FK_StockPOMaster_CurrencyMaster">
             <End Role="CurrencyMaster" EntitySet="CurrencyMasters" />
@@ -6647,10 +6643,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <AssociationSet Name="FK_SDocMaster_SupplierMaster" Association="ArtModel.FK_SDocMaster_SupplierMaster">
             <End Role="SupplierMaster" EntitySet="SupplierMasters" />
             <End Role="SDocMaster" EntitySet="SDocMasters" />
-          </AssociationSet>
-          <AssociationSet Name="ServiceTypePK" Association="ArtModel.ServiceTypePK">
-            <End Role="ServiceTypeMaster" EntitySet="ServiceTypeMasters" />
-            <End Role="ServicePOMaster" EntitySet="ServicePOMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_ShippingDocumentDetails_ShippingDocumentDetails" Association="ArtModel.FK_ShippingDocumentDetails_ShippingDocumentDetails">
             <End Role="ShippingDocumentMaster" EntitySet="ShippingDocumentMasters" />
@@ -7041,6 +7033,15 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
           </AssociationSet>
           <EntitySet Name="ATCWorldToArtShipDatas" EntityType="ArtModel.ATCWorldToArtShipData" />
+          <EntitySet Name="ServicePOMasters" EntityType="ArtModel.ServicePOMaster" />
+          <AssociationSet Name="FK_ServicePOMaster_CurrencyMaster" Association="ArtModel.FK_ServicePOMaster_CurrencyMaster">
+            <End Role="CurrencyMaster" EntitySet="CurrencyMasters" />
+            <End Role="ServicePOMaster" EntitySet="ServicePOMasters" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceTypePK" Association="ArtModel.ServiceTypePK">
+            <End Role="ServiceTypeMaster" EntitySet="ServiceTypeMasters" />
+            <End Role="ServicePOMaster" EntitySet="ServicePOMasters" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -7721,9 +7722,9 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="CurrencyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ocur_ID" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="POCurrExRates" Relationship="ArtModel.FK_POCurrExRate_CurrencyMaster" FromRole="CurrencyMaster" ToRole="POCurrExRate" />
-          <NavigationProperty Name="ServicePOMasters" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="ServicePOMaster" />
           <NavigationProperty Name="StockPOMasters" Relationship="ArtModel.FK_StockPOMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="StockPOMaster" />
           <NavigationProperty Name="SupplierMasters" Relationship="ArtModel.FK_SupplierMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="SupplierMaster" />
+          <NavigationProperty Name="ServicePOMasters" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="ServicePOMaster" />
         </EntityType>
         <EntityType Name="CutOrderDetail">
           <Key>
@@ -8901,29 +8902,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="SeasonType_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SeasonTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ServicePOMaster">
-          <Key>
-            <PropertyRef Name="ServicePO_PK" />
-          </Key>
-          <Property Name="ServicePO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ServicePOnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DebitFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DebitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ServiceType_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="CurrencyID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="DeletedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ApprovedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CurrencyMaster" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="ServicePOMaster" ToRole="CurrencyMaster" />
-          <NavigationProperty Name="ServiceTypeMaster" Relationship="ArtModel.ServiceTypePK" FromRole="ServicePOMaster" ToRole="ServiceTypeMaster" />
-        </EntityType>
         <EntityType Name="ServiceTypeMaster">
           <Key>
             <PropertyRef Name="ServiceType_Pk" />
@@ -9125,7 +9103,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <PropertyRef Name="SPO_Pk" />
           </Key>
           <Property Name="SPO_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SPONum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SPONum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="Supplier_Pk" Type="Decimal" Precision="18" Scale="0" />
@@ -9754,18 +9732,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               <PropertyRef Name="CurrencyID" />
             </Principal>
             <Dependent Role="POCurrExRate">
-              <PropertyRef Name="CurrencyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ServicePOMaster_CurrencyMaster">
-          <End Type="ArtModel.CurrencyMaster" Role="CurrencyMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.ServicePOMaster" Role="ServicePOMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CurrencyMaster">
-              <PropertyRef Name="CurrencyID" />
-            </Principal>
-            <Dependent Role="ServicePOMaster">
               <PropertyRef Name="CurrencyID" />
             </Dependent>
           </ReferentialConstraint>
@@ -10871,18 +10837,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Principal>
             <Dependent Role="SDocMaster">
               <PropertyRef Name="Supplier_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ServiceTypePK">
-          <End Type="ArtModel.ServiceTypeMaster" Role="ServiceTypeMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.ServicePOMaster" Role="ServicePOMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceTypeMaster">
-              <PropertyRef Name="ServiceType_Pk" />
-            </Principal>
-            <Dependent Role="ServicePOMaster">
-              <PropertyRef Name="ServiceType_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12750,6 +12704,54 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="BookedDate" Type="DateTime" Precision="3" />
           <Property Name="BookedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ServicePOMaster">
+          <Key>
+            <PropertyRef Name="ServicePO_PK" />
+          </Key>
+          <Property Name="ServicePO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServicePOnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebitFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceType_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="CurrencyID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CurrencyMaster" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="ServicePOMaster" ToRole="CurrencyMaster" />
+          <NavigationProperty Name="ServiceTypeMaster" Relationship="ArtModel.ServiceTypePK" FromRole="ServicePOMaster" ToRole="ServiceTypeMaster" />
+        </EntityType>
+        <Association Name="FK_ServicePOMaster_CurrencyMaster">
+          <End Type="ArtModel.CurrencyMaster" Role="CurrencyMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ServicePOMaster" Role="ServicePOMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrencyMaster">
+              <PropertyRef Name="CurrencyID" />
+            </Principal>
+            <Dependent Role="ServicePOMaster">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceTypePK">
+          <End Type="ArtModel.ServiceTypeMaster" Role="ServiceTypeMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ServicePOMaster" Role="ServicePOMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypeMaster">
+              <PropertyRef Name="ServiceType_Pk" />
+            </Principal>
+            <Dependent Role="ServicePOMaster">
+              <PropertyRef Name="ServiceType_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -14535,28 +14537,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ServicePOMasters">
-            <EntityTypeMapping TypeName="ArtModel.ServicePOMaster">
-              <MappingFragment StoreEntitySet="ServicePOMaster">
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="ServiceType_Pk" ColumnName="ServiceType_Pk" />
-                <ScalarProperty Name="DebitName" ColumnName="DebitName" />
-                <ScalarProperty Name="DebitFrom" ColumnName="DebitFrom" />
-                <ScalarProperty Name="ServicePOnumber" ColumnName="ServicePOnumber" />
-                <ScalarProperty Name="ServicePO_PK" ColumnName="ServicePO_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ServiceTypeMasters">
             <EntityTypeMapping TypeName="ArtModel.ServiceTypeMaster">
               <MappingFragment StoreEntitySet="ServiceTypeMaster">
@@ -15923,6 +15903,29 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="ATCWorldLocation_PK" ColumnName="ATCWorldLocation_PK" />
                 <ScalarProperty Name="ArtLocation_PK" ColumnName="ArtLocation_PK" />
                 <ScalarProperty Name="ArtShipID" ColumnName="ArtShipID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicePOMasters">
+            <EntityTypeMapping TypeName="ArtModel.ServicePOMaster">
+              <MappingFragment StoreEntitySet="ServicePOMaster">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ServiceType_Pk" ColumnName="ServiceType_Pk" />
+                <ScalarProperty Name="DebitName" ColumnName="DebitName" />
+                <ScalarProperty Name="DebitFrom" ColumnName="DebitFrom" />
+                <ScalarProperty Name="ServicePOnumber" ColumnName="ServicePOnumber" />
+                <ScalarProperty Name="ServicePO_PK" ColumnName="ServicePO_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

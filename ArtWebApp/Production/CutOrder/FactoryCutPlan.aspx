@@ -676,8 +676,10 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="NormalTD">&nbsp;</td>
-                                                                <td class="NormalTD">&nbsp;</td>
+                                                                <td class="NormalTD">Blocked in previous Cutplan</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_prevcutplanblocked" runat="server" Text="Label"></asp:Label>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </ContentTemplate>

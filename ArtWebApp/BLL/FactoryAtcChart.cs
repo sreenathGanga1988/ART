@@ -1682,7 +1682,36 @@ HAVING        (SUM(InventoryMaster.OnhandQty) > 0) AND (LocationMaster.LocType =
             return dt;
         }
 
+        public static System.Data.DataTable GetTransistQty(int ATCID)
+        {
+            DataTable dt = new DataTable();
 
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+
+                cmd.CommandText = @"
+SELECT        TOP (100) PERCENT GoodsInTransit.Gt_PK, GoodsInTransit.TransitQty, InventoryMaster.CURate * GoodsInTransit.TransitQty AS Value, DeliveryOrderMaster.DONum, LocationMaster.LocationPrefix, 
+                         InventoryMaster.SkuDet_Pk, DeliveryOrderMaster.AtcID
+FROM            InventoryMaster INNER JOIN
+                         GoodsInTransit ON InventoryMaster.InventoryItem_PK = GoodsInTransit.InventoryItem_PK INNER JOIN
+                         DeliveryOrderMaster ON GoodsInTransit.DO_PK = DeliveryOrderMaster.DO_PK INNER JOIN
+                         LocationMaster ON DeliveryOrderMaster.ToLocation_PK = LocationMaster.Location_PK
+WHERE        (GoodsInTransit.TransitQty > 0) AND (DeliveryOrderMaster.AtcID = @ATCID)
+
+";
+
+
+
+                cmd.Parameters.AddWithValue("@ATCID", ATCID);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
 
         public static System.Data.DataTable GetOnhandQty(int ATCID, string qrtype)
         {
