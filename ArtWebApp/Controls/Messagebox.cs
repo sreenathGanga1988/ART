@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ArtWebApp.DataModels;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-
-using OfficeOpenXml;
-
+using ArtWebApp.DBTransaction;
+using System.Data;
+using System.Collections;
+using System.Diagnostics;
+using System.IO;
+using System.Drawing;
+using System.Web.UI.HtmlControls;
+using ArtWebApp.DataModels;
+using System.Data.SqlClient;
 
 namespace ArtWebApp.Controls
 {
@@ -39,9 +42,7 @@ namespace ArtWebApp.Controls
 
 
     }
-}
-namespace ArtWebApp.Controls
-{
+
     public static class currencyConvertor
     {
 
@@ -296,7 +297,7 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)";
         }
 
 
-
+       
 
     }
 
@@ -333,7 +334,7 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)";
 
 
     
-
+    
 
 
 

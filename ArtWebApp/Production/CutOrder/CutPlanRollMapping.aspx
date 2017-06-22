@@ -48,8 +48,34 @@
             } 
             var totalyardfooter = document.getElementsByClassName("totalyardfooter")[0];
             totalyardfooter.value = sum;
-        }
+ }
 
+
+
+       function DeleteRoll(objref) {
+           debugger
+           var retVal = confirm("Do you want to continue  Deleting Roll from Cutplan ?");
+           if (retVal == true) {
+               var planpk = objref.innerHTML;
+
+               PageMethods.DeleteCutplanAysnc(planpk, onSucess, onError);
+               function onSucess(result) {
+                   alert(result);
+                   objref.innerHTML = objref.innerHTML.strike();
+                   objref.innerHTML = objref.innerHTML.fontcolor("red");
+               }
+               function onError(result) {
+                   alert('Something wrong.');
+               }
+           }
+           else {
+
+           }
+
+
+
+
+       }
 
 
 </script>
@@ -73,6 +99,12 @@
 .tr:nth-child(even) {
     background-color: #dddddd;
 }
+        .auto-style1 {
+            text-align: center;
+        }
+        .auto-style2 {
+            font-size: small;
+        }
     </style>
 
  
@@ -317,6 +349,79 @@
                          </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
+        </tr>
+        <tr>
+            <td class="auto-style1">   <strong>Already&nbsp; Added Rolls</strong></td>
+        </tr>
+        <tr>
+            <td>  
+                
+                  <asp:UpdatePanel ID="UPD_ALREADYADDED" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Roll_PK" DataSourceID="AlreadyAddedRoll" CssClass="auto-style2" OnRowDataBound="GridView1_RowDataBound" ShowFooter="True">
+                    <Columns>
+                         
+
+                        
+                          <asp:TemplateField HeaderText="CR_PK" SortExpression="CutPlanRoll_PK">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_qty" runat="server" Text='<%# Bind("CutPlanRoll_PK") %>' onclick= "DeleteRoll(this)"></asp:Label>
+                                    </ItemTemplate>
+                                    
+                                </asp:TemplateField>
+
+                        <asp:BoundField DataField="Roll_PK" HeaderText="Roll_PK" InsertVisible="False" ReadOnly="True" SortExpression="Roll_PK" />
+                        <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
+                        <asp:BoundField DataField="ASN" HeaderText="ASN" ReadOnly="True" SortExpression="ASN" />
+                        <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
+                        <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" ReadOnly="True" SortExpression="itemDescription" />
+                        <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
+                        <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
+                        <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />
+                     
+                          <asp:TemplateField HeaderText="AYard" SortExpression="AYard">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_qty" runat="server" Text='<%# Bind("AYard") %>'></asp:Label>
+                                    </ItemTemplate>
+                                        <FooterTemplate>
+                                <asp:Label runat="server" ID="lblTotalValue" ></asp:Label>
+                            </FooterTemplate>
+                                </asp:TemplateField>
+                        <asp:BoundField DataField="AtcNum" HeaderText="AtcNum" SortExpression="AtcNum" />
+                        <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                        <asp:BoundField DataField="AWidth" HeaderText="AWidth" SortExpression="AWidth" />
+                        <asp:BoundField DataField="AShrink" HeaderText="AShrink" SortExpression="AShrink" />
+                        <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
+                        <asp:BoundField DataField="SWeight" HeaderText="SWeight" ReadOnly="True" SortExpression="SWeight" />
+                    </Columns>
+                </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel> 
+                
+                <asp:SqlDataSource ID="AlreadyAddedRoll" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        Roll_PK, RollNum, ASN, PONum, itemDescription, WidthGroup, ShadeGroup, ShrinkageGroup, AYard, AtcNum, MarkerType, AWidth, AShrink, AShade, ISNULL(SWeight, 'NA') AS SWeight, CutPlanRoll_PK
+FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
+                                                    ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') 
+                                                    + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, 
+                                                    FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
+                                                    FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, RollInventoryMaster.IsPresent, CutPlanRollDetails.CutPlan_PK, CutPlanRollDetails.CutPlanRoll_PK
+                          FROM            SkuRawMaterialMaster INNER JOIN
+                                                    SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                                                    FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
+                                                    ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
+                                                    SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                                                    ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                                                    AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
+                                                    RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
+                                                    CutPlanRollDetails ON FabricRollmaster.Roll_PK = CutPlanRollDetails.Roll_PK
+                          WHERE        (FabricRollmaster.IsDelivered &lt;&gt; N'Y') AND (RollInventoryMaster.IsPresent = N'Y') AND (CutPlanRollDetails.CutPlan_PK = @Param1)) AS tt
+ORDER BY RollNum">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="drp_cutorder" Name="Param1" PropertyName="SelectedValue" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+                  S</td>
         </tr>
         <tr>
             <td><asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT MarkerNo, NoOfPc, Qty, MarkerLength, LayLength, CutPlanMarkerDetails_PK, CutPlan_PK FROM CutPlanMarkerDetails WHERE (CutPlan_PK = @Cutid)">

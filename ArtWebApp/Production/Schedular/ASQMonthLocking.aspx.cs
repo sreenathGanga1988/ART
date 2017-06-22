@@ -76,7 +76,7 @@ namespace ArtWebApp.Production.Schedular
 
                     int locationpk = int.Parse(((di.FindControl("lbl_locationpk") as Label).Text.ToString()));
                     int lbl_ourstyleid = int.Parse(((di.FindControl("lbl_ourstyleid") as Label).Text.ToString()));
-                    int lbl_qty = int.Parse(((di.FindControl("lbl_qty") as Label).Text.ToString()));
+                    int lbl_qty = int.Parse(((di.FindControl("lbl_Balance") as Label).Text.ToString()));
                     int lbl_popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
 
                    
@@ -123,16 +123,18 @@ namespace ArtWebApp.Production.Schedular
 
             using (SqlCommand cmd= new SqlCommand ())
             {
-                cmd.CommandText = @"SELECT        PoPackMaster.PoPackId, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, SUM(POPackDetails.PoQty) AS PoQty, POPackDetails.OurStyleID, 
-                        isnull( PoPackMaster.ExpectedLocation_PK,0) as LocationPK, MAX(POPackDetails.IsShortClosed) AS Expr1,isnull((SELECT        SUM(ShippedQty) AS Expr1
-FROM            ShipmentHandOverDetails
-GROUP BY POPackId, OurStyleID
-HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty
-FROM            AtcMaster INNER JOIN
-                         PoPackMaster ON AtcMaster.AtcId = PoPackMaster.AtcId INNER JOIN
-                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId
-GROUP BY AtcMaster.AtcNum, PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.DeliveryDate, POPackDetails.OurStyleID, PoPackMaster.ExpectedLocation_PK
-HAVING        (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(POPackDetails.IsShortClosed) = N'N')";
+                cmd.CommandText = @"SELECT        PoPackId, AtcNum, BuyerPO, PoPacknum, DeliveryDate, PoQty, OurStyleID, LocationPK, Expr1, ShipedQty,(PoQty-ShipedQty) as BalanceQty
+FROM            (SELECT        PoPackMaster.PoPackId, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, SUM(POPackDetails.PoQty) AS PoQty, POPackDetails.OurStyleID, 
+                                                    ISNULL(PoPackMaster.ExpectedLocation_PK, 0) AS LocationPK, MAX(POPackDetails.IsShortClosed) AS Expr1, ISNULL
+                                                        ((SELECT        SUM(ShippedQty) AS Expr1
+                                                            FROM            ShipmentHandOverDetails
+                                                            GROUP BY POPackId, OurStyleID
+                                                            HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty
+                          FROM            AtcMaster INNER JOIN
+                                                    PoPackMaster ON AtcMaster.AtcId = PoPackMaster.AtcId INNER JOIN
+                                                    POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId
+                          GROUP BY AtcMaster.AtcNum, PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.DeliveryDate, POPackDetails.OurStyleID, PoPackMaster.ExpectedLocation_PK
+                          HAVING         (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(POPackDetails.IsShortClosed) = N'N')) AS tt";
 
                 cmd.Parameters.AddWithValue("@param1", DateTime.Parse(lbl_fromdate.Text.ToString()));
                 cmd.Parameters.AddWithValue("@param2", DateTime.Parse(lbl_todate.Text.ToString()));

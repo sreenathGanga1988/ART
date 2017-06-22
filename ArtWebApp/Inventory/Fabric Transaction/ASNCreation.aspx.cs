@@ -32,6 +32,8 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
                     sdcmstre.AddedDate = DateTime.Parse(DateTime.Now.ToString());
                     sdcmstre.AddedBy = Session["Username"].ToString().Trim();
 
+                    sdcmstre.AddedLocation_PK= int.Parse(Session["UserLoc_pk"].ToString());
+                    sdcmstre.Location_PK = int.Parse(drp_userlocation.SelectedValue.ToString());
                     enty.SupplierDocumentMasters.Add(sdcmstre);
                     enty.SaveChanges();
                     sdcmstre.AtracotrackingNum = CodeGenerator.GetUniqueCode("ASN", "", int.Parse(sdcmstre.SupplierDoc_pk.ToString()));

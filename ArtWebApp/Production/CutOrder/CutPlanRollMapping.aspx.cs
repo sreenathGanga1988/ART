@@ -1,10 +1,12 @@
-﻿using ArtWebApp.DataModels;
+﻿using ArtWebApp.BLL.MerchandsingBLL;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -124,6 +126,9 @@ namespace ArtWebApp.Production.CutOrder
 
             int cutplanpk = int.Parse(drp_cutorder.SelectedValue.ToString());
             DataTable dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollAvailableforCutPLan(cutplanpk, int.Parse(Session["UserLoc_pk"].ToString()));
+
+           ;
+
             if (dt.Rows.Count > 0)
             {
                 DataView view = new DataView(dt);
@@ -194,6 +199,7 @@ namespace ArtWebApp.Production.CutOrder
             String fabreq = BLL.CutOrderBLL.CutPlan.GetCutFabreq(int.Parse(drp_cutorder.SelectedValue.ToString())).ToString ();
             txt_fabreq.Text = fabreq;
             upd_fabreq.Update();
+            UPD_ALREADYADDED.Update();
 
         }
 
@@ -273,5 +279,40 @@ namespace ArtWebApp.Production.CutOrder
             tbl_rolldata.DataSource = dt;
             tbl_rolldata.DataBind();
         }
+        int totalvalue = 0;
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //Check if the current row is datarow or not
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Add the value of column
+                totalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "AYard"));
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                //Find the control label in footer 
+                Label lblamount = (Label)e.Row.FindControl("lblTotalValue");
+                //Assign the total value to footer label control
+                lblamount.Text = "Total Qty is : " + totalvalue.ToString();
+            }
+        }
+
+
+
+        [WebMethod]
+        public static string DeleteCutplanAysnc(int Planid)
+        {
+
+            BLL.CutOrderBLL.CutPlanMarkerDetailsData cdetdata = new BLL.CutOrderBLL.CutPlanMarkerDetailsData();
+          
+            return cdetdata.DeleteCutplanRoll(Planid); ;
+        }
+
+
+
+
+
+
+
     }
 }

@@ -265,8 +265,10 @@
                                              <td class="NormalTD">
                                                  <asp:Label ID="lbl_fabrication" runat="server" Text="0"></asp:Label>
                                              </td>
-                                             <td class="NormalTD">&nbsp;</td>
-                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">Is Roll Added</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_RollAdded" runat="server" Font-Size="X-Small" Text="0"></asp:Label>
+                                             </td>
                                              <td class="NormalTD">&nbsp;</td>
                                              <td class="NormalTD">&nbsp;</td>
                                          </tr>

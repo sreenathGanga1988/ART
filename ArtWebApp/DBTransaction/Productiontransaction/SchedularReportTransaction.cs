@@ -142,5 +142,39 @@ namespace ArtWebApp.DBTransaction.Productiontransaction
 
         }
 
+
+
+
+
+        public static System.Data.DataTable AfterSalesprofitabiltySales( DateTime fromdate, DateTime todate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "AfterSalesProfitability_SP ";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+          
+            cmd.Parameters.AddWithValue("@Fromdate", fromdate);
+            cmd.Parameters.AddWithValue("@ToDate", todate);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

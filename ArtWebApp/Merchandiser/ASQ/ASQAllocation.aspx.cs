@@ -165,7 +165,8 @@ namespace ArtWebApp.Merchandiser.ASQ
                         // tb.ReadOnly = true;
                         tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
                         tb.Attributes.Add("onchange", "sumofQty(this)");
-                        tb.ID = "tb" + i + j;
+                      
+                        tb.ID = "tb" + i + j + dt.Rows[i][j].ToString()+"Row"+i+"col"+j;
                         tb.Text = dt.Rows[i][j].ToString();
 
                         //    Add the control to the TableCell
@@ -514,8 +515,10 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void btn_showallasq_Click(object sender, EventArgs e)
         {
-            tbl_podata.DataSource = SqlDataSource3;
-            //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
+            BLL.MerchandsingBLL.AllocationBLL pkmstrdata = new BLL.MerchandsingBLL.AllocationBLL();
+
+            tbl_podata.DataSource = pkmstrdata.GetPopackMasterOFAtc(int.Parse (cmb_atc.SelectedValue.ToString()));
+            
             tbl_podata.DataBind();
         }
 

@@ -23,5 +23,9 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string AddedBy { get; set; }
         public string AtracotrackingNum { get; set; }
+        public Nullable<decimal> Location_PK { get; set; }
+        public Nullable<decimal> AddedLocation_PK { get; set; }
+    
+        public virtual LocationMaster LocationMaster { get; set; }
     }
 }

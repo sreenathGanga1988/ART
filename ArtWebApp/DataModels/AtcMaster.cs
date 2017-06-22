@@ -57,5 +57,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<RequestOrderStockMaster> RequestOrderStockMasters { get; set; }
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
         public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
+        public virtual BuyerMaster BuyerMaster { get; set; }
     }
 }

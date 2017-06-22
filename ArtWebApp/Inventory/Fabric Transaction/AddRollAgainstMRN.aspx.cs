@@ -308,7 +308,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
         protected void Button1_Click(object sender, EventArgs e)
         {
             BLL.InventoryBLL.FabricRollEntryMRN mrnrolldata = new BLL.InventoryBLL.FabricRollEntryMRN();
-            mrnrolldata.MRNNUM = drp_mrn.Text.Trim();
+            mrnrolldata.MRNNUM = drp_mrn.SelectedItem.Text.Trim();
            // mrnrolldata.rollinvdata = getmstrdetails();
             mrnrolldata.Rolldatacollection = GetRollDetailsData();
             mrnrolldata.insertSupplierRollData();

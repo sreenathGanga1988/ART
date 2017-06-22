@@ -217,7 +217,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
 
                 int skudetpk = int.Parse(dt.Rows[i]["SkuDet_PK"].ToString().Trim());
 
-                if (skudetpk == 57609)
+                if (skudetpk == 61795)
                 {
                     int k = 9;
                   }

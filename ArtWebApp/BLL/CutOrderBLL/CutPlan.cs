@@ -190,6 +190,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
 
                 float alreadycutforselectedfactory = 0;
+
+                Decimal alreadycutforselectedfactoryofgroup = 0;
                 var UOMName = "";
                float consumption = 0;
                 float alreadycut = 0;
@@ -311,7 +313,19 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 }
 
+                var q5 = (from marasq in entty.CutPlanASQDetails
+                          join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
+                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.Location_PK == tofactid && cutplnmstr.OurStyleID == ourstyleid &&
+                          cutplnmstr.ShrinkageGroup == Shrinkagegroup &&
+                                   cutplnmstr.WidthGroup == widthgroup && cutplnmstr.MarkerType == markerTyple
+                          select new { marasq.CutQty });
+                foreach (var element in q5)
+                {
 
+                    alreadycutforselectedfactoryofgroup = decimal.Parse(element.CutQty.ToString()) + alreadycutforselectedfactoryofgroup;
+
+
+                }
 
                 int cutplanblockedroll = 0;
                 Decimal cutplanblockedyard = 0;
@@ -346,6 +360,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 cddetdata.DeliverdrollYard = deliveredayardsum;
 
                 cddetdata.alreadycutoflocation = alreadycutforselectedfactory;
+                cddetdata.alreadycutforselectedfactoryofgroup = alreadycutforselectedfactoryofgroup;
                 cddetdata.bomconsumption = consumption;
                cddetdata.UOMName = UOMName.ToString();
                 cddetdata.alreadycut = alreadycut;
@@ -890,7 +905,9 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                     ctmstr.IsRatioAdded = "N";
                     ctmstr.IsDeleted = "N";
                     ctmstr.IsCutorderGiven = "N";
+                    ctmstr.IsRollAdded = "N";
                     ctmstr.RefPattern = "";
+                    ctmstr.RollYard = 0;
                     ctmstr.CutplanConsumption = 0;
                     ctmstr.CutplanEfficency = 0;
                     ctmstr.Fabrication = this.Fabrication;
@@ -1299,6 +1316,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
         public int CutplanBlockedRoll { get; set; }
         public Decimal CutplanBlockedYardage { get; set; }
+        public Decimal alreadycutforselectedfactoryofgroup { get; set; }
 
 
     }
@@ -1582,8 +1600,24 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                     cdrlldet.AddedDate = DateTime.Now;
 
                     enty.CutPlanRollDetails.Add(cdrlldet);
+
+                    sucess = "true";
                 }
 
+
+                if(sucess== "true")
+                {
+                    var allocatedqty = enty.CutPlanRollDetails.Where(i => i.CutPlan_PK == CutPlan_PK).Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
+                    var q = from cplmstr in enty.CutPlanMasters
+                            where cplmstr.CutPlan_PK == CutPlan_PK
+                            select cplmstr;
+                    foreach(var element in q)
+                    {
+                        element.IsRollAdded = "Y";
+                        element.RollYard = Decimal.Parse(allocatedqty.ToString());
+                    }
+
+                }
                 enty.SaveChanges();
 
                 sucess = "Roll Details Added Successfully";
@@ -1593,6 +1627,27 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
                 return sucess;
+        }
+
+        public String DeleteCutplanRoll(int prpl_pk)
+        {
+            string asqshuffle = "Error";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ppl in enty.CutPlanRollDetails
+                        where ppl.CutPlanRoll_PK == prpl_pk
+                        select ppl;
+
+                foreach (var element in q)
+                {
+                    element.IsDeleted = "Y";
+                    element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                }
+                enty.SaveChanges();
+                asqshuffle = "Sucessfully Deleted";
+            }
+
+            return asqshuffle;
         }
 
 

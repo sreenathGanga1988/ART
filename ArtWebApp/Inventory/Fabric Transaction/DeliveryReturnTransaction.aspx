@@ -95,6 +95,37 @@
                          &nbsp;</td>
                 </tr>
                 <tr>
+                    <td >
+                        CutOrder</td>
+                    <td class="auto-style9" >
+                        <asp:UpdatePanel ID="Upd_cutorder" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <ucc:DropDownListChosen ID="drp_cutorder" runat="server" DisableSearchThreshold="10" Height="25px" Width="170px">
+                                </ucc:DropDownListChosen>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </td>
+                    
+                    <td>  <asp:UpdatePanel ID="UpdatePanel3" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                       <asp:Button ID="btn_cutorder" runat="server" Text="S" Width="33px"  CssClass="auto-style10" OnClick="btn_cutorder_Click"  /></td>
+                     </ContentTemplate>
+                                            </asp:UpdatePanel> </td>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Button ID="Button3" runat="server" CssClass="auto-style10" OnClick="Button2_Click" Text="S" Width="33px" />
+                            </td>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    
+                    <td >
+                          &nbsp;</td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                         &nbsp;</td>
+                </tr>
+                <tr>
                     <td class="gridtable" colspan="5">
                         <asp:UpdatePanel ID="upd_grid"   UpdateMode="Conditional" runat="server">
                             <ContentTemplate>

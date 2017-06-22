@@ -44,6 +44,18 @@ namespace ArtWebApp.Reports.Production
             fillasqgrid();
             fillcutplandetails(int.Parse(drp_cutplan.SelectedValue.ToString()));
 
+            if(lbl_RollAdded.Text=="N")
+            {
+                string message = "alert('Rolls are not Added In the Cutplan So cutplan cannot be Approved')";
+                ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", message, true);
+
+                Button1.Enabled = false;
+            }
+            else
+            {
+                Button1.Enabled = true;
+            }
+           
         }
 
 
@@ -60,7 +72,7 @@ namespace ArtWebApp.Reports.Production
                         join atcmstr in entty.AtcMasters on ourstyledet.AtcId equals atcmstr.AtcId
                         join lctnmstr in entty.LocationMasters on ponmbr.Location_PK equals lctnmstr.Location_PK
                         where ponmbr.CutPlan_PK == cutplanpk
-                        select new { ponmbr.BOMConsumption, ponmbr.CutPlanNUM, ponmbr.FabDescription, ponmbr.ShrinkageGroup, ponmbr.WidthGroup, ponmbr.MarkerType, atcmstr.AtcNum, ourstyledet.OurStyle,lctnmstr.LocationName,ponmbr.Fabrication,ponmbr.RefPattern };
+                        select new { ponmbr.BOMConsumption, ponmbr.CutPlanNUM, ponmbr.FabDescription, ponmbr.ShrinkageGroup, ponmbr.WidthGroup, ponmbr.MarkerType, atcmstr.AtcNum, ourstyledet.OurStyle,lctnmstr.LocationName,ponmbr.Fabrication,ponmbr.RefPattern ,ponmbr.IsRollAdded};
 
                 foreach (var element in q)
                 {
@@ -74,6 +86,7 @@ namespace ArtWebApp.Reports.Production
                     lbl_fabrication.Text = element.Fabrication.ToString();
                     lbl_loc.Text = element.LocationName.ToString();
                     txt_refpattern.Text = element.RefPattern.ToString ();
+                    lbl_RollAdded.Text = element.IsRollAdded.ToString();
                 }
 
 

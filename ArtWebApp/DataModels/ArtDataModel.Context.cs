@@ -128,7 +128,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SizeMaster> SizeMasters { get; set; }
         public virtual DbSet<SkuRawmaterialDetail> SkuRawmaterialDetails { get; set; }
         public virtual DbSet<StockGoodsInTransit> StockGoodsInTransits { get; set; }
-        public virtual DbSet<StockInventoryMaster> StockInventoryMasters { get; set; }
         public virtual DbSet<StockMRNDetail> StockMRNDetails { get; set; }
         public virtual DbSet<StockMrnMaster> StockMrnMasters { get; set; }
         public virtual DbSet<StockPODetail> StockPODetails { get; set; }
@@ -205,6 +204,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
         public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
         public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
+        public virtual DbSet<StockInventoryMaster> StockInventoryMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

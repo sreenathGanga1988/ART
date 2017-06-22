@@ -339,7 +339,7 @@ namespace ArtWebApp.Production.CutOrder
             fillsmalltable();
 
             // tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim());
-            tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColorandLocation(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim(), int.Parse(drp_fabcolor.SelectedValue.ToString()));
+            tbl_podata.DataSource = BLL.CutOrderBLL.CutPlan.GetPOMasterDataofColorandLocation(int.Parse(drp_ourstyle.SelectedValue.ToString()), lbl_labelcode.Text.Trim(), int.Parse(drp_fact.SelectedValue.ToString()));
             tbl_podata.DataBind();
             updgrid.Update();
         }
@@ -361,6 +361,8 @@ namespace ArtWebApp.Production.CutOrder
 
 
             lbl_alreadycutelectedFactory.Text = cddet.alreadycutoflocation.ToString();
+
+            lbl_alreadycutofgroup.Text = cddet.alreadycutforselectedfactoryofgroup.ToString();
             // lbl_rollinspected.Text = cddet.RollCount.ToString();
 
             lbl_rollinspected.Text = (cddet.RollCount+ cddet.DeliverdRollCount).ToString();
@@ -386,7 +388,7 @@ namespace ArtWebApp.Production.CutOrder
                 cddet.bomconsumption= calculateYadsConsumption();
             }
 
-
+            //total yardage blocked for total cutplan made for that skudetpk irrespective of group
             float totalcutplanyardage = float.Parse(cddet.alreadycut.ToString()) * float.Parse(cddet.bomconsumption.ToString());
 
             float locationcutplanyardage = BLL.CutOrderBLL.CutPlan.GetCutplanfabutilisedofAGroup(skudetpk, ourtyleid, factorylocation, shrinkagegroup, widthgroup, markergroup);
@@ -991,7 +993,58 @@ namespace ArtWebApp.Production.CutOrder
             lbl_skudet_pk.Text = skudetpk.ToString()+"/"+ ourstyleid.ToString();
             if (Colorcode == "CM")
             {
+                lbl_garmentColor.Text = "Common";
 
+                using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                {
+
+
+                    var sum = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid &&  i.IsCutable == "Y").Select(i => i.PoQty).DefaultIfEmpty(0).Sum();
+
+                    lbl_garmentQty.Text = sum.ToString();
+
+
+
+                    try
+                    {
+                        var allocatedqty = entty.POPackDetails.Where(i => i.OurStyleID == ourstyleid &&  i.IsCutable == "Y" && i.PoPackMaster.ExpectedLocation_PK == allocatedlocation).Select(i => i.PoQty).DefaultIfEmpty(0).Sum();
+
+                        lbl_allocatedQty.Text = allocatedqty.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+                        lbl_allocatedQty.Text = "0";
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    try
+                    {
+                        var onhandsum = entty.InventoryMasters.Where(i => i.SkuDet_Pk == skudetpk && i.Location_PK == locationpk).Select(i => i.OnhandQty).Sum();
+
+
+                        lbl_onhand.Text = onhandsum.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+                        lbl_onhand.Text = "0";
+                    }
+
+                    upd_garmentDetail.Update();
+                    upd_alreadyCut.Update();
+                    upd_skudetPK.Update();
+
+                }
 
             }
             else

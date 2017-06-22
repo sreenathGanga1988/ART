@@ -128,7 +128,7 @@ namespace ArtWebApp.Merchandiser.ASQ
                                     tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
                                     tb.Attributes.Add("onchange", "sumofQty(this)");
                                     tb.ID = "tb" + i + j;
-                                    tb.Text = dt.Rows[i][j].ToString();
+                        tb.ID = "tb" + i + j + dt.Rows[i][j].ToString() + "Row" + i + "col" + j;
                         tb.Font.Size = 8;
                         //    Add the control to the TableCell
                         cell.Controls.Add(tb);

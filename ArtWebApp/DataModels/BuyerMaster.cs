@@ -19,6 +19,7 @@ namespace ArtWebApp.DataModels
             this.BuyerDestinationMasters = new HashSet<BuyerDestinationMaster>();
             this.BuyerPOMasters = new HashSet<BuyerPOMaster>();
             this.BuyerStyleMasters = new HashSet<BuyerStyleMaster>();
+            this.AtcMasters = new HashSet<AtcMaster>();
         }
     
         public decimal BuyerID { get; set; }
@@ -44,5 +45,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<BuyerDestinationMaster> BuyerDestinationMasters { get; set; }
         public virtual ICollection<BuyerPOMaster> BuyerPOMasters { get; set; }
         public virtual ICollection<BuyerStyleMaster> BuyerStyleMasters { get; set; }
+        public virtual ICollection<AtcMaster> AtcMasters { get; set; }
     }
 }

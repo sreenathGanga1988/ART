@@ -39,5 +39,6 @@ namespace ArtWebApp.DataModels
         public string IsBooked { get; set; }
         public Nullable<System.DateTime> BookedDate { get; set; }
         public string BookedBy { get; set; }
+        public string Country { get; set; }
     }
 }

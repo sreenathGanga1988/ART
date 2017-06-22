@@ -131,7 +131,36 @@
        }
 
     
-    
+       function calculateforAll()
+       {
+               var gridView = document.getElementById("<%= tbl_costing.ClientID %>");
+
+        
+
+        
+           for (var i = 1; i < gridView.rows.length; i++) {
+               
+
+                   var sum = 0;
+                   var txtconsumption = gridView.rows[i].getElementsByClassName("txtconsumption");
+                   var txtrate = gridView.rows[i].getElementsByClassName("txtrate");
+                   var lblpcpr = gridView.rows[i].getElementsByClassName("lblpcpr");
+                   var lblpcprdzn = gridView.rows[i].getElementsByClassName("lblpcprdzn");
+
+
+
+                   var perpc = parseFloat(txtconsumption[0].value) * parseFloat(txtrate[0].value);
+                   var perdzn = perpc * 12;
+
+
+
+
+                   lblpcpr[0].innerHTML = perpc.toString();
+                   lblpcprdzn[0].innerHTML = perdzn.toString();
+              
+           }
+
+       }
 
 
 
@@ -191,7 +220,9 @@
                                 <td>&nbsp;</td>
                                 <td><asp:Label ID="lbl_cost" runat="server"></asp:Label>
                                 </td>
-                                <td>&nbsp;</td>
+                                <td>
+                                    <asp:ImageButton ID="ImageButton1" runat="server" Height="23px" ImageUrl="~/Image/Refresh.png" OnClientClick="calculateforAll()" Width="48px" />
+                                </td>
                             </tr>
                         </table>
                     </td>

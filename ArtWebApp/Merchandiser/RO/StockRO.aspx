@@ -346,7 +346,8 @@
                                         </asp:TemplateField>
                                            <asp:BoundField DataField="UomName" HeaderText="UomName" SortExpression="UomName" />
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="ReceivedQty" SortExpression="ReceivedQty" />
-                                       
+                                        <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                             <asp:BoundField DataField="BlockedQty" HeaderText="Blocked Qty" />
                                      
                                          <asp:TemplateField HeaderText="OnhandQty">
                                             
@@ -361,6 +362,7 @@
                                                 <asp:TextBox ID="txt_deliveryQty" runat="server" Text='<%# Bind("deliveryqty") %>'></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:BoundField DataField="Refnum" HeaderText="Refnum" />
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

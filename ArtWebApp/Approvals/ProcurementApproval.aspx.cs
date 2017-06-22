@@ -13,7 +13,7 @@ namespace ArtWebApp.Approvals
     {
         List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi" , "sree" });
 
-        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "vineeth" });
+        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "shaveed" ,"vineeth"});
         protected void Page_Load(object sender, EventArgs e)
         {
 

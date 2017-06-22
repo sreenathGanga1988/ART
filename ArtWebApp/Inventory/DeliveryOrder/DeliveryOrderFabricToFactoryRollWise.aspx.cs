@@ -359,9 +359,9 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
                             if(dt.Rows.Count>0)
                             {
-                                String shrinkagegrpe = dt.Rows[1]["ShrinkageGroup"].ToString();
-                                String WidthGroup = dt.Rows[1]["WidthGroup"].ToString();
-                                String MarkerType = dt.Rows[1]["MarkerType"].ToString();
+                                String shrinkagegrpe = dt.Rows[0]["ShrinkageGroup"].ToString();
+                                String WidthGroup = dt.Rows[0]["WidthGroup"].ToString();
+                                String MarkerType = dt.Rows[0]["MarkerType"].ToString();
 
 
                                 lbl_shringagegroup.Text = shrinkagegrpe;

@@ -730,8 +730,10 @@
                                                             </tr>
                                                             
                                                             <tr>
-                                                                <td class="NormalTD">&nbsp;</td>
-                                                                <td class="NormalTD">&nbsp;</td>
+                                                                <td class="NormalTD">SLready cut in selected loc for group</td>
+                                                                <td class="NormalTD">
+                                                                    <asp:Label ID="lbl_alreadycutofgroup" runat="server" Text="0"></asp:Label>
+                                                                </td>
                                                             </tr>
                                                             
                                                         </table>

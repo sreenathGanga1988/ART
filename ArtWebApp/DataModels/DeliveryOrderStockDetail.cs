@@ -27,7 +27,7 @@ namespace ArtWebApp.DataModels
     
         public virtual DeliveryOrderStockDetail DeliveryOrderStockDetails1 { get; set; }
         public virtual DeliveryOrderStockDetail DeliveryOrderStockDetail1 { get; set; }
-        public virtual StockInventoryMaster StockInventoryMaster { get; set; }
         public virtual ICollection<DeliveryReceiptStockDetail> DeliveryReceiptStockDetails { get; set; }
+        public virtual StockInventoryMaster StockInventoryMaster { get; set; }
     }
 }

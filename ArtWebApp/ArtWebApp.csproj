@@ -208,6 +208,7 @@
       <DependentUpon>AtcWorldModel.edmx</DependentUpon>
       <LastGenOutput>AtcWorldModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
@@ -3747,6 +3748,7 @@
     <Content Include="Reports\RDLC\SERVICE PO.rdlc" />
     <Content Include="Reports\RDLC\SPO.rdlc" />
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\RDLC\AfterSalesProfitabilityDetails.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ASNREPORT.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\AsqOfMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ASQShuffleReport.rdlc" />

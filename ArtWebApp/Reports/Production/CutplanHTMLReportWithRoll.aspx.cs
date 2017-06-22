@@ -69,7 +69,7 @@ namespace ArtWebApp.Reports.Production
                         join
 lctnmstr in entty.LocationMasters on ponmbr.Location_PK equals lctnmstr.Location_PK
                         where ponmbr.CutPlan_PK == cutplanpk
-                        select new { ponmbr.BOMConsumption, ponmbr.CutPlanNUM, ponmbr.FabDescription, ponmbr.ShrinkageGroup, ponmbr.WidthGroup, ponmbr.MarkerType, atcmstr.AtcNum, ourstyledet.OurStyle, ponmbr.AddedBy, ponmbr.AddedDate, ponmbr.ApprovedBy, ponmbr.ApprovedDate, ourstyledet.BuyerStyle, ponmbr.RefPattern, ponmbr.MarkerMade, ponmbr.CutplanConsumption, ponmbr.CutplanEfficency, ponmbr.CutPlanFabReq, ponmbr.Fabrication, lctnmstr.LocationName };
+                        select new { ponmbr.BOMConsumption, ponmbr.CutPlanNUM, ponmbr.FabDescription, ponmbr.ShrinkageGroup, ponmbr.WidthGroup, ponmbr.MarkerType, atcmstr.AtcNum, ourstyledet.OurStyle, ponmbr.AddedBy, ponmbr.AddedDate, ponmbr.ApprovedBy, ponmbr.ApprovedDate, ourstyledet.BuyerStyle, ponmbr.RefPattern, ponmbr.MarkerMade, ponmbr.CutplanConsumption, ponmbr.CutplanEfficency, ponmbr.CutPlanFabReq, ponmbr.Fabrication, lctnmstr.LocationName ,ponmbr.RollYard};
 
                 foreach (var element in q)
                 {
@@ -94,6 +94,7 @@ lctnmstr in entty.LocationMasters on ponmbr.Location_PK equals lctnmstr.Location
                     lbl_refpattern.Text = element.RefPattern.ToString();
                     lbl_fabreq.Text = element.CutPlanFabReq.ToString();
                     lbl_fabrication.Text = element.Fabrication;
+                    lbl_rollyard.Text = element.RollYard.ToString();
                 }
 
 

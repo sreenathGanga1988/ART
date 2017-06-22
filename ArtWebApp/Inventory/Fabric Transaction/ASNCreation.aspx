@@ -62,7 +62,25 @@
                          <td ></td>
                      </tr>
                      <tr>
+                         <td >Received location<td >
+                             <ucc:DropDownListChosen ID="drp_userlocation" runat="server" DataSourceID="SqlDataSource2" DataTextField="LocationName" DataValueField="Location_PK" DisableSearchThreshold="10" Height="16px" Width="200px">
+                                 <asp:ListItem></asp:ListItem>
+                             </ucc:DropDownListChosen>
+                         </td>
                          <td >&nbsp;</td>
+                         <td >
+                             &nbsp;</td>
+                         <td >&nbsp;</td>
+                         <td >&nbsp;</td>
+                     </tr>
+                     <tr>
+                         <td >
+                             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Location_PK], [LocationName] FROM [LocationMaster] WHERE ([LocType] = @LocType)">
+                                 <SelectParameters>
+                                     <asp:Parameter DefaultValue="W" Name="LocType" Type="String" />
+                                 </SelectParameters>
+                             </asp:SqlDataSource>
+                         </td>
                          <td >
                              <asp:SqlDataSource ID="supplierdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [SupplierName], [Supplier_PK] FROM [SupplierMaster] ORDER BY [SupplierName]"></asp:SqlDataSource>
                          </td>

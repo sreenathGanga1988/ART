@@ -37,7 +37,7 @@ namespace ArtWebApp.Reports.Production.MSI
 
         }
 
-
+        
 
 
         public void loaDYearlyTargetShippedReport()
@@ -76,9 +76,54 @@ namespace ArtWebApp.Reports.Production.MSI
         }
 
 
+        public void loaDAfterSalesProfitReport(DateTime fromtime,DateTime totime)
+        {
 
 
 
 
+            int year = int.Parse(cmb_year.SelectedItem.Text);
+            int month = int.Parse(cmb_Month.SelectedValue.ToString());
+            DateTime fromdate = DateTime.Parse(lbl_fromdate.Text.ToString());
+            String Reportheading = "After Sales Profitability  for the month of " + cmb_Month.SelectedItem.ToString() + " ," + year;
+
+            DateTime todate = DateTime.Parse(lbl_todate.Text.ToString());
+            // System.Data.DataTable dt = DBTransaction.Productiontransaction.GetASQofMonth.getShippedTargetandShorClosedofMonth(year, month, fromdate, todate);
+            System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.AfterSalesprofitabiltySales(fromtime, totime);
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.DisplayName = Reportheading;
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\AfterSalesProfitabilityDetails.rdlc";
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            int year = int.Parse(cmb_year.SelectedItem.Text);
+
+            int month = int.Parse(cmb_Month.SelectedValue.ToString());
+
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+            lbl_fromdate.Text = startDate.ToString();
+            lbl_todate.Text = endDate.ToString();
+
+            loaDAfterSalesProfitReport(DateTime.Parse(lbl_fromdate.Text), DateTime.Parse(lbl_todate.Text));
+        }
     }
 }

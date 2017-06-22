@@ -23,9 +23,7 @@
                                                 <asp:Label ID="Label1" runat="server" Text="SPO"></asp:Label>
                                             </td>
                                             <td>
-                                              <%--  <ig:WebDropDown ID="drp_spo" runat="server" DataSourceID="supplierdata" Height="23px" Style="height: 23px" TextField="SupplierName" ValueField="Supplier_PK" Visible="False" Width="200px">
-                                                    <DropDownItemBinding TextField="SupplierName" ValueField="Supplier_PK" />
-                                                </ig:WebDropDown>--%>
+                                         
                                                 <ucc:DropDownListChosen ID="drp_spo" runat="server" DataSourceID="spodatasource" DataTextField="SPONum" DataValueField="SPO_Pk" DisableSearchThreshold="10" Width="200px" >
                             </ucc:DropDownListChosen>
                                             </td>
@@ -41,9 +39,7 @@
                                         <tr>
                                             <td>Supplier</td>
                                             <td>
-                                                <%--<ig:WebDropDown ID="drp_supplier" runat="server" DataSourceID="supplierdata" Height="23px" Style="height: 23px" TextField="SupplierName" ValueField="Supplier_PK" Width="200px">
-                                                    <DropDownItemBinding TextField="SupplierName" ValueField="Supplier_PK" />
-                                                </ig:WebDropDown>--%>
+                                               
                                                   <ucc:DropDownListChosen ID="drp_supplier" runat="server" DataSourceID="supplierdata" DataTextField="SupplierName" DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px" >
                             </ucc:DropDownListChosen>
                                             </td>
@@ -57,9 +53,7 @@
                                         <tr>
                                             <td>Delivery Terms :</td>
                                             <td>
-                                              <%--  <ig:WebDropDown ID="drp_deliveryterm" runat="server" Width="200px" Height="23px" DataSourceID="deliveryterm" TextField="DeliveryTerm" ValueField="Deliveryterms_pk">
-                                                    <DropDownItemBinding TextField="DeliveryTerm" ValueField="Deliveryterms_pk" />
-                                                </ig:WebDropDown>--%>
+                                           
 
                                                   <ucc:DropDownListChosen ID="drp_deliveryterm" runat="server" DataSourceID="deliveryterm" DataTextField="DeliveryTerm" DataValueField="Deliveryterms_pk" DisableSearchThreshold="10" Width="200px" >
                             </ucc:DropDownListChosen>
@@ -139,13 +133,11 @@
 
 
 
-
-
-
-
-        <asp:GridView ID="tbl_SpoEnterData" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2">
+             <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                     <asp:GridView ID="tbl_SpoEnterData" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2">
             <Columns>
-                <asp:TemplateField HeaderText="POID" ControlStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                <asp:TemplateField HeaderText="POID" >
                    
                     <ItemTemplate>
                         <asp:Label ID="lbl_poid" runat="server" Text='<%# Bind("POID") %>'></asp:Label>
@@ -301,6 +293,13 @@
             <SortedDescendingHeaderStyle BackColor="#93451F" />
         </asp:GridView>
 
+                                    </ContentTemplate>
+
+                 </asp:UpdatePanel>
+
+
+
+       
 
 
 

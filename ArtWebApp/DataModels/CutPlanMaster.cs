@@ -56,6 +56,8 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public string NewPatternName { get; set; }
         public string ConsumptionUOM { get; set; }
+        public string IsRollAdded { get; set; }
+        public Nullable<decimal> RollYard { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }

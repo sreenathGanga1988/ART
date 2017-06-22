@@ -20,6 +20,7 @@ namespace ArtWebApp.DataModels
         public string IsDeleted { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public string DeletedBy { get; set; }
     
         public virtual CutPlanMaster CutPlanMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }

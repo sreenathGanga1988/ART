@@ -81,11 +81,28 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 
         }
 
+
+        public void FillCutorderDO(int skudetpk)
+        {
+
+            drp_cutorder.DataSource = BLL.InventoryBLL.RollTransactionBLL.GetCutOrderOFDO(int.Parse(Session["UserLoc_pk"].ToString()), skudetpk);
+
+            drp_cutorder.DataValueField = "CutID";
+            drp_cutorder.DataTextField = "Cut_NO";
+            drp_cutorder.DataBind();
+           Upd_cutorder.Update();
+
+
+
+        }
+
         protected void Button2_Click(object sender, EventArgs e)
         {
             BLL.InventoryBLL.FabricRollmasterDataDetails fbrolldet = new BLL.InventoryBLL.FabricRollmasterDataDetails();
 
-            tbl_inventory.DataSource = fbrolldet.getNonDeliveredRollofaIteminOneLocatiom(int.Parse(drp_color.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString().Trim()));
+            //  tbl_inventory.DataSource = fbrolldet.getNonDeliveredRollofaIteminOneLocatiom(int.Parse(drp_color.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString().Trim()));
+            FillCutorderDO(int.Parse(drp_color.SelectedValue.ToString()));
+            tbl_inventory.DataSource = null;
             tbl_inventory.DataBind();
             upd_grid.Update();
 
@@ -96,9 +113,11 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             BLL.InventoryBLL.FabricRollEntryDO dorolldata = new BLL.InventoryBLL.FabricRollEntryDO();
             //mrnrolldata.rollinvdata = getmstrdetails();
             dorolldata.Docnum = ddl_do.SelectedItem.Text;
+            dorolldata.cutid = int.Parse(drp_cutorder.SelectedValue.ToString());
+            dorolldata.DoID = int.Parse(ddl_do.SelectedValue.ToString());
             dorolldata.RollInventoryDatadatacollection = GetRollDetailsData();
 
-            dorolldata.insertDORollData();
+            dorolldata.insertDOReturnRollData();
             tbl_inventory.DataSource = null;
             tbl_inventory.DataBind();
             upd_grid.Update();
@@ -137,6 +156,17 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             }
             return rk;
 
+
+        }
+
+        protected void btn_cutorder_Click(object sender, EventArgs e)
+        {
+            
+            BLL.InventoryBLL.FabricRollmasterDataDetails fbrolldet = new BLL.InventoryBLL.FabricRollmasterDataDetails();
+         //   FillCutorderDO(int.Parse(ddl_do.SelectedValue.ToString()), int.Parse(drp_color.SelectedValue.ToString()));
+           tbl_inventory.DataSource = fbrolldet.GetAllRollsofAtcofColorWithSamegroupofCutorder( int.Parse(drp_cutorder.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString().Trim()), int.Parse(drp_color.SelectedValue.ToString()));
+            tbl_inventory.DataBind();
+            upd_grid.Update();
 
         }
     }

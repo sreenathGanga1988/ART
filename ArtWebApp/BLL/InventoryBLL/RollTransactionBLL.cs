@@ -112,7 +112,7 @@ FROM            DeliveryOrderDetails INNER JOIN
                          DeliveryOrderMaster ON DeliveryOrderDetails.DO_PK = DeliveryOrderMaster.DO_PK
 WHERE        (ItemGroupMaster.ItemGroupName = 'Fabric') AND (DeliveryOrderMaster.AtcID = @atcid)
 GROUP BY DeliveryOrderMaster.DO_PK, DeliveryOrderMaster.DONum, DeliveryOrderMaster.FromLocation_PK, DeliveryOrderMaster.DoType
-HAVING        (DeliveryOrderMaster.FromLocation_PK = @LCTNPK) AND (DeliveryOrderMaster.DoType = N'WW')";
+HAVING        (DeliveryOrderMaster.FromLocation_PK = @LCTNPK) AND (DeliveryOrderMaster.DoType = N'FW')";
                 cmd.Parameters.AddWithValue("@atcid", atcid);
                 cmd.Parameters.AddWithValue("@LCTNPK", LCTNPK);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -217,6 +217,37 @@ WHERE        (DeliveryOrderDetails.DO_PK = @do_pk)
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
+
+
+
+        /// <summary>
+        /// Get All Fabric DO of Atc
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public static DataTable GetCutOrderOFDO(int loc_pk_pk, int skudet_PK)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT    DISTINCT    CutOrderMaster.Cut_NO, CutOrderMaster.CutID
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID INNER JOIN
+                         DORollDetails ON CutOrderMaster.CutID = DORollDetails.CutID
+GROUP BY CutOrderMaster.Cut_NO, CutOrderMaster.CutID, CutOrderMaster.ToLoc, CutOrderMaster.SkuDet_pk
+HAVING        (CutOrderMaster.ToLoc = @loc_pk_pk) AND (CutOrderMaster.SkuDet_pk = @skudet_PK)
+
+";
+
+                cmd.Parameters.AddWithValue("@loc_pk_pk", loc_pk_pk);
+                cmd.Parameters.AddWithValue("@skudet_PK", skudet_PK);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
+
+
+
+
+
 
 
         /// <summary>
@@ -508,7 +539,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          CutPlanMaster ON FabricRollmaster.SkuDet_PK = CutPlanMaster.SkuDet_PK AND FabricRollmaster.ShrinkageGroup = CutPlanMaster.ShrinkageGroup AND 
                          FabricRollmaster.WidthGroup = CutPlanMaster.WidthGroup AND FabricRollmaster.MarkerType = CutPlanMaster.MarkerType INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
-WHERE        (FabricRollmaster.IsDelivered <> N'Y') AND (CutPlanMaster.CutPlan_PK = @cutplan_PK) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @location_pk)) AS tt
+WHERE        (FabricRollmaster.IsDelivered <> N'Y') AND (CutPlanMaster.CutPlan_PK = @cutplan_PK) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @location_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails where   IsDeleted='N')) AS tt
 ORDER BY tt.RollNum ";
            ;
                 cmd.Parameters.AddWithValue("@cutplan_PK", cutplan_PK);
@@ -980,11 +1011,17 @@ ORDER BY tt.RollNum ";
     {
         public string Docnum { get; set; }
 
+        public int  cutid { get; set; }
+        public int DoID { get; set; }
+
         public List<RollInventoryData> RollInventoryDatadatacollection { get; set; }
 
         public RollInventoryData rollinvdata { get; set; }
 
         //RollInventoryData rollinvdata, List<FabricRollmasterDataDetails> FabricRollmasterDataDetails
+
+
+            //warehouse to warehouse transfer
         public void insertDORollData()
         {
 
@@ -1047,6 +1084,7 @@ ORDER BY tt.RollNum ";
             }
         }
 
+        //Receive Roll data of A DO
         public void UpdateDORRollData()
         {
 
@@ -1093,30 +1131,33 @@ ORDER BY tt.RollNum ";
             using (ArtEntitiesnew entry = new ArtEntitiesnew())
             {
                 int locationpk = 0;
-                var q1 = from domaster in entry.DeliveryOrderMasters
+                int skudetpk = 0;
+                int dodetpk = 0;
+                int do_pk = 0;
+                Decimal ayard = 0;
+                var q1 = from domaster in entry.DeliveryOrderDetails
 
-                         where domaster.DONum == this.Docnum
+                         where domaster.DeliveryOrderMaster.DONum == this.Docnum
                          select new
                          {
-                             domaster.ToLocation_PK,
-                             domaster.DONum
+                             domaster.DeliveryOrderMaster.ToLocation_PK,
+                             domaster.DeliveryOrderMaster.DONum,
+                            domaster.DODet_PK,
+                             domaster.DO_PK
                          };
 
                 foreach (var element in q1)
                 {
                     locationpk = int.Parse(element.ToLocation_PK.ToString());
 
-
+                    dodetpk = int.Parse(element.DODet_PK.ToString());
+                    do_pk= int.Parse(element.DO_PK.ToString());
                 }
 
 
 
                 foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
-                {
-
-
-
-                    //creates a roll on the new location with is present as N
+                {  //creates a roll on the new location with is present as N
 
                     RollInventoryMaster rvinvmstr = new RollInventoryMaster();
 
@@ -1147,13 +1188,45 @@ ORDER BY tt.RollNum ";
 
                     foreach (var rolldet in m)
                     {
-                        rolldet.IsDelivered = "Y";
+                        rolldet.IsDelivered = "N";
+                        skudetpk =int.Parse( rolldet.SkuDet_PK.ToString());
+
+                        ayard += Decimal.Parse(ayard.ToString());
 
                     }
-                    rvinvmstr.IsPresent = "Y";
-                    entry.SaveChanges();
-                }
 
+
+                    var k = from dorollin in
+                                entry.DORollDetails
+                            where  dorollin.Roll_PK == rolldata.roll_PK
+                    select dorollin;
+                    foreach(var element in k)
+                    {
+                        element.IsRollReturned = "Y";
+                      
+                    }
+
+
+                    DORollDetail dorolldet = new DataModels.DORollDetail();
+
+                    dorolldet.CutID = this.cutid;
+                    dorolldet.Roll_PK = int.Parse(rolldata.roll_PK.ToString());
+                    dorolldet.DODet_PK = dodetpk;
+                    dorolldet.DO_PK = do_pk;
+                    entry.DORollDetails.Add(dorolldet);
+
+
+
+                    rvinvmstr.IsPresent = "Y";
+                    
+                }
+                CutOrderDO ctordrdo = new CutOrderDO();
+                ctordrdo.CutID = this.cutid;
+                ctordrdo.Skudet_PK = skudetpk;
+                ctordrdo.DoDet_Pk = dodetpk;
+                ctordrdo.DeliveryQty = (0-ayard);
+                entry.CutOrderDOes.Add(ctordrdo);            
+                entry.SaveChanges();
 
             }
         }
@@ -1559,7 +1632,13 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Loc
 
 
 
-
+        /// <summary>
+        /// get all rolls marked 
+        /// </summary>
+        /// <param name="skudet_pk"></param>
+        /// <param name="lctn_pk"></param>
+        /// <param name="dor_pk"></param>
+        /// <returns></returns>
         public DataTable getNonDeliveredRollofaIteminOneLocatiomagainstADOR(int skudet_pk, int lctn_pk,int dor_pk)
         {
 
@@ -1607,15 +1686,34 @@ WHERE        (SkuDet_PK = @skudet_pk) AND (SupplierDoc_pk = @asn_pk) ";
 
 
 
+        public DataTable GetAllRollsofAtcofColorWithSamegroupofCutorder( int cutid,int Location_Pk,int skudetpk)
+        {
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, RollInventoryMaster.RollInventory_PK, FabricRollmaster.RollNum, RollInventoryMaster.DocumentNum, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK, 
+                         RollInventoryMaster.AddedVia, RollInventoryMaster.DeliveredVia
+FROM            FabricRollmaster INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON FabricRollmaster.MarkerType = CutOrderMaster.MarkerType AND FabricRollmaster.WidthGroup = CutOrderMaster.CutWidth AND 
+                         FabricRollmaster.ShrinkageGroup = CutOrderMaster.Shrinkage AND FabricRollmaster.SkuDet_PK = CutOrderMaster.SkuDet_pk
+WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @Location_Pk) AND (FabricRollmaster.SkuDet_PK = @skudet_pk) AND (CutOrderMaster.CutID = @cutid)";
+
+                cmd.Parameters.AddWithValue("@cutid", cutid);
+                cmd.Parameters.AddWithValue("@Location_Pk", Location_Pk);
+                cmd.Parameters.AddWithValue("@skudet_pk", skudetpk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
 
 
 
-
-       /// <summary>
-       /// get the MRN Value
-       /// </summary>
-       /// <param name="mrndet_pk"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// get the MRN Value
+        /// </summary>
+        /// <param name="mrndet_pk"></param>
+        /// <returns></returns>
         public DataTable GetMrnData(int mrndet_pk)
         {
 

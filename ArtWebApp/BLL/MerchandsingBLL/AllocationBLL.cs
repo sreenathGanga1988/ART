@@ -1004,7 +1004,43 @@ FROM            (SELECT        TOP (100) PERCENT PoPackMaster.PoPacknum + ' / ' 
 
 
 
+        public DataTable GetPopackMasterOFAtc(int  atcid)
+        {
+            DataTable dt = new DataTable();
 
+
+
+
+            String query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, CAST(PoPackMaster.DeliveryDate AS date) AS DeliveryDate, PoPackMaster.SeasonName, ISNULL
+                             (  LocationMaster_1.LocationName,(SELECT DISTINCT LocationMaster.LocationName
+                                 FROM            ASQAllocationMaster INNER JOIN
+                                                          LocationMaster ON ASQAllocationMaster.Locaion_PK = LocationMaster.Location_PK
+                                 WHERE        (ASQAllocationMaster.PoPackId = PoPackMaster.PoPackId) AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID))) AS LocationName, ChannelMaster.ChannelName, 
+                         BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, 
+                         SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate
+FROM            PoPackMaster INNER JOIN
+                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         ChannelMaster ON PoPackMaster.ChannelID = ChannelMaster.ChannelID INNER JOIN
+                         BuyerDestinationMaster ON PoPackMaster.BuyerDestination_PK = BuyerDestinationMaster.BuyerDestination_PK INNER JOIN
+                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
+                         GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN
+                         SeasonMaster ON PoPackMaster.SeasonName = SeasonMaster.SeasonName INNER JOIN
+                         BuyerMaster ON AtcMaster.Buyer_ID = BuyerMaster.BuyerID INNER JOIN
+                         LocationMaster AS LocationMaster_1 ON PoPackMaster.ExpectedLocation_PK = LocationMaster_1.Location_PK
+GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
+                         PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, PoPackMaster.DeliveryDate, PoPackMaster.SeasonName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, 
+                         AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, 
+                         BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate, LocationMaster_1.LocationName
+HAVING        (PoPackMaster.AtcId = "+atcid+ " )ORDER BY PoPackMaster.PoPackId DESC ";
+            DBTransaction.PoPackTransaction pktrans = new DBTransaction.PoPackTransaction();
+            
+            dt = pktrans.getPodetails(query);
+
+            return dt;
+
+        }
 
 
 
@@ -1325,12 +1361,11 @@ FROM            ASQAllocationMaster " + condition;
             if (condition != "where")
             {
                 String query = @"SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate,HandoverDate
-FROM            (SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
-                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
-                                 FROM            ShipmentHandOverDetails INNER JOIN
-                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
-                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
-                                 HAVING        (JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND (JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+FROM            (SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty,ISNULL
+                             ((SELECT        SUM(ShippedQty) AS Expr1
+FROM            ShipmentHandOverDetails
+GROUP BY POPackId, OurStyleID
+HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
                          PoPackMaster.DeliveryDate, PoPackMaster.AtcId,PoPackMaster.HandoverDate
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN

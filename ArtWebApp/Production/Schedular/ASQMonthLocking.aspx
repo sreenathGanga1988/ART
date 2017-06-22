@@ -389,6 +389,16 @@
                                 <asp:Label runat="server" ID="lblTotalValueship" ></asp:Label>
                             </FooterTemplate>
                                                 </asp:TemplateField>
+
+                                                   <asp:TemplateField HeaderText="Balance" SortExpression="Balance">
+                                                    
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbl_Balance" runat="server" Text='<%# Bind("BalanceQty") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                         <FooterTemplate>
+                                <asp:Label runat="server" ID="lbl_baltoshipBalance" ></asp:Label>
+                            </FooterTemplate>
+                                                </asp:TemplateField>
                                    
                                                 <asp:TemplateField HeaderText="OurStyleID" SortExpression="OurStyleID">
                                                

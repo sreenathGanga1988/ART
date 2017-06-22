@@ -154,6 +154,9 @@
 	    padding: 5px;
 
 	}
+        .auto-style1 {
+            font-size: medium;
+        }
     </style>
     <link href="../../css/style.css" rel="stylesheet" />
     <script src="../../JQuery/GridJQuery.js"></script>
@@ -176,7 +179,11 @@
                     </tr>
                     <tr>
                         <td class="smallgridtable">
-                            <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="20" ShowFooter="True">
+
+                            <div></div>
+
+                             <div>
+                                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="25" ShowFooter="True">
                                 <Columns>
                                       <asp:TemplateField>  
                                     <HeaderTemplate>
@@ -187,7 +194,12 @@
                                     </ItemTemplate>
                                 </asp:TemplateField> 
                                        <asp:BoundField DataField="POId" HeaderText="POId" SortExpression="POId" />
-                                    <asp:BoundField DataField="POLineID" HeaderText="POLineID" SortExpression="POLineID" />
+                                      <asp:TemplateField HeaderText="POLineID" SortExpression="POLineID">
+                                        
+                                          <ItemTemplate>
+                                              <asp:Label ID="lbl_polineid" runat="server" Text='<%# Bind("POLineID") %>'></asp:Label>
+                                          </ItemTemplate>
+                                      </asp:TemplateField>
                                
                                     <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
                                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
@@ -206,6 +218,8 @@
 
 <RowStyle CssClass="rows"></RowStyle>
                             </asp:GridView>
+                             </div>
+                            
                             
                             <asp:SqlDataSource ID="PendingOrder" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        PONum, POId, Description, Qty, PO_Date, Odoo_UOM, OrderedQty, Qty - OrderedQty AS Balance, DATEDIFF(day, PO_Date, GETDATE()) AS PendingFor, POLineID
 FROM            (SELECT        ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, 
@@ -232,8 +246,57 @@ WHERE        (Qty - OrderedQty &gt; 0)"></asp:SqlDataSource>
                         <td class="RedHeadding">Pending Receipt</td>
                         <td class="RedHeadding">&nbsp;</td>
                     </tr>
+                   
                     <tr>
                         <td class="smallgridtable">
+
+                            <div>
+
+                                <asp:LinkButton ID="LinkButton2" runat="server" CssClass="auto-style1" OnClick="LinkButton2_Click">Export to Excel</asp:LinkButton>
+
+                            </div>
+
+                            <div>
+
+
+                                <asp:GridView ID="tbl_pendingtoreceive" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataKeyNames="SPO_Pk" DataSourceID="PendingtoReceive" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" PageSize="20" RowStyle-CssClass="rows" ShowFooter="True">
+                                    <Columns>
+                                        <asp:BoundField DataField="SPO_Pk" HeaderText="SPO_Pk" InsertVisible="False" ReadOnly="True" SortExpression="SPO_Pk" />
+                                        <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" SortExpression="SupplierName" />
+                                        <asp:BoundField DataField="SPONum" HeaderText="SPONum" SortExpression="SPONum" />
+                                        <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" ReadOnly="True" SortExpression="itemDescription" />
+                                        <asp:BoundField DataField="Unitprice" HeaderText="Unitprice" SortExpression="Unitprice" />
+                                        <asp:BoundField DataField="POQty" HeaderText="POQty" ReadOnly="True" SortExpression="POQty" />
+                                        <asp:BoundField DataField="ReceivedQty" HeaderText="ReceivedQty" ReadOnly="True" SortExpression="ReceivedQty" />
+                                        <asp:BoundField DataField="ExtraQty" HeaderText="ExtraQty" ReadOnly="True" SortExpression="ExtraQty" />
+                                        <asp:BoundField DataField="BalanceToReceive" HeaderText="BalanceToReceive" ReadOnly="True" SortExpression="BalanceToReceive" />
+                                    </Columns>
+                                    <HeaderStyle CssClass="header" />
+                                    <PagerStyle CssClass="pager" />
+                                    <RowStyle CssClass="rows" />
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="PendingtoReceive" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SPO_Pk, SupplierName, SPONum, itemDescription, Unitprice, POQty, ReceivedQty, ExtraQty, POQty - ReceivedQty AS BalanceToReceive
+FROM            (SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(Template_Master.Description, N'') + ISNULL(StockPODetails.Composition, N'') + ISNULL(StockPODetails.Construct, N'') 
+                                                    + ISNULL(StockPODetails.TemplateColor, N'') + ISNULL(StockPODetails.TemplateWidth, N'') + ISNULL(StockPODetails.TemplateWeight, N'') AS itemDescription, StockPODetails.Unitprice, 
+                                                    SUM(StockPODetails.POQty) AS POQty, SUM(StockMRNDetails.ReceivedQty) AS ReceivedQty, SUM(StockMRNDetails.ExtraQty) AS ExtraQty, SupplierMaster.SupplierName
+                          FROM            StockPOMaster INNER JOIN
+                                                    StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
+                                                    StockMRNDetails ON StockPODetails.SPODetails_PK = StockMRNDetails.SPODetails_PK INNER JOIN
+                                                    SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
+                                                    Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
+                                                    UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName
+                          GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateWidth, 
+                                                    StockPODetails.TemplateWeight, StockPODetails.Unitprice, SupplierMaster.SupplierName, Template_Master.Description, Template_Master.ItemGroup_PK, StockPOMaster.AddedBy, 
+                                                    UserMaster.Department_PK
+                          HAVING         (UserMaster.Department_PK =@dept_pk)) AS tt
+WHERE        (POQty - ReceivedQty &gt; 0)">
+                                    <SelectParameters>
+                                        <asp:SessionParameter Name="dept_pk" SessionField="Department_PK" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+
+
+                            </div>
                             &nbsp;</td>
                         <td>
                             &nbsp;</td>

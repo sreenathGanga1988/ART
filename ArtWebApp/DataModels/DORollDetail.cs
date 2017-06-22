@@ -19,6 +19,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> DO_PK { get; set; }
         public Nullable<decimal> DODet_PK { get; set; }
         public Nullable<decimal> CutID { get; set; }
+        public string IsRollReturned { get; set; }
     
         public virtual CutOrderMaster CutOrderMaster { get; set; }
         public virtual DeliveryOrderDetail DeliveryOrderDetail { get; set; }

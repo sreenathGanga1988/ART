@@ -160,8 +160,10 @@
                                              <td class="NormalTD">
                                                  <asp:Label ID="lbl_cutplancons" runat="server" Text="0"></asp:Label>
                                              </td>
-                                             <td class="NormalTD">&nbsp;</td>
-                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">RollYard</td>
+                                             <td class="NormalTD">
+                                                 <asp:Label ID="lbl_rollyard" runat="server" Text="0"></asp:Label>
+                                             </td>
                                          </tr>
                                      </table>
                                  </ContentTemplate>

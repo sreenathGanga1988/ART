@@ -198,6 +198,8 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
+                                         <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
+                                             <asp:BoundField DataField="BlockedQty" HeaderText="Blocked Qty" />
                                         <asp:BoundField DataField="OnhandQty" HeaderText="OnhandQty" />
                                         <asp:TemplateField HeaderText="ROQty">
                                            

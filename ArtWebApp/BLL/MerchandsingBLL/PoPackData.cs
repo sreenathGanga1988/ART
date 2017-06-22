@@ -1657,7 +1657,7 @@ ORDER BY PoPackMaster.PoPackId";
                 }
                 SqlCommand cmd = new SqlCommand(query, con);
 
-                if (colorcode != "")
+                if (colorcode != "" || colorcode != "CM")
                 {
                     cmd.Parameters.AddWithValue("@ColorCode", colorcode);
                 }

@@ -31,6 +31,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                 foreach (StockMRNDetailsData mrnrdet in SpoRcpt.StockMRNDetailsDataCollection)
                 {
+                    String IPO = "";
                     StockMRNDetail smrndetdb = new StockMRNDetail();
                     smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
                     smrndetdb.SPODetails_PK = mrnrdet.SPODetails_PK;
@@ -43,7 +44,17 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                     enty.SaveChanges();
 
+                    var q = (from ipodet in enty.ODOOGPOMasters
+                             join stockpoforodo in enty.StocPOForODOOs
+                             on ipodet.POId equals stockpoforodo.POId
+                             where stockpoforodo.SPoDet_PK == mrnrdet.SPODetails_PK
+                             select new { ipodet.PONum }
+                        ).ToList();
 
+                    foreach (var element in q)
+                    {
+                        IPO = element.PONum.ToString();
+                    }
 
                     StockInventoryMaster sinvmstr = new StockInventoryMaster();
 
@@ -62,6 +73,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                     sinvmstr.TemplateWeight = mrnrdet.TemplateWeight;
                     sinvmstr.Uom_PK = smrndetdb.Uom_PK;
                     sinvmstr.CuRate = mrnrdet.CuRate;
+                    sinvmstr.ParentRef = IPO; 
                     sinvmstr.ReceivedVia = "SMR";
                     sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
                     sinvmstr.Refnum = smrnmstrdb.SMrnNum;
@@ -169,6 +181,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                 foreach (StockMRNDetailsData mrnrdet in SpoRcpt.StockMRNDetailsDataCollection)
                 {
+                    String IPO = "";
                     StockMRNDetail smrndetdb = new StockMRNDetail();
                     smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
                     smrndetdb.SPODetails_PK = mrnrdet.SPODetails_PK;
@@ -181,6 +194,18 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                     enty.SaveChanges();
 
+
+                    var q = (from ipodet in enty.ODOOGPOMasters
+                             join stockpoforodo in enty.StocPOForODOOs
+                             on ipodet.POId equals stockpoforodo.POId
+                             where stockpoforodo.SPoDet_PK == mrnrdet.SPODetails_PK
+                             select new { ipodet.PONum }
+                           ).ToList();
+
+                    foreach(var element in q )
+                    {
+                        IPO = element.PONum.ToString();
+                    }
 
 
                     StockInventoryMaster sinvmstr = new StockInventoryMaster();
@@ -201,6 +226,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                     sinvmstr.Uom_PK = smrndetdb.Uom_PK;
                     sinvmstr.CuRate = mrnrdet.CuRate;
                     sinvmstr.ReceivedVia = "SMR";
+                    sinvmstr.ParentRef = IPO;
                     sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
                     sinvmstr.Refnum = smrnmstrdb.SMrnNum;
                     sinvmstr.AddedDate = DateTime.Now.Date;
@@ -316,7 +342,7 @@ namespace ArtWebApp.BLL.InventoryBLL
         public DateTime AddedDate { get; set; }
         public string DoNumber { get; set; }
         public int Location_Pk { get; set; }
-
+        public string SPoTYpe { get; set; }
         public int Reciept_Pk { get; set; }
 
 

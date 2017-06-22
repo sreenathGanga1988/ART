@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using ArtWebApp.BLL;
 using ArtWebApp.DataModels;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace ArtWebApp.Merchandiser.PO
 {
@@ -17,7 +18,10 @@ namespace ArtWebApp.Merchandiser.PO
 
             if (!IsPostBack)
             {
-                Filldetails();
+                String Selectionstring = Request.QueryString["selectionid"].ToString();
+                Filldetails(Selectionstring);
+
+              
             }
 
             
@@ -150,7 +154,7 @@ namespace ArtWebApp.Merchandiser.PO
            // clearcontrol();
         }
 
-        public void Filldetails()
+        public void Filldetails(string Selectionstring)
         {
             DataTable dt = QueryFunctions.ReturnQueryResultDatatable(@"SELECT        POId, POLineID, Description, IPO, SPO_PK, Odoo_UOM as UOM, OdooLocation, Qty, OrderedQty,(Qty-OrderedQty) as BalanceQty
 FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, OdooLocation, Qty, ISNULL
@@ -158,7 +162,7 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
                                                             FROM            StocPOForODOO
                                                             WHERE(POId = ODOOGPOMaster.POId) AND(POLineID = ODOOGPOMaster.POLineID)), 0) AS OrderedQty
                           FROM            ODOOGPOMaster
-                          WHERE(POLineID IN(270, 271))) AS tt");
+                          WHERE(POLineID IN("+ Selectionstring + "))) AS tt");
 
             tbl_SpoEnterData.DataSource = dt;
             tbl_SpoEnterData.DataBind();
@@ -181,7 +185,7 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
             {
 
 
-                var color = from tempcol in enty.TemplateColors
+                var color =  from tempcol in enty.TemplateColors
                             where tempcol.Template_PK == temmplatepk
                             select tempcol;
 
@@ -304,7 +308,7 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
                 drp_weight.Items.Insert(0, new ListItem(""));
                 drp_itemsize.Items.Insert(0, new ListItem(""));
                 drp_construction.Items.Insert(0, new ListItem(""));
-                drp_composition.Items.Insert(0, new ListItem(""));
+                 drp_composition.Items.Insert(0, new ListItem(""));
 
 
                 UpdatePanel upd_itemcolor = (currentRow.FindControl("upd_itemcolor") as UpdatePanel);
@@ -319,7 +323,8 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
                 upd_weight.Update();
                 upd_itemsize.Update();
                 upd_construction.Update();
-                upd_composition.Update();
+               upd_composition.Update();
+            
             }
 
 
@@ -388,7 +393,10 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
             int templatepk = int.Parse(drp_template.SelectedValue.ToString());
             if (currentRow != null)
             {
-                fillcontrils(templatepk, currentRow);
+
+               fillcontrils(templatepk, currentRow); 
+
+               
             }
                 
         }

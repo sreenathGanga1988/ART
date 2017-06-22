@@ -31,6 +31,8 @@ namespace ArtWebApp.DataModels
         public string IsApproved { get; set; }
         public string ApprovedBy { get; set; }
         public string reqnum { get; set; }
+        public Nullable<System.DateTime> L1ApprovedDate { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
     
         public virtual ICollection<InventoryMissingDetail> InventoryMissingDetails { get; set; }
     }

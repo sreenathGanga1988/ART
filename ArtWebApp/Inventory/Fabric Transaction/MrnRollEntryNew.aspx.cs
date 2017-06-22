@@ -251,7 +251,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             BLL.InventoryBLL.RollInventoryData rlinvdata = new BLL.InventoryBLL.RollInventoryData();
 
             rlinvdata.Addeddate = DateTime.Now;
-            rlinvdata.DocumentNum = drp_mrn.Text.Trim();
+            rlinvdata.DocumentNum = drp_mrn.SelectedItem.ToString().Trim();
             rlinvdata.AddedVia = "MR";
             rlinvdata.AddedBy = Session["Username"].ToString().Trim(); ;
             rlinvdata.Location_Pk = int.Parse(Session["UserLoc_pk"].ToString().Trim());
