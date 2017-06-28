@@ -206,7 +206,7 @@
                              
                             <asp:UpdatePanel ID="Upd_roll" UpdateMode="Conditional" runat="server">
                                         <ContentTemplate>
-                                            <asp:Panel ID="ModalPanel" runat="server" Visible="false">
+                                            
                                                 <table class="FullTable">
                                                     <tr>
                                                         <td>Availbale Fabric Rolls</td>
@@ -311,7 +311,7 @@
                                                         <td>&nbsp;</td>
                                                     </tr>
                                                 </table>
-                                            </asp:Panel>
+                                           
                                         </ContentTemplate>
                                         </asp:UpdatePanel>
                            
@@ -415,7 +415,7 @@ FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNu
                                                     AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
                                                     RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
                                                     CutPlanRollDetails ON FabricRollmaster.Roll_PK = CutPlanRollDetails.Roll_PK
-                          WHERE        (FabricRollmaster.IsDelivered &lt;&gt; N'Y') AND (RollInventoryMaster.IsPresent = N'Y') AND (CutPlanRollDetails.CutPlan_PK = @Param1)) AS tt
+                          WHERE        (FabricRollmaster.IsDelivered &lt;&gt; N'Y') AND (RollInventoryMaster.IsPresent = N'Y') AND (CutPlanRollDetails.CutPlan_PK = @Param1) AND (CutPlanRollDetails.IsDeleted = N'N')) AS tt
 ORDER BY RollNum">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="drp_cutorder" Name="Param1" PropertyName="SelectedValue" />

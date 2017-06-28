@@ -345,6 +345,116 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
 
         }
 
+
+        //only update the laysheet rolls from edit screen
+        public String InsertLaySheetRollRollOnly()
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                //     lsmstr.CutOrderDet_PK = this.CutOrderDet_PK;
+
+                var q = (from layref in enty.LaySheetRollDetails
+                        where layref.LaysheetRollmaster_Pk == this.LaysheetRollmaster_Pk
+                        select new { layref.CutOrderDet_PK, layref.Cutid , layref .LayRollRef}).ToList();
+                foreach(var element in q)
+                {
+                    this.cutid = int.Parse( element.Cutid.ToString ());
+                    this.CutOrderDet_PK = int.Parse(element.CutOrderDet_PK.ToString());
+                    this.LayRollRef = element.LayRollRef;
+                }
+
+
+             
+
+                foreach (LaysheetDetaolsData di in this.LaysheetDetaolsDataCollection)
+                {
+
+                    if (di.RollStatus == "New")
+                    {
+                        LaySheetRollDetail lcdet = new LaySheetRollDetail();
+                        lcdet.Roll_PK = di.Roll_PK;
+                        lcdet.CutOrderDet_PK = this.CutOrderDet_PK;
+                        lcdet.Cutid = this.cutid;
+                        lcdet.IsUsed = "W";
+                        lcdet.Yardage = di.RollAyard;
+                        lcdet.BalanceYardage = di.RollAyard;
+                        lcdet.LayRollRef = Cutn;
+                        lcdet.LaysheetRollmaster_Pk = this.LaysheetRollmaster_Pk;
+                        lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                        lcdet.AddedDate = DateTime.Now;
+
+                        enty.LaySheetRollDetails.Add(lcdet);
+                    }
+                    else
+                    {
+                        var q1 = from lyrll in enty.LaySheetRollDetails
+                                where lyrll.Roll_PK == di.Roll_PK && lyrll.IsUsed == "R"
+                                select lyrll;
+                        foreach (var element in q1)
+                        {
+                            element.IsUsed = "Y";
+                            element.BalanceYardage = 0;
+                        }
+                        LaySheetRollDetail lcdet = new LaySheetRollDetail();
+                        lcdet.Roll_PK = di.Roll_PK;
+                        lcdet.CutOrderDet_PK = this.CutOrderDet_PK;
+                        lcdet.Cutid = this.cutid;
+                        lcdet.IsUsed = "W";
+                        lcdet.Yardage = di.RollAyard;
+                        lcdet.BalanceYardage = di.RollAyard;
+                        lcdet.LayRollRef = Cutn;
+                        lcdet.LaysheetRollmaster_Pk = this.LaysheetRollmaster_Pk;
+                        lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                        lcdet.AddedDate = DateTime.Now;
+
+                        enty.LaySheetRollDetails.Add(lcdet);
+
+                    }
+
+
+
+
+
+                }
+
+
+
+
+
+                enty.SaveChanges();
+                Cutn = this.LayRollRef;
+
+
+            }
+
+            return Cutn;
+
+        }
+
+
+        public string DeleteLaysheetRoll(int layrrollpk)
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from layroll in enty.LaySheetRollDetails
+                        where layroll.LaySheetRoll_Pk== layrrollpk
+                        select layroll;
+                foreach(var element in q)
+                {
+
+                    enty.LaySheetRollDetails.Remove(element);
+                    Cutn = "Sucess";
+                }
+                enty.SaveChanges();
+            }
+            
+            return Cutn;
+        }
+
     }
 
     public class LaysheetDetaolsData

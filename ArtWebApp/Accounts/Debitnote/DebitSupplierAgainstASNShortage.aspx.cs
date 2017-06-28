@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ArtWebApp.Merchandiser.PO
+namespace ArtWebApp.Accounts.Debitnote
 {
-    public partial class StockPoTracker : System.Web.UI.Page
+    public partial class DebitSupplierAgainstASNShortage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

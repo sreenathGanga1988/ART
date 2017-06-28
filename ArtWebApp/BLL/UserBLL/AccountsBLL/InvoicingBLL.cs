@@ -507,18 +507,47 @@ FROM            StockPODetails INNER JOIN
 
 
     }
-     
 
 
 
 
+    public class DebitNoteAgainstASNShortage
+    {
 
 
-        
+        public int supplier_Pk { get; set; }
+
+
+        public DataTable getASNWithShortages()
+        {
+
+
+            DataTable dt = DBTransaction.AccountsTrranscation.DebitnoteAgainstASNShortage.getASNWithShortage();
+
+            return dt;
+        }
+
+    }
 
 
 
- 
+
+    public class DebitNoteAgainstASNShortageDetails
+    {
+
+        public int Asn_PK { get; set; }
+
+        public int Po_PK { get; set; }
+
+        public Decimal syard { get; set; }
+
+        public Decimal ayard { get; set; }
+
+        public Decimal shortageyard { get; set; }
+
+        public Decimal unitprice { get; set; }
+
+    }
 
 
 

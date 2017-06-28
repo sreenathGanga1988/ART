@@ -106,7 +106,12 @@ namespace ArtWebApp.BLL.InventoryBLL
                         select ogpo;
                 foreach(var element in q)
                 {
-                    potype = "IPO";
+
+                    if(element.POLineID!=0)
+                    {
+                        potype = "IPO";
+                    }
+                   
                 }
             }
 

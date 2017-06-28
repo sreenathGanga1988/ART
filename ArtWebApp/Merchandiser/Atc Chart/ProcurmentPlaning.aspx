@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ProcurmentPlaning.aspx.cs" Inherits="ArtWebApp.Merchandiser.Atc_Chart.ProcurmentPlaning" %>
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%--<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../../css/style.css" rel="stylesheet" />
-    <script src="../../JQuery/GridJQuery.js"></script>
+<%--    <link href="../../css/style.css" rel="stylesheet" />
+    <script src="../../JQuery/GridJQuery.js"></script>--%>
     <script>
 
         
@@ -225,9 +225,9 @@ body
                                 <td class="NormalTD" ></td>
                                 <td >
                                     <asp:TextBox ID="dtp_deliverydateall"  CssClass="dtp_deliverydateall" placeholder="Enter ETA" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
-                                    <asp:CalendarExtender ID="dtp_deliverydate_CalendarExtender0" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydateAll">
+                                    <ajaxToolkit:CalendarExtender ID="dtp_deliverydate_CalendarExtender0" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydateAll">
 
-                                    </asp:CalendarExtender>
+                                    </ajaxToolkit:CalendarExtender>
                                    <asp:Button ID="btn_remark0" runat="server" Font-Bold="True" Font-Size="X-Small" OnClientClick="CopyDate()" Text="Apply to all" Width="92px" />
 
                                 </td>

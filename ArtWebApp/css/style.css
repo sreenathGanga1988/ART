@@ -226,3 +226,22 @@ top:expression(this.offsetParent.scrollTop);
 z-index: 10;
 }
 
+.containerTotal {
+    width: 100%;
+    height: 100%;
+    background: aqua;
+    margin: auto;
+    padding: 10px;
+}
+.LeftDiv {
+    width: 50%;
+    height: 200px;
+    background: red;
+    float: left;
+}
+.RightDiv {
+    margin-left: 15%;
+    height: 200px;
+    background: black;
+     float: right;
+}

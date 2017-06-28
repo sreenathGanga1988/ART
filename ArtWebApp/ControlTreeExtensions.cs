@@ -117,8 +117,28 @@ namespace ArtWebApp
            }
 
 
+        public static Object ReturnQueryValue(String Qry)
+        {
+            Object returnValue;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString.ToString()))
+            {
 
-     
+
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText =Qry;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    con.Open();
+
+                    returnValue = cmd.ExecuteScalar();
+                }
+            }
+
+            return returnValue;
+        }
+
 
 
 

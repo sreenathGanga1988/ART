@@ -46,7 +46,7 @@ FROM            ODOOGPOMaster INNER JOIN
                                                          + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
                                                          + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, ''), StockPODetails.POQty, StockPOMaster.SPO_Pk, 
                                                          SupplierMaster.SupplierName, StockPODetails.SPODetails_PK) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND 
-                         StocPOForODOO.SPoDet_PK = tt.SPODetails_PK"))
+                         StocPOForODOO.SPoDet_PK = tt.SPODetails_PK WHERE        (tt.SPODetails_PK = 4520)"))
 
 
                 using (SqlDataAdapter sda = new SqlDataAdapter())
@@ -78,7 +78,7 @@ FROM            ODOOGPOMaster INNER JOIN
             StringBuilder html = new StringBuilder();
 
             //Table start.
-            html.Append("<table  id='example' border = '2'>");
+            html.Append("<table  id='example' class='example' border = '2'>");
 
             //Building the Header row.
             html.Append(" <thead> <tr>");

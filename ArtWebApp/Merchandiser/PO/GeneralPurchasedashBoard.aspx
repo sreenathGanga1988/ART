@@ -154,12 +154,9 @@
 	    padding: 5px;
 
 	}
-        .auto-style1 {
-            font-size: medium;
-        }
-    </style>
-    <link href="../../css/style.css" rel="stylesheet" />
-    <script src="../../JQuery/GridJQuery.js"></script>
+        </style>
+<%--    <link href="../../css/style.css" rel="stylesheet" />
+    <script src="../../JQuery/GridJQuery.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="FullTable">
@@ -183,7 +180,7 @@
                             <div></div>
 
                              <div>
-                                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="25" ShowFooter="True">
+                                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="25" ShowFooter="True">
                                 <Columns>
                                       <asp:TemplateField>  
                                     <HeaderTemplate>
@@ -252,14 +249,12 @@ WHERE        (Qty - OrderedQty &gt; 0)"></asp:SqlDataSource>
 
                             <div>
 
-                                <asp:LinkButton ID="LinkButton2" runat="server" CssClass="auto-style1" OnClick="LinkButton2_Click">Export to Excel</asp:LinkButton>
-
                             </div>
 
                             <div>
 
 
-                                <asp:GridView ID="tbl_pendingtoreceive" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataKeyNames="SPO_Pk" DataSourceID="PendingtoReceive" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" PageSize="20" RowStyle-CssClass="rows" ShowFooter="True">
+                                <asp:GridView ID="tbl_pendingtoreceive" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" DataKeyNames="SPO_Pk" DataSourceID="PendingtoReceive" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" PageSize="20" RowStyle-CssClass="rows" ShowFooter="True">
                                     <Columns>
                                         <asp:BoundField DataField="SPO_Pk" HeaderText="SPO_Pk" InsertVisible="False" ReadOnly="True" SortExpression="SPO_Pk" />
                                         <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" SortExpression="SupplierName" />

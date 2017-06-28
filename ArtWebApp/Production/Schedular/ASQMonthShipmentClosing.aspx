@@ -7,16 +7,7 @@
     
  
   
-    <link href="../../css/style.css" rel="stylesheet" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="../../JQuery/GridJQuery.js">
-   
-    <script type="text/javascript">
 
-        
-
-
-     </script>
     <style type="text/css">
        body
 {
@@ -295,7 +286,7 @@
                 
                 <asp:SqlDataSource ID="Yeardata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT * FROM [YearMonthMaster]"></asp:SqlDataSource>
                 <br />
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="YearPk" DataSourceID="Yeardata">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="YearPk" DataSourceID="Yeardata" CssClass="mydatagrid">
                     <Columns>
                         <asp:BoundField DataField="YearPk" HeaderText="Y Pk" InsertVisible="False" ReadOnly="True" SortExpression="YearPk" />
                         <asp:BoundField DataField="YearName" HeaderText="Year" SortExpression="YearName" />

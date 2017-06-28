@@ -225,21 +225,22 @@ WHERE        (DeliveryOrderDetails.DO_PK = @do_pk)
         /// </summary>
         /// <param name="atcid"></param>
         /// <returns></returns>
-        public static DataTable GetCutOrderOFDO(int loc_pk_pk, int skudet_PK)
+        public static DataTable GetCutOrderOFDO(int loc_pk_pk, int skudet_PK,int do_PK)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT    DISTINCT    CutOrderMaster.Cut_NO, CutOrderMaster.CutID
+                cmd.CommandText = @"SELECT DISTINCT CutOrderMaster.Cut_NO, CutOrderMaster.CutID, DeliveryOrderDetails.DO_PK
 FROM            CutOrderDO INNER JOIN
                          CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID INNER JOIN
-                         DORollDetails ON CutOrderMaster.CutID = DORollDetails.CutID
-GROUP BY CutOrderMaster.Cut_NO, CutOrderMaster.CutID, CutOrderMaster.ToLoc, CutOrderMaster.SkuDet_pk
-HAVING        (CutOrderMaster.ToLoc = @loc_pk_pk) AND (CutOrderMaster.SkuDet_pk = @skudet_PK)
+                         DeliveryOrderDetails ON CutOrderDO.DoDet_Pk = DeliveryOrderDetails.DODet_PK
+GROUP BY CutOrderMaster.Cut_NO, CutOrderMaster.CutID, CutOrderMaster.ToLoc, CutOrderMaster.SkuDet_pk, DeliveryOrderDetails.DO_PK
+HAVING        (CutOrderMaster.ToLoc = @loc_pk_pk) AND (CutOrderMaster.SkuDet_pk = @skudet_PK) AND (DeliveryOrderDetails.DO_PK = @do_PK)
 
 ";
 
                 cmd.Parameters.AddWithValue("@loc_pk_pk", loc_pk_pk);
                 cmd.Parameters.AddWithValue("@skudet_PK", skudet_PK);
+                cmd.Parameters.AddWithValue("@do_PK", do_PK);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
@@ -579,7 +580,7 @@ ORDER BY tt.RollNum ";
                     fbmstr.UOM = rolldata.UOM;
                     fbmstr.Remark = rolldata.Remark;
                     fbmstr.SShrink = rolldata.SShrink;
-                    fbmstr.SYard = rolldata.SYard;
+                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString ());
                     fbmstr.SShade = rolldata.SShade;
                     fbmstr.SWidth = rolldata.SWidth;
                     fbmstr.AShrink = rolldata.AShrink;
@@ -626,7 +627,7 @@ ORDER BY tt.RollNum ";
                     fbmstr.UOM = rolldata.UOM;
                     fbmstr.Remark = rolldata.Remark;
                     fbmstr.SShrink = rolldata.SShrink;
-                    fbmstr.SYard = rolldata.SYard;
+                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString ());
                     fbmstr.SShade = rolldata.SShade;
                     fbmstr.SWidth = rolldata.SWidth;
                     fbmstr.AShrink = rolldata.AShrink;
@@ -696,12 +697,12 @@ ORDER BY tt.RollNum ";
                         isinspected = true;
                         element.AYard = Decimal.Parse(oldyardage.ToString()) ;
                     }
-                    element.SYard = oldyardage.ToString ();
+                    element.SYard = oldyardage;
 
                     this.splitrollmaqster.MRnDet_PK = int.Parse ( element.MRnDet_PK.ToString ());
                     this.splitrollmaqster.UOM = element.UOM;
                     this.splitrollmaqster.SShrink = element.SShrink;
-                    this.splitrollmaqster.SYard = element.SYard;
+                    this.splitrollmaqster.SYard = element.SYard.ToString();
                     this.splitrollmaqster.SShade = element.SShade;
                     this.splitrollmaqster.SWidth = element.SWidth;
                     this.splitrollmaqster.AShrink = element.AShrink;
@@ -751,7 +752,7 @@ ORDER BY tt.RollNum ";
                     {
                         fbmstr.AYard = rolldata.Qty;
                     }
-                    fbmstr.SYard = rolldata.Qty.ToString();
+                    fbmstr.SYard = rolldata.Qty;
 
 
 
@@ -845,7 +846,7 @@ ORDER BY tt.RollNum ";
                         element.SShade = rolldata.SShade;
                         element.SShrink = rolldata.SShrink;
                         element.SGsm = rolldata.SGSM;
-                        element.SYard = rolldata.SYard;
+                        element.SYard = decimal.Parse(rolldata.SYard.ToString ());
                         element.Remark = rolldata.Remark; ;
                         element.RollNum = rolldata.RollNum;
                         element.SWidth = rolldata.SWidth; ;

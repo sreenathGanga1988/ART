@@ -163,11 +163,11 @@ namespace ArtWebApp.Production.CutOrder
                 tbl_rolldata.DataBind();
                 Upd_roll.Update();
                 upd_shade.Update();
-                ModalPanel.Visible = true;
+            
             }
             else
             {
-                ModalPanel.Visible = false;
+               
 
 
                 String msg = " No Roll Data Found ";

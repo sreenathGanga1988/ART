@@ -458,23 +458,25 @@ namespace ArtWebApp.BLL.ProcurementBLL
 
                 var OdooLocation = enty.ODOOGPOMasters.Where(u => u.POLineID == detdata.oodoPolineid).Select(u => u.OdooLocation).FirstOrDefault();
 
-                
 
-                StocPOForODOO spoforpo = new StocPOForODOO();
-                spoforpo.SPoDet_PK = spodetal.SPODetails_PK;
-                spoforpo.Spo_PK = spodetal.SPO_PK;
-                spoforpo.CuRate = spodetal.CUrate;
-                spoforpo.POId = detdata.oodoPo_PK;
-                spoforpo.POLineID = detdata.oodoPolineid;
-                spoforpo.CuRate = spodetal.CUrate;
-                spoforpo.POQty = spodetal.POQty;
-                spoforpo.PoDate = DateTime.Now.Date;
-                spoforpo.NewPOId = 0;
-                spoforpo.NewPOLineId = 0;
-                spoforpo.SupplierName = supliername.ToString();
-                spoforpo.OdooLocation = OdooLocation.ToString();
-                enty.StocPOForODOOs.Add(spoforpo);
 
+               
+
+                    StocPOForODOO spoforpo = new StocPOForODOO();
+                    spoforpo.SPoDet_PK = spodetal.SPODetails_PK;
+                    spoforpo.Spo_PK = spodetal.SPO_PK;
+                    spoforpo.CuRate = spodetal.CUrate;
+                    spoforpo.POId = detdata.oodoPo_PK;
+                    spoforpo.POLineID = detdata.oodoPolineid;
+                    spoforpo.CuRate = spodetal.CUrate;
+                    spoforpo.POQty = spodetal.POQty;
+                    spoforpo.PoDate = DateTime.Now.Date;
+                    spoforpo.NewPOId = 0;
+                    spoforpo.NewPOLineId = 0;
+                    spoforpo.SupplierName = supliername.ToString();
+                    spoforpo.OdooLocation = OdooLocation.ToString();
+                    enty.StocPOForODOOs.Add(spoforpo);
+               
                 //try
                 //{
                 //    if (detdata.oodoPolineid != 0)

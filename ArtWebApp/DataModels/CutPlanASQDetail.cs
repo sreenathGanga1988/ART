@@ -22,6 +22,7 @@ namespace ArtWebApp.DataModels
         public string SizeName { get; set; }
         public Nullable<decimal> CutQty { get; set; }
         public Nullable<decimal> Skudet_PK { get; set; }
+        public Nullable<decimal> OurStyleId { get; set; }
     
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
         public virtual PoPackMaster PoPackMaster { get; set; }

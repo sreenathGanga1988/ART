@@ -9,5 +9,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <strong>    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Send StyleSize" CssClass="auto-style1" Height="338px" Width="379px" />
     </strong>
+
+
+     <strong>    <asp:Button ID="btn_getethoipiadata" runat="server"  Text="Get Ethipoia Shipment Data" CssClass="auto-style1" Height="338px" Width="379px" OnClick="btn_getethoipiadata_Click" />
+    </strong>
 <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
 </asp:Content>

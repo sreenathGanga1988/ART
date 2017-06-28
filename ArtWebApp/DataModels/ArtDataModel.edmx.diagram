@@ -4,11 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="635b70d9182d4b39918829c85058eeae" Name="Diagram1" ZoomLevel="66">
+      <Diagram DiagramId="635b70d9182d4b39918829c85058eeae" Name="Diagram1" ZoomLevel="44">
         <EntityTypeShape EntityType="ArtModel.AltUOMMaster" Width="1.5" PointX="3.75" PointY="81.75" />
         <EntityTypeShape EntityType="ArtModel.ApprovalTable" Width="1.5" PointX="8.75" PointY="1.375" />
         <EntityTypeShape EntityType="ArtModel.ASQShuffleDetail" Width="1.5" PointX="8.5" PointY="9.75" />
-        <EntityTypeShape EntityType="ArtModel.ASQShuffleMaster" Width="1.5" PointX="10.5" PointY="9.75" />
         <EntityTypeShape EntityType="ArtModel.AtcDetailApproval" Width="1.5" PointX="15" PointY="41.375" />
         <EntityTypeShape EntityType="ArtModel.AtcDetail" Width="1.5" PointX="12.75" PointY="40.875" />
         <EntityTypeShape EntityType="ArtModel.AtcRawMaterialMaster" Width="1.5" PointX="3" PointY="86.75" />
@@ -65,7 +64,6 @@
         <EntityTypeShape EntityType="ArtModel.InvoiceMaster" Width="1.5" PointX="18.75" PointY="73.75" />
         <EntityTypeShape EntityType="ArtModel.ItemGroupMaster" Width="1.5" PointX="1.5" PointY="92" />
         <EntityTypeShape EntityType="ArtModel.JobContractDetail" Width="1.5" PointX="15" PointY="60.875" />
-        <EntityTypeShape EntityType="ArtModel.JobContractOptionalDetail" Width="1.5" PointX="15" PointY="52.5" />
         <EntityTypeShape EntityType="ArtModel.JobContractOptionalMaster" Width="1.5" PointX="6.75" PointY="53" />
         <EntityTypeShape EntityType="ArtModel.LCBankAdviceDetail" Width="1.5" PointX="23.25" PointY="83.125" />
         <EntityTypeShape EntityType="ArtModel.LCDetail" Width="1.5" PointX="21" PointY="82.75" />
@@ -141,7 +139,6 @@
         <AssociationConnector Association="ArtModel.FK_AtcDetailApproval_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_CutOrderMaster_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_JobContractDetail_AtcDetails" />
-        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_StyleCostingMaster_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_AtcRawMaterialMaster_tbl_Template_Master" />
         <AssociationConnector Association="ArtModel.FK_InvoiceMaster_BankMaster" />
@@ -205,7 +202,6 @@
         <AssociationConnector Association="ArtModel.FK_InvoiceDetails_InvoiceMaster" />
         <AssociationConnector Association="ArtModel.FK_Template_Master_ItemGroupMaster" />
         <AssociationConnector Association="ArtModel.FK_ProductionReportDetails_JobContractDetail" />
-        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_JobContractOptionalMaster" />
         <AssociationConnector Association="ArtModel.FK_JobContractOptionalMaster_JobContractOptionalMaster" />
         <AssociationConnector Association="ArtModel.FK_LCBankAdviceDetails_LCDetails" />
         <AssociationConnector Association="ArtModel.FK_LCDetails_LCMaster" />
@@ -298,7 +294,6 @@
         <AssociationConnector Association="ArtModel.FK_CutPlanASQDetails_PoPackMaster" />
         <AssociationConnector Association="ArtModel.FK_GroupDependantItems_PoPackMaster" />
         <AssociationConnector Association="ArtModel.FK_JobContractDetail_PoPackMaster" />
-        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_PoPackMaster" />
         <AssociationConnector Association="ArtModel.FK_PackingListDetails_PoPackMaster" />
         <EntityTypeShape EntityType="ArtModel.SkuRawMaterialMaster" Width="1.5" PointX="17.75" PointY="50.125" />
         <AssociationConnector Association="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl1" />
@@ -355,12 +350,6 @@
         <AssociationConnector Association="ArtModel.FK_SalesDebitNoteDetails_SalesDebitNoteMaster" />
         <EntityTypeShape EntityType="ArtModel.CutPlanRollDetail" Width="1.5" PointX="23.25" PointY="68.25" />
         <AssociationConnector Association="ArtModel.FK_CutPlanRollDetails_CutPlanMaster" />
-        <EntityTypeShape EntityType="ArtModel.FabricRollmaster" Width="1.5" PointX="0.75" PointY="53.125" />
-        <AssociationConnector Association="ArtModel.FK_CutPlanRollDetails_FabricRollmaster" />
-        <AssociationConnector Association="ArtModel.FK_DORollDetails_FabricRollmaster" />
-        <AssociationConnector Association="ArtModel.FK_LaySheetDetails_FabricRollmaster" />
-        <AssociationConnector Association="ArtModel.FK_LaySheetRolls_FabricRolls" />
-        <AssociationConnector Association="ArtModel.FK_RollInventoryMaster_FabricRollmaster" />
         <EntityTypeShape EntityType="ArtModel.PlaningRemarkMaster" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="ArtModel.ProcurmentPlanDetail" Width="1.5" PointX="10.125" PointY="97.875" />
         <AssociationConnector Association="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" />
@@ -380,6 +369,18 @@
         <AssociationConnector Association="ArtModel.FK_DeliveryOrderStockDetails_StockInventoryMaster" />
         <AssociationConnector Association="ArtModel.FK_DeliveryReceiptStockDetail_StockInventoryMaster" />
         <AssociationConnector Association="ArtModel.FK_StockGoodsInTransit_StockInventoryMaster" />
+        <EntityTypeShape EntityType="ArtModel.FabricRollmaster" Width="1.5" PointX="0.75" PointY="53.25" />
+        <AssociationConnector Association="ArtModel.FK_CutPlanRollDetails_FabricRollmaster" />
+        <AssociationConnector Association="ArtModel.FK_DORollDetails_FabricRollmaster" />
+        <AssociationConnector Association="ArtModel.FK_LaySheetDetails_FabricRollmaster" />
+        <AssociationConnector Association="ArtModel.FK_LaySheetRolls_FabricRolls" />
+        <AssociationConnector Association="ArtModel.FK_RollInventoryMaster_FabricRollmaster" />
+        <EntityTypeShape EntityType="ArtModel.ASQShuffleMaster" Width="1.5" PointX="23.375" PointY="19.75" />
+        <EntityTypeShape EntityType="ArtModel.EthiopiaToARTShip_Tbl" Width="1.5" PointX="20.375" PointY="23.75" />
+        <EntityTypeShape EntityType="ArtModel.JobContractOptionalDetail" Width="1.5" PointX="20" PointY="43.5" />
+        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_AtcDetails" />
+        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_JobContractOptionalMaster" />
+        <AssociationConnector Association="ArtModel.FK_JobContractOptionalDetail_PoPackMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

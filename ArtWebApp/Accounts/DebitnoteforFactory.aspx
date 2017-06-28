@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../css/style.css" rel="stylesheet" />
 
-  
-    <script src="../JQuery/GridJQuery.js"></script>
-
+ 
           <script type="text/javascript" >
 
       

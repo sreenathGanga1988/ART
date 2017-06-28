@@ -150,7 +150,7 @@ namespace ArtWebApp.Production.Cutting
 
                     BLL.ProductionBLL.LaysheetDetaolsData lsdetdata = new BLL.ProductionBLL.LaysheetDetaolsData();
 
-                    lsdetdata.RollStatus = "rollstatus";
+                    lsdetdata.RollStatus = rollstatus;
                     lsdetdata.Roll_PK = lbl_rollpk;
                     lsdetdata.RollAyard = lbl_ayard;
                     rk.Add(lsdetdata);

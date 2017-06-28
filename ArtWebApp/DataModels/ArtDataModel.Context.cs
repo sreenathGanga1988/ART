@@ -30,7 +30,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<AltUOMMaster> AltUOMMasters { get; set; }
         public virtual DbSet<ApprovalTable> ApprovalTables { get; set; }
         public virtual DbSet<ASQShuffleDetail> ASQShuffleDetails { get; set; }
-        public virtual DbSet<ASQShuffleMaster> ASQShuffleMasters { get; set; }
         public virtual DbSet<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual DbSet<AtcDetail> AtcDetails { get; set; }
         public virtual DbSet<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
@@ -87,7 +86,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<InvoiceMaster> InvoiceMasters { get; set; }
         public virtual DbSet<ItemGroupMaster> ItemGroupMasters { get; set; }
         public virtual DbSet<JobContractDetail> JobContractDetails { get; set; }
-        public virtual DbSet<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
         public virtual DbSet<JobContractOptionalMaster> JobContractOptionalMasters { get; set; }
         public virtual DbSet<LCBankAdviceDetail> LCBankAdviceDetails { get; set; }
         public virtual DbSet<LCDetail> LCDetails { get; set; }
@@ -197,7 +195,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SalesDebitNoteDetail> SalesDebitNoteDetails { get; set; }
         public virtual DbSet<SalesDebitNoteMaster> SalesDebitNoteMasters { get; set; }
         public virtual DbSet<CutPlanRollDetail> CutPlanRollDetails { get; set; }
-        public virtual DbSet<FabricRollmaster> FabricRollmasters { get; set; }
         public virtual DbSet<PlaningRemarkMaster> PlaningRemarkMasters { get; set; }
         public virtual DbSet<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
         public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
@@ -205,6 +202,10 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
         public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
         public virtual DbSet<StockInventoryMaster> StockInventoryMasters { get; set; }
+        public virtual DbSet<FabricRollmaster> FabricRollmasters { get; set; }
+        public virtual DbSet<ASQShuffleMaster> ASQShuffleMasters { get; set; }
+        public virtual DbSet<EthiopiaToARTShip_Tbl> EthiopiaToARTShip_Tbl { get; set; }
+        public virtual DbSet<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

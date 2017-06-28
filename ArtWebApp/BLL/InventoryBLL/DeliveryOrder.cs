@@ -260,12 +260,12 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
 
-                    CutOrderDO ctordrdo = new CutOrderDO();
-                    ctordrdo.CutID = di.Cutid;
-                    ctordrdo.Skudet_PK = skudetPK;
-                    ctordrdo.DoDet_Pk = dlvrdet.DODet_PK;
-                    ctordrdo.DeliveryQty = dlvrdet.DeliveryQty;
-                    enty.CutOrderDOes.Add(ctordrdo);
+                    //CutOrderDO ctordrdo = new CutOrderDO();
+                    //ctordrdo.CutID = di.Cutid;
+                    //ctordrdo.Skudet_PK = skudetPK;
+                    //ctordrdo.DoDet_Pk = dlvrdet.DODet_PK;
+                    //ctordrdo.DeliveryQty = dlvrdet.DeliveryQty;
+                    //enty.CutOrderDOes.Add(ctordrdo);
 
 
 
@@ -392,12 +392,12 @@ namespace ArtWebApp.BLL.InventoryBLL
                      dt = dt.Select("InventoryItem_PK="+di.InventoryItem_PK.ToString ()).CopyToDataTable();
 
 
-                    for (int i=0;i<dt.Rows.Count;i++)
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         DORollDetail dorolldet = new DataModels.DORollDetail();
 
                         dorolldet.CutID = di.Cutid;
-                        dorolldet.Roll_PK =int.Parse(dt.Rows[i]["roll_Pk"].ToString ());
+                        dorolldet.Roll_PK = int.Parse(dt.Rows[i]["roll_Pk"].ToString());
                         dorolldet.DODet_PK = dlvrdet.DODet_PK;
                         dorolldet.DO_PK = domstr.DO_PK;
                         enty.DORollDetails.Add(dorolldet);
@@ -416,13 +416,13 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
                         var q2 = from rllinvdata in enty.RollInventoryMasters
-                                where rllinvdata.Roll_PK == dorolldet.Roll_PK && rllinvdata.IsPresent == "Y"
-                                select rllinvdata;
+                                 where rllinvdata.Roll_PK == dorolldet.Roll_PK && rllinvdata.IsPresent == "Y"
+                                 select rllinvdata;
                         foreach (var element in q2)
                         {
                             element.IsPresent = "N";
                             element.DeliveredVia = Donum;
-                       
+
 
                         }
 
@@ -437,14 +437,14 @@ namespace ArtWebApp.BLL.InventoryBLL
                         rvinvmstr.DocumentNum = Donum;
                         rvinvmstr.AddedVia = "WF";
                         rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
-                        rvinvmstr.Location_Pk = Dodata.Domstrdata.ToLocation_PK; 
+                        rvinvmstr.Location_Pk = Dodata.Domstrdata.ToLocation_PK;
                         rvinvmstr.Roll_PK = dorolldet.Roll_PK;
                         rvinvmstr.IsPresent = "Y";
-                        rvinvmstr.FactId= Dodata.Domstrdata.ToLocation_PK;
+                        rvinvmstr.FactId = Dodata.Domstrdata.ToLocation_PK;
                         enty.RollInventoryMasters.Add(rvinvmstr);
                         enty.SaveChanges();
 
-                      
+
 
 
 
@@ -452,6 +452,13 @@ namespace ArtWebApp.BLL.InventoryBLL
                     }
 
                     enty.SaveChanges();
+
+
+
+
+
+
+
                 }
               
 
@@ -565,6 +572,121 @@ namespace ArtWebApp.BLL.InventoryBLL
         }
 
 
+
+        /// <summary>
+        /// Returns the Item to the Inventory of Warehouse.
+        /// Auto Addition is happening
+        /// </summary>
+        /// <param name="Dodata"></param>
+        /// <returns></returns>
+        public String insertFactoryReturnDOForFabric(DeliveryOrder Dodata)
+        {
+            
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                DeliveryOrderMaster domstr = new DeliveryOrderMaster();
+                domstr.AtcID = Dodata.Domstrdata.AtcID;
+                domstr.AddedDate = DateTime.Now;
+                domstr.AddedBy = Dodata.Domstrdata.AddedBy;
+                domstr.ToLocation_PK = Dodata.Domstrdata.ToLocation_PK;
+                domstr.FromLocation_PK = Dodata.Domstrdata.FromLocation_PK;
+                domstr.DoType = Dodata.Domstrdata.DoType;
+                domstr.BoeNum = Dodata.Domstrdata.BoeNum;
+                domstr.ContainerNumber = Dodata.Domstrdata.ContainerNumber;
+                domstr.DeliveryDate = Dodata.Domstrdata.DeliveryDate;
+                enty.DeliveryOrderMasters.Add(domstr);
+
+
+                enty.SaveChanges();
+
+                Donum = domstr.DONum = CodeGenerator.GetUniqueCode("FW", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(domstr.DO_PK.ToString()));
+
+
+
+                foreach (DeliveryOrderDetailsData di in Dodata.DeliveryOrderDetailsDataCollection)
+                {
+                    //Add the delivery details
+                    DeliveryOrderDetail dlvrdet = new DeliveryOrderDetail();
+                    dlvrdet.DO_PK = domstr.DO_PK;
+                    dlvrdet.InventoryItem_PK = di.InventoryItem_PK;
+                    dlvrdet.DeliveryQty = di.DeliveryQty;
+
+                    enty.DeliveryOrderDetails.Add(dlvrdet);
+
+                    enty.SaveChanges();
+
+                    int mrndet_pk = 0;
+                    int podet_pk = 0;
+                    int skudetPK = 0;
+                    decimal curate = 0;
+                    int uom_pk = 0;
+                    // Reduce Goods in Inventory
+                    var q = from invitem in enty.InventoryMasters
+                            where invitem.InventoryItem_PK == di.InventoryItem_PK
+                            select invitem;
+
+                    foreach (var invitemdetail in q)
+                    {
+
+                        invitemdetail.DeliveredQty = invitemdetail.DeliveredQty + di.DeliveryQty;
+                        invitemdetail.OnhandQty = invitemdetail.OnhandQty - di.DeliveryQty;
+
+                        mrndet_pk = int.Parse(invitemdetail.MrnDet_PK.ToString());
+                        podet_pk = int.Parse(invitemdetail.PoDet_PK.ToString());
+                        skudetPK = int.Parse(invitemdetail.SkuDet_Pk.ToString());
+                        curate = decimal.Parse(invitemdetail.CURate.ToString());
+                        uom_pk = int.Parse(invitemdetail.Uom_Pk.ToString());
+                    }
+                    //Add goods to transit
+                    InventoryMaster invmstr = new InventoryMaster();
+                    invmstr.MrnDet_PK = mrndet_pk;
+                    invmstr.PoDet_PK = podet_pk;
+                    invmstr.SkuDet_Pk = skudetPK;
+                    invmstr.ReceivedQty = di.DeliveryQty;
+                    invmstr.OnhandQty = di.DeliveryQty;
+                    invmstr.DeliveredQty = 0;
+                    invmstr.ReceivedVia = "FW";
+                    invmstr.Location_PK = Dodata.Domstrdata.ToLocation_PK;
+                    invmstr.CURate = curate;
+                    invmstr.AddedDate = DateTime.Now.Date;
+                    invmstr.Uom_Pk = uom_pk;
+                    invmstr.Refnum = domstr.DONum;
+                    enty.InventoryMasters.Add(invmstr);
+
+
+
+
+                    CutOrderDO ctordrdo = new CutOrderDO();
+                    ctordrdo.CutID = di.Cutid;
+                    ctordrdo.Skudet_PK = skudetPK;
+                    ctordrdo.DoDet_Pk = dlvrdet.DODet_PK;
+                    ctordrdo.DeliveryQty = (0 - dlvrdet.DeliveryQty);
+                    enty.CutOrderDOes.Add(ctordrdo);
+
+
+                    enty.SaveChanges();
+                    DataTable dt = Dodata.DeliveryRollDetailsData;
+
+                        
+                    enty.SaveChanges();
+
+
+
+
+
+
+
+                }
+
+
+            }
+
+
+
+            return Donum;
+        }
 
 
 

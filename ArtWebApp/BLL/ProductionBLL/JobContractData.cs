@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-
+using System.Data.SqlClient;
 namespace ArtWebApp.BLL.ProductionBLL
 {
     public class JobContractData
@@ -177,6 +177,104 @@ namespace ArtWebApp.BLL.ProductionBLL
 
             return Donum;
         }
+
+
+
+
+
+        public String insertOtherJObContractDetailsNew(JobContractData jcdata)
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                if (!enty.JobContractOptionalMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
+                {
+                    JobContractOptionalMaster jcmstr = new JobContractOptionalMaster();
+                    jcmstr.AtcID = jcdata.JCmstrdata.AtcID;
+                    jcmstr.AddedDate = DateTime.Now;
+                    jcmstr.AddedBy = jcdata.JCmstrdata.AddedBy;
+                    jcmstr.Location_Pk = jcdata.JCmstrdata.Location_Pk;
+                    jcmstr.OurStyleID = jcdata.JCmstrdata.OurStyleID;
+                    enty.JobContractOptionalMasters.Add(jcmstr);
+
+
+                    enty.SaveChanges();
+
+                    Donum = jcmstr.JobContractOptionalNUM = CodeGenerator.GetUniqueCode("JCO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContractOptional_pk.ToString()));
+                    foreach (JobContractDetailData di in jcdata.JobContractDetailDataCollection)
+                    {
+                        //Add the delivery details
+                        JobContractOptionalDetail jcdetdata = new JobContractOptionalDetail();
+                        jcdetdata.JobContractOptional_pk = jcmstr.JobContractOptional_pk;
+                        jcdetdata.OurStyleID = di.OurStyleID;
+                        jcdetdata.PoPackID = 0;
+                        jcdetdata.Wash = di.Washvalue;
+                        jcdetdata.EmbroidaryPrinting = di.Embriodaryvalue;
+                        jcdetdata.CompanyLogistic = di.cmblogic;
+                        jcdetdata.FactoryLogistic = di.factorylogic;
+                        jcdetdata.DryProcess = di.DryProcess;
+                        jcdetdata.FabCommision = di.FabComission;
+                        jcdetdata.GarmentComission = di.GarCommision;
+                        jcdetdata.Printing = di.printing;
+                        enty.JobContractOptionalDetails.Add(jcdetdata);
+                        
+                    }
+
+                }
+                else
+                {
+                    foreach (JobContractDetailData di in jcdata.JobContractDetailDataCollection)
+                    {
+                        var q = from jbmstr in enty.JobContractOptionalDetails
+                                where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.JobContractOptionalMaster.Location_Pk == this.JCmstrdata.Location_Pk
+                                select jbmstr;
+                        foreach (var element in q)
+                        {
+
+
+                            element.Wash = di.Washvalue;
+                            element.EmbroidaryPrinting = di.Embriodaryvalue;
+                            element.CompanyLogistic = di.cmblogic;
+                            element.FactoryLogistic = di.factorylogic;
+                            element.DryProcess = di.DryProcess;
+                            element.FabCommision = di.FabComission;
+                            element.GarmentComission = di.GarCommision;
+                            element.Printing = di.printing;
+
+
+
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+                }
+
+
+                
+
+
+               
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
+
+
+
+
+
+
     }
 
 
@@ -187,6 +285,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public string JOBContractNUM { get; set; }
         public int Location_Pk { get; set; }
         public int AtcID { get; set; }
+        public int OurStyleID { get; set; }
         public DateTime AddedDate { get; set; }
         public string AddedBy { get; set; }
         public string remark { get; set; }
@@ -214,6 +313,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public Decimal factorylogic { get; set; }
         public Decimal cmblogic { get; set; }
 
+        public Decimal printing { get; set; }
 
 
         public Decimal DryProcess { get; set; }
@@ -265,6 +365,105 @@ FROM            JobContractDetail INNER JOIN
             return dt;
 
         }
+
+
+        public DataTable GetJobContractdetailofAtcandLocation(int ourstyleid ,int location_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd= new SqlCommand())
+            {
+
+                cmd.CommandText = @"SELECT        ApprovedCosting.OurStyleID, ApprovedCosting.OurStyle, ApprovedCosting.AtcNum, ApprovedCosting.WASH, ApprovedCosting.[DRY PROCESS], ApprovedCosting.[COMPANY LOGISTICS], 
+                         ApprovedCosting.[FACTORY LOGISTICS], ApprovedCosting.EMBROIDERY, ApprovedCosting.PRINTING, AlreadyEntereded.EnteredWash, AlreadyEntereded.EnteredEmbroidary, 
+                         AlreadyEntereded.EnteredCompanyLogistic, AlreadyEntereded.EnteredFactoryLogistic, AlreadyEntereded.EnteredDryProcess, AlreadyEntereded.EnteredFabCommision, 
+                         AlreadyEntereded.EnteredGarmentComission, AlreadyEntereded.EnteredPrinting
+FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum, ISNULL
+                                                        ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails.CompValue, 0) AS Expr1
+                                                            FROM            StyleCostingMaster INNER JOIN
+                                                                                     StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK INNER JOIN
+                                                                                     CostingComponentMaster ON StyleCostingComponentDetails.CostComp_PK = CostingComponentMaster.CostComp_PK
+                                                            WHERE(CostingComponentMaster.ComponentName = N'WASH') AND(StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID) AND(StyleCostingMaster.IsApproved = N'A')), 0) AS WASH,
+                                          ISNULL
+
+                                              ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails_2.CompValue, 0) AS Expr1
+
+                                                  FROM            StyleCostingMaster AS StyleCostingMaster_2 INNER JOIN
+
+                                                                           StyleCostingComponentDetails AS StyleCostingComponentDetails_2 ON StyleCostingMaster_2.Costing_PK = StyleCostingComponentDetails_2.Costing_PK INNER JOIN
+
+                                                                           CostingComponentMaster AS CostingComponentMaster_2 ON StyleCostingComponentDetails_2.CostComp_PK = CostingComponentMaster_2.CostComp_PK
+
+                                                  WHERE(CostingComponentMaster_2.ComponentName = N'DRY PROCESS') AND(StyleCostingMaster_2.OurStyleID = AtcDetails.OurStyleID) AND(StyleCostingMaster_2.IsApproved = N'A')), 0) 
+                                                    AS[DRY PROCESS], ISNULL
+                                                       ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails_1.CompValue, 0) AS Expr1
+
+                                                           FROM            StyleCostingMaster AS StyleCostingMaster_1 INNER JOIN
+
+                                                                                    StyleCostingComponentDetails AS StyleCostingComponentDetails_1 ON StyleCostingMaster_1.Costing_PK = StyleCostingComponentDetails_1.Costing_PK INNER JOIN
+
+                                                                                    CostingComponentMaster AS CostingComponentMaster_1 ON StyleCostingComponentDetails_1.CostComp_PK = CostingComponentMaster_1.CostComp_PK
+
+                                                           WHERE(CostingComponentMaster_1.ComponentName = N'COMPANY LOGISTICS') AND(StyleCostingMaster_1.OurStyleID = AtcDetails.OurStyleID) AND
+                                                                                    (StyleCostingMaster_1.IsApproved = N'A')), 0) AS[COMPANY LOGISTICS], ISNULL
+                                                      ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails_1.CompValue, 0) AS Expr1
+
+                                                          FROM            StyleCostingMaster AS StyleCostingMaster_1 INNER JOIN
+
+                                                                                   StyleCostingComponentDetails AS StyleCostingComponentDetails_1 ON StyleCostingMaster_1.Costing_PK = StyleCostingComponentDetails_1.Costing_PK INNER JOIN
+
+                                                                                   CostingComponentMaster AS CostingComponentMaster_1 ON StyleCostingComponentDetails_1.CostComp_PK = CostingComponentMaster_1.CostComp_PK
+
+                                                          WHERE(CostingComponentMaster_1.ComponentName = N'FACTORY LOGISTICS') AND(StyleCostingMaster_1.OurStyleID = AtcDetails.OurStyleID) AND
+                                                                                   (StyleCostingMaster_1.IsApproved = N'A')), 0) AS[FACTORY LOGISTICS], ISNULL
+                                                     ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails_1.CompValue, 0) AS Expr1
+
+                                                         FROM            StyleCostingMaster AS StyleCostingMaster_1 INNER JOIN
+
+                                                                                  StyleCostingComponentDetails AS StyleCostingComponentDetails_1 ON StyleCostingMaster_1.Costing_PK = StyleCostingComponentDetails_1.Costing_PK INNER JOIN
+
+                                                                                  CostingComponentMaster AS CostingComponentMaster_1 ON StyleCostingComponentDetails_1.CostComp_PK = CostingComponentMaster_1.CostComp_PK
+
+                                                         WHERE(CostingComponentMaster_1.ComponentName = N'EMBROIDERY') AND(StyleCostingMaster_1.OurStyleID = AtcDetails.OurStyleID) AND(StyleCostingMaster_1.IsApproved = N'A')), 0) 
+                                                    AS EMBROIDERY, ISNULL
+                                                        ((SELECT        TOP(1) ISNULL(StyleCostingComponentDetails_1.CompValue, 0) AS Expr1
+                                                            FROM            StyleCostingMaster AS StyleCostingMaster_1 INNER JOIN
+                                                                                     StyleCostingComponentDetails AS StyleCostingComponentDetails_1 ON StyleCostingMaster_1.Costing_PK = StyleCostingComponentDetails_1.Costing_PK INNER JOIN
+                                                                                     CostingComponentMaster AS CostingComponentMaster_1 ON StyleCostingComponentDetails_1.CostComp_PK = CostingComponentMaster_1.CostComp_PK
+                                                            WHERE(CostingComponentMaster_1.ComponentName = N'PRINTING') AND(StyleCostingMaster_1.OurStyleID = AtcDetails.OurStyleID) AND(StyleCostingMaster_1.IsApproved = N'A')), 0) 
+                                                    AS PRINTING
+                          FROM AtcMaster INNER JOIN
+                                                    AtcDetails ON AtcMaster.AtcId = AtcDetails.AtcId
+                          WHERE(AtcDetails.OurStyleID = @ourstyleid)) AS ApprovedCosting LEFT OUTER JOIN
+                     (SELECT        EnteredWash, EnteredEmbroidary, EnteredCompanyLogistic, EnteredFactoryLogistic, EnteredDryProcess, EnteredFabCommision, EnteredGarmentComission, EnteredPrinting, Location_Pk,
+                                                 OurStyleID
+
+                       FROM(SELECT        ISNULL(AVG(JobContractOptionalDetail.Wash), 0) AS EnteredWash, ISNULL(AVG(JobContractOptionalDetail.EmbroidaryPrinting), 0) AS EnteredEmbroidary,
+                                                                           ISNULL(AVG(JobContractOptionalDetail.CompanyLogistic), 0) AS EnteredCompanyLogistic, ISNULL(AVG(JobContractOptionalDetail.FactoryLogistic), 0) AS EnteredFactoryLogistic,
+                                                                           AVG(JobContractOptionalDetail.DryProcess) AS EnteredDryProcess, ISNULL(AVG(JobContractOptionalDetail.FabCommision), 0) AS EnteredFabCommision,
+                                                                           ISNULL(AVG(JobContractOptionalDetail.GarmentComission), 0) AS EnteredGarmentComission, ISNULL(AVG(JobContractOptionalDetail.Printing), 0) AS EnteredPrinting,
+                                                                           JobContractOptionalMaster.Location_Pk, JobContractOptionalMaster.OurStyleID
+
+                                                 FROM            JobContractOptionalDetail INNER JOIN
+
+                                                                           JobContractOptionalMaster ON JobContractOptionalDetail.JobContractOptional_pk = JobContractOptionalMaster.JobContractOptional_pk
+
+                                                 GROUP BY JobContractOptionalMaster.Location_Pk, JobContractOptionalMaster.OurStyleID
+
+                                                 HAVING(JobContractOptionalMaster.Location_Pk = @location_pk) AND(JobContractOptionalMaster.OurStyleID = @ourstyleid)) AS AlreadyEntered) AS AlreadyEntereded ON
+                         ApprovedCosting.OurStyleID = AlreadyEntereded.OurStyleID";
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+
+                cmd.Parameters.AddWithValue("@location_pk", location_pk);
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+
+                return dt;
+
+        }
+
     }
 
 

@@ -19,9 +19,9 @@ namespace ArtWebApp.DataModels
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
             this.GroupDependantItems = new HashSet<GroupDependantItem>();
             this.JobContractDetails = new HashSet<JobContractDetail>();
-            this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
             this.PackingListDetails = new HashSet<PackingListDetail>();
             this.POPackDetails = new HashSet<POPackDetail>();
+            this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
         }
     
         public decimal PoPackId { get; set; }
@@ -49,9 +49,9 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual ICollection<GroupDependantItem> GroupDependantItems { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
-        public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
         public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<POPackDetail> POPackDetails { get; set; }
+        public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
     }
 }

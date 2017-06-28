@@ -956,7 +956,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 foreach (CutPlanDetailsData di in this.CutPlanDetailsDataCollection)
                 {
 
-                    var popackdets_pk = enty.POPackDetails.Where(u => u.SizeName == di.SizeName && u.ColorName == di.ColorName && u.OurStyleID == di.OurStyleId).Select(u => u.PoPack_Detail_PK).FirstOrDefault();
+                    var popackdets_pk = enty.POPackDetails.Where(u => u.SizeName == di.SizeName && u.ColorName == di.ColorName && u.OurStyleID == di.OurStyleId && u.POPackId == di.PoPackId).Select(u => u.PoPack_Detail_PK).FirstOrDefault();
 
                     CutPlanASQDetail cddetail = new CutPlanASQDetail();
                     cddetail.CutPlan_PK = di.CutPlan_PK;
@@ -1211,10 +1211,20 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                     enty.CutPlanMasters.Remove(element);
                     
+
+
+
+                }
+                var q6 = from ponmbr in enty.CutPlanRollDetails
+                         where ponmbr.CutPlan_PK == cutplan_pk
+                         select ponmbr;
+                foreach (var element in q6)
+                {
+
+                    enty.CutPlanRollDetails.Remove(element);
                 }
 
-
-                DeletedCutPlan ctplndel = new DeletedCutPlan();
+                    DeletedCutPlan ctplndel = new DeletedCutPlan();
                 ctplndel.CutPlan_PK = cutplan_pk;
                 ctplndel.Cutplannum = cutplannum;
                 ctplndel.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();

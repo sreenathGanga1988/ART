@@ -4,19 +4,35 @@
  
 
   
-    
- 
-  
-    <link href="../../css/style.css" rel="stylesheet" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="../../JQuery/GridJQuery.js">
    
+<%-- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --%>
+  
+ <%--   <link href="../../css/style.css" rel="stylesheet" />
+
+    <script src="../../JQuery/GridJQuery.js">
+     <script src="../../Scripts/jquery.table2excel.js"></script>--%>
     <script type="text/javascript">
 
-        
+        $(document).ready(function () {
+
+            $(".btn_excel").click(function (e) {
+                alert('hi');
+                $( "[id$=tbl_podata]").table2excel({
+                    exclude: ".noExl",
+                    name: "Excel Document Name",
+                    filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+                    fileext: ".xls",
+                    exclude_img: true,
+                    exclude_links: true,
+                    exclude_inputs: true
+                });
+            });
+        });
 
 
      </script>
+  
     <style type="text/css">
        body
 {
@@ -65,6 +81,15 @@
        
         .auto-style1 {
             height: 27px;
+        }
+       
+      
+       
+        .auto-style2 {
+            text-align: right;
+        }
+        .auto-style3 {
+            font-size: x-small;
         }
        
       
@@ -218,7 +243,9 @@
         
        
         <tr>
-            <td>
+            <td class="auto-style2">
+                
+                <input id="btn_excel" type="button" value="export to excel" class="btn_excel auto-style3" />
                 
             </td>
         </tr>
@@ -292,8 +319,8 @@
                                                           <asp:TextBox ID="dtp_deliverydate" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
 
 
-                                    <asp:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
-                                    </asp:CalendarExtender>
+                                    <ajaxToolkit:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
+                                    </ajaxToolkit:CalendarExtender>
 
                                                     </ItemTemplate>
                                                 </asp:TemplateField>

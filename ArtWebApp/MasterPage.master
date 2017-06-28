@@ -17,6 +17,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+   
+
     <style type="text/css">
      
 
@@ -151,9 +153,16 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <link href="css/MasterPage.css" rel="stylesheet" type="text/css" />
+  
 </head>
 <body class="bodybackground">
+
+      <%: System.Web.Optimization.Scripts.Render("~/bundle/js") %>
+          <%: System.Web.Optimization.Scripts.Render("~/bundle/Cutomjs") %>
+         <%: System.Web.Optimization.Styles.Render("~/bundle/css") %>
+     
+    
+  
     <form id="form1" runat="server">
 
           <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server">
@@ -323,7 +332,7 @@
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/GeneralPurchasedashBoard.aspx" Text="General Purchase DashBoard">
                                             </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem  NavigateUrl="~/Merchandiser/PO/SPOIPO.aspx" Text="SPO/IPO Tracker" >
+                                            <ig:ExplorerBarItem  NavigateUrl="~/Merchandiser/PO/IPOSPOTracker.aspx" Text="SPO/IPO Tracker" >
                                             </ig:ExplorerBarItem>
                                         </Items>
                                     </ig:ExplorerBarItem>
@@ -538,7 +547,7 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollSplit.aspx" Text="Roll Split">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollTracker.aspx" Text="Roll Tracker">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollTrack.aspx" Text="Roll Tracker">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RollDataPrinter.aspx" Text="Roll Sticker Printer">
                                     </ig:ExplorerBarItem>
@@ -593,7 +602,7 @@
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/JobContract.aspx" Text="Job Contract CM" Visible="False">
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractOthers.aspx" Text="Job Contract Other">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JobContractOthersNew.aspx" Text="Job Contract Other">
                                     </ig:ExplorerBarItem>
                                     
                                 </Items>
@@ -626,6 +635,8 @@
                                                                         <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="Lay Sheet">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LayesheetRoll.aspx" Text="Lay Sheet Rolls">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetRollEditor.aspx" Text="LaySheet Rolls Edit">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -710,6 +721,8 @@
                                     <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitnoteforFactory.aspx" Text="Debit Note to Factory Against SDO">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitNoteGenerator.aspx" Text="Credit Note  Creator">
+                                    </ig:ExplorerBarItem>
+                                    <ig:ExplorerBarItem Text="Debit Note for Supplier">
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>

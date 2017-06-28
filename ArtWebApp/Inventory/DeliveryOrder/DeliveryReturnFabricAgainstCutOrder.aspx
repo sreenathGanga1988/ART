@@ -40,25 +40,7 @@
 
 
 
-        function calculatesumofyardage()
-        {
-            var gridView = document.getElementById("<%= tbl_rolldata.ClientID %>");
-            var sum = 0
-            for (var i = 1; i < gridView.rows.length-1; i++)
-            {
-                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
-                if (chkConfirm.checked)
-                {
-                    var lbl_yard = gridView.rows[i].getElementsByClassName("lbl_yard")[0];
-
-                    sum = sum + parseFloat(lbl_yard.innerHTML);
-                }
-
-            } 
-            var totalyardfooter = document.getElementsByClassName("totalyardfooter")[0];
-            totalyardfooter.value = sum;
-        }
-
+  
 
 
    
@@ -229,19 +211,6 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                         <asp:TemplateField HeaderText="RollYard">
-                                           
-                                            <ItemTemplate>
-
-                                                <asp:UpdatePanel ID="upd_RollYard" UpdateMode="Conditional" runat="server">
-                                                <ContentTemplate>
-                                                      <asp:Label ID="lbl_RollYard"  Text="0" runat="server"></asp:Label>
-                                                      </ContentTemplate>
-                                            </asp:UpdatePanel>
-                                              
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-
                                         <asp:TemplateField HeaderText="DeliveryQty">
                                            
                                             <ItemTemplate>
@@ -253,9 +222,6 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                        
-                                       
-                                           <asp:ButtonField  Text="Add  Roll" CommandName="ShowRoll" />
-                                        <asp:ButtonField  Text="Delete  Roll" CommandName="DeleteRoll" />
                                        
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
@@ -284,151 +250,7 @@
 
              
 
- <asp:UpdatePanel ID="Upd_roll"  UpdateMode="Conditional"  runat="server">
-                            <ContentTemplate>
-    <asp:Panel ID="ModalPanel" runat="server" Visible="false">
-             <table class="FullTable">
-                 <tr>
-                     <td>
-                         
-                         
-                         Availbale Fabric Rolls</td>
-                 </tr>
-                 <tr class="DataEntryTable">
-                     <td>
-    
-  
-     
-                <table  >
-                    <tr>
-                        <td>ShadeGroup</td>
-                        <td class="NormalTD">   <asp:UpdatePanel ID="upd_shade" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-                <ig:WebDropDown ID="drp_shade" runat="server" EnableMultipleSelection="True" TextField="name" ValueField="pk" Width="200px" EnableDropDownAsChild="false">
-                    <ClientEvents Initialize="initDropDown" />
-
-                    <DropDownItemBinding TextField="ShadeGroup" ValueField="ShadeGroup" />
-                </ig:WebDropDown>
-                            </ContentTemplate>
-        </asp:UpdatePanel>
-                </td>
-
-
-
-                        <td><asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click1" /></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                      
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                       
-                    </tr>
-                       <tr>
-                        <td class="NormalTD">Shrinkage group</td>
-                         <td class="NormalTD">
-                             <strong>
-                             <asp:Label ID="lbl_shringagegroup" runat="server" Text="0"></asp:Label>
-                             </strong>
-                           </td>
-                      <td class="NormalTD">Width group</td>
-                       <td class="NormalTD"><strong>
-                           <asp:Label ID="lbl_widthgroup" runat="server" Text="0"></asp:Label>
-                           </strong></td>
-                        <td class="NormalTD">MarkerType</td>
-                        <td class="NormalTD"><strong>
-                            <asp:Label ID="lbl_markerType" runat="server" Text="0"></asp:Label>
-                            </strong></td>
-                      
-                    </tr>
-                </table>
-
-                        
-   
-</td>
-                 </tr>
-                 <tr>
-                     <td>
-                         
-                         <asp:GridView ID="tbl_rolldata" runat="server" AutoGenerateColumns="False"  ShowFooter="true" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK" OnSelectedIndexChanged="tbl_rolldata_SelectedIndexChanged">
-                                    <Columns>
-                                       
-
-
-
-                                          <asp:TemplateField  ControlStyle-Width="10px" HeaderStyle-Width="10px" FooterStyle-Width="10px">
-                                                    <HeaderTemplate>
-                                                        <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Onselection(this)" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>   
-
-
-
-
-                                        <asp:TemplateField HeaderText="Roll_PK">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lbl_Roll_PK" runat="server" Text='<%# Bind("Roll_PK") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                  
-                                        <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
-                                        <asp:BoundField DataField="ASN" HeaderText="ASN" ReadOnly="True" SortExpression="ASN" />
-                                        <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
-                                        <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" ReadOnly="True" SortExpression="itemDescription" />
-                                         <asp:BoundField DataField="AWidth" HeaderText="AWidth" SortExpression="AWidth" />
-                                         <asp:BoundField DataField="AShrink" HeaderText="AShrink" SortExpression="AShrink" />
-                                         <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
-                                         <asp:BoundField DataField="SWeight" HeaderText="SWeight" SortExpression="SWeight" />                                        
-                                        <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
-                                        <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
-                                        <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />
-                                        
-                                         <asp:TemplateField HeaderText="AYard">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lbl_AYard" runat="server"  CssClass="lbl_yard" Text='<%# Bind("AYard") %>'></asp:Label>
-                                            </ItemTemplate>
-                                             <FooterTemplate>
-                                                  <asp:TextBox ID="txt_totalyard" CssClass="totalyardfooter" Width="70px"  runat="server"></asp:TextBox>
-
-                                              </FooterTemplate>
-                                        </asp:TemplateField>
-                                     
-                                    </Columns>
-                                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
-                                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
-                                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
-                                    <RowStyle BackColor="White" ForeColor="#330099" />
-                                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
-                                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
-                                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
-                                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
-                                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
-                                </asp:GridView>
-                         </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <asp:Button ID="btn_confirmRolls" runat="server" OnClick="btn_confirmRolls_Click" Text="Confirm" />
-                         <asp:Button ID="btn_cancel" runat="server" OnClick="btn_cancel_Click" Text="Cancel" />
-                     </td>
-                 </tr>
-             </table>
-          </asp:Panel>
-             </ContentTemplate>
-                        </asp:UpdatePanel>
-
-
-
-       </td>
+                        &nbsp;</td>
                 </tr>
 
                 <tr class="ButtonTR">

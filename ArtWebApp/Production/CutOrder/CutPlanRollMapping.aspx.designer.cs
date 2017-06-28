@@ -166,15 +166,6 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.UpdatePanel Upd_roll;
         
         /// <summary>
-        /// ModalPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ModalPanel;
-        
-        /// <summary>
         /// upd_shade control.
         /// </summary>
         /// <remarks>

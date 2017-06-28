@@ -2,10 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
   
-    <link href="../../css/style.css" rel="stylesheet" />
-    
-    <script src="../../JQuery/GridJQuery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
    <script type="text/javascript">
 

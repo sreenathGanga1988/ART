@@ -7,69 +7,12 @@
     
  
   
-    <link href="../../css/style.css" rel="stylesheet" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="../../JQuery/GridJQuery.js">
-   
-    <script type="text/javascript">
 
         
 
 
-     </script>
-    <style type="text/css">
-       body
-{
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
-}
-.modal
-{
-    position: fixed;
-    z-index: 999;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: Black;
-    filter: alpha(opacity=60);
-    opacity: 0.6;
-    -moz-opacity: 0.8;
-}
-.center
-{
-    z-index: 1000;
-    margin: 300px auto;
-    padding: 10px;
-    width: 130px;
-    background-color: White;
-    border-radius: 10px;
-    filter: alpha(opacity=100);
-    opacity: 1;
-    -moz-opacity: 1;
-}
-.center img
-{
-    height: 128px;
-    width: 128px;
-}
-
    
-      
-       
-        .smalltable {
-            width: 50px;
-        }
-       
-      
-       
-        .auto-style1 {
-            height: 27px;
-        }
-       
-      
-       
-        </style>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -355,9 +298,10 @@
                                         <asp:GridView ID="tbl_podata" 
                                             Width="100%" 
                                             runat="server"
+                                            CssClass="mydatagrid"
                                              AutoGenerateColumns="False"                                         
                                              DataKeyNames="PoPackId"
-                                             style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller" OnRowDataBound="tbl_podata_RowDataBound" ShowFooter="True">
+                                             style="font-size: small; font-family: Calibri;  font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller" OnRowDataBound="tbl_podata_RowDataBound" ShowFooter="True">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>         
                                                 <asp:TemplateField HeaderText="PoPackId" InsertVisible="False" SortExpression="PoPackId">

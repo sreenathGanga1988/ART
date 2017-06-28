@@ -19,11 +19,11 @@ namespace ArtWebApp.DataModels
             this.AtcDetailApprovals = new HashSet<AtcDetailApproval>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.JobContractDetails = new HashSet<JobContractDetail>();
-            this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
             this.StyleCostingMasters = new HashSet<StyleCostingMaster>();
             this.PackingListDetails = new HashSet<PackingListDetail>();
             this.CutPlanMasters = new HashSet<CutPlanMaster>();
             this.POPackDetails = new HashSet<POPackDetail>();
+            this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
         }
     
         public decimal OurStyleID { get; set; }
@@ -39,10 +39,10 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
-        public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
         public virtual ICollection<StyleCostingMaster> StyleCostingMasters { get; set; }
         public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
         public virtual ICollection<POPackDetail> POPackDetails { get; set; }
+        public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
     }
 }

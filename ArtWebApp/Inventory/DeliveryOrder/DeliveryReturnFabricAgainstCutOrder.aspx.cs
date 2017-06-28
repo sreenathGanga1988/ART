@@ -162,7 +162,10 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             dodata.Domstrdata = GetDoMasterData();
             dodata.DeliveryOrderDetailsDataCollection = GetDeliveryOrderDetailsData();
             dodata.DeliveryRollDetailsData = (DataTable)(ViewState["Rolldata"]);
-            String donum = dodata.insertFactoryFabricROLLDO(dodata);
+            //String donum = dodata.insertFactoryFabricROLLDO(dodata);
+
+            String donum = dodata.insertFactoryReturnDOForFabric(dodata);
+
             tbl_InverntoryDetails.DataSource = null;
             tbl_InverntoryDetails.DataBind();
 
@@ -326,252 +329,37 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
 
-                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
-                if (chkBx.Checked == true)
-                {
-                    int InventoryItem_PK = int.Parse((row.FindControl("lblInventoryItem_PK") as Label).Text);
-                    Session["InventoryItem_PK"] = InventoryItem_PK;
-
-                    try
-                    {
-
-                        int cutid = int.Parse(((row.FindControl("ddl_cutorder") as DropDownList).SelectedValue.ToString()));
-                        Session["cutid"] = cutid;
 
 
 
 
-
-
-
-
-                        DataTable dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorder(InventoryItem_PK, cutid, int.Parse(Session["UserLoc_pk"].ToString()));
-                        if (dt.Rows.Count > 0)
-                        {
-                            DataView view = new DataView(dt);
-                            DataTable shadetable = view.ToTable(true, "ShadeGroup");
-                            drp_shade.DataSource = shadetable;
-
-                            drp_shade.DataBind();
-
-
-                            ViewState["rolldatafordo"] = null;
-
-
-                            ViewState["rolldatafordo"] = dt;
-
-
-
-                            if (dt.Rows.Count > 0)
-                            {
-                                String shrinkagegrpe = dt.Rows[1]["ShrinkageGroup"].ToString();
-                                String WidthGroup = dt.Rows[1]["WidthGroup"].ToString();
-                                String MarkerType = dt.Rows[1]["MarkerType"].ToString();
-
-
-                                lbl_shringagegroup.Text = shrinkagegrpe;
-                                lbl_markerType.Text = MarkerType;
-                                lbl_widthgroup.Text = WidthGroup;
-                            }
-
-
-
-                            tbl_rolldata.DataSource = dt;
-                            tbl_rolldata.DataBind();
-                            Upd_roll.Update();
-                            upd_shade.Update();
-                            ModalPanel.Visible = true;
-                        }
-                        else
-                        {
-                            ModalPanel.Visible = false;
-                            MessgeboxUpdate("error", "No Roll Data Found");
-                        }
-
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-
-
-
-
-                }
+               
 
 
 
             }
             else if (e.CommandName == "DeleteRoll")
             {
-                DataTable dt = (DataTable)ViewState["Rolldata"];
-                int InventoryItem_PK = int.Parse((row.FindControl("lblInventoryItem_PK") as Label).Text);
-                var rows = dt.Select("InventoryItem_PK =" + InventoryItem_PK.ToString());
-                foreach (var drow in rows)
-                    drow.Delete();
-
-                dt.AcceptChanges();
-
-                (row.FindControl("lblInventoryItem_PK") as Label).Text = "0";
-            }
-        }
-
-        protected void btn_confirmRolls_Click(object sender, EventArgs e)
-        {
-
-            GetRollDetailsData();
-
-            fillrollsum();
-
-            tbl_rolldata.DataSource = null;
-            tbl_rolldata.DataBind();
-            Upd_roll.Update();
-            ModalPanel.Visible = false;
-
-        }
-
-
-
-
-
-
-
-
-        public void fillrollsum()
-        {
-            foreach (GridViewRow di in tbl_InverntoryDetails.Rows)
-            {
-                int InventoryItem_PK = int.Parse((di.FindControl("lblInventoryItem_PK") as Label).Text);
-
-                if (InventoryItem_PK == int.Parse(Session["InventoryItem_PK"].ToString()))
-                {
-                    Label lbl_RollYard = di.FindControl("lbl_RollYard") as Label;
-                    UpdatePanel upd_RollYard = di.FindControl("upd_RollYard") as UpdatePanel;
-
-
-                    DataTable dt = (DataTable)ViewState["Rolldata"];
-
-
-                    object rollsum = dt.Compute("Sum(Ayard)", "");
-
-
-                    lbl_RollYard.Text = rollsum.ToString();
-
-
-
-                    upd_RollYard.Update();
-                }
+             
             }
         }
 
 
-
-
-        public void GetRollDetailsData()
-        {
+      
 
 
 
-            DataTable dt = (DataTable)ViewState["Rolldata"];
-
-            if (dt == null)
-            {
-                dt = new DataTable();
-            }
-
-
-            foreach (GridViewRow di in tbl_rolldata.Rows)
-            {
-                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
-
-                if (chkBx != null && chkBx.Checked)
-                {
-
-
-                    int roll_PK = int.Parse(((di.FindControl("lbl_Roll_PK") as Label).Text.ToString()));
-                    decimal AYard = decimal.Parse(((di.FindControl("lbl_AYard") as Label).Text.ToString()));
-                    int cutid = int.Parse(Session["cutid"].ToString());
-                    int InventoryItem_PK = int.Parse(Session["InventoryItem_PK"].ToString());
-
-
-                    //BLL.InventoryBLL.DeliveryRollDetails deldet = new BLL.InventoryBLL.DeliveryRollDetails();
-                    //deldet.InventoryItem_PK = InventoryItem_PK;
-                    //deldet.roll_Pk = roll_PK;
-                    //deldet.Cutid = cutid;
-                    //deldet.ayard = AYard;
-                    //rk.Add(deldet);
-
-
-                    dt.Rows.Add(InventoryItem_PK, roll_PK, cutid, AYard);
-
-
-                }
-            }
-            ViewState["Rolldata"] = dt;
-
-
-        }
-
-        protected void tbl_rolldata_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btn_cancel_Click(object sender, EventArgs e)
-        {
-            tbl_rolldata.DataSource = null;
-            tbl_rolldata.DataBind();
-            Upd_roll.Update();
-            ModalPanel.Visible = false;
-        }
-
-        protected void Button1_Click1(object sender, EventArgs e)
-        {
-
-            DataTable dt = (DataTable)ViewState["rolldatafordo"];
-
-
-            ArrayList shadegroup = new ArrayList();
-            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_shade.SelectedItems;
-            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
-            {
-
-                String popackid = item.Value.ToString();
-                shadegroup.Add(popackid);
-            }
-
-
-            if (shadegroup.Count > 0 && shadegroup != null)
-            {
-                string condition = "";
-                for (int i = 0; i < shadegroup.Count; i++)
-                {
 
 
 
-                    if (i == 0)
-                    {
-                        condition = condition + " ShadeGroup='" + shadegroup[i].ToString().Trim() + "'";
-                    }
-                    else
-                    {
-                        condition = condition + "  or  ShadeGroup='" + shadegroup[i].ToString().Trim() + "'";
-                    }
 
 
+     
 
-                }
-                dt = dt.Select(condition).CopyToDataTable();
+ 
+   
 
-            }
-
-
-
-            tbl_rolldata.DataSource = dt;
-            tbl_rolldata.DataBind();
-        }
+   
     }
 
 }

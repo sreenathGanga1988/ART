@@ -296,3 +296,5 @@ function GetSumofSelectedLabelinFooterTextbox(gridname, columntocalculate, foote
 
 
 
+
+

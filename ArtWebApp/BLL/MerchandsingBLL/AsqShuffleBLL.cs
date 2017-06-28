@@ -42,6 +42,74 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
             return dt;
         }
+
+
+
+
+
+        public String GetASQGroupNumber ( string Popackdetlist,int atcid,string atcnum)
+        {
+            String groupname = "";
+
+            String tempgroupcount = "";
+            int count = 0;
+
+
+            string qrystring = @"SELECT   top 1     ASQShuffleMaster.ASQShuffleGroup
+ FROM            ASQShuffleMaster INNER JOIN
+                          ASQShuffleDetails ON ASQShuffleMaster.AsqShuffle_PK = ASQShuffleDetails.AsqShuffle_PK INNER JOIN
+                         POPackDetails ON ASQShuffleDetails.ToPOPackDet_PK = POPackDetails.PoPack_Detail_PK
+WHERE(ASQShuffleMaster.FromPOPackID in (" + Popackdetlist + ")) or (POPackDetails.POPackId in (" + Popackdetlist + "))";
+
+            try
+            {
+                groupname = QueryFunctions.ReturnQueryValue(qrystring).ToString();
+            }
+            catch (Exception)
+            {
+
+                groupname="";
+            }
+
+
+            if(groupname=="")
+            {
+
+
+               qrystring = @" SELECT AtcDetails.AtcId, COUNT(ASQShuffleMaster.AsqShuffle_PK) AS Expr1
+FROM ASQShuffleMaster INNER JOIN
+                         AtcDetails ON ASQShuffleMaster.OurStyleID = AtcDetails.OurStyleID
+GROUP BY AtcDetails.AtcId
+HAVING(AtcDetails.AtcId = "+ atcid + ")";
+                try
+                {
+                    tempgroupcount = QueryFunctions.ReturnQueryValue(qrystring).ToString();
+            }
+            catch (Exception)
+            {
+
+                    tempgroupcount = "";
+            }
+            if (tempgroupcount == "")
+                {
+                    groupname = atcnum + "-" + 1;
+
+                }
+                else
+                {
+                    count = int.Parse(tempgroupcount) +1;
+
+                    groupname = atcnum + "-" + count.ToString();
+                }
+            }
+
+
+            return groupname;
+
+        }
+
+
+
     }
     public class AsqShuffleMasterData
     {
@@ -57,7 +125,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
         public int ApprovedBy { get; set; }
         public int AsqShuffleNum { get; set; }
         public int ApprovedDate { get; set; }
-
+        public String asqgroup { get; set; }
 
         public List<ASQShuffleDetailsData> ASQShuffleDetailsDataCollection { get; set; }
         public string insertasqshufflemaster()
@@ -69,7 +137,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
                 ctmstr.OurStyleID = this.ourstyleid;
                 ctmstr.FromPOPackID = this.FromPOPackID;
-
+                ctmstr.ASQShuffleGroup = this.asqgroup;
                 ctmstr.IsApproved = "N";
                 ctmstr.AddedBY = HttpContext.Current.Session["Username"].ToString();
                 ctmstr.AddedDate = DateTime.Now;

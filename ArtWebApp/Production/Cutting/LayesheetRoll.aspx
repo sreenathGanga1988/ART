@@ -79,19 +79,6 @@
 
 
  
-    <style type="text/css">
-        .auto-style1 {
-            height: 27px;
-        }
-    </style>
-
-
- 
-   
-
-
-
- 
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -532,7 +519,7 @@
                   </ContentTemplate>
                             </asp:UpdatePanel>
         </div>
-            <div> <asp:Button ID="btn_sumbit" runat="server" OnClick="btn_sumbit_Click" Text="Add Rolls" /></div>
+            <div> <asp:Button ID="btn_sumbit" runat="server" OnClick="btn_sumbit_Click" Text="Add Rolls" style="height: 26px" /></div>
         <div id="Messaediv" runat="server">
                  
 

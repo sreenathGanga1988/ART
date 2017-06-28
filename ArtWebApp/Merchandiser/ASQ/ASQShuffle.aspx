@@ -3,25 +3,35 @@
   
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link href="../../css/style.css" rel="stylesheet" />
+<link href="../../css/style.css" rel="stylesheet" />
     <script src="../../JQuery/GridJQuery.js"></script>
 <script type="text/javascript">
 
-
+    
 
 
 
 </script>
 
     
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
+
+    
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table class="DataEntryTable">
-        <tr>
-            <td class="RedHeadding">asq Shuffle</td>
-        </tr>
-        <tr>
-           <td class="DataEntryTable"  >
+
+    <div class="FullTable">
+
+
+        <div class="DataEntryTable">
+
+            <div class="RedHeaddingdIV">Asq Shuffle</div>
+
+             <div class="DataEntryTable"  >
                
                         <table class="DataEntryTable">
                             <tr>
@@ -88,15 +98,25 @@
                             </tr>
                         </table>
                  
-            </td>
-        </tr>
-        <tr>
-           <td class="DataEntryTable"  >
+            </div>
+
+        </div>
+
+    </div>
+
+
+     <div class="FullTable">
+         <div class="DataEntryTable"  >
                 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
+
+
+
+                        <div class="SUBRedHeadding">Asq Detial</div>
+
                         <table class="DataEntryTable">
                             <tr>
-                                <td class="RedHeadding" colspan="6">Asq Detial</td>
+                                <td class="RedHeadding" colspan="6"></td>
                             </tr>
                             <tr>
                                 <td class="NormalTD" >
@@ -118,7 +138,7 @@
                                     </asp:UpdatePanel>
                                 </td>
                                 <td class="NormalTD">To ASQ #:</td>
-                                  </td>
+                                 
                                <td class="NormalTD" >
                                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                                         <ContentTemplate>
@@ -402,6 +422,26 @@
                             
                             <tr>
                                 <td colspan="6">
+                                    <table class="auto-style1">
+                                        <tr>
+                                            <td>Group</td>
+                                            <td>
+                                                <asp:UpdatePanel ID="upd_groupname" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                                <asp:Label ID="lbl_group" runat="server" Text="Label"></asp:Label>
+                                            </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
                                     <asp:Button ID="btn_confirmshuffle" runat="server" OnClick="btn_confirmshuffle_Click" Text="Confirm Asq Shuffle" />
                                 </td>
                             </tr>
@@ -437,7 +477,8 @@
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-            </td>
-        </tr>
-    </table>
+            </div>
+           </div>
+
+
 </asp:Content>

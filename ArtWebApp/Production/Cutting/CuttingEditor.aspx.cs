@@ -845,7 +845,16 @@ namespace ArtWebApp.Production.Cutting
                  BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
             cmstrdata.Refpattern = txt_refpattern.Text;
             cmstrdata.DeleteCutPlan(int.Parse(drp_cutplan.SelectedValue.ToString()));
-            string msg = " CutPlan Updated And Send to Sampling Department";
+
+            tbl_ASQdata.DataSource = null;
+            tbl_cutplanmarkerdata.DataSource = null;
+            tbl_markertype.DataSource = null;
+
+
+            tbl_ASQdata.DataBind();
+            tbl_ASQdata.DataBind();
+            tbl_ASQdata.DataBind();
+            string msg = " CutPlan Deleted .But cutorder may have been Created Please call HO to cancel it";
             ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
         }
 
@@ -854,7 +863,7 @@ namespace ArtWebApp.Production.Cutting
             BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
             cmstrdata.Refpattern = txt_refpattern.Text;
             cmstrdata.ChangerefpatternCutPlan(int.Parse(drp_cutplan.SelectedValue.ToString()));
-            string msg = " CutPlan Updated And Send to Sampling Department";
+            string msg = " CutPlan Patter  changed . Please Inform Samping dept";
             ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
         }
     }

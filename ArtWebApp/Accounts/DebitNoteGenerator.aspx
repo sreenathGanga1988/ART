@@ -32,7 +32,7 @@
                       </ucc:DropDownListChosen>
                  </td>
                   <td class="SearchButtonTD">
-                      <asp:Button ID="Button1" runat="server" Text="S" />
+                      <asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click" />
                  </td>
                 <td class="NormalTD">Creditor name</td>
                   <td class="NormalTD">

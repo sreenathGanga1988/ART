@@ -133,6 +133,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void btn_OURSTYLE1_Click(object sender, EventArgs e)
         {
+            String Group = drp_atc.SelectedItem.Text + "-0";
             ArrayList popaklist = new ArrayList();
             List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
             foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
@@ -147,11 +148,63 @@ namespace ArtWebApp.Merchandiser.ASQ
             {
                 BLL.MerchandsingBLL.AsqShuffleBLL asqshuffle = new BLL.MerchandsingBLL.AsqShuffleBLL();
 
+
+              String condition=  GetGroup(int.Parse(cmb_po.SelectedValue.ToString()), popaklist);
+
+               
                 tbl_topodetails.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
                 tbl_topodetails.DataBind();
                 updgrid2.Update();
+                if (condition != "")
+                {
+
+                    String newstrin = asqshuffle.GetASQGroupNumber(condition, int.Parse(drp_atc.SelectedValue.ToString()), drp_atc.SelectedItem.Text);
+
+                    lbl_group.Text = newstrin;
+                    upd_groupname.Update();
+                }
             }
         }
+
+
+
+
+
+        public String  GetGroup(int popackid=0 ,ArrayList Popackdetlist=null)
+        {
+
+         
+
+
+            String condition = "";
+            if (popackid!=0)
+            {
+                Popackdetlist.Add(popackid);
+            }
+
+            for (int i = 0; i < Popackdetlist.Count; i++)
+            {
+                if (i == 0)
+                {
+                    condition = condition +  Popackdetlist[i].ToString().Trim();
+                }
+                else
+                {
+                    condition = condition + "," + Popackdetlist[i].ToString().Trim();
+                }
+
+
+
+            }
+
+
+            return condition;
+
+        }
+
+
+
+
 
         protected void lbl_newQty_TextChanged(object sender, EventArgs e)
         {
@@ -501,7 +554,7 @@ namespace ArtWebApp.Merchandiser.ASQ
             BLL.MerchandsingBLL.AsqShuffleMasterData asshfl = new BLL.MerchandsingBLL.AsqShuffleMasterData();
             asshfl.ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
             asshfl.FromPOPackID = int.Parse(cmb_po.SelectedValue.ToString());
-
+            asshfl.asqgroup = lbl_group.Text;
 
             String fromourstyleid = (tbl_fromPOdetails.Rows[0].FindControl("lbl_ourstyleid") as Label).Text;
             String toourstyleid = (tbl_topodetails.Rows[0].FindControl("lbl_ourstyleid") as Label).Text;
@@ -510,6 +563,11 @@ namespace ArtWebApp.Merchandiser.ASQ
             {
                 asshfl.ASQShuffleDetailsDataCollection = GetPODetailsData();
                 asshfl.insertasqshufflemaster();
+
+                tbl_fromPOdetails.DataSource = null;
+                tbl_topodetails.DataSource = null;
+                tbl_topodetails.DataBind();
+                tbl_fromPOdetails.DataBind();
             }
             else
             {

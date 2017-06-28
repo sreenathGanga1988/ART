@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArtWebApp.Merchandiser.PO
+namespace ArtWebApp.Accounts
 {
 
 
-    public partial class StockPoTracker
+    public partial class AccountsDashBoard
     {
     }
 }

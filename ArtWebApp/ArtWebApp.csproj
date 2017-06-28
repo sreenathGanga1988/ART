@@ -25,6 +25,7 @@
     <SccProvider>SubversionScc</SccProvider>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,8 +48,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit">
-      <HintPath>H:\Ajax\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.17.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="App_Licenses">
       <HintPath>..\..\..\WebSites\infratry\Bin\App_Licenses.dll</HintPath>
@@ -146,6 +152,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
@@ -159,6 +169,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="zxing, Version=0.15.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.15.0\lib\net45\zxing.dll</HintPath>
@@ -170,8 +184,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Accounts\AccountsDashBoard.aspx" />
     <Content Include="Accounts\DebitnoteforFactory.aspx" />
     <Content Include="Accounts\DebitNoteGenerator.aspx" />
+    <Content Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx" />
     <Content Include="Accounts\StockSupplierInvoicing.aspx" />
     <Content Include="Accounts\SupplierInvoicing.aspx" />
     <Content Include="Administrator\SupportTicket.aspx" />
@@ -212,12 +228,17 @@
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
+    <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
+    <Content Include="JQuery\ExporttoExcel.js" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
+    <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
+    <Content Include="Production\Cutting\LaysheetRollEditor.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
+    <Content Include="Production\JobContractNew\JobContractOthersNew.aspx" />
     <Content Include="Production\RollDisplayer.aspx" />
     <Content Include="Production\Schedular\ASQMonthShipmentClosing.aspx" />
     <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
@@ -984,7 +1005,6 @@
     <Content Include="Merchandiser\PO\POAppend.aspx" />
     <Content Include="Merchandiser\PO\SPOEdit.aspx" />
     <Content Include="Merchandiser\PO\SPOIPO.aspx" />
-    <Content Include="Merchandiser\PO\StockPoTracker.aspx" />
     <Content Include="Merchandiser\PO\WrongPOOrdered.aspx" />
     <Content Include="Merchandiser\PurchaseHelper.aspx" />
     <Content Include="Merchandiser\RO\StockRO.aspx" />
@@ -1099,6 +1119,7 @@
     <Content Include="Sampling\CuttingTicketEdit.aspx" />
     <Content Include="Sampling\FabricEntrynew.aspx" />
     <Content Include="Sampling\SampleWithoutATC.aspx" />
+    <Content Include="MasterPage.master" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Sampling\ShowSamplingstatus.aspx" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -1107,6 +1128,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Scripts\jquery.table2excel.js" />
     <Content Include="Shipping\AtcExpenseMaster.aspx" />
     <Content Include="Shipping\CourierEntry.aspx" />
     <Content Include="Shipping\Documentreceipt.aspx" />
@@ -1298,6 +1320,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\AccountsDashBoard.aspx.cs">
+      <DependentUpon>AccountsDashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\AccountsDashBoard.aspx.designer.cs">
+      <DependentUpon>AccountsDashBoard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\DebitnoteforFactory.aspx.cs">
       <DependentUpon>DebitnoteforFactory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1311,6 +1340,13 @@
     </Compile>
     <Compile Include="Accounts\DebitNoteGenerator.aspx.designer.cs">
       <DependentUpon>DebitNoteGenerator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx.cs">
+      <DependentUpon>DebitSupplierAgainstASNShortage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx.designer.cs">
+      <DependentUpon>DebitSupplierAgainstASNShortage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\StockSupplierInvoicing.aspx.cs">
       <DependentUpon>StockSupplierInvoicing.aspx</DependentUpon>
@@ -1682,6 +1718,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\EtaDate.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EthiopiaToARTShip_Tbl.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ExtraBOMRequestDetail.cs">
@@ -2113,6 +2152,7 @@
     <Compile Include="DataModels\YearMonthMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBTransaction\AccountsTrranscation\AccountsTransaction.cs" />
     <Compile Include="DBTransaction\AtcTransaction.cs" />
     <Compile Include="DBTransaction\BOMTransaction.cs" />
     <Compile Include="DBTransaction\ConcatofQuery.cs" />
@@ -2147,12 +2187,33 @@
     <Compile Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx.designer.cs">
       <DependentUpon>DeliveryReturnTransaction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inventory\Fabric Transaction\RollTrack.aspx.cs">
+      <DependentUpon>RollTrack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\RollTrack.aspx.designer.cs">
+      <DependentUpon>RollTrack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.master.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage.master.designer.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+    </Compile>
     <Compile Include="Merchandiser\PO\IPOMultiCreator.aspx.cs">
       <DependentUpon>IPOMultiCreator.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Merchandiser\PO\IPOMultiCreator.aspx.designer.cs">
       <DependentUpon>IPOMultiCreator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\IPOSPOTracker.aspx.cs">
+      <DependentUpon>IPOSPOTracker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\IPOSPOTracker.aspx.designer.cs">
+      <DependentUpon>IPOSPOTracker.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\CutOrder\CutPlanMasterASQEdit.aspx.cs">
       <DependentUpon>CutPlanMasterASQEdit.aspx</DependentUpon>
@@ -2182,12 +2243,26 @@
     <Compile Include="Production\Cutting\CutplanAndRollofAtc.aspx.designer.cs">
       <DependentUpon>CutplanAndRollofAtc.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\Cutting\LaysheetRollEditor.aspx.cs">
+      <DependentUpon>LaysheetRollEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\LaysheetRollEditor.aspx.designer.cs">
+      <DependentUpon>LaysheetRollEditor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Production\JobContractNew\JObContractNew.aspx.cs">
       <DependentUpon>JObContractNew.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Production\JobContractNew\JObContractNew.aspx.designer.cs">
       <DependentUpon>JObContractNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\JobContractNew\JobContractOthersNew.aspx.cs">
+      <DependentUpon>JobContractOthersNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\JobContractNew\JobContractOthersNew.aspx.designer.cs">
+      <DependentUpon>JobContractOthersNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\RollDisplayer.aspx.cs">
       <DependentUpon>RollDisplayer.aspx</DependentUpon>
@@ -2526,13 +2601,6 @@
     <Compile Include="Inventory\TransferToGtock.aspx.designer.cs">
       <DependentUpon>TransferToGtock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterPage.master.cs">
-      <DependentUpon>MasterPage.master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MasterPage.master.designer.cs">
-      <DependentUpon>MasterPage.master</DependentUpon>
-    </Compile>
     <Compile Include="Masters\BuyerMaster\BuyerAttributes.aspx.cs">
       <DependentUpon>BuyerAttributes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2763,13 +2831,6 @@
     </Compile>
     <Compile Include="Merchandiser\PO\SPOIPO.aspx.designer.cs">
       <DependentUpon>SPOIPO.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Merchandiser\PO\StockPoTracker.aspx.cs">
-      <DependentUpon>StockPoTracker.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Merchandiser\PO\StockPoTracker.aspx.designer.cs">
-      <DependentUpon>StockPoTracker.aspx</DependentUpon>
     </Compile>
     <Compile Include="Merchandiser\PO\WrongPOOrdered.aspx.cs">
       <DependentUpon>WrongPOOrdered.aspx</DependentUpon>
@@ -3666,7 +3727,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MasterPage.master" />
     <Content Include="packages.config" />
     <Content Include="vwd.webinfo" />
     <EntityDeploy Include="DataModels\ArtDataModel.edmx">
@@ -3782,6 +3842,7 @@
     <EmbeddedResource Include="Reports\RDLC\JC-OTHER.RDLC" />
     <EmbeddedResource Include="Reports\RDLC\LaySheetReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\LOAN.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\LocationWiseCutplanPendingReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MonthlyNew.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MonthlyReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\OrderOnHand FactoryWise.rdlc" />

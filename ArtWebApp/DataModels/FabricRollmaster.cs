@@ -32,7 +32,7 @@ namespace ArtWebApp.DataModels
         public string UOM { get; set; }
         public string Remark { get; set; }
         public string SShrink { get; set; }
-        public string SYard { get; set; }
+        public Nullable<decimal> SYard { get; set; }
         public string SShade { get; set; }
         public string SWidth { get; set; }
         public string AShrink { get; set; }

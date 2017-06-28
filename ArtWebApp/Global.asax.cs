@@ -26,25 +26,19 @@ namespace ArtWebApp
             ArrayList User = new ArrayList();
             Application["OnlineUsersname"] = User;
             ////when factories do mrn
-            //Application["MRN"] = "MR";
-            //Application["WWDO"] = "WW";
-            //Application["WWRCPT"] = "WR";
-            //Application["WFDO"] = "WF";
-            //Application["WWRCPT"] = "FR";
-            //Application["FWDO"] = "FW";
-            //Application["DO"] = "DO";
+
+            System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.ScriptBundle("~/bundle/js")
+             .Include("~/Scripts/*.js"));
+
+            System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.ScriptBundle("~/bundle/Cutomjs")
+            .Include("~/JQuery/*.js"));
+
+            System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.StyleBundle("~/bundle/css")
+                            .Include("~/css/MasterPage.css", "~/css/style.css"));
+
+           
 
 
-            //Application["RO"] = "RO";
-            //Application["ROIN"] = "RR";
-            //Application["LOANOUT"] = "LO";
-            //Application["LR"] = "LO";
-            //Application["STOCKTRANSFER"] = "ST";
-
-
-            //Application["APO"] = "APO";
-            //Application["StockPO"] = "MPO";
-            //Application["ServicePO"] = "SPO";
         }
 
         protected void Session_Start(object sender, EventArgs e)

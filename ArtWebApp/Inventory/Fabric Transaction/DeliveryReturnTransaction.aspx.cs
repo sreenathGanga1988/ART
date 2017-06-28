@@ -85,7 +85,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
         public void FillCutorderDO(int skudetpk)
         {
 
-            drp_cutorder.DataSource = BLL.InventoryBLL.RollTransactionBLL.GetCutOrderOFDO(int.Parse(Session["UserLoc_pk"].ToString()), skudetpk);
+            drp_cutorder.DataSource = BLL.InventoryBLL.RollTransactionBLL.GetCutOrderOFDO(int.Parse(Session["UserLoc_pk"].ToString()), skudetpk, int.Parse(ddl_do.SelectedValue.ToString()));
 
             drp_cutorder.DataValueField = "CutID";
             drp_cutorder.DataTextField = "Cut_NO";
@@ -115,7 +115,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             dorolldata.Docnum = ddl_do.SelectedItem.Text;
             dorolldata.cutid = int.Parse(drp_cutorder.SelectedValue.ToString());
             dorolldata.DoID = int.Parse(ddl_do.SelectedValue.ToString());
-            dorolldata.RollInventoryDatadatacollection = GetRollDetailsData();
+         
 
             dorolldata.insertDOReturnRollData();
             tbl_inventory.DataSource = null;
