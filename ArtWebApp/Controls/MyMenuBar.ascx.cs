@@ -18,8 +18,18 @@ namespace ArtWebApp.Controls
         {
             if (!IsPostBack)
             {
-                loadexplorerebar();
-                this.WebExplorerBar1.EnableViewState = true;
+
+                    loadexplorerebar();
+                    this.WebExplorerBar1.EnableViewState = true;
+                
+
+              
+
+               
+            }
+            else
+            {
+
             }
         }
 
@@ -94,7 +104,7 @@ WHERE(UserProfileRights.UserProfile_Pk = @Param2)");
                             int childid = int.Parse(drow["Menu_PK"].ToString());
                             ExplorerBarItem item = new ExplorerBarItem();
                             item.Text = drow["MenuText"].ToString();
-                            item.NavigateUrl = drow["MenuURL"].ToString();
+                            item.NavigateUrl = drow["MenuURL"].ToString().Trim();
                             grp.Items.Add(item);
                             try
                             {
@@ -147,6 +157,7 @@ WHERE(UserProfileRights.UserProfile_Pk = @Param2)");
                     ;
                 }
             }
+           
         }
 
 

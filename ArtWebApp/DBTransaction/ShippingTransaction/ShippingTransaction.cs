@@ -49,16 +49,21 @@ WHERE(Location_Pk = @Param1) AND (IsCompleted = N'N')", con);
                 con.Open();
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT       AtcDetails.OurStyleID, POPackDetails.POPackId,  AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, SUM(ATCWorldToArtShipData.ShipQty) AS ShipQty 
-                        
+                SqlCommand cmd = new SqlCommand(@"SELECT        AtcDetails.OurStyleID, POPackDetails.POPackId, AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, 
+                         SUM(ATCWorldToArtShipData.ShipQty) AS ShipQty, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate
 FROM            POPackDetails INNER JOIN
                          PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
                          ATCWorldToArtShipData ON POPackDetails.PoPack_Detail_PK = ATCWorldToArtShipData.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId  
-						"+ Condition + @" 
-  GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId , 
-                         ATCWorldToArtShipData.ArtLocation_PK
+                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
+                         LocationMaster ON ATCWorldToArtShipData.ProductionArtLocation = LocationMaster.Location_PK  
+						" + Condition + @" and ATCWorldToArtShipData.SDONo not in (SELECT        ShipmentHandOverDetails.SDONum
+FROM            ShipmentHandOverDetails INNER JOIN
+                         ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK
+WHERE        (ShipmentHandOverDetails.POPackId = ATCWorldToArtShipData.POPackID) AND (ShipmentHandOverDetails.OurStyleID = ATCWorldToArtShipData.OurStyleId) AND (ShipmentHandOverMaster.Location_Pk = ATCWorldToArtShipData.OurStyleId) AND 
+                         (ShipmentHandOverDetails.ProducedLctn_PK = ATCWorldToArtShipData.ProductionArtLocation)) 
+  GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId, 
+                         ATCWorldToArtShipData.ArtLocation_PK, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate
 HAVING        (ATCWorldToArtShipData.ArtLocation_PK = @ArtLocation_PK)", con);
 
 

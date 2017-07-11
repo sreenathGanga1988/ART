@@ -1583,7 +1583,7 @@ WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID) and (ProcurmentPlanDetails.I
             {
 
 
-                cmd.CommandText = @"SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DocDetails.Qty, ProcurementMaster.AtcId, ProcurementDetails.SkuDet_PK
+                cmd.CommandText = @"SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DocDetails.Qty, ProcurementMaster.AtcId, ProcurementDetails.SkuDet_PK,DocDet_Pk as Det_Pk
 FROM            ShippingDocumentMaster INNER JOIN
                          ShippingDocumentDetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDetails.ShipingDoc_PK INNER JOIN
                          DocMaster ON ShippingDocumentDetails.Doc_Pk = DocMaster.Doc_Pk INNER JOIN
@@ -1592,7 +1592,7 @@ FROM            ShippingDocumentMaster INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk
 WHERE(ProcurementMaster.AtcId = @ATCID)
 union
-SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DeliveryOrderDetails.DeliveryQty as Qty, DeliveryOrderMaster.AtcID, InventoryMaster.SkuDet_Pk
+SELECT        ShippingDocumentMaster.ShipperInv, ShippingDocumentMaster.ETA,  isnull(ShippingDocumentMaster.Conatianer,'')+'/'+isnull(ShippingDocumentMaster.BL,'') as Conatianer, DeliveryOrderDetails.DeliveryQty as Qty, DeliveryOrderMaster.AtcID, InventoryMaster.SkuDet_Pk,DeliveryOrderDetails.DODet_PK as det
 FROM            ShippingDocumentMaster INNER JOIN
                          ShippingDocumentDODetails ON ShippingDocumentMaster.ShipingDoc_PK = ShippingDocumentDODetails.ShipingDoc_PK INNER JOIN
                          DeliveryOrderMaster ON ShippingDocumentDODetails.DO_PK = DeliveryOrderMaster.DO_PK INNER JOIN
@@ -1625,10 +1625,11 @@ WHERE(DeliveryOrderMaster.AtcID = @ATCID)";
 
 
                 cmd.CommandText = @"
-SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode
+SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName
 FROM            ProcurementDetails INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
-                         UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK
+                         UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+                         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK
 WHERE        (ProcurementMaster.IsDeleted = N'N') AND (ProcurementMaster.IsApproved = N'Y') AND (ProcurementMaster.AtcId = @ATCID)
 
 

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="StyleCosting.aspx.cs" Inherits="ArtWebApp.Merchandiser.StyleCosting" %>
 <%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+ <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
     .dropdownStyle {
@@ -131,6 +132,45 @@
        }
 
     
+
+
+
+
+       function RefreshAll(objref) {
+           debugger
+           var retVal = confirm("Do you want to continue  Refresh Costing calculation ?");
+           if (retVal == true) {
+
+
+
+              
+
+          
+
+               PageMethods.RefreshAll( onSucess, onError);
+               function onSucess(result) {
+                  
+               }
+               function onError(result) {
+                   alert('Something wrong.');
+               }
+           }
+           else {
+
+           }
+
+
+           return false;
+
+       }
+
+
+
+
+
+
+
+
        function calculateforAll()
        {
                var gridView = document.getElementById("<%= tbl_costing.ClientID %>");
@@ -221,8 +261,13 @@
                                 <td><asp:Label ID="lbl_cost" runat="server"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:ImageButton ID="ImageButton1" runat="server" Height="23px" ImageUrl="~/Image/Refresh.png" OnClientClick="calculateforAll()" Width="48px" />
-                                </td>
+                                      <asp:UpdatePanel ID="UpdatePanel6" UpdateMode="Conditional"  runat="server">
+                            <ContentTemplate>
+                                    <asp:Button ID="btn_refresh" OnClick="btn_refresh_Click" runat="server" Text="Refresh" />
+                                  </ContentTemplate>
+                        </asp:UpdatePanel>
+                               </td>
+                                
                             </tr>
                         </table>
                     </td>
@@ -320,6 +365,15 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="AtcRaw_PK" HeaderText="AtcRaw_PK" />
+
+                             <asp:TemplateField HeaderText="NewPerPC">
+                                
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_NewPerPC" runat="server" Text='<%# Bind("NewPerPC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            
                         </Columns>
                         <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

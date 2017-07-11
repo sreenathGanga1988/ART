@@ -96,7 +96,8 @@
                         </td>
                         <td class="NormalTD">
                             
-                               &nbsp;</td>
+                               <asp:Label ID="lbl_Rl" runat="server" Text="Label"></asp:Label>
+                        </td>
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">
                             

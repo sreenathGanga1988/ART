@@ -84,10 +84,10 @@ function validatefob(objText) {
                          </ucc:DropDownListChosen>
                      </td>
                      </td>
-                     <td class="auto-style7">
+                     <td class="NormalTD">
                          <asp:Button ID="btn_showPO" runat="server" OnClick="btn_showPO_Click" Text="S" />
                      </td>
-                     <td class="auto-style7"></td>
+                     <td class="NormalTD"></td>
                  </tr>
         <tr>
             <td class="NormalTD">Shipment #:</td>
@@ -95,10 +95,10 @@ function validatefob(objText) {
                 <ig:WebDropDown ID="drp_shpcode" runat="server" Width="200px" EnableMultipleSelection="True"  EnableClosingDropDownOnSelect="False" TextField="name" ValueField="pk">
                       <DropDownItemBinding TextField="name" ValueField="pk" />
                   </ig:WebDropDown></td>
-             <td class="auto-style7">
+             <td class="NormalTD">
                  <asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click" />
             </td>
-             <td class="auto-style7"></td>
+             <td class="NormalTD"></td>
         </tr>
       
                  <tr>
@@ -110,8 +110,8 @@ function validatefob(objText) {
                 </ucc:DropDownListChosen>
                          
                      </td>
-                     <td class="auto-style7">&nbsp;</td>
-                     <td class="auto-style7">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
                  </tr>
       
                  <tr>
@@ -119,16 +119,53 @@ function validatefob(objText) {
                      <td class="NormalTD">
                          <asp:TextBox ID="txt_ref" runat="server" Width="200px"></asp:TextBox>
                      </td>
-                     <td class="auto-style7">&nbsp;</td>
-                     <td class="auto-style7">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
                  </tr>
       
                  <tr>
                      <td class="NormalTD">&nbsp;</td>
                      <td class="NormalTD">&nbsp;</td>
-                     <td class="auto-style7">&nbsp;</td>
-                     <td class="auto-style7">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
                  </tr>
+
+
+                    <tr>
+                     <td class="NormalTD">
+                      
+
+                        Actual Invoice Date:</td>
+                     <td class="NormalTD">
+                    
+
+                         
+                         <ig:WebDatePicker ID="dtp_invoicedate" runat="server">
+                         </ig:WebDatePicker>
+                    
+
+                         
+                     </td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                 </tr>
+      
+                 <tr>
+                     <td class="NormalTD">Ref #:</td>
+                     <td class="NormalTD">
+                         <asp:TextBox ID="TextBox1" runat="server" Width="200px"></asp:TextBox>
+                     </td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                 </tr>
+      
+                 <tr>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                     <td class="NormalTD">&nbsp;</td>
+                 </tr>
+      
       
     </table>
          </ContentTemplate>

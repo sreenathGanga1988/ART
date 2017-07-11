@@ -1,7 +1,7 @@
 .igspell_Wrapper
 {
 	background-repeat:no-repeat;
-	background-image: url(images/officeblue.jpg);
+	background-image: url(/ig_res/Default/images/officeblue.jpg);
 	font-size:x-small;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	margin:0px;
@@ -29,7 +29,7 @@
 {
 	background-color:Transparent;
 	background-repeat:no-repeat;
-	background-image: url(images/button_officeblue.png);
+	background-image: url(/ig_res/Default/images/button_officeblue.png);
 	font-size:10px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	border-width:0px;

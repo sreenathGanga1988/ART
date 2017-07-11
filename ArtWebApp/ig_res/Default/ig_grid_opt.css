@@ -18,7 +18,7 @@
 .igtbl_PageCurrent
 {
 	background-repeat:no-repeat;
-	background-image: url(images/submit_hover.gif);
+	background-image: url(/ig_res/Default/images/submit_hover.gif);
 	margin-right:10px;
 	padding:2px 8px 5px 5px;
 }
@@ -34,7 +34,7 @@
 .igtbl_GroupByBox
 {
 	background-color:#F9FBFC;
-	background-image: url(images/groupbyheader.gif);
+	background-image: url(/ig_res/Default/images/groupbyheader.gif);
 	font-weight:bold;
 	font-size:11px;
 	height: 23px;
@@ -66,7 +66,7 @@ TBODY.igtbl_Item TR TD, THEAD.igtbl_Item TR TH, TFOOT.igtbl_Item TR TH, TBODY.ig
 	background-color:Transparent;
 	background-repeat:no-repeat;
 	background-position:center ;
-	background-image: url(images/submit_disable.gif);
+	background-image: url(/ig_res/Default/images/submit_disable.gif);
 	border-width:0px;
 	padding-top:2px;
 	width: 18px;
@@ -104,7 +104,7 @@ THEAD.igtbl_Header TR TH, TFOOT.igtbl_Header TR TH, TBODY.igtbl_Header TR TH
 {
 	background-color:Transparent;
 	background-position:bottom ;
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	border-width:0px;
 	border-color:Transparent;
 	padding-top:3px;

@@ -49,6 +49,15 @@ namespace ArtWebApp.Inventory.Inventory_Requests {
         protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_dodate;
         
         /// <summary>
+        /// drp_fromWarehouse0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_fromWarehouse0;
+        
+        /// <summary>
         /// txt_explanation control.
         /// </summary>
         /// <remarks>
@@ -119,5 +128,14 @@ namespace ArtWebApp.Inventory.Inventory_Requests {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        
+        /// <summary>
+        /// ExtraReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExtraReason;
     }
 }

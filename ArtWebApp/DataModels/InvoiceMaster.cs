@@ -28,6 +28,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ActualInvoiceValue { get; set; }
         public string Sinvnum { get; set; }
         public string Refnum { get; set; }
+        public Nullable<System.DateTime> InvoiceDate { get; set; }
     
         public virtual BankMaster BankMaster { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }

@@ -571,7 +571,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Sum(Fields!POValue.Value)/Sum(Fields!Qty.Value)</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -748,7 +748,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Sum(Fields!POValue.Value)/Sum(Fields!Qty.Value)</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -930,7 +930,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Value</Value>
+                                    <Value>Value $</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>
@@ -1040,6 +1040,7 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
@@ -1096,7 +1097,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Value</Value>
+                                    <Value>Value &amp;</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>
@@ -1220,7 +1221,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>FOB</Value>
+                                    <Value>FOB $</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>
@@ -1472,8 +1473,8 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>0.68625in</Top>
         <Left>0.08208in</Left>
-        <Height>1.51042in</Height>
-        <Width>4in</Width>
+        <Height>1.51044in</Height>
+        <Width>4.00001in</Width>
         <Style>
           <Border>
             <Style>None</Style>

@@ -20,5 +20,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<decimal> FromPOPackDet_PK { get; set; }
         public Nullable<decimal> ToPOPackDet_PK { get; set; }
         public Nullable<decimal> AddedQty { get; set; }
+        public Nullable<decimal> RevisedQtyofFromPOPackDet_PK { get; set; }
+        public Nullable<decimal> RevisedQtyofToPOPackDet_PK { get; set; }
+        public Nullable<decimal> ArtAsqShuffleDet_PK { get; set; }
     }
 }

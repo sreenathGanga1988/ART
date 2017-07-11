@@ -14,7 +14,7 @@
 	background-color: #eeeeee;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_dowbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_dowbg.gif);
 	font-size: 0.8em;
 	border-width:0px;
 	border-bottom:solid 1px #CCCCCC;
@@ -47,7 +47,7 @@
 .igmc_Footer
 {
 	background-color: #FFFFFF;
-	background-image: url(images/igmc_footerbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbg.gif);
 	background-repeat:repeat-x;
 	border-top: 1px solid #dddddd;
 	font-size:0.8em;
@@ -58,7 +58,7 @@
 .igmc_HoverFooter
 {
 	background-color: #F1F1F1;
-	background-image: url(images/igmc_footerbghover.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbghover.gif);
 	background-repeat:repeat-x;
 	cursor: pointer;
 }
@@ -66,7 +66,7 @@
 .igmc_PressedFooter
 {
 	background-color: #FFFFFF;
-	background-image: url(images/igmc_footerbgpressed.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbgpressed.gif);
 	background-repeat:repeat-x;
 }
 
@@ -75,7 +75,7 @@
 	background-color: #6eb6e5;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_headerbg.png);
+	background-image: url(/ig_res/Default/images/igmc_headerbg.png);
 	border-bottom: 1px solid #6691B8;
 	height: 50px;
 }
@@ -123,7 +123,7 @@
 	background-color: #F8F8F8;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_weekbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_weekbg.gif);
 	font-weight: bold;
 }
 
@@ -142,7 +142,7 @@
 .igmc_OtherMonthDay.igmc_HoverDay
 {
 	background-color: #ff9933;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 	background-repeat: repeat-x;
 	border: 1px solid #ff8000;
 	color:#FFFFFF;
@@ -174,7 +174,7 @@
 .igmc_HoverDay, .igmc_TodayDay.igmc_HoverDay, .igmc_OtherMonthDay.igmc_HoverDay
 {
 	background-color: #ff9933;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 	background-repeat: repeat-x;
 	border: 1px solid #ff8000;
 	color:#FFFFFF;
@@ -214,7 +214,7 @@
 .igmc_HoverItem
 {
 	background-color: #ff9933;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 	background-repeat: repeat-x;
 	border: 1px solid #ff8000;
 	color:#FFFFFF;

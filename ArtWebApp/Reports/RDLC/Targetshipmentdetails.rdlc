@@ -8,7 +8,6 @@
         <ConnectString>Data Source=192.168.1.4;Initial Catalog=Art</ConnectString>
         <Prompt>Specify a user name and password for data source DataSource1:</Prompt>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>da030a53-1bdb-4538-ba9d-263f505a0fc9</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -744,7 +743,7 @@ HAVING        (MonthYear = @years) AND (MonthNumber = @Month)) AS tttt</CommandT
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Qty Value</Value>
+                                    <Value>Qty Value $</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>
@@ -853,7 +852,7 @@ HAVING        (MonthYear = @years) AND (MonthNumber = @Month)) AS tttt</CommandT
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>Qty Value</Value>
+                                    <Value>Qty Value $</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
                                       <FontSize>8pt</FontSize>

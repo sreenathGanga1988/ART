@@ -13,6 +13,24 @@ namespace ArtWebApp.Merchandiser.PO {
     public partial class GeneralPurchasedashBoard {
         
         /// <summary>
+        /// Mastertable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table Mastertable;
+        
+        /// <summary>
+        /// UpdatePanel12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
+        
+        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

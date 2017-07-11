@@ -86,12 +86,11 @@
 
 
  
-    <style type="text/css">
-        .auto-style1 {
-            width: 55px;
-            height: 27px;
-        }
-    </style>
+       <style type="text/css">
+           .auto-style1 {
+               font-weight: bold;
+           }
+       </style>
 
 
  
@@ -377,7 +376,9 @@
         </tr>
         <tr>
             <td>
-                <asp:Button ID="btn_addroll" runat="server" OnClick="btn_addroll_Click" Text="Add Roll" />
+                <strong>
+                <asp:Button ID="btn_addroll" runat="server" CssClass="auto-style1" OnClick="btn_addroll_Click" Text="Add Roll" />
+                </strong>
                 
             
                 

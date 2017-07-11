@@ -14,10 +14,20 @@ namespace ArtWebApp.DataModels
     
     public partial class LaySheetRollMaster
     {
+        public LaySheetRollMaster()
+        {
+            this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
+        }
+    
         public decimal LaysheetRollmaster_Pk { get; set; }
         public string LayRollRef { get; set; }
         public Nullable<decimal> NoofPlies { get; set; }
         public Nullable<decimal> CutID { get; set; }
         public Nullable<decimal> CutOrderDet_PK { get; set; }
+        public Nullable<decimal> LocationSequence { get; set; }
+        public string LocationSequencenum { get; set; }
+        public Nullable<decimal> Location_Pk { get; set; }
+    
+        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
     }
 }

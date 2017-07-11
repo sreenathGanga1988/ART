@@ -49,7 +49,9 @@ namespace ArtWebApp.Reports.Production.MSI
             int year = int.Parse(cmb_year.SelectedItem.Text);
             int month = int.Parse(cmb_Month.SelectedValue.ToString ());
             DateTime fromdate = DateTime.Parse(lbl_fromdate.Text.ToString());
-            String Reportheading = "Report for the month of " + cmb_Month.SelectedItem.ToString () + " ," + year;
+
+
+            String Reportheading = "Shipment Report for the month of " + cmb_Month.SelectedItem.ToString () + " ," + year+"  as of "+ DateTime.Now.ToString("dd/MM/yyyy");
 
             DateTime todate = DateTime.Parse(lbl_todate.Text.ToString());
             System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.getShippedTargetandShorClosedofMonth(year,month,fromdate,todate);
@@ -78,6 +80,52 @@ namespace ArtWebApp.Reports.Production.MSI
 
 
 
+        public void loaDYearlyTargetofMonth()
+        {
 
+
+
+
+            int year = int.Parse(cmb_year.SelectedItem.Text);
+            int month = int.Parse(cmb_Month.SelectedValue.ToString());
+         
+            String Reportheading = "Target for the month of " + cmb_Month.SelectedItem.ToString() + " ," + year;
+
+          
+            System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.GetTargetofMonth(year, month);
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.DisplayName = "Target for the month of " + cmb_Month.SelectedItem.ToString() + " ," + year;
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\TargetofMonth.rdlc";
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            loaDYearlyTargetofMonth();
+        }
     }
 }

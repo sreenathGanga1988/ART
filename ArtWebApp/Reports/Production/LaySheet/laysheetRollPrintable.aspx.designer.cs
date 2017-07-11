@@ -49,6 +49,15 @@ namespace ArtWebApp.Reports.Production.LaySheet {
         protected global::System.Web.UI.WebControls.Label lbl_laysheetnum;
         
         /// <summary>
+        /// lbl_Rl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Rl;
+        
+        /// <summary>
         /// Upd_cutplandetails control.
         /// </summary>
         /// <remarks>

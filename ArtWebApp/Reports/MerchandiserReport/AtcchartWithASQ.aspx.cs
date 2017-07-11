@@ -585,7 +585,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
             Panel panel1 = mpanel1;
-            Table Table1 = mTable1;
+            Table Table1 = Mastertable;
 
 
             //   Creat the Table and Add it to the Page
@@ -594,10 +594,12 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
 
-            Table1.ID = "Mastertable";
+          //  Table1.ID = "Mastertable";
             // Page.Form.Controls.Add(Table1);
             panel1.Controls.Add(Table1);
-            Table1.CssClass = "Headernewtable";
+         //   Table1.CssClass = "Headernewtable mydatagrid";
+            Table1.CssClass = "mydatagrid";
+            
             Table1.Attributes.Add("Style", "border:1px solid #ccc");
             //  The number of Columns to be generated
             if (dt != null)

@@ -131,27 +131,27 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.89583in</Width>
+              <Width>2.72255in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.72569in</Width>
+              <Width>0.86488in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.89458in</Width>
+              <Width>0.67465in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.47917in</Width>
+              <Width>0.61836in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.59375in</Width>
+              <Width>0.73294in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.72409in</Width>
+              <Width>0.86328in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.20312in</Height>
+              <Height>0.29117in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -586,9 +586,9 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>2.92237in</Top>
-        <Left>0.08965in</Left>
-        <Height>0.40624in</Height>
-        <Width>6.31311in</Width>
+        <Left>0.01166in</Left>
+        <Height>0.49429in</Height>
+        <Width>6.47667in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -1405,7 +1405,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.64583in</Height>
+    <Height>3.48958in</Height>
     <Style />
   </Body>
   <Width>6.56248in</Width>

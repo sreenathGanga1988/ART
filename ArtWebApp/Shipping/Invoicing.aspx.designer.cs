@@ -76,6 +76,24 @@ namespace ArtWebApp.Shipping {
         protected global::System.Web.UI.WebControls.TextBox txt_ref;
         
         /// <summary>
+        /// dtp_invoicedate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_invoicedate;
+        
+        /// <summary>
+        /// TextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        
+        /// <summary>
         /// upd_grid control.
         /// </summary>
         /// <remarks>

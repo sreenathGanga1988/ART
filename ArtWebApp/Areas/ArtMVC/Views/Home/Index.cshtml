@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Art MVC";
+}
+
+<h2>Action</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>IT Administrator</h2>
+        <p>
+           IT related High Specific Asynchronous Actions : Need Special Authentication and permision
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("ShowItTasks", "ITAdministrator",new { area = "ITAdministrator" })">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2> Management Co-ordinator</h2>
+        <p>Analytical Tools which leads to The calculation of Business flow and Reports </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Sampling")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>High level Approval </h2>
+        <p>Approvals From High level Which have high financial Impact</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "MastersAction")">Learn more &raquo;</a></p>
+    </div>
+</div>

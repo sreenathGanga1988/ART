@@ -92,7 +92,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
             }
             if (tempgroupcount == "")
                 {
-                    groupname = atcnum + "-" + 1;
+                    groupname = "GP"+ atcnum + "-" + 1;
 
                 }
                 else
@@ -107,6 +107,147 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
             return groupname;
 
         }
+
+
+
+
+
+
+
+
+
+
+
+        public void ApproveAsqShuffle(int asqShuffle_PK)
+        {
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                using (DataModelAtcWorld.AtcWorldEntities enttty = new DataModelAtcWorld.AtcWorldEntities())
+                {
+
+
+                      var atcworldartshufflepk = enttty.ASQShuffleMasterAtcs.Where(u => u.ArtAsqShuffle_PK == asqShuffle_PK).Select(u => u.AsqShuffle_PK).FirstOrDefault();
+
+                    int frompopackid = 0;
+                    int ourstyleid = 0;
+                    var datatoapproveonart = from cstingmstr in enty.ASQShuffleMasters
+                                        where cstingmstr.AsqShuffle_PK == asqShuffle_PK
+                                        select cstingmstr;
+
+                    foreach (var element123 in datatoapproveonart)
+                    {
+
+                        element123.IsApproved = "Y";
+                        element123.ApprovedBy = HttpContext.Current.Session["Username"].ToString();
+                        element123.ApprovedDate = DateTime.Now;
+                        frompopackid = int.Parse(element123.FromPOPackID.ToString());
+                        ourstyleid = int.Parse(element123.OurStyleID.ToString());
+
+                    }
+
+                    var datatoapproveonatcworld = from cstingmstr in enttty.ASQShuffleMasterAtcs
+                                        where cstingmstr.AsqShuffle_PK == atcworldartshufflepk
+                                                  select cstingmstr;
+
+                    foreach (var element123 in datatoapproveonatcworld)
+                    {
+
+                        element123.IsApproved = "Y";
+                        element123.ApprovedBy = HttpContext.Current.Session["Username"].ToString();
+                        element123.ApprovedDate = DateTime.Now;
+
+                    }
+
+                    enty.SaveChanges();
+                    enttty.SaveChanges();
+                        int frompopackdet_pk = 0;
+                    int topopackdet_pk = 0;
+                    Decimal adjustingQty = 0;
+                    var q = (from asdetail in enty.ASQShuffleDetails
+                            where asdetail.AsqShuffle_PK == asqShuffle_PK
+                            select asdetail).ToList();
+
+                    foreach(var element in q)
+                    {
+
+                        frompopackdet_pk = int.Parse( element.FromPOPackDet_PK.ToString());
+                        topopackdet_pk = int.Parse(element.ToPOPackDet_PK.ToString());
+
+                        var frompopackdetupdate = from Pckdet in enty.POPackDetails
+                                                  where Pckdet.PoPack_Detail_PK == frompopackdet_pk
+                                                  select Pckdet;
+
+                        foreach(var frompopack in frompopackdetupdate)
+                        {
+                            frompopack.PoQty = frompopack.PoQty - element.AddedQty;
+                        }
+
+                        var topopackupdate = from Pckdet in enty.POPackDetails
+                                                  where Pckdet.PoPack_Detail_PK == topopackdet_pk
+                                                  select Pckdet;
+
+                        foreach (var topopack in topopackupdate)
+                        {
+                            topopack.PoQty =  element.revisedQtyofToPOPackDet_PK;
+                        }
+
+
+
+                        var updateatcworldkenyafrom = from Pckdet in enttty.ASQAllocationMaster_tbl
+                                                  where Pckdet.PoPack_Detail_PK == frompopackdet_pk
+                                                  select Pckdet;
+                        foreach (var frompopackatcworld in updateatcworldkenyafrom)
+                        {
+                            frompopackatcworld.Qty = frompopackatcworld.Qty - element.AddedQty;
+                        }
+
+                        var updateatcworldkenyato= from Pckdet in enttty.ASQAllocationMaster_tbl
+                                                      where Pckdet.PoPack_Detail_PK == topopackdet_pk
+                                                   select Pckdet;
+                        foreach (var frompopackatcworld in updateatcworldkenyato)
+                        {
+                            frompopackatcworld.Qty = element.revisedQtyofToPOPackDet_PK;
+                        }
+
+                        enttty.SaveChanges();
+                        enty.SaveChanges();
+                    }
+
+
+
+                    var newpopackidqty = enty.POPackDetails.Where(i => i.POPackId== frompopackid && i.OurStyleID== ourstyleid).Select(i => i.PoQty).DefaultIfEmpty(0).Sum();
+                    var datatoapproveonartlast = from cstingmstr in enty.ASQShuffleMasters
+                                             where cstingmstr.AsqShuffle_PK == asqShuffle_PK
+                                             select cstingmstr;
+
+                    foreach (var element123 in datatoapproveonartlast)
+                    {
+                        element123.RevisedFromQty = Decimal.Parse(newpopackidqty.ToString ()); 
+                        
+
+                    }
+
+                    var datatoapproveonatcworldlast = from cstingmstr in enttty.ASQShuffleMasterAtcs
+                                                  where cstingmstr.AsqShuffle_PK == atcworldartshufflepk
+                                                  select cstingmstr;
+
+                    foreach (var element123 in datatoapproveonatcworldlast)
+                    {
+
+                        element123.RevisedFromQty = Decimal.Parse(newpopackidqty.ToString()); 
+
+                    }
+
+                    enttty.SaveChanges();
+                }
+             
+                enty.SaveChanges();
+            }
+
+        }
+
 
 
 
@@ -155,10 +296,11 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
 
                     atcproctmstr.OurStyleID = this.ourstyleid;
                     atcproctmstr.FromPOPackID = this.FromPOPackID;
-
+                    atcproctmstr.ASQShuffleGroup = this.asqgroup;
                     atcproctmstr.IsApproved = "N";
                     atcproctmstr.AddedBY = HttpContext.Current.Session["Username"].ToString();
                     atcproctmstr.AddedDate = DateTime.Now;
+                    atcproctmstr.ArtAsqShuffle_PK = ctmstr.AsqShuffle_PK;
                     ctmstr.AsqShuffleNum = asqshuffle;
                    enttty.ASQShuffleMasterAtcs.Add(atcproctmstr);
 
@@ -172,7 +314,8 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                     wrngdet.ToPOPackDet_PK = rdet.ToPOPackDet_PK;
                     wrngdet.AddedQty = rdet.AddedQty;
                     wrngdet.AsqShuffle_PK = ctmstr.AsqShuffle_PK;
-
+                    wrngdet.revisedQtyofToPOPackDet_PK = rdet.newToQty;
+                    wrngdet.RevisedQtyofFromPOPackDet_PK = (0 - rdet.AddedQty);
 
                     //  var popackdetialpk = enty.POPackDetails.Where(u => u.ColorName == rdet.colorname && u.SizeName == rdet.sizename && u.POPackId == ctmstr.FromPOPackID && u.OurStyleID == ctmstr.OurStyleID).Select(u => u.PoPack_Detail_PK).FirstOrDefault();
                     wrngdet.FromPOPackDet_PK = int.Parse(rdet.FromPOPackDet_PK.ToString());
@@ -186,11 +329,13 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                         Propkdet1.OurStyleID = rdet.OurStyleID;
                         Propkdet1.ToPOPackDet_PK = rdet.ToPOPackDet_PK;
                         Propkdet1.AddedQty = rdet.AddedQty;
-                        Propkdet1.AsqShuffle_PK = ctmstr.AsqShuffle_PK;
-
-
-
+                        Propkdet1.AsqShuffle_PK = wrngdet.AsqShuffle_PK;
+                        Propkdet1.RevisedQtyofToPOPackDet_PK = rdet.newToQty;
                         Propkdet1.FromPOPackDet_PK = int.Parse(rdet.FromPOPackDet_PK.ToString());
+                        Propkdet1.ArtAsqShuffleDet_PK = wrngdet.AsqShuffleDet_PK;
+                        Propkdet1.RevisedQtyofFromPOPackDet_PK = (0 - rdet.AddedQty);
+
+                       
 
                         enttty.ASQShuffleDetailsAtcs.Add(Propkdet1);
                         enttty.SaveChanges();
@@ -219,7 +364,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
         public int FromPOPackDet_PK { get; set; }
         public int ToPOPackDet_PK { get; set; }
         public int AddedQty { get; set; }
-
+        public int newToQty { get; set; }
 
         public string colorcode { get; set; }
         public string colorname { get; set; }

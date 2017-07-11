@@ -1,7 +1,7 @@
 .igmn_Control
 {
 	background-color:#E3EFFF;
-	background-image: url(images/groupbyheader.gif);
+	background-image: url(/ig_res/Default/images/groupbyheader.gif);
 	border-color:WhiteSmoke;
 }
 
@@ -11,7 +11,7 @@
 	background-color:White;
 	background-repeat:repeat-y;
 	background-position:left ;
-	background-image: url(images/buttonbg.png);
+	background-image: url(/ig_res/Default/images/buttonbg.png);
 	border:solid 1px #E1E1E1;
 }
 
@@ -60,7 +60,7 @@
 .igmn_Hover
 {
 	background-position:center ;
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	border:solid 1px #699BC9;
 	color:White;
 }
@@ -69,7 +69,7 @@
 .igmn_TopLevelHover
 {
 	background-position:center ;
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	border:solid 1px #699BC9;
 }
 

@@ -20,5 +20,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> FromPOPackDet_PK { get; set; }
         public Nullable<decimal> ToPOPackDet_PK { get; set; }
         public Nullable<decimal> AddedQty { get; set; }
+        public Nullable<decimal> RevisedQtyofFromPOPackDet_PK { get; set; }
+        public Nullable<decimal> revisedQtyofToPOPackDet_PK { get; set; }
     }
 }

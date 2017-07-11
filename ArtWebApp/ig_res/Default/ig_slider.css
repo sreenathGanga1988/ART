@@ -119,7 +119,7 @@
 	text-align:left;
 	margin-left:-1px;
 	border:0px solid black;
-	background:url(images/igsli_TrackFill.gif);
+	background:url(/ig_res/Default/images/igsli_TrackFill.gif);
 	width:100%;
 	font-size:1px;
 	height:15px;
@@ -127,13 +127,13 @@
 .igsli_TrackValueH
 {
 	position:absolute;
-	background:url(images/igsli_TrackValueFillH.gif);
+	background:url(/ig_res/Default/images/igsli_TrackValueFillH.gif);
 	height:15px;
 }
 .igsli_TrackValue2H
 {
 	position:absolute;
-	background:url(images/igsli_TrackValueFill2H.gif);
+	background:url(/ig_res/Default/images/igsli_TrackValueFill2H.gif);
 	height:15px;
 }
 .igsli_Button
@@ -321,7 +321,7 @@
 	position:relative;
 	text-align:left;
 	border:0px solid blue;
-	background:url(images/igsli_TrackFillV.gif);
+	background:url(/ig_res/Default/images/igsli_TrackFillV.gif);
 	height:99.9%;
 	font-size:1px;
 	width:15px;
@@ -329,13 +329,13 @@
 .igsli_TrackValueV
 {
 	position:absolute;
-	background:url(images/igsli_TrackValueFillV.gif);
+	background:url(/ig_res/Default/images/igsli_TrackValueFillV.gif);
 	width:100%;
 }
 .igsli_TrackValue2V
 {
 	position:absolute;
-	background:url(images/igsli_TrackValueFill2V.gif);
+	background:url(/ig_res/Default/images/igsli_TrackValueFill2V.gif);
 	width:100%;
 	margin-top:-1px;
 }
@@ -428,7 +428,7 @@
 	height:100%;
 	top:0px;
 	left:-5px;
-	background:url(images/igsli_TrackEdges.gif);
+	background:url(/ig_res/Default/images/igsli_TrackEdges.gif);
 }
 /* applied to right edge of horizontal track bar */
 .igsli_TrackEdgeR
@@ -438,7 +438,7 @@
 	height:100%;
 	top:0px;
 	left:100%; 
-	background:url(images/igsli_TrackEdges.gif) top right;
+	background:url(/ig_res/Default/images/igsli_TrackEdges.gif) top right;
 }
 /* applied to top edge of vertical track bar */
 .igsli_TrackEdgeT
@@ -448,7 +448,7 @@
 	height:7px;
 	top:-5px;
 	left:0px;
-	background:url(images/igsli_TrackEdgesV.gif);
+	background:url(/ig_res/Default/images/igsli_TrackEdgesV.gif);
 }
 /* applied to left edge of vertical track bar */
 .igsli_TrackEdgeB
@@ -459,15 +459,15 @@
 	margin-top: -2px;
 	top:100%;
 	left:0px;
-	background:url(images/igsli_TrackEdgesV.gif) left bottom;
+	background:url(/ig_res/Default/images/igsli_TrackEdgesV.gif) left bottom;
 }
 /* applied to left edge of horizontal track bar when TrackValue is enabled */
 .igsli_TrackValueEdgeL
 {
-	background-image:url(images/igsli_TrackValueEdgesH.gif);
+	background-image:url(/ig_res/Default/images/igsli_TrackValueEdgesH.gif);
 }
 /* applied to bottom edge of vertical track bar when TrackValue is enabled */
 .igsli_TrackValueEdgeB
 {
-	background-image:url(images/igsli_TrackValueEdgesV.gif);
+	background-image:url(/ig_res/Default/images/igsli_TrackValueEdgesV.gif);
 }

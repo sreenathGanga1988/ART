@@ -24,5 +24,6 @@ namespace ArtWebApp.DataModels
         public string AsqShuffleNum { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string ASQShuffleGroup { get; set; }
+        public Nullable<decimal> RevisedFromQty { get; set; }
     }
 }

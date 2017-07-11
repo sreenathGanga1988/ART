@@ -478,7 +478,7 @@ FROM         dbo.CountryMaster INNER JOIN
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Value</Value>
+                                  <Value>Value $</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -613,7 +613,7 @@ FROM         dbo.CountryMaster INNER JOIN
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Value</Value>
+                                  <Value>Value $</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -703,7 +703,7 @@ FROM         dbo.CountryMaster INNER JOIN
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ASQ</Value>
+                                  <Value>ASQ </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -748,7 +748,7 @@ FROM         dbo.CountryMaster INNER JOIN
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ASQ Val</Value>
+                                  <Value>ASQ Val $</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>

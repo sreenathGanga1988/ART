@@ -20,20 +20,26 @@ namespace ArtWebApp.DataModelAtcWorld
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
-              : base("name=AtcWorldEthiopiaEntities")
+            : base("name=AtcWorldEthiopiaEntities")
         {
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<LocationMaster_tbl> LocationMaster_tbl { get; set; }
-        public virtual DbSet<ASQShuffleDetailsAtc> ASQShuffleDetailsAtcs { get; set; }
-        public virtual DbSet<ASQShuffleMasterAtc> ASQShuffleMasterAtcs { get; set; }
         public virtual DbSet<PackingListDetailsAtc> PackingListDetailsAtcs { get; set; }
         public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
         public virtual DbSet<PackingListMasterAtcPro> PackingListMasterAtcProes { get; set; }
         public virtual DbSet<StyleSizeMaster> StyleSizeMasters { get; set; }
+        public virtual DbSet<ASQShuffleDetailsAtc> ASQShuffleDetailsAtcs { get; set; }
+        public virtual DbSet<ASQShuffleMasterAtc> ASQShuffleMasterAtcs { get; set; }
+        public virtual DbSet<ArtJobContractMaster> ArtJobContractMasters { get; set; }
+        public virtual DbSet<ArtCutPlanASQDet> ArtCutPlanASQDets { get; set; }
+        public virtual DbSet<ArtCutPlanMarkerSizeDetail> ArtCutPlanMarkerSizeDetails { get; set; }
+        public virtual DbSet<ArtLaySheetMasterData> ArtLaySheetMasterDatas { get; set; }
+        public virtual DbSet<ArtLaySheetDetail> ArtLaySheetDetails { get; set; }
     }
 }

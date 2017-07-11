@@ -8,7 +8,7 @@
 {
 	background-color:#77b9e5;
 	background-repeat:repeat-x;
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-weight:bold;
 	border-width:0;
 	border-bottom: 1px solid #679AC7;
@@ -22,7 +22,7 @@
 {
 	background-color: #DCE9F1;
 	background-repeat:repeat-x;
-	background-image: url(images/dayheader.jpg);
+	background-image: url(/ig_res/Default/images/dayheader.jpg);
 	border-bottom: 1px solid #cccccc;
 	font-size:8pt;
 	padding: 5px;
@@ -59,7 +59,7 @@
 {
 	background-color:#FDFEFE;
 	background-repeat:repeat-x;
-	background-image: url(images/groupbyheader.gif);
+	background-image: url(/ig_res/Default/images/groupbyheader.gif);
 	font-size:8pt;
 	border: solid 1px #D3D3D3;
 	padding:5px;
@@ -73,7 +73,7 @@
 {
 	background-color:#477AA7;
 	background-repeat:repeat-x;
-	background-image: url(images/header_hover.gif);
+	background-image: url(/ig_res/Default/images/header_hover.gif);
 	font-size:8pt;
 	border:solid 1px #999999;
 	color:#FFFFFF;
@@ -109,7 +109,7 @@
 	background-color: #DCE9F1;
 	background-repeat:repeat-x;
 	background-position:top ;
-	background-image: url(images/dayheader.jpg);
+	background-image: url(/ig_res/Default/images/dayheader.jpg);
 	font-size:8pt;
 	padding: 5px;
 	text-align:center;
@@ -141,7 +141,7 @@
 	border-color: #FF9933;
 	background-color: #FF9933;
 	background-repeat: repeat-x;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 }
 
 
@@ -206,7 +206,7 @@
 	color: #333;
 	background-color: #DCE9F1;
 	background-repeat:repeat-x;
-	background-image: url(images/dayheader.jpg);
+	background-image: url(/ig_res/Default/images/dayheader.jpg);
 }
 
 .igdv_ResourceButton:focus, .igdv_ResourceButtonActive
@@ -227,7 +227,7 @@
 
 .igdv_MultiDayEventArrowLeft
 {
-      background-image: url(images/igws_arrowLeft.gif);
+      background-image: url(/ig_res/Default/images/igws_arrowLeft.gif);
       background-repeat: no-repeat;
       background-position: center center;
       display: inline-block;
@@ -237,7 +237,7 @@
 
 .igdv_MultiDayEventArrowRight
 {
-      background-image: url(images/igws_arrowRight.gif);
+      background-image: url(/ig_res/Default/images/igws_arrowRight.gif);
       background-repeat: no-repeat;
       background-position: center center;
       display: inline-block;

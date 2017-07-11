@@ -29,6 +29,11 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> OustyleID { get; set; }
         public string LaySheetNum { get; set; }
         public string LayCutNum { get; set; }
+        public string IsApproved { get; set; }
+        public string IsEdited { get; set; }
+        public string IsUploaded { get; set; }
+        public string IsDetailUploaded { get; set; }
+        public string IsDeleted { get; set; }
     
         public virtual CutOrderDetail CutOrderDetail { get; set; }
         public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }

@@ -201,7 +201,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                         && rolldet.MarkerType == markerTyple && rollinv.IsPresent=="Y" && rollinv.Location_Pk== locationpk
                         select new { rolldet.AYard, rolldet.Roll_PK ,rolldet.IsDelivered,rolldet.SWeight};
 
-                foreach (var element in q)
+                foreach (var element in q.ToList())
                 {
 
                     if(element.IsDelivered.Trim ()=="Y")
@@ -230,6 +230,11 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                     ayardsum += float.Parse(element.AYard.ToString());
 
+
+                    if(element.Roll_PK== 159357)
+                    {
+
+                    }
                 }
 
                 var deliveryedrol= from rolldet in entty.FabricRollmasters
@@ -246,6 +251,10 @@ namespace ArtWebApp.BLL.CutOrderBLL
                         deliveredcount++;
 
                         deliveredayardsum += float.Parse(element123.AYard.ToString());
+                    }
+                    if (element123.Roll_PK == 159357)
+                    {
+
                     }
 
                 }

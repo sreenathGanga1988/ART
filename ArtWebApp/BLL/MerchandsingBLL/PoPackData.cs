@@ -27,7 +27,7 @@ namespace ArtWebApp.BLL
         public DateTime AddedDate { get; set; }
         public String AddedBy { get; set; }
 
-
+        public String CombinationCode { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public int styleid { get; set; }
@@ -461,7 +461,7 @@ namespace ArtWebApp.BLL
                 lckasqdet.Month = this.Month;
                 lckasqdet.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 lckasqdet.AddedDate = DateTime.Now;
-
+                lckasqdet.CombinationCode = this.PoPackId.ToString().Trim() + "/" + this.styleid.ToString().Trim();
                 enty.LockedASQDetails.Add(lckasqdet);
                 enty.SaveChanges();
             }
@@ -774,6 +774,8 @@ FROM            PoPackMaster INNER JOIN
                                 pcpkdet.ColorId = newpopackdetdata.coloid; 
                                 pcpkdet.SizeID= newpopackdetdata.sizeid;
                                 pcpkdet.PoQty = newpopackdetdata.Poqty;
+
+                                pcpkdet.CombinationCode = newpopackdetdata.PoPackId.ToString().Trim() + "/" + newpopackdetdata.Ourstyleid.ToString().Trim();
                                 pcpkdet.IsCutable = "N";
                                 pcpkdet.IsHidden = "N";
                                 pcpkdet.IsShortClosed = "N";

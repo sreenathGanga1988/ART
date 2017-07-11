@@ -229,13 +229,13 @@ namespace ArtWebApp.Reports.MerchandiserReport {
         protected global::System.Web.UI.WebControls.Panel mpanel1;
         
         /// <summary>
-        /// mTable1 control.
+        /// Mastertable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table mTable1;
+        protected global::System.Web.UI.WebControls.Table Mastertable;
         
         /// <summary>
         /// chk_f control.

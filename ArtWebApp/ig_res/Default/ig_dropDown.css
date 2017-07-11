@@ -221,7 +221,7 @@ CSS class that controls the style of the LI items in the list
 	background-color:#FF9933;
 	background-repeat:repeat-x;
 	background-position:top ;
-	background-image: url(images/igdd_listitemhover.png);
+	background-image: url(/ig_res/Default/images/igdd_listitemhover.png);
 	border:solid 1px Transparent;
 	list-style-type: none;
 }

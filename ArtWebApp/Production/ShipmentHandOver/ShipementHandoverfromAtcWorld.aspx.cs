@@ -126,20 +126,30 @@ namespace ArtWebApp.Production.ShipmentHandOver
                     int lbl_OurStyleID = int.Parse(((di.FindControl("lbl_OurStyleID") as Label).Text.ToString()));
 
                     int lbl_POPackId = int.Parse(((di.FindControl("lbl_POPackId") as Label).Text.ToString()));
+                int lblProductionArtLocation_PK = int.Parse(((di.FindControl("lblProductionArtLocation_PK") as Label).Text.ToString()));
 
-                    string lbl_SDONo = (di.FindControl("lbl_SDONo") as Label).Text.ToString().Trim();
+                string lbl_SDONo = (di.FindControl("lbl_SDONo") as Label).Text.ToString().Trim();
                     int lbl_qty = int.Parse(((di.FindControl("lbl_qty") as Label).Text.ToString()));
 
 
-                    BLL.ProductionBLL.ShipmentHandOverData shpdet = new BLL.ProductionBLL.ShipmentHandOverData();
+                DateTime lbl_ShipmentDate= DateTime.Parse(((di.FindControl("lbl_ShipmentDate") as Label).Text.ToString()));
+
+
+
+
+
+
+
+                BLL.ProductionBLL.ShipmentHandOverData shpdet = new BLL.ProductionBLL.ShipmentHandOverData();
                     shpdet.Popackid = lbl_POPackId;
                     shpdet.OurStyleId = lbl_OurStyleID;
                     shpdet.SDO = lbl_SDONo;
                     shpdet.ShipmenthandOverdate = DateTime.Parse(shipdate.Value.ToString());
                     shpdet.ShippedQty = int.Parse(lbl_qty.ToString());
+                  shpdet.ProducedLctn_PK = int.Parse(lblProductionArtLocation_PK.ToString ());
                     shpdet.AddedBy = Session["Username"].ToString().Trim();
                     shpdet.AddedDate = DateTime.Now;
-
+                shpdet.ShipmentDate = lbl_ShipmentDate;
                     rk.Add(shpdet);
                
             }

@@ -30,6 +30,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 invmstr.AddedBy = Invdata.Invmstrdata.AddedBy;
                 invmstr.Bank_PK = Invdata.Invmstrdata.Bank_pk;
                 invmstr.Refnum = Invdata.Invmstrdata.refnum;
+                invmstr.InvoiceDate = Invdata.Invmstrdata.Invoicedate;
                 enty.InvoiceMasters.Add(invmstr);
 
 
@@ -76,7 +77,7 @@ namespace ArtWebApp.BLL.ShippingBLL
         public string AddedBy { get; set; }
         public string refnum { get; set; }
         public DateTime AddedDate { get; set; }
-
+        public DateTime Invoicedate { get; set; }
 
 
     }

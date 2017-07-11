@@ -5,6 +5,77 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AtcModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArtCutPlanASQDet">
+          <Key>
+            <PropertyRef Name="ArtCutASqDet_PK" />
+          </Key>
+          <Property Name="ArtCutASqDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoPackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CutQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutPlanASQDetails_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtCutPlanMarkerSizeDetails">
+          <Key>
+            <PropertyRef Name="ArtCutPlanSize_PK" />
+          </Key>
+          <Property Name="ArtCutPlanSize_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CutPlanSize_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ratio" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutPlanMarkerDetails_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtJobContractMaster">
+          <Key>
+            <PropertyRef Name="ArtJobContract_PK" />
+          </Key>
+          <Property Name="ArtJobContract_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobContract_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CM" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="JobContractNum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ArtLaySheetDetails">
+          <Key>
+            <PropertyRef Name="ArtLaySheetDet_PK" />
+          </Key>
+          <Property Name="ArtLaySheetDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LaySheetDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Roll_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="ArtLaySheetMasterData">
+          <Key>
+            <PropertyRef Name="LayMasterDataID" />
+          </Key>
+          <Property Name="LayMasterDataID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CutPlanNUM" Type="nvarchar" MaxLength="20" />
+          <Property Name="ColorCode" Type="nvarchar(max)" />
+          <Property Name="LaySheetNum" Type="varchar" MaxLength="50" />
+          <Property Name="LayCutNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutOrderDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Cut_NO" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shrinkage" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkerType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CutWidth" Type="nvarchar" MaxLength="50" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="ASQAllocationMaster_tbl">
           <Key>
             <PropertyRef Name="ASQAllocation_PK" />
@@ -59,6 +130,9 @@
           <Property Name="FromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="AddedQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ArtAsqShuffleDet_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQShuffleMasterAtc">
           <Key>
@@ -73,6 +147,9 @@
           <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AsqShuffleNum" Type="nvarchar" MaxLength="50" />
           <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="ASQShuffleGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArtAsqShuffle_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -160,6 +237,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AtcModelModelStoreContainer">
+          <EntitySet Name="ArtCutPlanASQDet" EntityType="Self.ArtCutPlanASQDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="Self.ArtCutPlanMarkerSizeDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtJobContractMaster" EntityType="Self.ArtJobContractMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtLaySheetDetails" EntityType="Self.ArtLaySheetDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtLaySheetMasterData" EntityType="Self.ArtLaySheetMasterData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="Self.ASQAllocationMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleDetailsAtc" EntityType="Self.ASQShuffleDetailsAtc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleMasterAtc" EntityType="Self.ASQShuffleMasterAtc" Schema="dbo" store:Type="Tables" />
@@ -178,8 +260,6 @@
       <Schema Namespace="AtcModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AtcWorldEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="LocationMaster_tbl" EntityType="AtcModelModel.LocationMaster_tbl" />
-          <EntitySet Name="ASQShuffleDetailsAtcs" EntityType="AtcModelModel.ASQShuffleDetailsAtc" />
-          <EntitySet Name="ASQShuffleMasterAtcs" EntityType="AtcModelModel.ASQShuffleMasterAtc" />
           <EntitySet Name="PackingListDetailsAtcs" EntityType="AtcModelModel.PackingListDetailsAtc" />
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
           <EntitySet Name="PackingListMasterAtcProes" EntityType="AtcModelModel.PackingListMasterAtcPro" />
@@ -188,6 +268,13 @@
             <End Role="PackingListDetailsAtc" EntitySet="PackingListDetailsAtcs" />
           </AssociationSet>
           <EntitySet Name="StyleSizeMasters" EntityType="AtcModelModel.StyleSizeMaster" />
+          <EntitySet Name="ASQShuffleDetailsAtcs" EntityType="AtcModelModel.ASQShuffleDetailsAtc" />
+          <EntitySet Name="ASQShuffleMasterAtcs" EntityType="AtcModelModel.ASQShuffleMasterAtc" />
+          <EntitySet Name="ArtJobContractMasters" EntityType="AtcModelModel.ArtJobContractMaster" />
+          <EntitySet Name="ArtCutPlanASQDets" EntityType="AtcModelModel.ArtCutPlanASQDet" />
+          <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="AtcModelModel.ArtCutPlanMarkerSizeDetail" />
+          <EntitySet Name="ArtLaySheetMasterDatas" EntityType="AtcModelModel.ArtLaySheetMasterData" />
+          <EntitySet Name="ArtLaySheetDetails" EntityType="AtcModelModel.ArtLaySheetDetail" />
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -212,31 +299,6 @@
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="HRLocation_PK" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="ASQShuffleDetailsAtc">
-          <Key>
-            <PropertyRef Name="AsqShuffleDet_PK" />
-          </Key>
-          <Property Name="AsqShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="ASQShuffleMasterAtc">
-          <Key>
-            <PropertyRef Name="AsqShuffle_PK" />
-          </Key>
-          <Property Name="AsqShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FromPOPackID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AsqShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PackingListDetailsAtc">
           <Key>
@@ -345,6 +407,108 @@
           <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Orderof" Type="Decimal" Precision="3" Scale="0" />
         </EntityType>
+        <EntityType Name="ASQShuffleDetailsAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffleDet_PK" />
+          </Key>
+          <Property Name="AsqShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ArtAsqShuffleDet_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ASQShuffleMasterAtc">
+          <Key>
+            <PropertyRef Name="AsqShuffle_PK" />
+          </Key>
+          <Property Name="AsqShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromPOPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AsqShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="ASQShuffleGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArtAsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RevisedFromQty" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtJobContractMaster">
+          <Key>
+            <PropertyRef Name="ArtJobContract_PK" />
+          </Key>
+          <Property Name="ArtJobContract_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobContract_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CM" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="JobContractNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ArtCutPlanASQDet">
+          <Key>
+            <PropertyRef Name="ArtCutASqDet_PK" />
+          </Key>
+          <Property Name="ArtCutASqDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PoPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutPlanASQDetails_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtCutPlanMarkerSizeDetail">
+          <Key>
+            <PropertyRef Name="ArtCutPlanSize_PK" />
+          </Key>
+          <Property Name="ArtCutPlanSize_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutPlanSize_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ratio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtLaySheetMasterData">
+          <Key>
+            <PropertyRef Name="LayMasterDataID" />
+          </Key>
+          <Property Name="LayMasterDataID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutPlanNUM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LaySheetNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LayCutNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LocationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutOrderDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Cut_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shrinkage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CutWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtLaySheetDetail">
+          <Key>
+            <PropertyRef Name="ArtLaySheetDet_PK" />
+          </Key>
+          <Property Name="ArtLaySheetDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LaySheetDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Roll_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -373,33 +537,6 @@
                 <ScalarProperty Name="LocationPrefix" ColumnName="LocationPrefix" />
                 <ScalarProperty Name="LocationName" ColumnName="LocationName" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ASQShuffleDetailsAtcs">
-            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleDetailsAtc">
-              <MappingFragment StoreEntitySet="ASQShuffleDetailsAtc">
-                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
-                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
-                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
-                <ScalarProperty Name="AsqShuffleDet_PK" ColumnName="AsqShuffleDet_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ASQShuffleMasterAtcs">
-            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleMasterAtc">
-              <MappingFragment StoreEntitySet="ASQShuffleMasterAtc">
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="AsqShuffleNum" ColumnName="AsqShuffleNum" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="FromPOPackID" ColumnName="FromPOPackID" />
-                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -497,6 +634,115 @@
                 <ScalarProperty Name="AtcId" ColumnName="AtcId" />
                 <ScalarProperty Name="StyleSizeID" ColumnName="StyleSizeID" />
                 <ScalarProperty Name="StyleSizeMasterID" ColumnName="StyleSizeMasterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleDetailsAtcs">
+            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleDetailsAtc">
+              <MappingFragment StoreEntitySet="ASQShuffleDetailsAtc">
+                <ScalarProperty Name="ArtAsqShuffleDet_PK" ColumnName="ArtAsqShuffleDet_PK" />
+                <ScalarProperty Name="RevisedQtyofToPOPackDet_PK" ColumnName="RevisedQtyofToPOPackDet_PK" />
+                <ScalarProperty Name="RevisedQtyofFromPOPackDet_PK" ColumnName="RevisedQtyofFromPOPackDet_PK" />
+                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
+                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
+                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+                <ScalarProperty Name="AsqShuffleDet_PK" ColumnName="AsqShuffleDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleMasterAtcs">
+            <EntityTypeMapping TypeName="AtcModelModel.ASQShuffleMasterAtc">
+              <MappingFragment StoreEntitySet="ASQShuffleMasterAtc">
+                <ScalarProperty Name="RevisedFromQty" ColumnName="RevisedFromQty" />
+                <ScalarProperty Name="ArtAsqShuffle_PK" ColumnName="ArtAsqShuffle_PK" />
+                <ScalarProperty Name="ASQShuffleGroup" ColumnName="ASQShuffleGroup" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="AsqShuffleNum" ColumnName="AsqShuffleNum" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="FromPOPackID" ColumnName="FromPOPackID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtJobContractMasters">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtJobContractMaster">
+              <MappingFragment StoreEntitySet="ArtJobContractMaster">
+                <ScalarProperty Name="JobContractNum" ColumnName="JobContractNum" />
+                <ScalarProperty Name="CM" ColumnName="CM" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="JobContract_PK" ColumnName="JobContract_PK" />
+                <ScalarProperty Name="ArtJobContract_PK" ColumnName="ArtJobContract_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtCutPlanASQDets">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtCutPlanASQDet">
+              <MappingFragment StoreEntitySet="ArtCutPlanASQDet">
+                <ScalarProperty Name="CutPlanASQDetails_PK" ColumnName="CutPlanASQDetails_PK" />
+                <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
+                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="PoPackId" ColumnName="PoPackId" />
+                <ScalarProperty Name="ArtCutASqDet_PK" ColumnName="ArtCutASqDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtCutPlanMarkerSizeDetails">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtCutPlanMarkerSizeDetail">
+              <MappingFragment StoreEntitySet="ArtCutPlanMarkerSizeDetails">
+                <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
+                <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Ratio" ColumnName="Ratio" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="CutPlanSize_PK" ColumnName="CutPlanSize_PK" />
+                <ScalarProperty Name="ArtCutPlanSize_PK" ColumnName="ArtCutPlanSize_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtLaySheetMasterDatas">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetMasterData">
+              <MappingFragment StoreEntitySet="ArtLaySheetMasterData">
+                <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
+                <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="CutWidth" ColumnName="CutWidth" />
+                <ScalarProperty Name="MarkerType" ColumnName="MarkerType" />
+                <ScalarProperty Name="Shrinkage" ColumnName="Shrinkage" />
+                <ScalarProperty Name="Cut_NO" ColumnName="Cut_NO" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
+                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LayCutNum" ColumnName="LayCutNum" />
+                <ScalarProperty Name="LaySheetNum" ColumnName="LaySheetNum" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="CutPlanNUM" ColumnName="CutPlanNUM" />
+                <ScalarProperty Name="LayMasterDataID" ColumnName="LayMasterDataID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtLaySheetDetails">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetDetail">
+              <MappingFragment StoreEntitySet="ArtLaySheetDetails">
+                <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
+                <ScalarProperty Name="Roll_PK" ColumnName="Roll_PK" />
+                <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
+                <ScalarProperty Name="LaySheetDet_PK" ColumnName="LaySheetDet_PK" />
+                <ScalarProperty Name="ArtLaySheetDet_PK" ColumnName="ArtLaySheetDet_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

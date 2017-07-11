@@ -49,6 +49,8 @@
           <Property Name="FromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="AddedQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="revisedQtyofToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQShuffleMaster">
           <Key>
@@ -64,6 +66,7 @@
           <Property Name="AsqShuffleNum" Type="nvarchar" MaxLength="50" />
           <Property Name="ApprovedDate" Type="datetime" />
           <Property Name="ASQShuffleGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="AtcApproval">
           <Key>
@@ -996,6 +999,7 @@
           <Property Name="reqnum" Type="nvarchar" MaxLength="50" />
           <Property Name="L1ApprovedDate" Type="datetime" />
           <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="InventorySalesDetail">
           <Key>
@@ -1086,6 +1090,7 @@
           <Property Name="ActualInvoiceValue" Type="numeric" Precision="18" Scale="4" />
           <Property Name="Sinvnum" Type="nvarchar" MaxLength="50" />
           <Property Name="Refnum" Type="nvarchar" MaxLength="20" />
+          <Property Name="InvoiceDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ItemGroupMaster">
           <Key>
@@ -1177,6 +1182,11 @@
           <Property Name="OustyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="LaySheetNum" Type="nvarchar" MaxLength="50" />
           <Property Name="LayCutNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="IsEdited" Type="nchar" MaxLength="10" />
+          <Property Name="IsUploaded" Type="nchar" MaxLength="10" />
+          <Property Name="IsDetailUploaded" Type="nchar" MaxLength="10" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="LaySheetRollDetails">
           <Key>
@@ -1193,6 +1203,7 @@
           <Property Name="LaysheetRollmaster_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Yardage" Type="numeric" Precision="18" Scale="3" />
           <Property Name="BalanceYardage" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LaySheetRollMaster">
           <Key>
@@ -1203,6 +1214,9 @@
           <Property Name="NoofPlies" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutOrderDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LocationSequence" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LocationSequencenum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LCBankAdviceDetail">
           <Key>
@@ -1300,6 +1314,7 @@
           <Property Name="Month" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Year" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MarqueeMaster">
           <Key>
@@ -1484,6 +1499,7 @@
           <Property Name="MarkedCuttableBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ShortClosedDate" Type="datetime" />
           <Property Name="MarkedCuttabledate" Type="datetime" />
+          <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PoPackMaster">
           <Key>
@@ -1579,6 +1595,11 @@
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="ShipmentHandOverDate" Type="datetime" />
+          <Property Name="POPackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ProducedLctn_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SDODate" Type="datetime" />
+          <Property Name="SDONum" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RecieptMaster">
           <Key>
@@ -1855,6 +1876,16 @@
           <Property Name="ServiceType_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="ShipmentHandoverColorSizeDetails">
+          <Key>
+            <PropertyRef Name="ShipmentHOColorDet_PK" />
+          </Key>
+          <Property Name="ShipmentHOColorDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShipmentHandOver_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ShipmentHandMaster_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="ShipmentHandOverDetails">
           <Key>
             <PropertyRef Name="ShipmentHandOver_PK" />
@@ -1869,6 +1900,8 @@
           <Property Name="POPackId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SDONum" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProducedLctn_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SDODate" Type="datetime" />
         </EntityType>
         <EntityType Name="ShipmentHandOverMaster">
           <Key>
@@ -2440,6 +2473,26 @@
           <Property Name="TemplateWidth_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Template_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Width" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TempProductionData">
+          <Key>
+            <PropertyRef Name="TempID" />
+          </Key>
+          <Property Name="TempID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SewingQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SortQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="WashQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FinishQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AirOutQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ShipQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DOReceiveQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ProductionDate" Type="datetime" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TransferToGstockDetails">
           <Key>
@@ -3676,6 +3729,18 @@
             </Principal>
             <Dependent Role="LaySheetMaster">
               <PropertyRef Name="CutOrderDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetRollDetails_LaySheetRollMaster">
+          <End Role="LaySheetRollMaster" Type="Self.LaySheetRollMaster" Multiplicity="0..1" />
+          <End Role="LaySheetRollDetails" Type="Self.LaySheetRollDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaySheetRollMaster">
+              <PropertyRef Name="LaysheetRollmaster_Pk" />
+            </Principal>
+            <Dependent Role="LaySheetRollDetails">
+              <PropertyRef Name="LaysheetRollmaster_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5202,6 +5267,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="SeasonType" EntityType="Self.SeasonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicePOMaster" EntityType="Self.ServicePOMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTypeMaster" EntityType="Self.ServiceTypeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShipmentHandoverColorSizeDetails" EntityType="Self.ShipmentHandoverColorSizeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipmentHandOverDetails" EntityType="Self.ShipmentHandOverDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipmentHandOverMaster" EntityType="Self.ShipmentHandOverMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingDocumentDetails" EntityType="Self.ShippingDocumentDetails" Schema="dbo" store:Type="Tables" />
@@ -5243,6 +5309,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="TemplateSize" EntityType="Self.TemplateSize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplateWeight" EntityType="Self.TemplateWeight" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplateWidth" EntityType="Self.TemplateWidth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TempProductionData" EntityType="Self.TempProductionData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransferToGstockDetails" EntityType="Self.TransferToGstockDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransferToGstockMaster" EntityType="Self.TransferToGstockMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UOMMaster" EntityType="Self.UOMMaster" Schema="dbo" store:Type="Tables" />
@@ -5620,6 +5687,10 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <AssociationSet Name="FK_LaySheetMaster_CutOrderDetails" Association="Self.FK_LaySheetMaster_CutOrderDetails">
             <End Role="CutOrderDetails" EntitySet="CutOrderDetails" />
             <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetRollDetails_LaySheetRollMaster" Association="Self.FK_LaySheetRollDetails_LaySheetRollMaster">
+            <End Role="LaySheetRollMaster" EntitySet="LaySheetRollMaster" />
+            <End Role="LaySheetRollDetails" EntitySet="LaySheetRollDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_LaySheetRolls_CutOrderDetails" Association="Self.FK_LaySheetRolls_CutOrderDetails">
             <End Role="CutOrderDetails" EntitySet="CutOrderDetails" />
@@ -6157,7 +6228,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="AltUOMMasters" EntityType="ArtModel.AltUOMMaster" />
           <EntitySet Name="ApprovalTables" EntityType="ArtModel.ApprovalTable" />
-          <EntitySet Name="ASQShuffleDetails" EntityType="ArtModel.ASQShuffleDetail" />
           <EntitySet Name="AtcDetailApprovals" EntityType="ArtModel.AtcDetailApproval" />
           <EntitySet Name="AtcDetails" EntityType="ArtModel.AtcDetail" />
           <EntitySet Name="AtcRawMaterialMasters" EntityType="ArtModel.AtcRawMaterialMaster" />
@@ -6935,8 +7005,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
           </AssociationSet>
           <EntitySet Name="RollInventoryMasters" EntityType="ArtModel.RollInventoryMaster" />
-          <EntitySet Name="LaySheetRollMasters" EntityType="ArtModel.LaySheetRollMaster" />
-          <EntitySet Name="LockedASQDetails" EntityType="ArtModel.LockedASQDetail" />
           <EntitySet Name="AtcMasters" EntityType="ArtModel.AtcMaster" />
           <AssociationSet Name="FK_AtcMaster_CountryMaster" Association="ArtModel.FK_AtcMaster_CountryMaster">
             <End Role="CountryMaster" EntitySet="CountryMasters" />
@@ -6979,23 +7047,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="SkuRawMaterialMaster" EntitySet="SkuRawMaterialMasters" />
           </AssociationSet>
           <EntitySet Name="YearMonthMasters" EntityType="ArtModel.YearMonthMaster" />
-          <EntitySet Name="POPackDetails" EntityType="ArtModel.POPackDetail" />
-          <AssociationSet Name="FK_ASQAllocationMaster_POPackDetails" Association="ArtModel.FK_ASQAllocationMaster_POPackDetails">
-            <End Role="POPackDetail" EntitySet="POPackDetails" />
-            <End Role="ASQAllocationMaster" EntitySet="ASQAllocationMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_POPackDetails_AtcDetails" Association="ArtModel.FK_POPackDetails_AtcDetails">
-            <End Role="AtcDetail" EntitySet="AtcDetails" />
-            <End Role="POPackDetail" EntitySet="POPackDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutPlanASQDetails_POPackDetails" Association="ArtModel.FK_CutPlanASQDetails_POPackDetails">
-            <End Role="POPackDetail" EntitySet="POPackDetails" />
-            <End Role="CutPlanASQDetail" EntitySet="CutPlanASQDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_POPackDetails_PoPackMaster" Association="ArtModel.FK_POPackDetails_PoPackMaster">
-            <End Role="PoPackMaster" EntitySet="PoPackMasters" />
-            <End Role="POPackDetail" EntitySet="POPackDetails" />
-          </AssociationSet>
           <EntitySet Name="SamSupplierMasters" EntityType="ArtModel.SamSupplierMaster" />
           <EntitySet Name="LaySheetRollDetails" EntityType="ArtModel.LaySheetRollDetail" />
           <AssociationSet Name="FK_LaySheetRolls_CutOrderDetails" Association="ArtModel.FK_LaySheetRolls_CutOrderDetails">
@@ -7054,15 +7105,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="LocationMaster" EntitySet="LocationMasters" />
             <End Role="JobContractMaster" EntitySet="JobContractMasters" />
           </AssociationSet>
-          <EntitySet Name="ShipmentHandOverDetails" EntityType="ArtModel.ShipmentHandOverDetail" />
-          <AssociationSet Name="FK_ShipmentHandOverDetails_JobContractDetail" Association="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail">
-            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
-            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster" Association="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
-            <End Role="ShipmentHandOverMaster" EntitySet="ShipmentHandOverMasters" />
-            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
-          </AssociationSet>
           <EntitySet Name="ATCWorldToArtShipDatas" EntityType="ArtModel.ATCWorldToArtShipData" />
           <EntitySet Name="ServicePOMasters" EntityType="ArtModel.ServicePOMaster" />
           <AssociationSet Name="FK_ServicePOMaster_CurrencyMaster" Association="ArtModel.FK_ServicePOMaster_CurrencyMaster">
@@ -7115,7 +7157,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="FabricRollmaster" EntitySet="FabricRollmasters" />
             <End Role="RollInventoryMaster" EntitySet="RollInventoryMasters" />
           </AssociationSet>
-          <EntitySet Name="ASQShuffleMasters" EntityType="ArtModel.ASQShuffleMaster" />
           <EntitySet Name="EthiopiaToARTShip_Tbl" EntityType="ArtModel.EthiopiaToARTShip_Tbl" />
           <EntitySet Name="JobContractOptionalDetails" EntityType="ArtModel.JobContractOptionalDetail" />
           <AssociationSet Name="FK_JobContractOptionalDetail_AtcDetails" Association="ArtModel.FK_JobContractOptionalDetail_AtcDetails">
@@ -7130,6 +7171,42 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="PoPackMaster" EntitySet="PoPackMasters" />
             <End Role="JobContractOptionalDetail" EntitySet="JobContractOptionalDetails" />
           </AssociationSet>
+          <EntitySet Name="ASQShuffleDetails" EntityType="ArtModel.ASQShuffleDetail" />
+          <EntitySet Name="ASQShuffleMasters" EntityType="ArtModel.ASQShuffleMaster" />
+          <EntitySet Name="LockedASQDetails" EntityType="ArtModel.LockedASQDetail" />
+          <EntitySet Name="POPackDetails" EntityType="ArtModel.POPackDetail" />
+          <AssociationSet Name="FK_ASQAllocationMaster_POPackDetails" Association="ArtModel.FK_ASQAllocationMaster_POPackDetails">
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+            <End Role="ASQAllocationMaster" EntitySet="ASQAllocationMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_AtcDetails" Association="ArtModel.FK_POPackDetails_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutPlanASQDetails_POPackDetails" Association="ArtModel.FK_CutPlanASQDetails_POPackDetails">
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+            <End Role="CutPlanASQDetail" EntitySet="CutPlanASQDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POPackDetails_PoPackMaster" Association="ArtModel.FK_POPackDetails_PoPackMaster">
+            <End Role="PoPackMaster" EntitySet="PoPackMasters" />
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+          </AssociationSet>
+          <EntitySet Name="ShipmentHandOverDetails" EntityType="ArtModel.ShipmentHandOverDetail" />
+          <AssociationSet Name="FK_ShipmentHandOverDetails_JobContractDetail" Association="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail">
+            <End Role="JobContractDetail" EntitySet="JobContractDetails" />
+            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster" Association="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
+            <End Role="ShipmentHandOverMaster" EntitySet="ShipmentHandOverMasters" />
+            <End Role="ShipmentHandOverDetail" EntitySet="ShipmentHandOverDetails" />
+          </AssociationSet>
+          <EntitySet Name="LaySheetRollMasters" EntityType="ArtModel.LaySheetRollMaster" />
+          <AssociationSet Name="FK_LaySheetRollDetails_LaySheetRollMaster" Association="ArtModel.FK_LaySheetRollDetails_LaySheetRollMaster">
+            <End Role="LaySheetRollMaster" EntitySet="LaySheetRollMasters" />
+            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
+          </AssociationSet>
+          <EntitySet Name="ShipmentHandoverColorSizeDetails" EntityType="ArtModel.ShipmentHandoverColorSizeDetail" />
+          <EntitySet Name="TempProductionDatas" EntityType="ArtModel.TempProductionData" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -7578,17 +7655,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="User_PK" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="UserMaster" Relationship="ArtModel.FK_ApprovalTable_UserMaster" FromRole="ApprovalTable" ToRole="UserMaster" />
         </EntityType>
-        <EntityType Name="ASQShuffleDetail">
-          <Key>
-            <PropertyRef Name="AsqShuffleDet_PK" />
-          </Key>
-          <Property Name="AsqShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
         <EntityType Name="AtcDetailApproval">
           <Key>
             <PropertyRef Name="OurStyleApproval_PK" />
@@ -7626,8 +7692,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="StyleCostingMasters" Relationship="ArtModel.FK_StyleCostingMaster_AtcDetails" FromRole="AtcDetail" ToRole="StyleCostingMaster" />
           <NavigationProperty Name="PackingListDetails" Relationship="ArtModel.FK_PackingListDetails_AtcDetails" FromRole="AtcDetail" ToRole="PackingListDetail" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutPlanMaster" />
-          <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="AtcDetail" ToRole="POPackDetail" />
           <NavigationProperty Name="JobContractOptionalDetails" Relationship="ArtModel.FK_JobContractOptionalDetail_AtcDetails" FromRole="AtcDetail" ToRole="JobContractOptionalDetail" />
+          <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="AtcDetail" ToRole="POPackDetail" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -7900,8 +7966,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_CutPlanASQDetails_SkuRawmaterialDetail" FromRole="CutPlanASQDetail" ToRole="SkuRawmaterialDetail" />
           <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_CutPlanASQDetails_PoPackMaster" FromRole="CutPlanASQDetail" ToRole="PoPackMaster" />
           <NavigationProperty Name="CutPlanMaster" Relationship="ArtModel.FK_CutPlanASQDetails_CutPlanASQDetails" FromRole="CutPlanASQDetail" ToRole="CutPlanMaster" />
-          <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="CutPlanASQDetail" ToRole="POPackDetail" />
           <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="CutPlanASQDetail" ToRole="POPackDetail" />
         </EntityType>
         <EntityType Name="CutPlanMarkerSizeDetail">
           <Key>
@@ -8425,6 +8491,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="Refnum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BankMaster" Relationship="ArtModel.FK_InvoiceMaster_BankMaster" FromRole="InvoiceMaster" ToRole="BankMaster" />
           <NavigationProperty Name="InvoiceDetails" Relationship="ArtModel.FK_InvoiceDetails_InvoiceMaster" FromRole="InvoiceMaster" ToRole="InvoiceDetail" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ItemGroupMaster">
           <Key>
@@ -8757,6 +8824,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="ShipmentHandOverDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ProductionReportDetails_JobContractDetail" FromRole="ProductionReportDetail" ToRole="JobContractDetail" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ProducedLctn_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SDODate" Type="DateTime" Precision="3" />
+          <Property Name="SDONum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RecieptMaster">
           <Key>
@@ -11346,6 +11418,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="InventoryMissingDetails" Relationship="ArtModel.FK_InventoryMissingDetails_InventoryMissingRequest" FromRole="InventoryMissingRequest" ToRole="InventoryMissingDetail" />
           <Property Name="L1ApprovedDate" Type="DateTime" Precision="3" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_InventoryMissingDetails_InventoryMissingRequest">
           <End Type="ArtModel.InventoryMissingRequest" Role="InventoryMissingRequest" Multiplicity="0..1" />
@@ -11509,8 +11582,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="PackingListDetails" Relationship="ArtModel.FK_PackingListDetails_PoPackMaster" FromRole="PoPackMaster" ToRole="PackingListDetail" />
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_PoPackMaster_AtcMaster" FromRole="PoPackMaster" ToRole="AtcMaster" />
-          <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="PoPackMaster" ToRole="POPackDetail" />
           <NavigationProperty Name="JobContractOptionalDetails" Relationship="ArtModel.FK_JobContractOptionalDetail_PoPackMaster" FromRole="PoPackMaster" ToRole="JobContractOptionalDetail" />
+          <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="PoPackMaster" ToRole="POPackDetail" />
         </EntityType>
         <Association Name="FK_PoPackMaster_BuyerDestinationMaster">
           <End Type="ArtModel.BuyerDestinationMaster" Role="BuyerDestinationMaster" Multiplicity="0..1" />
@@ -11884,6 +11957,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="LayCutNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
           <NavigationProperty Name="LaySheetDetails" Relationship="ArtModel.FK_LaySheetDetails_LaySheetDetails" FromRole="LaySheetMaster" ToRole="LaySheetDetail" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsEdited" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDetailUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_LaySheetMaster_CutOrderDetails">
           <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
@@ -11913,31 +11991,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="NewRollInventory_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="FactId" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_RollInventoryMaster_FabricRollmaster" FromRole="RollInventoryMaster" ToRole="FabricRollmaster" />
-        </EntityType>
-        <EntityType Name="LaySheetRollMaster">
-          <Key>
-            <PropertyRef Name="LaysheetRollmaster_Pk" />
-          </Key>
-          <Property Name="LaysheetRollmaster_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LayRollRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NoofPlies" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CutOrderDet_PK" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="LockedASQDetail">
-          <Key>
-            <PropertyRef Name="LockPo_Pk" />
-          </Key>
-          <Property Name="LockPo_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Month" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Year" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="AtcMaster">
           <Key>
@@ -12110,85 +12163,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="FromDate" Type="DateTime" Precision="3" />
           <Property Name="ToDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="POPackDetail">
-          <Key>
-            <PropertyRef Name="PoPack_Detail_PK" />
-          </Key>
-          <Property Name="PoPack_Detail_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ColorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SIzeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PoQty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsCutable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="IsPackable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ColorId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="IsShortClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="IsHidden" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ShortClosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MarkedCuttableBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShortClosedDate" Type="DateTime" Precision="3" />
-          <Property Name="MarkedCuttabledate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ASQAllocationMasters" Relationship="ArtModel.FK_ASQAllocationMaster_POPackDetails" FromRole="POPackDetail" ToRole="ASQAllocationMaster" />
-          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="POPackDetail" ToRole="AtcDetail" />
-          <NavigationProperty Name="CutPlanASQDetails" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="POPackDetail" ToRole="CutPlanASQDetail" />
-          <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="POPackDetail" ToRole="PoPackMaster" />
-        </EntityType>
-        <Association Name="FK_ASQAllocationMaster_POPackDetails">
-          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.ASQAllocationMaster" Role="ASQAllocationMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="POPackDetail">
-              <PropertyRef Name="PoPack_Detail_PK" />
-            </Principal>
-            <Dependent Role="ASQAllocationMaster">
-              <PropertyRef Name="PoPack_Detail_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_POPackDetails_AtcDetails">
-          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtcDetail">
-              <PropertyRef Name="OurStyleID" />
-            </Principal>
-            <Dependent Role="POPackDetail">
-              <PropertyRef Name="OurStyleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutPlanASQDetails_POPackDetails">
-          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.CutPlanASQDetail" Role="CutPlanASQDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="POPackDetail">
-              <PropertyRef Name="PoPack_Detail_PK" />
-            </Principal>
-            <Dependent Role="CutPlanASQDetail">
-              <PropertyRef Name="PoPack_Detail_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_POPackDetails_PoPackMaster">
-          <End Type="ArtModel.PoPackMaster" Role="PoPackMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PoPackMaster">
-              <PropertyRef Name="PoPackId" />
-            </Principal>
-            <Dependent Role="POPackDetail">
-              <PropertyRef Name="POPackId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SamSupplierMaster">
           <Key>
             <PropertyRef Name="SampSupplierID" />
@@ -12215,6 +12189,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="LaySheetRollDetail" ToRole="CutOrderDetail" />
           <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="LaySheetRollDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_LaySheetRolls_FabricRolls" FromRole="LaySheetRollDetail" ToRole="FabricRollmaster" />
+          <NavigationProperty Name="LaySheetRollMaster" Relationship="ArtModel.FK_LaySheetRollDetails_LaySheetRollMaster" FromRole="LaySheetRollDetail" ToRole="LaySheetRollMaster" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_LaySheetRolls_CutOrderDetails">
           <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
@@ -12484,47 +12460,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Principal>
             <Dependent Role="JobContractMaster">
               <PropertyRef Name="Location_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ShipmentHandOverDetail">
-          <Key>
-            <PropertyRef Name="ShipmentHandOver_PK" />
-          </Key>
-          <Property Name="ShipmentHandOver_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobContractDetail_pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ShippedQty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="ShipmentHandOverDate" Type="DateTime" Precision="3" />
-          <Property Name="ShipmentHandMaster_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="SDONum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="ShipmentHandOverDetail" ToRole="JobContractDetail" />
-          <NavigationProperty Name="ShipmentHandOverMaster" Relationship="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" FromRole="ShipmentHandOverDetail" ToRole="ShipmentHandOverMaster" />
-        </EntityType>
-        <Association Name="FK_ShipmentHandOverDetails_JobContractDetail">
-          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JobContractDetail">
-              <PropertyRef Name="JobContractDetail_pk" />
-            </Principal>
-            <Dependent Role="ShipmentHandOverDetail">
-              <PropertyRef Name="JobContractDetail_pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
-          <End Type="ArtModel.ShipmentHandOverMaster" Role="ShipmentHandOverMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShipmentHandOverMaster">
-              <PropertyRef Name="ShipmentHandMaster_PK" />
-            </Principal>
-            <Dependent Role="ShipmentHandOverDetail">
-              <PropertyRef Name="ShipmentHandMaster_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12812,21 +12747,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ASQShuffleMaster">
-          <Key>
-            <PropertyRef Name="AsqShuffle_PK" />
-          </Key>
-          <Property Name="AsqShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FromPOPackID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AsqShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="ASQShuffleGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="EthiopiaToARTShip_Tbl">
           <Key>
             <PropertyRef Name="ArtShipID" />
@@ -12914,6 +12834,230 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ASQShuffleDetail">
+          <Key>
+            <PropertyRef Name="AsqShuffleDet_PK" />
+          </Key>
+          <Property Name="AsqShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AsqShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="revisedQtyofToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ASQShuffleMaster">
+          <Key>
+            <PropertyRef Name="AsqShuffle_PK" />
+          </Key>
+          <Property Name="AsqShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromPOPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AsqShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="ASQShuffleGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RevisedFromQty" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="LockedASQDetail">
+          <Key>
+            <PropertyRef Name="LockPo_Pk" />
+          </Key>
+          <Property Name="LockPo_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Year" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CombinationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="POPackDetail">
+          <Key>
+            <PropertyRef Name="PoPack_Detail_PK" />
+          </Key>
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SIzeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCutable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsPackable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ColorId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsShortClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsHidden" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ShortClosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkedCuttableBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortClosedDate" Type="DateTime" Precision="3" />
+          <Property Name="MarkedCuttabledate" Type="DateTime" Precision="3" />
+          <Property Name="CombinationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ASQAllocationMasters" Relationship="ArtModel.FK_ASQAllocationMaster_POPackDetails" FromRole="POPackDetail" ToRole="ASQAllocationMaster" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="POPackDetail" ToRole="AtcDetail" />
+          <NavigationProperty Name="CutPlanASQDetails" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="POPackDetail" ToRole="CutPlanASQDetail" />
+          <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="POPackDetail" ToRole="PoPackMaster" />
+        </EntityType>
+        <Association Name="FK_ASQAllocationMaster_POPackDetails">
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ASQAllocationMaster" Role="ASQAllocationMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POPackDetail">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Principal>
+            <Dependent Role="ASQAllocationMaster">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="POPackDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutPlanASQDetails_POPackDetails">
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.CutPlanASQDetail" Role="CutPlanASQDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POPackDetail">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Principal>
+            <Dependent Role="CutPlanASQDetail">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POPackDetails_PoPackMaster">
+          <End Type="ArtModel.PoPackMaster" Role="PoPackMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoPackMaster">
+              <PropertyRef Name="PoPackId" />
+            </Principal>
+            <Dependent Role="POPackDetail">
+              <PropertyRef Name="POPackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShipmentHandOverDetail">
+          <Key>
+            <PropertyRef Name="ShipmentHandOver_PK" />
+          </Key>
+          <Property Name="ShipmentHandOver_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobContractDetail_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShippedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipmentHandOverDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipmentHandMaster_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SDONum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProducedLctn_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="ShipmentHandOverDetail" ToRole="JobContractDetail" />
+          <NavigationProperty Name="ShipmentHandOverMaster" Relationship="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" FromRole="ShipmentHandOverDetail" ToRole="ShipmentHandOverMaster" />
+          <Property Name="SDODate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ShipmentHandOverDetails_JobContractDetail">
+          <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobContractDetail">
+              <PropertyRef Name="JobContractDetail_pk" />
+            </Principal>
+            <Dependent Role="ShipmentHandOverDetail">
+              <PropertyRef Name="JobContractDetail_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShipmentHandOverDetails_ShipmentHandOverMaster">
+          <End Type="ArtModel.ShipmentHandOverMaster" Role="ShipmentHandOverMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ShipmentHandOverDetail" Role="ShipmentHandOverDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShipmentHandOverMaster">
+              <PropertyRef Name="ShipmentHandMaster_PK" />
+            </Principal>
+            <Dependent Role="ShipmentHandOverDetail">
+              <PropertyRef Name="ShipmentHandMaster_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LaySheetRollMaster">
+          <Key>
+            <PropertyRef Name="LaysheetRollmaster_Pk" />
+          </Key>
+          <Property Name="LaysheetRollmaster_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LayRollRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoofPlies" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutOrderDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRollDetails_LaySheetRollMaster" FromRole="LaySheetRollMaster" ToRole="LaySheetRollDetail" />
+          <Property Name="LocationSequence" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LocationSequencenum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_Pk" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_LaySheetRollDetails_LaySheetRollMaster">
+          <End Type="ArtModel.LaySheetRollMaster" Role="LaySheetRollMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaySheetRollMaster">
+              <PropertyRef Name="LaysheetRollmaster_Pk" />
+            </Principal>
+            <Dependent Role="LaySheetRollDetail">
+              <PropertyRef Name="LaysheetRollmaster_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShipmentHandoverColorSizeDetail">
+          <Key>
+            <PropertyRef Name="ShipmentHOColorDet_PK" />
+          </Key>
+          <Property Name="ShipmentHOColorDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShipmentHandOver_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShipmentHandMaster_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="TempProductionData">
+          <Key>
+            <PropertyRef Name="TempID" />
+          </Key>
+          <Property Name="TempID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SewingQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SortQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="WashQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FinishQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AirOutQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShipQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DOReceiveQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ProductionDate" Type="DateTime" Precision="3" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13405,18 +13549,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               <MappingFragment StoreEntitySet="ApprovalTable">
                 <ScalarProperty Name="User_PK" ColumnName="User_PK" />
                 <ScalarProperty Name="Approveuser_PK" ColumnName="Approveuser_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ASQShuffleDetails">
-            <EntityTypeMapping TypeName="ArtModel.ASQShuffleDetail">
-              <MappingFragment StoreEntitySet="ASQShuffleDetails">
-                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
-                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
-                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
-                <ScalarProperty Name="AsqShuffleDet_PK" ColumnName="AsqShuffleDet_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14175,6 +14307,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="InvoiceMasters">
             <EntityTypeMapping TypeName="ArtModel.InvoiceMaster">
               <MappingFragment StoreEntitySet="InvoiceMaster">
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
                 <ScalarProperty Name="Refnum" ColumnName="Refnum" />
                 <ScalarProperty Name="Sinvnum" ColumnName="Sinvnum" />
                 <ScalarProperty Name="ActualInvoiceValue" ColumnName="ActualInvoiceValue" />
@@ -14463,6 +14596,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="ProductionReportDetails">
             <EntityTypeMapping TypeName="ArtModel.ProductionReportDetail">
               <MappingFragment StoreEntitySet="ProductionReportDetails">
+                <ScalarProperty Name="SDONum" ColumnName="SDONum" />
+                <ScalarProperty Name="SDODate" ColumnName="SDODate" />
+                <ScalarProperty Name="ProducedLctn_PK" ColumnName="ProducedLctn_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
                 <ScalarProperty Name="ShipmentHandOverDate" ColumnName="ShipmentHandOverDate" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
@@ -15387,6 +15525,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="InventoryMissingRequests">
             <EntityTypeMapping TypeName="ArtModel.InventoryMissingRequest">
               <MappingFragment StoreEntitySet="InventoryMissingRequest">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="L1ApprovedDate" ColumnName="L1ApprovedDate" />
                 <ScalarProperty Name="reqnum" ColumnName="reqnum" />
@@ -15648,6 +15787,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="LaySheetMasters">
             <EntityTypeMapping TypeName="ArtModel.LaySheetMaster">
               <MappingFragment StoreEntitySet="LaySheetMaster">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsDetailUploaded" ColumnName="IsDetailUploaded" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="LayCutNum" ColumnName="LayCutNum" />
                 <ScalarProperty Name="LaySheetNum" ColumnName="LaySheetNum" />
                 <ScalarProperty Name="OustyleID" ColumnName="OustyleID" />
@@ -15675,33 +15819,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
                 <ScalarProperty Name="Roll_PK" ColumnName="Roll_PK" />
                 <ScalarProperty Name="RollInventory_PK" ColumnName="RollInventory_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LaySheetRollMasters">
-            <EntityTypeMapping TypeName="ArtModel.LaySheetRollMaster">
-              <MappingFragment StoreEntitySet="LaySheetRollMaster">
-                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
-                <ScalarProperty Name="CutID" ColumnName="CutID" />
-                <ScalarProperty Name="NoofPlies" ColumnName="NoofPlies" />
-                <ScalarProperty Name="LayRollRef" ColumnName="LayRollRef" />
-                <ScalarProperty Name="LaysheetRollmaster_Pk" ColumnName="LaysheetRollmaster_Pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LockedASQDetails">
-            <EntityTypeMapping TypeName="ArtModel.LockedASQDetail">
-              <MappingFragment StoreEntitySet="LockedASQDetails">
-                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
-                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
-                <ScalarProperty Name="LockPo_Pk" ColumnName="LockPo_Pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -15746,34 +15863,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="POPackDetails">
-            <EntityTypeMapping TypeName="ArtModel.POPackDetail">
-              <MappingFragment StoreEntitySet="POPackDetails">
-                <ScalarProperty Name="MarkedCuttabledate" ColumnName="MarkedCuttabledate" />
-                <ScalarProperty Name="ShortClosedDate" ColumnName="ShortClosedDate" />
-                <ScalarProperty Name="MarkedCuttableBy" ColumnName="MarkedCuttableBy" />
-                <ScalarProperty Name="ShortClosedBy" ColumnName="ShortClosedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
-                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
-                <ScalarProperty Name="IsShortClosed" ColumnName="IsShortClosed" />
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
-                <ScalarProperty Name="IsPackable" ColumnName="IsPackable" />
-                <ScalarProperty Name="IsCutable" ColumnName="IsCutable" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="PoQty" ColumnName="PoQty" />
-                <ScalarProperty Name="SIzeCode" ColumnName="SIzeCode" />
-                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
-                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
-                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
-                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SamSupplierMasters">
             <EntityTypeMapping TypeName="ArtModel.SamSupplierMaster">
               <MappingFragment StoreEntitySet="SamSupplierMaster">
@@ -15786,6 +15875,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="LaySheetRollDetails">
             <EntityTypeMapping TypeName="ArtModel.LaySheetRollDetail">
               <MappingFragment StoreEntitySet="LaySheetRollDetails">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="BalanceYardage" ColumnName="BalanceYardage" />
                 <ScalarProperty Name="Yardage" ColumnName="Yardage" />
                 <ScalarProperty Name="LaysheetRollmaster_Pk" ColumnName="LaysheetRollmaster_Pk" />
@@ -15919,22 +16009,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
                 <ScalarProperty Name="JOBContractNUM" ColumnName="JOBContractNUM" />
                 <ScalarProperty Name="JobContract_pk" ColumnName="JobContract_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ShipmentHandOverDetails">
-            <EntityTypeMapping TypeName="ArtModel.ShipmentHandOverDetail">
-              <MappingFragment StoreEntitySet="ShipmentHandOverDetails">
-                <ScalarProperty Name="SDONum" ColumnName="SDONum" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
-                <ScalarProperty Name="ShipmentHandMaster_PK" ColumnName="ShipmentHandMaster_PK" />
-                <ScalarProperty Name="ShipmentHandOverDate" ColumnName="ShipmentHandOverDate" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="ShippedQty" ColumnName="ShippedQty" />
-                <ScalarProperty Name="JobContractDetail_pk" ColumnName="JobContractDetail_pk" />
-                <ScalarProperty Name="ShipmentHandOver_PK" ColumnName="ShipmentHandOver_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -16072,22 +16146,6 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ASQShuffleMasters">
-            <EntityTypeMapping TypeName="ArtModel.ASQShuffleMaster">
-              <MappingFragment StoreEntitySet="ASQShuffleMaster">
-                <ScalarProperty Name="ASQShuffleGroup" ColumnName="ASQShuffleGroup" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="AsqShuffleNum" ColumnName="AsqShuffleNum" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="FromPOPackID" ColumnName="FromPOPackID" />
-                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EthiopiaToARTShip_Tbl">
             <EntityTypeMapping TypeName="ArtModel.EthiopiaToARTShip_Tbl">
               <MappingFragment StoreEntitySet="EthiopiaToARTShip_Tbl">
@@ -16135,6 +16193,147 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="PoPackID" ColumnName="PoPackID" />
                 <ScalarProperty Name="JobContractOptional_pk" ColumnName="JobContractOptional_pk" />
                 <ScalarProperty Name="JobContractOptionalDetail_pk" ColumnName="JobContractOptionalDetail_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleDetails">
+            <EntityTypeMapping TypeName="ArtModel.ASQShuffleDetail">
+              <MappingFragment StoreEntitySet="ASQShuffleDetails">
+                <ScalarProperty Name="revisedQtyofToPOPackDet_PK" ColumnName="revisedQtyofToPOPackDet_PK" />
+                <ScalarProperty Name="RevisedQtyofFromPOPackDet_PK" ColumnName="RevisedQtyofFromPOPackDet_PK" />
+                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
+                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
+                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+                <ScalarProperty Name="AsqShuffleDet_PK" ColumnName="AsqShuffleDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASQShuffleMasters">
+            <EntityTypeMapping TypeName="ArtModel.ASQShuffleMaster">
+              <MappingFragment StoreEntitySet="ASQShuffleMaster">
+                <ScalarProperty Name="RevisedFromQty" ColumnName="RevisedFromQty" />
+                <ScalarProperty Name="ASQShuffleGroup" ColumnName="ASQShuffleGroup" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="AsqShuffleNum" ColumnName="AsqShuffleNum" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="FromPOPackID" ColumnName="FromPOPackID" />
+                <ScalarProperty Name="AsqShuffle_PK" ColumnName="AsqShuffle_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LockedASQDetails">
+            <EntityTypeMapping TypeName="ArtModel.LockedASQDetail">
+              <MappingFragment StoreEntitySet="LockedASQDetails">
+                <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="LockPo_Pk" ColumnName="LockPo_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POPackDetails">
+            <EntityTypeMapping TypeName="ArtModel.POPackDetail">
+              <MappingFragment StoreEntitySet="POPackDetails">
+                <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
+                <ScalarProperty Name="MarkedCuttabledate" ColumnName="MarkedCuttabledate" />
+                <ScalarProperty Name="ShortClosedDate" ColumnName="ShortClosedDate" />
+                <ScalarProperty Name="MarkedCuttableBy" ColumnName="MarkedCuttableBy" />
+                <ScalarProperty Name="ShortClosedBy" ColumnName="ShortClosedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
+                <ScalarProperty Name="IsShortClosed" ColumnName="IsShortClosed" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="IsPackable" ColumnName="IsPackable" />
+                <ScalarProperty Name="IsCutable" ColumnName="IsCutable" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="PoQty" ColumnName="PoQty" />
+                <ScalarProperty Name="SIzeCode" ColumnName="SIzeCode" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShipmentHandOverDetails">
+            <EntityTypeMapping TypeName="ArtModel.ShipmentHandOverDetail">
+              <MappingFragment StoreEntitySet="ShipmentHandOverDetails">
+                <ScalarProperty Name="SDODate" ColumnName="SDODate" />
+                <ScalarProperty Name="ProducedLctn_PK" ColumnName="ProducedLctn_PK" />
+                <ScalarProperty Name="SDONum" ColumnName="SDONum" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="POPackId" ColumnName="POPackId" />
+                <ScalarProperty Name="ShipmentHandMaster_PK" ColumnName="ShipmentHandMaster_PK" />
+                <ScalarProperty Name="ShipmentHandOverDate" ColumnName="ShipmentHandOverDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="ShippedQty" ColumnName="ShippedQty" />
+                <ScalarProperty Name="JobContractDetail_pk" ColumnName="JobContractDetail_pk" />
+                <ScalarProperty Name="ShipmentHandOver_PK" ColumnName="ShipmentHandOver_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaySheetRollMasters">
+            <EntityTypeMapping TypeName="ArtModel.LaySheetRollMaster">
+              <MappingFragment StoreEntitySet="LaySheetRollMaster">
+                <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
+                <ScalarProperty Name="LocationSequencenum" ColumnName="LocationSequencenum" />
+                <ScalarProperty Name="LocationSequence" ColumnName="LocationSequence" />
+                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
+                <ScalarProperty Name="NoofPlies" ColumnName="NoofPlies" />
+                <ScalarProperty Name="LayRollRef" ColumnName="LayRollRef" />
+                <ScalarProperty Name="LaysheetRollmaster_Pk" ColumnName="LaysheetRollmaster_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShipmentHandoverColorSizeDetails">
+            <EntityTypeMapping TypeName="ArtModel.ShipmentHandoverColorSizeDetail">
+              <MappingFragment StoreEntitySet="ShipmentHandoverColorSizeDetails">
+                <ScalarProperty Name="ShipmentHandMaster_PK" ColumnName="ShipmentHandMaster_PK" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="ShipmentHandOver_PK" ColumnName="ShipmentHandOver_PK" />
+                <ScalarProperty Name="ShipmentHOColorDet_PK" ColumnName="ShipmentHOColorDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempProductionDatas">
+            <EntityTypeMapping TypeName="ArtModel.TempProductionData">
+              <MappingFragment StoreEntitySet="TempProductionData">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="ProductionDate" ColumnName="ProductionDate" />
+                <ScalarProperty Name="DOReceiveQty" ColumnName="DOReceiveQty" />
+                <ScalarProperty Name="ShipQty" ColumnName="ShipQty" />
+                <ScalarProperty Name="AirOutQty" ColumnName="AirOutQty" />
+                <ScalarProperty Name="FinishQty" ColumnName="FinishQty" />
+                <ScalarProperty Name="WashQty" ColumnName="WashQty" />
+                <ScalarProperty Name="SortQty" ColumnName="SortQty" />
+                <ScalarProperty Name="SewingQty" ColumnName="SewingQty" />
+                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
+                <ScalarProperty Name="ArtLocation_PK" ColumnName="ArtLocation_PK" />
+                <ScalarProperty Name="TempID" ColumnName="TempID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

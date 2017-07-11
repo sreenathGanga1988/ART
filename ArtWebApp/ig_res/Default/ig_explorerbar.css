@@ -16,7 +16,7 @@
 .igeb_Group
 {
 	/*background-repeat:repeat-x;
-	background-image: url(images/igeb_GroupBg.png);*/
+	background-image: url(/ig_res/Default/images/igeb_GroupBg.png);*/
 	display: block;
 	height: 36px;
 	overflow: hidden;
@@ -38,7 +38,7 @@
 {
 	/*background-repeat:repeat-x;
 	background-position:0px -60px ;
-	background-image: url(images/igeb_GroupBg.png);*/
+	background-image: url(/ig_res/Default/images/igeb_GroupBg.png);*/
 	color:#FFF; background: #7b7bad;
 }
 
@@ -47,7 +47,7 @@
 {
 	/*background-repeat:repeat-x;
 	background-position:0px -60px ;
-	background-image: url(images/igeb_GroupBg.png);*/
+	background-image: url(/ig_res/Default/images/igeb_GroupBg.png);*/
 	color:#0060BF; background: #7b7bad;
 }
 
@@ -56,7 +56,7 @@
 {
 	/*background-repeat:repeat-x;
 	background-position:0px -30px ;
-	background-image: url(images/igeb_GroupBg.png);*/
+	background-image: url(irrimages/igeb_GroupBg.png);*/
 	color:#FFF;
 	background: #7b7bad;
 }
@@ -155,7 +155,7 @@
 {
 	/*background-repeat:repeat-x;
 	background-position:0px -90px ;
-	background-image: url(images/igeb_GroupBg.png);
+	background-image: url(/ig_res/Default/images/igeb_GroupBg.png);
 	color:Gray;*/
 	
 	
@@ -210,7 +210,7 @@
 .igeb_ItemParent
 {
 	background-repeat:no-repeat;
-	background-image: url(images/igeb_Bullet.png);
+	background-image: url(/ig_res/Default/images/igeb_Bullet.png);
 }
 
 

@@ -76,7 +76,7 @@
 .igte_Button
 {
 	background-color: #8EBEE0;
-	background-image: url(images/igte_spinbuttonbg.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbg.gif);
 	background-repeat: repeat-x;
 	line-height:normal;
 	border:solid 1px #699BC9;
@@ -96,14 +96,14 @@
 .igte_ButtonHover
 {
 	background-color: #60a1d0;
-	background-image: url(images/igte_spinbuttonbghover.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbghover.gif);
 }
 
 
 .igte_ButtonPressed
 {
 	background-color: #C7E5F9;
-	background-image: url(images/igte_spinbuttonbgpressed.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbgpressed.gif);
 }
 
 

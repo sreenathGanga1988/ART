@@ -12,7 +12,7 @@
 	background-color: #eeeeee;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_dowbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_dowbg.gif);
 	font-size:xx-small;
 	border-width:0px;
 	border-bottom:solid 1px #CCCCCC;
@@ -44,7 +44,7 @@
 .igmc_Footer
 {
 	background-color: #FFFFFF;
-	background-image: url(images/igmc_footerbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbg.gif);
 	background-repeat:repeat-x;
 	border-top: 1px solid #dddddd;
 	padding:2px;
@@ -56,7 +56,7 @@
 .igmc_HoverFooter
 {
 	background-color: #F1F1F1;
-	background-image: url(images/igmc_footerbghover.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbghover.gif);
 	background-repeat:repeat-x;
 	cursor: pointer;
 }
@@ -64,7 +64,7 @@
 .igmc_PressedFooter
 {
 	background-color: #FFFFFF;
-	background-image: url(images/igmc_footerbgpressed.gif);
+	background-image: url(/ig_res/Default/images/igmc_footerbgpressed.gif);
 	background-repeat:repeat-x;
 }
 
@@ -73,7 +73,7 @@
 	background-color: #6eb6e5;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_headerbg.png);
+	background-image: url(/ig_res/Default/images/igmc_headerbg.png);
 	font-size:10px;
 	height: 20px;
 	border-bottom: 1px solid #6691B8;
@@ -113,7 +113,7 @@
 	background-color: #F5F5F5;
 	background-repeat:repeat-x;
 	background-position:top;
-	background-image: url(images/igmc_weekbg.gif);
+	background-image: url(/ig_res/Default/images/igmc_weekbg.gif);
 	font-weight: bold;
 }
 
@@ -148,7 +148,7 @@
 .igmc_HoverDay
 {
 	background-color: #ff9933;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 	background-repeat: repeat-x;
 	color:#FFFFFF;
 	font-weight: bold;
@@ -179,7 +179,7 @@
 .igmc_SelectedItem
 {
 	background-color: #ff9933;
-	background-image: url(images/igmc_dayselected.gif);
+	background-image: url(/ig_res/Default/images/igmc_dayselected.gif);
 	background-repeat: repeat-x;
 	color: #FFFFFF;
 	font-weight: bold;

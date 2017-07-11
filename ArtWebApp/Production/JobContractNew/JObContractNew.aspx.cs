@@ -23,7 +23,7 @@ namespace ArtWebApp.Production.JobContractNew
         {
             if (Decimal.Parse (txt_approvecost.Text)>Decimal.Parse(txt_cmcost.Text))
             {
-                string msg = InsertDOdata();
+                string msg = InsertJobContractdata();
                 tbl_podetails.DataSource = null;
                 tbl_podetails.DataBind();
 
@@ -52,7 +52,7 @@ namespace ArtWebApp.Production.JobContractNew
         }
 
 
-        public String InsertDOdata()
+        public String InsertJobContractdata()
         {
             String msg = "";
             BLL.ProductionBLL.JobContractData jcdata = new BLL.ProductionBLL.JobContractData();

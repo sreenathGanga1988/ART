@@ -15,7 +15,7 @@
 {
 	background-color:#6EA3CC;
 	background-repeat:repeat-x;
-	background-image: url(images/igg_header.gif);
+	background-image: url(/ig_res/Default/images/igg_header.gif);
 	color: White;
 }
 
@@ -205,7 +205,7 @@ tbody.igg_FixedColumnCellCssClass>tr>td
 	background-color:Transparent;
 	background-repeat:no-repeat;
 	background-position:center ;
-	background-image: url(images/addnewrow_image.gif);
+	background-image: url(/ig_res/Default/images/addnewrow_image.gif);
 }
 
 
@@ -247,7 +247,7 @@ tbody.igg_FixedColumnCellCssClass>tr>td
 {
 	background-color:White;
 	background-repeat:repeat-x;
-	background-image: url(images/igg_filterrow.gif);
+	background-image: url(/ig_res/Default/images/igg_filterrow.gif);
 	border-top:solid 1px #CCCCCC;
 	border-right:solid 1px #CCCCCC;
 	border-bottom:solid 0px #CCCCCC;
@@ -259,7 +259,7 @@ tr.igg_FilterRowIE6 td
 {
 	background-color:White;
 	background-repeat:repeat-x;
-	background-image: url(images/igg_filterrow.gif);
+	background-image: url(/ig_res/Default/images/igg_filterrow.gif);
 	border-top:solid 1px #CCCCCC;
 	border-right:solid 1px #CCCCCC;
 	border-bottom:solid 0px #CCCCCC;
@@ -271,7 +271,7 @@ tr.igg_FilterRow>td
 {
 	background-color:White;
 	background-repeat:repeat-x;
-	background-image: url(images/igg_filterrow.gif);
+	background-image: url(/ig_res/Default/images/igg_filterrow.gif);
 	border-top:solid 1px #CCCCCC;
 	border-right:solid 1px #CCCCCC;
 	border-bottom:solid 0px #CCCCCC;
@@ -292,7 +292,7 @@ tr.igg_FilterRow>td
 .igg_SelectedRowSelector
 {
 	background-position:left center ;
-	background-image: url(images/selectedrowselector.gif);
+	background-image: url(/ig_res/Default/images/selectedrowselector.gif);
 	background-color: #8DC6EC;
 	background-repeat: no-repeat;
 	color: #FFFFFF;
@@ -324,7 +324,7 @@ tr.igg_AddNewRowBottom>td
 
 .igg_FilterRuleDropDownSelectedItem
 {
-	background-image: url(images/igg_header.gif);
+	background-image: url(/ig_res/Default/images/igg_header.gif);
 	font-size:11px;
 	padding:1px 3px 1px 3px;
 }
@@ -383,7 +383,7 @@ tbody>tr>td.igg_SelectedCell
 {
 	background-color:#EEEEEE;
 	background-repeat:repeat-x;
-	background-image: url(images/igg_filterrow.gif);
+	background-image: url(/ig_res/Default/images/igg_filterrow.gif);
 	border-top:solid 1px #CCCCCC;
 	border-right:solid 0px #CCCCCC;
 	border-bottom:solid 0px #CCCCCC;
@@ -423,7 +423,7 @@ tbody>tr>td.igg_ActiveCell
 .igg_ActiveRowSelector
 {
 	background-position:left center ;
-	background-image: url(images/selectedrowselector.gif);
+	background-image: url(/ig_res/Default/images/selectedrowselector.gif);
 	background-repeat: no-repeat;
 	background-color: #8DC6EC;
 }
@@ -431,7 +431,7 @@ tbody>tr>td.igg_ActiveCell
 
 .igg_FilterRuleDropDownHoverItem
 {
-	background-image: url(images/igg_header.gif);
+	background-image: url(/ig_res/Default/images/igg_header.gif);
 	font-size:11px;
 	padding:1px 3px 1px 3px;
 }
@@ -507,7 +507,7 @@ tr.igg_AddNewRow>td
 
 .igg_TopDragIndicator
 {
-      background-image:url(images/igg_TopDragIndicator.png);
+      background-image:url(/ig_res/Default/images/igg_TopDragIndicator.png);
       background-repeat: no-repeat;
       width:11px; 
       height:6px;
@@ -517,7 +517,7 @@ tr.igg_AddNewRow>td
 
 .igg_MiddleDragIndicator
 {
-      background-image:url(images/igg_MiddleDragIndicator.png);
+      background-image:url(/ig_res/Default/images/igg_MiddleDragIndicator.png);
       background-repeat: repeat-y;
       background-position: center;
       width:11px; 
@@ -525,7 +525,7 @@ tr.igg_AddNewRow>td
 
 .igg_BottomDragIndicator
 {
-      background-image:url(images/igg_BottomDragIndicator.png);
+      background-image:url(/ig_res/Default/images/igg_BottomDragIndicator.png);
       background-repeat: no-repeat;
       width:11px; 
       height:6px;
@@ -545,7 +545,7 @@ tr.igg_AddNewRow>td
 	color: #000;
 	font-weight:normal;
 	
-	background:#fff url(images/igg_SummaryDropDownBG.png) repeat-x scroll;
+	background:#fff url(/ig_res/Default/images/igg_SummaryDropDownBG.png) repeat-x scroll;
 	
 	border:1px solid #83AFDF;
 	overflow-x:hidden!important;
@@ -578,7 +578,7 @@ tr.igg_AddNewRow>td
     width:70px;
 		
     border:1px solid #6a9cc9;
-    background: #78bae5 url(images/igg_ButtonsBG.png) repeat-x scroll;
+    background: #78bae5 url(/ig_res/Default/images/igg_ButtonsBG.png) repeat-x scroll;
     color:#fff;
 		
     -webkit-border-radius: 3px;    
@@ -628,7 +628,7 @@ tr.igg_AddNewRow>td
 	font-family: Verdana, Tahoma, Arial, Sans-Serif;
 	font-size:11px;
 	
-	background:#fff url(images/igg_SummaryDropDownBG.png) repeat-x scroll;
+	background:#fff url(/ig_res/Default/images/igg_SummaryDropDownBG.png) repeat-x scroll;
 	padding:12px;
 	border:1px solid #83AFDF;
 	width:146px;
@@ -659,7 +659,7 @@ tr.igg_AddNewRow>td
     width:70px;
 		
     border:1px solid #6a9cc9;
-    background: #78bae5 url(images/igg_ButtonsBG.png) repeat-x scroll;
+    background: #78bae5 url(/ig_res/Default/images/igg_ButtonsBG.png) repeat-x scroll;
     color:#fff;
 		
     -webkit-border-radius: 3px;    
@@ -770,7 +770,7 @@ tbody tr.igg_AddedRow td
 .igg_UndoButton 
 {
    	background-color: #8EBEE0;
-	background-image: url(images/igte_spinbuttonbg.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbg.gif);
 	background-position:top left;
 	background-repeat: repeat-x;
 	line-height:normal;
@@ -793,13 +793,13 @@ tbody tr.igg_AddedRow td
 .igg_UndoButtonHover 
 {
     background-color: #60a1d0;
-	background-image: url(images/igte_spinbuttonbghover.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbghover.gif);
 }
 
 .igg_UndoButtonPressed
 {
 	background-color: #C7E5F9;
-	background-image: url(images/igte_spinbuttonbgpressed.gif);
+	background-image: url(/ig_res/Default/images/igte_spinbuttonbgpressed.gif);
 }
 
 

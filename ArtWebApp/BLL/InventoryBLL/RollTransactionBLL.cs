@@ -714,7 +714,7 @@ ORDER BY tt.RollNum ";
                     this.splitrollmaqster.PO_PK = int.Parse(element.Po_PK.ToString());
                     this.splitrollmaqster.IsSaved = element.IsSaved;
                     this.splitrollmaqster.SUpplierDoc_PK = int.Parse(element.SupplierDoc_pk.ToString());
-
+                  
                     this.splitrollmaqster.AGSM = element.AGsm;
                     this.splitrollmaqster.SGSM = element.SGsm;
 
@@ -1477,7 +1477,7 @@ ORDER BY tt.RollNum ";
         public string IsGrouped { get; set; }
         public string IsApproved { get; set; }
 
-
+        public string Isdelivered { get; set; }
         public int Dummyskudetpk { get; set; }
         public int Dummypodet_pk { get; set; }
         public int dummymrndetpk { get; set; }

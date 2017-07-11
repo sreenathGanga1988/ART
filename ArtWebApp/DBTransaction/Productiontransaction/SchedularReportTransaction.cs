@@ -166,11 +166,55 @@ namespace ArtWebApp.DBTransaction.Productiontransaction
 
 
 
+        public static System.Data.DataTable GetTargetofMonth(int year, int month)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "TargetofAMonth_SP";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@MonthNum", month);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
 
 
 
+        }
+
+        public static System.Data.DataTable GetSalesReportofMonth(DateTime fromdate, DateTime todate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SalesofMonth_SP";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
 
+            cmd.Parameters.AddWithValue("@fromdate", fromdate);
+            cmd.Parameters.AddWithValue("@todate", todate);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+        }
+
+
+
+        public static System.Data.DataTable GetShipmentReportofMonth(DateTime fromdate, DateTime todate)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "ShipmentofMonth_SP";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@fromdate", fromdate);
+            cmd.Parameters.AddWithValue("@todate", todate);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+        }
 
 
 

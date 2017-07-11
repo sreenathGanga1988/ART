@@ -14,7 +14,7 @@
 .igpnl_HeaderExpanded
 {
 	background-position:bottom ;
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-size:xx-small;
 	font-family: Verdana;
 	padding-top:3px;
@@ -31,7 +31,7 @@
 
 .igpnl_HeaderHover
 {
-	background-image: url(images/header_hover.gif);
+	background-image: url(/ig_res/Default/images/header_hover.gif);
 	color:White;
 }
 

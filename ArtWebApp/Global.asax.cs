@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 
@@ -36,7 +37,8 @@ namespace ArtWebApp
             System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.StyleBundle("~/bundle/css")
                             .Include("~/css/MasterPage.css", "~/css/style.css"));
 
-           
+            AreaRegistration.RegisterAllAreas();
+
 
 
         }

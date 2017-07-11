@@ -44,7 +44,7 @@
 <table class="DataEntryTable">
                 <tr>
                     <td class="RedHeadding" colspan="9">
-                        Goods Misplaced(Fabric &amp; Trims)</td>
+                        EXTRA rEQUEST FROM FACTORY</td>
                 </tr>
                 <tr>
                     <td class="NormalTD">
@@ -89,9 +89,13 @@
                         </ig:WebDatePicker>
                     </td>
                     <td >
-                        Explanation:</td>
+                        rEASON:</td>
                     <td>
-                        <asp:TextBox ID="txt_explanation" runat="server" Height="20px" Width="164px" CssClass="auto-style10"></asp:TextBox>
+                        
+                        <ucc:DropDownListChosen ID="drp_fromWarehouse0" runat="server" DataSourceID="ExtraReason" DataTextField="Reason" DataValueField="ExtraRequestReasonID" DisableSearchThreshold="10" Width="200px">
+                        </ucc:DropDownListChosen>
+                        
+                        
                     </td>
                     <td c>
                         &nbsp;</td>
@@ -100,9 +104,9 @@
                 </tr>
                 <tr>
                     <td >
-                        &nbsp;</td>
-                    <td >
-                        
+                        Explanation:</td>
+                    <td>
+                        <asp:TextBox ID="txt_explanation" runat="server" Height="20px" Width="164px" CssClass="auto-style10"></asp:TextBox>
                     </td>
                     <td class="NormalTD" >
                         &nbsp;</td>
@@ -237,6 +241,14 @@
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
                     SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') ORDER BY AtcNum, AtcId">
+                </asp:SqlDataSource>
+                    
+               
+                               
+                <asp:SqlDataSource ID="ExtraReason" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Reason], [ExtraRequestReasonID] FROM [ExtraRequestReason] WHERE ([IsActive] = @IsActive)">
+                    <SelectParameters>
+                        <asp:Parameter DefaultValue="Y" Name="IsActive" Type="String" />
+                    </SelectParameters>
                 </asp:SqlDataSource>
                     
                

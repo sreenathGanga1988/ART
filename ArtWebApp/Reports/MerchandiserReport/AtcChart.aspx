@@ -345,6 +345,7 @@ body
                                                
                                                  <asp:BoundField DataField="POQty" HeaderText="POQty" />
                                                  <asp:BoundField DataField="UomCode" HeaderText="UomCode" />
+                                                    <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" />
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />

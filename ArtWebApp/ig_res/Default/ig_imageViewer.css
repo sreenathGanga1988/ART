@@ -129,7 +129,7 @@
 .igiv_EdgeTop
 {
 	background-repeat:repeat-x;
-	background-image: url(images/igiv_EdgeTop.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeTop.gif);
 }
 
 
@@ -141,7 +141,7 @@
 {
 	background-repeat:repeat-y;
 	background-position:right ;
-	background-image: url(images/igiv_EdgeLeft.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeLeft.gif);
 }
 
 
@@ -154,7 +154,7 @@
 	background-repeat:repeat-x;
 	background-position:top ;
 	padding-bottom:20px;
-	background-image: url(images/igiv_EdgeBottom.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeBottom.gif);
 }
 
 
@@ -167,7 +167,7 @@
 {
 	background-repeat:repeat-y;
 	background-position:left ;
-	background-image: url(images/igiv_EdgeRight.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeRight.gif);
 }
 
 
@@ -179,7 +179,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:bottom ;
-	background-image: url(images/igiv_CornerTopLeft.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerTopLeft.gif);
 	width: 3px;
 	position: relative;
 	/*right: -5px;*/
@@ -194,7 +194,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:bottom ;
-	background-image: url(images/igiv_CornerTopRight.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerTopRight.gif);
 	width: 3px;
 	position: relative;
 	/*left: -6px;*/
@@ -209,7 +209,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:top;
-	background-image: url(images/igiv_CornerBottomLeft.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerBottomLeft.gif);
 	position: relative;
 }
 
@@ -222,7 +222,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:top ;
-	background-image: url(images/igiv_CornerBottomRight.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerBottomRight.gif);
 	position: relative;
 	/*left: -6px;*/
 }
@@ -489,7 +489,7 @@
 {
 	background-repeat:repeat-x;
 	background-position:bottom ;
-	background-image: url(images/igiv_EdgeTop_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeTop_Vert.gif);
 }
 
 
@@ -501,7 +501,7 @@
 {
 	background-repeat:repeat-y;
 	background-position:right ;
-	background-image: url(images/igiv_EdgeLeft_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeLeft_Vert.gif);
 }
 
 
@@ -513,7 +513,7 @@
 {
 	padding-bottom:20px;  /* IMPORTANT!!!!! */
 	background-repeat:repeat-x;
-	background-image: url(images/igiv_EdgeBottom_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeBottom_Vert.gif);
 }
 
 
@@ -525,7 +525,7 @@
 {
 	background-repeat:repeat-y;
 	background-position:left ;
-	background-image: url(images/igiv_EdgeRight_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_EdgeRight_Vert.gif);
 }
 
 
@@ -537,7 +537,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:bottom ;
-	background-image: url(images/igiv_CornerTopLeft_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerTopLeft_Vert.gif);
 	width: 3px;
 	position: relative;
 }
@@ -551,7 +551,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:bottom ;
-	background-image: url(images/igiv_CornerTopRight_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerTopRight_Vert.gif);
 	width: 3px;
 	position: relative;
 }
@@ -565,7 +565,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:top right;
-	background-image: url(images/igiv_CornerBottomLeft_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerBottomLeft_Vert.gif);
 	position: relative;
 	padding: 0px;
 }
@@ -579,7 +579,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:top ;
-	background-image: url(images/igiv_CornerBottomRight_Vert.gif);
+	background-image: url(/ig_res/Default/images/igiv_CornerBottomRight_Vert.gif);
 	position: relative;
 }
 

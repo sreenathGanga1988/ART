@@ -406,7 +406,8 @@ FROM            EthiopiaToARTShip_Tbl";
                                 atcshpdata.BookedDate = element.BookedDate;
                                 atcshpdata.BookedBy = element.BookedBy;
                                 atcshpdata.Country = "Ethiopia";
-                                                           
+                                atcshpdata.ProductionArtLocation = element.ArtLocation_PK;
+
 
 
                                 enty.ATCWorldToArtShipDatas.Add(atcshpdata);
@@ -440,8 +441,180 @@ FROM            EthiopiaToARTShip_Tbl";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #endregion
 
+     
+
+
+
+
+
+
+        public DataTable GetProductionAtcWorldData()
+        {
+
+
+            DateTime today = DateTime.Now.Date;
+            DataTable datafromart = new DataTable();
+
+            String Datepend = "";
+
+            String q3 = @"SELECT        ArtLocation_PK, CutQty, SewingQty, SortQty, WashQty, FinishQty, AirOutQty, ShipQty, DOReceiveQty, ProductionDate, PoPack_Detail_PK
+FROM            ProductionStatusDatewiseATCWorld_VW
+WHERE        (Atc_Id = 121)";
+
+
+
+            //  cmd.CommandText = Query1;
+
+
+
+
+
+
+            return ReturnQueryResultDatatablefromAtcWorld(q3);
+        }
+
+        protected void btn_productiondata_Click(object sender, EventArgs e)
+        {
+         DataTable dt=  GetProductionAtcWorldData();
+
+        }
+
+
+
+
+
+
+
+        #region SendLaysheetData to kenya
+
+
+        protected  async  void btn_laysheetdatatokenya_Click(object sender, EventArgs e)
+        {
+            btn_laysheetdatatokenya.Text = "Getting Data";
+            DataTable dt=  await getLaysheetMasterDataFromArtAsync();
+            btn_laysheetdatatokenya.Text = "UPLOADING";
+            
+            int insertedrow = await InsertInKenyaAsync(dt);
+            btn_laysheetdatatokenya.Text = "Completed";
+
+        }
+
+
+   
+        public async Task <DataTable> getLaysheetMasterDataFromArtAsync()
+     {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString.ToString()))
+            {
+                  using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.CommandText = @"SELECT        CutPlanMaster.CutPlanNUM, CutPlanMaster.ColorName, LaySheetMaster.LaySheetNum, LocationMaster.LocationName, LocationMaster.Location_PK, CutOrderDetails.CutOrderDet_PK, 
+CutOrderDetails.CutID, CutOrderMaster.Cut_NO, CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.CutWidth, CutOrderMaster.AtcID, CutOrderMaster.OurStyleID, CutPlanMaster.CutPlan_PK, 
+                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded
+FROM            CutOrderDetails INNER JOIN
+                         LaySheetMaster ON CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID INNER JOIN
+                         CutPlanMaster ON CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK INNER JOIN
+                         LocationMaster ON LaySheetMaster.Location_PK = LocationMaster.Location_PK
+GROUP BY CutPlanMaster.CutPlanNUM, CutPlanMaster.ColorName, LaySheetMaster.LaySheetNum, LocationMaster.LocationName, LocationMaster.Location_PK, CutOrderDetails.CutOrderDet_PK, CutOrderDetails.CutID, 
+                         CutOrderMaster.Cut_NO, CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.CutWidth, CutOrderMaster.AtcID, CutOrderMaster.OurStyleID, CutPlanMaster.CutPlan_PK, 
+                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded
+HAVING        (LaySheetMaster.IsEdited = N'Y')";
+
+
+                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                    dt.Load(rdr);
+
+                    return dt;
+
+            }
+            }
+          
+     }
+
+
+
+
+    public async Task<int > InsertInKenyaAsync( DataTable dt)
+    {
+            int insertedrow = 0;
+
+
+
+            try
+            {
+                using (ArtEntitiesnew entynew = new ArtEntitiesnew())
+                {
+                    using (AtcWorldEntities atcenty = new AtcWorldEntities())
+                    {
+
+
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            int laysheet_Pk = int.Parse(dr["LaySheet_PK"].ToString());
+
+                            if (!atcenty.ArtLaySheetMasterDatas.Any(f => f.LaySheet_PK == laysheet_Pk))
+                            {
+                                ArtLaySheetMasterData lymstrdata = new DataModelAtcWorld.ArtLaySheetMasterData();
+
+                                lymstrdata.CutPlanNUM = dr["CutPlanNUM"].ToString();
+                                lymstrdata.ColorCode = dr["ColorName"].ToString();
+                                lymstrdata.LaySheetNum = dr["LaySheetNum"].ToString().Trim();
+                                lymstrdata.LocationName = dr["LocationName"].ToString();
+                                lymstrdata.Location_PK = int.Parse(dr["Location_PK"].ToString());
+                                lymstrdata.CutOrderDet_PK = int.Parse(dr["CutOrderDet_PK"].ToString());
+                                lymstrdata.CutID = int.Parse(dr["CutID"].ToString());
+                                lymstrdata.Cut_NO = dr["Cut_NO"].ToString();
+                                lymstrdata.Shrinkage = dr["Shrinkage"].ToString();
+                                lymstrdata.MarkerType = dr["MarkerType"].ToString();
+                                lymstrdata.CutWidth = dr["CutWidth"].ToString();
+                                lymstrdata.AtcID = int.Parse(dr["AtcID"].ToString());
+                                lymstrdata.OurStyleID = int.Parse(dr["OurStyleID"].ToString());
+                                lymstrdata.CutPlan_PK = int.Parse(dr["CutPlan_PK"].ToString());
+                                lymstrdata.LaySheet_PK = int.Parse(dr["LaySheet_PK"].ToString());
+
+
+                                lymstrdata.IsApproved = dr["IsApproved"].ToString();
+
+
+                                atcenty.ArtLaySheetMasterDatas.Add(lymstrdata);
+
+                            }
+
+                            var q = from lymstr in entynew.LaySheetMasters
+                                    where lymstr.LaySheet_PK == laysheet_Pk
+                                    select lymstr;
+                            foreach (var element in q)
+                            {
+                                element.IsUploaded = "Y";
+                                element.IsEdited = "Y";
+                            }
+
+
+
+
+
+
+                        }
 
 
 
@@ -452,9 +625,28 @@ FROM            EthiopiaToARTShip_Tbl";
 
 
 
+                        await atcenty.SaveChangesAsync();
+
+
+                    }
+                    await entynew.SaveChangesAsync();
+                }
+            }
+            catch (Exception exp)
+            {
+
+                throw;
+            }
+                return insertedrow;
+    }
 
 
 
+
+
+
+
+        #endregion
 
     }
 }

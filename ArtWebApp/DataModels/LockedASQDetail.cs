@@ -24,5 +24,6 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Month { get; set; }
         public Nullable<decimal> Year { get; set; }
         public Nullable<decimal> Location_PK { get; set; }
+        public string CombinationCode { get; set; }
     }
 }

@@ -760,7 +760,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>VALUE</Value>
+                                <Value>VALUE $</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontSize>8pt</FontSize>
@@ -878,7 +878,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>VALUE</Value>
+                                <Value>VALUE $</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontSize>8pt</FontSize>
@@ -956,7 +956,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>FOB</Value>
+                                <Value>FOB $</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontSize>8pt</FontSize>
@@ -1204,8 +1204,8 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>0.63417in</Top>
         <Left>0.10292in</Left>
-        <Height>1.29167in</Height>
-        <Width>3.55208in</Width>
+        <Height>1.29165in</Height>
+        <Width>3.55207in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>

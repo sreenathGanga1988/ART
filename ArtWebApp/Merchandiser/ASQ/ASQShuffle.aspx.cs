@@ -133,7 +133,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void btn_OURSTYLE1_Click(object sender, EventArgs e)
         {
-            String Group = drp_atc.SelectedItem.Text + "-0";
+            String Group = "GP"+drp_atc.SelectedItem.Text + "-0";
             ArrayList popaklist = new ArrayList();
             List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
             foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
@@ -149,12 +149,13 @@ namespace ArtWebApp.Merchandiser.ASQ
                 BLL.MerchandsingBLL.AsqShuffleBLL asqshuffle = new BLL.MerchandsingBLL.AsqShuffleBLL();
 
 
-              String condition=  GetGroup(int.Parse(cmb_po.SelectedValue.ToString()), popaklist);
+             
 
                
                 tbl_topodetails.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
                 tbl_topodetails.DataBind();
                 updgrid2.Update();
+                String condition = GetGroup(int.Parse(cmb_po.SelectedValue.ToString()), popaklist);
                 if (condition != "")
                 {
 
@@ -605,9 +606,9 @@ namespace ArtWebApp.Merchandiser.ASQ
                     Label lbl_colorname = (currentRow.FindControl("lbl_colorname") as Label);
                     Label lbl_sizecoode = (currentRow.FindControl("lbl_sizecoode") as Label);
                     Label lbl_frmpopack = (currentRow.FindControl("lbl_frmpopack") as Label);
-                    Label txt_newQty = (currentRow.FindControl("lbl_toadjusterQty") as Label);
-
-
+                    Label lbl_toadjusterQty = (currentRow.FindControl("lbl_toadjusterQty") as Label);
+                    TextBox Totxt_newQty = (currentRow.FindControl("txt_newQty") as TextBox);
+                    
 
 
                     if (lbl_frmpopack.Text != "0")
@@ -616,7 +617,10 @@ namespace ArtWebApp.Merchandiser.ASQ
                         pddetails.OurStyleID = int.Parse(lbl_ourstyleid.Text);
 
                         pddetails.ToPOPackDet_PK = int.Parse(lbl_PoDet_PK.Text);
-                        pddetails.AddedQty = int.Parse(txt_newQty.Text); ;
+                        pddetails.AddedQty = int.Parse(lbl_toadjusterQty.Text);
+                        pddetails.newToQty = int.Parse(Totxt_newQty.Text);
+
+                        
                         pddetails.colorcode = lbl_colorcode.Text.Trim();
                         pddetails.colorname = lbl_colorname.Text.Trim();
                         pddetails.sizecode = lbl_sizecoode.Text.Trim();

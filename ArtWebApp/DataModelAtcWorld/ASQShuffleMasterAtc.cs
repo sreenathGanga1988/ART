@@ -23,5 +23,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public string ApprovedBy { get; set; }
         public string AsqShuffleNum { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
+        public string ASQShuffleGroup { get; set; }
+        public Nullable<decimal> ArtAsqShuffle_PK { get; set; }
+        public Nullable<decimal> RevisedFromQty { get; set; }
     }
 }

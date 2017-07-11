@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="AtcchartWithASQ.aspx.cs" Inherits="ArtWebApp.Reports.MerchandiserReport.AtcchartWithASQ" %>
-<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>
+<%--<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>--%>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../../css/style.css" rel="stylesheet" />
+    <%--    <link href="../../css/style.css" rel="stylesheet" />--%>
 <style type="text/css">
 body
 {
@@ -63,8 +63,8 @@ body
    
 
     </style>
-    
-         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="../../Scripts/jquery.table2excel.js"></script>
+  <%--       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
       <script type="text/javascript">
 
         
@@ -98,11 +98,54 @@ body
                   return false
               });
 
+         
+             
+                 
 
-
+            
            
           });
 
+
+
+
+
+ 
+
+
+
+
+          function fnExcelReport() {
+              var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+              var textRange; var j = 0;
+              tab = document.getElementsByClassName('mydatagrid')[0]; // id of table
+
+              for (j = 0 ; j < tab.rows.length ; j++) {
+                  tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                  //tab_text=tab_text+"</tr>";
+              }
+
+              tab_text = tab_text + "</table>";
+              tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+              tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+              //tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+              var ua = window.navigator.userAgent;
+              var msie = ua.indexOf("MSIE ");
+
+              if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+              {
+                  txtArea1.document.open("txt/html", "replace");
+                  txtArea1.document.write(tab_text);
+                  txtArea1.document.close();
+                  txtArea1.focus();
+                  sa = txtArea1.document.execCommand("SaveAs", true, "ExportHeader.xls");
+              }
+              else                 //other browser not tested on IE 11
+                  sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+              return (sa);
+          }
 
           function calculateSumofOnHand()
           {
@@ -282,13 +325,26 @@ body
                             
                             <tr>
                                 <td colspan="6">
-
+                                
                                     <asp:UpdatePanel ID="UpdatePanel12" runat="server">
                                         <ContentTemplate>
-                                            <asp:Panel ID="mpanel1" runat="server" ViewStateMode="Enabled">
-                                        <asp:Table ID="mTable1" runat="server" ViewStateMode="Enabled" Width="400px">
+                                           
+
+                                                     <asp:Panel ID="mpanel1" runat="server" ViewStateMode="Enabled">
+                                        <asp:Table ID="Mastertable" CssClass="mydatagrid" onclick="fnExcelReport()" runat="server" ViewStateMode="Enabled" Width="400px">
+                                            <asp:TableRow>
+                                                <asp:TableCell>a</asp:TableCell>
+
+                                            </asp:TableRow>
+                                                
+                                           <%--  --%>
+                                            
                                         </asp:Table>
+                                              <iframe id="txtArea1" style="display:none"></iframe>
                                     </asp:Panel>
+
+                                         
+                                       
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                     
@@ -426,6 +482,7 @@ body
                                                
                                                  <asp:BoundField DataField="POQty" HeaderText="POQty" />
                                                  <asp:BoundField DataField="UomCode" HeaderText="UomCode" />
+                                                   <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" />
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />

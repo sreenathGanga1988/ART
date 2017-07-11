@@ -164,7 +164,10 @@
             <td class="RedHeadding">general Purchase Dash Board</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
+            <td><asp:Table ID="Mastertable" CssClass="mydatagrid" runat="server" ViewStateMode="Enabled" Width="400px">
+                                           <%--  onclick="Exporttoexcel(this)"--%>
+                                         
+                                        </asp:Table></td>
         </tr>
         <tr>
             <td>
@@ -180,6 +183,8 @@
                             <div></div>
 
                              <div>
+                                <asp:UpdatePanel ID="UpdatePanel12" runat="server">
+                                        <ContentTemplate>
                                  <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="25" ShowFooter="True">
                                 <Columns>
                                       <asp:TemplateField>  
@@ -215,6 +220,8 @@
 
 <RowStyle CssClass="rows"></RowStyle>
                             </asp:GridView>
+                                            </ContentTemplate>
+                                    </asp:UpdatePanel>
                              </div>
                             
                             

@@ -10,6 +10,8 @@ using ArtWebApp.BLL;
 using System.Data;
 using Infragistics.Web.UI.ListControls;
 using System.Collections;
+using System.Web.Services;
+
 namespace ArtWebApp.Merchandiser
 {
     public partial class StyleCosting : System.Web.UI.Page
@@ -387,6 +389,19 @@ namespace ArtWebApp.Merchandiser
             pcperpc.Text = perpc.ToString();
         }
 
+      
+        public   String RefreshAll()
+        {
+            String msg = "Notupdated";
+            foreach (GridViewRow currentRow in tbl_costing.Rows)
+            {
+                calculateperdozen(currentRow);
+                msg = "Updated";
+            }
+
+            return msg;
+        }
+
         /// <summary>
         /// this is function for filling the cm value if the current cm valu is null or zero
         /// </summary>
@@ -633,8 +648,9 @@ namespace ArtWebApp.Merchandiser
 
         }
 
-
-
-
+        protected void btn_refresh_Click(object sender, EventArgs e)
+        {
+            RefreshAll();
+        }
     }
 }

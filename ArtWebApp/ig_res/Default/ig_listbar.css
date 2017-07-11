@@ -13,7 +13,7 @@
 
 .iglb_Button
 {
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;
@@ -26,7 +26,7 @@
 .iglb_ButtonHover
 {
 	background-position:bottom ;
-	background-image: url(images/header_hover.gif);
+	background-image: url(/ig_res/Default/images/header_hover.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;
@@ -38,7 +38,7 @@
 
 .iglb_ButtonSelected
 {
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;
@@ -50,7 +50,7 @@
 
 .iglb_HeaderCollapsed
 {
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;
@@ -62,7 +62,7 @@
 
 .iglb_HeaderExpanded
 {
-	background-image: url(images/header.gif);
+	background-image: url(/ig_res/Default/images/header.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;
@@ -75,7 +75,7 @@
 .iglb_HeaderHover
 {
 	background-position:bottom ;
-	background-image: url(images/header_hover.gif);
+	background-image: url(/ig_res/Default/images/header_hover.gif);
 	font-size:x-small;
 	padding-top:4px;
 	padding-bottom:4px;

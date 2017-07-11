@@ -104,7 +104,7 @@ namespace ArtWebApp.Production.Cutting
             lblmstr.LayRollRef = drp_cutRoll.SelectedItem.Text;
             lblmstr.LaysheetRollmaster_Pk = int.Parse(drp_cutRoll.SelectedValue.ToString());
             lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
-
+          
             num = lblmstr.InsertLaySheet();
 
             msg = "Laysheet # : " + num + " is generated Successfully";

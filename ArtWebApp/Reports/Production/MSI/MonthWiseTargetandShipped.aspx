@@ -9,7 +9,7 @@
 <div class="FullTable">
         <table class="FullTable">
         <tr  class="RedHeadding">
-            <td style="color: #FFFFFF; text-align: center; background-color: #990000">MonthWi Target/Shipped Report</td>
+            <td style="color: #FFFFFF; text-align: center; background-color: #990000">MonthWise Target/Shipped Report</td>
         </tr>
         <tr>
             <td >
@@ -100,7 +100,9 @@
                                 <asp:Button ID="S" runat="server" OnClick="Button3_Click1" Text="S" />
                               
                             </td>
-                            <td>&nbsp;</td>
+                            <td>
+                                <asp:Button ID="Button1" runat="server" Text="Show target Of Month" OnClick="Button1_Click" />
+                            </td>
                         </tr>
 
                         

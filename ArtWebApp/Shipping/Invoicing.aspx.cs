@@ -88,7 +88,7 @@ namespace ArtWebApp.Shipping
             invmstrdata.Location_pk= int.Parse(drp_factory.SelectedValue.ToString());
             invmstrdata.AddedBy = Session["Username"].ToString().Trim();
             invmstrdata.refnum = txt_ref.Text.Trim();
-            
+            invmstrdata.Invoicedate = dtp_invoicedate.Date;
             invmstrdata.AddedDate = DateTime.Now;
 
             return invmstrdata;

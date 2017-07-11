@@ -104,6 +104,7 @@ namespace ArtWebApp.Production.Cutting
                 lblmstr.CutOrderDet_PK = int.Parse(drp_markernum.SelectedValue.ToString());
                 lblmstr.NoofPlies = int.Parse(txt_newplies.Text);
                 lblmstr.markernum = drp_markernum.SelectedItem.Text.ToString();
+                lblmstr.Location_PK = int.Parse(drp_fact.SelectedValue.ToString());
                     
 
                 lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();

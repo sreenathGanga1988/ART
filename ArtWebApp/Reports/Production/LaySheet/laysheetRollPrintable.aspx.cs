@@ -42,6 +42,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         where lymstr.LaysheetRollmaster_Pk == laysheetpk
                         select new
                         {
+                            lymstr.LocationSequencenum,
                             lymstr.LayRollRef,
                             lyrolldet.AddedDate,
                             lyrolldet.AddedBy,
@@ -78,6 +79,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                 foreach (var element in q)
                 {
                     lbl_laysheetnum.Text = element.LayRollRef.ToString().Trim();
+                    lbl_Rl.Text = element.LocationSequencenum.ToString().Trim();
                     lbl_manualcutnum.Text = element.LayRollRef.ToString().Trim();
                     lbl_atc.Text = element.AtcNum.ToString().Trim();
                     lbl_ourstyle.Text = element.OurStyle.ToString().Trim();

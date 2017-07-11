@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="DropDownChosen">
       <HintPath>..\..\..\..\..\Downloads\DropDownChosen\DropDownChosen\DropDownChosen\bin\Debug\DropDownChosen.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -152,8 +153,32 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml">
@@ -174,6 +199,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.12.13.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Extensions.3.12.13\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="zxing, Version=0.15.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.15.0\lib\net45\zxing.dll</HintPath>
       <Private>True</Private>
@@ -184,9 +213,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Accounts\AccountsDashBoard.aspx" />
     <Content Include="Accounts\DebitnoteforFactory.aspx" />
     <Content Include="Accounts\DebitNoteGenerator.aspx" />
+    <Content Include="Accounts\Debitnote\AccountsdashBoard.aspx" />
     <Content Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx" />
     <Content Include="Accounts\StockSupplierInvoicing.aspx" />
     <Content Include="Accounts\SupplierInvoicing.aspx" />
@@ -194,6 +223,7 @@
     <Content Include="Administrator\Tester.aspx" />
     <Content Include="Administrator\UserMaster.aspx" />
     <Content Include="Administrator\UserProfileCreation.aspx" />
+    <Content Include="Approvals\ASQApprovals.aspx" />
     <Content Include="Approvals\AtcprojectionApproval.aspx" />
     <Content Include="Approvals\CostingApproval.aspx" />
     <Content Include="Approvals\InventoryApprovals.aspx" />
@@ -206,6 +236,9 @@
     <Content Include="bin\ArtWebApp.dll" />
     <Content Include="bin\ArtWebApp.pdb" />
     <Content Include="BLL\InventoryBLL\SessionChecker.aspx" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Controls\Matrix.aspx" />
     <Content Include="Controls\MyMenuBar.ascx" />
     <Content Include="css\bootstrap.css" />
@@ -224,6 +257,9 @@
       <DependentUpon>AtcWorldModel.edmx</DependentUpon>
       <LastGenOutput>AtcWorldModel.cs</LastGenOutput>
     </Content>
+    <Content Include="DynamicMenuBar.ascx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
@@ -236,11 +272,13 @@
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
+    <Content Include="Production\Cutting\LaysheetApproval.aspx" />
     <Content Include="Production\Cutting\LaysheetRollEditor.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
     <Content Include="Production\JobContractNew\JobContractOthersNew.aspx" />
     <Content Include="Production\RollDisplayer.aspx" />
     <Content Include="Production\Schedular\ASQMonthShipmentClosing.aspx" />
+    <Content Include="Production\Schedular\ProductionReporting.aspx" />
     <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
     <Content Include="Reports\Production\CutplanHTMLReportWithRoll.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
@@ -249,7 +287,6 @@
     <Content Include="Reports\Production\MSI\MonthWiseTargetandShipped.aspx" />
     <Content Include="Default2.aspx" />
     <Content Include="Error\ErrorPage.aspx" />
-    <Content Include="Global.asax" />
     <Content Include="ig_res\Default\ig_calendar.css" />
     <Content Include="ig_res\Default\ig_calendar2.css" />
     <Content Include="ig_res\Default\ig_calendarview.css" />
@@ -1096,6 +1133,7 @@
     <Content Include="Reports\Production\LaySheet\laysheetRollPrintable.aspx" />
     <Content Include="Reports\Production\MSI\OrderOnhandReportofYear.aspx" />
     <Content Include="Reports\Production\MSI\OrderOnhandReportofyearfactorywise.aspx" />
+    <Content Include="Reports\Production\MSI\SalesReport.aspx" />
     <Content Include="Reports\Production\MSI\Yearly Shipment Report.aspx" />
     <Content Include="Reports\Production\MSI\YearlyShippedOrTargetReport.aspx" />
     <Content Include="Reports\Production\MSI\YearlyShorClosed.aspx" />
@@ -1120,8 +1158,24 @@
     <Content Include="Sampling\FabricEntrynew.aspx" />
     <Content Include="Sampling\SampleWithoutATC.aspx" />
     <Content Include="MasterPage.master" />
+    <Content Include="Areas\ArtMVC\Views\web.config" />
+    <Content Include="Areas\ArtMVC\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ArtMVC\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ArtMVC\Views\Home\Index.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\ArtMVC\Views\ApproveLaysheet\ApproveLaysheet.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\web.config" />
+    <Content Include="Areas\ITAdministrator\Views\ITAdministrator\ShowItTasks.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Sampling\ShowSamplingstatus.aspx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -1129,6 +1183,7 @@
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.table2excel.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Shipping\AtcExpenseMaster.aspx" />
     <Content Include="Shipping\CourierEntry.aspx" />
     <Content Include="Shipping\Documentreceipt.aspx" />
@@ -1320,13 +1375,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accounts\AccountsDashBoard.aspx.cs">
-      <DependentUpon>AccountsDashBoard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Accounts\AccountsDashBoard.aspx.designer.cs">
-      <DependentUpon>AccountsDashBoard.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Accounts\DebitnoteforFactory.aspx.cs">
       <DependentUpon>DebitnoteforFactory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1340,6 +1388,13 @@
     </Compile>
     <Compile Include="Accounts\DebitNoteGenerator.aspx.designer.cs">
       <DependentUpon>DebitNoteGenerator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\Debitnote\AccountsdashBoard.aspx.cs">
+      <DependentUpon>AccountsdashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\Debitnote\AccountsdashBoard.aspx.designer.cs">
+      <DependentUpon>AccountsdashBoard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx.cs">
       <DependentUpon>DebitSupplierAgainstASNShortage.aspx</DependentUpon>
@@ -1390,6 +1445,13 @@
     <Compile Include="Administrator\UserProfileCreation.aspx.designer.cs">
       <DependentUpon>UserProfileCreation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Approvals\ASQApprovals.aspx.cs">
+      <DependentUpon>ASQApprovals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Approvals\ASQApprovals.aspx.designer.cs">
+      <DependentUpon>ASQApprovals.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Approvals\AtcprojectionApproval.aspx.cs">
       <DependentUpon>AtcprojectionApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1433,6 +1495,14 @@
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\HtmlHelperExtensions.cs" />
+    <Compile Include="Areas\ArtMVC\ArtMVCAreaRegistration.cs" />
+    <Compile Include="Areas\ArtMVC\Controllers\ApproveLaysheetController.cs" />
+    <Compile Include="Areas\ArtMVC\Controllers\HomeController.cs" />
+    <Compile Include="Areas\ArtMVC\Models\ViewModel\ApprovelaysheetModel.cs" />
+    <Compile Include="Areas\ITAdministrator\Controllers\ITAdministratorController.cs" />
+    <Compile Include="Areas\ITAdministrator\ITAdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\MVCControls.cs" />
+    <Compile Include="Areas\Repository.cs" />
     <Compile Include="ArtLogin.aspx.cs">
       <DependentUpon>ArtLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1510,6 +1580,21 @@
       <DependentUpon>MyMenuBar.ascx</DependentUpon>
     </Compile>
     <Compile Include="ControlTreeExtensions.cs" />
+    <Compile Include="DataModelAtcWorld\ArtCutPlanASQDet.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ArtCutPlanMarkerSizeDetail.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ArtJobContractMaster.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ArtLaySheetDetail.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\ArtLaySheetMasterData.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelAtcWorld\ASQAllocationMaster_tbl.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
@@ -1993,6 +2078,9 @@
     <Compile Include="DataModels\ServiceTypeMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\ShipmentHandoverColorSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\ShipmentHandOverDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2122,6 +2210,9 @@
     <Compile Include="DataModels\Template_Master.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\TempProductionData.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\TransferToGstockDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2166,6 +2257,16 @@
     <Compile Include="DBTransaction\PoPackTransaction.cs" />
     <Compile Include="DBTransaction\ProcurementTransaction.cs" />
     <Compile Include="DBTransaction\Productiontransaction\CutPlanTransaction.cs" />
+    <Compile Include="DynamicMenuBar.ascx.cs">
+      <DependentUpon>DynamicMenuBar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DynamicMenuBar.ascx.designer.cs">
+      <DependentUpon>DynamicMenuBar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx.cs">
       <DependentUpon>DeliveryReturnFabricAgainstCutOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2243,6 +2344,13 @@
     <Compile Include="Production\Cutting\CutplanAndRollofAtc.aspx.designer.cs">
       <DependentUpon>CutplanAndRollofAtc.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\Cutting\LaysheetApproval.aspx.cs">
+      <DependentUpon>LaysheetApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\LaysheetApproval.aspx.designer.cs">
+      <DependentUpon>LaysheetApproval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Production\Cutting\LaysheetRollEditor.aspx.cs">
       <DependentUpon>LaysheetRollEditor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2277,6 +2385,13 @@
     </Compile>
     <Compile Include="Production\Schedular\ASQMonthShipmentClosing.aspx.designer.cs">
       <DependentUpon>ASQMonthShipmentClosing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Schedular\ProductionReporting.aspx.cs">
+      <DependentUpon>ProductionReporting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Schedular\ProductionReporting.aspx.designer.cs">
+      <DependentUpon>ProductionReporting.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx.cs">
       <DependentUpon>ShipementHandoverfromAtcWorld.aspx</DependentUpon>
@@ -2338,9 +2453,6 @@
     </Compile>
     <Compile Include="Error\ErrorPage.aspx.designer.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeliveryOrderCountry.aspx.cs">
       <DependentUpon>DeliveryOrderCountry.aspx</DependentUpon>
@@ -3480,6 +3592,13 @@
     <Compile Include="Reports\Production\MSI\OrderOnhandReportofyearfactorywise.aspx.designer.cs">
       <DependentUpon>OrderOnhandReportofyearfactorywise.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Production\MSI\SalesReport.aspx.cs">
+      <DependentUpon>SalesReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Production\MSI\SalesReport.aspx.designer.cs">
+      <DependentUpon>SalesReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Production\MSI\Yearly Shipment Report.aspx.cs">
       <DependentUpon>Yearly Shipment Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3857,6 +3976,7 @@
     <EmbeddedResource Include="Reports\RDLC\ProfitabilityofMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PUR.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PurchaseReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\SalesReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SampCutreqReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\s-ro.rdlc" />
@@ -3864,18 +3984,23 @@
     <EmbeddedResource Include="Reports\RDLC\SampCutreqReportPending.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\servicepo.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Shipment Handover.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ShipmentReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ShortclosedofMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SPOstatus.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SPURREPORT.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\sro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\STOCK-MRN.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\stockdo.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\TargetofMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Targetshipmentdetails.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\WIPReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\WrongPoReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\YearlyShippedNew.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
+    <Folder Include="Areas\ITAdministrator\Models\" />
+    <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
   </ItemGroup>
   <PropertyGroup>

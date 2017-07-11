@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using ArtWebApp.DataModelAtcWorld;
+
 namespace ArtWebApp.BLL.ProductionBLL
 {
     public class JobContractData
@@ -119,58 +121,87 @@ namespace ArtWebApp.BLL.ProductionBLL
             String Donum = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
-
-
-                if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
+                using (AtcWorldEntities atcenty = new AtcWorldEntities())
                 {
 
-                    JobContractMaster jcmstr = new JobContractMaster();
-                    jcmstr.AtcID = this.JCmstrdata.AtcID;
-                    jcmstr.AddedDate = DateTime.Now;
-                    jcmstr.AddedBy = this.JCmstrdata.AddedBy;
-                    jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
-                    jcmstr.Remark = this.JCmstrdata.remark;
-                    jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
-                    jcmstr.CM = this.JCmstrdata.CMCost;
-                    enty.JobContractMasters.Add(jcmstr);
 
 
-                    enty.SaveChanges();
+               
 
-                    Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-
-
-
-
-
-                    enty.SaveChanges();
-                }
-                else
-                {
-
-                    var q = from jbmstr in enty.JobContractMasters
-                            where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
-                            select jbmstr;
-                    foreach (var element in q)
+                    if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
                     {
 
+                        JobContractMaster jcmstr = new JobContractMaster();
+                        jcmstr.AtcID = this.JCmstrdata.AtcID;
+                        jcmstr.AddedDate = DateTime.Now;
+                        jcmstr.AddedBy = this.JCmstrdata.AddedBy;
+                        jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
+                        jcmstr.Remark = this.JCmstrdata.remark;
+                        jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                        jcmstr.CM = this.JCmstrdata.CMCost;
+                        enty.JobContractMasters.Add(jcmstr);
 
-                        element.AddedDate = DateTime.Now;
-                        element.AddedBy = this.JCmstrdata.AddedBy;
 
-                        element.Remark = this.JCmstrdata.remark;
-                        Donum = element.JOBContractNUM;
-                        element.CM = this.JCmstrdata.CMCost;
+                        enty.SaveChanges();
+
+                        Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
 
 
+                        ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
+                                          
+                        ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;                     
+                        ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                        ajcmstr.CM = this.JCmstrdata.CMCost;
+                        ajcmstr.JobContractNum = Donum;
+                        enty.JobContractMasters.Add(jcmstr);
+
+
+                        atcenty.SaveChanges();
+                        enty.SaveChanges();
+                    }
+                    else
+                    {
+
+                        var q = from jbmstr in enty.JobContractMasters
+                                where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
+                                select jbmstr;
+                        foreach (var element in q)
+                        {
+
+
+                            element.AddedDate = DateTime.Now;
+                            element.AddedBy = this.JCmstrdata.AddedBy;
+
+                            element.Remark = this.JCmstrdata.remark;
+                            Donum = element.JOBContractNUM;
+                            element.CM = this.JCmstrdata.CMCost;
+
+
+
+                        }
+
+
+                        var q1 = from jbmstr in atcenty.ArtJobContractMasters
+                                where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == this.JCmstrdata.Location_Pk
+                                select jbmstr;
+                        foreach (var element in q1)
+                        {
+
+
+                           
+                            element.CM = this.JCmstrdata.CMCost;
+
+
+
+                        }
+                        atcenty.SaveChanges();
+                        enty.SaveChanges();
 
                     }
-                    enty.SaveChanges();
-
                 }
 
 
-         
+
 
             }
 
@@ -556,19 +587,56 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
                     shpdert.AddedDate = di.AddedDate;
                     shpdert.POPackId = int.Parse(di.Popackid.ToString());
                     shpdert.OurStyleID = int.Parse(di.OurStyleId.ToString());
+                    shpdert.ProducedLctn_PK = int.Parse(di.ProducedLctn_PK.ToString());
+                    shpdert.SDODate = di.ShipmentDate;
                     enty.ShipmentHandOverDetails.Add(shpdert);
+                    enty.SaveChanges();
+
+
+
+                    ProductionReportDetail prrdetdet = new ProductionReportDetail();
+                 
+                    prrdetdet.CutQty = di.ShippedQty;
+                    prrdetdet.SewnQty = di.ShippedQty;
+                    prrdetdet.WashedQty = di.ShippedQty;
+                    prrdetdet.PackedQty = di.ShippedQty;
+                    prrdetdet.ShippedQty = di.ShippedQty;
+                    prrdetdet.AddedBy = di.AddedBy;
+                    prrdetdet.AddedDate = di.AddedDate;
+                    prrdetdet.POPackId = int.Parse(di.Popackid.ToString());
+                    prrdetdet.OurStyleID = int.Parse(di.OurStyleId.ToString());
+                    prrdetdet.ProducedLctn_PK = int.Parse(di.ProducedLctn_PK.ToString());
+                    prrdetdet.SDODate = di.ShipmentDate;
+                    enty.ProductionReportDetails.Add(prrdetdet);
+
+
+
+
+
+
+
 
 
 
                     var q = from atcshp in enty.ATCWorldToArtShipDatas
                             where atcshp.ArtLocation_PK == shpmstrdata.LocationPK_pk && atcshp.POPackID == di.Popackid && atcshp.OurStyleId == di.OurStyleId
-                            && atcshp.SDONo == di.SDO
+                            && atcshp.SDONo == di.SDO 
                             select atcshp;
                     foreach(var element in q)
                     {
                         element.IsBooked = "Y";
                         element.BookedBy = di.AddedBy;
                         element.BookedDate = di.AddedDate;
+
+
+                        ShipmentHandoverColorSizeDetail shpclrsizedet = new DataModels.ShipmentHandoverColorSizeDetail();
+
+                        shpclrsizedet.ShipmentHandMaster_PK = shpmstr.ShipmentHandMaster_PK;
+                        shpclrsizedet.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                        shpclrsizedet.ShipmentHandOver_PK = shpdert.ShipmentHandOver_PK;
+                        shpclrsizedet.Qty = element.ShipQty;
+                        enty.ShipmentHandoverColorSizeDetails.Add(shpclrsizedet);
+
                     }
 
                 }
@@ -620,7 +688,9 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
             public int JobContractDetail_pk { get; set; }
         public int Popackid { get; set; }
         public int OurStyleId { get; set; }
-
+        public int ProducedLctn_PK { get; set; }
+        
+             public DateTime ShipmentDate { get; set; }
         public int ShippedQty { get; set; }
             public DateTime AddedDate { get; set; }
             public string AddedBy { get; set; }

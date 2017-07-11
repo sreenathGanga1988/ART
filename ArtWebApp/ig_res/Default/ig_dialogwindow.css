@@ -71,7 +71,7 @@
 {
 	background-color:Transparent;
 	background-position:top left ;
-	background-image: url(images/igdw_HeaderCornerLeft.gif);
+	background-image: url(/ig_res/Default/images/igdw_HeaderCornerLeft.gif);
 	width: 9px;
 }
 
@@ -79,7 +79,7 @@
 /* used only when header visible */
 .igdw_HeaderContent
 {
-	background-image: url(images/igdw_HeaderContent.gif);
+	background-image: url(/ig_res/Default/images/igdw_HeaderContent.gif);
 }
 
 
@@ -87,7 +87,7 @@
 .igdw_HeaderCornerRight
 {
 	background-position:top right ;
-	background-image: url(images/igdw_HeaderCornerRight.gif);
+	background-image: url(/ig_res/Default/images/igdw_HeaderCornerRight.gif);
 	width: 9px;
 }
 
@@ -96,7 +96,7 @@
 .igdw_BodyCornerTopLeft
 {
 	background-repeat:no-repeat;
-	background-image: url(images/igdw_BodyCornerTopLeft.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyCornerTopLeft.gif);
 	width: 6px;
 }
 
@@ -105,7 +105,7 @@
 .igdw_BodyEdgeTop
 {
 	background-repeat:repeat-x;
-	background-image: url(images/igdw_BodyEdgeTop.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyEdgeTop.gif);
 }
 
 
@@ -114,7 +114,7 @@
 {
 	background-repeat:no-repeat;
 	background-position:right ;
-	background-image: url(images/igdw_BodyCornerTopRight.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyCornerTopRight.gif);
 	width: 6px;
 }
 
@@ -142,7 +142,7 @@
 {
 	background-color:WhiteSmoke;
 	background-repeat:no-repeat;
-	background-image: url(images/igdw_BodyCornerBottomLeft.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyCornerBottomLeft.gif);
 	font-size:1px;
 	height: 14px;
 	width: 9px;
@@ -160,7 +160,7 @@
 {
 	background-color:Gainsboro;
 	background-repeat:no-repeat;
-	background-image: url(images/igdw_BodyCornerBottomRight.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyCornerBottomRight.gif);
 	background-position:right top;	
 	font-size:1px;
 	height: 14px;
@@ -172,7 +172,7 @@
 {
 	background-color:WhiteSmoke;
 	background-repeat:repeat-x;
-	background-image: url(images/igdw_BodyEdgeBottom.gif);
+	background-image: url(/ig_res/Default/images/igdw_BodyEdgeBottom.gif);
 	font-size:1px;
 	border-top:solid 1px #BBBBBB;
 	height: 15px;

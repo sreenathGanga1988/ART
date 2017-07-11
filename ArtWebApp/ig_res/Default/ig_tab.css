@@ -3,7 +3,7 @@
 	background-color:#F2F7FB;
 	background-repeat:repeat-x;
 	background-position:bottom ;
-	background-image: url(images/tabBG.jpg);
+	background-image: url(/ig_res/Default/images/tabBG.jpg);
 	border:solid 1px #699BC9;
 }
 
@@ -16,7 +16,7 @@
 
 .igtab_DefaultTab_Top
 {
-	background-image: url(images/tabtop_normal_f.jpg);
+	background-image: url(/ig_res/Default/images/tabtop_normal_f.jpg);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #5F8FBD;
@@ -30,7 +30,7 @@
 .igtab_DefaultTab_Top_Rounded
 {
 	background-color:Transparent !important;
-	background-image: url(images/igwt_tab_normal.jpg);
+	background-image: url(/ig_res/Default/images/igwt_tab_normal.jpg);
 	font-size:10pt;
 	font-family: Tahoma;
 	border-bottom:solid 1px #699BC9;
@@ -59,7 +59,7 @@
 {
 	background-color:Transparent;
 	background-position:bottom ;
-	background-image: url(images/tabbottom_normal_f.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_normal_f.jpg);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #507DA7;
@@ -75,7 +75,7 @@
 	background-color:Transparent !important;
 	background-repeat:no-repeat;
 	background-position:left bottom ;
-	background-image: url(images/tabbottom_normal.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_normal.jpg);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #699BC9;
@@ -100,7 +100,7 @@
 .igtab_DefaultTab_Left
 {
 	background-color:Transparent;
-	background-image: url(images/tab_left_normal_f.gif);
+	background-image: url(/ig_res/Default/images/tab_left_normal_f.gif);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #4A77A0;
@@ -116,7 +116,7 @@
 	background-color:White !important;
 	background-repeat:no-repeat;
 	background-position:left top ;
-	background-image: url(images/tab_left_normal.gif);
+	background-image: url(/ig_res/Default/images/tab_left_normal.gif);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #699BC9;
@@ -144,7 +144,7 @@
 .igtab_DefaultTab_Right
 {
 	background-color:Transparent;
-	background-image: url(images/tab_right_normal_f.gif);
+	background-image: url(/ig_res/Default/images/tab_right_normal_f.gif);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #48749C;
@@ -160,7 +160,7 @@
 	background-color:Transparent !important;
 	background-repeat:no-repeat;
 	background-position:right top ;
-	background-image: url(images/tab_right_normal.gif);
+	background-image: url(/ig_res/Default/images/tab_right_normal.gif);
 	font-size:9pt;
 	font-family: Tahoma;
 	border:solid 1px #699BC9;
@@ -201,7 +201,7 @@
 .igtab_HoverTab_Top
 {
 	background-color:#F0F0FF;
-	background-image: url(images/tabtop_hover_f.jpg);
+	background-image: url(/ig_res/Default/images/tabtop_hover_f.jpg);
 	border-color:#699BC9;
 }
 
@@ -219,14 +219,14 @@
 
 .igtab_HoverTab_Top_Rounded
 {
-	background-image: url(images/igwt_tab_hover.jpg);
+	background-image: url(/ig_res/Default/images/igwt_tab_hover.jpg);
 }
 
 
 .igtab_HoverTab_Bottom
 {
 	background-position:bottom ;
-	background-image: url(images/tabbottom_hover_f.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_hover_f.jpg);
 	border-color:#699BC9;
 }
 
@@ -242,14 +242,14 @@
 
 .igtab_HoverTab_Bottom_Rounded
 {
-	background-image: url(images/tabbottom_hover.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_hover.jpg);
 }
 
 
 .igtab_HoverTab_Left
 {
 	background-color:#F0F0FF;
-	background-image: url(images/tab_left_hover_f.gif);
+	background-image: url(/ig_res/Default/images/tab_left_hover_f.gif);
 	border-color:#699BC9;
 	border-right-color:Transparent;
 }
@@ -267,7 +267,7 @@
 
 .igtab_HoverTab_Left_Rounded
 {
-	background-image: url(images/tab_left_hover.gif);
+	background-image: url(/ig_res/Default/images/tab_left_hover.gif);
 }
 
 
@@ -275,7 +275,7 @@
 {
 	background-color:#F0F0FF;
 	background-position:right ;
-	background-image: url(images/tab_right_hover_f.gif);
+	background-image: url(/ig_res/Default/images/tab_right_hover_f.gif);
 	border-color:#699BC9;
 	border-left-color:Transparent;
 }
@@ -292,7 +292,7 @@
 
 .igtab_HoverTab_Right_Rounded
 {
-	background-image: url(images/tab_right_hover.gif);
+	background-image: url(/ig_res/Default/images/tab_right_hover.gif);
 }
 
 
@@ -307,7 +307,7 @@
 
 .igtab_SelectedTab_Top_Rounded
 {
-	background-image: url(images/igwt_tab_selected.jpg);
+	background-image: url(/ig_res/Default/images/igwt_tab_selected.jpg);
 	border-width:0px;
 	border-bottom:solid 1px #699BC9;
 	cursor:default;
@@ -317,7 +317,7 @@
 .igtab_SelectedTab_Bottom
 {
 	background-color:#FEF0F0;
-	background-image: url(images/tabbottom_selected_f.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_selected_f.jpg);
 	border-color:#699BC9;
 	border-top-color:Transparent;
 }
@@ -325,7 +325,7 @@
 
 .igtab_SelectedTab_Bottom_Rounded
 {
-	background-image: url(images/tabbottom_selected.jpg);
+	background-image: url(/ig_res/Default/images/tabbottom_selected.jpg);
 	border-color:Transparent;
 	border-top-color:#699BC9;
 	cursor:default;
@@ -335,7 +335,7 @@
 .igtab_SelectedTab_Left
 {
 	background-color:#FEF0F0;
-	background-image: url(images/tab_left_f.gif);
+	background-image: url(/ig_res/Default/images/tab_left_f.gif);
 	border-color:#699BC9;
 	border-right-color:Transparent;
 }
@@ -343,7 +343,7 @@
 
 .igtab_SelectedTab_Left_Rounded
 {
-	background-image: url(images/tab_left.gif);
+	background-image: url(/ig_res/Default/images/tab_left.gif);
 	border-color:Transparent;
 	border-right:solid 1px #6CA3D2;
 	border-bottom-width:0px;
@@ -354,7 +354,7 @@
 .igtab_SelectedTab_Right
 {
 	background-color:#FEF0F0;
-	background-image: url(images/tab_right_f.gif);
+	background-image: url(/ig_res/Default/images/tab_right_f.gif);
 	border-color:#699BC9;
 	border-left-color:Transparent;
 }
@@ -362,7 +362,7 @@
 
 .igtab_SelectedTab_Right_Rounded
 {
-	background-image: url(images/tab_right.gif);
+	background-image: url(/ig_res/Default/images/tab_right.gif);
 	border-color:Transparent;
 	border-left-color:#699BC9;
 	cursor:default;

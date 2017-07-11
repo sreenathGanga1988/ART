@@ -105,6 +105,7 @@
                                 <asp:BoundField DataField="BuyerStyle" HeaderText="BuyerStyle" SortExpression="BuyerStyle" />
                                 <asp:BoundField DataField="PoPacknum" HeaderText="PoPacknum" SortExpression="PoPacknum" />
                                 <asp:BoundField DataField="BuyerPO" HeaderText="BuyerPO" SortExpression="BuyerPO" />
+                                  <asp:BoundField DataField="LocationName" HeaderText="Produced In" SortExpression="LocationName" />
                                 <asp:TemplateField HeaderText="SDONo" SortExpression="SDONo">
                                   
                                     <ItemTemplate>
@@ -120,6 +121,23 @@
                                 <asp:Label runat="server" ID="lblTotalValue" ></asp:Label>
                             </FooterTemplate>
                                 </asp:TemplateField>
+
+                                 <asp:TemplateField HeaderText="lctn_PK" SortExpression="lctn_PK">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblProductionArtLocation_PK" runat="server" Text='<%# Bind("ProductionArtLocation") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="ShipmentDate" SortExpression="ShipmentDate">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_ShipmentDate" runat="server" Text='<%# Bind("ShipmentDate") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                
+                               
+
                             </Columns>
             <FooterStyle BackColor="#FFFFCC" ForeColor="#000066" />
                             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

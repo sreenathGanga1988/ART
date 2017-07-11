@@ -5,9 +5,9 @@
 <%@ Register Assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.ListControls" TagPrefix="ig" %>
 
 <%@ Register Assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.LayoutControls" TagPrefix="ig" %>
+<%@ Register Src="~/DynamicMenuBar.ascx" TagPrefix="uc1" TagName="DynamicMenuBar" %>
+<%--<%@ Register Src="~/Controls/MyMenuBar.ascx" TagPrefix="uc2" TagName="MyMenuBar" %>--%>
 
-<%@ Register src="Controls/MyMenuBar.ascx" tagname="MyMenuBar" tagprefix="uc1" %>
-<%@ Register Src="~/Controls/MyMenuBar.ascx" TagPrefix="uc2" TagName="MyMenuBar" %>
 
 
 <!DOCTYPE html>
@@ -189,6 +189,13 @@
                         <td >
                              <asp:Label ID="lbl_loc" runat="server" />
                         </td>
+                          
+                        <td>
+                            <a href =""
+                            <asp:HyperLink ID="LinkButton2" runat="server" NavigateUrl="" >Logout</asp:HyperLink></td>
+                            <a class="btn btn-default" href="@Url.Action("ShowPendingDelivery", "Delivery",new { area = "Cutting" })">Learn more &raquo;</a>
+
+                        </td>
                        <td >
                             <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" class="top-log-but">Logout</asp:LinkButton></td>
                        <td >
@@ -213,12 +220,15 @@
             <div class="left-logo-set">
                 <img src="/image/atrako-black-logo.png"></div>
 
-   <%--         <uc2:MyMenuBar runat="server" id="MyMenuBar" />--%>
+  <%--  <uc2:MyMenuBar runat="server" id="MyMenuBar" />--%>
+               
+               
+                  <%--   <uc1:DynamicMenuBar runat="server" id="DynamicMenuBar" />--%>
 
-              <%--<ig:WebExplorerBar ID="WebExplorerBar1" runat="server" EnableViewState="true" EnableAjaxViewState="true" AutoPostBackFlags-ItemClick="Off" Width="97.8%">
-            </ig:WebExplorerBar>--%>
-
-            <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="100%" Height="100%" Font-Size="Smaller" >
+                
+      
+         
+              <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="100%" Height="100%" Font-Size="Smaller" >
                 <Groups>
                     <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Masters" Visible="True" Value="M" >
                         <Items>
@@ -406,7 +416,7 @@
                                            
                                         </Items>
                                     </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/ExtraQtyRequest.aspx" Text="Extra BOM Qty Request">
+                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/ExtraQtyRequest.aspx" Text="Extra BOM Qty Request" Visible="False">
                                     </ig:ExplorerBarItem>
                                     <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/AsQPODependancy.aspx" Text="PO Dependant">
                                     </ig:ExplorerBarItem>
@@ -592,8 +602,7 @@
                                     <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/SamplingCutOrder.aspx" Text="Sampling CutOrder">
                                     </ig:ExplorerBarItem>
 
-                                 <%--   <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/MarkerDetails.aspx" Text="CutOrder details">
-                                    </ig:ExplorerBarItem>--%>
+                                
                                 </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem  Text="Job Contract">
@@ -607,7 +616,7 @@
                                     
                                 </Items>
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandover.aspx" Text="Shipment Handover" Visible="False">
+                            <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandover.aspx" Text="Shipment Handover">
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Production/ProductionReporting.aspx" Text="Production Reporting">
                             </ig:ExplorerBarItem>
@@ -632,11 +641,17 @@
                                         </Items>
 
                                     </ig:ExplorerBarItem>
-                                                                        <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="Lay Sheet">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LayesheetRoll.aspx" Text="Lay Sheet Rolls">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetRollEditor.aspx" Text="LaySheet Rolls Edit">
+                                                                        <ig:ExplorerBarItem Text="Laysheet">
+                                                                            <Items>
+                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LayesheetRoll.aspx" Text="lay Sheet Rolls">
+                                                                                </ig:ExplorerBarItem>
+                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetRollEditor.aspx" Text="LaySheetRoll Edit ">
+                                                                                </ig:ExplorerBarItem>
+                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="LaySheet">
+                                                                                </ig:ExplorerBarItem>
+                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetApproval.aspx" Text="Lay Sheet Approval">
+                                                                                </ig:ExplorerBarItem>
+                                                                            </Items>
                                     </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
@@ -657,6 +672,8 @@
                                     </ig:ExplorerBarItem>
                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQClosing.aspx" Text="ASQ Short Closing" Value="Short Close ASQ">
                                              </ig:ExplorerBarItem>
+                                      <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ProductionReporting.aspx" Text="Production Update">
+                                      </ig:ExplorerBarItem>
                                 </Items>
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="Shipment  HandOver">
@@ -725,6 +742,8 @@
                                     <ig:ExplorerBarItem Text="Debit Note for Supplier">
                                     </ig:ExplorerBarItem>
                                 </Items>
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem NavigateUrl="~/Accounts/Debitnote/AccountsdashBoard.aspx" Text="Accounting dash Board">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -836,6 +855,8 @@
                                             </ig:ExplorerBarItem>
                                             <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/ASQofMonthofFactory.aspx" Text="Factory wise ASQ of Month">
                                             </ig:ExplorerBarItem>
+                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/SalesReport.aspx" Text="Sales report">
+                                            </ig:ExplorerBarItem>
                                         </Items>
                                     </ig:ExplorerBarItem>
                                 </Items>
@@ -932,7 +953,7 @@
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem Text="Atc projection Approval" NavigateUrl="~/Approvals/AtcprojectionApproval.aspx">
                             </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Item">
+                            <ig:ExplorerBarItem Text="Asq Approval" NavigateUrl="~/Approvals/ASQApprovals.aspx">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -943,6 +964,8 @@
                             <ig:ExplorerBarItem NavigateUrl="~/Administrator/SupportTicket.aspx" Text="Support">
                             </ig:ExplorerBarItem>
                             <ig:ExplorerBarItem NavigateUrl="~/Administrator/Tester.aspx" Text="Trial Form">
+                            </ig:ExplorerBarItem>
+                            <ig:ExplorerBarItem ImageUrl="~/Areas/ArtMVC/Controllers/Home" Text="MVC">
                             </ig:ExplorerBarItem>
                         </Items>
                     </ig:ExplorerBarGroup>
@@ -981,6 +1004,8 @@
 
        
 
+       
+
         </div>
 
 
@@ -1009,6 +1034,9 @@
 
             </asp:ContentPlaceHolder>
             </div>
+
+
+            
 
 
         </div>
