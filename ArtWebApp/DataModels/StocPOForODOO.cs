@@ -27,5 +27,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ReceivedQty { get; set; }
         public string SupplierName { get; set; }
         public string OdooLocation { get; set; }
+        public Nullable<decimal> UOM_PK { get; set; }
+    
+        public virtual UOMMaster UOMMaster { get; set; }
     }
 }

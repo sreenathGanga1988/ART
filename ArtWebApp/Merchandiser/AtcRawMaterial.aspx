@@ -160,7 +160,7 @@
                                                 <Header Text="AtcId">
                                                 </Header>
                                             </ig:BoundDataField>
-                                            <ig:BoundDataField DataFieldName="TempCode" Hidden="True" Key="TempCode">
+                                            <ig:BoundDataField DataFieldName="TempCode" Key="TempCode">
                                                 <Header Text="Code">
                                                 </Header>
                                             </ig:BoundDataField>

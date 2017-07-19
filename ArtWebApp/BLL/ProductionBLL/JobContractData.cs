@@ -589,7 +589,10 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
                     shpdert.OurStyleID = int.Parse(di.OurStyleId.ToString());
                     shpdert.ProducedLctn_PK = int.Parse(di.ProducedLctn_PK.ToString());
                     shpdert.SDODate = di.ShipmentDate;
+                    shpdert.CombinationCode = shpdert.POPackId.ToString().Trim() + "/" + shpdert.OurStyleID.ToString().Trim();
+
                     enty.ShipmentHandOverDetails.Add(shpdert);
+                 
                     enty.SaveChanges();
 
 

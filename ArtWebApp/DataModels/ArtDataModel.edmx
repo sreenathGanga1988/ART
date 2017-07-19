@@ -318,6 +318,26 @@
           <Property Name="Addeddate" Type="datetime" />
           <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CreditNoteMaster">
+          <Key>
+            <PropertyRef Name="CreditnoteID" />
+          </Key>
+          <Property Name="CreditnoteID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreidtFor" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreditName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DebitFor" Type="nvarchar" MaxLength="50" />
+          <Property Name="DebitorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AmountUsed" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="CreditNoteNUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCredit" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="CurrencyMaster">
           <Key>
             <PropertyRef Name="CurrencyID" />
@@ -1902,6 +1922,7 @@
           <Property Name="SDONum" Type="nvarchar" MaxLength="50" />
           <Property Name="ProducedLctn_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SDODate" Type="datetime" />
+          <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ShipmentHandOverMaster">
           <Key>
@@ -2189,6 +2210,7 @@
           <Property Name="ReceivedQty" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SupplierName" Type="nvarchar" MaxLength="100" />
           <Property Name="OdooLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="UOM_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="StyleColor">
           <Key>
@@ -2273,6 +2295,31 @@
           <Property Name="ParentID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="isEnable" Type="nchar" MaxLength="10" />
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SuplierASNDebitDetails">
+          <Key>
+            <PropertyRef Name="SupDebitDetID" />
+          </Key>
+          <Property Name="SupDebitDetID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierASNDebitID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SupplierDoc_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Syard" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Ayard" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ShortageYard" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="unitprice" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Po_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="SupplierDebitAsnMaster">
+          <Key>
+            <PropertyRef Name="SupplierASNDebitID" />
+          </Key>
+          <Property Name="SupplierASNDebitID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="IsPosted" Type="nchar" MaxLength="10" />
+          <Property Name="DebitNum" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SupplierDocumentMaster">
           <Key>
@@ -2545,6 +2592,8 @@
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="UserProfile_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Department_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="nchar" MaxLength="10" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="UserProfileMaster">
           <Key>
@@ -4638,6 +4687,18 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StocPOForODOO_UOMMaster">
+          <End Role="UOMMaster" Type="Self.UOMMaster" Multiplicity="0..1" />
+          <End Role="StocPOForODOO" Type="Self.StocPOForODOO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="StocPOForODOO">
+              <PropertyRef Name="UOM_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StyleCostingComponentDetails_CostingComponentMaster">
           <End Role="CostingComponentMaster" Type="Self.CostingComponentMaster" Multiplicity="0..1" />
           <End Role="StyleCostingComponentDetails" Type="Self.StyleCostingComponentDetails" Multiplicity="*" />
@@ -4695,6 +4756,18 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Principal>
             <Dependent Role="StyleCostingMaster">
               <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
+          <End Role="SupplierDebitAsnMaster" Type="Self.SupplierDebitAsnMaster" Multiplicity="0..1" />
+          <End Role="SuplierASNDebitDetails" Type="Self.SuplierASNDebitDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierDebitAsnMaster">
+              <PropertyRef Name="SupplierASNDebitID" />
+            </Principal>
+            <Dependent Role="SuplierASNDebitDetails">
+              <PropertyRef Name="SupplierASNDebitID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5163,6 +5236,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="CostingComponentMaster" EntityType="Self.CostingComponentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountryMaster" EntityType="Self.CountryMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourierTable" EntityType="Self.CourierTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditNoteMaster" EntityType="Self.CreditNoteMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrencyMaster" EntityType="Self.CurrencyMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutOrderDetails" EntityType="Self.CutOrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutOrderDO" EntityType="Self.CutOrderDO" Schema="dbo" store:Type="Tables" />
@@ -5293,6 +5367,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="StyleCostingMaster" EntityType="Self.StyleCostingMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StyleSize" EntityType="Self.StyleSize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuMaster" EntityType="Self.SubMenuMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuplierASNDebitDetails" EntityType="Self.SuplierASNDebitDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierDebitAsnMaster" EntityType="Self.SupplierDebitAsnMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierDocumentMaster" EntityType="Self.SupplierDocumentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierInvoiceDetail" EntityType="Self.SupplierInvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierInvoiceMaster" EntityType="Self.SupplierInvoiceMaster" Schema="dbo" store:Type="Tables" />
@@ -5988,6 +6064,10 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="SupplierMaster" EntitySet="SupplierMaster" />
             <End Role="StockSDocMaster" EntitySet="StockSDocMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_StocPOForODOO_UOMMaster" Association="Self.FK_StocPOForODOO_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMaster" />
+            <End Role="StocPOForODOO" EntitySet="StocPOForODOO" />
+          </AssociationSet>
           <AssociationSet Name="FK_StyleCostingComponentDetails_CostingComponentMaster" Association="Self.FK_StyleCostingComponentDetails_CostingComponentMaster">
             <End Role="CostingComponentMaster" EntitySet="CostingComponentMaster" />
             <End Role="StyleCostingComponentDetails" EntitySet="StyleCostingComponentDetails" />
@@ -6007,6 +6087,10 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <AssociationSet Name="FK_StyleCostingMaster_AtcDetails" Association="Self.FK_StyleCostingMaster_AtcDetails">
             <End Role="AtcDetails" EntitySet="AtcDetails" />
             <End Role="StyleCostingMaster" EntitySet="StyleCostingMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" Association="Self.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
+            <End Role="SupplierDebitAsnMaster" EntitySet="SupplierDebitAsnMaster" />
+            <End Role="SuplierASNDebitDetails" EntitySet="SuplierASNDebitDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierDocumentMaster_LocationMaster" Association="Self.FK_SupplierDocumentMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
@@ -7207,6 +7291,17 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           </AssociationSet>
           <EntitySet Name="ShipmentHandoverColorSizeDetails" EntityType="ArtModel.ShipmentHandoverColorSizeDetail" />
           <EntitySet Name="TempProductionDatas" EntityType="ArtModel.TempProductionData" />
+          <EntitySet Name="CreditNoteMasters" EntityType="ArtModel.CreditNoteMaster" />
+          <AssociationSet Name="FK_StocPOForODOO_UOMMaster" Association="ArtModel.FK_StocPOForODOO_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMasters" />
+            <End Role="StocPOForODOO" EntitySet="StocPOForODOOs" />
+          </AssociationSet>
+          <EntitySet Name="SuplierASNDebitDetails" EntityType="ArtModel.SuplierASNDebitDetail" />
+          <EntitySet Name="SupplierDebitAsnMasters" EntityType="ArtModel.SupplierDebitAsnMaster" />
+          <AssociationSet Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" Association="ArtModel.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
+            <End Role="SupplierDebitAsnMaster" EntitySet="SupplierDebitAsnMasters" />
+            <End Role="SuplierASNDebitDetail" EntitySet="SuplierASNDebitDetails" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -9571,6 +9666,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="ProcurementDetails" Relationship="ArtModel.FK_ProcurementDetails_UOMMaster" FromRole="UOMMaster" ToRole="ProcurementDetail" />
           <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_Template_Master_UOMMaster" FromRole="UOMMaster" ToRole="Template_Master" />
           <NavigationProperty Name="SkuRawMaterialMasters" Relationship="ArtModel.FK_SkuRawMaterialMaster_UOMMaster" FromRole="UOMMaster" ToRole="SkuRawMaterialMaster" />
+          <NavigationProperty Name="StocPOForODOOs" Relationship="ArtModel.FK_StocPOForODOO_UOMMaster" FromRole="UOMMaster" ToRole="StocPOForODOO" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -9587,6 +9683,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="UserProfile_Pk" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="UserProfileMaster" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserMaster" ToRole="UserProfileMaster" />
           <Property Name="Department_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="WrongInventoryDocument">
           <Key>
@@ -11398,6 +11496,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="ReceivedQty" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SupplierName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="OdooLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UOM_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="UOMMaster" Relationship="ArtModel.FK_StocPOForODOO_UOMMaster" FromRole="StocPOForODOO" ToRole="UOMMaster" />
         </EntityType>
         <EntityType Name="InventoryMissingRequest">
           <Key>
@@ -12977,6 +13077,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="JobContractDetail" Relationship="ArtModel.FK_ShipmentHandOverDetails_JobContractDetail" FromRole="ShipmentHandOverDetail" ToRole="JobContractDetail" />
           <NavigationProperty Name="ShipmentHandOverMaster" Relationship="ArtModel.FK_ShipmentHandOverDetails_ShipmentHandOverMaster" FromRole="ShipmentHandOverDetail" ToRole="ShipmentHandOverMaster" />
           <Property Name="SDODate" Type="DateTime" Precision="3" />
+          <Property Name="CombinationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ShipmentHandOverDetails_JobContractDetail">
           <End Type="ArtModel.JobContractDetail" Role="JobContractDetail" Multiplicity="0..1" />
@@ -13058,6 +13159,77 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="CreditNoteMaster">
+          <Key>
+            <PropertyRef Name="CreditnoteID" />
+          </Key>
+          <Property Name="CreditnoteID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreidtFor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreditName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebitFor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebitorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AmountUsed" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreditNoteNUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCredit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_StocPOForODOO_UOMMaster">
+          <End Type="ArtModel.UOMMaster" Role="UOMMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.StocPOForODOO" Role="StocPOForODOO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="StocPOForODOO">
+              <PropertyRef Name="UOM_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SuplierASNDebitDetail">
+          <Key>
+            <PropertyRef Name="SupDebitDetID" />
+          </Key>
+          <Property Name="SupDebitDetID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierASNDebitID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SupplierDoc_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Syard" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Ayard" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ShortageYard" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="unitprice" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Po_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="SupplierDebitAsnMaster" Relationship="ArtModel.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" FromRole="SuplierASNDebitDetail" ToRole="SupplierDebitAsnMaster" />
+        </EntityType>
+        <EntityType Name="SupplierDebitAsnMaster">
+          <Key>
+            <PropertyRef Name="SupplierASNDebitID" />
+          </Key>
+          <Property Name="SupplierASNDebitID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsPosted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SuplierASNDebitDetails" Relationship="ArtModel.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" FromRole="SupplierDebitAsnMaster" ToRole="SuplierASNDebitDetail" />
+          <Property Name="DebitNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
+          <End Type="ArtModel.SupplierDebitAsnMaster" Role="SupplierDebitAsnMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SuplierASNDebitDetail" Role="SuplierASNDebitDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierDebitAsnMaster">
+              <PropertyRef Name="SupplierASNDebitID" />
+            </Principal>
+            <Dependent Role="SuplierASNDebitDetail">
+              <PropertyRef Name="SupplierASNDebitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15293,6 +15465,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="UserMasters">
             <EntityTypeMapping TypeName="ArtModel.UserMaster">
               <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Department_PK" ColumnName="Department_PK" />
                 <ScalarProperty Name="UserProfile_Pk" ColumnName="UserProfile_Pk" />
                 <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
@@ -15506,6 +15680,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="StocPOForODOOs">
             <EntityTypeMapping TypeName="ArtModel.StocPOForODOO">
               <MappingFragment StoreEntitySet="StocPOForODOO">
+                <ScalarProperty Name="UOM_PK" ColumnName="UOM_PK" />
                 <ScalarProperty Name="OdooLocation" ColumnName="OdooLocation" />
                 <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
                 <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
@@ -16276,6 +16451,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="ShipmentHandOverDetails">
             <EntityTypeMapping TypeName="ArtModel.ShipmentHandOverDetail">
               <MappingFragment StoreEntitySet="ShipmentHandOverDetails">
+                <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
                 <ScalarProperty Name="SDODate" ColumnName="SDODate" />
                 <ScalarProperty Name="ProducedLctn_PK" ColumnName="ProducedLctn_PK" />
                 <ScalarProperty Name="SDONum" ColumnName="SDONum" />
@@ -16334,6 +16510,54 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="CutQty" ColumnName="CutQty" />
                 <ScalarProperty Name="ArtLocation_PK" ColumnName="ArtLocation_PK" />
                 <ScalarProperty Name="TempID" ColumnName="TempID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditNoteMasters">
+            <EntityTypeMapping TypeName="ArtModel.CreditNoteMaster">
+              <MappingFragment StoreEntitySet="CreditNoteMaster">
+                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
+                <ScalarProperty Name="CreditNoteNUM" ColumnName="CreditNoteNUM" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AmountUsed" ColumnName="AmountUsed" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DebitorName" ColumnName="DebitorName" />
+                <ScalarProperty Name="DebitFor" ColumnName="DebitFor" />
+                <ScalarProperty Name="CreditName" ColumnName="CreditName" />
+                <ScalarProperty Name="CreidtFor" ColumnName="CreidtFor" />
+                <ScalarProperty Name="CreditnoteID" ColumnName="CreditnoteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuplierASNDebitDetails">
+            <EntityTypeMapping TypeName="ArtModel.SuplierASNDebitDetail">
+              <MappingFragment StoreEntitySet="SuplierASNDebitDetails">
+                <ScalarProperty Name="Po_PK" ColumnName="Po_PK" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="ShortageYard" ColumnName="ShortageYard" />
+                <ScalarProperty Name="Ayard" ColumnName="Ayard" />
+                <ScalarProperty Name="Syard" ColumnName="Syard" />
+                <ScalarProperty Name="SupplierDoc_Pk" ColumnName="SupplierDoc_Pk" />
+                <ScalarProperty Name="SupplierASNDebitID" ColumnName="SupplierASNDebitID" />
+                <ScalarProperty Name="SupDebitDetID" ColumnName="SupDebitDetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierDebitAsnMasters">
+            <EntityTypeMapping TypeName="ArtModel.SupplierDebitAsnMaster">
+              <MappingFragment StoreEntitySet="SupplierDebitAsnMaster">
+                <ScalarProperty Name="DebitNum" ColumnName="DebitNum" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Supplier_PK" ColumnName="Supplier_PK" />
+                <ScalarProperty Name="SupplierASNDebitID" ColumnName="SupplierASNDebitID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

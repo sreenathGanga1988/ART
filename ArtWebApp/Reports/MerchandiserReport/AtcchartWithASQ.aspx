@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="AtcchartWithASQ.aspx.cs" Inherits="ArtWebApp.Reports.MerchandiserReport.AtcchartWithASQ" %>
 <%--<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.ListControls" tagprefix="ig" %>--%>
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%--<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%--    <link href="../../css/style.css" rel="stylesheet" />--%>
 <style type="text/css">
@@ -10,18 +10,31 @@ body
     padding: 0;
     font-family: Arial;
 }
-.modal
-{
-    position: fixed;
-    z-index: 999;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    background-color: Black;
-    filter: alpha(opacity=60);
-    opacity: 0.6;
-    -moz-opacity: 0.8;
-}
+  .modal
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: black;
+        z-index: 99;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+        -moz-opacity: 0.8;
+        min-height: 100%;
+        width: 100%;
+    }
+    .loading
+    {
+        font-family: Arial;
+        font-size: 10pt;
+        border: 5px solid #67CFF5;
+        width: 200px;
+        height: 100px;
+        display: none;
+        position: fixed;
+        background-color: White;
+        z-index: 999;
+    }
 .center
 {
     z-index: 1000;
@@ -63,8 +76,9 @@ body
    
 
     </style>
+    <script src="../../Scripts/jquery-3.1.1.js"></script>
     <script src="../../Scripts/jquery.table2excel.js"></script>
-  <%--       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+    <script src="../../Progressbar.js"></script>
       <script type="text/javascript">
 
         
@@ -158,18 +172,23 @@ body
                   var onhandtable = onhandtablegroup[i];
 
 
-                  var lbl_OnhandQty = onhandtable.getElementsByClassName('lbl_OnhandQty');
-                //  var lbl_LocationPrefixTotal = onhandtable.getElementsByClassName('lbl_LocationPrefixTotal');
-                  var lbl_onhandQtyTotalclass = onhandtable.getElementsByClassName('lbl_onhandQtyTotalclass');
-                  
-
                   var maingridrow = onhandtable.parentNode.parentNode.parentNode;
+                  var RqdQty = maingridrow.getElementsByClassName('RqdQty')[0];
+
+
+
+                  var lbl_OnhandQty = onhandtable.getElementsByClassName('lbl_OnhandQty');
+                  var lbl_onhandQtyTotalclass = onhandtable.getElementsByClassName('lbl_onhandQtyTotalclass');
+
+
+                  var lbl_BaseUOMQty = onhandtable.getElementsByClassName('lbl_BaseUOMQty');
+                  var lbl_BaseUOMQtyTotal = onhandtable.getElementsByClassName('lbl_BaseUOMQtyTotalclass');
 
                   
-                  var RqdQty = maingridrow.getElementsByClassName('RqdQty')[0];
+               
                   var lbl_pendingOnhand = maingridrow.getElementsByClassName('lbl_pendingOnhand')[0];
                  var OnhandQty=0
-
+                 var onhandbaseQty = 0;
                  for (var j = 0 ; j < lbl_OnhandQty.length; j++)
                  {
                      var tr = lbl_OnhandQty[j].parentNode.parentNode;
@@ -177,15 +196,26 @@ body
                      if (tr.style.display !="none")
                      {
                          OnhandQty = OnhandQty + parseFloat(lbl_OnhandQty[j].innerHTML);
+
+                         onhandbaseQty = onhandbaseQty + parseFloat(lbl_BaseUOMQty[j].innerHTML);
                      }
                       
 
                  }
 
+
+
+                 
+                 
+
+
+
                 // lbl_LocationPrefixTotal[0].innerHTML = OnhandQty.toString();
                  lbl_onhandQtyTotalclass[0].innerHTML = OnhandQty.toString();
+
+                 lbl_BaseUOMQtyTotal[0].innerHTML = onhandbaseQty.toString();
                
-                 var BaltoreceiveQty = parseFloat(RqdQty.innerHTML.toString()) - parseFloat(OnhandQty.toString());
+                 var BaltoreceiveQty = parseFloat(RqdQty.innerHTML.toString()) - parseFloat(onhandbaseQty.toString());
                  lbl_pendingOnhand.innerHTML = BaltoreceiveQty.toString();
               }
 
@@ -483,6 +513,8 @@ body
                                                  <asp:BoundField DataField="POQty" HeaderText="POQty" />
                                                  <asp:BoundField DataField="UomCode" HeaderText="UomCode" />
                                                    <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" />
+                                                   <asp:BoundField DataField="BaseUOMQty" HeaderText="BaseUOMQty" />
+                                                 
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
@@ -578,9 +610,29 @@ body
                                                      </ItemTemplate>
                                                        <FooterTemplate>
                                           <asp:Label ID="lbl_onhandQtyTotal" CssClass="lbl_onhandQtyTotalclass" runat="server" Text="0"></asp:Label>
+
+
+
+
+                                                        
                                       </FooterTemplate>
                                                  </asp:TemplateField>
-                                          
+
+                                              
+                                                            <asp:TemplateField HeaderText="BaseUOMQty">
+                                                   <ItemTemplate>
+                                                         <asp:Label ID="lbl_BaseUOMQty" CssClass="lbl_BaseUOMQty" runat="server" Text='<%# Bind("BaseUOMQty") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                       <FooterTemplate>
+                                          <asp:Label ID="lbl_BaseUOMQtyTotal" CssClass="lbl_BaseUOMQtyTotalclass" runat="server" Text="0"></asp:Label>
+
+
+
+
+                                                        
+                                      </FooterTemplate>
+                                                 </asp:TemplateField>
+
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
                                              <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />

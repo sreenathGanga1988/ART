@@ -5,8 +5,9 @@
 <%@ Register Assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.ListControls" TagPrefix="ig" %>
 
 <%@ Register Assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.LayoutControls" TagPrefix="ig" %>
-<%@ Register Src="~/DynamicMenuBar.ascx" TagPrefix="uc1" TagName="DynamicMenuBar" %>
-<%--<%@ Register Src="~/Controls/MyMenuBar.ascx" TagPrefix="uc2" TagName="MyMenuBar" %>--%>
+
+<%@ Register assembly="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI.DataSourceControls" tagprefix="ig" %>
+
 
 
 
@@ -25,8 +26,7 @@
     
         .headerclass
         {
-            /*float :left;
-            width:100%;*/
+          
         }
        
 
@@ -99,6 +99,11 @@
      
     
 
+          
+
+     
+    
+
    </style>
           
  
@@ -167,13 +172,9 @@
 
           <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server">
             </asp:ScriptManager>
-        <!--<div>
-           
-            </td>
-                 </tr>
-             </table>
-                
-        </div>-->
+        
+       
+     
 
         <div >
 
@@ -189,13 +190,23 @@
                         <td >
                              <asp:Label ID="lbl_loc" runat="server" />
                         </td>
-                          
+                           <td >
+                             <asp:Label ID="lbl_profile" runat="server" />
+                        </td>
                         <td>
-                            <a href =""
-                            <asp:HyperLink ID="LinkButton2" runat="server" NavigateUrl="" >Logout</asp:HyperLink></td>
-                            <a class="btn btn-default" href="@Url.Action("ShowPendingDelivery", "Delivery",new { area = "Cutting" })">Learn more &raquo;</a>
+                            
+
+                              <asp:LinkButton ID="LinkButton2" PostBackUrl="http://erp.atracorealtime.net:1936" runat="server" class="aref">ArtSam</asp:LinkButton>
 
                         </td>
+                  
+
+                   
+
+                      <td>
+                        
+                         <asp:LinkButton ID="lnK_artmvc" runat="server" OnClick="lbm_mvc_Click" class="aref">ArtAdmin</asp:LinkButton></td>
+                  
                        <td >
                             <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" class="top-log-but">Logout</asp:LinkButton></td>
                        <td >
@@ -212,7 +223,7 @@
         </div>
 
 
-        <div >
+             <div >
 
 
              <div id="mySidenav" class="menuclass">
@@ -220,806 +231,50 @@
             <div class="left-logo-set">
                 <img src="/image/atrako-black-logo.png"></div>
 
-  <%--  <uc2:MyMenuBar runat="server" id="MyMenuBar" />--%>
-               
-               
-                  <%--   <uc1:DynamicMenuBar runat="server" id="DynamicMenuBar" />--%>
 
-                
-      
+      <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+           <ContentTemplate>
+
+
+                          <ig:WebExplorerBar ID="WebExplorerBar1" runat="server"   onitemselected="WebExplorerBar1_ItemSelected" 
+                onprerender="WebExplorerBar1_PreRender" DataSourceID="whd"  GroupContentsHeight="">
+
+                   <DataBindings>
+            <ig:ExplorerBarItemBinding  TextField="MenuText" NavigateUrlField= "url" ToolTipField="MenuText" ValueField="MenuURL" />
+        </DataBindings>
+                   <AutoPostBackFlags ItemSelected="On" />
+               </ig:WebExplorerBar>
+
+       
+                   <ig:WebHierarchicalDataSource ID="whd" runat="server">
+                        <DataViews>
+                            <ig:DataView ID="MenuData_DefaultView" DataMember="DefaultView" DataSourceID="MenuData" />
+                        </DataViews>
+                        <DataRelations>
+                            <ig:DataRelation ChildColumns="ParentID" ChildDataViewID="MenuData_DefaultView" ParentColumns="Menu_PK" ParentDataViewID="MenuData_DefaultView" />
+                        </DataRelations>
+                    </ig:WebHierarchicalDataSource>
+                    <asp:SqlDataSource ID="MenuData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SubMenuMaster.Menu_PK, SubMenuMaster.MenuText, SubMenuMaster.MenuURL, SubMenuMaster.ParentID, SubMenuMaster.isEnable, SubMenuMaster.IsNormal, UserProfileRights.UserProfile_Pk,(REPLACE(REPLACE(cast(MenuURL as nvarchar(max)), CHAR(13), ''), CHAR(10), '')) AS url
+FROM            SubMenuMaster INNER JOIN
+                         UserProfileRights ON SubMenuMaster.Menu_PK = UserProfileRights.Menu_PK
+WHERE        (UserProfileRights.UserProfile_Pk = @Param1)">
+                        <SelectParameters>
+                            <asp:SessionParameter DefaultValue="0" Name="Param1" SessionField="UserProfile_Pk" />
+                        </SelectParameters>
+                          </asp:SqlDataSource>
          
-              <ig:WebExplorerBar ID="WebExplorerBar1" runat="server" GroupContentsHeight="" Width="100%" Height="100%" Font-Size="Smaller" >
-                <Groups>
-                    <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Masters" Visible="True" Value="M" >
-                        <Items>
-                            <ig:ExplorerBarItem Text="Item ">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Item Group" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Group">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Item Construction" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Construction">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Item Composition" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Composition">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Item Master" NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Master">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Width" Text="Item Width">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Weight" Text="Item Weight">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Color" Text="Item Color">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item Size" Text="Item Size">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/ItemMaster.aspx?navtype=Item UOM" Text="Item UOM">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Garments">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Garment Details" NavigateUrl="~/Masters/GarmentMaster.aspx">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Supplier">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/SuppierForm.aspx" Text="Supplier Creation">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Buyer">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/BuyerMaster/Buyermaster.aspx" Text="Buyer Creation">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/BuyerMaster/BuyerAttributes.aspx?navtype=Channel" Text="Buyer Channel">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/BuyerMaster/BuyerAttributes.aspx?navtype=Destination" Text="Buyer Destination">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/BuyerMaster/BuyerAttributes.aspx?navtype=BuyerStyle"  Text="Buyer Style">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/BuyerMaster/BuyerAttributes.aspx?navtype=PO" Text="Buyer PO">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="General">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="UOM">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Masters/UOMMaster.aspx?navtype=UOMMaster" Text="Add UOM">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Masters/UOMMaster.aspx?navtype=AltUOM" Text="Alt UOM">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/UOMMaster.aspx?navtype=PORate" Text="Currency Rate">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Season">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Masters/Types.aspx?navtype=SeasonType"   Text="Season Type">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Masters/Types.aspx?navtype=Season"   Text="Season Name">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/Types.aspx?navtype=Container" Text="Container">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Payment">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Payment Mode" NavigateUrl="~/Masters/PaymentMode.aspx">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Location">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/WarehouseMaster.aspx" Text="W/F Creation">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/CountryCreation.aspx" Text="Country/Currency">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Masters/Types.aspx?navtype=Warehouse Type" Text="LocationType">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Item">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup  GroupContentsHeight="" Text="Merchandising" Visible="True" Value="MR" >
-                        <Items>
-                            <ig:ExplorerBarItem Text="Misc">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Service PO" NavigateUrl="~/Merchandiser/ServicePO.aspx">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="General PO">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/StockPO.aspx" Text="Local General PO">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/InternationalPO.aspx" Text="Intl General PO">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/StockADN.aspx" Text="Stock ADN" Value="GPO ADN">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PurchaseHelper.aspx" Text="Item Search">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/GeneralPurchasedashBoard.aspx" Text="General Purchase DashBoard">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem  NavigateUrl="~/Merchandiser/PO/IPOSPOTracker.aspx" Text="SPO/IPO Tracker" >
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Styledetails.aspx" Text="Style">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="PO Tracking">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="ATC">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcCreation.aspx" Text="ATC Creation">
-                                    </ig:ExplorerBarItem>
-                                      <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcDetailProjection.aspx" Text="OurStyle Projection">
-                                    </ig:ExplorerBarItem>
-                                     <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Styledetails.aspx" Text="Style Details">
-                                    </ig:ExplorerBarItem>
-                                     <ig:ExplorerBarItem Text="ASQ">
-                                         <Items>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/AsQPODependancy.aspx" Text="ASQ PO Dependant">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem Text="ASQ Status Updator" NavigateUrl="~/Merchandiser/ASQ/ASQUpdator.aspx">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem Text="Add &amp; Edit ASQ" NavigateUrl="~/Merchandiser/POPack.aspx">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQShuffle.aspx" Text="ASQ Shuffle">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/PackingInstructionMaster.aspx" Text="Packing Instruction">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQAllocation.aspx" Text="ASQ Allocation">
-                                             </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQCuttableUpdate.aspx" Text="Mark ASQ Non Cuttable">
-                                             </ig:ExplorerBarItem>
-                                            
-                                         </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcRawMaterial.aspx" Text="Raw Material">
-                                    </ig:ExplorerBarItem>                                   
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/StyleCosting.aspx" Text="Style Costing">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/BOM.aspx" Text="BOM">
-                                    </ig:ExplorerBarItem>
-                                   
-                                    <ig:ExplorerBarItem Text="Incorrect Item on PO" NavigateUrl="~/Merchandiser/PO/WrongPOOrdered.aspx">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Edit">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/AtcEdit.aspx" Text="ATC Edit">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/SkuMasterEdit.aspx?navtype=Master" Text="Sku Edit">
-                                            </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/SkuMasterEdit.aspx?navtype=Detail" Text="Sku Detail Edit">
-                                            </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/POPackEdit.aspx" Text="PO Pack Edit">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Copy Costing">
-                                                <Items>
-                                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/StyleCostingCopy.aspx" Text="Within Same Atc">
-                                                    </ig:ExplorerBarItem>
-                                                </Items>
-                                            </ig:ExplorerBarItem>
-                                           
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/ProcuremntEdit.aspx" Text="Po Edit">
-                                            </ig:ExplorerBarItem>
-                                           
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/SPOEdit.aspx" Text="SPO Edit">
-                                            </ig:ExplorerBarItem>
-                                           
-                                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQUpdator.aspx" Text="ASQ Edit">
-                                            </ig:ExplorerBarItem>
-                                           
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/ExtraQtyRequest.aspx" Text="Extra BOM Qty Request" Visible="False">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/AsQPODependancy.aspx" Text="PO Dependant">
-                                    </ig:ExplorerBarItem>
-                                  
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcEditOptions/Atcprojection.aspx" Text="Atc Projection">
-                                    </ig:ExplorerBarItem>
-                                  
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/AtcClosing.aspx" Text="Atc Closing">
-                                    </ig:ExplorerBarItem>
-                                  
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ATC/AllAtcCLoser.aspx" Text="Atc Closing">
-                                    </ig:ExplorerBarItem>
-                                  
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="ATC Chart">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/DocumentEntry.aspx" Text="Atraco Export">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ItemColorAddition.aspx" Text="Itemcolor/Size">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/DocumentEdit.aspx" Text="Atraco Export EDIT">
-                                    </ig:ExplorerBarItem>
-                                      <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/Atc Chart/ProcurmentPlaning.aspx" Text="Procurement Planing">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/MerchandisingDashBoard.aspx" Text="Merchants DashBoard">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
+     
 
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Quality" Value="Q">
-                        <Items>
-                            
-                          
-                             <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityDashBoard.aspx" Text="QA DashBoard">
-                            </ig:ExplorerBarItem>
-                              <ig:ExplorerBarItem NavigateUrl="~/Quality/PreQADValidationEntry.aspx" Text="Pre QAD Validation ">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityInspection.aspx" Text="Quality Inspection ">
-                            </ig:ExplorerBarItem>
-                          
-                             <ig:ExplorerBarItem NavigateUrl="~/Quality/ManualGrouping.aspx" Text="Manual Grouping">
+           </ContentTemplate>
 
-                            </ig:ExplorerBarItem>
-                              <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityInspectionComplete.aspx" Text="Inspection Complete">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/InspectionEntry.aspx" Text="Pre QAD Validation(old)" Visible="False">
-                            </ig:ExplorerBarItem>
-                            
-                            <ig:ExplorerBarItem NavigateUrl="~/Quality/InspectionEdit.aspx" Text="Pre QAD Validation Edit">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Quality/QualityInspectionEdit.aspx" Text="Inspection Edit">
-                            </ig:ExplorerBarItem>
-                          
-                            
-                          
-                             <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanReport.aspx" Text="Cut Plan Approval">
-                             </ig:ExplorerBarItem>
-                          
-                            
-                          
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Inventory" Visible="True" Value="I">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/MRN.aspx" Text="MRN">
-                            </ig:ExplorerBarItem>
-                           
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/StockMRN.aspx" Text="General MRN">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="RO Receipt">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/RO Transfer/ROTransferIn.aspx" Text="RO Reciept">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Stock RO Reciept" NavigateUrl="~/Inventory/RO Transfer/StockRoTransferIn.aspx">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/SalesAndLoan.aspx" Text="Internal Transfers">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Transfer Notes">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderCountry.aspx" Text="Whs-Whs( Fabric&amp; Trims)-(WW)">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFactory.aspx" Text="Whs-Fact (TRIMS)(WF)">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFabrictoFactory.aspx" Text="Whs-Fact (FABRIC) (WF)" >
-                                    </ig:ExplorerBarItem>
-                                       <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderFabrictoFactoryRollWise.aspx" Text="Whs-Fact (FABRIC Roll) (WF)">
-                                    </ig:ExplorerBarItem>
-                                     <ig:ExplorerBarItem Text="WR/FR" NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderReceipt.aspx">
-                            </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderStockCountry.aspx" Text="Whs-Whs(STOCK)-[SWW]">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderStockReciept.aspx" Text="SWR/SFR[STOCK]" ToolTip="SWR/SFR[STOCK]">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="FW(Delivery Return)">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryReturn.aspx" Text="FW(Trims)">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryReturnFabricAgainstCutOrder.aspx" Text="FW(Fabric)">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/DeliveryOrder/DeliveryOrderStockFactory.aspx" Text="Whs-Fact(STOCK)">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Fabric ">
-                                <Items>
-                             
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/MrnRollEntryNew.aspx" Text="ASN-MRN Entry" Visible="False">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Qualityreports/FabricRollReport.aspx" Text="Inspection Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/PreQadApproval.aspx" Text="Pre QAD Inspection Approval" Visible="False">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DORollTransaction.aspx" Text="WW-Roll Transaction">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RORollEntry.aspx" Text="ROIN-Roll Transaction">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/LoanRollTransaction.aspx" Text="Loan Roll Transaction">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="MRN" >
-                                        <Items>
-                                           
-                                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/ASNCreation.aspx" Text="ASN Creation">
-                                            </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/AddRollAgainstMRN.aspx" Text="MRN-ROLL Entry" ToolTip="creates rolls Against MRN">
-                                            </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/fabricedit.aspx" Text="MRN-RollEdit">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DORTransaction.aspx" Text="WR Roll Confirmation">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollSplit.aspx" Text="Roll Split">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/RollTrack.aspx" Text="Roll Tracker">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RollDataPrinter.aspx" Text="Roll Sticker Printer">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/AddRollAgainstWRfromAtraco.aspx" Text="Roll Entry Againt HO WW ">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Fabric Transaction/DeliveryReturnTransaction.aspx" Text="Roll Transfer Against FW">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Inventory Requests">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Inventory Requests/InventoryMisplaced.aspx" Text="Inventory MisPlaced">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Inventory Requests/WrongDocument.aspx" Text="Wrong Document Made">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Inventory Sales">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Sales/InventorySales.aspx" Text="Internal Sales DO">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Inventory/Sales/ExternalSales.aspx" Text="External Sales DO">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Inventory/InventoryDashBoard.aspx" Text="Inventory Dashboard">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Production" Visible="True">
-                        <Items>
-                            <ig:ExplorerBarItem Text="Cut Order">
-                                <Items>
 
-                                    
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderFinal.aspx" Text="New Cut Order Against Cutplan">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderForm.aspx" Text="New Cut Order">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutOrderEdit.aspx" Text="Edit Cut Order">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/SamplingCutOrder.aspx" Text="Sampling CutOrder">
-                                    </ig:ExplorerBarItem>
 
-                                
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem  Text="Job Contract">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JObContractNew.aspx" Text="Job Contract CM">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContract.aspx" Text="Job Contract CM" Visible="False">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/JobContractNew/JobContractOthersNew.aspx" Text="Job Contract Other">
-                                    </ig:ExplorerBarItem>
-                                    
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandover.aspx" Text="Shipment Handover">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Production/ProductionReporting.aspx" Text="Production Reporting">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Cutting">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/CuttingDashBoard.aspx" Text="Cutting DashBoard">
-                                    </ig:ExplorerBarItem>
 
-                                    <ig:ExplorerBarItem Text="Cut Plan">
-                                        <Items>
-                                            <ig:ExplorerBarItem Text="New Cut Plan" NavigateUrl="~/Production/CutOrder/FactoryCutPlan.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerDetails.aspx" Text="Cut Plan Size Details">
-                                            </ig:ExplorerBarItem>
-                                             <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanRollMapping.aspx" Text="Add Cut Plan Rolls" Value="Cut Plan Rolls">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/CuttingEditor.aspx" Text="Cut Plan Edit">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerEdit.aspx" Text="Cut Plan Marker Edit">
-                                            </ig:ExplorerBarItem>
-                                           
-                                        </Items>
+           </asp:UpdatePanel>
 
-                                    </ig:ExplorerBarItem>
-                                                                        <ig:ExplorerBarItem Text="Laysheet">
-                                                                            <Items>
-                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LayesheetRoll.aspx" Text="lay Sheet Rolls">
-                                                                                </ig:ExplorerBarItem>
-                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetRollEditor.aspx" Text="LaySheetRoll Edit ">
-                                                                                </ig:ExplorerBarItem>
-                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/Laysheet.aspx" Text="LaySheet">
-                                                                                </ig:ExplorerBarItem>
-                                                                                <ig:ExplorerBarItem NavigateUrl="~/Production/Cutting/LaysheetApproval.aspx" Text="Lay Sheet Approval">
-                                                                                </ig:ExplorerBarItem>
-                                                                            </Items>
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Cut Plan" Visible="False">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="New Cut Plan" NavigateUrl="~/Production/CutOrder/FactoryCutPlan.aspx">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/CutOrder/CutPlanMarkerDetails.aspx" Text="Cut Plan Size Details">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                          
-                            <ig:ExplorerBarItem Text=" Monthly Actions">
-                                <Items>
-                                      <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ASQMonthLocking.aspx" Text="Monthly Target/Projection lock">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ASQMonthShipmentClosing.aspx" Text="Monthly Shipment Close">
-                                    </ig:ExplorerBarItem>
-                                   <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/ASQ/ASQClosing.aspx" Text="ASQ Short Closing" Value="Short Close ASQ">
-                                             </ig:ExplorerBarItem>
-                                      <ig:ExplorerBarItem NavigateUrl="~/Production/Schedular/ProductionReporting.aspx" Text="Production Update">
-                                      </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Shipment  HandOver">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Production/ShipmentHandOver/ShipementHandoverfromAtcWorld.aspx" Text="Shipment HandOver From AtcWorld">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Shipping" Visible="True">
-                        <Items>
-                                <ig:ExplorerBarItem NavigateUrl="~/Shipping/ShiipingDashBoard.aspx" Text="Shipping DashBoard">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text=" Inbound">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/Documentreceipt.aspx" Text="New">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/InboundEdit.aspx" Text="Edit">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Shipping/Invoicing.aspx" Text="Invoicing">
-                            </ig:ExplorerBarItem>
-                              <ig:ExplorerBarItem NavigateUrl="~/Shipping/ShipmentClosing.aspx" Text="Shipment Closing">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="LC">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/LC/LCMaster.aspx" Text="LC Creation">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/LC/LCPODetails.aspx" Text="LC PO Details">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/LC/BankAdvice.aspx" Text="Bank Advice">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Shipping/LC/TrApproval.aspx" Text="TR Approval">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Shipping/CourierEntry.aspx" Text="Courier Entry">
-                            </ig:ExplorerBarItem>
-                        
-                                <ig:ExplorerBarItem NavigateUrl="~/Shipping/ShippingTracker.aspx" Text="Doc Tracker">
-                                </ig:ExplorerBarItem>
-                        
-                                <ig:ExplorerBarItem NavigateUrl="~/Shipping/AtcExpenseMaster.aspx" Text="Atc Expense">
-                                </ig:ExplorerBarItem>
-                        
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Accounts" Visible="True">
-                        <Items>
-                            <ig:ExplorerBarItem Text="Payable Voucher Generation">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/SupplierInvoicing.aspx" Text="Payable  Against PO ">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/StockSupplierInvoicing.aspx" Text="Payable Against SPO">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Debit/Credit Notes">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitnoteforFactory.aspx" Text="Debit Note to Factory Against SDO">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Accounts/DebitNoteGenerator.aspx" Text="Credit Note  Creator">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Debit Note for Supplier">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Accounts/Debitnote/AccountsdashBoard.aspx" Text="Accounting dash Board">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Reports" Visible="True">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/Reports/ProcurementReport.aspx" Text="PO/MRN">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Reports/DeliveryReports.aspx" Text="Delivery Reports">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Reports/ReporterPage.aspx" Text="Costing Report">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Inventory Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/DailyReceiptReport.aspx" Text="Daily receipt">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/MRNReport.aspx" Text="Receipt Reports">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/InventoryGridreports.aspx" Text="Grid reports">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/InventoryReports.aspx" Text="Inventory Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/StockMrnReport.aspx" Text="Stock Reciept report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RoReports.aspx" Text="RO Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/InventoryMisplaced.aspx" Text="Inventory Missplaced">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/SalesandLoanReport.aspx" Text="Sales and Loan">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/AtcTransactionreport.aspx" Text="Atc Transaction Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/ConsolidatedInventoryReport.aspx" Text="Consolidated Inventory">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Inventoryreport/RollDataPrinter.aspx" Text="Item">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="ASQ Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQReports.aspx" Text="General ">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQStatusReport.aspx" Text="ASQ Status Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/AsqPOWiseReport.aspx" Text="ASQ SizeWise Details">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQMasterReport.aspx" Text="ASQ Total Report">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/ASQTotalReport.aspx" Text="ASQ Complete Report">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Merchandising Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/CutOrderReport.aspx" Text="Cut Order">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Purchase Report" NavigateUrl="~/Reports/MerchandiserReport/PurchaseReports.aspx">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/WrongPORequest.aspx" Text="Wrong PO">
-                                    </ig:ExplorerBarItem>
-                                     <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/AtcChart.aspx" Text="ATC Chart">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/MerchandiserReport/AtcchartWithASQ.aspx" Text="Atc Chart With ASQ">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Accounts Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/AccountsReport/WIPReport.aspx" Text="WIP">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/AccountsReport/VoucherReports.aspx" Text="Voucher Reports" Value="Voucher Reports">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/AccountsReport/FinalCosting.aspx" Text="Final Costing">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                               <ig:ExplorerBarItem Text="Production Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/ProductionReports.aspx" Text="Shipment Hand Over">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="Cutting">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/LaySheet/laySheetReport.aspx" Text="Laysheet">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanReport.aspx" Text="CutPlan">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/CutplanHistory.aspx" Text="CutPlan History">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/Proddata/ShippedReport.aspx" Text="Shipped ">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/Proddata/AllReportdata.aspx" Text="All in One">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem Text="MIS Reports">
-                                        <Items>
-                                            <ig:ExplorerBarItem Text="Yearly shipped Report" NavigateUrl="~/Reports/Production/MSI/Yearly Shipment Report.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Yearly Order Onhand " NavigateUrl="~/Reports/Production/MSI/OrderOnhandReportofYear.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Yearly ShortClose" NavigateUrl="~/Reports/Production/MSI/YearlyShorClosed.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/MonthWiseTargetandShipped.aspx" Text="Month Wise Report ">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Atc wise Shipment Details" NavigateUrl="~/Reports/Production/MSI/AtcASQStatus.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Entries for the Month">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem Text="Yearly OrderonHand factoryWise" NavigateUrl="~/Reports/Production/MSI/OrderOnhandReportofyearfactorywise.aspx">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/ASQofMonthofFactory.aspx" Text="Factory wise ASQ of Month">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Reports/Production/MSI/SalesReport.aspx" Text="Sales report">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Quality Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="ASN Report" NavigateUrl="~/Reports/Qualityreports/FabricASNReport.aspx">
-                                    </ig:ExplorerBarItem>
-                                     <ig:ExplorerBarItem Text="Pending Action Report" NavigateUrl="~/Reports/Qualityreports/PendingReports.aspx">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Shipping Reports">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/ShippingReport/ShippingImportReports.aspx" Text="Export  Reports">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Management Approval">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Reports/ManagementReports/ManagementReports.aspx" Text="Profitability">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Sampling">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Cutting Ticket">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Sampling/ShowSamplingstatus.aspx" Text="Cutting Status">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Administrator" Visible="True">
-                        <Items>
-                            <ig:ExplorerBarItem Text="User">
-                                <Items>
-                                    <ig:ExplorerBarItem Text="Creation &amp; Editing">
-                                        <Items>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=NewUser" Text="New User">
-                                            </ig:ExplorerBarItem>
-                                            <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=Password" Text="Change Password">
-                                            </ig:ExplorerBarItem>
-                                        </Items>
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserProfileCreation.aspx" Text="User Profile">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Administrator/UserMaster.aspx?navtype=Profile" Text="User Profile Addition">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Merchandiser/PO/IPOMultiCreator.aspx" Text="test">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Approvals">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/CostingApproval.aspx?navtype=Costing" Text="ATC Costing Approval">
-                            </ig:ExplorerBarItem>
-                             <ig:ExplorerBarItem NavigateUrl="~/Approvals/CostingApproval.aspx?navtype=Ourstyle" Text="Ourstyle Approval">
-                            </ig:ExplorerBarItem>
-                               <ig:ExplorerBarItem NavigateUrl="~/Approvals/LocalCostingApproval.aspx" Text="ATC Costing Approval(Dept)">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=PO" Text="Procurement Approval">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=SPOApproval" Text="General PO Approval">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=RO" Text="RO Approval">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=SRO" Text="SRO Approval">
-                            </ig:ExplorerBarItem>
-                             <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=WPO" Text="WPO Approval">
-                            </ig:ExplorerBarItem>
-                              <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=EBOM" Text="EXTRA BOM QTY Approval">
-                            </ig:ExplorerBarItem>
-                              <ig:ExplorerBarItem NavigateUrl="~/Approvals/ProcurementApproval.aspx?navtype=Missplaced" Text="Inventory Misplaced">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Approvals/ServicePoApproval.aspx" Text="Service PO Approval">
-                            </ig:ExplorerBarItem>
-
-                            
-                            <ig:ExplorerBarItem  Text="Inventory Approvals">
-                                <Items>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Ro Approval" Text="RO Approval">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Loan Approval" Text="Inventory Loan Approval">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Transfer" Text="Gstock Transfer Approval">
-                                    </ig:ExplorerBarItem>
-                                    <ig:ExplorerBarItem NavigateUrl="~/Approvals/InventoryApprovals.aspx?navtype=Missplaced" Text="Inventory MisPlaced">
-                                    </ig:ExplorerBarItem>
-                                </Items>
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Atc projection Approval" NavigateUrl="~/Approvals/AtcprojectionApproval.aspx">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Asq Approval" NavigateUrl="~/Approvals/ASQApprovals.aspx">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="IT Admin">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/BLL/InventoryBLL/SessionChecker.aspx" Text="Session">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Administrator/SupportTicket.aspx" Text="Support">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Administrator/Tester.aspx" Text="Trial Form">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem ImageUrl="~/Areas/ArtMVC/Controllers/Home" Text="MVC">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="Sampling">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/CuttingTicket(Sampling).aspx" Text="Cutting Ticket">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/CuttingTicketEdit.aspx" Text="Cutting Ticket (Edit)">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Reports/CutOrderReport.aspx" Text="Cut Plan / Cut Order Report" Value="Cutting Ticket(without ATC)">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/CutPlanPatternDetails.aspx" Text="CutPlan Pattern Details">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Sampling/FabricEntrynew.aspx" Text="Sampling fabric">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/Reports/SamplingReport/SamplingFabReport.aspx" Text="Fabric Entry Report" Value="Fabric Entry">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                    <ig:ExplorerBarGroup GroupContentsHeight="" Text="User Manuals">
-                        <Items>
-                            <ig:ExplorerBarItem NavigateUrl="~/User Manual/MERCHANDISING MODULE final.htm" Text="Merchandising">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Production" NavigateUrl="~/User Manual/Production MANUAL.htm">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem Text="Inventory" NavigateUrl="~/User Manual/InventoryUserGuide.htm">
-                            </ig:ExplorerBarItem>
-                            <ig:ExplorerBarItem NavigateUrl="~/User Manual/quality.htm" Text="Quality">
-                            </ig:ExplorerBarItem>
-                        </Items>
-                    </ig:ExplorerBarGroup>
-                 
-                </Groups>
-            </ig:WebExplorerBar>
-
-       
-
-       
+      
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1030,7 +285,7 @@
              
    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <div class="bodybackground">
-                </div>
+                         </div>
 
             </asp:ContentPlaceHolder>
             </div>

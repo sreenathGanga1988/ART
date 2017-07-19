@@ -118,6 +118,11 @@ namespace ArtWebApp.Reports.MerchandiserReport
            
 
 
+            
+
+
+
+
             DataTable Podataofatc = BLL.FactoryAtcChart.GetPODataofAtc(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable GoodsinTransit = BLL.FactoryAtcChart.GetTransistQty(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable onhandqty = BLL.FactoryAtcChart.GetOnhandQty(int.Parse(cmb_atc.SelectedValue.ToString()), onhandtype);
@@ -384,7 +389,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                     tbl_PO.DataSource = Podatatemp;
                     tbl_PO.DataBind();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
 
@@ -803,6 +808,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
         //Variable to hold the total value
 
         float totalvalue = 0;
+        float basetotal = 0;
         protected void tbl_onhand_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
@@ -811,6 +817,8 @@ namespace ArtWebApp.Reports.MerchandiserReport
             {
                 //Add the value of column
                 totalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "OnhandQty"));
+
+                basetotal += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "BaseUOMQty"));
             }
             if (e.Row.RowType == DataControlRowType.Footer)
             {
@@ -819,7 +827,14 @@ namespace ArtWebApp.Reports.MerchandiserReport
                 //Assign the total value to footer label control
                 lblamount.Text = totalvalue.ToString();
 
+
+                //Find the control label in footer 
+                Label lbl_BaseUOMQtyTotal = (Label)e.Row.FindControl("lbl_BaseUOMQtyTotal");
+                //Assign the total value to footer label control
+                lbl_BaseUOMQtyTotal.Text = basetotal.ToString();
+
                 totalvalue = 0;
+                basetotal = 0;
             }
         }
         float transisttotalvalue = 0;

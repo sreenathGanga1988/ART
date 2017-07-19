@@ -1624,23 +1624,54 @@ WHERE(DeliveryOrderMaster.AtcID = @ATCID)";
             {
 
 
-                cmd.CommandText = @"
-SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName
+//                //                cmd.CommandText = @"
+//                SELECT ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName
+//         FROM            ProcurementDetails INNER JOIN
+//                                  ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+//                         UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+//                         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK
+//WHERE(ProcurementMaster.IsDeleted = N'N') AND(ProcurementMaster.IsApproved = N'Y') AND(ProcurementMaster.AtcId = @ATCID)
+
+
+
+//";
+                cmd.CommandText = @"SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName, SkuRawMaterialMaster.Uom_PK, 
+                         ProcurementDetails.Uom_PK AS  BaseUomPK,000.00 as BaseUOMQty
 FROM            ProcurementDetails INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
-                         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK
-WHERE        (ProcurementMaster.IsDeleted = N'N') AND (ProcurementMaster.IsApproved = N'Y') AND (ProcurementMaster.AtcId = @ATCID)
-
-
-
-";
-
+                         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
+                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+WHERE        (ProcurementMaster.IsDeleted = N'N') AND (ProcurementMaster.IsApproved = N'Y') AND (ProcurementMaster.AtcId = @ATCID)";
 
 
                 cmd.Parameters.AddWithValue("@ATCID", ATCID);
 
                 dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+                foreach (System.Data.DataColumn col in dt.Columns) col.ReadOnly = false;
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+                    float poQty = float.Parse(dt.Rows[i]["Poqty"].ToString().Trim());
+
+                    int uompk = int.Parse(dt.Rows[i]["Uom_PK"].ToString());
+                    int baseuompk= int.Parse(dt.Rows[i]["BaseUomPK"].ToString());
+
+
+                    if (uompk == baseuompk)
+                    {
+                        poQty = poQty;
+                    }
+                    else
+                    {
+                        poQty =  UOMConvertortoAlt(baseuompk, uompk, poQty);
+                    }
+                    dt.Rows[i]["BaseUOMQty"] = poQty;
+
+
+                }
 
 
 
@@ -1722,14 +1753,27 @@ WHERE        (GoodsInTransit.TransitQty > 0) AND (DeliveryOrderMaster.AtcID = @A
             {
 
 
-                cmd.CommandText = @"SELECT        LocationMaster.LocationPrefix, SUM(InventoryMaster.OnhandQty) AS OnhandQty, InventoryMaster.SkuDet_Pk, LocationMaster.LocType
+//                cmd.CommandText = @"SELECT        LocationMaster.LocationPrefix, SUM(InventoryMaster.OnhandQty) AS OnhandQty, InventoryMaster.SkuDet_Pk, LocationMaster.LocType
+//FROM            InventoryMaster INNER JOIN
+//                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+//                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+//                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+//WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID)
+//GROUP BY LocationMaster.LocationPrefix, InventoryMaster.SkuDet_Pk, LocationMaster.LocType
+//HAVING        (SUM(InventoryMaster.OnhandQty) > 0) ";
+
+
+
+
+                cmd.CommandText = @"SELECT LocationMaster.LocationPrefix, SUM(InventoryMaster.OnhandQty) AS OnhandQty, InventoryMaster.SkuDet_Pk, LocationMaster.LocType, InventoryMaster.Uom_Pk, SkuRawMaterialMaster.Uom_PK AS BaseUomPK,000.00 as BaseUOMQty
 FROM            InventoryMaster INNER JOIN
-                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                  LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
-WHERE        (SkuRawMaterialMaster.Atc_id = @ATCID)
-GROUP BY LocationMaster.LocationPrefix, InventoryMaster.SkuDet_Pk, LocationMaster.LocType
-HAVING        (SUM(InventoryMaster.OnhandQty) > 0) ";
+WHERE(SkuRawMaterialMaster.Atc_id = @ATCID)
+GROUP BY LocationMaster.LocationPrefix, InventoryMaster.SkuDet_Pk, LocationMaster.LocType, InventoryMaster.Uom_Pk, SkuRawMaterialMaster.Uom_PK
+HAVING(SUM(InventoryMaster.OnhandQty) > 0)";
+
 
                 if (qrtype == "F")
                 {
@@ -1745,7 +1789,37 @@ HAVING        (SUM(InventoryMaster.OnhandQty) > 0) ";
 
                 dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
 
+                foreach (System.Data.DataColumn col in dt.Columns) col.ReadOnly = false;
 
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+                    float poQty = float.Parse(dt.Rows[i]["OnhandQty"].ToString().Trim());
+
+                    try
+                    {
+                        int uompk = int.Parse(dt.Rows[i]["Uom_PK"].ToString());
+                        int baseuompk = int.Parse(dt.Rows[i]["BaseUomPK"].ToString());
+
+
+                        if (uompk == baseuompk)
+                        {
+                            poQty = poQty;
+                        }
+                        else
+                        {
+                            poQty = UOMConvertortoAlt(baseuompk, uompk, poQty);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                       
+                    }
+                    dt.Rows[i]["BaseUOMQty"] = poQty;
+
+
+                }
 
             }
             return dt;

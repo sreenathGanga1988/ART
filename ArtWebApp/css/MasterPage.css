@@ -1,18 +1,11 @@
 ﻿body {
-       /* background-image:url('../Image/atraco-bg.jpg') ;
-        background-repeat:no-repeat;
-        background-size:100%,100%;*/
-		
+     	
 		
 		background: url('../Image/atraco-bg.jpg') repeat left top; margin: 0px; padding: 0px;
 }
 
 .bodybackground{
-     /*background-image:url('~/Image/A1.jpg');
-        background-image:url('../Image/Back2.jpg');
-        background-repeat:no-repeat;
-        background-size:100%,100%;
-        */
+   
 		
 		background: url('../Image/atraco-bg.jpg') repeat left top;
 }
@@ -26,27 +19,7 @@
             text-align: center;
             font-size:x-small;
        }
-       .auto-style2 {
-           height: 22px;
-       }
-
-       .auto-style3 {
-           height: 22px;
-           width: 100px;
-       }
-       .auto-style4 {
-           height: 22px;
-           width: 191px;
-       }
-       .auto-style5 {
-           height: 22px;
-           width: 125px;
-           float: right;
-       }
-       .auto-style6 {
-           height: 22px;
-           width: 116px;
-       }
+      
 
        .MenuColumn {
            width: 70%;
@@ -65,15 +38,12 @@
     position:relative;
     height: 5em;
     margin-bottom:-5em;
-    /* bottom:3px;
-    z-index:05px;
-    margin-top:-5em; */
-    /*background-image:url('~/Image/bg_footer111.gif');*/
+   
     background-repeat:no-repeat;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
     font-weight: bold;
-    color:#0000ff;
+    color:#0000f f;
     
     width: 100%;
  
@@ -109,6 +79,12 @@
 .LoginColumn { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #555 !important; font-weight: bold; text-decoration: none !important; padding: 10px 0 10px 15px;  background: url(../image/user.png) no-repeat left top 16px;}
 
 .LoginColumn span {
+       border-right: 1px solid;
+    padding-right: 18px;
+}
+
+.aref{
+     color: #555;
     border-right: 1px solid;
     padding-right: 18px;
 }

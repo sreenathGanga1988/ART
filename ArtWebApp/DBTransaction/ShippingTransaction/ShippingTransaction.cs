@@ -60,7 +60,7 @@ FROM            POPackDetails INNER JOIN
 						" + Condition + @" and ATCWorldToArtShipData.SDONo not in (SELECT        ShipmentHandOverDetails.SDONum
 FROM            ShipmentHandOverDetails INNER JOIN
                          ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK
-WHERE        (ShipmentHandOverDetails.POPackId = ATCWorldToArtShipData.POPackID) AND (ShipmentHandOverDetails.OurStyleID = ATCWorldToArtShipData.OurStyleId) AND (ShipmentHandOverMaster.Location_Pk = ATCWorldToArtShipData.OurStyleId) AND 
+WHERE        (ShipmentHandOverDetails.POPackId = ATCWorldToArtShipData.POPackID) AND (ShipmentHandOverDetails.OurStyleID = ATCWorldToArtShipData.OurStyleId) AND (ShipmentHandOverMaster.Location_Pk = ATCWorldToArtShipData.ArtLocation_PK) AND 
                          (ShipmentHandOverDetails.ProducedLctn_PK = ATCWorldToArtShipData.ProductionArtLocation)) 
   GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId, 
                          ATCWorldToArtShipData.ArtLocation_PK, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate

@@ -379,6 +379,11 @@
         <EntityTypeShape EntityType="ArtModel.LaySheetRollMaster" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="ArtModel.ShipmentHandoverColorSizeDetail" Width="1.5" PointX="24.375" PointY="0.75" />
         <EntityTypeShape EntityType="ArtModel.TempProductionData" Width="1.5" PointX="10.375" PointY="24.75" />
+        <EntityTypeShape EntityType="ArtModel.CreditNoteMaster" Width="1.5" PointX="24.375" PointY="23.75" />
+        <AssociationConnector Association="ArtModel.FK_StocPOForODOO_UOMMaster" />
+        <EntityTypeShape EntityType="ArtModel.SuplierASNDebitDetail" Width="1.5" PointX="25.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ArtModel.SupplierDebitAsnMaster" Width="1.5" PointX="25.375" PointY="11.75" />
+        <AssociationConnector Association="ArtModel.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,4 +1,5 @@
-﻿using ArtWebApp.DataModels;
+﻿using ArtWebApp.Controls;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -155,34 +156,46 @@ namespace ArtWebApp.BLL.UserBLL
 
                 try
                 {
-                    var q = from usr in enty.UserMasters
+                    var q = (from usr in enty.UserMasters
                             join loc in enty.LocationMasters
                             on usr.UserLoc_PK equals loc.Location_PK
-                            where usr.UserName.Trim() == username && usr.Password == Password
+                            where usr.UserName.Trim() == username && usr.Password == Password && usr.IsDeleted=="N"
                             select new { 
                             
-                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK
+                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK ,usr.IsActive
 
-                            };
+                            }).ToList();
 
                     foreach (var user in q)
                     {
-                        HttpContext.Current.Session["Username"] = user.UserName;
-                        HttpContext.Current.Session["User_PK"] = user.User_PK;
-                        HttpContext.Current.Session["UserLoc_pk"] = user.UserLoc_PK;
-                        HttpContext.Current.Session["lOC_Code"] = user.LocationPrefix;
-                        HttpContext.Current.Session["UserProfile_Pk"] = user.UserProfile_Pk;
-                        HttpContext.Current.Session["UserProfileName"] = user.UserProfileName;
-                        HttpContext.Current.Session["Department_PK"] = user.Department_PK;
-                        isauthenicated = true;
 
-                        var q1 = from usssr in enty.UserMasters
-                                 where usssr.User_PK == user.User_PK
-                                 select usssr;
-
-                        foreach (var userk in q1)
+                        if(user.IsActive.Trim ()=="Y")
                         {
-                            userk.LastLogin = DateTime.Now;
+
+                            HttpContext.Current.Session["Username"] = user.UserName;
+                            HttpContext.Current.Session["User_PK"] = user.User_PK;
+                            HttpContext.Current.Session["UserLoc_pk"] = user.UserLoc_PK;
+                            HttpContext.Current.Session["lOC_Code"] = user.LocationPrefix;
+                            HttpContext.Current.Session["UserProfile_Pk"] = user.UserProfile_Pk;
+                            HttpContext.Current.Session["UserProfileName"] = user.UserProfileName;
+                            HttpContext.Current.Session["Department_PK"] = user.Department_PK;
+                            isauthenicated = true;
+
+                            var q1 = from usssr in enty.UserMasters
+                                     where usssr.User_PK == user.User_PK
+                                     select usssr;
+
+                            foreach (var userk in q1)
+                            {
+                                userk.LastLogin = DateTime.Now;
+                            }
+
+                        }
+                        else
+                        {
+
+                            WebMsgBox.Show("Your Account seems to be Suspended: this may be because you had  not Logged in the System for Last 15 Days Please contact IT ");
+
                         }
 
 
@@ -246,7 +259,9 @@ namespace ArtWebApp.BLL.UserBLL
     public class UserRightmaster
     {
         public int profile_pk { get; set; }
-        public List<UserRight> UserRightDataCollection { get; set; }
+        //get the selectedones
+        public List<UserRight> UserRightDataCollectionAdded { get; set; }
+        public List<UserRight> UserRightDataCollectionUnselected { get; set; }
 
         public String InsertUserRight()
         {
@@ -255,7 +270,7 @@ namespace ArtWebApp.BLL.UserBLL
             {
                 enty.UserProfileRights.RemoveRange(enty.UserProfileRights.Where(c => c.UserProfile_Pk == profile_pk));
                 enty.SaveChanges();
-                foreach (UserRight di in this.UserRightDataCollection)
+                foreach (UserRight di in this.UserRightDataCollectionAdded)
                 {
 
                     UserProfileRight invdet = new UserProfileRight();
@@ -271,6 +286,22 @@ namespace ArtWebApp.BLL.UserBLL
 
                 }
                 enty.SaveChanges();
+                //foreach (UserRight udi in this.UserRightDataCollectionUnselected)
+                //{
+
+                //    var q = from usrrgt in enty.UserProfileRights
+                //            where usrrgt.Menu_PK == udi.Menu_pk && usrrgt.UserProfile_Pk == udi.Profilepk
+                //            select usrrgt;
+                //    foreach (var element in q)
+                //    {
+
+
+
+                //    }
+
+
+                //}
+                   
 
             }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,15 @@ namespace ArtWebApp.Areas.ITAdministrator.Controllers
 
 
 
-
+        public ActionResult Simple()
+        {
+            List<SubMenuMaster> all = new List<SubMenuMaster>();
+            using (ArtEntitiesnew dc = new ArtEntitiesnew())
+            {
+                all = dc.SubMenuMasters.OrderBy(a => a.ParentID).ToList();
+            }
+            return View(all);
+        }
 
 
 

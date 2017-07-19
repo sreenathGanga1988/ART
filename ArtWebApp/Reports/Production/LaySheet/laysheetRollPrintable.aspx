@@ -250,7 +250,11 @@
                                     <ContentTemplate>
                                         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" DataSourceID="RollData" ForeColor="Black">
                                             <Columns>
-                                                                                           <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
+
+
+                                                
+                                                 <asp:BoundField DataField="Roll_PK" HeaderText="Roll_PK" SortExpression="Roll_PK" />
+                                               <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
                                                 <asp:BoundField DataField="invoice" HeaderText="invoice" SortExpression="invoice" ReadOnly="True" />
 
                                                 
@@ -268,6 +272,7 @@
                                              
                                                
                                                 <asp:BoundField DataField="AYard" HeaderText="AYard" SortExpression="AYard" />
+                                                   <asp:BoundField DataField="Yardage" HeaderText="Yardage" SortExpression="Yardage" />
                                                    <asp:BoundField DataField="NoOfPlies" HeaderText="NoOfPlies" SortExpression="NoOfPlies" />
                                                 <asp:BoundField DataField="FabUtilized" HeaderText="FabUtilized" SortExpression="FabUtilized" />
                                                 <asp:BoundField DataField="BalToCut" HeaderText="BalToCut" SortExpression="BalToCut" />
@@ -285,7 +290,7 @@
                                         </asp:GridView>
                                         <asp:SqlDataSource ID="RollData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        FabricRollmaster.RollNum, FabricRollmaster.AShade, '' AS NoOfPlies, FabricRollmaster.SYard, FabricRollmaster.AYard, '' AS FabUtilized, '' AS EndBit,  '' AS BalToCut, 
                          SupplierDocumentMaster.AtracotrackingNum + '/' + SupplierDocumentMaster.SupplierDocnum AS invoice, '' AS ExcessOrShort, '' AS IsRecuttable, FabricRollmaster.AWidth, FabricRollmaster.AShrink, 
-                         FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, LaySheetRollDetails.LaysheetRollmaster_Pk
+                         FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, LaySheetRollDetails.LaysheetRollmaster_Pk, LaySheetRollDetails.Yardage, LaySheetRollDetails.Roll_PK
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          LaySheetRollDetails ON FabricRollmaster.Roll_PK = LaySheetRollDetails.Roll_PK

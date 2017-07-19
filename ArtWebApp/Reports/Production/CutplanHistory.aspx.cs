@@ -24,7 +24,7 @@ namespace ArtWebApp.Reports.Production
                 StringBuilder html = new StringBuilder();
 
                 //Table start.
-                html.Append("<table  id='example' border = '1'>");
+                html.Append("<table  id='example' class='example' border = '1'>");
 
                 //Building the Header row.
                 html.Append(" <thead> <tr>");

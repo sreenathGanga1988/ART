@@ -61,7 +61,7 @@
                                      </ucc:DropDownListChosen>
                 </td>
                 <td class="NormalTD">
-                    <asp:Button ID="BTN_SHOWasn" runat="server" Text="S" />
+                    <asp:Button ID="BTN_SHOWasn" runat="server" Text="S" OnClick="BTN_SHOWasn_Click" />
                 </td>
                 <td class="NormalTD">&nbsp;</td>
                  <td class="NormalTD">&nbsp;</td>
@@ -74,17 +74,56 @@
         <asp:GridView ID="tbl_podata" runat="server" AutoGenerateColumns="False" ShowFooter="True" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="SupplierDoc_pk" Font-Size="Smaller" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" DataSourceID="SalesDOData">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="Po_PK" HeaderText="Po_PK" SortExpression="Po_PK" />
-                <asp:BoundField DataField="SupplierDoc_pk" HeaderText="SupplierDoc_pk" InsertVisible="False" ReadOnly="True" SortExpression="SupplierDoc_pk" />
+                
+                                                 <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                       <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                           <asp:CheckBox ID="Chk_select" runat="server" onclick="Onselection(this)" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                                 <asp:TemplateField HeaderText="Po_PK" SortExpression="Po_PK">
+                                                    
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_PoPK" runat="server" Text='<%# Bind("Po_PK") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                                 <asp:TemplateField HeaderText="SupplierDoc_pk" InsertVisible="False" SortExpression="SupplierDoc_pk">
+                                                  
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_supplierDoc_PK" runat="server" Text='<%# Bind("SupplierDoc_pk") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
                 <asp:BoundField DataField="AtracotrackingNum" HeaderText="AtracotrackingNum" SortExpression="AtracotrackingNum" />
                 <asp:BoundField DataField="SupplierDocnum" HeaderText="SupplierDocnum" SortExpression="SupplierDocnum" />
                 <asp:BoundField DataField="SupplierETA" HeaderText="SupplierETA" SortExpression="SupplierETA" />
                 <asp:BoundField DataField="Containernum" HeaderText="Containernum" SortExpression="Containernum" />
                 <asp:BoundField DataField="Remark" HeaderText="Remark" SortExpression="Remark" />
                 <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
-                <asp:BoundField DataField="SYard" HeaderText="SYard" ReadOnly="True" SortExpression="SYard" />
-                <asp:BoundField DataField="AYard" HeaderText="AYard" ReadOnly="True" SortExpression="AYard" />
-                <asp:BoundField DataField="ShortageYards" HeaderText="ShortageYards" ReadOnly="True" SortExpression="ShortageYards" />
+           
+
+                   <asp:TemplateField HeaderText="SYard" SortExpression="SYard">
+                                                    
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_SYard" runat="server" Text='<%# Bind("SYard") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+
+                                                 <asp:TemplateField HeaderText="AYard" SortExpression="AYard">
+                                                    
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_ayard" runat="server" Text='<%# Bind("AYard") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                                 <asp:TemplateField HeaderText="ShortageYards" SortExpression="ShortageYards">
+                                                     <EditItemTemplate>
+                                                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("ShortageYards") %>'></asp:Label>
+                                                     </EditItemTemplate>
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_Shortage" runat="server" Text='<%# Bind("ShortageYards") %>'></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
             </Columns>
             <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

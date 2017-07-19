@@ -73,7 +73,7 @@
             </div>
             <asp:CheckBoxList ID="chkbx_gditem" runat="server" DataSourceID="Submenubardatasource" CssClass="myClass" DataTextField="MenuText" DataValueField="Menu_PK" RepeatColumns="15" RepeatDirection="Vertical" RepeatLayout="Table">
             </asp:CheckBoxList>
-            <asp:SqlDataSource ID="Submenubardatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT MenuText, Menu_PK FROM SubMenuMaster WHERE (isEnable = @isEnable) AND (IsNormal = N'Y')">
+            <asp:SqlDataSource ID="Submenubardatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT MenuText, Menu_PK FROM SubMenuMaster WHERE (isEnable = @isEnable) AND (IsNormal = N'Y') ORDER BY Menu_PK ">
                 <SelectParameters>
                     <asp:Parameter DefaultValue="Y" Name="isEnable" Type="String" />
                 </SelectParameters>

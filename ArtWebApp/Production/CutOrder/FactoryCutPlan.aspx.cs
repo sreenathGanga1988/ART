@@ -1117,6 +1117,17 @@ namespace ArtWebApp.Production.CutOrder
         {
             filltable();
 
+
+            try
+            {
+                txt_width.Text = (float.Parse(drp_width.SelectedItem.Text)).ToString();
+
+            }
+            catch (Exception)
+            {
+
+               
+            }
         }
 
         protected void btn_cutorder_Click(object sender, EventArgs e)

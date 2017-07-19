@@ -517,7 +517,7 @@ FROM            StockPODetails INNER JOIN
 
         public int supplier_Pk { get; set; }
 
-
+        public List<DebitNoteAgainstASNShortageDetails> DebitNoteAgainstASNShortageDetailsCollection { get; set; }
         public DataTable getASNWithShortages()
         {
 
@@ -527,6 +527,58 @@ FROM            StockPODetails INNER JOIN
             return dt;
         }
 
+
+        public String InsertDebitNoteforSupplier()
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                SupplierDebitAsnMaster supasnmstr = new DataModels.SupplierDebitAsnMaster();
+
+                supasnmstr.Supplier_PK = this.supplier_Pk;
+                supasnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                supasnmstr.AddedDate = DateTime.Now;
+                supasnmstr.DebitNum="DASN" + supasnmstr.SupplierASNDebitID.ToString().PadLeft(6, '0');
+                
+                enty.SupplierDebitAsnMasters.Add(supasnmstr);
+
+
+                enty.SaveChanges();
+
+
+
+
+
+
+                foreach (DebitNoteAgainstASNShortageDetails di in this.DebitNoteAgainstASNShortageDetailsCollection)
+                {
+                    SuplierASNDebitDetail subdet = new SuplierASNDebitDetail();
+
+                    subdet.SupplierASNDebitID = supasnmstr.SupplierASNDebitID;
+                    subdet.SupplierDoc_Pk = di.Asn_PK;
+
+                    subdet.Po_PK = di.Po_PK;
+
+                    subdet.Syard = di.syard;
+
+                    subdet.Ayard = di.ayard;
+
+                    subdet.ShortageYard = di.shortageyard;
+
+                    enty.SuplierASNDebitDetails.Add(subdet);
+
+
+                    Controls.WebMsgBox.Show(supasnmstr.DebitNum + "Created Sucessfully");
+                }
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
+
+
     }
 
 
@@ -535,9 +587,9 @@ FROM            StockPODetails INNER JOIN
     public class DebitNoteAgainstASNShortageDetails
     {
 
-        public int Asn_PK { get; set; }
+        public Decimal Asn_PK { get; set; }
 
-        public int Po_PK { get; set; }
+        public Decimal Po_PK { get; set; }
 
         public Decimal syard { get; set; }
 
@@ -552,7 +604,67 @@ FROM            StockPODetails INNER JOIN
 
 
 
+    public class CreditNoteMasterData
+    {
+      
+   public int CreditnoteID    { get; set; } 
+   public String CreidtFor       { get; set; } 
+   public String CreditName      { get; set; } 
+   public String DebitFor        { get; set; } 
+   public String DebitorName     { get; set; } 
+   public Decimal Amount          { get; set; } 
+   public String Message         { get; set; } 
+   public String AddedBy         { get; set; } 
+   public DateTime AddedDate       { get; set; } 
+   public Decimal AmountUsed      { get; set; } 
+   public String IsApproved      { get; set; } 
+   public String ApprovedBy      { get; set; } 
+   public DateTime ApprovedDate { get; set; }  
+        
+        
+        public String InsertCreditNote()
+        {
+            String creditnotenum = "";
 
+
+            using (ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+            {
+
+
+
+                CreditNoteMaster cdmdata = new CreditNoteMaster();
+             
+
+                cdmdata.CreidtFor =   this.CreidtFor    ;
+                cdmdata.CreditName =  this.CreditName  ;
+                cdmdata.DebitFor    = this.DebitFor ;
+                cdmdata.DebitorName = this.DebitorName;
+                cdmdata.Amount =      this.Amount          ;
+                cdmdata.Message =     this.Message        ;
+                cdmdata.AddedBy =     this.AddedBy ;
+                cdmdata.AddedDate =   this.AddedDate ;
+                cdmdata.AmountUsed =  this.AmountUsed;
+                cdmdata.IsApproved =  this.IsApproved;
+
+                enty.CreditNoteMasters.Add(cdmdata);
+
+                enty.SaveChanges();
+
+                cdmdata.CreditNoteNUM = "CDN" + cdmdata.CreditnoteID.ToString().PadLeft(6, '0');
+
+                creditnotenum = cdmdata.CreditNoteNUM;
+                enty.SaveChanges();
+
+            }
+
+            return creditnotenum;
+
+
+        }
+             
+                                            
+}
+  
 
 
 

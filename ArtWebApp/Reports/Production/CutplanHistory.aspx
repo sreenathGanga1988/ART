@@ -1,11 +1,38 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="CutplanHistory.aspx.cs" Inherits="ArtWebApp.Reports.Production.CutplanHistory" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="CutplanHistory.aspx.cs" Inherits="ArtWebApp.Reports.Production.CutplanHistory" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="../../css/style.css" rel="stylesheet" />
+    <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 600px;
+        }
+        .auto-style2 {
+            text-decoration: underline;
+        }
+        .auto-style3 {
+            height: 25px;
+            width: 200px;
+        }
+        .smalldetailtable,th,td
+        {
+            font-family:Calibri;
+            border: 1px solid black;
+            width:100%;
+
+        }
+        .auto-style4 {
+            height: 30px;
+            width: 200px;
+        }
+    </style>
 
 
-
-
+    
        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-   <script type="text/javascript" src= https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+   <script type="text/javascript" src= "https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 
@@ -28,14 +55,22 @@
      <script type="text/javascript" charset="utf-8">
     
      
-        
+       
          $(document).ready(
 
+
+              
 
 
 
 
              function () {
+
+                 // DataTable
+                 var table = $('#example').DataTable();
+
+
+
              // Setup - add a text input to each footer cell
                  $('#example tfoot th').each(
 
@@ -45,10 +80,7 @@
                  $(this).html('<input type="text" placeholder="Search ' + title + '" />');
              });
 
-             // DataTable
-                 var table = $('#example').DataTable();
-
-
+            
 
 
              // Apply the search
@@ -81,7 +113,15 @@
 
 
         </script>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="wholediv" runat="server"></div>
-</asp:Content>
+
+
+
+
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+      <div id="wholediv" runat="server"></div>
+    </form>
+</body>
+</html>

@@ -481,26 +481,7 @@
                                                <ucc:DropDownListChosen ID="drp_fabrication" runat="server" DataTextField="name" DataValueField="pk" Width="180px">
                                                   
                                                </ucc:DropDownListChosen>
-                                        <%--         <ucc:DropDownListChosen ID="DropDownListChosen1" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
-                                                   <asp:ListItem>Body</asp:ListItem>
-                                                   <asp:ListItem>Side Insert</asp:ListItem>
-                                                   <asp:ListItem>Side Panel</asp:ListItem>
-                                                   <asp:ListItem>Waist Band Rib</asp:ListItem>
-                                                   <asp:ListItem>Inner Lining</asp:ListItem>
-                                                   <asp:ListItem>Piping</asp:ListItem>
-                                                   <asp:ListItem>Contrast Yoke</asp:ListItem>
-                                                   <asp:ListItem>Elbow Patch</asp:ListItem>
-                                                   <asp:ListItem>Inner Shorts</asp:ListItem>
-                                                   <asp:ListItem>Waist  Band Contrast</asp:ListItem>
-                                                   <asp:ListItem>Inner Shorts</asp:ListItem>
-                                                   <asp:ListItem>Color Contrast</asp:ListItem>
-                                                   <asp:ListItem>Elbow Patch</asp:ListItem>
-                                                   <asp:ListItem>BodyColor Contrast</asp:ListItem>
-                                                   <asp:ListItem>Hood LiningPatch</asp:ListItem>
-                                                   <asp:ListItem>PocketingInside Mesh</asp:ListItem>
-                                                   <asp:ListItem>InterLining</asp:ListItem>
-                                                   <asp:ListItem>Pocketing</asp:ListItem>
-                                               </ucc:DropDownListChosen>--%>
+                                      
                                            </ContentTemplate>
                                        </asp:UpdatePanel>
                                 </td>
@@ -698,7 +679,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="NormalTD">Issued Cutplan qty (<span class="auto-style1">current selected location) </span></td>
+                                                                <td class="NormalTD">Issued Cutplan qty </td>
                                                                 <td class="NormalTD">
                                                                     <asp:Label ID="lbl_alreadycutelectedFactory" runat="server" Text="0"></asp:Label>
                                                                 </td>

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="ASQMonthLocking.aspx.cs" Inherits="ArtWebApp.Production.Schedular.ASQMonthLocking" %>
+
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
  
@@ -295,13 +296,15 @@
                                             <DropDownItemBinding TextField="name" ValueField="pk" />
                                         </ig:WebDropDown>--%>
 
-                                        <asp:GridView ID="tbl_podata" 
-                                            Width="100%" 
-                                            runat="server"
-                                            CssClass="mydatagrid"
-                                             AutoGenerateColumns="False"                                         
-                                             DataKeyNames="PoPackId"
-                                             style="font-size: small; font-family: Calibri;  font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller" OnRowDataBound="tbl_podata_RowDataBound" ShowFooter="True">
+
+     
+       <asp:GridView ID="tbl_podata"   runat="server"    AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" Font-Size="Smaller"     Width="100%"   style="font-size: small; font-family: Calibri;  font-weight: 400;"    ShowFooter="True"   DataKeyNames="PoPackId"    OnRowDataBound="tbl_podata_RowDataBound">
+                                          
+                                           
+                                       
+                                                                                
+                                           
+                                      
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>         
                                                 <asp:TemplateField HeaderText="PoPackId" InsertVisible="False" SortExpression="PoPackId">
@@ -327,7 +330,7 @@
                                         <asp:TemplateField HeaderText="ShippedQty" SortExpression="ShippedQty">
                                                     
                                                     <ItemTemplate>
-                                                        <asp:Label ID="lbl_qty" runat="server" Text='<%# Bind("ShipedQty") %>'></asp:Label>
+                                                        <asp:Label ID="lbl_ShipedQtyqty" runat="server" Text='<%# Bind("ShipedQty") %>'></asp:Label>
                                                     </ItemTemplate>
                                                          <FooterTemplate>
                                 <asp:Label runat="server" ID="lblTotalValueship" ></asp:Label>

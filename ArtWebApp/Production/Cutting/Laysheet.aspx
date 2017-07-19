@@ -194,13 +194,7 @@
 
 
  
-    <style type="text/css">
-        .auto-style1 {
-            width: 55px;
-            height: 27px;
-        }
-    </style>
-
+    
 
  
    
@@ -210,8 +204,9 @@
  
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <table class="DataEntryTable">
+    <div class="FullTable">
+
+        <table class="DataEntryTable">
         <tr>
             <td class="RedHeadding">fabric lay sheet</td>
         </tr>
@@ -639,5 +634,7 @@
                </div></td>
         </tr>
     </table>
+    </div>
+    
     
 </asp:Content>

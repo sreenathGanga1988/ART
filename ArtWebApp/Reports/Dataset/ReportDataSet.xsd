@@ -1707,6 +1707,9 @@ WHERE        (CutQty - layed &gt; 0)
               <Mapping SourceColumn="FOB" DataSetColumn="FOB" />
               <Mapping SourceColumn="Targetvalue" DataSetColumn="Targetvalue" />
               <Mapping SourceColumn="Actualvalue" DataSetColumn="Actualvalue" />
+              <Mapping SourceColumn="IsShortclosed" DataSetColumn="IsShortclosed" />
+              <Mapping SourceColumn="HandoverDate" DataSetColumn="HandoverDate" />
+              <Mapping SourceColumn="ShippedQty" DataSetColumn="ShippedQty" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -4716,6 +4719,15 @@ WHERE        (ShipmentHandOverDetails.ShipmentHandOverDate BETWEEN @fromdate AND
               <xs:element name="FOB" msprop:Generator_ColumnVarNameInTable="columnFOB" msprop:Generator_ColumnPropNameInRow="FOB" msprop:Generator_ColumnPropNameInTable="FOBColumn" msprop:Generator_UserColumnName="FOB" type="xs:decimal" minOccurs="0" />
               <xs:element name="Targetvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTargetvalue" msprop:Generator_ColumnPropNameInRow="Targetvalue" msprop:Generator_ColumnPropNameInTable="TargetvalueColumn" msprop:Generator_UserColumnName="Targetvalue" type="xs:decimal" minOccurs="0" />
               <xs:element name="Actualvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnActualvalue" msprop:Generator_ColumnPropNameInRow="Actualvalue" msprop:Generator_ColumnPropNameInTable="ActualvalueColumn" msprop:Generator_UserColumnName="Actualvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IsShortclosed" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnIsShortclosed" msprop:Generator_ColumnPropNameInRow="IsShortclosed" msprop:Generator_ColumnPropNameInTable="IsShortclosedColumn" msprop:Generator_UserColumnName="IsShortclosed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HandoverDate" msprop:Generator_ColumnVarNameInTable="columnHandoverDate" msprop:Generator_ColumnPropNameInRow="HandoverDate" msprop:Generator_ColumnPropNameInTable="HandoverDateColumn" msprop:Generator_UserColumnName="HandoverDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ShippedQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnShippedQty" msprop:Generator_ColumnPropNameInRow="ShippedQty" msprop:Generator_ColumnPropNameInTable="ShippedQtyColumn" msprop:Generator_UserColumnName="ShippedQty" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

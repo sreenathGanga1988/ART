@@ -17,7 +17,8 @@ namespace ArtWebApp.Administrator
 
         protected void btn_saveProfile_Click(object sender, EventArgs e)
         {
-            List<BLL.UserBLL.UserRight> rk = new List<BLL.UserBLL.UserRight>(); 
+            List<BLL.UserBLL.UserRight> Addedrk = new List<BLL.UserBLL.UserRight>();
+            List<BLL.UserBLL.UserRight> removedrk = new List<BLL.UserBLL.UserRight>();
             foreach (ListItem item in chkbx_gditem.Items)
             {
                 if (item.Selected)
@@ -26,23 +27,29 @@ namespace ArtWebApp.Administrator
 
                     usrright.Profilepk = int.Parse(drp_userprofile.SelectedValue.ToString ());
                     usrright.Menu_pk = int.Parse(item.Value.ToString());
-                    rk.Add(usrright);
+                    Addedrk.Add(usrright);
                 }
                 else
                 {
-                  
+                    BLL.UserBLL.UserRight usrright = new BLL.UserBLL.UserRight();
+
+                    usrright.Profilepk = int.Parse(drp_userprofile.SelectedValue.ToString());
+                    usrright.Menu_pk = int.Parse(item.Value.ToString());
+                    removedrk.Add(usrright);
 
                 }
             }
 
-            if(rk.Count>0)
+            if(Addedrk.Count>0)
             {
                 BLL.UserBLL.UserRightmaster usrmstr = new BLL.UserBLL.UserRightmaster();
                usrmstr.profile_pk = int.Parse(drp_userprofile.SelectedValue.ToString());
-                usrmstr.UserRightDataCollection = rk;
+                usrmstr.UserRightDataCollectionAdded = Addedrk;
+                usrmstr.UserRightDataCollectionUnselected = removedrk;
                 usrmstr.InsertUserRight();
                 chkbx_gditem.DataSource = null;
                 chkbx_gditem.DataBind();
+                ArtWebApp.Controls.WebMsgBox.Show("Updated ");
             }
         }
 

@@ -74,12 +74,12 @@ namespace ArtWebApp.Production.Schedular
 
 
 
-                    int locationpk = int.Parse(((di.FindControl("lbl_locationpk") as Label).Text.ToString()));
+                 
                     int lbl_ourstyleid = int.Parse(((di.FindControl("lbl_ourstyleid") as Label).Text.ToString()));
                     int lbl_qty = int.Parse(((di.FindControl("lbl_Balance") as Label).Text.ToString()));
                     int lbl_popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
 
-                   
+                    int locationpk = int.Parse(((di.FindControl("lbl_locationpk") as Label).Text.ToString()));
 
                     string monthnam = cmb_Month.SelectedItem.ToString();
 
@@ -191,6 +191,8 @@ WHERE(POQty - ShipedQty > 0)
         }
         int totalvalue = 0;
         int totalvalueship = 0;
+
+       
         protected void tbl_podata_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             //Check if the current row is datarow or not

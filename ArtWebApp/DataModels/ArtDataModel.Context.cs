@@ -208,6 +208,9 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<LaySheetRollMaster> LaySheetRollMasters { get; set; }
         public virtual DbSet<ShipmentHandoverColorSizeDetail> ShipmentHandoverColorSizeDetails { get; set; }
         public virtual DbSet<TempProductionData> TempProductionDatas { get; set; }
+        public virtual DbSet<CreditNoteMaster> CreditNoteMasters { get; set; }
+        public virtual DbSet<SuplierASNDebitDetail> SuplierASNDebitDetails { get; set; }
+        public virtual DbSet<SupplierDebitAsnMaster> SupplierDebitAsnMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

@@ -115,8 +115,8 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             dorolldata.Docnum = ddl_do.SelectedItem.Text;
             dorolldata.cutid = int.Parse(drp_cutorder.SelectedValue.ToString());
             dorolldata.DoID = int.Parse(ddl_do.SelectedValue.ToString());
-         
 
+            dorolldata.RollInventoryDatadatacollection = GetRollDetailsData();
             dorolldata.insertDOReturnRollData();
             tbl_inventory.DataSource = null;
             tbl_inventory.DataBind();

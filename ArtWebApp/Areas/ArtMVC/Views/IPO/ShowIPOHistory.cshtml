@@ -1,0 +1,291 @@
+﻿@model ArtWebApp.Areas.ArtMVC.Models.ViewModel.IPOListViewModel
+
+@{
+    ViewBag.Title = "ShowIPOHistory";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Show IPO History</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Poid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Poid", null, htmlAttributes: new { @class = "form-control chosen-select" })
+
+                @Html.ValidationMessageFor(model => model.Poid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Show" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+
+    <div>
+
+        <div class="container">
+
+
+
+
+
+        </div>
+
+        <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+            <tr>
+                <th>
+
+                    @Html.DisplayName("IPO")
+                </th>
+
+
+
+            </tr>
+
+
+            <tr>
+                <td>
+                    @if (Model.IPOMasterlist != null)
+                    {
+
+                        foreach (ArtWebApp.Areas.ArtMVC.Models.ViewModel.IPOViewModel item in Model.IPOMasterlist)
+                        {
+                            <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+
+                                <tr>
+                                    <td class="container">
+
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                POID :
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.DisplayFor(modelItem => item.Poid)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                IPO #:
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.DisplayFor(modelItem => item.IPONumber)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                Loc :
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.DisplayFor(modelItem => item.OODoLocation)
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+
+
+                                        <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+                                            <tr>
+                                                <td> IPO Details</td>
+                                                <td> RQD Qty</td>
+                                                <td> UOM</td>
+                                                <td> SPO</td>
+                                            </tr>
+                                            @if (item.IPODetailsViewModellist != null)
+                                            {
+                                                foreach (ArtWebApp.Areas.ArtMVC.Models.ViewModel.IPODetailsViewModel ipodetails in item.IPODetailsViewModellist)
+                                                {
+
+                                                    <tr>
+
+                                                        <td>
+                                                            @Html.DisplayFor(Models => ipodetails.ItemDescription)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(Models => ipodetails.RequiredQty)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(Models => ipodetails.OODOUOM)
+                                                        </td>
+                                                        <td>
+                                                            <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+                                                                <tr>
+                                                                    <td> SPO</td>
+                                                                    <td> Supplier</td>
+                                                                    <td> Qty</td>
+                                                                    <td> UOM</td>
+                                                                    <td> MRN</td>
+                                                                </tr>
+                                                                @if (ipodetails.SpoDetailsList != null)
+                                                                {
+                                                                    foreach (ArtWebApp.Areas.ArtMVC.Models.ViewModel.SpoDetails spoDetails in ipodetails.SpoDetailsList)
+                                                                    {
+
+                                                                        <tr>
+
+                                                                            <td>
+                                                                                @Html.DisplayFor(Modelspo => spoDetails.SPOnum)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(Modelspo => spoDetails.Suppplier)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(Modelspo => spoDetails.Qty)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(Modelspo => spoDetails.SPOUOM)
+                                                                            </td>
+                                                                            <td>
+                                                                                <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+                                                                                    <tr>
+                                                                                        <td> SMRNNUM</td>
+                                                                                        <td> SMRNDate</td>
+                                                                                        <td> Qty</td>
+                                                                                        <td> ExtraQty</td>
+                                                                                        <td> invoice</td>
+                                                                                        <td>SDO</td>
+                                                                                    </tr>
+
+
+                                                                                    @if (spoDetails.SMRNDetailsList != null)
+                                                                                    {
+                                                                                        foreach (ArtWebApp.Areas.ArtMVC.Models.ViewModel.SMRNDetails smrndet in spoDetails.SMRNDetailsList)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(Modelspodet => smrndet.SMRNNUM)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(Modelspodet => smrndet.SMRNDate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(Modelspodet => smrndet.Qty)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(Modelspodet => smrndet.ExtraQty)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(Modelspodet => smrndet.invoice)
+                                                                                                </td>
+                                                                                                <td>
+
+
+
+
+                                                                                                    <table class="table table-striped table-bordered table-hover table-responsive exporttable">
+                                                                                                        <tr>
+                                                                                                            <td> SDO</td>
+                                                                                                            <td> Qty</td>
+                                                                                                            <td> AddedBY</td>
+                                                                                                            <td> AddedDate</td>
+
+                                                                                                        </tr>
+
+                                                                                                        @if (smrndet.SDODetailsList != null)
+                                                                                                        {
+
+                                                                                                            foreach (ArtWebApp.Areas.ArtMVC.Models.ViewModel.SDODetails sdodet in smrndet.SDODetailsList)
+                                                                                                            {
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        @Html.DisplayFor(Modeldo => sdodet.SDONUM)
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        @Html.DisplayFor(Modeldo => sdodet.Qty)
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        @Html.DisplayFor(Modeldo => sdodet.AddedBy)
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        @Html.DisplayFor(Modeldo => sdodet.AddedDate)
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            }
+
+                                                                                                        }
+
+
+                                                                                                    </table>
+
+
+
+
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+                                                                                    }
+
+
+
+                                                                                </table>
+
+                                                                            </td>
+
+                                                                        </tr>
+
+
+                                                                    }
+                                                                }
+
+
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                }
+                                            }
+
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+
+                                <tr></tr>
+                            </table>
+
+
+
+
+
+
+
+
+
+                        }
+
+                    }
+                </td>
+
+
+
+
+
+
+            </tr>
+
+
+
+        </table>
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

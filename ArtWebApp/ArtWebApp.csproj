@@ -231,6 +231,25 @@
     <Content Include="Approvals\ProcurementApproval.aspx" />
     <Content Include="Approvals\ServicePoApproval.aspx" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite%402x.png" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite.png" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.css" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.jquery.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.jquery.min.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.min.css" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.proto.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\chosen.proto.min.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\chosen.png" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\init.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\init.proto.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\oss-credit.png" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\prism.css" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\prism.js" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\docsupport\style.css" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\index.html" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\index.proto.html" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\options.html" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\seleer.html" />
     <Content Include="ArtLogin.aspx" />
     <Content Include="Authorisation.aspx" />
     <Content Include="bin\ArtWebApp.dll" />
@@ -266,6 +285,7 @@
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
     <Content Include="JQuery\ExporttoExcel.js" />
+    <Content Include="loader.gif" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
@@ -280,6 +300,7 @@
     <Content Include="Production\Schedular\ASQMonthShipmentClosing.aspx" />
     <Content Include="Production\Schedular\ProductionReporting.aspx" />
     <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
+    <Content Include="Progressbar.js" />
     <Content Include="Reports\Production\CutplanHTMLReportWithRoll.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
     <Content Include="Reports\Production\MSI\AtcASQStatus.aspx" />
@@ -1168,6 +1189,13 @@
     <Content Include="Areas\ArtMVC\Views\ApproveLaysheet\ApproveLaysheet.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\web.config" />
     <Content Include="Areas\ITAdministrator\Views\ITAdministrator\ShowItTasks.cshtml" />
+    <Content Include="Areas\ArtMVC\Views\IPO\ShowIPOHistory.cshtml" />
+    <Content Include="Areas\Controls\chosen_v1.7.0\bower.json" />
+    <Content Include="App_Code\Treeview.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\ITAdministrator\Simple.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\web.config" />
+    <Content Include="Areas\ArtMVCMaster\Views\Item\ItemMenuIndex.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Menu\MenuIndex.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1197,6 +1225,7 @@
     <Content Include="Shipping\ShiipingDashBoard.aspx" />
     <Content Include="Shipping\ShipmentClosing.aspx" />
     <Content Include="Shipping\ShippingTracker.aspx" />
+    <Content Include="TransformXSLT.xsl" />
     <Content Include="User Manual\InventoryUserGuide.htm" />
     <Content Include="User Manual\InventoryUserGuide_files\colorschememapping.xml" />
     <Content Include="User Manual\InventoryUserGuide_files\filelist.xml" />
@@ -1494,11 +1523,18 @@
     <Compile Include="Approvals\ServicePoApproval.aspx.designer.cs">
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Master\Item.cs" />
+    <Compile Include="ViewModel\Master\Menu.cs" />
     <Content Include="App_Code\HtmlHelperExtensions.cs" />
+    <Compile Include="Areas\ArtMVCMaster\ArtMVCMasterAreaRegistration.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\ItemController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\MenuController.cs" />
     <Compile Include="Areas\ArtMVC\ArtMVCAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVC\Controllers\ApproveLaysheetController.cs" />
     <Compile Include="Areas\ArtMVC\Controllers\HomeController.cs" />
+    <Compile Include="Areas\ArtMVC\Controllers\IPOController.cs" />
     <Compile Include="Areas\ArtMVC\Models\ViewModel\ApprovelaysheetModel.cs" />
+    <Compile Include="Areas\ArtMVC\Models\ViewModel\IPoViewModel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\ITAdministratorController.cs" />
     <Compile Include="Areas\ITAdministrator\ITAdministratorAreaRegistration.cs" />
     <Compile Include="Areas\MVCControls.cs" />
@@ -1579,6 +1615,7 @@
     <Compile Include="Controls\MyMenuBar.ascx.designer.cs">
       <DependentUpon>MyMenuBar.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WebMsgBox.cs" />
     <Compile Include="ControlTreeExtensions.cs" />
     <Compile Include="DataModelAtcWorld\ArtCutPlanASQDet.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
@@ -1716,6 +1753,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CourierTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CreditNoteMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CurrencyMaster.cs">
@@ -2160,6 +2200,12 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\SubMenuMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SuplierASNDebitDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierDebitAsnMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\SupplierDocumentMaster.cs">
@@ -3998,10 +4044,18 @@
     <EmbeddedResource Include="Reports\RDLC\YearlyShippedNew.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ArtMVCMaster\Models\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\Shared\" />
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArtDAL\ArtDAL.csproj">
+      <Project>{f517daee-afdb-411e-8ef7-51009bc42719}</Project>
+      <Name>ArtDAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

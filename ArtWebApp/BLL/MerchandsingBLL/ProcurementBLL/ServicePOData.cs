@@ -473,7 +473,8 @@ namespace ArtWebApp.BLL.ProcurementBLL
                     spoforpo.PoDate = DateTime.Now.Date;
                     spoforpo.NewPOId = 0;
                     spoforpo.NewPOLineId = 0;
-                    spoforpo.SupplierName = supliername.ToString();
+                spoforpo.UOM_PK = detdata.Uom_PK;
+                spoforpo.SupplierName = supliername.ToString();
                     spoforpo.OdooLocation = OdooLocation.ToString();
                     enty.StocPOForODOOs.Add(spoforpo);
                

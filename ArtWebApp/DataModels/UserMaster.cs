@@ -28,6 +28,8 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<decimal> UserProfile_Pk { get; set; }
         public Nullable<decimal> Department_PK { get; set; }
+        public string IsActive { get; set; }
+        public string IsDeleted { get; set; }
     
         public virtual ICollection<ApprovalTable> ApprovalTables { get; set; }
         public virtual UserProfileMaster UserProfileMaster { get; set; }

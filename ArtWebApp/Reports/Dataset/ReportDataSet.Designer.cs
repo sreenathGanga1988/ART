@@ -19038,6 +19038,12 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnActualvalue;
             
+            private global::System.Data.DataColumn columnIsShortclosed;
+            
+            private global::System.Data.DataColumn columnHandoverDate;
+            
+            private global::System.Data.DataColumn columnShippedQty;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TargetofAMonth_SPDataTable() {
@@ -19217,6 +19223,30 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsShortclosedColumn {
+                get {
+                    return this.columnIsShortclosed;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HandoverDateColumn {
+                get {
+                    return this.columnHandoverDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ShippedQtyColumn {
+                get {
+                    return this.columnShippedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -19270,7 +19300,10 @@ namespace ArtWebApp.Reports.Dataset {
                         decimal OurStyleID, 
                         decimal FOB, 
                         decimal Targetvalue, 
-                        decimal Actualvalue) {
+                        decimal Actualvalue, 
+                        string IsShortclosed, 
+                        System.DateTime HandoverDate, 
+                        decimal ShippedQty) {
                 TargetofAMonth_SPRow rowTargetofAMonth_SPRow = ((TargetofAMonth_SPRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Description,
@@ -19290,7 +19323,10 @@ namespace ArtWebApp.Reports.Dataset {
                         OurStyleID,
                         FOB,
                         Targetvalue,
-                        Actualvalue};
+                        Actualvalue,
+                        IsShortclosed,
+                        HandoverDate,
+                        ShippedQty};
                 rowTargetofAMonth_SPRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTargetofAMonth_SPRow);
                 return rowTargetofAMonth_SPRow;
@@ -19331,6 +19367,9 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnFOB = base.Columns["FOB"];
                 this.columnTargetvalue = base.Columns["Targetvalue"];
                 this.columnActualvalue = base.Columns["Actualvalue"];
+                this.columnIsShortclosed = base.Columns["IsShortclosed"];
+                this.columnHandoverDate = base.Columns["HandoverDate"];
+                this.columnShippedQty = base.Columns["ShippedQty"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19372,6 +19411,12 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnTargetvalue);
                 this.columnActualvalue = new global::System.Data.DataColumn("Actualvalue", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnActualvalue);
+                this.columnIsShortclosed = new global::System.Data.DataColumn("IsShortclosed", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsShortclosed);
+                this.columnHandoverDate = new global::System.Data.DataColumn("HandoverDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHandoverDate);
+                this.columnShippedQty = new global::System.Data.DataColumn("ShippedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShippedQty);
                 this.columnDescription.MaxLength = 50;
                 this.columnBuyerName.MaxLength = 50;
                 this.columnAtcNum.MaxLength = 10;
@@ -19386,6 +19431,9 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnLocationName.MaxLength = 50;
                 this.columnTargetvalue.ReadOnly = true;
                 this.columnActualvalue.ReadOnly = true;
+                this.columnIsShortclosed.ReadOnly = true;
+                this.columnIsShortclosed.MaxLength = 10;
+                this.columnShippedQty.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37247,6 +37295,54 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IsShortclosed {
+                get {
+                    try {
+                        return ((string)(this[this.tableTargetofAMonth_SP.IsShortclosedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsShortclosed\' in table \'TargetofAMonth_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTargetofAMonth_SP.IsShortclosedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime HandoverDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableTargetofAMonth_SP.HandoverDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'HandoverDate\' in table \'TargetofAMonth_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTargetofAMonth_SP.HandoverDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal ShippedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTargetofAMonth_SP.ShippedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ShippedQty\' in table \'TargetofAMonth_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTargetofAMonth_SP.ShippedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsDescriptionNull() {
                 return this.IsNull(this.tableTargetofAMonth_SP.DescriptionColumn);
             }
@@ -37447,6 +37543,42 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetActualvalueNull() {
                 this[this.tableTargetofAMonth_SP.ActualvalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsShortclosedNull() {
+                return this.IsNull(this.tableTargetofAMonth_SP.IsShortclosedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsShortclosedNull() {
+                this[this.tableTargetofAMonth_SP.IsShortclosedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsHandoverDateNull() {
+                return this.IsNull(this.tableTargetofAMonth_SP.HandoverDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetHandoverDateNull() {
+                this[this.tableTargetofAMonth_SP.HandoverDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsShippedQtyNull() {
+                return this.IsNull(this.tableTargetofAMonth_SP.ShippedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetShippedQtyNull() {
+                this[this.tableTargetofAMonth_SP.ShippedQtyColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -47138,6 +47270,9 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
             tableMapping.ColumnMappings.Add("FOB", "FOB");
             tableMapping.ColumnMappings.Add("Targetvalue", "Targetvalue");
             tableMapping.ColumnMappings.Add("Actualvalue", "Actualvalue");
+            tableMapping.ColumnMappings.Add("IsShortclosed", "IsShortclosed");
+            tableMapping.ColumnMappings.Add("HandoverDate", "HandoverDate");
+            tableMapping.ColumnMappings.Add("ShippedQty", "ShippedQty");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

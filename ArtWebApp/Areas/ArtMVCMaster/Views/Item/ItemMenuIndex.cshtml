@@ -1,0 +1,47 @@
+﻿@model ArtBL.Masters.Item.Itemmenu
+
+@{
+    ViewBag.Title = "ItemMenuIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ItemMenuIndex</h2>
+<div class="row">
+    @foreach (ArtBL.Masters.Item.MenuViewModal menumdl in Model.SubMenusiewModal.MenuList)
+    {
+
+        if (menumdl.MenuURL.Trim() != "")
+        {
+            <div class="col-md-4">
+                <h2>@menumdl.MenuText</h2>
+                <p> @menumdl.MenuText </p>
+                <p><a class="btn btn-default" href="@menumdl.MenuURL">Learn more &raquo;</a></p>
+            </div>
+        }
+        else
+        {
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+

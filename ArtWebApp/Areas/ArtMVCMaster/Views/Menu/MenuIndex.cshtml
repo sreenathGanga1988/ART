@@ -1,0 +1,50 @@
+﻿@model ArtWebApp.ViewModel.Master.UserMenu
+@{
+    ViewBag.Title = "MenuIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MenuIndex</h2>
+
+<div class="row">
+    @foreach (ArtWebApp.ViewModel.Master.MenuViewModal menumdl in Model.SubMenusiewModal.MenuList)
+    {
+
+      
+            <div class="col-md-4">
+                <h2>@menumdl.MenuText</h2>
+                <p> @menumdl.Description </p>
+                @if (menumdl.MenuURL.Trim() != "")
+                {
+                 <p><a class="btn btn-default" href="@menumdl.MenuURL">Open &raquo;</a></p>
+                }
+                else
+                {
+                    <p class = "btn btn-default">
+                        @Html.ActionLink("View SubMenu ", "MenuIndex", "Menu", new { Area = "ArtMVCMaster", Id = @menumdl.Menu_PK },new { })
+                    </p>
+                }
+
+
+</div>
+       
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
