@@ -384,6 +384,13 @@
         <EntityTypeShape EntityType="ArtModel.SuplierASNDebitDetail" Width="1.5" PointX="25.375" PointY="7.75" />
         <EntityTypeShape EntityType="ArtModel.SupplierDebitAsnMaster" Width="1.5" PointX="25.375" PointY="11.75" />
         <AssociationConnector Association="ArtModel.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" />
+        <AssociationConnector Association="ArtModel.FK_SupplierMaster_PaymentModeMaster" />
+        <AssociationConnector Association="ArtModel.FK_SupplierMaster_PaymentTermMaster" />
+        <EntityTypeShape EntityType="ArtModel.SupplierTypemaster" Width="1.5" PointX="12.375" PointY="25.75" />
+        <EntityTypeShape EntityType="ArtModel.CutTypeMaster" Width="1.5" PointX="14.375" PointY="25.75" />
+        <EntityTypeShape EntityType="ArtModel.MarkerDirectionMaster" Width="1.5" PointX="25.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ArtModel.MarkerMadeMaster" Width="1.5" PointX="25.375" PointY="18.75" />
+        <AssociationConnector Association="ArtModel.FK_SubMenuMaster_SubMenuMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

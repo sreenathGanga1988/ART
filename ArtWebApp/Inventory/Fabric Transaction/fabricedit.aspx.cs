@@ -101,7 +101,8 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
                     String txt_Sshade = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_Sshade") as TextBox).Text.ToString());
                     String txt_sgsm = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sgsm") as TextBox).Text.ToString());
                     String txt_sweight = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sweight") as TextBox).Text.ToString());
-
+                    String txt_LOTnum = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_LOTnum") as TextBox).Text.ToString());
+                    
                     BLL.InventoryBLL.FabricRollmasterDataDetails rolldata = new BLL.InventoryBLL.FabricRollmasterDataDetails();
 
                     //   rolldata.Po_PK = int.Parse(ddl_po.SelectedValue.ToString());
@@ -116,7 +117,10 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
                     rolldata.SWidth = txt_sWidth;
                     rolldata.Sweight = txt_sweight;
                     rolldata.SGSM = txt_sgsm;
-                   
+                    rolldata.Lotnum = txt_LOTnum;
+
+
+
 
 
                     rk.Add(rolldata);

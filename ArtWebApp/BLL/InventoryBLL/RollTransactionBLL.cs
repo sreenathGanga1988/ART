@@ -359,7 +359,7 @@ WHERE        (InventoryLoanMaster.Loan_PK = @loan_PK)";
                 cmd.CommandText = @"
 SELECT DISTINCT 
                          SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + '  ' + SkuRawMaterialMaster.Weight + SkuRawMaterialMaster.Width + '  ' + ProcurementDetails.SupplierColor
-                          + '   ' + ProcurementDetails.SupplierSize AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK
+                          + '   ' + ProcurementDetails.SupplierSize   + '(' + CONVERT(VARCHAR(19),SkuRawmaterialDetail.SkuDet_PK) +')'  AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
@@ -851,7 +851,7 @@ ORDER BY tt.RollNum ";
                         element.RollNum = rolldata.RollNum;
                         element.SWidth = rolldata.SWidth; ;
                         element.SWeight = rolldata.Sweight;
-
+                        element.LOTnum = rolldata.Lotnum;
 
                     }
 
@@ -1735,7 +1735,7 @@ WHERE        (MrnDetails.MrnDet_PK = @mrndet_pk)";
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT        Roll_PK, RollNum, Qty, UOM, Remark, SShrink, SYard, SShade, SWidth,SGsm,SWeight
+                cmd.CommandText = @"SELECT        Roll_PK, RollNum, Qty, UOM, Remark, SShrink, SYard, SShade, SWidth,SGsm,SWeight,LOTnum
 FROM            FabricRollmaster
 WHERE        (SkuDet_PK = @skudetpk) AND (SupplierDoc_pk = @asn_pk) ";
                 cmd.Parameters.AddWithValue("@asn_pk", asn_pk);

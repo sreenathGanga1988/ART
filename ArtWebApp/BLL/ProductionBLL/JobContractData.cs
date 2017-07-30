@@ -153,7 +153,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                         ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                         ajcmstr.CM = this.JCmstrdata.CMCost;
                         ajcmstr.JobContractNum = Donum;
-                        enty.JobContractMasters.Add(jcmstr);
+                        atcenty.ArtJobContractMasters.Add(ajcmstr);
 
 
                         atcenty.SaveChanges();

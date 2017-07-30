@@ -1,4 +1,5 @@
-﻿using ArtWebApp.DataModels;
+﻿using ArtWebApp.Controls;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -89,24 +90,68 @@ namespace ArtWebApp.Production.CutOrder
             }
         }
 
-        public void FillBOdyCombo()
+        public void FillAllCombo()
         {
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
-                var q = from ponmbr in entty.BodyPartMasters
-
+                var bodyparts = (from ponmbr in entty.BodyPartMasters
+                                 where ponmbr.IsActive == true
                         select new
                         {
                             name = ponmbr.BodyPartName,
                             pk = ponmbr.BodyPartName
-                        };
+                        }).ToList();
+                var cuttype = (from ponmbr in entty.CutTypeMasters
+                               where ponmbr.IsActive == true
+                               select new
+                               {
+                                   name = ponmbr.CutType,
+                                   pk = ponmbr.CutType
+                               }).ToList();
+                var markermade = (from ponmbr in entty.MarkerMadeMasters
+                                  where ponmbr.IsActive == true
+                                  select new
+                                  {
+                                      name = ponmbr.MarkerMade,
+                                      pk = ponmbr.MarkerMade
+                                  }).ToList();
 
-                drp_fabrication.DataSource = q.ToList();
+
+
+                var markerdirection = (from ponmbr in entty.MarkerDirectionMasters
+                                  where ponmbr.IsActive == true
+                                  select new
+                                  {
+                                      name = ponmbr.MarkerDirection,
+                                      pk = ponmbr.MarkerDirection
+                                  }).ToList();
+
+
+
+                drp_fabrication.DataSource = bodyparts;
                 drp_fabrication.DataBind();
+               
+
+              
+                drp_cuttype.DataSource = cuttype;
+                drp_cuttype.DataBind();
+              
+             
+
+             
+
+                drp_markermade.DataSource = markermade;
+                drp_markermade.DataBind();
+
+             
+
+                drp_markerdirection.DataSource = markerdirection;
+                drp_markerdirection.DataBind();
+
+                upd_markerdirection.Update();
+                upd_cuttype.Update();
                 upd_fabrication.Update();
-
-
-
+                upd_markermade.Update();
             }
         }
 
@@ -237,9 +282,9 @@ namespace ArtWebApp.Production.CutOrder
             cleargrid();
 
             FillOurStyleCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
-            FillBOdyCombo();
 
 
+            FillAllCombo();
         }
 
 
@@ -1172,12 +1217,49 @@ namespace ArtWebApp.Production.CutOrder
             return msg;
         }
 
+        public String InsertCutPlanMasterDataTotal()
+        {
+            BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
+            cmstrdata.OurStyleID = int.Parse(drp_ourstyle.SelectedValue.ToString());
+            cmstrdata.SkuDet_PK = int.Parse(drp_fabcolor.SelectedValue.ToString());
 
+            cmstrdata.ColorName = ddl_color.Text.ToString();
+            cmstrdata.ColorCode = ddl_color.SelectedValue.ToString();
+            cmstrdata.ShrinkageGroup = drp_shrink.Text.ToString();
+            cmstrdata.WidthGroup = drp_width.Text.ToString();
+            cmstrdata.AddedBy = Session["Username"].ToString().Trim();
+            cmstrdata.AddedDate = DateTime.Now;
+            cmstrdata.location_PK = int.Parse(drp_fact.SelectedValue.ToString());
+            cmstrdata.FabDescription = drp_fabcolor.SelectedItem.Text.Trim();
+            cmstrdata.Fabrication = drp_fabrication.Text;
+            cmstrdata.MarkerType = drp_markerType.SelectedItem.Text.Trim();
+            cmstrdata.MakerMade = drp_markermade.Text;
+            cmstrdata.BOMConsumption = Decimal.Parse(lbl_consumption.Text.Trim());
+            cmstrdata.CutPlanMarkerTypeDataDataCollection = getmarkertype();
+            cmstrdata.Maxmarkerlength = txt_maximumMarkerlength.Text;
+            cmstrdata.CutPlanDetailsDataCollection = GetSizedata();
+
+            String msg = "";
+            if (cmstrdata.CutPlanDetailsDataCollection.Count == 0)
+            {
+                WebMsgBox.Show("No ASQ Selected");
+            }
+            else
+            {
+                msg = cmstrdata.InsertNewCutPlanMasterWithASQ();
+            }
+
+              
+            //msg = msg + "  Created Sucessfully .  Add ASQ Details";
+            //ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+
+            return msg;
+        }
         public List<BLL.CutOrderBLL.CutPlanMarkerTypeData> getmarkertype()
         {
             List<BLL.CutOrderBLL.CutPlanMarkerTypeData> rk = new List<BLL.CutOrderBLL.CutPlanMarkerTypeData>();
             ArrayList popaklist = new ArrayList();
-            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_popack.SelectedItems;
+            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_markerdirection.SelectedItems;
             foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
             {
 
@@ -1204,11 +1286,16 @@ namespace ArtWebApp.Production.CutOrder
             if (float.Parse(lbl_consumption.Text) != 0)
             {
                 String msg = "";
-                msg = InsertCutPlanMasterData();
-                msg = msg + "  Created Sucessfully ";
-                BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
-                cmstrdata.CutPlanDetailsDataCollection = GetSizedata(int.Parse(Session["CutPlan_PK"].ToString()));
-                cmstrdata.InsertCutASQDetailsPlan();
+                //msg = InsertCutPlanMasterData();
+                //msg = msg + "  Created Sucessfully ";
+                //BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
+                //cmstrdata.CutPlanDetailsDataCollection = GetSizedata(int.Parse(Session["CutPlan_PK"].ToString()));
+                //cmstrdata.InsertCutASQDetailsPlan();
+
+
+                msg = InsertCutPlanMasterDataTotal();
+
+
                 msg = msg + " and  ASQ Details Added Sucessfully Add marker Details";
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
                 tbl_podata.DataSource = null;
@@ -1325,6 +1412,117 @@ namespace ArtWebApp.Production.CutOrder
 
             return rk;
         }
+
+
+
+
+        public List<BLL.CutOrderBLL.CutPlanDetailsData> GetSizedata()
+        {
+
+            List<BLL.CutOrderBLL.CutPlanDetailsData> rk = new List<BLL.CutOrderBLL.CutPlanDetailsData>();
+
+            for (int i = 0; i < tbl_podata.Rows.Count; i++)
+            {
+                GridViewRow row = tbl_podata.Rows[i];
+                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+                    Panel panel1 = (row.FindControl("panel1") as Panel);
+                    Table Table1 = (row.FindControl("Table1") as Table);
+                    int lbl_popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                    int lbl_ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+
+                    int tablerowcount = Table1.Rows.Count;
+                    //for each row in table
+                    for (int tabroindex = 0; tabroindex < Table1.Rows.Count; tabroindex++)
+                    {    //get row
+                        TableRow tbrow = Table1.Rows[tabroindex];
+                        //navigate through all the columns of row
+
+                        if (tabroindex == Table1.Rows.Count - 1)
+                        {
+
+                            for (int tabcellindex = 0; tabcellindex < tbrow.Cells.Count; tabcellindex++)
+                            {
+
+                                TableCell cell = tbrow.Cells[tabcellindex];
+
+                                for (int tabcntrlindex = 0; tabcntrlindex < cell.Controls.Count; tabcntrlindex++)
+                                {
+                                    Control ctrl = cell.Controls[tabcntrlindex];
+
+
+                                    if (ctrl is TextBox)
+                                    {
+                                        TextBox txtqty = (TextBox)ctrl;
+
+                                        TextBox txtratio = (TextBox)Table1.Rows[2].Cells[tabcellindex].Controls[tabcntrlindex];
+
+                                        if (txtqty.Text == "New Cut" || txtqty.CssClass == "GrandTotal")
+                                        {
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            Control ctrlsize = Table1.Rows[0].Cells[tabcellindex].Controls[0];
+                                            Label lblsize = (Label)ctrlsize;
+
+                                            Control ctrlcolor = Table1.Rows[1].Cells[0].Controls[0];
+                                            TextBox lblctrlcolor = (TextBox)ctrlcolor;
+
+                                            if (lblsize.Text.Trim() != "Total")
+                                            {
+
+                                                BLL.CutOrderBLL.CutPlanDetailsData cutdet = new BLL.CutOrderBLL.CutPlanDetailsData();
+                                                cutdet.SizeName = lblsize.Text.Trim();
+                                                cutdet.ColorName = lblctrlcolor.Text.Trim();
+                                                cutdet.CutQty = int.Parse(txtqty.Text);
+                                                cutdet.PoPackId = lbl_popackid;
+                                               
+                                                cutdet.OurStyleId = lbl_ourstyleid;
+                                                cutdet.skudet_PK = int.Parse(drp_fabcolor.SelectedValue.ToString());
+
+                                                rk.Add(cutdet);
+                                            }
+
+
+
+                                        }
+
+
+                                    }
+                                }
+                            }
+
+
+                        }
+
+
+
+
+                    }
+                }
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+            return rk;
+        }
+
 
         protected void btn_cutordermnum_Click(object sender, EventArgs e)
         {

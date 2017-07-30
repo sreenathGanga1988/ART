@@ -28,7 +28,7 @@
                     <td >
                           
                         Atc</td>
-                    <td class="auto-style9"  >
+                    <td class="NormalTD"  >
                          
 
                           <asp:UpdatePanel ID="upd_atc" UpdateMode="Conditional" runat="server">
@@ -51,7 +51,7 @@
                     <td >
                         DO # :
                     </td>
-                    <td class="auto-style9" >
+                    <td class="NormalTD" >
                              
                       <asp:UpdatePanel ID="upd_do" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
@@ -74,7 +74,7 @@
                     <td >
                         Fabric Details :
                     </td>
-                    <td class="auto-style9" >
+                    <td class="NormalTD" >
                        <asp:UpdatePanel ID="upd_color" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                                                 <ucc:DropDownListChosen ID="drp_color" runat="server" Height="25px" Width="170px" DisableSearchThreshold="10">
@@ -89,6 +89,19 @@
                      </ContentTemplate>
                                             </asp:UpdatePanel> 
                     </td>
+                    <td >
+                        &nbsp;</td>
+                    <td >
+                         &nbsp;</td>
+                </tr>
+                <tr>
+                    <td >
+                        Delivered Yards</td>
+                    <td class="NormalTD" >
+                        &nbsp;</td>
+                    
+                    <td >
+                          &nbsp;</td>
                     <td >
                         &nbsp;</td>
                     <td >
@@ -148,7 +161,7 @@
                     <td >
                         <asp:Button ID="Button1" runat="server" Text="Save Roll Data" OnClick="Button1_Click" />
                     </td>
-                    <td class="auto-style9" >
+                    <td class="NormalTD" >
                         &nbsp;</td>
                     <td class="auto-style7" >
                         &nbsp;</td>

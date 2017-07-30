@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public PaymentTermMaster()
         {
             this.StockPOMasters = new HashSet<StockPOMaster>();
+            this.SupplierMasters = new HashSet<SupplierMaster>();
         }
     
         public decimal PaymentTermID { get; set; }
@@ -24,5 +25,6 @@ namespace ArtWebApp.DataModels
         public string PaymentCodeDescription { get; set; }
     
         public virtual ICollection<StockPOMaster> StockPOMasters { get; set; }
+        public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
     }
 }

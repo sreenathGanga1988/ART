@@ -1,0 +1,99 @@
+﻿@model ArtWebApp.DataModels.Template_Master
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Template_Master</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TemplateCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemplateCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HCCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HCCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wastage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wastage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsItemColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsItemColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsItemSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsItemSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsStock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemGroupMaster.ItemGroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemGroupMaster.ItemGroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UOMMaster.UomCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UOMMaster.UomCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Template_PK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -38,9 +38,7 @@
       }
     
 
-
-
-        function calculatesumofyardage()
+  function calculatesumofyardage()
         {
             var gridView = document.getElementById("<%= tbl_rolldata.ClientID %>");
             var sum = 0
@@ -58,6 +56,9 @@
             var totalyardfooter = document.getElementsByClassName("totalyardfooter")[0];
             totalyardfooter.value = sum;
         }
+
+
+    
 
 
 
@@ -362,7 +363,7 @@
 
 
 
-                                          <asp:TemplateField  ControlStyle-Width="10px" HeaderStyle-Width="10px" FooterStyle-Width="10px">
+                                          <asp:TemplateField>
                                                     <HeaderTemplate>
                                                         <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
                                                     </HeaderTemplate>
@@ -387,9 +388,11 @@
                                          <asp:BoundField DataField="AWidth" HeaderText="AWidth" SortExpression="AWidth" />
                                          <asp:BoundField DataField="AShrink" HeaderText="AShrink" SortExpression="AShrink" />
                                          <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
-                                         <asp:BoundField DataField="SWeight" HeaderText="SWeight" SortExpression="SWeight" />                                        
+                                         <asp:BoundField DataField="SWeight" HeaderText="SWeight" SortExpression="SWeight" />                                                                               
                                         <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
                                         <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
+                                        <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                                        
                                         <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />
                                         
                                          <asp:TemplateField HeaderText="AYard">

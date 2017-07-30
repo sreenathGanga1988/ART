@@ -556,7 +556,32 @@ HAVING        (CutPlanMaster.CutPlan_PK = @Param1)";
 
 
 
+        public static float getAlreadyAllocatedAyardage(int cutplanpk)
+        {
+            float ayardsumfloat = 0;
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                try
+                {
+                    var ayardsum = entty.CutPlanRollDetails.Where(u => u.CutPlan_PK == cutplanpk).Sum(u => u.FabricRollmaster.AYard);
+                    ayardsumfloat = float.Parse(ayardsum.ToString());
+                }
+                catch (Exception)
+                {
 
+                    ayardsumfloat = 0;
+                }
+            }
+
+            return ayardsumfloat;
+        }
+
+        public static void getBOmConsumptionCalculated()
+        {
+
+
+            Decimal BomConsumption = 0;
+        }
 
         #region datatable creator
         public static DataTable AddToTalQty(DataTable dt,DataTable alrdeaycut)
@@ -949,6 +974,89 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
                 
+            }
+
+            return Cutn;
+        }
+
+        public String InsertNewCutPlanMasterWithASQ()
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                using (var dbContextTransaction = enty.Database.BeginTransaction())
+                {
+
+
+                    try
+                    {
+                        CutPlanMaster ctmstr = new CutPlanMaster();
+                        ctmstr.OurStyleID = this.OurStyleID;
+                        ctmstr.SkuDet_PK = this.SkuDet_PK;
+
+                        ctmstr.ColorName = this.ColorName;
+                        ctmstr.ColorCode = this.ColorCode;
+                        ctmstr.ShrinkageGroup = this.ShrinkageGroup;
+                        ctmstr.WidthGroup = this.WidthGroup;
+                        ctmstr.MarkerType = this.MarkerType;
+                        ctmstr.AddedBy = this.AddedBy;
+                        ctmstr.AddedDate = this.AddedDate;
+                        ctmstr.Location_PK = this.location_PK;
+                        ctmstr.FabDescription = this.FabDescription;
+                        ctmstr.BOMConsumption = this.BOMConsumption;
+                        ctmstr.MarkerMade = this.MakerMade;
+                        ctmstr.IsPatternAdded = "N";
+                        ctmstr.IsApproved = "N";
+                        ctmstr.IsRatioAdded = "N";
+                        ctmstr.IsDeleted = "N";
+                        ctmstr.IsCutorderGiven = "N";
+                        ctmstr.IsRollAdded = "N";
+                        ctmstr.RefPattern = "";
+                        ctmstr.RollYard = 0;
+                        ctmstr.CutplanConsumption = 0;
+                        ctmstr.CutplanEfficency = 0;
+                        ctmstr.Fabrication = this.Fabrication;
+                        ctmstr.Maxmarkerlength = this.Maxmarkerlength;
+                        enty.CutPlanMasters.Add(ctmstr);
+                        enty.SaveChanges();
+                        HttpContext.Current.Session["CutPlan_PK"] = ctmstr.CutPlan_PK;
+                        Cutn = ctmstr.CutPlanNUM = CodeGenerator.GetUniqueCode("CPL", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(ctmstr.CutPlan_PK.ToString()));
+
+                        foreach (CutPlanMarkerTypeData di in this.CutPlanMarkerTypeDataDataCollection)
+                        {
+
+                            CutPlanMarkerType cddetail = new CutPlanMarkerType();
+                            cddetail.CutPlan_PK = ctmstr.CutPlan_PK;
+                            cddetail.CutPlanmarkerType1 = di.MarkerType;
+
+                            enty.CutPlanMarkerTypes.Add(cddetail);
+                        }
+                        foreach (CutPlanDetailsData di in this.CutPlanDetailsDataCollection)
+                        {
+
+                            var popackdets_pk = enty.POPackDetails.Where(u => u.SizeName == di.SizeName && u.ColorName == di.ColorName && u.OurStyleID == di.OurStyleId && u.POPackId == di.PoPackId).Select(u => u.PoPack_Detail_PK).FirstOrDefault();
+
+                            CutPlanASQDetail cddetail = new CutPlanASQDetail();
+                            cddetail.CutPlan_PK = ctmstr.CutPlan_PK;
+                            cddetail.PoPackId = di.PoPackId;
+                            cddetail.PoPack_Detail_PK = int.Parse(popackdets_pk.ToString());
+                            cddetail.CutQty = di.CutQty;
+                            cddetail.ColorName = di.ColorName;
+                            cddetail.SizeName = di.SizeName;
+                            cddetail.Skudet_PK = di.skudet_PK;
+                            enty.CutPlanASQDetails.Add(cddetail);
+                        }
+                        enty.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                   
+                    catch (Exception ex)
+                    {
+                        Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(ex));
+                        dbContextTransaction.Rollback();
+                    }
+                }
+
             }
 
             return Cutn;
@@ -1653,17 +1761,28 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
             string asqshuffle = "Error";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
-                var q = from ppl in enty.CutPlanRollDetails
-                        where ppl.CutPlanRoll_PK == prpl_pk
-                        select ppl;
+                var rollpkobj = enty.CutPlanRollDetails.Where(u => u.CutPlanRoll_PK == prpl_pk).Select(u => u.Roll_PK).FirstOrDefault();
+                int rollpk = int.Parse(rollpkobj.ToString());
 
-                foreach (var element in q)
+                if (!enty.LaySheetRollDetails.Any(f => f.Roll_PK == rollpk))
                 {
-                    element.IsDeleted = "Y";
-                    element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                    var q = from ppl in enty.CutPlanRollDetails
+                            where ppl.CutPlanRoll_PK == prpl_pk
+                            select ppl;
+
+                    foreach (var element in q)
+                    {
+                        element.IsDeleted = "Y";
+                        element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                    }
+                    enty.SaveChanges();
+                    asqshuffle = "Sucessfully Deleted";
                 }
-                enty.SaveChanges();
-                asqshuffle = "Sucessfully Deleted";
+                else
+                {
+                    Controls.WebMsgBox.Show("Rolls Used in Lausheet Roll Reference Delete it first ");
+                }
+              
             }
 
             return asqshuffle;

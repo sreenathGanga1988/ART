@@ -312,8 +312,17 @@
                                                 <asp:TextBox ID="txt_sweight" CssClass="txt_weight1"  Text='<%# Bind("SWeight") %>' runat="server" Width="70px"  ></asp:TextBox>
                                             </ItemTemplate>
                                                 <HeaderStyle Width="70px" />
-                                         
+                                        
                                         </asp:TemplateField>
+                                               <asp:TemplateField HeaderText="LOTnum">
+                                           
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txt_LOTnum" CssClass="txt_LOTnum"  Text='<%# Bind("LOTnum") %>' runat="server" Width="70px"  ></asp:TextBox>
+                                            </ItemTemplate>
+                                                <HeaderStyle Width="70px" />
+                                        
+                                        </asp:TemplateField>
+                                         
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

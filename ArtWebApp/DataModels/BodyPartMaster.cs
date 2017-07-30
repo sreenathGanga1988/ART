@@ -16,5 +16,6 @@ namespace ArtWebApp.DataModels
     {
         public decimal BodyPart_PK { get; set; }
         public string BodyPartName { get; set; }
+        public bool IsActive { get; set; }
     }
 }

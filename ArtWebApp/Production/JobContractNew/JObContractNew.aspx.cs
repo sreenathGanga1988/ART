@@ -21,7 +21,7 @@ namespace ArtWebApp.Production.JobContractNew
 
         protected void btn_JCSubmit_Click(object sender, EventArgs e)
         {
-            if (Decimal.Parse (txt_approvecost.Text)>Decimal.Parse(txt_cmcost.Text))
+            if (Decimal.Parse (txt_cmcost.Text)<=Decimal.Parse(txt_approvecost.Text))
             {
                 string msg = InsertJobContractdata();
                 tbl_podetails.DataSource = null;

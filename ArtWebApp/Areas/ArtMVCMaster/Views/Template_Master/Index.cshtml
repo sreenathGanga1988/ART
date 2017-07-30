@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.Template_Master>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TemplateCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HCCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wastage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsItemColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsItemSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemGroupMaster.ItemGroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UOMMaster.UomCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemplateCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HCCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wastage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsItemColor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsItemSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemGroupMaster.ItemGroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UOMMaster.UomCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Template_PK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Template_PK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Template_PK })
+        </td>
+    </tr>
+}
+
+</table>

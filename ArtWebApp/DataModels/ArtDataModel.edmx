@@ -194,6 +194,7 @@
           </Key>
           <Property Name="BodyPart_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BodyPartName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BuyerDestinationMaster">
           <Key>
@@ -400,6 +401,7 @@
           <Property Name="PaternName" Type="nvarchar" MaxLength="100" />
           <Property Name="MarkerType" Type="nvarchar" MaxLength="50" />
           <Property Name="CutPlan" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CutOrderSizeDetails">
           <Key>
@@ -592,6 +594,16 @@
           <Property Name="ButtonHoles" Type="nvarchar" MaxLength="50" />
           <Property Name="WashingInstruction" Type="nvarchar" MaxLength="50" />
           <Property Name="master" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CutTypeMaster">
+          <Key>
+            <PropertyRef Name="CutTypeID" />
+          </Key>
+          <Property Name="CutTypeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CutType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DeletedCutPlan">
           <Key>
@@ -1032,6 +1044,7 @@
           <Property Name="Unitprice" Type="decimal" Precision="18" Scale="5" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
           <Property Name="CuRate" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="InventorySalesMaster">
           <Key>
@@ -1335,6 +1348,22 @@
           <Property Name="Year" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MarkerDirectionMaster">
+          <Key>
+            <PropertyRef Name="MarkerDirectionID" />
+          </Key>
+          <Property Name="MarkerDirectionID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkerDirection" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="MarkerMadeMaster">
+          <Key>
+            <PropertyRef Name="CuttingMarkerMadeID" />
+          </Key>
+          <Property Name="CuttingMarkerMadeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkerMade" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="MarqueeMaster">
           <Key>
@@ -2295,6 +2324,9 @@
           <Property Name="ParentID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="isEnable" Type="nchar" MaxLength="10" />
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MVCURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SuplierASNDebitDetails">
           <Key>
@@ -2420,6 +2452,14 @@
           <Property Name="SupInvnum" Type="varchar" MaxLength="50" />
           <Property Name="Year" Type="numeric" Precision="5" Scale="0" />
         </EntityType>
+        <EntityType Name="SupplierTypemaster">
+          <Key>
+            <PropertyRef Name="SupplierTypeID" />
+          </Key>
+          <Property Name="SupplierTypeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeCode" Type="nchar" MaxLength="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="SupplierUserMaster">
           <Key>
             <PropertyRef Name="SupplierUser_PK" />
@@ -2472,6 +2512,8 @@
           <Property Name="IsItemSize" Type="nchar" MaxLength="10" />
           <Property Name="IsStock" Type="nchar" MaxLength="10" />
           <Property Name="IsEnabled" Type="nchar" MaxLength="10" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TemplateColor">
           <Key>
@@ -4759,6 +4801,18 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubMenuMaster_SubMenuMaster">
+          <End Role="SubMenuMaster" Type="Self.SubMenuMaster" Multiplicity="0..1" />
+          <End Role="SubMenuMaster1" Type="Self.SubMenuMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="SubMenuMaster1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
           <End Role="SupplierDebitAsnMaster" Type="Self.SupplierDebitAsnMaster" Multiplicity="0..1" />
           <End Role="SuplierASNDebitDetails" Type="Self.SuplierASNDebitDetails" Multiplicity="*" />
@@ -4831,6 +4885,18 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SupplierMaster_CountryMaster1">
+          <End Role="CountryMaster" Type="Self.CountryMaster" Multiplicity="0..1" />
+          <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupplierMaster_CurrencyMaster">
           <End Role="CurrencyMaster" Type="Self.CurrencyMaster" Multiplicity="0..1" />
           <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="*" />
@@ -4843,6 +4909,45 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SupplierMaster_CurrencyMaster1">
+          <End Role="CurrencyMaster" Type="Self.CurrencyMaster" Multiplicity="0..1" />
+          <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CurrencyMaster">
+              <PropertyRef Name="CurrencyID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierMaster_PaymentModeMaster">
+          <End Role="PaymentModeMaster" Type="Self.PaymentModeMaster" Multiplicity="0..1" />
+          <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentModeMaster">
+              <PropertyRef Name="PaymentModeID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="PaymentModeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierMaster_PaymentTermMaster">
+          <End Role="PaymentTermMaster" Type="Self.PaymentTermMaster" Multiplicity="0..1" />
+          <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentTermMaster">
+              <PropertyRef Name="PaymentTermID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="PaymentTermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_SupplierMaster_SupplierTypemaster" />-->
         <Association Name="FK_SupplierStockInvoiceDetails_SupplierStockInvoiceMaster">
           <End Role="SupplierStockInvoiceMaster" Type="Self.SupplierStockInvoiceMaster" Multiplicity="0..1" />
           <End Role="SupplierStockInvoiceDetail" Type="Self.SupplierStockInvoiceDetail" Multiplicity="*" />
@@ -5250,6 +5355,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="CutplanRefPattern" EntityType="Self.CutplanRefPattern" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutPlanRollDetails" EntityType="Self.CutPlanRollDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CuttingDetails" EntityType="Self.CuttingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CutTypeMaster" EntityType="Self.CutTypeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeletedCutPlan" EntityType="Self.DeletedCutPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryMethodMaster" EntityType="Self.DeliveryMethodMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryOrderDetails" EntityType="Self.DeliveryOrderDetails" Schema="dbo" store:Type="Tables" />
@@ -5302,6 +5408,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="LocationMaster" EntityType="Self.LocationMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationType" EntityType="Self.LocationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LockedASQDetails" EntityType="Self.LockedASQDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarkerDirectionMaster" EntityType="Self.MarkerDirectionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarkerMadeMaster" EntityType="Self.MarkerMadeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarqueeMaster" EntityType="Self.MarqueeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MerchandiserMaster" EntityType="Self.MerchandiserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MrnDetails" EntityType="Self.MrnDetails" Schema="dbo" store:Type="Tables" />
@@ -5375,6 +5483,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySet Name="SupplierMaster" EntityType="Self.SupplierMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierStockInvoiceDetail" EntityType="Self.SupplierStockInvoiceDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierStockInvoiceMaster" EntityType="Self.SupplierStockInvoiceMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplierTypemaster" EntityType="Self.SupplierTypemaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierUserMaster" EntityType="Self.SupplierUserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportTicket" EntityType="Self.SupportTicket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -6088,6 +6197,10 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="AtcDetails" EntitySet="AtcDetails" />
             <End Role="StyleCostingMaster" EntitySet="StyleCostingMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubMenuMaster_SubMenuMaster" Association="Self.FK_SubMenuMaster_SubMenuMaster">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMaster" />
+            <End Role="SubMenuMaster1" EntitySet="SubMenuMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_SuplierASNDebitDetails_SupplierDebitAsnMaster" Association="Self.FK_SuplierASNDebitDetails_SupplierDebitAsnMaster">
             <End Role="SupplierDebitAsnMaster" EntitySet="SupplierDebitAsnMaster" />
             <End Role="SuplierASNDebitDetails" EntitySet="SuplierASNDebitDetails" />
@@ -6112,8 +6225,24 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="CountryMaster" EntitySet="CountryMaster" />
             <End Role="SupplierMaster" EntitySet="SupplierMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_CountryMaster1" Association="Self.FK_SupplierMaster_CountryMaster1">
+            <End Role="CountryMaster" EntitySet="CountryMaster" />
+            <End Role="SupplierMaster" EntitySet="SupplierMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_SupplierMaster_CurrencyMaster" Association="Self.FK_SupplierMaster_CurrencyMaster">
             <End Role="CurrencyMaster" EntitySet="CurrencyMaster" />
+            <End Role="SupplierMaster" EntitySet="SupplierMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_CurrencyMaster1" Association="Self.FK_SupplierMaster_CurrencyMaster1">
+            <End Role="CurrencyMaster" EntitySet="CurrencyMaster" />
+            <End Role="SupplierMaster" EntitySet="SupplierMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_PaymentModeMaster" Association="Self.FK_SupplierMaster_PaymentModeMaster">
+            <End Role="PaymentModeMaster" EntitySet="PaymentModeMaster" />
+            <End Role="SupplierMaster" EntitySet="SupplierMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_PaymentTermMaster" Association="Self.FK_SupplierMaster_PaymentTermMaster">
+            <End Role="PaymentTermMaster" EntitySet="PaymentTermMaster" />
             <End Role="SupplierMaster" EntitySet="SupplierMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierStockInvoiceDetails_SupplierStockInvoiceMaster" Association="Self.FK_SupplierStockInvoiceDetails_SupplierStockInvoiceMaster">
@@ -7302,6 +7431,22 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             <End Role="SupplierDebitAsnMaster" EntitySet="SupplierDebitAsnMasters" />
             <End Role="SuplierASNDebitDetail" EntitySet="SuplierASNDebitDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_PaymentModeMaster" Association="ArtModel.FK_SupplierMaster_PaymentModeMaster">
+            <End Role="PaymentModeMaster" EntitySet="PaymentModeMasters" />
+            <End Role="SupplierMaster" EntitySet="SupplierMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierMaster_PaymentTermMaster" Association="ArtModel.FK_SupplierMaster_PaymentTermMaster">
+            <End Role="PaymentTermMaster" EntitySet="PaymentTermMasters" />
+            <End Role="SupplierMaster" EntitySet="SupplierMasters" />
+          </AssociationSet>
+          <EntitySet Name="SupplierTypemasters" EntityType="ArtModel.SupplierTypemaster" />
+          <EntitySet Name="CutTypeMasters" EntityType="ArtModel.CutTypeMaster" />
+          <EntitySet Name="MarkerDirectionMasters" EntityType="ArtModel.MarkerDirectionMaster" />
+          <EntitySet Name="MarkerMadeMasters" EntityType="ArtModel.MarkerMadeMaster" />
+          <AssociationSet Name="FK_SubMenuMaster_SubMenuMaster" Association="ArtModel.FK_SubMenuMaster_SubMenuMaster">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMasters" />
+            <End Role="SubMenuMaster1" EntitySet="SubMenuMasters" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -8030,6 +8175,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="CutOrderMaster" ToRole="DORollDetail" />
           <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="CutOrderMaster" ToRole="AtcMaster" />
           <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LaySheetRollDetail" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="CutOrderSizeDetail">
           <Key>
@@ -8501,6 +8647,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CuRate" Type="Decimal" Precision="18" Scale="5" />
           <NavigationProperty Name="InventorySalesMaster" Relationship="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" FromRole="InventorySalesDetail" ToRole="InventorySalesMaster" />
+          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="InventorySalesMaster">
           <Key>
@@ -8821,6 +8968,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="PaymentModeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentModeCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PaymentModeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupplierMasters" Relationship="ArtModel.FK_SupplierMaster_PaymentModeMaster" FromRole="PaymentModeMaster" ToRole="SupplierMaster" />
         </EntityType>
         <EntityType Name="PaymentTermMaster">
           <Key>
@@ -8830,6 +8978,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="PaymentTermCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PaymentCodeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="StockPOMasters" Relationship="ArtModel.FK_StockPOMaster_PaymentTermMaster" FromRole="PaymentTermMaster" ToRole="StockPOMaster" />
+          <NavigationProperty Name="SupplierMasters" Relationship="ArtModel.FK_SupplierMaster_PaymentTermMaster" FromRole="PaymentTermMaster" ToRole="SupplierMaster" />
         </EntityType>
         <EntityType Name="POApproval">
           <Key>
@@ -9505,6 +9654,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="SupplierInvoiceMasters" Relationship="ArtModel.FK_SupplierInvoiceMaster_SupplierMaster" FromRole="SupplierMaster" ToRole="SupplierInvoiceMaster" />
           <NavigationProperty Name="SupplierStockInvoiceMasters" Relationship="ArtModel.FK_SupplierStockInvoiceMaster_SupplierMaster" FromRole="SupplierMaster" ToRole="SupplierStockInvoiceMaster" />
           <NavigationProperty Name="DocMasters" Relationship="ArtModel.FK_DocMaster_SupplierMaster" FromRole="SupplierMaster" ToRole="DocMaster" />
+          <NavigationProperty Name="PaymentModeMaster" Relationship="ArtModel.FK_SupplierMaster_PaymentModeMaster" FromRole="SupplierMaster" ToRole="PaymentModeMaster" />
+          <NavigationProperty Name="PaymentTermMaster" Relationship="ArtModel.FK_SupplierMaster_PaymentTermMaster" FromRole="SupplierMaster" ToRole="PaymentTermMaster" />
         </EntityType>
         <EntityType Name="SupplierStockInvoiceDetail">
           <Key>
@@ -9563,6 +9714,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <NavigationProperty Name="TemplateWidths" Relationship="ArtModel.FK_TemplateWidth_Template_Master" FromRole="Template_Master" ToRole="TemplateWidth" />
           <NavigationProperty Name="TransferToGstockDetails" Relationship="ArtModel.FK_TransferToGstockDetails_Template_Master" FromRole="Template_Master" ToRole="TransferToGstockDetail" />
           <Property Name="IsEnabled" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="TemplateColor">
           <Key>
@@ -11334,6 +11487,11 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <Property Name="isEnable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="UserProfileRights" Relationship="ArtModel.FK_UserProfileRights_SubMenuMaster_menu_PK" FromRole="SubMenuMaster" ToRole="UserProfileRight" />
           <Property Name="IsNormal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MVCURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SubMenuMaster1" Relationship="ArtModel.FK_SubMenuMaster_SubMenuMaster" FromRole="SubMenuMaster" ToRole="SubMenuMaster1" />
+          <NavigationProperty Name="SubMenuMaster2" Relationship="ArtModel.FK_SubMenuMaster_SubMenuMaster" FromRole="SubMenuMaster1" ToRole="SubMenuMaster" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserProfileMaster">
           <Key>
@@ -11975,6 +12133,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           </Key>
           <Property Name="BodyPart_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BodyPartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="LocalBuyerMaster">
           <Key>
@@ -13230,6 +13389,76 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SupplierMaster_PaymentModeMaster">
+          <End Type="ArtModel.PaymentModeMaster" Role="PaymentModeMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SupplierMaster" Role="SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentModeMaster">
+              <PropertyRef Name="PaymentModeID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="PaymentModeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierMaster_PaymentTermMaster">
+          <End Type="ArtModel.PaymentTermMaster" Role="PaymentTermMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SupplierMaster" Role="SupplierMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentTermMaster">
+              <PropertyRef Name="PaymentTermID" />
+            </Principal>
+            <Dependent Role="SupplierMaster">
+              <PropertyRef Name="PaymentTermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupplierTypemaster">
+          <Key>
+            <PropertyRef Name="SupplierTypeID" />
+          </Key>
+          <Property Name="SupplierTypeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeCode" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CutTypeMaster">
+          <Key>
+            <PropertyRef Name="CutTypeID" />
+          </Key>
+          <Property Name="CutTypeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MarkerDirectionMaster">
+          <Key>
+            <PropertyRef Name="MarkerDirectionID" />
+          </Key>
+          <Property Name="MarkerDirectionID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkerDirection" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MarkerMadeMaster">
+          <Key>
+            <PropertyRef Name="CuttingMarkerMadeID" />
+          </Key>
+          <Property Name="CuttingMarkerMadeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkerMade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SubMenuMaster_SubMenuMaster">
+          <End Type="ArtModel.SubMenuMaster" Role="SubMenuMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SubMenuMaster" Role="SubMenuMaster1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="SubMenuMaster1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13950,6 +14179,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="CutOrderMasters">
             <EntityTypeMapping TypeName="ArtModel.CutOrderMaster">
               <MappingFragment StoreEntitySet="CutOrderMaster">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CutPlan" ColumnName="CutPlan" />
                 <ScalarProperty Name="MarkerType" ColumnName="MarkerType" />
                 <ScalarProperty Name="PaternName" ColumnName="PaternName" />
@@ -14398,6 +14628,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="InventorySalesDetails">
             <EntityTypeMapping TypeName="ArtModel.InventorySalesDetail">
               <MappingFragment StoreEntitySet="InventorySalesDetail">
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
                 <ScalarProperty Name="CuRate" ColumnName="CuRate" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
@@ -15353,6 +15584,8 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="Template_Master">
             <EntityTypeMapping TypeName="ArtModel.Template_Master">
               <MappingFragment StoreEntitySet="Template_Master">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="IsStock" ColumnName="IsStock" />
                 <ScalarProperty Name="IsItemSize" ColumnName="IsItemSize" />
@@ -15556,6 +15789,9 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="SubMenuMasters">
             <EntityTypeMapping TypeName="ArtModel.SubMenuMaster">
               <MappingFragment StoreEntitySet="SubMenuMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MVCURL" ColumnName="MVCURL" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsNormal" ColumnName="IsNormal" />
                 <ScalarProperty Name="isEnable" ColumnName="isEnable" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
@@ -15900,6 +16136,7 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
           <EntitySetMapping Name="BodyPartMasters">
             <EntityTypeMapping TypeName="ArtModel.BodyPartMaster">
               <MappingFragment StoreEntitySet="BodyPartMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="BodyPartName" ColumnName="BodyPartName" />
                 <ScalarProperty Name="BodyPart_PK" ColumnName="BodyPart_PK" />
               </MappingFragment>
@@ -16558,6 +16795,44 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="Supplier_PK" ColumnName="Supplier_PK" />
                 <ScalarProperty Name="SupplierASNDebitID" ColumnName="SupplierASNDebitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplierTypemasters">
+            <EntityTypeMapping TypeName="ArtModel.SupplierTypemaster">
+              <MappingFragment StoreEntitySet="SupplierTypemaster">
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="SupplierTypeName" ColumnName="SupplierTypeName" />
+                <ScalarProperty Name="SupplierTypeID" ColumnName="SupplierTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutTypeMasters">
+            <EntityTypeMapping TypeName="ArtModel.CutTypeMaster">
+              <MappingFragment StoreEntitySet="CutTypeMaster">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CutType" ColumnName="CutType" />
+                <ScalarProperty Name="CutTypeID" ColumnName="CutTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarkerDirectionMasters">
+            <EntityTypeMapping TypeName="ArtModel.MarkerDirectionMaster">
+              <MappingFragment StoreEntitySet="MarkerDirectionMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MarkerDirection" ColumnName="MarkerDirection" />
+                <ScalarProperty Name="MarkerDirectionID" ColumnName="MarkerDirectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarkerMadeMasters">
+            <EntityTypeMapping TypeName="ArtModel.MarkerMadeMaster">
+              <MappingFragment StoreEntitySet="MarkerMadeMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MarkerMade" ColumnName="MarkerMade" />
+                <ScalarProperty Name="CuttingMarkerMadeID" ColumnName="CuttingMarkerMadeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

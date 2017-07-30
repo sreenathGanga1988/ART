@@ -15,8 +15,7 @@
     <table class="FullTable">
     <tr>
         <td class="DataEntryTable">
-             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
+        
 
             <table class="DataEntryTable">
                 <tr>
@@ -62,9 +61,13 @@
                        <asp:Button ID="Button3" runat="server" Font-Size="XX-Small" Text="Show  Selected  Atc Costing Data" />
                     </td>
                    <td class="NormalTD"></td>
-                   <td class="NormalTD"></td>
-                   <td class="NormalTD"></td>
-                   <td class="NormalTD"></td>
+                   <td class="auto-style1">Upload Atc list from Excel</td>
+                    <td class="NormalTD">
+                        <asp:FileUpload ID="FileUpload1" runat="server" />
+                         </td>
+                         <td>
+                             <asp:Button ID="Button4" runat="server"  Text="Fetch" OnClick="Button4_Click" />
+                         </td>
                    <td class="NormalTD"></td>
                    <td class="NormalTD"></td>
                    <td class="NormalTD"></td>
@@ -102,9 +105,7 @@
             </table>
 
 
-                       </ContentTemplate>
-
-            </asp:UpdatePanel>
+               
 
         </td>
     </tr>

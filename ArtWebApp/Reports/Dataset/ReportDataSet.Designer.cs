@@ -8020,6 +8020,16 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnSupplierName;
             
+            private global::System.Data.DataColumn columnSYard1;
+            
+            private global::System.Data.DataColumn columnAYard1;
+            
+            private global::System.Data.DataColumn columnSWeight;
+            
+            private global::System.Data.DataColumn columnLOTnum;
+            
+            private global::System.Data.DataColumn columnSkuDet_PK;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ASNReportDataTable() {
@@ -8295,6 +8305,46 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SYard1Column {
+                get {
+                    return this.columnSYard1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AYard1Column {
+                get {
+                    return this.columnAYard1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SWeightColumn {
+                get {
+                    return this.columnSWeight;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LOTnumColumn {
+                get {
+                    return this.columnLOTnum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SkuDet_PKColumn {
+                get {
+                    return this.columnSkuDet_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8359,7 +8409,11 @@ namespace ArtWebApp.Reports.Dataset {
                         string TotalPointon100yard, 
                         string PONum, 
                         string AtcNum, 
-                        string SupplierName) {
+                        string SupplierName, 
+                        decimal SYard1, 
+                        decimal AYard1, 
+                        string SWeight, 
+                        string LOTnum) {
                 ASNReportRow rowASNReportRow = ((ASNReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -8391,7 +8445,12 @@ namespace ArtWebApp.Reports.Dataset {
                         TotalPointon100yard,
                         PONum,
                         AtcNum,
-                        SupplierName};
+                        SupplierName,
+                        SYard1,
+                        AYard1,
+                        SWeight,
+                        LOTnum,
+                        null};
                 rowASNReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowASNReportRow);
                 return rowASNReportRow;
@@ -8451,6 +8510,11 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPONum = base.Columns["PONum"];
                 this.columnAtcNum = base.Columns["AtcNum"];
                 this.columnSupplierName = base.Columns["SupplierName"];
+                this.columnSYard1 = base.Columns["SYard1"];
+                this.columnAYard1 = base.Columns["AYard1"];
+                this.columnSWeight = base.Columns["SWeight"];
+                this.columnLOTnum = base.Columns["LOTnum"];
+                this.columnSkuDet_PK = base.Columns["SkuDet_PK"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8516,6 +8580,16 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnAtcNum);
                 this.columnSupplierName = new global::System.Data.DataColumn("SupplierName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSupplierName);
+                this.columnSYard1 = new global::System.Data.DataColumn("SYard1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSYard1);
+                this.columnAYard1 = new global::System.Data.DataColumn("AYard1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAYard1);
+                this.columnSWeight = new global::System.Data.DataColumn("SWeight", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSWeight);
+                this.columnLOTnum = new global::System.Data.DataColumn("LOTnum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLOTnum);
+                this.columnSkuDet_PK = new global::System.Data.DataColumn("SkuDet_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSkuDet_PK);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnRoll_PK}, true));
                 this.columnRoll_PK.AutoIncrement = true;
@@ -8564,6 +8638,17 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPONum.MaxLength = 10;
                 this.columnAtcNum.MaxLength = 10;
                 this.columnSupplierName.MaxLength = 100;
+                this.columnSYard1.Caption = "SYard";
+                this.columnAYard1.Caption = "AYard";
+                this.columnSWeight.ReadOnly = true;
+                this.columnSWeight.MaxLength = 50;
+                this.columnLOTnum.ReadOnly = true;
+                this.columnLOTnum.MaxLength = 50;
+                this.columnSkuDet_PK.AutoIncrement = true;
+                this.columnSkuDet_PK.AutoIncrementSeed = -1;
+                this.columnSkuDet_PK.AutoIncrementStep = -1;
+                this.columnSkuDet_PK.AllowDBNull = false;
+                this.columnSkuDet_PK.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -27701,6 +27786,81 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal SYard1 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableASNReport.SYard1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SYard1\' in table \'ASNReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASNReport.SYard1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal AYard1 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableASNReport.AYard1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AYard1\' in table \'ASNReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASNReport.AYard1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SWeight {
+                get {
+                    try {
+                        return ((string)(this[this.tableASNReport.SWeightColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SWeight\' in table \'ASNReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASNReport.SWeightColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LOTnum {
+                get {
+                    try {
+                        return ((string)(this[this.tableASNReport.LOTnumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LOTnum\' in table \'ASNReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASNReport.LOTnumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal SkuDet_PK {
+                get {
+                    return ((decimal)(this[this.tableASNReport.SkuDet_PKColumn]));
+                }
+                set {
+                    this[this.tableASNReport.SkuDet_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsRollNumNull() {
                 return this.IsNull(this.tableASNReport.RollNumColumn);
             }
@@ -28045,6 +28205,54 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetSupplierNameNull() {
                 this[this.tableASNReport.SupplierNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSYard1Null() {
+                return this.IsNull(this.tableASNReport.SYard1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSYard1Null() {
+                this[this.tableASNReport.SYard1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAYard1Null() {
+                return this.IsNull(this.tableASNReport.AYard1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAYard1Null() {
+                this[this.tableASNReport.AYard1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSWeightNull() {
+                return this.IsNull(this.tableASNReport.SWeightColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSWeightNull() {
+                this[this.tableASNReport.SWeightColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLOTnumNull() {
+                return this.IsNull(this.tableASNReport.LOTnumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLOTnumNull() {
+                this[this.tableASNReport.LOTnumColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -42415,13 +42623,11 @@ FROM            AtcMaster INNER JOIN
             tableMapping.ColumnMappings.Add("UOM", "UOM");
             tableMapping.ColumnMappings.Add("Remark", "Remark");
             tableMapping.ColumnMappings.Add("SShrink", "SShrink");
-            tableMapping.ColumnMappings.Add("SYard", "SYard");
             tableMapping.ColumnMappings.Add("SShade", "SShade");
             tableMapping.ColumnMappings.Add("SWidth", "SWidth");
             tableMapping.ColumnMappings.Add("AShrink", "AShrink");
             tableMapping.ColumnMappings.Add("AShade", "AShade");
             tableMapping.ColumnMappings.Add("AWidth", "AWidth");
-            tableMapping.ColumnMappings.Add("AYard", "AYard");
             tableMapping.ColumnMappings.Add("SGsm", "SGsm");
             tableMapping.ColumnMappings.Add("AGsm", "AGsm");
             tableMapping.ColumnMappings.Add("itemDescription", "itemDescription");
@@ -42439,6 +42645,11 @@ FROM            AtcMaster INNER JOIN
             tableMapping.ColumnMappings.Add("PONum", "PONum");
             tableMapping.ColumnMappings.Add("AtcNum", "AtcNum");
             tableMapping.ColumnMappings.Add("SupplierName", "SupplierName");
+            tableMapping.ColumnMappings.Add("SYard", "SYard1");
+            tableMapping.ColumnMappings.Add("AYard", "AYard1");
+            tableMapping.ColumnMappings.Add("SWeight", "SWeight");
+            tableMapping.ColumnMappings.Add("LOTnum", "LOTnum");
+            tableMapping.ColumnMappings.Add("SkuDet_PK", "SkuDet_PK");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -42476,18 +42687,20 @@ FROM            AtcMaster INNER JOIN
                 "L(FabricRollmaster.TotalDefecton100, \'\') AS TotalDefection100, ISNULL(FabricRoll" +
                 "master.TotalPoint, \'\') AS TotalPoint, \r\n                         ISNULL(FabricRo" +
                 "llmaster.TotalPointon100yard, \'\') AS TotalPointon100yard, ProcurementMaster.PONu" +
-                "m, AtcMaster.AtcNum, SupplierMaster.SupplierName\r\nFROM            SkuRawMaterial" +
-                "Master INNER JOIN\r\n                         SkuRawmaterialDetail ON SkuRawMateri" +
-                "alMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN\r\n                      " +
-                "   FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_" +
-                "PK INNER JOIN\r\n                         ProcurementDetails ON FabricRollmaster.p" +
-                "odet_pk = ProcurementDetails.PODet_PK INNER JOIN\r\n                         Suppl" +
-                "ierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.Su" +
-                "pplierDoc_pk INNER JOIN\r\n                         ProcurementMaster ON Procureme" +
-                "ntDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN\r\n                         A" +
-                "tcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN\r\n              " +
-                "           SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster" +
-                ".Supplier_PK";
+                "m, AtcMaster.AtcNum, SupplierMaster.SupplierName, ISNULL(FabricRollmaster.SWeigh" +
+                "t, \'\') AS SWeight, \r\n                         ISNULL(FabricRollmaster.LOTnum, \'\'" +
+                ") AS LOTnum, SkuRawmaterialDetail.SkuDet_PK\r\nFROM            SkuRawMaterialMaste" +
+                "r INNER JOIN\r\n                         SkuRawmaterialDetail ON SkuRawMaterialMas" +
+                "ter.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN\r\n                         Fa" +
+                "bricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK IN" +
+                "NER JOIN\r\n                         ProcurementDetails ON FabricRollmaster.podet_" +
+                "pk = ProcurementDetails.PODet_PK INNER JOIN\r\n                         SupplierDo" +
+                "cumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.Supplie" +
+                "rDoc_pk INNER JOIN\r\n                         ProcurementMaster ON ProcurementDet" +
+                "ails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN\r\n                         AtcMas" +
+                "ter ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN\r\n                   " +
+                "      SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster.Supp" +
+                "lier_PK";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

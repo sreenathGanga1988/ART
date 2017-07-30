@@ -12,8 +12,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
 
-   
-
+    <script src="../../Scripts/jquery.table2excel.js"></script>
+    <script src="../../JQuery/ExporttoExcel.js"></script>
 <script type="text/javascript" charset="utf-8">
    
   
@@ -42,7 +42,9 @@
                 <asp:Button ID="Button2" runat="server" Text="I Entered ASN" OnClick="Button2_Click" />
             </td>
             <td class="NormalTD"></td>
-            <td class="NormalTD"></td>
+            <td class="NormalTD">
+                <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="I Entered RollPK" />
+            </td>
         </tr>
         <tr>
             <td class="NormalTD">&nbsp;</td>
@@ -56,10 +58,12 @@
     </div>
  
     <div>
-        <asp:GridView ID="GridView1" CssClass="gvv " runat="server"  AutoGenerateColumns="False" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" DataKeyNames="Roll_PK" ForeColor="Black" ShowFooter="True">
+        <asp:GridView ID="GridView1" CssClass="mydatagrid" runat="server"  AutoGenerateColumns="False"  BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" DataKeyNames="Roll_PK" ForeColor="Black" ShowFooter="True">
             <Columns>
                 <asp:BoundField DataField="Roll_PK" HeaderText="Roll_PK" InsertVisible="False" ReadOnly="True" SortExpression="Roll_PK" />
                 <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
+                  <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" SortExpression="itemDescription" />
+                
                 <asp:BoundField DataField="ASN" HeaderText="ASN" ReadOnly="True" SortExpression="ASN" />
                 <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
                 <asp:BoundField DataField="DocumentNum" HeaderText="DocumentNum" SortExpression="DocumentNum" />
@@ -76,7 +80,7 @@
                 <asp:BoundField DataField="SkuDet_PK" HeaderText="SkuDet_PK" SortExpression="SkuDet_PK" />
                 <asp:BoundField DataField="IsDelivered" HeaderText="IsDelivered" SortExpression="IsDelivered" />
                  <asp:BoundField DataField="LaysheetNUM" HeaderText="LaysheetNUM" SortExpression="LaysheetNUM" />
-                
+                <asp:BoundField DataField="CutPlanNUM" HeaderText="CutPlanNUM" SortExpression="CutPlanNUM" />
             </Columns>
             <FooterStyle BackColor="#CCCCCC" />
             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

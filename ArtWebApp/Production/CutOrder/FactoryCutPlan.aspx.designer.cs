@@ -184,69 +184,6 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Button BTN_FABRICSHOW;
         
         /// <summary>
-        /// upd_marker control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_marker;
-        
-        /// <summary>
-        /// drp_markerType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_markerType;
-        
-        /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
-        /// <summary>
-        /// btn_color control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_color;
-        
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// upd_shrnk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_shrnk;
-        
-        /// <summary>
-        /// drp_shrink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_shrink;
-        
-        /// <summary>
         /// upd_width control.
         /// </summary>
         /// <remarks>
@@ -274,6 +211,51 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
         
         /// <summary>
+        /// upd_shrnk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_shrnk;
+        
+        /// <summary>
+        /// drp_shrink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_shrink;
+        
+        /// <summary>
+        /// upd_marker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_marker;
+        
+        /// <summary>
+        /// drp_markerType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_markerType;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// btn_showgrid control.
         /// </summary>
         /// <remarks>
@@ -283,22 +265,31 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Button btn_showgrid;
         
         /// <summary>
-        /// drp_popack control.
+        /// upd_markerdirection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_popack;
+        protected global::System.Web.UI.UpdatePanel upd_markerdirection;
         
         /// <summary>
-        /// upd_garmentColor0 control.
+        /// drp_markerdirection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_garmentColor0;
+        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_markerdirection;
+        
+        /// <summary>
+        /// upd_markermade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_markermade;
         
         /// <summary>
         /// drp_markermade control.
@@ -308,6 +299,24 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::CustomDropDown.DropDownListChosen drp_markermade;
+        
+        /// <summary>
+        /// upd_cuttype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_cuttype;
+        
+        /// <summary>
+        /// drp_cuttype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_cuttype;
         
         /// <summary>
         /// upd_fabrication control.
@@ -355,24 +364,6 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::CustomDropDown.DropDownListChosen ddl_color;
         
         /// <summary>
-        /// upd_confirmgarmentcolor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_confirmgarmentcolor;
-        
-        /// <summary>
-        /// btn_cutorder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_cutorder;
-        
-        /// <summary>
         /// upd_confirmgarmentcolor0 control.
         /// </summary>
         /// <remarks>
@@ -389,6 +380,24 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_cutordermnum;
+        
+        /// <summary>
+        /// upd_confirmgarmentcolor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_confirmgarmentcolor;
+        
+        /// <summary>
+        /// btn_cutorder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cutorder;
         
         /// <summary>
         /// upd_garmentDetail control.

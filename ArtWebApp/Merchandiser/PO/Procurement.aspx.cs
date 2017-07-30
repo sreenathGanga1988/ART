@@ -9,6 +9,7 @@ using ArtWebApp.DataModels;
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using ArtWebApp.Controls;
 
 namespace ArtWebApp.Merchandiser
 {
@@ -157,13 +158,16 @@ namespace ArtWebApp.Merchandiser
             POmstr.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
 
 
+
+
+
             try
             {
                 POmstr.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                WebMsgBox.Show("Select Country");
                 updateStatus("Select Currency");
                 throw;
             }
@@ -173,15 +177,45 @@ namespace ArtWebApp.Merchandiser
             POmstr.Location_PK = int.Parse(drp_deliverydestination.SelectedValue.ToString());
             POmstr.AtcId = int.Parse(Session["atcid"].ToString());
             POmstr.AddedBy = Session["Username"].ToString().Trim();
-            POmstr.Deliverydate = DateTime.Parse(s);
+            try
+            {
+                POmstr.Deliverydate = DateTime.Parse(s);
+            }
+            catch (Exception ex)
+            {
+
+                WebMsgBox.Show("Deliverydate Not Added");
+            }
             POmstr.PoType = cmb_suppliertype.SelectedValue.ToString();
             POmstr.IsApproved = "N";
             POmstr.IsDeleted = "N";
             POmstr.Remark = txtarea.Text;
             POmstr.IsNormal = "Y";
             POmstr.ProcurementDetailsCollection = GetPODetailsData();
-            ponum = POmstr.insertPoData(POmstr);
-            String Msg = "Supplier Po # : " + ponum + " is generated Sucessfully";
+
+            if (POmstr.ProcurementDetailsCollection.Count==0)
+            {
+                WebMsgBox.Show("No itemAdded in PO");
+            }
+            else
+            {
+                ponum = POmstr.insertPoData(POmstr);
+            }
+            String Msg = "";
+            if (ponum.Trim()!="")
+            {
+
+                Msg = "Supplier Po # : " + ponum + " is generated Sucessfully";
+            }
+            else
+            {
+                Msg = " PO Not Updated Correctly Please retry";
+            }
+
+
+
+
+          
 
             return Msg;
         }

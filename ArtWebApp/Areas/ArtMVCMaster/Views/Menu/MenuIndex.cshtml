@@ -16,11 +16,20 @@
                 <p> @menumdl.Description </p>
                 @if (menumdl.MenuURL.Trim() != "")
                 {
-                 <p><a class="btn btn-default" href="@menumdl.MenuURL">Open &raquo;</a></p>
+                    if (@menumdl.MVCURL != "")
+                    {
+                        <p><a class="btn btn-default" href="@menumdl.MVCURL">Open &raquo;</a></p>
+                    }
+                    else
+                    {
+                        <p><a class="btn btn-default" href="@menumdl.MenuURL">Open &raquo;</a></p>
+                    }
+
                 }
                 else
                 {
                     <p class = "btn btn-default">
+                       
                         @Html.ActionLink("View SubMenu ", "MenuIndex", "Menu", new { Area = "ArtMVCMaster", Id = @menumdl.Menu_PK },new { })
                     </p>
                 }

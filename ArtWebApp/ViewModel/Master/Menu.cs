@@ -42,7 +42,7 @@ namespace ArtWebApp.ViewModel.Master
         public Nullable<decimal> ParentID { get; set; }
         public string isEnable { get; set; }
         public string IsNormal { get; set; }
-
+        public string MVCURL { get; set; }
         public string Description { get; set; }
     }
 
@@ -89,6 +89,7 @@ namespace ArtWebApp.ViewModel.Master
                 menuViewModel.isEnable = element.isEnable;
                 menuViewModel.IsNormal = element.IsNormal;
                 menuViewModel.Description = element.Description;
+                menuViewModel.MVCURL = element.MVCURL;
                 menuViewModalList.Add(menuViewModel);
             }
 

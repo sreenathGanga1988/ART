@@ -21,5 +21,6 @@ namespace ArtDAL.Enty
         public string isEnable { get; set; }
         public string IsNormal { get; set; }
         public string Description { get; set; }
+        public string MVCURL { get; set; }
     }
 }

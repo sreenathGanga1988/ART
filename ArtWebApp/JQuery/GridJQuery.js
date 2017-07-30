@@ -55,10 +55,16 @@ function isNumberKey(evt) {
 
 function Check_Click(objRef) {
 
+    debugger
+
     //Get the Row based on checkbox
 
     var row = objRef.parentNode.parentNode;
+  
 
+    var nearestrow = $(objRef).closest('tr');
+
+  
     if (objRef.checked) {
 
         //If checked change color to Aqua
@@ -140,6 +146,8 @@ function Check_Click(objRef) {
 
 function checkAll(objRef) {
 
+
+    debugger
     var GridView = objRef.parentNode.parentNode.parentNode;
 
     var inputList = GridView.getElementsByTagName("input");
@@ -149,6 +157,8 @@ function checkAll(objRef) {
         //Get the Cell To find out ColumnIndex
 
         var row = inputList[i].parentNode.parentNode;
+
+        
 
         if (inputList[i].type == "checkbox" && objRef != inputList[i]) {
 

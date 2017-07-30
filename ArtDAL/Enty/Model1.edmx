@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MVCArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ItemGroupMaster">
+          <Key>
+            <PropertyRef Name="ItemGroupID" />
+          </Key>
+          <Property Name="ItemGroupID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemGroupName" Type="nvarchar" MaxLength="20" />
+          <Property Name="ItemGroupDescription" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SubMenuMaster">
           <Key>
             <PropertyRef Name="Menu_PK" />
@@ -16,8 +24,10 @@
           <Property Name="isEnable" Type="nchar" MaxLength="10" />
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MVCURL" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="MVCArtModelStoreContainer">
+          <EntitySet Name="ItemGroupMaster" EntityType="Self.ItemGroupMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuMaster" EntityType="Self.SubMenuMaster" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -25,8 +35,17 @@
     <edmx:ConceptualModels>
       <Schema Namespace="MVCArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="NewDBEnty" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ItemGroupMasters" EntityType="MVCArtModel.ItemGroupMaster" />
           <EntitySet Name="SubMenuMasters" EntityType="MVCArtModel.SubMenuMaster" />
         </EntityContainer>
+        <EntityType Name="ItemGroupMaster">
+          <Key>
+            <PropertyRef Name="ItemGroupID" />
+          </Key>
+          <Property Name="ItemGroupID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemGroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ItemGroupDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="SubMenuMaster">
           <Key>
             <PropertyRef Name="Menu_PK" />
@@ -38,6 +57,7 @@
           <Property Name="isEnable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsNormal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MVCURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -45,9 +65,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MVCArtModelStoreContainer" CdmEntityContainer="NewDBEnty">
+          <EntitySetMapping Name="ItemGroupMasters">
+            <EntityTypeMapping TypeName="MVCArtModel.ItemGroupMaster">
+              <MappingFragment StoreEntitySet="ItemGroupMaster">
+                <ScalarProperty Name="ItemGroupDescription" ColumnName="ItemGroupDescription" />
+                <ScalarProperty Name="ItemGroupName" ColumnName="ItemGroupName" />
+                <ScalarProperty Name="ItemGroupID" ColumnName="ItemGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SubMenuMasters">
             <EntityTypeMapping TypeName="MVCArtModel.SubMenuMaster">
               <MappingFragment StoreEntitySet="SubMenuMaster">
+                <ScalarProperty Name="MVCURL" ColumnName="MVCURL" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsNormal" ColumnName="IsNormal" />
                 <ScalarProperty Name="isEnable" ColumnName="isEnable" />

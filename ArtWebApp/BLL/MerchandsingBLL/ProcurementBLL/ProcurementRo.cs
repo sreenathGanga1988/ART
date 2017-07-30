@@ -122,7 +122,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 POmstr.AtcId = romstrdb.AtcID;
                 POmstr.AddedBy = romstrdb.AddedBy;
                 POmstr.AddedDate = DateTime.Now;
-                POmstr.IsApproved = "Y";
+                POmstr.IsApproved = "N";
                 POmstr.IsDeleted = "N";
                 POmstr.POType = "T";
                 POmstr.DeliveryDate = DateTime.Now;
@@ -216,7 +216,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 POmstr.AtcId = romstrdb.AtcID;
                 POmstr.AddedBy = romstrdb.AddedBy;
                 POmstr.AddedDate = DateTime.Now;
-                POmstr.IsApproved = "Y";
+                POmstr.IsApproved = "N";
                 POmstr.IsDeleted = "N";
                 POmstr.POType = "T";
                 POmstr.IsNormal = "N";

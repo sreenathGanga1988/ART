@@ -77,18 +77,44 @@
                      <td>&nbsp;</td>
                  </tr>
         <tr>
-            <td >
-                JC
-                </td>
+                     <td>
+                         &nbsp;</td>
               <td class="NormalTD">
                          <asp:Label ID="lbl_jcnum" runat="server" Text="NA"></asp:Label>
                      </td>
                      <td class="SearchButtonTD">Qty</td>
-                     <td>
-                         <asp:Label ID="lbl_totalQty" runat="server" Text="0"></asp:Label>
-            </td>
+            <td >
+                JC<asp:Label ID="lbl_totalQty" runat="server" Text="0"></asp:Label>
+                </td>
                      <td>&nbsp;</td>
         </tr>
+                 <tr>
+                     <td colspan="5">&nbsp;
+
+                         
+    <div class="DataEntryTable">
+
+
+        <asp:Button ID="btn_JCSubmit" runat="server" Text="Submit" OnClick="btn_JCSubmit_Click" style="height: 26px" />
+
+
+    </div>
+
+       <div id="Messaediv" runat="server">
+                 
+
+
+                           <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+
+
+                     
+               </div>
+
+                     </td>
+                 </tr>
+                 <tr>
+                     <td colspan="5">&nbsp;</td>
+                 </tr>
     </table>
          </ContentTemplate>
      </asp:UpdatePanel>
@@ -139,23 +165,6 @@
     </div>
 
 
-    <div class="DataEntryTable">
-
-
-        <asp:Button ID="btn_JCSubmit" runat="server" Text="Submit" OnClick="btn_JCSubmit_Click" style="height: 26px" />
-
-
-    </div>
-
-       <div id="Messaediv" runat="server">
-                 
-
-
-                           <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
-
-
-                     
-               </div>
     <asp:SqlDataSource ID="FactorydataSource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Location_PK], [LocationName] FROM [LocationMaster] WHERE ([LocType] = @LocType)">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="F" Name="LocType" Type="String" />

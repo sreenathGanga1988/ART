@@ -69,6 +69,8 @@ public partial class Masters_ItemMaster : System.Web.UI.Page
                 tmpmstr.HCCode = txt_hscode.Text.Trim();
                 tmpmstr.Wastage = int.Parse(txt_wastage.Text.Trim());
                 tmpmstr.Uom_PK = int.Parse(cmb_uom.SelectedValue.ToString());
+                tmpmstr.AddedBy = Session["Username"].ToString();
+                tmpmstr.AddedDate = DateTime.Now;
                 enty.Template_Master.Add(tmpmstr);
 
                 enty.SaveChanges();

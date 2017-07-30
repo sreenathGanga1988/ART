@@ -47,7 +47,10 @@
 
             newbalance = parseFloat(intialtotal.innerHTML) - parseFloat(sum)
             
-            
+            if (newbalance < 0)
+            {
+                alert("Intial Roll yard cannot be Zero");
+            }
 
             var lbl_balance = document.getElementsByClassName("lbl_balance")[0];
             lbl_balance.value = newbalance;

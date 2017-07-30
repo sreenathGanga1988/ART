@@ -21,6 +21,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Unitprice { get; set; }
         public string Remark { get; set; }
         public Nullable<decimal> CuRate { get; set; }
+        public string IsReceived { get; set; }
     
         public virtual InventorySalesMaster InventorySalesMaster { get; set; }
     }

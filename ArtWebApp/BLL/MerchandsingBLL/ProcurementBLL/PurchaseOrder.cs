@@ -132,7 +132,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
                             ponum = POmstr.PONum;
 
                         }
-                        catch (Exception)
+                        catch (Exception EXP)
                         {
 
                           

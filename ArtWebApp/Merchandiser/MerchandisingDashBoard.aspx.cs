@@ -602,7 +602,7 @@ GROUP BY ExtraBOM_PK, Reqnum, AtcNum, MerchandiserName, Explanation, AddedBY, Ad
             StringBuilder html = new StringBuilder();
 
             //Table start.
-            html.Append("<table   class='Sree' border = '2'>");
+            html.Append("<table   class='mydatagrid' border = '2'>");
 
             //Building the Header row.
             html.Append(" <thead> <tr>");
@@ -618,7 +618,7 @@ GROUP BY ExtraBOM_PK, Reqnum, AtcNum, MerchandiserName, Explanation, AddedBY, Ad
             foreach (DataColumn column in dt.Columns)
             {
                 html.Append("<td>");
-                html.Append(column.ColumnName);
+            
                 html.Append("</td>");
             }
             html.Append("</tr></thead>");

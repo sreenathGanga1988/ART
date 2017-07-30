@@ -262,10 +262,10 @@
 
         <tr class="SmallSearchButton">
            <td class="NormalTD">
-                <asp:Button ID="Btn_submit" runat="server" Text="Submit" Height="25px" OnClick="Btn_submit_Click" style="font-size: small; font-family: Calibri; text-align: center" />
+                
                 <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                     <ContentTemplate>
-                        
+                        <asp:Button ID="Btn_submit" runat="server" Text="Submit" Height="25px" OnClick="Btn_submit_Click" style="font-size: small; font-family: Calibri; text-align: center" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
 

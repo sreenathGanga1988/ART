@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.TemplateComposition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TemplateComposition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Composition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Composition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Template_Master.TemplateCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Template_Master.TemplateCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TemplateCom_Pk }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

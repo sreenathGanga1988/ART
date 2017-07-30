@@ -148,13 +148,40 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.TextBox txt_fabreq;
         
         /// <summary>
-        /// UpdatePanel9 control.
+        /// upd_alreadyaddedqty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        protected global::System.Web.UI.UpdatePanel upd_alreadyaddedqty;
+        
+        /// <summary>
+        /// txt_alreadyAdded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_alreadyAdded;
+        
+        /// <summary>
+        /// upd_baltoadd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_baltoadd;
+        
+        /// <summary>
+        /// lbl_baltoadd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_baltoadd;
         
         /// <summary>
         /// Upd_roll control.
@@ -191,6 +218,15 @@ namespace ArtWebApp.Production.CutOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
+        /// lbl_skudet_pk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_skudet_pk;
         
         /// <summary>
         /// lbl_shringagegroup control.
@@ -238,13 +274,13 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.UpdatePanel UpdatePanel10;
         
         /// <summary>
-        /// Button1 control.
+        /// btn_saveroll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btn_saveroll;
         
         /// <summary>
         /// UpdatePanel1 control.

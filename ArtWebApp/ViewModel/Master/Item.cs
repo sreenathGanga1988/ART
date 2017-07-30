@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -27,5 +28,19 @@ namespace ArtWebApp.ViewModel.Master
 
 
 
+    }
+
+    public class ItemGroupMaster
+    {
+
+        [Key]
+        public decimal ItemGroupID { get; set; }
+        [Required]
+        public string ItemGroupName { get; set; }
+        [Required]
+        [Display( Name ="Description")]
+        public string ItemGroupDescription { get; set; }
+
+      
     }
 }

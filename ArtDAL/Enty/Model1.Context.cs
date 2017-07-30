@@ -25,6 +25,7 @@ namespace ArtDAL.Enty
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ItemGroupMaster> ItemGroupMasters { get; set; }
         public virtual DbSet<SubMenuMaster> SubMenuMasters { get; set; }
     }
 }

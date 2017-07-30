@@ -1635,8 +1635,8 @@ WHERE(DeliveryOrderMaster.AtcID = @ATCID)";
 
 
 //";
-                cmd.CommandText = @"SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName, SkuRawMaterialMaster.Uom_PK, 
-                         ProcurementDetails.Uom_PK AS  BaseUomPK,000.00 as BaseUOMQty
+                cmd.CommandText = @"SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, ProcurementDetails.SkuDet_PK, ProcurementMaster.AtcId, UOMMaster.UomCode, SupplierMaster.SupplierName, SkuRawMaterialMaster.Uom_PK  AS  BaseUomPK, 
+                         ProcurementDetails.Uom_PK ,000.00 as BaseUOMQty
 FROM            ProcurementDetails INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN

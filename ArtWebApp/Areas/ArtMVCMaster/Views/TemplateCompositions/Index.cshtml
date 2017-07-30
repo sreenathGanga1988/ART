@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.TemplateComposition>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Composition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Template_Master.TemplateCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Template_Master.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Composition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Template_Master.TemplateCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Template_Master.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateCom_Pk }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TemplateCom_Pk }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateCom_Pk })
+        </td>
+    </tr>
+}
+
+</table>

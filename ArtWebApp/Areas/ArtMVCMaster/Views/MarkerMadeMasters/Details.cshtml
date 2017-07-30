@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.MarkerMadeMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MarkerMadeMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MarkerMade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarkerMade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CuttingMarkerMadeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

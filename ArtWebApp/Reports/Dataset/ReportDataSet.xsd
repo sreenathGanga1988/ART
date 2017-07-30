@@ -684,7 +684,8 @@ FROM            AtcMaster INNER JOIN
                          AS itemDescription, SupplierDocumentMaster.SupplierDocnum, SupplierDocumentMaster.AtracotrackingNum, ISNULL(FabricRollmaster.IsAcceptable, '') AS IsAcceptable, ISNULL(FabricRollmaster.MarkerType, '') 
                          AS MarkerType, ISNULL(FabricRollmaster.WidthGroup, '') AS WidthGroup, ISNULL(FabricRollmaster.ShadeGroup, '') AS ShadeGroup, ISNULL(FabricRollmaster.ShrinkageGroup, '') AS ShrinkageGroup, 
                          ISNULL(FabricRollmaster.TotalDefect, '') AS TotalDefect, ISNULL(FabricRollmaster.TotalDefecton100, '') AS TotalDefection100, ISNULL(FabricRollmaster.TotalPoint, '') AS TotalPoint, 
-                         ISNULL(FabricRollmaster.TotalPointon100yard, '') AS TotalPointon100yard, ProcurementMaster.PONum, AtcMaster.AtcNum, SupplierMaster.SupplierName
+                         ISNULL(FabricRollmaster.TotalPointon100yard, '') AS TotalPointon100yard, ProcurementMaster.PONum, AtcMaster.AtcNum, SupplierMaster.SupplierName, ISNULL(FabricRollmaster.SWeight, '') AS SWeight, 
+                         ISNULL(FabricRollmaster.LOTnum, '') AS LOTnum, SkuRawmaterialDetail.SkuDet_PK
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
@@ -705,13 +706,11 @@ FROM            SkuRawMaterialMaster INNER JOIN
               <Mapping SourceColumn="UOM" DataSetColumn="UOM" />
               <Mapping SourceColumn="Remark" DataSetColumn="Remark" />
               <Mapping SourceColumn="SShrink" DataSetColumn="SShrink" />
-              <Mapping SourceColumn="SYard" DataSetColumn="SYard" />
               <Mapping SourceColumn="SShade" DataSetColumn="SShade" />
               <Mapping SourceColumn="SWidth" DataSetColumn="SWidth" />
               <Mapping SourceColumn="AShrink" DataSetColumn="AShrink" />
               <Mapping SourceColumn="AShade" DataSetColumn="AShade" />
               <Mapping SourceColumn="AWidth" DataSetColumn="AWidth" />
-              <Mapping SourceColumn="AYard" DataSetColumn="AYard" />
               <Mapping SourceColumn="SGsm" DataSetColumn="SGsm" />
               <Mapping SourceColumn="AGsm" DataSetColumn="AGsm" />
               <Mapping SourceColumn="itemDescription" DataSetColumn="itemDescription" />
@@ -729,6 +728,11 @@ FROM            SkuRawMaterialMaster INNER JOIN
               <Mapping SourceColumn="PONum" DataSetColumn="PONum" />
               <Mapping SourceColumn="AtcNum" DataSetColumn="AtcNum" />
               <Mapping SourceColumn="SupplierName" DataSetColumn="SupplierName" />
+              <Mapping SourceColumn="SYard" DataSetColumn="SYard1" />
+              <Mapping SourceColumn="AYard" DataSetColumn="AYard1" />
+              <Mapping SourceColumn="SWeight" DataSetColumn="SWeight" />
+              <Mapping SourceColumn="LOTnum" DataSetColumn="LOTnum" />
+              <Mapping SourceColumn="SkuDet_PK" DataSetColumn="SkuDet_PK" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -3273,6 +3277,23 @@ WHERE        (ShipmentHandOverDetails.ShipmentHandOverDate BETWEEN @fromdate AND
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="SYard1" msdata:Caption="SYard" msprop:Generator_ColumnVarNameInTable="columnSYard1" msprop:Generator_ColumnPropNameInRow="SYard1" msprop:Generator_ColumnPropNameInTable="SYard1Column" msprop:Generator_UserColumnName="SYard1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AYard1" msdata:Caption="AYard" msprop:Generator_ColumnVarNameInTable="columnAYard1" msprop:Generator_ColumnPropNameInRow="AYard1" msprop:Generator_ColumnPropNameInTable="AYard1Column" msprop:Generator_UserColumnName="AYard1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SWeight" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSWeight" msprop:Generator_ColumnPropNameInRow="SWeight" msprop:Generator_ColumnPropNameInTable="SWeightColumn" msprop:Generator_UserColumnName="SWeight" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LOTnum" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLOTnum" msprop:Generator_ColumnPropNameInRow="LOTnum" msprop:Generator_ColumnPropNameInTable="LOTnumColumn" msprop:Generator_UserColumnName="LOTnum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SkuDet_PK" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnSkuDet_PK" msprop:Generator_ColumnPropNameInRow="SkuDet_PK" msprop:Generator_ColumnPropNameInTable="SkuDet_PKColumn" msprop:Generator_UserColumnName="SkuDet_PK" type="xs:decimal" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

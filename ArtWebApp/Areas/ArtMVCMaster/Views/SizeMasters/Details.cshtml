@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.SizeMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SizeMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SizeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SizeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SizeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SizeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SizeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

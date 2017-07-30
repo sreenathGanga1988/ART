@@ -53,7 +53,7 @@ WHERE        (SkuRawMaterialMaster.Atc_id = @Param1) AND (ItemGroupMaster.ItemGr
                 SqlCommand cmd = new SqlCommand(@"SELECT        CutOrderMaster.CutID, CutOrderMaster.Cut_NO
 FROM            InventoryMaster INNER JOIN
                          CutOrderMaster ON InventoryMaster.SkuDet_Pk = CutOrderMaster.SkuDet_pk
-WHERE        (InventoryMaster.InventoryItem_PK = @Param1) AND (CutOrderMaster.ToLoc = @Param2)", con);
+WHERE        (InventoryMaster.InventoryItem_PK = @Param1) AND (CutOrderMaster.ToLoc = @Param2) AND (CutOrderMaster.IsDeleted = N'N')", con);
 
 
                 cmd.Parameters.AddWithValue("@Param1", iipk);

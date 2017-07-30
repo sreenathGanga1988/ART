@@ -40,7 +40,20 @@ namespace ArtWebApp.DBTransaction
 
         public void fillOurStyle(DropDownList drpCombo, int atcid)
         {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
+                var q = from atcmstr in enty.AtcDetails
+                        select new
+                        {
+                            name = atcmstr.OurStyle,
+                            pk = atcmstr.OurStyleID
+                        };
+
+                drpCombo.DataSource = q.ToList();
+                drpCombo.DataBind();
+
+            }
         }
 
 

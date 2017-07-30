@@ -273,9 +273,6 @@
             text-align: center;
             background-color: #FF9933;
         }
-        .auto-style1 {
-            font-size: x-small;
-        }
         .auto-style2 {
             font-size: xx-small;
         }
@@ -328,6 +325,9 @@
                         </ContentTemplate>
                                                         </asp:UpdatePanel>
                                     </td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                 <td class="SearchButtonTD">&nbsp;</td>
                                 
                             </tr>
                             <tr>
@@ -359,118 +359,115 @@
                          </ContentTemplate>
                                                         </asp:UpdatePanel>
                                 </td>
-                                
-                            </tr>
-                            <tr>
-                                 <td class="NormalTD"  >FABRIC</td>
-                                <td class="NormalTD"  >
-                                   
-                                    <asp:UpdatePanel ID="upd_fabcolor" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                            <ucc:DropDownListChosen ID="drp_fabcolor" runat="server" Width="200px" DataTextField="ItemDescription" DataValueField="Skudet_pk">
-                                            </ucc:DropDownListChosen>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                 <td class="NormalTD">    FABRIC</td>
+                                 <td class="NormalTD">
+                                     <asp:UpdatePanel ID="upd_fabcolor" runat="server" UpdateMode="Conditional">
+                                         <ContentTemplate>
+                                             <ucc:DropDownListChosen ID="drp_fabcolor" runat="server" DataTextField="ItemDescription" DataValueField="Skudet_pk" Width="200px">
+                                             </ucc:DropDownListChosen>
+                                         </ContentTemplate>
+                                     </asp:UpdatePanel>
                                  </td>
-                                 <td  class="SearchButtonTD"  >
-                                   
-                                    <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                 <td class="SearchButtonTD">   <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
                                     <asp:Button ID="BTN_FABRICSHOW" runat="server" OnClick="BTN_FABRICSHOW_Click" Text="s" />
                                               </ContentTemplate>
+                                    </asp:UpdatePanel></td>
+                                
+                            </tr>
+                            <tr>
+                                 <td class="NormalTD"  >Width</td>
+                                <td class="NormalTD"  >
+                                             <asp:UpdatePanel ID="upd_width" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                                      <ucc:DropDownListChosen ID="drp_width" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
+                                      </ucc:DropDownListChosen>
+                        </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                
+                                 </td>
+                                 <td  class="SearchButtonTD"  >
+                                   
+                                  <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                           
+                                        </ContentTemplate>
                                     </asp:UpdatePanel>
                                  </td>
-                               <td class="NormalTD"  >Marker Type</td>
+                               <td class="NormalTD"  >Shrinkage</td>
                                 <td class="NormalTD"  >
-                                      <asp:UpdatePanel ID="upd_marker" UpdateMode="Conditional" runat="server">
+                                     <asp:UpdatePanel ID="upd_shrnk" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                                      <ucc:DropDownListChosen ID="drp_shrink" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
+                                      </ucc:DropDownListChosen>
+                        </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                    
+                                </td> <td class="SearchButtonTD"  >
+                        
+                                </td>
+                               
+                                 <td class="NormalTD">Marker Type</td>
+                                 <td class="NormalTD">     <asp:UpdatePanel ID="upd_marker" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
                                     
                          <ucc:DropDownListChosen ID="drp_markerType" runat="server" Width="200px">
                          </ucc:DropDownListChosen>
                                     
                          </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                    
-                                </td> <td class="SearchButtonTD"  >
-                                    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                                                        </asp:UpdatePanel></td>
+                                 <td class="SearchButtonTD">            <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                                    <asp:Button ID="btn_color" runat="server" OnClick="btn_color_Click" Text="S" ValidationGroup="asdf" Visible="False" />
-                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="CMN" Visible="False" CssClass="auto-style2" />
-                          </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                </td>
+                                   <%-- <asp:Button ID="btn_color" runat="server" OnClick="btn_color_Click" Text="S" ValidationGroup="asdf" Visible="False" />
+                                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="CMN" Visible="False" CssClass="auto-style2" />--%>
+                           <asp:Button ID="btn_showgrid" runat="server"  Text="s" OnClick="btn_showgrid_Click" />
+                        
+                        
+                         </ContentTemplate>
+                                                        </asp:UpdatePanel></td>
                                
                                 
                             </tr>
                             
-                            <tr>
-                               <td class="NormalTD"  >Shrinkage</td>
-                                <td class="NormalTD"  >
-                                      <asp:UpdatePanel ID="upd_shrnk" UpdateMode="Conditional" runat="server">
-                    <ContentTemplate>
-                                      <ucc:DropDownListChosen ID="drp_shrink" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
-                                      </ucc:DropDownListChosen>
-                        </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                </td>
-                                <td class="SearchButtonTD"  >
-                                    </td>
-                               <td class="NormalTD"  >
-                                  
-                                   Width</td>
-                               <td class="NormalTD"  >
-                                     <asp:UpdatePanel ID="upd_width" UpdateMode="Conditional" runat="server">
-                    <ContentTemplate>
-                                      <ucc:DropDownListChosen ID="drp_width" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
-                                      </ucc:DropDownListChosen>
-                        </ContentTemplate>
-                                                        </asp:UpdatePanel>
-                                </td>
-                                <td class="SearchButtonTD"  >
-                                    <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btn_showgrid" runat="server"  Text="s" OnClick="btn_showgrid_Click" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                    </td>
-                            </tr>
+                       
                             <tr>
                                 <td class="NormalTD">marker direction</td>
                                 <td class="NormalTD">
-                                    <ig:WebDropDown ID="drp_popack" runat="server" EnableClosingDropDownOnSelect="False" EnableMultipleSelection="True" TextField="POnum" ValueField="PoPackId" Width="200px">
-                                        <Items>
-                                            <ig:DropDownItem Selected="False" Text="Normal Marker" Value="Normal Marker">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="One Way ( All garment one direction)" Value="One Way ( All garment one direction)">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Two Way ( One Garment One direction)" Value="Two Way ( One Garment One direction)">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Nap UP" Value="Nap UP">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Nap Down" Value="Nap Down">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Plaid Match" Value="Plaid Match">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Horizontal cut" Value="Horizontal cut">
-                                            </ig:DropDownItem>
-                                            <ig:DropDownItem Selected="False" Text="Bias Cut" Value="Bias Cut">
-                                            </ig:DropDownItem>
-                                        </Items>
+                                     <asp:UpdatePanel ID="upd_markerdirection" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                           
+                                    <ig:WebDropDown ID="drp_markerdirection" runat="server" EnableClosingDropDownOnSelect="False" EnableMultipleSelection="True" TextField="name" ValueField="pk" Width="200px">
                                         <DropDownItemBinding TextField="name" ValueField="pk" />
                                     </ig:WebDropDown>
+                                              </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
                                 <td class="NormalTD">Marker Made </td>
                                 <td class="NormalTD">
-                                    <asp:UpdatePanel ID="upd_garmentColor0" runat="server" UpdateMode="Conditional">
+                                    <asp:UpdatePanel ID="upd_markermade" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                            <ucc:DropDownListChosen ID="drp_markermade" runat="server" DataTextField="ColorName" DataValueField="ColorCode" Width="180px">
-                                                <asp:ListItem>Gerber</asp:ListItem>
-                                                <asp:ListItem>Manual</asp:ListItem>
-                                            </ucc:DropDownListChosen>
+                                           
+
+                                            <ucc:DropDownListChosen ID="drp_markermade" runat="server" DataTextField="name" DataValueField="pk" Width="180px">
+                                                  
+                                               </ucc:DropDownListChosen>
+
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </td>
+                                <td class="SearchButtonTD">&nbsp;</td>
+                                 <td class="NormalTD">Cutting Type</td>
+                                <td class="NormalTD"> 
+                                    
+                                     <asp:UpdatePanel ID="upd_cuttype" runat="server" UpdateMode="Conditional">
+                                           <ContentTemplate>
+                                               <ucc:DropDownListChosen ID="drp_cuttype" runat="server" DataTextField="name" DataValueField="pk" Width="180px">
+                                                  
+                                               </ucc:DropDownListChosen>
+                                      
+                                           </ContentTemplate>
+                                       </asp:UpdatePanel></td>
                                 <td class="SearchButtonTD">&nbsp;</td>
                             </tr>
                             <tr>
@@ -491,6 +488,9 @@
                                     <asp:TextBox ID="txt_maximumMarkerlength" runat="server">0</asp:TextBox>
                                 </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
+                                 <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="SearchButtonTD">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td class="NormalTD">Select garment Color</td>
@@ -506,11 +506,7 @@
                                   
                                 </td>
                                 <td class="NormalTD">
-                                    <asp:UpdatePanel ID="upd_confirmgarmentcolor" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btn_cutorder" runat="server" Font-Size="Smaller" OnClick="btn_cutorder_Click" style="height: 26px" Text="Confirm" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                   
                                 </td>
                                 <td class="NormalTD">
                                     <asp:UpdatePanel ID="upd_confirmgarmentcolor0" runat="server" UpdateMode="Conditional">
@@ -520,6 +516,9 @@
                                     </asp:UpdatePanel>
                                 </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="SearchButtonTD">&nbsp;</td>
 
                             </tr>
                          
@@ -528,8 +527,15 @@
                             
                             <tr>
                                 <td class="NormalTD">&nbsp;</td>
-                                <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp; <asp:UpdatePanel ID="upd_confirmgarmentcolor" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <asp:Button ID="btn_cutorder" runat="server" Font-Size="Smaller" OnClick="btn_cutorder_Click" style="height: 26px" Text="Confirm" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel></td>
                                 <td class="mergecell">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="NormalTD">&nbsp;</td>
+                                <td class="SearchButtonTD">&nbsp;</td>
                                 <td class="NormalTD">&nbsp;</td>
                                 <td class="NormalTD">&nbsp;</td>
                                 <td class="SearchButtonTD">&nbsp;</td>

@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.ItemGroupMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ItemGroupMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemGroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemGroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemGroupDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemGroupDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemGroupID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

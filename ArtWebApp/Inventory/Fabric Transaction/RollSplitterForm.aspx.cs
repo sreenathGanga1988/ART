@@ -83,10 +83,19 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             BLL.InventoryBLL.FabricRollEntryMRN mrnrolldata = new BLL.InventoryBLL.FabricRollEntryMRN();
             int oldrollpk = int.Parse (lbl_rollpk. Text. ToString ());
             Decimal oldrollyard = Decimal.Parse(lbl_balance.Text.ToString());
-            mrnrolldata.Rolldatacollection = GetRollDetailsData();
-            mrnrolldata.SplitSupplierRollData(oldrollpk, oldrollyard);
-            tbl_InverntoryDetails.DataSource = null;
-            tbl_InverntoryDetails.DataBind();
+
+            if (oldrollyard >= 0)
+            {
+
+                mrnrolldata.Rolldatacollection = GetRollDetailsData();
+                mrnrolldata.SplitSupplierRollData(oldrollpk, oldrollyard);
+                tbl_InverntoryDetails.DataSource = null;
+                tbl_InverntoryDetails.DataBind();
+            }
+            else
+            {
+                ArtWebApp.Controls.WebMsgBox.Show("Cannot make the Intial Roll Yard negative");
+            }
             
         }
 

@@ -409,7 +409,8 @@ namespace ArtWebApp.Reports.MerchandiserReport
                     try
                     {
 
-                        object onhandtotal = onhandqtytemp.Compute("Sum(onhandqty)", "");
+
+                        object onhandtotal = onhandqtytemp.Compute("Sum(BaseUOMQty)", "");
                         if (onhandtotal.ToString().Trim() == "")
                         {
                             onhandqty = 0;

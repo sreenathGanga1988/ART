@@ -100,6 +100,7 @@
       <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WebForms.12.0.2402.15\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -181,6 +182,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
@@ -1077,7 +1079,6 @@
     <Content Include="Merchandiser\AtcEditOptions\AtcEdit.aspx" />
     <Content Include="Merchandiser\AtcEditOptions\SkuMasterEdit.aspx" />
     <Content Include="Merchandiser\AtcRawMaterial.aspx" />
-    <Content Include="Merchandiser\AtcStylemaster.aspx" />
     <Content Include="Merchandiser\BOM.aspx" />
     <Content Include="Merchandiser\POPack.aspx" />
     <Content Include="Merchandiser\PO\Procurement.aspx" />
@@ -1196,6 +1197,73 @@
     <Content Include="Areas\ArtMVCMaster\Views\web.config" />
     <Content Include="Areas\ArtMVCMaster\Views\Item\ItemMenuIndex.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\Menu\MenuIndex.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ItemGroupMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ItemGroupMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ItemGroupMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ItemGroupMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ItemGroupMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateCompositions\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateCompositions\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateCompositions\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateCompositions\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateCompositions\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateConstructions\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateConstructions\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateConstructions\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateConstructions\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\TemplateConstructions\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Template_Master\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Template_Master\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Template_Master\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Template_Master\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\Template_Master\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ColorMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ColorMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ColorMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ColorMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ColorMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SizeMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SizeMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SizeMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SizeMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SizeMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Index.cshtml" />
+    <Content Include="Areas\ArtAdministrator\Views\web.config" />
+    <Content Include="Areas\ArtAdministrator\Views\SQLAdministrator\BackUPDatabase.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerMadeMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerMadeMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerMadeMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerMadeMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\MarkerMadeMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BodyPartMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BodyPartMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BodyPartMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BodyPartMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BodyPartMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CutTypeMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CutTypeMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CutTypeMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CutTypeMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CutTypeMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1211,6 +1279,11 @@
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.table2excel.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Shipping\AtcExpenseMaster.aspx" />
     <Content Include="Shipping\CourierEntry.aspx" />
@@ -1225,7 +1298,6 @@
     <Content Include="Shipping\ShiipingDashBoard.aspx" />
     <Content Include="Shipping\ShipmentClosing.aspx" />
     <Content Include="Shipping\ShippingTracker.aspx" />
-    <Content Include="TransformXSLT.xsl" />
     <Content Include="User Manual\InventoryUserGuide.htm" />
     <Content Include="User Manual\InventoryUserGuide_files\colorschememapping.xml" />
     <Content Include="User Manual\InventoryUserGuide_files\filelist.xml" />
@@ -1522,6 +1594,39 @@
     </Compile>
     <Compile Include="Approvals\ServicePoApproval.aspx.designer.cs">
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\ArtAdministrator\ArtAdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\CutTypeMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\GarmentCategoriesController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\ItemGroupMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerDirectionMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerMadeMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\SizeMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\SubMenuMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\SupplierMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\SupplierTypemastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateColorsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateCompositionsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateConstructionsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateSizesController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWeightsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWidthsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\Template_MasterController.cs" />
+    <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="DataModels\CutTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MarkerDirectionMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MarkerMadeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierTypemaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Master\Item.cs" />
     <Compile Include="ViewModel\Master\Menu.cs" />
@@ -3088,13 +3193,6 @@
     <Compile Include="Merchandiser\AtcRawMaterial.aspx.designer.cs">
       <DependentUpon>AtcRawMaterial.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Merchandiser\AtcStylemaster.aspx.cs">
-      <DependentUpon>AtcStylemaster.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Merchandiser\AtcStylemaster.aspx.designer.cs">
-      <DependentUpon>AtcStylemaster.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Merchandiser\BOM.aspx.cs">
       <DependentUpon>BOM.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4044,12 +4142,20 @@
     <EmbeddedResource Include="Reports\RDLC\YearlyShippedNew.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ArtAdministrator\Models\" />
+    <Folder Include="Areas\ArtAdministrator\Views\Shared\" />
     <Folder Include="Areas\ArtMVCMaster\Models\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\GarmentCategories\" />
     <Folder Include="Areas\ArtMVCMaster\Views\Shared\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\TemplateColors\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\TemplateSizes\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\TemplateWeights\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\TemplateWidths\" />
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArtDAL\ArtDAL.csproj">

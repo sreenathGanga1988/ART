@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.SupplierTypemaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SupplierTypemaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SupplierTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

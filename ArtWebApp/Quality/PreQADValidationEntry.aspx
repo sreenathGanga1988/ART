@@ -8,6 +8,60 @@
 
      <script type="text/javascript">
 
+
+
+
+         function checkAyard()
+         {
+
+               var gridView = document.getElementById("<%= tbl_InverntoryDetails.ClientID %>");
+
+             for (var i = 1; i < gridView.rows.length; i++) {
+                 var count = 0;
+                 var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                
+                 if (chkConfirm.checked) {
+
+
+                     var allowedexcess = 0;
+                     var lblbx = gridView.rows[i].cells[8].children[0];
+                     var txtbx = gridView.rows[i].cells[9].children[0];
+                   
+                     var ayard = parseFloat( txtbx.value);
+                     var syard = parseFloat(lblbx.innerHTML);
+                   
+
+                     if (ayard < syard)
+                     {
+
+                     }
+                     esle
+                     {
+                         allowedexcess = (3 / 100) * syard;
+
+
+                         if((ayard-syard)>allowedexcess)
+                         {
+
+                             alert("Ayard Greater than Syard More than 3 % Please Cross Check");
+                             gridView.rows[i].style.backgroundColor = "red";
+                             txtbx.focus();
+                         }
+                     }
+
+
+
+                     }
+                 } 
+        }
+
+
+
+         
+    
+
+
+
           function SetShrinkage() {
 			//if (Searching == 'eID') {
 		   
@@ -593,47 +647,7 @@
                                  <td class="Textboxtd"></td>
                             </tr>
 
-                            <%--<tr>
-                                <td colspan="2"  class="NormalTD">
-                                    
-                                    
-                                    &nbsp;</td>
-                                <td colspan="2"  class="NormalTD">
-                                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btn_yardage" Font-Bold="True" Font-Size="X-Small" Text="Copy Supplier Yard" Width="150px" runat="server" Height="22px" OnClick="btn_yardage_Click1"   />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </td>
-                                <td colspan="2"  class="NormalTD">
-                                    <asp:UpdatePanel ID="UpdatePanel12" runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btn_shadage" Font-Bold="True" Font-Size="X-Small" Text="Copy Supplier Shade" Width="150px" runat="server" OnClick="btn_shadage_Click"  />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </td>
-                                <td colspan="2"  class="NormalTD">
-                                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btnSupshrink" Font-Bold="True" Font-Size="X-Small" Text="Copy Supplier Shrinkage" Width="150px" runat="server" OnClick="btnSupshrink_Click" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </td>
-                                <td colspan="2"  class="NormalTD">
-                                    <asp:UpdatePanel ID="UpdatePanel14" runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="btn_sswidth"  Font-Bold="True" Font-Size="X-Small" Text="Copy Supplier Width" Width="150px" runat="server" OnClick="btn_sswidth_Click"  />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </td>
-                                <td colspan="2"  class="NormalTD">
-                                    <asp:UpdatePanel ID="UpdatePanel15" runat="server">
-                                        <ContentTemplate>
-                                            <asp:Button ID="Button5" Font-Bold="True" Font-Size="X-Small" Text="Copy Supplier GSM" Width="150px" runat="server" OnClick="Button5_Click" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </td>
-                            </tr>--%>
+             
 
                               <tr>
                                 <td colspan="2"  class="NormalTD">
@@ -728,7 +742,7 @@
                                         <asp:TemplateField HeaderText="AYard" SortExpression="AYard">
                                            
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txt_ayard" Width="70px" onkeyup="enter(this)"  runat="server" Text='<%# Bind("AYard") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txt_ayard" Width="70px" onkeyup="enter(this)"  onChange="checkAyard()" runat="server" Text='<%# Bind("AYard") %>'></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="SShade" SortExpression="SShade">

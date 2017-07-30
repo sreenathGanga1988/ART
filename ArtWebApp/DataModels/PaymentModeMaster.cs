@@ -14,8 +14,15 @@ namespace ArtWebApp.DataModels
     
     public partial class PaymentModeMaster
     {
+        public PaymentModeMaster()
+        {
+            this.SupplierMasters = new HashSet<SupplierMaster>();
+        }
+    
         public decimal PaymentModeID { get; set; }
         public string PaymentModeCode { get; set; }
         public string PaymentModeDescription { get; set; }
+    
+        public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
     }
 }

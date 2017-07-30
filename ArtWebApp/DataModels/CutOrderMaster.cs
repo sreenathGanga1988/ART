@@ -47,6 +47,7 @@ namespace ArtWebApp.DataModels
         public string PaternName { get; set; }
         public string MarkerType { get; set; }
         public string CutPlan { get; set; }
+        public string IsDeleted { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutOrderDO> CutOrderDOes { get; set; }

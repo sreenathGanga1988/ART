@@ -1,0 +1,161 @@
+﻿@model ArtWebApp.DataModels.SupplierMaster
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SupplierMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierPrefix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierPrefix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.partner_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.partner_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPogiven)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPogiven)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryMaster.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryMaster.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyMaster.CurrencyCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyMaster.CurrencyCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentModeMaster.PaymentModeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentModeMaster.PaymentModeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTermMaster.PaymentTermCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentTermMaster.PaymentTermCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

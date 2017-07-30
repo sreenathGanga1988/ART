@@ -694,26 +694,39 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
             string Cutn = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
+                var rollpkobj = enty.LaySheetRollDetails.Where(u => u.LaySheetRoll_Pk == layrrollpk).Select(u => u.Roll_PK).FirstOrDefault();
+                int rollpk = int.Parse(rollpkobj.ToString());
 
-                var q = from layroll in enty.LaySheetRollDetails
-                        where layroll.LaySheetRoll_Pk == layrrollpk
-                        select layroll;
-                foreach (var element in q)
+                if (!enty.LaySheetDetails.Any(f => f.Roll_PK == rollpk && f.LaySheetRoll_Pk== layrrollpk))
                 {
 
-                    if (element.Status == "New")
-                    {
-                        enty.LaySheetRollDetails.Remove(element);
-                    }
-                    else
+                    var q = from layroll in enty.LaySheetRollDetails
+                            where layroll.LaySheetRoll_Pk == layrrollpk
+                            select layroll;
+                    foreach (var element in q)
                     {
 
-                        element.IsUsed = "R";
-                    }
+                        if (element.Status == "New")
+                        {
+                            enty.LaySheetRollDetails.Remove(element);
+                        }
+                        else
+                        {
 
-                    Cutn = "Sucess";
+                            element.IsUsed = "R";
+                        }
+
+                        Cutn = "Sucess";
+                    }
+                    enty.SaveChanges();
+
+
                 }
-                enty.SaveChanges();
+                else
+                {
+                    Controls.WebMsgBox.Show("Rolls Used in Laysheet  Delete it first ");
+                }
+                  
             }
 
             return Cutn;

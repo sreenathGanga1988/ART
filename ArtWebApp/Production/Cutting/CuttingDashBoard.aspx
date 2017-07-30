@@ -224,7 +224,7 @@
 FROM            CutPlanMaster INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
-WHERE        (CutPlanMaster.IsApproved = N'N')"></asp:SqlDataSource>
+WHERE        (CutPlanMaster.IsApproved = N'N') AND (CutPlanMaster.IsRollAdded = N'Y')"></asp:SqlDataSource>
                             
                             
                         </td>

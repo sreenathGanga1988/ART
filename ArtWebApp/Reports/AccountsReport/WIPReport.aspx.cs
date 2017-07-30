@@ -1,13 +1,18 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using ArtWebApp.DataModels;
+using Infragistics.Web.UI.ListControls;
+using Microsoft.Reporting.WebForms;
+using OfficeOpenXml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 namespace ArtWebApp.Reports.AccountsReport
 {
@@ -111,26 +116,44 @@ namespace ArtWebApp.Reports.AccountsReport
             float sumoftrim = 0;
             float sumoffabric = 0;
             float sumofproces = 0;
+
+
             DataTable packeddata = GetPackedData(atcid);
+            float packedQty = 0;
+            float packedQtyvalue = 0;
+            DataTable NEWpackeddata = GetPackedDatannEWjOBCONTRACT(atcid);
             if (packeddata.Rows.Count > 0)
             {
                 if (packeddata.Rows.Count > 0)
                 {
-                    masterdata.Rows[i]["PackedQty"] = float.Parse(packeddata.Rows[0]["PackedQty"].ToString());
-                    masterdata.Rows[i]["PackedQtyValue"] = float.Parse(packeddata.Rows[0]["PackedQtyvalue"].ToString());
+                    packedQty=packedQty+ float.Parse(packeddata.Rows[0]["PackedQty"].ToString());
+                    packedQtyvalue= packedQtyvalue+ float.Parse(packeddata.Rows[0]["PackedQtyvalue"].ToString());
+                  
                 }
 
 
 
             }
+            if (NEWpackeddata.Rows.Count > 0)
+            {
+                if (NEWpackeddata.Rows.Count > 0)
+                {
+                    packedQty = packedQty + float.Parse(NEWpackeddata.Rows[0]["PackedQty"].ToString());
+                    packedQtyvalue = packedQtyvalue + float.Parse(NEWpackeddata.Rows[0]["PackedQtyvalue"].ToString());
+
+                }
 
 
+
+            }
+            masterdata.Rows[i]["PackedQty"] = packedQty;
+            masterdata.Rows[i]["PackedQtyValue"] = packedQtyvalue;
 
             //DataTable packedDetaildata = GetPackeddetails(atcid,uptodate);
 
-
-            DataTable packedDetaildata = getsomecorrectcosting(SUBGetPackeddetails(atcid, uptodate));
-
+            
+        //     DataTable packedDetaildata = getsomecorrectcosting(SUBGetPackeddetails(atcid, uptodate));
+        DataTable packedDetaildata = getsomecorrectcosting(SUBGetPackeddetailsNewJobContract(atcid, uptodate));
             if (packedDetaildata.Rows.Count > 0)
             {
 
@@ -350,6 +373,42 @@ GROUP BY OurStyleID, OurStyle, PackProcessvalue ";
         }
 
 
+        public DataTable SUBGetPackeddetailsNewJobContract(int atcid, DateTime Uptodate)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                string Query1 = @"SELECT        OurStyleID, OurStyle, SUM(PackedQty) AS PackedQty, SUM(PackedQty * PackProcessvalue) AS Prackedprocessvalue, 0000.00 as fabvalue, 0000.00 as trimvalue, isnull((SELECT        SUM(InvoiceQty) AS Expr1
+FROM            InvoiceDetail
+WHERE(OurStyleID = tt.OurStyleID)), 0)as InvoicedQty,00.00 as invoicetrimvalue,000.000 as invoicefabvalue,PackProcessvalue, 00.00 as invprocessvalue
+FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, ProductionReportDetails.PackedQty,
+                             (SELECT        SUM(StyleCostingComponentDetails.CompValue) AS Expr1
+                               FROM            StyleCostingMaster INNER JOIN
+                                                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+                               WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID) AND (StyleCostingComponentDetails.CostComp_PK <> 8) AND 
+                                                         (StyleCostingComponentDetails.CostComp_PK <> 9) AND (StyleCostingComponentDetails.CostComp_PK <> 1) AND (StyleCostingComponentDetails.CostComp_PK <> 2)) AS PackProcessvalue
+FROM            ProductionReportDetails INNER JOIN
+                         AtcDetails ON ProductionReportDetails.OurStyleID = AtcDetails.OurStyleID
+WHERE        (AtcDetails.AtcId = @atcid) ) AS tt
+GROUP BY OurStyleID, OurStyle, PackProcessvalue";
+
+
+                 cmd.CommandText = Query1;
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+                //cmd.Parameters.AddWithValue("@uptodate", Uptodate);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
 
 
         public DataTable getsomecorrectcosting(DataTable packedDetaildata)
@@ -817,93 +876,135 @@ HAVING        (AtcDetails.AtcId = @atcid)";
             return dt;
         }
 
+
+
+        public DataTable GetPackedDatannEWjOBCONTRACT(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                string Query1 = @"   SELECT SUM(PackedQty) AS PackedQty, AtcID, SUM(PACKEDVALUE)AS PackedQtyvalue
+ FROM(SELECT        ProductionReportDetails.PackedQty, JobContractMaster.AtcID, JobContractMaster.CM, JobContractMaster.CM * ProductionReportDetails.PackedQty AS PACKEDVALUE
+ 
+                           FROM            ProductionReportDetails INNER JOIN
+ 
+                                                     JobContractMaster ON ProductionReportDetails.OurStyleID = JobContractMaster.OurStyleID AND ProductionReportDetails.ProducedLctn_PK = JobContractMaster.Location_Pk  AND ProductionReportDetails.JobContractDetail_pk is null ) AS derivedtbl_1
+ GROUP BY AtcID
+ HAVING(AtcID = @atcid)";
+
+
+                cmd.CommandText = Query1;
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+     
+
+
+
+
 //        //public DataTable GetInvoiceData(int atcid, DateTime Uptodate)
 //        {
 //            DataTable dt = new DataTable();
 
-//            using (SqlConnection con = new SqlConnection(connStr))
-//            {
-//                con.Open();
-//                SqlCommand cmd = new SqlCommand();
-//                cmd.Connection = con;
-//                string Query1 = @"select tt.InvoiceQty ,tt.InvoiceQtyValue ,tt.OurStyle, (tt.InvoiceQty *tt.fabricvalue) as fabvalue ,(tt.InvoiceQty *tt.trimvalue) as trimvalue ,(tt.InvoiceQty *tt.invProcessvalue) as Invprocessvalue   from 
-//(SELECT        ISNULL(InvoiceDetail.InvoiceQty, 0) AS InvoiceQty, ISNULL(InvoiceDetail.FOB * InvoiceDetail.InvoiceQty, 0) AS InvoiceQtyValue, AtcDetails.OurStyle
+        //            using (SqlConnection con = new SqlConnection(connStr))
+        //            {
+        //                con.Open();
+        //                SqlCommand cmd = new SqlCommand();
+        //                cmd.Connection = con;
+        //                string Query1 = @"select tt.InvoiceQty ,tt.InvoiceQtyValue ,tt.OurStyle, (tt.InvoiceQty *tt.fabricvalue) as fabvalue ,(tt.InvoiceQty *tt.trimvalue) as trimvalue ,(tt.InvoiceQty *tt.invProcessvalue) as Invprocessvalue   from 
+        //(SELECT        ISNULL(InvoiceDetail.InvoiceQty, 0) AS InvoiceQty, ISNULL(InvoiceDetail.FOB * InvoiceDetail.InvoiceQty, 0) AS InvoiceQtyValue, AtcDetails.OurStyle
 
-//,ISNULL((SELECT       StyleCostingComponentDetails.CompValue
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
-//                      (StyleCostingComponentDetails.CostComp_PK = 1) ),0) AS fabricvalue , ISNULL((SELECT       StyleCostingComponentDetails.CompValue
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
-//                      (StyleCostingComponentDetails.CostComp_PK = 2) ),0) AS trimvalue ,(SELECT     sum(  StyleCostingComponentDetails.CompValue)
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)  AND
-//                      ((StyleCostingComponentDetails.CostComp_PK != 8) and (StyleCostingComponentDetails.CostComp_PK != 9)  and (StyleCostingComponentDetails.CostComp_PK != 1) and (StyleCostingComponentDetails.CostComp_PK != 2) )) as invProcessvalue
-//FROM            InvoiceDetail INNER JOIN
-//                         AtcDetails ON InvoiceDetail.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-//                         InvoiceMaster ON InvoiceDetail.Invoice_PK = InvoiceMaster.Invoice_PK
-//WHERE        (AtcDetails.AtcId = @atcid))tt";
-
-
-//                cmd.CommandText = Query1;
-//                cmd.Parameters.AddWithValue("@atcid", atcid);
-
-//                SqlDataReader rdr = cmd.ExecuteReader();
-
-//                dt.Load(rdr);
+        //,ISNULL((SELECT       StyleCostingComponentDetails.CompValue
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
+        //                      (StyleCostingComponentDetails.CostComp_PK = 1) ),0) AS fabricvalue , ISNULL((SELECT       StyleCostingComponentDetails.CompValue
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
+        //                      (StyleCostingComponentDetails.CostComp_PK = 2) ),0) AS trimvalue ,(SELECT     sum(  StyleCostingComponentDetails.CompValue)
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)  AND
+        //                      ((StyleCostingComponentDetails.CostComp_PK != 8) and (StyleCostingComponentDetails.CostComp_PK != 9)  and (StyleCostingComponentDetails.CostComp_PK != 1) and (StyleCostingComponentDetails.CostComp_PK != 2) )) as invProcessvalue
+        //FROM            InvoiceDetail INNER JOIN
+        //                         AtcDetails ON InvoiceDetail.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+        //                         InvoiceMaster ON InvoiceDetail.Invoice_PK = InvoiceMaster.Invoice_PK
+        //WHERE        (AtcDetails.AtcId = @atcid))tt";
 
 
+        //                cmd.CommandText = Query1;
+        //                cmd.Parameters.AddWithValue("@atcid", atcid);
 
-//            }
-//            return dt;
-//        }
+        //                SqlDataReader rdr = cmd.ExecuteReader();
 
-
-//        public DataTable GetPackeddetails(int atcid, DateTime Uptodate)
-//        {
-//            DataTable dt = new DataTable();
-
-//            using (SqlConnection con = new SqlConnection(connStr))
-//            {
-//                con.Open();
-//                SqlCommand cmd = new SqlCommand();
-//                cmd.Connection = con;
-//                string Query1 = @"Select  tt.OurStyle, (tt.PackedQty *tt.fabricvalue) as fabvalue ,(tt.PackedQty *tt.trimvalue)  as trimvalue,(tt.PackedQty *tt.PackProcessvalue) as Prackedprocessvalue from(SELECT        AtcDetails.OurStyle, ProductionReportDetails.PackedQty,ISNULL((SELECT       StyleCostingComponentDetails.CompValue
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
-//                      (StyleCostingComponentDetails.CostComp_PK = 1) ),0) AS fabricvalue , ISNULL((SELECT       StyleCostingComponentDetails.CompValue
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
-//                      (StyleCostingComponentDetails.CostComp_PK = 2) ),0) AS trimvalue ,(SELECT     sum(  StyleCostingComponentDetails.CompValue)
-//FROM            StyleCostingMaster INNER JOIN
-//                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
-//WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)  AND
-//                      ((StyleCostingComponentDetails.CostComp_PK != 8) and (StyleCostingComponentDetails.CostComp_PK != 9)  and (StyleCostingComponentDetails.CostComp_PK != 1) and (StyleCostingComponentDetails.CostComp_PK != 2) )) as PackProcessvalue
-//FROM            ProductionReportDetails INNER JOIN
-//                         JobContractDetail ON ProductionReportDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk INNER JOIN
-//                         AtcDetails ON JobContractDetail.OurStyleID = AtcDetails.OurStyleID where (AtcDetails.AtcId=@atcid))tt ";
-
-
-//                cmd.CommandText = Query1;
-//                cmd.Parameters.AddWithValue("@atcid", atcid);
-//                //cmd.Parameters.AddWithValue("@uptodate", Uptodate);
-//                SqlDataReader rdr = cmd.ExecuteReader();
-
-//                dt.Load(rdr);
+        //                dt.Load(rdr);
 
 
 
-//            }
-//            return dt;
-//        }
-        
-        
-        
+        //            }
+        //            return dt;
+        //        }
+
+
+        //        public DataTable GetPackeddetails(int atcid, DateTime Uptodate)
+        //        {
+        //            DataTable dt = new DataTable();
+
+        //            using (SqlConnection con = new SqlConnection(connStr))
+        //            {
+        //                con.Open();
+        //                SqlCommand cmd = new SqlCommand();
+        //                cmd.Connection = con;
+        //                string Query1 = @"Select  tt.OurStyle, (tt.PackedQty *tt.fabricvalue) as fabvalue ,(tt.PackedQty *tt.trimvalue)  as trimvalue,(tt.PackedQty *tt.PackProcessvalue) as Prackedprocessvalue from(SELECT        AtcDetails.OurStyle, ProductionReportDetails.PackedQty,ISNULL((SELECT       StyleCostingComponentDetails.CompValue
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
+        //                      (StyleCostingComponentDetails.CostComp_PK = 1) ),0) AS fabricvalue , ISNULL((SELECT       StyleCostingComponentDetails.CompValue
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = .AtcDetails.OurStyleID)  AND
+        //                      (StyleCostingComponentDetails.CostComp_PK = 2) ),0) AS trimvalue ,(SELECT     sum(  StyleCostingComponentDetails.CompValue)
+        //FROM            StyleCostingMaster INNER JOIN
+        //                         StyleCostingComponentDetails ON StyleCostingMaster.Costing_PK = StyleCostingComponentDetails.Costing_PK
+        //WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)  AND
+        //                      ((StyleCostingComponentDetails.CostComp_PK != 8) and (StyleCostingComponentDetails.CostComp_PK != 9)  and (StyleCostingComponentDetails.CostComp_PK != 1) and (StyleCostingComponentDetails.CostComp_PK != 2) )) as PackProcessvalue
+        //FROM            ProductionReportDetails INNER JOIN
+        //                         JobContractDetail ON ProductionReportDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk INNER JOIN
+        //                         AtcDetails ON JobContractDetail.OurStyleID = AtcDetails.OurStyleID where (AtcDetails.AtcId=@atcid))tt ";
+
+
+        //                cmd.CommandText = Query1;
+        //                cmd.Parameters.AddWithValue("@atcid", atcid);
+        //                //cmd.Parameters.AddWithValue("@uptodate", Uptodate);
+        //                SqlDataReader rdr = cmd.ExecuteReader();
+
+        //                dt.Load(rdr);
+
+
+
+        //            }
+        //            return dt;
+        //        }
+
+
+
         public DataTable  calculateWIPvalues(DataTable masterdata, int i )
         {
             float PACKEDVALUE=float.Parse(masterdata.Rows[i]["PackedQtyFabricvalue"].ToString ())+float.Parse(masterdata.Rows[i]["PackedQtyTrimsValue"].ToString ())+float.Parse(masterdata.Rows[i]["PackedQtyProcessValue"].ToString ());
@@ -944,14 +1045,57 @@ HAVING        (AtcDetails.AtcId = @atcid)";
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\costingreport.rdlc";
         }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            if (FileUpload1.HasFile)
+            {
+                if (Path.GetExtension(FileUpload1.FileName) == ".xlsx")
+                {
+                    ExcelPackage package = new ExcelPackage(FileUpload1.FileContent);
+                    DataTable dt = package.ToDataTable();
+
+                    if (dt != null)
+                    {
+
+                        DataView view = new DataView(dt);
+                        DataTable distinctValues = view.ToTable(true, "Atc");
+                        distinctValues.Columns.Add("Atcid");
+                        for (int i = 0; i < distinctValues.Rows.Count; i++)
+                        {
+                            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                            {
+
+                                String atcnum = dt.Rows[i][0].ToString();
+                                var atciddata = (from o in entty.AtcMasters
+                                                 where o.AtcNum == atcnum
+
+                                                 select o.AtcId).FirstOrDefault();
+                                distinctValues.Rows[i]["Atcid"] = atciddata.ToString();
+                            }
+                            DropDownItem item = cmb_atc.Items.FindItemByValue(distinctValues.Rows[i]["Atcid"].ToString());
+
+                            item.Selected = true;
+                        }
+
+
+
+                    }
+
+                }
+            }
+        }
+
+     
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 }

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.SubMenuMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MenuText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MenuURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isEnable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsNormal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MVCURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubMenuMaster2.MenuText)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MenuText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MenuURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isEnable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsNormal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MVCURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubMenuMaster2.MenuText)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Menu_PK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Menu_PK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Menu_PK })
+        </td>
+    </tr>
+}
+
+</table>

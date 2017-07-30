@@ -153,50 +153,7 @@ namespace ArtWebApp.BLL
             return table;
         }
 
-        //public void insertourstyle(DataTable dt)
-        //{
-
-        //    if (dt.Rows.Count > 0)
-        //    {
-        //        using (ArtEntitiesnew enty = new ArtEntitiesnew())
-        //        {
-        //            for (int i = 0; i < dt.Rows.Count; i++)
-        //            {
-        //                int outstyleid = int.Parse(dt.Rows[i]["OurStyleId"].ToString());
-        //                int atcid = int.Parse(dt.Rows[i]["atcid"].ToString());
-
-        //                String Ourstyle = dt.Rows[i]["Ourstyle"].ToString();
-        //                int catid = int.Parse(dt.Rows[i]["Catid"].ToString());
-        //                int qty = 0;
-        //                decimal fob = int.Parse(dt.Rows[i]["Fob"].ToString());
-
-        //                if (!enty.AtcDetails.Any(f => f.OurStyle.Trim() == Ourstyle.Trim() && f.AtcId == atcid))
-        //                {
-        //                    AtcDetail atcdet = new AtcDetail();
-        //                    atcdet.AtcId = atcid;
-        //                    atcdet.OurStyle = Ourstyle.Trim();
-        //                    atcdet.BuyerStyle = "";
-        //                    atcdet.Quantity = qty;
-        //                    atcdet.FOB = fob;
-        //                    atcdet.CategoryID = 0;
-        //                    enty.AtcDetails.Add(atcdet);
-        //                }
-        //                else
-        //                {
-
-
-        //                }
-        //            }
-
-        //            enty.SaveChanges();
-        //        }
-
-        //    }
-
-
-        //}
-
-        //Update the Atcmaster
+        
         public void UpdatemasterData(AtcData atcdata)
         {
            
@@ -405,6 +362,7 @@ namespace ArtWebApp.BLL
        
     }
 
+ 
 
 
    

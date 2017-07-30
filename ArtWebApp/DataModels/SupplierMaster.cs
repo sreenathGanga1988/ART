@@ -57,5 +57,7 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<SupplierInvoiceMaster> SupplierInvoiceMasters { get; set; }
         public virtual ICollection<SupplierStockInvoiceMaster> SupplierStockInvoiceMasters { get; set; }
         public virtual ICollection<DocMaster> DocMasters { get; set; }
+        public virtual PaymentModeMaster PaymentModeMaster { get; set; }
+        public virtual PaymentTermMaster PaymentTermMaster { get; set; }
     }
 }

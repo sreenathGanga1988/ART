@@ -174,7 +174,7 @@ namespace ArtWebApp.Production.Cutting
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutOrderMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk == skudet_pk
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk == skudet_pk && ponmbr.IsDeleted=="N"
                         select new
                         {
                             name = ponmbr.Cut_NO,

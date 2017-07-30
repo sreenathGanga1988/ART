@@ -31,8 +31,7 @@ namespace ArtWebApp.Areas.ArtMVC.Controllers
             JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
 
             return jsd;
-
-            // return Json(new { status = "Success", message = "Success" }, JsonRequestBehavior.AllowGet);
+         
         }
 
 

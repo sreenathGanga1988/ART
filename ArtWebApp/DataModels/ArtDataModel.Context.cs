@@ -211,6 +211,10 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<CreditNoteMaster> CreditNoteMasters { get; set; }
         public virtual DbSet<SuplierASNDebitDetail> SuplierASNDebitDetails { get; set; }
         public virtual DbSet<SupplierDebitAsnMaster> SupplierDebitAsnMasters { get; set; }
+        public virtual DbSet<SupplierTypemaster> SupplierTypemasters { get; set; }
+        public virtual DbSet<CutTypeMaster> CutTypeMasters { get; set; }
+        public virtual DbSet<MarkerDirectionMaster> MarkerDirectionMasters { get; set; }
+        public virtual DbSet<MarkerMadeMaster> MarkerMadeMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

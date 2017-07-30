@@ -196,7 +196,7 @@
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
                         <td class="NormalTD">
-                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlan_PK], [CutPlanNUM] FROM [CutPlanMaster] WHERE (([IsApproved] = @IsApproved) AND ([IsRatioAdded] = @IsRatioAdded))">
+                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT CutPlan_PK, CutPlanNUM, IsRollAdded FROM CutPlanMaster WHERE (IsApproved = @IsApproved) AND (IsRatioAdded = @IsRatioAdded) AND (IsRollAdded = N'Y')">
                                 <SelectParameters>
                                     <asp:Parameter DefaultValue="N" Name="IsApproved" Type="String" />
                                     <asp:Parameter DefaultValue="Y" Name="IsRatioAdded" Type="String" />

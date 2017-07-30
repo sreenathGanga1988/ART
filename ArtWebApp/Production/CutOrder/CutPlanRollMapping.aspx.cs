@@ -86,7 +86,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsCutorderGiven == "N"
+                        where ponmbr.OurStyleID == ourstyleid 
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -106,6 +106,42 @@ namespace ArtWebApp.Production.CutOrder
 
         }
 
+
+        public void FillAllcutplandetails(int cutplan_pk)
+        {
+
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = (from ponmbr in entty.CutPlanMasters
+                        where ponmbr.CutPlan_PK == cutplan_pk
+                        select new
+                        {
+                            Shrinkagegroup = ponmbr.ShrinkageGroup,
+
+                           
+                            Markertype= ponmbr.MarkerType,
+
+                            widthgroup= ponmbr.WidthGroup,
+
+                            Skudetpk=ponmbr.SkuDet_PK
+                        }).ToList();
+
+
+              foreach(var element in q)
+              {
+
+
+                    lbl_shringagegroup.Text = element.Shrinkagegroup;
+                    lbl_markerType.Text = element.Markertype; 
+                    lbl_widthgroup.Text = element.widthgroup;
+                    lbl_skudet_pk.Text = element.Skudetpk.ToString ();
+                }
+
+
+            }
+
+        }
 
 
 
@@ -161,7 +197,7 @@ namespace ArtWebApp.Production.CutOrder
 
                 tbl_rolldata.DataSource = dt;
                 tbl_rolldata.DataBind();
-                Upd_roll.Update();
+               
                 upd_shade.Update();
             
             }
@@ -170,11 +206,13 @@ namespace ArtWebApp.Production.CutOrder
                
 
 
-                String msg = " No Roll Data Found ";
+                String msg = " No New  Roll Data Found for Adding ";
 
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "error", msg);
-                
+                tbl_rolldata.DataSource = null;
+                tbl_rolldata.DataBind();
             }
+            Upd_roll.Update();
         }
    
 
@@ -195,12 +233,26 @@ namespace ArtWebApp.Production.CutOrder
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
             fillroll();
+            txt_alreadyAdded.Text = BLL.CutOrderBLL.CutPlan.getAlreadyAllocatedAyardage(int.Parse(drp_cutorder.SelectedValue.ToString())).ToString();
 
             String fabreq = BLL.CutOrderBLL.CutPlan.GetCutFabreq(int.Parse(drp_cutorder.SelectedValue.ToString())).ToString ();
+
+            try
+            {
+                lbl_baltoadd.Text = (float.Parse(fabreq) - float.Parse(txt_alreadyAdded.Text)).ToString();
+            }
+            catch (Exception)
+            {
+                lbl_baltoadd.Text = "0";
+
+            }
+
             txt_fabreq.Text = fabreq;
             upd_fabreq.Update();
             UPD_ALREADYADDED.Update();
-
+            upd_baltoadd.Update();
+            upd_alreadyaddedqty.Update();
+            FillAllcutplandetails(int.Parse(drp_cutorder.SelectedValue.ToString()));
         }
 
         protected void Button1_Click3(object sender, EventArgs e)

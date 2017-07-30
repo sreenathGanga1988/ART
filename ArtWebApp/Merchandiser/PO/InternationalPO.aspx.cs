@@ -22,20 +22,7 @@ namespace ArtWebApp.Merchandiser.PO
 
         }
 
-        //protected void drp_templateforComp_ValueChanged(object sender, Infragistics.Web.UI.ListControls.DropDownValueChangedEventArgs e)
-        //{
-        //    hdn_template_PK.Value = drp_templateforComp.SelectedValue.ToString();
-        //    drp_weight.DataBind();
-        //    drp_itemcolor.DataBind();
-        //    drp_itemSize.DataBind();
-        //    drp_itemWeight.DataBind();
-        //    drp_itemWidth.DataBind();
-        //    drp_UOM.DataBind();
-        //    drp_composition.DataBind();
-        //    drp_construction.DataBind();
-        //}
-
-
+      
 
 
 
@@ -182,7 +169,7 @@ namespace ArtWebApp.Merchandiser.PO
                 int itemgroupid = int.Parse(cmb_itemgroup.SelectedValue.ToString());
 
                 var temp = from tmplatmstr in enty.Template_Master
-                           where tmplatmstr.ItemGroup_PK == itemgroupid
+                           where tmplatmstr.ItemGroup_PK == itemgroupid && tmplatmstr.IsStock=="Y"
                            select tmplatmstr;
 
 

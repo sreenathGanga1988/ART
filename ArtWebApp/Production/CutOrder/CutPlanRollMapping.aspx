@@ -8,7 +8,9 @@
     <script src="../../JQuery/GridJQuery.js"></script>
 
    <script type="text/javascript">
+       
 
+       var exeederow = 0;
 
        function initDropDown(sender, args) {
            sender.behavior.set_zIndex(200000);
@@ -31,9 +33,20 @@
        }
   
     
- function calculatesumofyardage()
-        {
+
+        function calculatesumofyardage()
+      {
+            debugger;
+           
+
+            var txt_fabreq = document.getElementsByClassName("txt_fabreq")[0].value;
+            var lbl_baltoadd = document.getElementsByClassName("lbl_baltoadd")[0].innerHTML;
             var gridView = document.getElementById("<%= tbl_rolldata.ClientID %>");
+
+
+            var totalyard = document.getElementsByClassName("totalyardfooter")[0].value;
+       
+
             var sum = 0
             for (var i = 1; i < gridView.rows.length-1; i++)
             {
@@ -43,12 +56,35 @@
                     var lbl_yard = gridView.rows[i].getElementsByClassName("lbl_yard")[0];
 
                     sum = sum + parseFloat(lbl_yard.innerHTML);
+
+                   
+                    
                 }
 
-            } 
+            }
+
+            if (parseFloat(lbl_baltoadd) < parseFloat(sum)) {
+                alert("Ayard Exceed");
+
+                if(exeederow==0)
+                {
+                    exeederow = 1;
+                    document.getElementsByClassName("btn_saveroll")[0].disabled = false;
+                }
+                else if (exeederow == 1)
+                {
+                    alert("You had added More than One Roll extra You cannot save");
+                    document.getElementsByClassName("btn_saveroll")[0].disabled = true;
+                }
+            }
+            else {
+                exeederow = 0;
+                document.getElementsByClassName("btn_saveroll")[0].disabled = false;
+            }
             var totalyardfooter = document.getElementsByClassName("totalyardfooter")[0];
             totalyardfooter.value = sum;
- }
+        }
+
 
 
 
@@ -133,7 +169,7 @@
                                         </asp:UpdatePanel>
 
                         </td>
-                        <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel6" UpdateMode="Conditional" runat="server">
+                        <td class="SearchButtonTD"><asp:UpdatePanel ID="UpdatePanel6" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
                             <asp:Button ID="btn_atc" runat="server" Text="S" OnClick="btn_atc_Click" /></ContentTemplate>
                                         </asp:UpdatePanel>  
@@ -148,7 +184,7 @@
                                                  </ContentTemplate>
                                         </asp:UpdatePanel>
                         </td>
-                        <td class="auto-style7" >
+                        <td class="SearchButtonTD" >
                             <asp:UpdatePanel ID="UpdatePanel7" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
                             <asp:Button ID="btn_OURSTYLE" runat="server" Text="S" OnClick="btn_OURSTYLE_Click" /></ContentTemplate>
@@ -171,7 +207,7 @@
                                      </ContentTemplate>
                                         </asp:UpdatePanel>            
                                                 </td>
-                        <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel8" UpdateMode="Conditional" runat="server">
+                        <td class="SearchButtonTD"><asp:UpdatePanel ID="UpdatePanel8" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
@@ -179,15 +215,38 @@
                         <td class="NormalTD">
                                <asp:UpdatePanel ID="upd_fabreq" runat="server" UpdateMode="Conditional">
                                    <ContentTemplate>
-                                       <asp:TextBox ID="txt_fabreq" runat="server" >
+                                       <asp:TextBox ID="txt_fabreq" CssClass="txt_fabreq" runat="server" >
                                        </asp:TextBox>
                                    </ContentTemplate>
                                </asp:UpdatePanel>
                         </td>
-                        <td class="auto-style7"><asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">
-                                        </asp:UpdatePanel></td>
-                        <td class="NormalTD"></td>
-                        <td class="NormalTD"></td>
+                        <td class="auto-style7"></td>
+                        <td class="NormalTD">Already Added</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_alreadyaddedqty" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:TextBox ID="txt_alreadyAdded" CssClass="txt_alreadyAdded"  runat="server">0</asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+              
+               
+                    <tr>
+                        <td class="NormalTD">Balace to Add</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_baltoadd" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Label ID="lbl_baltoadd" CssClass="lbl_baltoadd" runat="server" Text="Label"></asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="auto-style7">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
                     </tr>
               
                
@@ -234,8 +293,10 @@
                                                                     <td>&nbsp;</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
+                                                                    <td>SkuDet_PK</td>
+                                                                    <td>
+                                                                        <asp:Label ID="lbl_skudet_pk" runat="server" Text="0"></asp:Label>
+                                                                    </td>
                                                                     <td>&nbsp;</td>
                                                                     <td>&nbsp;</td>
                                                                     <td>&nbsp;</td>
@@ -329,7 +390,7 @@
             <td>
                 <asp:UpdatePanel ID="UpdatePanel10" runat="server">
                     <ContentTemplate>
-                        <asp:Button ID="Button1" runat="server"   Text="Save  Cut Plan" OnClick="Button1_Click3" />
+                        <asp:Button ID="btn_saveroll" runat="server" CssClass="btn_saveroll"   Text="Save  Cut Plan" OnClick="Button1_Click3" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
@@ -421,7 +482,7 @@ ORDER BY RollNum">
                         <asp:ControlParameter ControlID="drp_cutorder" Name="Param1" PropertyName="SelectedValue" />
                     </SelectParameters>
                 </asp:SqlDataSource>
-                  S</td>
+                  </td>
         </tr>
         <tr>
             <td><asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT MarkerNo, NoOfPc, Qty, MarkerLength, LayLength, CutPlanMarkerDetails_PK, CutPlan_PK FROM CutPlanMarkerDetails WHERE (CutPlan_PK = @Cutid)">

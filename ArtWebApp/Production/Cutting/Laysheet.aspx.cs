@@ -184,7 +184,7 @@ namespace ArtWebApp.Production.Cutting
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutOrderMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk== skudet_pk
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk== skudet_pk && ponmbr.IsDeleted=="N"
                         select new
                         {
                             name = ponmbr.Cut_NO,
@@ -332,24 +332,53 @@ namespace ArtWebApp.Production.Cutting
 
         public void Filllaysheetroll(int cutid)
         {
-            using (ArtEntitiesnew entty = new ArtEntitiesnew())
-            {
+            int UserLoc_pk = int.Parse(drp_fact.SelectedValue.ToString());
 
-                var sizedetails = (from ponmbr in entty.LaySheetRollMasters
-                                   where ponmbr.CutID == cutid
-                                   select new
+            
+            if (Session["UserProfileName"].ToString().Trim ()!="Admin")
+            {
+                using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                {
+
+                    var sizedetails = (from ponmbr in entty.LaySheetRollMasters
+                                       where ponmbr.CutID == cutid && ponmbr.Location_Pk == UserLoc_pk
+                                       select new
                                    {
                                        ponmbr.LaysheetRollmaster_Pk,
                                        ponmbr.LayRollRef
                                    }).Distinct();
 
-                drp_cutRoll.DataSource = sizedetails.ToList();
-                drp_cutRoll.DataBind();
-                upd_layroll.Update();
+                    drp_cutRoll.DataSource = sizedetails.ToList();
+                    drp_cutRoll.DataBind();
+                    upd_layroll.Update();
 
 
+
+                }
+            }
+            else
+            {
+                using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                {
+
+                    var sizedetails = (from ponmbr in entty.LaySheetRollMasters
+                                       where ponmbr.CutID == cutid
+                                       select new
+                                   {
+                                       ponmbr.LaysheetRollmaster_Pk,
+                                       ponmbr.LayRollRef
+                                   }).Distinct();
+
+                    drp_cutRoll.DataSource = sizedetails.ToList();
+                    drp_cutRoll.DataBind();
+                    upd_layroll.Update();
+
+
+
+                }
 
             }
+           
         }
 
 

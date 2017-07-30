@@ -15,7 +15,7 @@
     <link href="../css/style.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <table class="FullTable">
+    <table class="DataEntryTable">
         
         <tr>
             <td>
@@ -95,12 +95,12 @@
                 <td>
                     <table class="DataEntryTable">
                         <tr>
-                            <td class="auto-style2">Item Code</td>
-                            <td class="auto-style8">
+                            <td class="NormalTD">Item Code</td>
+                            <td class="NormalTD">
                                 <asp:TextBox ID="txt_itemcode" runat="server"></asp:TextBox>
                             </td>
-                            <td class="auto-style4">Item Name : </td>
-                            <td class="auto-style7">
+                            <td class="NormalTD">Item Name : </td>
+                            <td class="NormalTD">
                                 <asp:TextBox ID="txt_itemname" runat="server"></asp:TextBox>
                             </td>
                             <td class="auto-style6">Item Group</td>
@@ -109,12 +109,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style2">HC Code&nbsp; :</td>
-                            <td class="auto-style8">
+                            <td class="NormalTD">HC Code&nbsp; :</td>
+                            <td class="NormalTD">
                                 <asp:TextBox ID="txt_hscode" runat="server"></asp:TextBox>
                             </td>
-                            <td class="auto-style4">UOM :</td>
-                            <td class="auto-style7">
+                            <td class="NormalTD">UOM :</td>
+                            <td class="NormalTD">
                                 <ig1:WebDropDown ID="cmb_uom" runat="server" Width="180px" Height="20px" TextField="Uomname" ValueField="Uom_pk" DataSourceID="Uomdata"><DropDownItemBinding TextField="Uomname" ValueField="Uom_pk" /></ig1:WebDropDown>
                             </td>
                             <td class="auto-style6" >Wastage :</td>
@@ -129,16 +129,16 @@
                         </tr>
                        
                         <tr>
-                            <td class="auto-style19"></td>
-                            <td class="auto-style15">
+                            <td class="NormalTD"></td>
+                            <td class="NormalTD">
                                 <asp:CheckBox ID="CheckBox1" runat="server" Text="Color Dependant" />
                             </td>
-                            <td class="auto-style20">
+                            <td class="NormalTD0">
                                 <asp:CheckBox ID="CheckBox2" runat="server" Text="Size Dependant" />
                             </td>
-                            <td class="auto-style21"></td>
-                            <td class="auto-style22"></td>
-                            <td class="auto-style15"></td>
+                            <td class="NormalTD"></td>
+                            <td class="NormalTD"></td>
+                            <td class="NormalTD"></td>
                         </tr>
                        
                     </table>
@@ -150,7 +150,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style9">
+                <td class="NormalTD">
                     <asp:SqlDataSource ID="itemgroup" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [ItemGroupName], [ItemGroupID] FROM [ItemGroupMaster] ORDER BY [ItemGroupName], [ItemGroupID]"></asp:SqlDataSource>
                     <asp:SqlDataSource ID="Uomdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [UomName], [Uom_PK] FROM [UOMMaster ]"></asp:SqlDataSource>
                     <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT Template_Master.Template_PK AS Id, Template_Master.TemplateCode AS Code, Template_Master.Description AS Name, ItemGroupMaster.ItemGroupDescription AS [Item Group], Template_Master.HCCode AS HCcode, UOMMaster .UomName AS UOM, Template_Master.Wastage, Template_Master.IsStock FROM Template_Master INNER JOIN UOMMaster  ON Template_Master.Uom_PK = UOMMaster .Uom_PK INNER JOIN ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID"></asp:SqlDataSource>
@@ -177,7 +177,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style9">&nbsp;</td>
+                <td class="NormalTD">&nbsp;</td>
             </tr>
         </table>
     
@@ -194,7 +194,7 @@
                                              <td class="RedHeadding" colspan="5">Item Composition</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item</td>
+                                             <td class="NormalTD">Item</td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="drp_templateforComp" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_Pk"><DropDownItemBinding TextField="Description" ValueField="Template_Pk" /></ig1:WebDropDown>
                                              </td>
@@ -206,7 +206,7 @@
                                              <td>&nbsp;</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Composition</td>
+                                             <td class="NormalTD">Composition</td>
                                              <td class="auto-style10">
                                                  <asp:TextBox ID="txt_Composition" runat="server" Width="197px"></asp:TextBox>
                                              </td>
@@ -219,7 +219,7 @@
                                              </td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="btn_SaveComp" runat="server" Text="Save" OnClick="btn_SaveComp_Click" ValidationGroup="comp" />
                                              </td>
@@ -261,7 +261,7 @@
                                              <td class="RedHeadding" colspan="5">item construction</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item </td>
+                                             <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="drp_templateforcon" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
                                              </td>
@@ -283,7 +283,7 @@
                                              <td class="auto-style13"></td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="btn_SaveCon" runat="server" Text="Save" OnClick="btn_SaveCon_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="Construction" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TemplateConstruction.TemplateCon_Pk, Template_Master.TemplateCode, Template_Master.Description, TemplateConstruction.Construct FROM Template_Master INNER JOIN TemplateConstruction ON Template_Master.Template_PK = TemplateConstruction.Template_Pk ORDER BY Template_Master.TemplateCode"></asp:SqlDataSource>
@@ -361,7 +361,7 @@
                                              <td class="auto-style13"></td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="btn_weight" runat="server" Text="Save" OnClick="btn_weight_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="Weightdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TemplateWeight.TemplateWeight_Pk, Template_Master.Description, TemplateWeight.Weight, Template_Master.TemplateCode FROM Template_Master INNER JOIN TemplateWeight ON Template_Master.Template_PK = TemplateWeight.Template_Pk ORDER BY Template_Master.TemplateCode"></asp:SqlDataSource>
@@ -412,7 +412,7 @@
                                              <td class="RedHeadding" colspan="5">Item Width</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item </td>
+                                             <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="drp_templatewidth" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
                                              </td>
@@ -434,7 +434,7 @@
                                              <td class="auto-style13"></td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="btn_width" runat="server" Text="Save" OnClick="btn_width_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="Widthdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TemplateWidth.TemplateWidth_Pk, Template_Master.Description, Template_Master.TemplateCode, TemplateWidth.Width FROM Template_Master INNER JOIN TemplateWidth ON Template_Master.Template_PK = TemplateWidth.Template_Pk ORDER BY Template_Master.TemplateCode"></asp:SqlDataSource>
@@ -488,7 +488,7 @@
                                              <td class="RedHeadding" colspan="5">Item Color</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item </td>
+                                             <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="drp_Color" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
                                              </td>
@@ -510,7 +510,7 @@
                                              <td class="auto-style13"></td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="Btn_Color" runat="server" Text="Save" OnClick="Btn_Color_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="colordata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT TemplateColor.TemplateColor_PK, Template_Master.TemplateCode, Template_Master.Description, TemplateColor.TemplateColor FROM Template_Master INNER JOIN TemplateColor ON Template_Master.Template_PK = TemplateColor.Template_PK"></asp:SqlDataSource>
@@ -564,7 +564,7 @@
                                              <td class="RedHeadding" colspan="5">item size</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item </td>
+                                             <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="drp_Size" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
                                              </td>
@@ -586,7 +586,7 @@
                                              <td class="auto-style13"></td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="btn_size" runat="server" Text="Save" OnClick="btn_size_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="sizedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT Template_Master.TemplateCode, Template_Master.Description, TemplateSize.TemplateSize FROM Template_Master INNER JOIN TemplateSize ON Template_Master.Template_PK = TemplateSize.Template_PK"></asp:SqlDataSource>
@@ -635,7 +635,7 @@
                                              <td class="RedHeadding" colspan="5">applicable uom</td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">Item </td>
+                                             <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
                                                  <ig1:WebDropDown ID="WebDropDown1" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
                                              </td>
@@ -653,7 +653,7 @@
                                              </td>
                                          </tr>
                                          <tr>
-                                             <td class="auto-style8">&nbsp;</td>
+                                             <td class="NormalTD">&nbsp;</td>
                                              <td class="auto-style10">
                                                  <asp:Button ID="Button2" runat="server" Text="Save" OnClick="btn_size_Click" ValidationGroup="con" />
                                                  <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT Template_Master.TemplateCode, Template_Master.Description, TemplateSize.TemplateSize FROM Template_Master INNER JOIN TemplateSize ON Template_Master.Template_PK = TemplateSize.Template_PK"></asp:SqlDataSource>

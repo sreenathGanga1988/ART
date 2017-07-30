@@ -174,30 +174,37 @@
         function calculateforKnit()
         {
              var gridView = document.getElementById("<%= tbl_InverntoryDetails.ClientID %>");
+            var Knitchecked = document.getElementById("<%= chk_knitreg.ClientID %>").checked;
 
-            var fablength=0;
 
 
-            for (var i = 1; i < gridView.rows.length - 1; i++)
-            {
-                var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
-                if (chkConfirm.checked)
-                {
-                    var txt_weight1 = gridView.rows[i].getElementsByClassName("txt_weight1")[0];
-                    var txt_width1 = gridView.rows[i].getElementsByClassName("txt_width1")[0];
-                    var txt_gms1 = gridView.rows[i].getElementsByClassName("txt_gms1")[0];
+         
+                if (Knitchecked) {
+                    var fablength = 0;
 
-                    var txt_syard = gridView.rows[i].getElementsByClassName("txt_syard")[0];
-                   
-                    fablength = parseFloat(txt_weight1.value) / (((parseFloat(txt_width1.value) * parseFloat(txt_gms1.value)) / 1550) / 1000);
-                    fablength = fablength * 0.0277778;
-                    txt_syard.value = fablength;
-                  
+                    try {
+                        for (var i = 1; i < gridView.rows.length - 1; i++) {
+                            var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                            if (chkConfirm.checked) {
+                                var txt_weight1 = gridView.rows[i].getElementsByClassName("txt_weight1")[0];
+                                var txt_width1 = gridView.rows[i].getElementsByClassName("txt_width1")[0];
+                                var txt_gms1 = gridView.rows[i].getElementsByClassName("txt_gms1")[0];
+
+                                var txt_syard = gridView.rows[i].getElementsByClassName("txt_syard")[0];
+
+                                fablength = parseFloat(txt_weight1.value) / (((parseFloat(txt_width1.value) * parseFloat(txt_gms1.value)) / 1550) / 1000);
+                                fablength = fablength * 0.0277778;
+                                txt_syard.value = fablength;
+
+                            }
+                        }
+                    }
+                    catch (e) {
+
+                    }
                 }
-            }
 
 
-           
 
         }
 
@@ -396,7 +403,7 @@
                 </tr>
     <tr>
                     <td >
-                        <asp:CheckBox ID="chk_knitreg" runat="server" Text="Knit Regular" AutoPostBack="true" OnCheckedChanged="chk_knitreg_CheckedChanged" />
+                        <asp:CheckBox ID="chk_knitreg" runat="server" CssClass="chk_knitreg" Text="Knit Regular" AutoPostBack="true" OnCheckedChanged="chk_knitreg_CheckedChanged" />
                         <asp:CheckBox ID="chk_knitTubular" runat="server" Text="KNIT TUBULAR"  AutoPostBack="true"  OnCheckedChanged="chk_knitTubular_CheckedChanged" />
                     </td>
                     <td class="NormalTD" >
@@ -590,7 +597,7 @@
                                           <asp:TemplateField HeaderText="Width">
                                            
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txt_sWidth" CssClass="txt_width1" onkeyup="enter(this)"  runat="server" Width="70px"  Text='0'></asp:TextBox>
+                                                <asp:TextBox ID="txt_sWidth" CssClass="txt_width1" onkeyup="enter(this)"  onChange="calculateforKnit()"  runat="server" Width="70px"  Text='0'></asp:TextBox>
                                             </ItemTemplate>
                                                <HeaderStyle Width="70px" />
                                         </asp:TemplateField>

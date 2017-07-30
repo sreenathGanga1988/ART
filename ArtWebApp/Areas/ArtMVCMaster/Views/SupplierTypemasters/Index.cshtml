@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.SupplierTypemaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SupplierTypeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SupplierTypeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SupplierTypeID })
+        </td>
+    </tr>
+}
+
+</table>

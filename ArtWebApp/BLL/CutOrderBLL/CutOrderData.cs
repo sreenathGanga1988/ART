@@ -645,7 +645,7 @@ HAVING        (CutID = @Param1)";
                 ctmstr.CutOrderType = this.CutorderType;
                 ctmstr.CutQty = this.CutOrderQty;
                 ctmstr.FabQty = this.CofabAllocation;
-                
+                ctmstr.IsDeleted = "N";
 
                 ctmstr.BalanceQty = 0;
                 ctmstr.DelivedQty = 0;

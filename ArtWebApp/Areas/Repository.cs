@@ -120,9 +120,9 @@ namespace ArtWebApp.Areas
 
             foreach (SMRNDetails element in q)
             {
-                int Spodetail_PK = int.Parse(element.smrndet_pk.ToString());
+                int smrndet_PK = int.Parse(element.smrndet_pk.ToString());
 
-
+                element.SDODetailsList = GetSDODetails(smrndet_PK);
 
 
             }
