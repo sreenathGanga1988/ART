@@ -43,5 +43,6 @@ namespace ArtWebApp.DataModels
         public virtual ProcurementDetail ProcurementDetail { get; set; }
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
         public virtual ICollection<TransferToGstockDetail> TransferToGstockDetails { get; set; }
+        public virtual UOMMaster UOMMaster { get; set; }
     }
 }

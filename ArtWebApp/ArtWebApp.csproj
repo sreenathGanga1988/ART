@@ -56,12 +56,9 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="App_Licenses">
-      <HintPath>..\..\..\WebSites\infratry\Bin\App_Licenses.dll</HintPath>
-    </Reference>
-    <Reference Include="DropDownChosen">
-      <HintPath>..\..\..\..\..\Downloads\DropDownChosen\DropDownChosen\DropDownChosen\bin\Debug\DropDownChosen.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="DropDownChosen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DropDownChosen.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -294,6 +291,7 @@
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
+    <Content Include="Production\Cutting\CuttingDashBoardBoot.aspx" />
     <Content Include="Production\Cutting\LaysheetApproval.aspx" />
     <Content Include="Production\Cutting\LaysheetRollEditor.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
@@ -1627,6 +1625,13 @@
     </Compile>
     <Compile Include="DataModels\SupplierTypemaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.cs">
+      <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.designer.cs">
+      <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Master\Item.cs" />
     <Compile Include="ViewModel\Master\Menu.cs" />

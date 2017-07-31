@@ -6,6 +6,15 @@
 
     <script src="../../JQuery/GridJQuery.js"></script>
     <link href="../../css/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .smallCell {
+            height: 27px;
+            width: 35px;
+            font-size: xx-small;
+            font-weight: 700;
+        }
+      
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
@@ -20,12 +29,14 @@
                 <tr>
                     <td class="RedHeadding" colspan="5">
                         &nbsp;&nbsp;&nbsp;&nbsp;DO ROlls</td>
+                    <td class="RedHeadding">
+                        &nbsp;</td>
                 </tr>
                 <tr>
                     <td">
                         
                     </td>
-                    <td >
+                    <td class="NormalTD" >
                           
                         Atc</td>
                     <td class="NormalTD"  >
@@ -39,16 +50,18 @@
                                             </asp:UpdatePanel>
 
                     </td>
-                    <td >
+                    <td class="SearchButtonTD" >
                           <asp:UpdatePanel ID="upd_btn_atc" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                        <asp:Button ID="btn_atc" runat="server" Text="S" Width="33px"  CssClass="auto-style10" OnClick="btn_atc_Click" /></td>
                      </ContentTemplate>
-                                            </asp:UpdatePanel>   <td >
+                                            </asp:UpdatePanel>   <td class="NormalTD" >
                         &nbsp;</td>
+                    <td></td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td >
+                    <td class="NormalTD" >
                         DO # :
                     </td>
                     <td class="NormalTD" >
@@ -59,19 +72,22 @@
                         </ucc:DropDownListChosen>
                                                    </ContentTemplate>
                                             </asp:UpdatePanel>
-                    <td >
+                        </td>
+                    <td class="SearchButtonTD" >
                          <asp:UpdatePanel ID="upd_btn_do" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                        <asp:Button ID="btn_do" runat="server" Text="S" Width="33px"  CssClass="auto-style10" OnClick="btn_do_Click"  /></td>
                      </ContentTemplate>
                                             </asp:UpdatePanel>  </td>
-                    <td >
+                    <td class="NormalTD" >
                         </td>
-                    <td >
+                    <td class="NormalTD" >
                         </td>
+                    <td class="NormalTD" >
+                        &nbsp;</td>
                 </tr>
                 <tr>
-                    <td >
+                    <td class="NormalTD" >
                         Fabric Details :
                     </td>
                     <td class="NormalTD" >
@@ -82,31 +98,56 @@
                                                    </ContentTemplate>
                                             </asp:UpdatePanel></td>
                     
-                    <td >
+                    <td class="SearchButtonTD" >
                           <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                        <asp:Button ID="Button2" runat="server" Text="S" Width="33px"  CssClass="auto-style10" OnClick="Button2_Click"  /></td>
                      </ContentTemplate>
                                             </asp:UpdatePanel> 
                     </td>
-                    <td >
-                        &nbsp;</td>
-                    <td >
-                         &nbsp;</td>
-                </tr>
-                <tr>
-                    <td >
-                        Delivered Yards</td>
                     <td class="NormalTD" >
                         &nbsp;</td>
-                    
-                    <td >
-                          &nbsp;</td>
-                    <td >
-                        &nbsp;</td>
-                    <td >
+                    <td class="NormalTD" >
+                         &nbsp;</td>
+                    <td class="NormalTD" >
                          &nbsp;</td>
                 </tr>
+    <td colspan="5">
+
+        <Table class="smallgridtable">
+        <tr>
+                    <td class="smallCell" >
+                        <strong>Delivered Yards</strong></td>
+                    <td class="smallCell" >
+                        <asp:Label ID="lbl_DeliveryQty" runat="server" style="font-size: small; font-weight: 700" Text="0"></asp:Label>
+                    </td>
+                    
+                    <td class="smallCell" >
+                         Delivery uom</td>
+                    
+                    <td class="smallCell" >
+                         <asp:Label ID="lbl_DeliveryUOM" runat="server" style="font-size: small; font-weight: 700" Text="0"></asp:Label>
+                    </td>
+                    
+                    <td class="smallCell" >
+                         <strong>Already Added yards</strong></td>
+                    <td class="smallCell" >
+                        <asp:Label ID="lbl_AlreadyAddedYArd" runat="server" style="font-size: small; font-weight: 700" Text="0"></asp:Label>
+                        </td>
+                    <td class="smallCell">Already Added KGS</td>
+                    <td class="smallCell"><asp:Label ID="lbl_alreadyAddedKGS" runat="server" style="font-size: small; font-weight: 700" Text="0"></asp:Label>
+                       </td>
+                    <td class="smallCell" >
+                         <strong>Balance to Add</strong></td>
+                    <td class="smallCell" >
+                         <asp:Label ID="lbl_balancetoAdd" runat="server" style="font-size: small; font-weight: 700" Text="0"></asp:Label>
+                    </td>
+                </tr>
+    </Table>
+    </td>
+
+    
+                
                 <tr>
                     <td class="gridtable" colspan="5">
                         <asp:UpdatePanel ID="upd_grid"   UpdateMode="Conditional" runat="server">
@@ -156,18 +197,22 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
+                    <td class="gridtable">
+                        &nbsp;</td>
                 </tr>
                 <tr class="ButtonTR">
-                    <td >
+                    <td class="NormalTD" >
                         <asp:Button ID="Button1" runat="server" Text="Save Roll Data" OnClick="Button1_Click" />
                     </td>
                     <td class="NormalTD" >
                         &nbsp;</td>
                     <td class="auto-style7" >
                         &nbsp;</td>
-                    <td >
+                    <td class="NormalTD" >
                         &nbsp;</td>
-                    <td >
+                    <td class="NormalTD" >
+                        &nbsp;</td>
+                    <td class="NormalTD" >
                         &nbsp;</td>
                 </tr>
             </table>

@@ -563,7 +563,7 @@ HAVING        (CutPlanMaster.CutPlan_PK = @Param1)";
             {
                 try
                 {
-                    var ayardsum = entty.CutPlanRollDetails.Where(u => u.CutPlan_PK == cutplanpk).Sum(u => u.FabricRollmaster.AYard);
+                    var ayardsum = entty.CutPlanRollDetails.Where(u => u.CutPlan_PK == cutplanpk && u.IsDeleted=="N").Sum(u => u.FabricRollmaster.AYard);
                     ayardsumfloat = float.Parse(ayardsum.ToString());
                 }
                 catch (Exception)

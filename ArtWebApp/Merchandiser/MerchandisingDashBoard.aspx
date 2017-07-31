@@ -14,34 +14,35 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
-  
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+        <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap.min.js"></script>
   <script >
      
     $(document).ready(function () {
-        alert('HI');
+     
       
+        $('.table').DataTable();
 
+        //// Setup - add a text input to each header cell
+        //$('.mydatagrid thead tr:eq(1) th').each(function () {
+        //    var title = $('#example thead tr:eq(0) th').eq($(this).index()).text();
+        //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        //});
 
-        // Setup - add a text input to each header cell
-        $('.mydatagrid thead tr:eq(1) th').each(function () {
-            var title = $('#example thead tr:eq(0) th').eq($(this).index()).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-        });
+        //var table = $('.mydatagrid ').DataTable({
+        //    orderCellsTop: true
+        //});
 
-        var table = $('.mydatagrid ').DataTable({
-            orderCellsTop: true
-        });
-
-        // Apply the search
-        table.columns().every(function (index) {
-            $('.mydatagrid  thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
-                table.column($(this).parent().index() + ':visible')
-                    .search(this.value)
-                    .draw();
-            });
-        });
+        //// Apply the search
+        //table.columns().every(function (index) {
+        //    $('.mydatagrid  thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+        //        table.column($(this).parent().index() + ':visible')
+        //            .search(this.value)
+        //            .draw();
+        //    });
+        //});
 
 
     });
@@ -49,40 +50,55 @@
 
 
      </script>
-    <div>
-      
-          </div>
+  
        
  
-
-      <div>
-        </div>
-
-
-
-
+    <div class="container">
     
-    <div class="RedHeaddingdIV"> PENDING&nbsp; PO</div>
-    <div id="MasterDiv"  runat="server">
+          <h2>Cutting DashBoard</h2>
+       <button type="button" class="btn btn-info" data-toggle="collapse" data-target="<%=MasterDiv.ClientID%>">Pending PO</button>       
+ 
+    <div id="MasterDiv"  class="collapse in"  runat="server">
     
     </div>
-    <div class="RedHeaddingdIV"> PENDING COSTING FOR APPROVAL</div>
-     <div id="MasterDiv2" runat="server">
+
+
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="<%=MasterDiv2.ClientID%>"> PENDING COSTING FOR APPROVAL</button>
+    
+     <div id="MasterDiv2" class="collapse in" runat="server">
        
     </div>
-     <div class="RedHeaddingdIV"> PENDING RO FOR APPROVAL</div>
-     <div id="MasterDiv3" runat="server">
+
+
+
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="<%=MasterDiv3.ClientID%>" >PENDING RO FOR APPROVAL</button>
+    <div id="MasterDiv3" class="collapse in" runat="server">
          
     </div>
 
-       <div class="RedHeaddingdIV"> PENDING SRO FOR APPROVAL</div>
-     <div id="MasterDiv4" runat="server">
+
+
+          <button type="button" class="btn btn-info" data-toggle="collapse" data-target="<%=MasterDiv4.ClientID%>">PENDING SRO FOR APPROVAL</button>
+    
+     <div id="MasterDiv4" class="collapse in" runat="server">
    
     </div>
-     <div class="RedHeaddingdIV">PENDING EBOM FOR APPROVAL</div>
-    <div id="MasterDiv5" runat="server">
+
+
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="<%=MasterDiv5.ClientID%>">PENDING EBOM FOR APPROVAL</button>
+    
+    <div id="MasterDiv5" class="collapse in" runat="server">
    
     </div>
+
+         </div>
+
+     
+
+
+
+
+
 
     
  

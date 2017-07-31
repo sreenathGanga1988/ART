@@ -121,6 +121,51 @@ namespace ArtWebApp.Inventory.Fabric_Transaction {
         protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
+        /// lbl_DeliveryQty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_DeliveryQty;
+        
+        /// <summary>
+        /// lbl_DeliveryUOM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_DeliveryUOM;
+        
+        /// <summary>
+        /// lbl_AlreadyAddedYArd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_AlreadyAddedYArd;
+        
+        /// <summary>
+        /// lbl_alreadyAddedKGS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_alreadyAddedKGS;
+        
+        /// <summary>
+        /// lbl_balancetoAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_balancetoAdd;
+        
+        /// <summary>
         /// upd_grid control.
         /// </summary>
         /// <remarks>

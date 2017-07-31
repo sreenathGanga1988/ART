@@ -391,6 +391,7 @@
         <EntityTypeShape EntityType="ArtModel.MarkerDirectionMaster" Width="1.5" PointX="25.375" PointY="15.75" />
         <EntityTypeShape EntityType="ArtModel.MarkerMadeMaster" Width="1.5" PointX="25.375" PointY="18.75" />
         <AssociationConnector Association="ArtModel.FK_SubMenuMaster_SubMenuMaster" />
+        <AssociationConnector Association="ArtModel.FK_InventoryMaster_UOMMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

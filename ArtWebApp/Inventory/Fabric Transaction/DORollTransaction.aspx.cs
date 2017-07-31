@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.BLL.InventoryBLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -90,6 +91,23 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             upd_grid.Update();
 
         }
+
+        public void fillAlreadyDetails()
+        {
+            RollDelivery rlldelivery = new RollDelivery();
+            rlldelivery = rlldelivery.GetDeliveryDetailsofDocument("WW", int.Parse(ddl_do.SelectedValue.ToString()), int.Parse(drp_color.SelectedValue.ToString()));
+            lbl_DeliveryQty.Text = rlldelivery.DeliveredQty.ToString();
+            lbl_DeliveryQty.Text = rlldelivery.DeliveredQty.ToString();
+            lbl_DeliveryQty.Text = rlldelivery.DeliveredQty.ToString();
+            lbl_DeliveryQty.Text = rlldelivery.DeliveredQty.ToString();
+           
+
+
+
+            
+        }
+
+
 
         protected void Button1_Click(object sender, EventArgs e)
         {

@@ -516,6 +516,7 @@
           <Property Name="ConsumptionUOM" Type="nvarchar" MaxLength="50" />
           <Property Name="IsRollAdded" Type="nvarchar" MaxLength="50" />
           <Property Name="RollYard" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="CutType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CutplanRefPattern">
           <Key>
@@ -3595,6 +3596,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InventoryMaster_UOMMaster">
+          <End Role="UOMMaster" Type="Self.UOMMaster" Multiplicity="0..1" />
+          <End Role="InventoryMaster" Type="Self.InventoryMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="InventoryMaster">
+              <PropertyRef Name="Uom_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_InventoryMissingDetails_InventoryMissingRequest">
           <End Role="InventoryMissingRequest" Type="Self.InventoryMissingRequest" Multiplicity="0..1" />
           <End Role="InventoryMissingDetails" Type="Self.InventoryMissingDetails" Multiplicity="*" />
@@ -5797,6 +5810,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetail" />
             <End Role="InventoryMaster" EntitySet="InventoryMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_InventoryMaster_UOMMaster" Association="Self.FK_InventoryMaster_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMaster" />
+            <End Role="InventoryMaster" EntitySet="InventoryMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_InventoryMissingDetails_InventoryMissingRequest" Association="Self.FK_InventoryMissingDetails_InventoryMissingRequest">
             <End Role="InventoryMissingRequest" EntitySet="InventoryMissingRequest" />
             <End Role="InventoryMissingDetails" EntitySet="InventoryMissingDetails" />
@@ -7447,6 +7464,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="SubMenuMaster" EntitySet="SubMenuMasters" />
             <End Role="SubMenuMaster1" EntitySet="SubMenuMasters" />
           </AssociationSet>
+          <AssociationSet Name="FK_InventoryMaster_UOMMaster" Association="ArtModel.FK_InventoryMaster_UOMMaster">
+            <End Role="UOMMaster" EntitySet="UOMMasters" />
+            <End Role="InventoryMaster" EntitySet="InventoryMasters" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -8623,6 +8644,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_InventoryMaster_SkuRawmaterialDetail" FromRole="InventoryMaster" ToRole="SkuRawmaterialDetail" />
           <NavigationProperty Name="TransferToGstockDetails" Relationship="ArtModel.FK_TransferToGstockDetails_InventoryMaster" FromRole="InventoryMaster" ToRole="TransferToGstockDetail" />
           <Property Name="ParentRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UOMMaster" Relationship="ArtModel.FK_InventoryMaster_UOMMaster" FromRole="InventoryMaster" ToRole="UOMMaster" />
         </EntityType>
         <EntityType Name="InventoryMissingDetail">
           <Key>
@@ -9820,6 +9842,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_Template_Master_UOMMaster" FromRole="UOMMaster" ToRole="Template_Master" />
           <NavigationProperty Name="SkuRawMaterialMasters" Relationship="ArtModel.FK_SkuRawMaterialMaster_UOMMaster" FromRole="UOMMaster" ToRole="SkuRawMaterialMaster" />
           <NavigationProperty Name="StocPOForODOOs" Relationship="ArtModel.FK_StocPOForODOO_UOMMaster" FromRole="UOMMaster" ToRole="StocPOForODOO" />
+          <NavigationProperty Name="InventoryMasters" Relationship="ArtModel.FK_InventoryMaster_UOMMaster" FromRole="UOMMaster" ToRole="InventoryMaster" />
         </EntityType>
         <EntityType Name="UserMaster">
           <Key>
@@ -12056,6 +12079,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ConsumptionUOM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsRollAdded" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RollYard" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CutType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_CutPlanMaster_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
@@ -13456,6 +13480,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="SubMenuMaster1">
               <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMaster_UOMMaster">
+          <End Type="ArtModel.UOMMaster" Role="UOMMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.InventoryMaster" Role="InventoryMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UOMMaster">
+              <PropertyRef Name="Uom_PK" />
+            </Principal>
+            <Dependent Role="InventoryMaster">
+              <PropertyRef Name="Uom_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -16082,6 +16118,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanMasters">
             <EntityTypeMapping TypeName="ArtModel.CutPlanMaster">
               <MappingFragment StoreEntitySet="CutPlanMaster">
+                <ScalarProperty Name="CutType" ColumnName="CutType" />
                 <ScalarProperty Name="RollYard" ColumnName="RollYard" />
                 <ScalarProperty Name="IsRollAdded" ColumnName="IsRollAdded" />
                 <ScalarProperty Name="ConsumptionUOM" ColumnName="ConsumptionUOM" />

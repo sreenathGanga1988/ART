@@ -456,6 +456,9 @@
                         <asp:BoundField DataField="AShrink" HeaderText="AShrink" SortExpression="AShrink" />
                         <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
                         <asp:BoundField DataField="SWeight" HeaderText="SWeight" ReadOnly="True" SortExpression="SWeight" />
+
+                         <asp:BoundField DataField="IsDelivered" HeaderText="IsDelivered" ReadOnly="True" SortExpression="IsDelivered" />
+                        
                     </Columns>
                 </asp:GridView>
                     </ContentTemplate>
@@ -463,20 +466,20 @@
                 
                 <asp:SqlDataSource ID="AlreadyAddedRoll" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        Roll_PK, RollNum, ASN, PONum, itemDescription, WidthGroup, ShadeGroup, ShrinkageGroup, AYard, AtcNum, MarkerType, AWidth, AShrink, AShade, ISNULL(SWeight, 'NA') AS SWeight, CutPlanRoll_PK
 FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
-                                                    ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') 
-                                                    + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, 
-                                                    FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
-                                                    FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, RollInventoryMaster.IsPresent, CutPlanRollDetails.CutPlan_PK, CutPlanRollDetails.CutPlanRoll_PK
-                          FROM            SkuRawMaterialMaster INNER JOIN
-                                                    SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
-                                                    FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
-                                                    ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
-                                                    SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
-                                                    ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
-                                                    AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
-                                                    RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
-                                                    CutPlanRollDetails ON FabricRollmaster.Roll_PK = CutPlanRollDetails.Roll_PK
-                          WHERE        (FabricRollmaster.IsDelivered &lt;&gt; N'Y') AND (RollInventoryMaster.IsPresent = N'Y') AND (CutPlanRollDetails.CutPlan_PK = @Param1) AND (CutPlanRollDetails.IsDeleted = N'N')) AS tt
+                         ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
+                         + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, FabricRollmaster.AShrink, FabricRollmaster.AShade, 
+                         FabricRollmaster.SWeight, RollInventoryMaster.IsPresent, CutPlanRollDetails.CutPlan_PK, CutPlanRollDetails.CutPlanRoll_PK, FabricRollmaster.IsDelivered
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
+                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
+                         CutPlanRollDetails ON FabricRollmaster.Roll_PK = CutPlanRollDetails.Roll_PK
+WHERE        (FabricRollmaster.IsDelivered &lt;&gt; N'Y') AND (RollInventoryMaster.IsPresent = N'Y') AND (CutPlanRollDetails.CutPlan_PK = @Param1) AND (CutPlanRollDetails.IsDeleted = N'N')) AS tt
 ORDER BY RollNum">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="drp_cutorder" Name="Param1" PropertyName="SelectedValue" />

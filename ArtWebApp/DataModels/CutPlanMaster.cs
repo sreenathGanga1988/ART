@@ -58,6 +58,7 @@ namespace ArtWebApp.DataModels
         public string ConsumptionUOM { get; set; }
         public string IsRollAdded { get; set; }
         public Nullable<decimal> RollYard { get; set; }
+        public string CutType { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }

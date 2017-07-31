@@ -22,6 +22,7 @@ namespace ArtWebApp.DataModels
             this.Template_Master = new HashSet<Template_Master>();
             this.SkuRawMaterialMasters = new HashSet<SkuRawMaterialMaster>();
             this.StocPOForODOOs = new HashSet<StocPOForODOO>();
+            this.InventoryMasters = new HashSet<InventoryMaster>();
         }
     
         public decimal Uom_PK { get; set; }
@@ -35,5 +36,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<Template_Master> Template_Master { get; set; }
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
         public virtual ICollection<StocPOForODOO> StocPOForODOOs { get; set; }
+        public virtual ICollection<InventoryMaster> InventoryMasters { get; set; }
     }
 }

@@ -70,7 +70,7 @@ WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (SkuRawMaterialMast
         /// </summary>
         /// <param name="atcid"></param>
         /// <returns></returns>
-        public static DataTable getFabricDoDetails(int atcid,int LCTNPK)
+        public static DataTable getFabricDoDetails(int atcid, int LCTNPK)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -212,7 +212,7 @@ FROM            DeliveryOrderDetails INNER JOIN
 WHERE        (DeliveryOrderDetails.DO_PK = @do_pk)
 
 ";
-               
+
                 cmd.Parameters.AddWithValue("@do_pk", do_pk);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
@@ -225,7 +225,7 @@ WHERE        (DeliveryOrderDetails.DO_PK = @do_pk)
         /// </summary>
         /// <param name="atcid"></param>
         /// <returns></returns>
-        public static DataTable GetCutOrderOFDO(int loc_pk_pk, int skudet_PK,int do_PK)
+        public static DataTable GetCutOrderOFDO(int loc_pk_pk, int skudet_PK, int do_PK)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -261,15 +261,15 @@ HAVING        (CutOrderMaster.ToLoc = @loc_pk_pk) AND (CutOrderMaster.SkuDet_pk 
         {
             using (SqlCommand cmd = new SqlCommand())
             {
-//                cmd.CommandText = @"SELECT DISTINCT 
-//                         SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + '  ' + SkuRawMaterialMaster.Weight + SkuRawMaterialMaster.Width + '  ' + ProcurementDetails.SupplierColor+ '  ' + SkuRawmaterialDetail.SupplierColor
-//                          + '   ' + ProcurementDetails.SupplierSize AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, DeliveryReceiptDetail.DOR_PK
-//FROM            InventoryMaster INNER JOIN
-//                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
-//                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
-//                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK AND SkuRawmaterialDetail.SkuDet_PK = ProcurementDetails.SkuDet_PK INNER JOIN
-//                         DeliveryReceiptDetail ON InventoryMaster.InventoryItem_PK = DeliveryReceiptDetail.InventoryItem_PK
-//WHERE        (DeliveryReceiptDetail.DOR_PK = @dor_pk)";
+                //                cmd.CommandText = @"SELECT DISTINCT 
+                //                         SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + '  ' + SkuRawMaterialMaster.Weight + SkuRawMaterialMaster.Width + '  ' + ProcurementDetails.SupplierColor+ '  ' + SkuRawmaterialDetail.SupplierColor
+                //                          + '   ' + ProcurementDetails.SupplierSize AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, DeliveryReceiptDetail.DOR_PK
+                //FROM            InventoryMaster INNER JOIN
+                //                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                //                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                //                         ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK AND SkuRawmaterialDetail.SkuDet_PK = ProcurementDetails.SkuDet_PK INNER JOIN
+                //                         DeliveryReceiptDetail ON InventoryMaster.InventoryItem_PK = DeliveryReceiptDetail.InventoryItem_PK
+                //WHERE        (DeliveryReceiptDetail.DOR_PK = @dor_pk)";
 
 
 
@@ -446,7 +446,7 @@ WHERE        (InventoryMaster.InventoryItem_PK = @iitemPK) AND (FabricRollmaster
         /// </summary>
         /// <param name="atcid"></param>
         /// <returns></returns>
-        public static DataTable getFabricRollofAItemPKandCutorder(int iitemPK ,int cutid)
+        public static DataTable getFabricRollofAItemPKandCutorder(int iitemPK, int cutid)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -483,7 +483,7 @@ WHERE        (InventoryMaster.InventoryItem_PK = @iitemPK) AND (CutOrderMaster.C
         /// </summary>
         /// <param name="atcid"></param>
         /// <returns></returns>
-        public static DataTable getFabricRollofAItemPKandCutorder(int iitemPK, int cutid,int location_pk)
+        public static DataTable getFabricRollofAItemPKandCutorder(int iitemPK, int cutid, int location_pk)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -520,7 +520,7 @@ ORDER BY tt.RollNum ";
 
 
 
-        public static DataTable getFabricRollAvailableforCutPLan( int cutplan_PK, int location_pk)
+        public static DataTable getFabricRollAvailableforCutPLan(int cutplan_PK, int location_pk)
         {
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -542,7 +542,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
 WHERE        (FabricRollmaster.IsDelivered <> N'Y') AND (CutPlanMaster.CutPlan_PK = @cutplan_PK) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @location_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails where   IsDeleted='N')) AS tt
 ORDER BY tt.RollNum ";
-           ;
+                ;
                 cmd.Parameters.AddWithValue("@cutplan_PK", cutplan_PK);
                 cmd.Parameters.AddWithValue("@location_pk", location_pk);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -557,7 +557,7 @@ ORDER BY tt.RollNum ";
 
     public class FabricRollEntryMRN
     {
-       
+
 
         public List<FabricRollmasterDataDetails> Rolldatacollection { get; set; }
 
@@ -580,13 +580,13 @@ ORDER BY tt.RollNum ";
                     fbmstr.UOM = rolldata.UOM;
                     fbmstr.Remark = rolldata.Remark;
                     fbmstr.SShrink = rolldata.SShrink;
-                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString ());
+                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString());
                     fbmstr.SShade = rolldata.SShade;
                     fbmstr.SWidth = rolldata.SWidth;
                     fbmstr.AShrink = rolldata.AShrink;
                     fbmstr.AShade = rolldata.AShade;
                     fbmstr.AWidth = rolldata.AWidth;
-                    fbmstr.AYard = Decimal.Parse( rolldata.AYard.ToString ());
+                    fbmstr.AYard = Decimal.Parse(rolldata.AYard.ToString());
                     fbmstr.SkuDet_PK = rolldata.SkuDet_PK;
                     fbmstr.IsSaved = "N";
                     entry.FabricRollmasters.Add(fbmstr);
@@ -627,7 +627,7 @@ ORDER BY tt.RollNum ";
                     fbmstr.UOM = rolldata.UOM;
                     fbmstr.Remark = rolldata.Remark;
                     fbmstr.SShrink = rolldata.SShrink;
-                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString ());
+                    fbmstr.SYard = decimal.Parse(rolldata.SYard.ToString());
                     fbmstr.SShade = rolldata.SShade;
                     fbmstr.SWidth = rolldata.SWidth;
                     fbmstr.AShrink = rolldata.AShrink;
@@ -660,12 +660,12 @@ ORDER BY tt.RollNum ";
                     rvinvmstr.Roll_PK = fbmstr.Roll_PK;
                     rvinvmstr.IsPresent = "Y";
                     entry.RollInventoryMasters.Add(rvinvmstr);
-                    
+
 
                     entry.SaveChanges();
-               
-                 
-                 
+
+
+
 
                 }
 
@@ -678,7 +678,7 @@ ORDER BY tt.RollNum ";
 
 
 
-        public void SplitSupplierRollData(int oldrollpk,decimal oldyardage)
+        public void SplitSupplierRollData(int oldrollpk, decimal oldyardage)
         {
             Boolean isinspected = false;
 
@@ -692,14 +692,14 @@ ORDER BY tt.RollNum ";
 
                 foreach (var element in q)
                 {
-                    if(element.IsSaved.ToString ().Trim ()=="Y")
+                    if (element.IsSaved.ToString().Trim() == "Y")
                     {
                         isinspected = true;
-                        element.AYard = Decimal.Parse(oldyardage.ToString()) ;
+                        element.AYard = Decimal.Parse(oldyardage.ToString());
                     }
                     element.SYard = oldyardage;
-
-                    this.splitrollmaqster.MRnDet_PK = int.Parse ( element.MRnDet_PK.ToString ());
+                    this.splitrollmaqster.RollNum = element.RollNum + "/" + element.Roll_PK.ToString();
+                    this.splitrollmaqster.MRnDet_PK = int.Parse(element.MRnDet_PK.ToString());
                     this.splitrollmaqster.UOM = element.UOM;
                     this.splitrollmaqster.SShrink = element.SShrink;
                     this.splitrollmaqster.SYard = element.SYard.ToString();
@@ -714,7 +714,7 @@ ORDER BY tt.RollNum ";
                     this.splitrollmaqster.PO_PK = int.Parse(element.Po_PK.ToString());
                     this.splitrollmaqster.IsSaved = element.IsSaved;
                     this.splitrollmaqster.SUpplierDoc_PK = int.Parse(element.SupplierDoc_pk.ToString());
-                  
+
                     this.splitrollmaqster.AGSM = element.AGsm;
                     this.splitrollmaqster.SGSM = element.SGsm;
 
@@ -735,7 +735,7 @@ ORDER BY tt.RollNum ";
                     this.splitrollmaqster.IsApproved = element.IsApproved;
 
 
-                       
+
                 }
 
 
@@ -760,13 +760,13 @@ ORDER BY tt.RollNum ";
                     fbmstr.MRnDet_PK = this.splitrollmaqster.MRnDet_PK;
                     fbmstr.UOM = this.splitrollmaqster.UOM;
                     fbmstr.SShrink = this.splitrollmaqster.SShrink;
-                   
+
                     fbmstr.SShade = this.splitrollmaqster.SShade;
                     fbmstr.SWidth = this.splitrollmaqster.SWidth;
                     fbmstr.AShrink = this.splitrollmaqster.AShrink;
                     fbmstr.AShade = this.splitrollmaqster.AShade;
                     fbmstr.AWidth = this.splitrollmaqster.AWidth;
-                   
+
                     fbmstr.SkuDet_PK = this.splitrollmaqster.Dummyskudetpk;
                     fbmstr.podet_pk = this.splitrollmaqster.Dummypodet_pk;
                     fbmstr.Po_PK = this.splitrollmaqster.PO_PK;
@@ -800,7 +800,7 @@ ORDER BY tt.RollNum ";
 
 
                     RollInventoryMaster rvinvmstr = new RollInventoryMaster();
-
+                    rvinvmstr.DocumentNum = this.splitrollmaqster.RollNum;
                     rvinvmstr.Addeddate = DateTime.Now;
                     rvinvmstr.AddedVia = "Split";
                     rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
@@ -846,7 +846,7 @@ ORDER BY tt.RollNum ";
                         element.SShade = rolldata.SShade;
                         element.SShrink = rolldata.SShrink;
                         element.SGsm = rolldata.SGSM;
-                        element.SYard = decimal.Parse(rolldata.SYard.ToString ());
+                        element.SYard = decimal.Parse(rolldata.SYard.ToString());
                         element.Remark = rolldata.Remark; ;
                         element.RollNum = rolldata.RollNum;
                         element.SWidth = rolldata.SWidth; ;
@@ -886,15 +886,15 @@ ORDER BY tt.RollNum ";
 
 
                     var q1 = from fbrmstr in entry.MrnDetails
-                            join mrnmstr in entry.MrnMasters on fbrmstr.Mrn_PK equals mrnmstr.Mrn_PK
-                            where fbrmstr.MrnDet_PK == mrndetpk
-                            select new { mrnmstr.MrnNum,mrnmstr.Location_Pk } ;
+                             join mrnmstr in entry.MrnMasters on fbrmstr.Mrn_PK equals mrnmstr.Mrn_PK
+                             where fbrmstr.MrnDet_PK == mrndetpk
+                             select new { mrnmstr.MrnNum, mrnmstr.Location_Pk };
 
                     foreach (var element in q1)
                     {
-                        locationpk = int.Parse ( element.Location_Pk.ToString ());
+                        locationpk = int.Parse(element.Location_Pk.ToString());
 
-                        docnum = element.MrnNum.ToString ();
+                        docnum = element.MrnNum.ToString();
                     }
 
 
@@ -906,7 +906,7 @@ ORDER BY tt.RollNum ";
                     rvinvmstr.DocumentNum = docnum;
                     rvinvmstr.AddedVia = "MRN";
                     rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
-                    rvinvmstr.Location_Pk = locationpk; 
+                    rvinvmstr.Location_Pk = locationpk;
                     rvinvmstr.Roll_PK = rolldata.Roll_PK;
                     rvinvmstr.IsPresent = "Y";
                     entry.RollInventoryMasters.Add(rvinvmstr);
@@ -934,7 +934,7 @@ ORDER BY tt.RollNum ";
                         element.AShade = rolldata.AShade;
                         element.AShrink = rolldata.AShrink;
                         element.AWidth = rolldata.AWidth;
-                        element.AYard =Decimal.Parse( rolldata.AYard.ToString ());
+                        element.AYard = Decimal.Parse(rolldata.AYard.ToString());
                         element.AGsm = rolldata.AGSM;
                         element.IsApproved = "N";
                         element.IsSaved = "Y";
@@ -1012,7 +1012,7 @@ ORDER BY tt.RollNum ";
     {
         public string Docnum { get; set; }
 
-        public int  cutid { get; set; }
+        public int cutid { get; set; }
         public int DoID { get; set; }
 
         public List<RollInventoryData> RollInventoryDatadatacollection { get; set; }
@@ -1022,11 +1022,19 @@ ORDER BY tt.RollNum ";
         //RollInventoryData rollinvdata, List<FabricRollmasterDataDetails> FabricRollmasterDataDetails
 
 
-            //warehouse to warehouse transfer
+        //warehouse to warehouse transfer
+
+
+
+
+
+
+
+
         public void insertDORollData()
         {
 
-        
+
 
 
 
@@ -1035,16 +1043,19 @@ ORDER BY tt.RollNum ";
             {
                 int locationpk = 0;
                 var q1 = from domaster in entry.DeliveryOrderMasters
-                        
+
                          where domaster.DONum == this.Docnum
-                         select new { domaster.ToLocation_PK, domaster.DONum
+                         select new
+                         {
+                             domaster.ToLocation_PK,
+                             domaster.DONum
                          };
 
                 foreach (var element in q1)
                 {
                     locationpk = int.Parse(element.ToLocation_PK.ToString());
 
-                    
+
                 }
 
 
@@ -1053,7 +1064,7 @@ ORDER BY tt.RollNum ";
                 {
 
 
-                   
+
                     //creates a roll on the new location with is present as N
 
                     RollInventoryMaster rvinvmstr = new RollInventoryMaster();
@@ -1061,7 +1072,7 @@ ORDER BY tt.RollNum ";
                     rvinvmstr.Addeddate = DateTime.Now;
                     rvinvmstr.DocumentNum = this.Docnum;
                     rvinvmstr.AddedVia = "WW";
-                    rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();                   
+                    rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                     rvinvmstr.Location_Pk = locationpk;
                     rvinvmstr.Roll_PK = rolldata.roll_PK;
                     rvinvmstr.IsPresent = "W";
@@ -1071,10 +1082,10 @@ ORDER BY tt.RollNum ";
                     var q = from rllinvdata in entry.RollInventoryMasters
                             where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "Y"
                             select rllinvdata;
-                    foreach(var element in q)
+                    foreach (var element in q)
                     {
                         element.IsPresent = "N";
-                        element.DeliveredVia= this.Docnum;
+                        element.DeliveredVia = this.Docnum;
                         element.NewRollInventory_PK = rvinvmstr.RollInventory_PK;
 
                     }
@@ -1096,13 +1107,13 @@ ORDER BY tt.RollNum ";
 
             using (ArtEntitiesnew entry = new ArtEntitiesnew())
             {
-               
+
                 foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
                 {
 
 
 
-                  
+
 
                     var q = from rllinvdata in entry.RollInventoryMasters
                             where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "W"
@@ -1111,7 +1122,7 @@ ORDER BY tt.RollNum ";
                     {
                         element.IsPresent = "Y";
                         element.DocumentNum = this.Docnum;
-                       
+
 
                     }
                     entry.SaveChanges();
@@ -1143,7 +1154,7 @@ ORDER BY tt.RollNum ";
                          {
                              domaster.DeliveryOrderMaster.ToLocation_PK,
                              domaster.DeliveryOrderMaster.DONum,
-                            domaster.DODet_PK,
+                             domaster.DODet_PK,
                              domaster.DO_PK
                          };
 
@@ -1152,7 +1163,7 @@ ORDER BY tt.RollNum ";
                     locationpk = int.Parse(element.ToLocation_PK.ToString());
 
                     dodetpk = int.Parse(element.DODet_PK.ToString());
-                    do_pk= int.Parse(element.DO_PK.ToString());
+                    do_pk = int.Parse(element.DO_PK.ToString());
                 }
 
 
@@ -1190,7 +1201,7 @@ ORDER BY tt.RollNum ";
                     foreach (var rolldet in m)
                     {
                         rolldet.IsDelivered = "N";
-                        skudetpk =int.Parse( rolldet.SkuDet_PK.ToString());
+                        skudetpk = int.Parse(rolldet.SkuDet_PK.ToString());
 
                         ayard += Decimal.Parse(ayard.ToString());
 
@@ -1199,12 +1210,12 @@ ORDER BY tt.RollNum ";
 
                     var k = from dorollin in
                                 entry.DORollDetails
-                            where  dorollin.Roll_PK == rolldata.roll_PK
-                    select dorollin;
-                    foreach(var element in k)
+                            where dorollin.Roll_PK == rolldata.roll_PK
+                            select dorollin;
+                    foreach (var element in k)
                     {
                         element.IsRollReturned = "Y";
-                      
+
                     }
 
 
@@ -1219,25 +1230,30 @@ ORDER BY tt.RollNum ";
 
 
                     rvinvmstr.IsPresent = "Y";
-                    
+
                 }
                 CutOrderDO ctordrdo = new CutOrderDO();
                 ctordrdo.CutID = this.cutid;
                 ctordrdo.Skudet_PK = skudetpk;
                 ctordrdo.DoDet_Pk = dodetpk;
-                ctordrdo.DeliveryQty = (0-ayard);
-                entry.CutOrderDOes.Add(ctordrdo);            
+                ctordrdo.DeliveryQty = (0 - ayard);
+                entry.CutOrderDOes.Add(ctordrdo);
                 entry.SaveChanges();
 
             }
         }
+
+
+
+
+
 
     }
 
     public class FabricRollEntryROIN
     {
         public string Docnum { get; set; }
-        public int  SkuDet_PK { get; set; }
+        public int SkuDet_PK { get; set; }
         public int roin_PK { get; set; }
         public List<RollInventoryData> RollInventoryDatadatacollection { get; set; }
 
@@ -1256,13 +1272,13 @@ ORDER BY tt.RollNum ";
             {
 
                 var q = (from um in entry.RoInDetails
-                         where um.FromSkuDet_PK == this.SkuDet_PK && um.ROIN_PK==this.roin_PK
+                         where um.FromSkuDet_PK == this.SkuDet_PK && um.ROIN_PK == this.roin_PK
 
                          select um.ToSkuDet_Pk).FirstOrDefault();
 
                 toskudetpk = int.Parse(q.ToString());
 
-                if(toskudetpk>0)
+                if (toskudetpk > 0)
                 {
                     foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
                     {
@@ -1281,14 +1297,14 @@ ORDER BY tt.RollNum ";
 
 
                         var q1 = from rllinvdata in entry.RollInventoryMasters
-                                where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "Y"
-                                select rllinvdata;
+                                 where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "Y"
+                                 select rllinvdata;
                         foreach (var element in q1)
                         {
                             element.IsPresent = "N";
                             element.DeliveredVia = this.Docnum;
                             locpk = int.Parse(element.Location_Pk.ToString());
-                            oldrollinventorypk= int.Parse(element.RollInventory_PK.ToString());
+                            oldrollinventorypk = int.Parse(element.RollInventory_PK.ToString());
                         }
 
 
@@ -1307,13 +1323,13 @@ ORDER BY tt.RollNum ";
                         entry.RollInventoryMasters.Add(rvinvmstr);
                         entry.SaveChanges();
 
-                       
-                        
+
+
 
 
 
                         var q3 = from rllinvdata in entry.RollInventoryMasters
-                                 where rllinvdata.RollInventory_PK== oldrollinventorypk
+                                 where rllinvdata.RollInventory_PK == oldrollinventorypk
                                  select rllinvdata;
                         foreach (var element in q3)
                         {
@@ -1441,7 +1457,7 @@ ORDER BY tt.RollNum ";
         public int Roll_PK { get; set; }
         public string RollNum { get; set; }
         public int PO_PK { get; set; }
-        
+
         public int MRnDet_PK { get; set; }
         public Decimal Qty { get; set; }
         public string UOM { get; set; }
@@ -1459,7 +1475,7 @@ ORDER BY tt.RollNum ";
         public string SGSM { get; set; }
         public int SUpplierDoc_PK { get; set; }
         public string Lotnum { get; set; }
-        
+
         public string TotalDefect { get; set; }
         public string TotalDefecton100 { get; set; }
         public string TotalPoint { get; set; }
@@ -1551,7 +1567,7 @@ WHERE        (MrnDetails.Mrn_PK = @mrn_pk) and FabricRollmaster.IsSaved='N'";
         }
 
 
-        public DataTable getRollDetailsofASNandSKUDetPK(int asn_pk,int skudet_pk)
+        public DataTable getRollDetailsofASNandSKUDetPK(int asn_pk, int skudet_pk)
         {
 
             using (SqlCommand cmd = new SqlCommand())
@@ -1589,7 +1605,7 @@ WHERE        (FabricRollmaster.SupplierDoc_pk = @asn_pk) AND (MrnDetails.MrnDet_
 
 
 
-        public DataTable getRollDetailsofASNandMrnDetpk(int asn_pk, int mrndetpk,int po_pk)
+        public DataTable getRollDetailsofASNandMrnDetpk(int asn_pk, int mrndetpk, int po_pk)
         {
 
             using (SqlCommand cmd = new SqlCommand())
@@ -1640,7 +1656,7 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Loc
         /// <param name="lctn_pk"></param>
         /// <param name="dor_pk"></param>
         /// <returns></returns>
-        public DataTable getNonDeliveredRollofaIteminOneLocatiomagainstADOR(int skudet_pk, int lctn_pk,int dor_pk)
+        public DataTable getNonDeliveredRollofaIteminOneLocatiomagainstADOR(int skudet_pk, int lctn_pk, int dor_pk)
         {
 
             using (SqlCommand cmd = new SqlCommand())
@@ -1687,7 +1703,7 @@ WHERE        (SkuDet_PK = @skudet_pk) AND (SupplierDoc_pk = @asn_pk) ";
 
 
 
-        public DataTable GetAllRollsofAtcofColorWithSamegroupofCutorder( int cutid,int Location_Pk,int skudetpk)
+        public DataTable GetAllRollsofAtcofColorWithSamegroupofCutorder(int cutid, int Location_Pk, int skudetpk)
         {
 
             using (SqlCommand cmd = new SqlCommand())
@@ -1725,7 +1741,7 @@ FROM            MrnDetails INNER JOIN
                          UOMMaster ON MrnDetails.Uom_PK = UOMMaster.Uom_PK
 WHERE        (MrnDetails.MrnDet_PK = @mrndet_pk)";
                 cmd.Parameters.AddWithValue("@mrndet_pk", mrndet_pk);
-               
+
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
@@ -1784,7 +1800,7 @@ WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDo
 
 
 
-        public DataTable getfullRollDetailsofASNandSKUDetPKofaWidth(int asn_pk, int skudet_pk,ArrayList widtharray)
+        public DataTable getfullRollDetailsofASNandSKUDetPKofaWidth(int asn_pk, int skudet_pk, ArrayList widtharray)
         {
 
             String condition = "";
@@ -1792,7 +1808,7 @@ WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDo
             {
                 if (i == 0)
                 {
-                    condition = " and ( FabricRollmaster.AWidth='" + widtharray[i].ToString().Trim()+"'";
+                    condition = " and ( FabricRollmaster.AWidth='" + widtharray[i].ToString().Trim() + "'";
                 }
                 else
                 {
@@ -1803,7 +1819,7 @@ WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDo
 
             }
 
-          if(condition!="")
+            if (condition != "")
             {
                 condition = condition + " )";
             }
@@ -1930,7 +1946,7 @@ WHERE         (FabricRollmaster.IsSaved = N'Y') and FabricRollmaster.Roll_PK not
 
         public int roll_PK { get; set; }
         public int rollinventory_pk { get; set; }
-        
+
 
 
         public int Location_Pk { get; set; }
@@ -1991,7 +2007,7 @@ WHERE        (SkuRawMaterialMaster.Atc_id =@atc_id) ";
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
-        public DataTable getRollDetailsofASN(int asn_pk ,int skudet_pk)
+        public DataTable getRollDetailsofASN(int asn_pk, int skudet_pk)
         {
 
             using (SqlCommand cmd = new SqlCommand())
@@ -2065,26 +2081,143 @@ WHERE        (FabricRollmaster.IsApproved = N'N') AND (FabricRollmaster.IsSaved 
     }
 
 
+    public class RollDelivery
+    {
+        public decimal DeliveredQty { get; set; }
+        public String DocumentNum { get; set; }
+        public String DeliveredUOM { get; set; }
+        public decimal AlreadAddedYards { get; set; }
+        public decimal AlreadyAddedKGS { get; set; }
+        public decimal BalncetoDeliver { get; set; }
 
+        public Decimal GetAlreadyAddedyardage(String DocType, string DocumentNum)
+        {
+            Decimal Returnvalue = 0;
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+                if (DocType == "WW")
+                {
+                    cmd.CommandText = @"SELECT      ISNULL(  SUM(FabricRollmaster.AYard) ,0)
+                         FROM RollInventoryMaster INNER JOIN
+                         FabricRollmaster ON RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK
+                         WHERE(RollInventoryMaster.DeliveredVia = @Donum)";
+                    cmd.Parameters.AddWithValue("@Donum", DocumentNum);
+
+                    Returnvalue = Decimal.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+                }
+
+            }
+            return Returnvalue;
+
+        }
+        public Decimal GetAlreadyAddedKGS(String DocType, string DocumentNum)
+        {
+            Decimal Returnvalue = 0;
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+                if (DocType == "WW")
+                {
+                    cmd.CommandText = @"SELECT      ISNULL(  SUM(FabricRollmaster.SWeight) ,0)
+                         FROM RollInventoryMaster INNER JOIN
+                         FabricRollmaster ON RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK
+                         WHERE(RollInventoryMaster.DeliveredVia = @Donum)";
+                    cmd.Parameters.AddWithValue("@Donum", DocumentNum);
+
+                    Returnvalue = Decimal.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+                }
+
+            }
+            return Returnvalue;
+
+        }
+
+
+        public RollDelivery GetDeliveryDetailsofDocument(String DocType, int DocumentID, int SkuID)
+        {
+
+            this.DeliveredQty = 0;
+            this.AlreadyAddedKGS = 0;
+
+            if (DocType == "ww")
+            {
+                using (ArtEntitiesnew entry = new ArtEntitiesnew())
+                {
+                    var q = (from domaster in entry.DeliveryOrderMasters
+                             join dodetail in entry.DeliveryOrderDetails on domaster.DO_PK equals dodetail.DO_PK
+                             join iinvmstr in entry.InventoryMasters on dodetail.InventoryItem_PK equals iinvmstr.InventoryItem_PK
+                             where domaster.DO_PK == DocumentID && iinvmstr.SkuDet_Pk == SkuID
+                             select new { dodetail.DeliveryQty, iinvmstr.UOMMaster.UomCode, domaster.DONum }).ToList();
+
+                    foreach (var element in q)
+                    {
+                        this.DeliveredQty = this.DeliveredQty + Decimal.Parse(element.DeliveryQty.ToString());
+                        this.DeliveredUOM = element.UomCode;
+                        this.DocumentNum = element.DONum;
+                    }
+                }
+
+                this.AlreadAddedYards = GetAlreadyAddedyardage("WW", this.DocumentNum);
+
+
+                if (this.DeliveredUOM == "KGS")
+                {
+                    this.AlreadyAddedKGS = GetAlreadyAddedKGS("WW", this.DocumentNum);
+                    this.BalncetoDeliver = this.DeliveredQty - this.AlreadyAddedKGS;
+
+                }
+                else
+                {
+                    this.BalncetoDeliver = this.DeliveredQty - this.AlreadAddedYards;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return this;
+        }
+
+
+
+    }
 
     public class InspectionData
     {
-      public DataTable GetDocumentnumber(int atcid)
-    {
-
-        using (SqlCommand cmd = new SqlCommand())
+        public DataTable GetDocumentnumber(int atcid)
         {
-            cmd.CommandText = @"SELECT DISTINCT SupplierDocumentMaster.SupplierDocnum + ' / ' + SupplierDocumentMaster.AtracotrackingNum AS name, SupplierDocumentMaster.SupplierDoc_pk AS pk
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT DISTINCT SupplierDocumentMaster.SupplierDocnum + ' / ' + SupplierDocumentMaster.AtracotrackingNum AS name, SupplierDocumentMaster.SupplierDoc_pk AS pk
 FROM            SupplierDocumentMaster INNER JOIN
                          FabricRollmaster ON SupplierDocumentMaster.SupplierDoc_pk = FabricRollmaster.SupplierDoc_pk INNER JOIN
                          SkuRawmaterialDetail ON FabricRollmaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
 WHERE        (SkuRawMaterialMaster.Atc_id = @Param1)";
-            cmd.Parameters.AddWithValue("@Param1", atcid);
+                cmd.Parameters.AddWithValue("@Param1", atcid);
 
-            return QueryFunctions.ReturnQueryResultDatatable(cmd);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
         }
-    }
 
 
         public DataTable GetDocumentnumberByMRNDETPK(int mrndetpk)
