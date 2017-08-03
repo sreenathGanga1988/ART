@@ -56,6 +56,10 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DropDownChosen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\DropDownChosen.dll</HintPath>
@@ -1262,6 +1266,12 @@
     <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Details.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Edit.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\SubMenuMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVC\Views\ApproveLaysheet\LaySheetRollView.cshtml" />
+    <Content Include="Areas\ArtMVC\Views\ApproveLaysheet\TryView.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\web.config" />
+    <Content Include="Areas\CuttingMVC\Views\LayShortage\LaysheetShortage.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LayShortage\LaySheetRollView.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\EndBit\EndBit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1613,8 +1623,18 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWeightsController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWidthsController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\Template_MasterController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
+    <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
+    <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
     <Compile Include="DataModels\CutTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LayShortageDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LayShortageReqMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\MarkerDirectionMaster.cs">
@@ -4052,6 +4072,8 @@
     <Content Include="User Manual\Production MANUAL_files\themedata.thmx" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4096,6 +4118,7 @@
     <EmbeddedResource Include="Reports\RDLC\do.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\DOR.RDLC" />
     <EmbeddedResource Include="Reports\RDLC\dowithroll.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ExtraFabricRequest.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ExtraReqQty.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\FinalCosting.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Goodsintransist.rdlc" />
@@ -4157,10 +4180,12 @@
     <Folder Include="Areas\ArtMVCMaster\Views\TemplateWeights\" />
     <Folder Include="Areas\ArtMVCMaster\Views\TemplateWidths\" />
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
+    <Folder Include="Areas\CuttingMVC\Views\Shared\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
     <Folder Include="Repository\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArtDAL\ArtDAL.csproj">

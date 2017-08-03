@@ -98,6 +98,8 @@ namespace ArtWebApp.Reports.Dataset {
         
         private ShipmentofMonth_SPDataTable tableShipmentofMonth_SP;
         
+        private LayShortageRequest_SPDataTable tableLayShortageRequest_SP;
+        
         private DataTable2DataTable tableDataTable2;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -238,6 +240,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["ShipmentofMonth_SP"] != null)) {
                     base.Tables.Add(new ShipmentofMonth_SPDataTable(ds.Tables["ShipmentofMonth_SP"]));
+                }
+                if ((ds.Tables["LayShortageRequest_SP"] != null)) {
+                    base.Tables.Add(new LayShortageRequest_SPDataTable(ds.Tables["LayShortageRequest_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -634,6 +639,16 @@ namespace ArtWebApp.Reports.Dataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public LayShortageRequest_SPDataTable LayShortageRequest_SP {
+            get {
+                return this.tableLayShortageRequest_SP;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable2DataTable DataTable2 {
             get {
                 return this.tableDataTable2;
@@ -817,6 +832,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["ShipmentofMonth_SP"] != null)) {
                     base.Tables.Add(new ShipmentofMonth_SPDataTable(ds.Tables["ShipmentofMonth_SP"]));
+                }
+                if ((ds.Tables["LayShortageRequest_SP"] != null)) {
+                    base.Tables.Add(new LayShortageRequest_SPDataTable(ds.Tables["LayShortageRequest_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -1076,6 +1094,12 @@ namespace ArtWebApp.Reports.Dataset {
                     this.tableShipmentofMonth_SP.InitVars();
                 }
             }
+            this.tableLayShortageRequest_SP = ((LayShortageRequest_SPDataTable)(base.Tables["LayShortageRequest_SP"]));
+            if ((initTable == true)) {
+                if ((this.tableLayShortageRequest_SP != null)) {
+                    this.tableLayShortageRequest_SP.InitVars();
+                }
+            }
             this.tableDataTable2 = ((DataTable2DataTable)(base.Tables["DataTable2"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable2 != null)) {
@@ -1166,6 +1190,8 @@ namespace ArtWebApp.Reports.Dataset {
             base.Tables.Add(this.tableGetSalesReport);
             this.tableShipmentofMonth_SP = new ShipmentofMonth_SPDataTable();
             base.Tables.Add(this.tableShipmentofMonth_SP);
+            this.tableLayShortageRequest_SP = new LayShortageRequest_SPDataTable();
+            base.Tables.Add(this.tableLayShortageRequest_SP);
             this.tableDataTable2 = new DataTable2DataTable();
             base.Tables.Add(this.tableDataTable2);
         }
@@ -1394,6 +1420,12 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeLayShortageRequest_SP() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeDataTable2() {
             return false;
         }
@@ -1563,6 +1595,9 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void ShipmentofMonth_SPRowChangeEventHandler(object sender, ShipmentofMonth_SPRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void LayShortageRequest_SPRowChangeEventHandler(object sender, LayShortageRequest_SPRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void DataTable2RowChangeEventHandler(object sender, DataTable2RowChangeEvent e);
@@ -20597,6 +20632,674 @@ namespace ArtWebApp.Reports.Dataset {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class LayShortageRequest_SPDataTable : global::System.Data.TypedTableBase<LayShortageRequest_SPRow> {
+            
+            private global::System.Data.DataColumn columnLayShortageMasterID;
+            
+            private global::System.Data.DataColumn columnLayShortageReqCode;
+            
+            private global::System.Data.DataColumn columnAddedBY;
+            
+            private global::System.Data.DataColumn columnAddedDate;
+            
+            private global::System.Data.DataColumn columnRoll_PK;
+            
+            private global::System.Data.DataColumn columnLaySheetDet_PK;
+            
+            private global::System.Data.DataColumn columnExcessOrShort;
+            
+            private global::System.Data.DataColumn columnShadeGroup;
+            
+            private global::System.Data.DataColumn columnWidthGroup;
+            
+            private global::System.Data.DataColumn columnShrinkageGroup;
+            
+            private global::System.Data.DataColumn columnMarkerType;
+            
+            private global::System.Data.DataColumn columnRollNum;
+            
+            private global::System.Data.DataColumn columnLaySheetNum;
+            
+            private global::System.Data.DataColumn columnIsRecuttable;
+            
+            private global::System.Data.DataColumn columnEndBit;
+            
+            private global::System.Data.DataColumn columnOurStyle;
+            
+            private global::System.Data.DataColumn columnAtcNum;
+            
+            private global::System.Data.DataColumn columnCut_NO;
+            
+            private global::System.Data.DataColumn columnLocationName;
+            
+            private global::System.Data.DataColumn columnType;
+            
+            private global::System.Data.DataColumn columnIsEndBit;
+            
+            private global::System.Data.DataColumn columnIsLayShortage;
+            
+            private global::System.Data.DataColumn columnIsApproved;
+            
+            private global::System.Data.DataColumn columnApprovedBy;
+            
+            private global::System.Data.DataColumn columnApprovedDate;
+            
+            private global::System.Data.DataColumn columnLocation_PK;
+            
+            private global::System.Data.DataColumn columnAtcID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPDataTable() {
+                this.TableName = "LayShortageRequest_SP";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal LayShortageRequest_SPDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected LayShortageRequest_SPDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LayShortageMasterIDColumn {
+                get {
+                    return this.columnLayShortageMasterID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LayShortageReqCodeColumn {
+                get {
+                    return this.columnLayShortageReqCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AddedBYColumn {
+                get {
+                    return this.columnAddedBY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AddedDateColumn {
+                get {
+                    return this.columnAddedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Roll_PKColumn {
+                get {
+                    return this.columnRoll_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LaySheetDet_PKColumn {
+                get {
+                    return this.columnLaySheetDet_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ExcessOrShortColumn {
+                get {
+                    return this.columnExcessOrShort;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ShadeGroupColumn {
+                get {
+                    return this.columnShadeGroup;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn WidthGroupColumn {
+                get {
+                    return this.columnWidthGroup;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ShrinkageGroupColumn {
+                get {
+                    return this.columnShrinkageGroup;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MarkerTypeColumn {
+                get {
+                    return this.columnMarkerType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RollNumColumn {
+                get {
+                    return this.columnRollNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LaySheetNumColumn {
+                get {
+                    return this.columnLaySheetNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsRecuttableColumn {
+                get {
+                    return this.columnIsRecuttable;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EndBitColumn {
+                get {
+                    return this.columnEndBit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OurStyleColumn {
+                get {
+                    return this.columnOurStyle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AtcNumColumn {
+                get {
+                    return this.columnAtcNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Cut_NOColumn {
+                get {
+                    return this.columnCut_NO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LocationNameColumn {
+                get {
+                    return this.columnLocationName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsEndBitColumn {
+                get {
+                    return this.columnIsEndBit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsLayShortageColumn {
+                get {
+                    return this.columnIsLayShortage;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsApprovedColumn {
+                get {
+                    return this.columnIsApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ApprovedByColumn {
+                get {
+                    return this.columnApprovedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ApprovedDateColumn {
+                get {
+                    return this.columnApprovedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Location_PKColumn {
+                get {
+                    return this.columnLocation_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AtcIDColumn {
+                get {
+                    return this.columnAtcID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRow this[int index] {
+                get {
+                    return ((LayShortageRequest_SPRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event LayShortageRequest_SPRowChangeEventHandler LayShortageRequest_SPRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event LayShortageRequest_SPRowChangeEventHandler LayShortageRequest_SPRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event LayShortageRequest_SPRowChangeEventHandler LayShortageRequest_SPRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event LayShortageRequest_SPRowChangeEventHandler LayShortageRequest_SPRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddLayShortageRequest_SPRow(LayShortageRequest_SPRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRow AddLayShortageRequest_SPRow(
+                        string LayShortageReqCode, 
+                        string AddedBY, 
+                        System.DateTime AddedDate, 
+                        decimal Roll_PK, 
+                        decimal LaySheetDet_PK, 
+                        decimal ExcessOrShort, 
+                        string ShadeGroup, 
+                        string WidthGroup, 
+                        string ShrinkageGroup, 
+                        string MarkerType, 
+                        string RollNum, 
+                        string LaySheetNum, 
+                        string IsRecuttable, 
+                        decimal EndBit, 
+                        string OurStyle, 
+                        string AtcNum, 
+                        string Cut_NO, 
+                        string LocationName, 
+                        string Type, 
+                        bool IsEndBit, 
+                        bool IsLayShortage, 
+                        bool IsApproved, 
+                        string ApprovedBy, 
+                        System.DateTime ApprovedDate, 
+                        decimal Location_PK, 
+                        decimal AtcID) {
+                LayShortageRequest_SPRow rowLayShortageRequest_SPRow = ((LayShortageRequest_SPRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        LayShortageReqCode,
+                        AddedBY,
+                        AddedDate,
+                        Roll_PK,
+                        LaySheetDet_PK,
+                        ExcessOrShort,
+                        ShadeGroup,
+                        WidthGroup,
+                        ShrinkageGroup,
+                        MarkerType,
+                        RollNum,
+                        LaySheetNum,
+                        IsRecuttable,
+                        EndBit,
+                        OurStyle,
+                        AtcNum,
+                        Cut_NO,
+                        LocationName,
+                        Type,
+                        IsEndBit,
+                        IsLayShortage,
+                        IsApproved,
+                        ApprovedBy,
+                        ApprovedDate,
+                        Location_PK,
+                        AtcID};
+                rowLayShortageRequest_SPRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowLayShortageRequest_SPRow);
+                return rowLayShortageRequest_SPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRow FindByLayShortageMasterID(decimal LayShortageMasterID) {
+                return ((LayShortageRequest_SPRow)(this.Rows.Find(new object[] {
+                            LayShortageMasterID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                LayShortageRequest_SPDataTable cln = ((LayShortageRequest_SPDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new LayShortageRequest_SPDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnLayShortageMasterID = base.Columns["LayShortageMasterID"];
+                this.columnLayShortageReqCode = base.Columns["LayShortageReqCode"];
+                this.columnAddedBY = base.Columns["AddedBY"];
+                this.columnAddedDate = base.Columns["AddedDate"];
+                this.columnRoll_PK = base.Columns["Roll_PK"];
+                this.columnLaySheetDet_PK = base.Columns["LaySheetDet_PK"];
+                this.columnExcessOrShort = base.Columns["ExcessOrShort"];
+                this.columnShadeGroup = base.Columns["ShadeGroup"];
+                this.columnWidthGroup = base.Columns["WidthGroup"];
+                this.columnShrinkageGroup = base.Columns["ShrinkageGroup"];
+                this.columnMarkerType = base.Columns["MarkerType"];
+                this.columnRollNum = base.Columns["RollNum"];
+                this.columnLaySheetNum = base.Columns["LaySheetNum"];
+                this.columnIsRecuttable = base.Columns["IsRecuttable"];
+                this.columnEndBit = base.Columns["EndBit"];
+                this.columnOurStyle = base.Columns["OurStyle"];
+                this.columnAtcNum = base.Columns["AtcNum"];
+                this.columnCut_NO = base.Columns["Cut_NO"];
+                this.columnLocationName = base.Columns["LocationName"];
+                this.columnType = base.Columns["Type"];
+                this.columnIsEndBit = base.Columns["IsEndBit"];
+                this.columnIsLayShortage = base.Columns["IsLayShortage"];
+                this.columnIsApproved = base.Columns["IsApproved"];
+                this.columnApprovedBy = base.Columns["ApprovedBy"];
+                this.columnApprovedDate = base.Columns["ApprovedDate"];
+                this.columnLocation_PK = base.Columns["Location_PK"];
+                this.columnAtcID = base.Columns["AtcID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnLayShortageMasterID = new global::System.Data.DataColumn("LayShortageMasterID", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLayShortageMasterID);
+                this.columnLayShortageReqCode = new global::System.Data.DataColumn("LayShortageReqCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLayShortageReqCode);
+                this.columnAddedBY = new global::System.Data.DataColumn("AddedBY", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedBY);
+                this.columnAddedDate = new global::System.Data.DataColumn("AddedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedDate);
+                this.columnRoll_PK = new global::System.Data.DataColumn("Roll_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRoll_PK);
+                this.columnLaySheetDet_PK = new global::System.Data.DataColumn("LaySheetDet_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLaySheetDet_PK);
+                this.columnExcessOrShort = new global::System.Data.DataColumn("ExcessOrShort", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExcessOrShort);
+                this.columnShadeGroup = new global::System.Data.DataColumn("ShadeGroup", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShadeGroup);
+                this.columnWidthGroup = new global::System.Data.DataColumn("WidthGroup", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWidthGroup);
+                this.columnShrinkageGroup = new global::System.Data.DataColumn("ShrinkageGroup", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShrinkageGroup);
+                this.columnMarkerType = new global::System.Data.DataColumn("MarkerType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMarkerType);
+                this.columnRollNum = new global::System.Data.DataColumn("RollNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRollNum);
+                this.columnLaySheetNum = new global::System.Data.DataColumn("LaySheetNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLaySheetNum);
+                this.columnIsRecuttable = new global::System.Data.DataColumn("IsRecuttable", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsRecuttable);
+                this.columnEndBit = new global::System.Data.DataColumn("EndBit", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndBit);
+                this.columnOurStyle = new global::System.Data.DataColumn("OurStyle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOurStyle);
+                this.columnAtcNum = new global::System.Data.DataColumn("AtcNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcNum);
+                this.columnCut_NO = new global::System.Data.DataColumn("Cut_NO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCut_NO);
+                this.columnLocationName = new global::System.Data.DataColumn("LocationName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocationName);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
+                this.columnIsEndBit = new global::System.Data.DataColumn("IsEndBit", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsEndBit);
+                this.columnIsLayShortage = new global::System.Data.DataColumn("IsLayShortage", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsLayShortage);
+                this.columnIsApproved = new global::System.Data.DataColumn("IsApproved", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApproved);
+                this.columnApprovedBy = new global::System.Data.DataColumn("ApprovedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedBy);
+                this.columnApprovedDate = new global::System.Data.DataColumn("ApprovedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedDate);
+                this.columnLocation_PK = new global::System.Data.DataColumn("Location_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocation_PK);
+                this.columnAtcID = new global::System.Data.DataColumn("AtcID", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnLayShortageMasterID}, true));
+                this.columnLayShortageMasterID.AutoIncrement = true;
+                this.columnLayShortageMasterID.AutoIncrementSeed = -1;
+                this.columnLayShortageMasterID.AutoIncrementStep = -1;
+                this.columnLayShortageMasterID.AllowDBNull = false;
+                this.columnLayShortageMasterID.ReadOnly = true;
+                this.columnLayShortageMasterID.Unique = true;
+                this.columnLayShortageReqCode.MaxLength = 50;
+                this.columnAddedBY.MaxLength = 50;
+                this.columnShadeGroup.MaxLength = 10;
+                this.columnWidthGroup.MaxLength = 10;
+                this.columnShrinkageGroup.MaxLength = 10;
+                this.columnMarkerType.MaxLength = 50;
+                this.columnRollNum.MaxLength = 50;
+                this.columnLaySheetNum.MaxLength = 50;
+                this.columnIsRecuttable.MaxLength = 10;
+                this.columnOurStyle.AllowDBNull = false;
+                this.columnOurStyle.MaxLength = 50;
+                this.columnAtcNum.MaxLength = 10;
+                this.columnCut_NO.MaxLength = 50;
+                this.columnLocationName.MaxLength = 50;
+                this.columnType.MaxLength = 50;
+                this.columnApprovedBy.MaxLength = 50;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRow NewLayShortageRequest_SPRow() {
+                return ((LayShortageRequest_SPRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new LayShortageRequest_SPRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(LayShortageRequest_SPRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.LayShortageRequest_SPRowChanged != null)) {
+                    this.LayShortageRequest_SPRowChanged(this, new LayShortageRequest_SPRowChangeEvent(((LayShortageRequest_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.LayShortageRequest_SPRowChanging != null)) {
+                    this.LayShortageRequest_SPRowChanging(this, new LayShortageRequest_SPRowChangeEvent(((LayShortageRequest_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.LayShortageRequest_SPRowDeleted != null)) {
+                    this.LayShortageRequest_SPRowDeleted(this, new LayShortageRequest_SPRowChangeEvent(((LayShortageRequest_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.LayShortageRequest_SPRowDeleting != null)) {
+                    this.LayShortageRequest_SPRowDeleting(this, new LayShortageRequest_SPRowChangeEvent(((LayShortageRequest_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveLayShortageRequest_SPRow(LayShortageRequest_SPRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ReportDataSet ds = new ReportDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "LayShortageRequest_SPDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable2DataTable : global::System.Data.TypedTableBase<DataTable2Row> {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -38648,6 +39351,746 @@ namespace ArtWebApp.Reports.Dataset {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class LayShortageRequest_SPRow : global::System.Data.DataRow {
+            
+            private LayShortageRequest_SPDataTable tableLayShortageRequest_SP;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal LayShortageRequest_SPRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableLayShortageRequest_SP = ((LayShortageRequest_SPDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal LayShortageMasterID {
+                get {
+                    return ((decimal)(this[this.tableLayShortageRequest_SP.LayShortageMasterIDColumn]));
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.LayShortageMasterIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LayShortageReqCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.LayShortageReqCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LayShortageReqCode\' in table \'LayShortageRequest_SP\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.LayShortageReqCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string AddedBY {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.AddedBYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedBY\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.AddedBYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime AddedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableLayShortageRequest_SP.AddedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedDate\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.AddedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Roll_PK {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.Roll_PKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Roll_PK\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.Roll_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal LaySheetDet_PK {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.LaySheetDet_PKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LaySheetDet_PK\' in table \'LayShortageRequest_SP\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.LaySheetDet_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal ExcessOrShort {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.ExcessOrShortColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ExcessOrShort\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.ExcessOrShortColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ShadeGroup {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.ShadeGroupColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ShadeGroup\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.ShadeGroupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string WidthGroup {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.WidthGroupColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WidthGroup\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.WidthGroupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ShrinkageGroup {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.ShrinkageGroupColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ShrinkageGroup\' in table \'LayShortageRequest_SP\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.ShrinkageGroupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string MarkerType {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.MarkerTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MarkerType\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.MarkerTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string RollNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.RollNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RollNum\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.RollNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LaySheetNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.LaySheetNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LaySheetNum\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.LaySheetNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string IsRecuttable {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.IsRecuttableColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsRecuttable\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.IsRecuttableColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal EndBit {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.EndBitColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndBit\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.EndBitColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OurStyle {
+                get {
+                    return ((string)(this[this.tableLayShortageRequest_SP.OurStyleColumn]));
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.OurStyleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string AtcNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.AtcNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AtcNum\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.AtcNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Cut_NO {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.Cut_NOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cut_NO\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.Cut_NOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LocationName {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.LocationNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LocationName\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.LocationNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Type {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.TypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Type\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEndBit {
+                get {
+                    try {
+                        return ((bool)(this[this.tableLayShortageRequest_SP.IsEndBitColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsEndBit\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.IsEndBitColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLayShortage {
+                get {
+                    try {
+                        return ((bool)(this[this.tableLayShortageRequest_SP.IsLayShortageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsLayShortage\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.IsLayShortageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsApproved {
+                get {
+                    try {
+                        return ((bool)(this[this.tableLayShortageRequest_SP.IsApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsApproved\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.IsApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ApprovedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableLayShortageRequest_SP.ApprovedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedBy\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.ApprovedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime ApprovedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableLayShortageRequest_SP.ApprovedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedDate\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.ApprovedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Location_PK {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.Location_PKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Location_PK\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.Location_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal AtcID {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLayShortageRequest_SP.AtcIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AtcID\' in table \'LayShortageRequest_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLayShortageRequest_SP.AtcIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLayShortageReqCodeNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.LayShortageReqCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLayShortageReqCodeNull() {
+                this[this.tableLayShortageRequest_SP.LayShortageReqCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAddedBYNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.AddedBYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAddedBYNull() {
+                this[this.tableLayShortageRequest_SP.AddedBYColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAddedDateNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.AddedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAddedDateNull() {
+                this[this.tableLayShortageRequest_SP.AddedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRoll_PKNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.Roll_PKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRoll_PKNull() {
+                this[this.tableLayShortageRequest_SP.Roll_PKColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLaySheetDet_PKNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.LaySheetDet_PKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLaySheetDet_PKNull() {
+                this[this.tableLayShortageRequest_SP.LaySheetDet_PKColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsExcessOrShortNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.ExcessOrShortColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetExcessOrShortNull() {
+                this[this.tableLayShortageRequest_SP.ExcessOrShortColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsShadeGroupNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.ShadeGroupColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetShadeGroupNull() {
+                this[this.tableLayShortageRequest_SP.ShadeGroupColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWidthGroupNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.WidthGroupColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWidthGroupNull() {
+                this[this.tableLayShortageRequest_SP.WidthGroupColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsShrinkageGroupNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.ShrinkageGroupColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetShrinkageGroupNull() {
+                this[this.tableLayShortageRequest_SP.ShrinkageGroupColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMarkerTypeNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.MarkerTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMarkerTypeNull() {
+                this[this.tableLayShortageRequest_SP.MarkerTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRollNumNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.RollNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRollNumNull() {
+                this[this.tableLayShortageRequest_SP.RollNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLaySheetNumNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.LaySheetNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLaySheetNumNull() {
+                this[this.tableLayShortageRequest_SP.LaySheetNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsRecuttableNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.IsRecuttableColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsRecuttableNull() {
+                this[this.tableLayShortageRequest_SP.IsRecuttableColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEndBitNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.EndBitColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEndBitNull() {
+                this[this.tableLayShortageRequest_SP.EndBitColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAtcNumNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.AtcNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAtcNumNull() {
+                this[this.tableLayShortageRequest_SP.AtcNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCut_NONull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.Cut_NOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCut_NONull() {
+                this[this.tableLayShortageRequest_SP.Cut_NOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLocationNameNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.LocationNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLocationNameNull() {
+                this[this.tableLayShortageRequest_SP.LocationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTypeNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.TypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTypeNull() {
+                this[this.tableLayShortageRequest_SP.TypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsEndBitNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.IsEndBitColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsEndBitNull() {
+                this[this.tableLayShortageRequest_SP.IsEndBitColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsLayShortageNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.IsLayShortageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsLayShortageNull() {
+                this[this.tableLayShortageRequest_SP.IsLayShortageColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsApprovedNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.IsApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsApprovedNull() {
+                this[this.tableLayShortageRequest_SP.IsApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsApprovedByNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.ApprovedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetApprovedByNull() {
+                this[this.tableLayShortageRequest_SP.ApprovedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsApprovedDateNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.ApprovedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetApprovedDateNull() {
+                this[this.tableLayShortageRequest_SP.ApprovedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLocation_PKNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.Location_PKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLocation_PKNull() {
+                this[this.tableLayShortageRequest_SP.Location_PKColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAtcIDNull() {
+                return this.IsNull(this.tableLayShortageRequest_SP.AtcIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAtcIDNull() {
+                this[this.tableLayShortageRequest_SP.AtcIDColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class DataTable2Row : global::System.Data.DataRow {
             
             private DataTable2DataTable tableDataTable2;
@@ -39904,6 +41347,40 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ShipmentofMonth_SPRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class LayShortageRequest_SPRowChangeEvent : global::System.EventArgs {
+            
+            private LayShortageRequest_SPRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRowChangeEvent(LayShortageRequest_SPRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public LayShortageRequest_SPRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -47995,6 +49472,213 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             ReportDataSet.ShipmentofMonth_SPDataTable dataTable = new ReportDataSet.ShipmentofMonth_SPDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class LayShortageRequest_SPTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public LayShortageRequest_SPTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "LayShortageRequest_SP";
+            tableMapping.ColumnMappings.Add("LayShortageMasterID", "LayShortageMasterID");
+            tableMapping.ColumnMappings.Add("LayShortageReqCode", "LayShortageReqCode");
+            tableMapping.ColumnMappings.Add("AddedBY", "AddedBY");
+            tableMapping.ColumnMappings.Add("AddedDate", "AddedDate");
+            tableMapping.ColumnMappings.Add("Roll_PK", "Roll_PK");
+            tableMapping.ColumnMappings.Add("LaySheetDet_PK", "LaySheetDet_PK");
+            tableMapping.ColumnMappings.Add("ExcessOrShort", "ExcessOrShort");
+            tableMapping.ColumnMappings.Add("ShadeGroup", "ShadeGroup");
+            tableMapping.ColumnMappings.Add("WidthGroup", "WidthGroup");
+            tableMapping.ColumnMappings.Add("ShrinkageGroup", "ShrinkageGroup");
+            tableMapping.ColumnMappings.Add("MarkerType", "MarkerType");
+            tableMapping.ColumnMappings.Add("RollNum", "RollNum");
+            tableMapping.ColumnMappings.Add("LaySheetNum", "LaySheetNum");
+            tableMapping.ColumnMappings.Add("IsRecuttable", "IsRecuttable");
+            tableMapping.ColumnMappings.Add("EndBit", "EndBit");
+            tableMapping.ColumnMappings.Add("OurStyle", "OurStyle");
+            tableMapping.ColumnMappings.Add("AtcNum", "AtcNum");
+            tableMapping.ColumnMappings.Add("Cut_NO", "Cut_NO");
+            tableMapping.ColumnMappings.Add("LocationName", "LocationName");
+            tableMapping.ColumnMappings.Add("Type", "Type");
+            tableMapping.ColumnMappings.Add("IsEndBit", "IsEndBit");
+            tableMapping.ColumnMappings.Add("IsLayShortage", "IsLayShortage");
+            tableMapping.ColumnMappings.Add("IsApproved", "IsApproved");
+            tableMapping.ColumnMappings.Add("ApprovedBy", "ApprovedBy");
+            tableMapping.ColumnMappings.Add("ApprovedDate", "ApprovedDate");
+            tableMapping.ColumnMappings.Add("Location_PK", "Location_PK");
+            tableMapping.ColumnMappings.Add("AtcID", "AtcID");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.LayShortageRequest_SP";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LayShortageMasterID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ReportDataSet.LayShortageRequest_SPDataTable dataTable, global::System.Nullable<int> LayShortageMasterID) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((LayShortageMasterID.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(LayShortageMasterID.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ReportDataSet.LayShortageRequest_SPDataTable GetData(global::System.Nullable<int> LayShortageMasterID) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((LayShortageMasterID.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(LayShortageMasterID.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            ReportDataSet.LayShortageRequest_SPDataTable dataTable = new ReportDataSet.LayShortageRequest_SPDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

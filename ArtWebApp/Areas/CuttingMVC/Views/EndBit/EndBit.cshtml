@@ -1,15 +1,15 @@
-﻿@*@model ArtWebApp.Areas.ArtMVC.Models.ViewModel.LaySheetShortageViewModel
+﻿@model ArtWebApp.Areas.CuttingMVC.Models.LaySheetShortageViewModel
 @{
-    ViewBag.Title = "ApproveLaysheet";
+    ViewBag.Title = "LaysheetShortage";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ApproveLaysheet</h2>
+<h2>End Bit</h2>
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-      
+
         $("#AtcID").change(function () {
 
             debugger
@@ -17,7 +17,7 @@
 
 
             $.ajax({
-                url: "@Url.Action("PopulateOurStyle", "ApproveLaysheet")",
+                url: "@Url.Action("PopulateOurStyle", "LayShortage")",
                 type: 'Get',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
@@ -26,17 +26,17 @@
                 success: function (data) {
                     $('#OurStyleID').empty();
                     $.each(data, function () {
-                        
+
 
                         $('#OurStyleID').append('<option value=' +
                           this.Value + '>' + this.Text + '</option>');
                     });
                     $("#OurStyleID").trigger("chosen:updated");
-                  
+
 
                     $("#OurStyleID").trigger("change");
-                 
-                 
+
+
                 },
                 error: function (data) {
 
@@ -56,14 +56,14 @@
             debugger;
             var SelectedOurStyle = new Array();
             SelectedOurStyle = $("#OurStyleID").chosen().val();
-            
+
             if (SelectedOurStyle != null)
             {
 
-                //Populate arrayOfValues 
+                //Populate arrayOfValues
                 $.ajax({
-                    url: "@Url.Action("PopulateLaysheetSelectionlist", "ApproveLaysheet")",
-                    type: "Get",             
+                    url: "@Url.Action("PopulateLaysheetSelectionlist", "LayShortage")",
+                    type: "Get",
                 contentType: "application/json; charset=utf-8",
                 datatype: "json",
                 traditional: true,
@@ -72,7 +72,7 @@
                     $('#LaySheetID').empty()
                     $.each(data, function () {
 
-                       
+
                         $('#LaySheetID').append('<option value=' +
                           this.Value + '>' + this.Text + '</option>');
                     });
@@ -89,7 +89,7 @@
             });
         }
 
-    
+
         });
 
 
@@ -97,26 +97,26 @@
 
 
 
-      
+
     });
 
     $(document).ready(function () {
 
 
 
-      
+
         $("#Show").click(function (e, params) {
-          
+
             debugger;
             var SelectedOurStyle = new Array();
             SelectedOurStyle = $("#LaySheetID").chosen().val();
-            
+
             if (SelectedOurStyle != null)
             {
 
 
                 $.ajax({
-                    url: "@Url.Action("GetRollView", "ApproveLaysheet")",
+                    url: "@Url.Action("GetRollView", "LayShortage")",
                     traditional: true,
                     data: { 'SelectedOurStyle': SelectedOurStyle },
                     type: "GET",
@@ -131,12 +131,12 @@
 
 
 
-             
 
-         
+
+
          }
 
-    
+
         });
 
 
@@ -148,7 +148,7 @@
 
 
 
-      
+
     });
 
 </script>
@@ -164,20 +164,20 @@
 
 
             <div class="row">
-                <div  class="col-md-2">
+                <div class="col-md-2">
                     @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
                 </div>
                 <div class="col-md-10">
                     @Html.DropDownList("AtcID", null, htmlAttributes: new { @class = "chosen-select form-control" })
 
 
-                
+
                 </div>
 
             </div>
 
-          
-           
+
+
         </div>
 
 
@@ -189,14 +189,14 @@
                     @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
                 </div>
                 <div class="col-md-10">
-                    @Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text") , null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" } )
+                    @Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })
 
                 </div>
 
             </div>
 
-          
-        
+
+
         </div>
 
         <div class="form-group">
@@ -223,11 +223,13 @@
         </div>
 
 
-      
+
         <div id='output' class="">
-             Output goes here 
+            <!-- Output goes here -->
         </div>
 
-       
-</div>
-}*@
+
+    </div>
+}
+
+

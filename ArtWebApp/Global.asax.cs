@@ -70,6 +70,7 @@ namespace ArtWebApp
         {
             //Exception exc = Server.GetLastError();
 
+           
             //if (exc is HttpUnhandledException)
             //{
             //    // Pass the error on to the error page.

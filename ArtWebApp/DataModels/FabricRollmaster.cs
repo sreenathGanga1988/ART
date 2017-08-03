@@ -21,6 +21,7 @@ namespace ArtWebApp.DataModels
             this.LaySheetDetails = new HashSet<LaySheetDetail>();
             this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
             this.RollInventoryMasters = new HashSet<RollInventoryMaster>();
+            this.LayShortageDetails = new HashSet<LayShortageDetail>();
         }
     
         public decimal Roll_PK { get; set; }
@@ -74,5 +75,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
         public virtual ICollection<RollInventoryMaster> RollInventoryMasters { get; set; }
+        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
     }
 }

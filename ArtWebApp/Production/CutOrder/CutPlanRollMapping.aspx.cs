@@ -85,18 +85,18 @@ namespace ArtWebApp.Production.CutOrder
 
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
-                var q = from ponmbr in entty.CutPlanMasters
+                var q = (from ponmbr in entty.CutPlanMasters
                         where ponmbr.OurStyleID == ourstyleid 
-                        select new
+                         select new
                         {
                             name = ponmbr.CutPlanNUM,
 
-                            //  name=ponmbr.CostingCount,
+                           
                             pk = ponmbr.CutPlan_PK
-                        };
+                        }).ToList();
 
 
-                drp_cutorder.DataSource = q.ToList();
+                drp_cutorder.DataSource = q;
                 drp_cutorder.DataBind();
                 upd_cutorder.Update();
 
@@ -249,6 +249,9 @@ namespace ArtWebApp.Production.CutOrder
 
             txt_fabreq.Text = fabreq;
             upd_fabreq.Update();
+            AlreadyAddedRoll.DataBind();
+            GridView1.DataSource = AlreadyAddedRoll;
+            GridView1.DataBind();
             UPD_ALREADYADDED.Update();
             upd_baltoadd.Update();
             upd_alreadyaddedqty.Update();

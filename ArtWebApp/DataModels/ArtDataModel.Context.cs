@@ -215,6 +215,8 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<CutTypeMaster> CutTypeMasters { get; set; }
         public virtual DbSet<MarkerDirectionMaster> MarkerDirectionMasters { get; set; }
         public virtual DbSet<MarkerMadeMaster> MarkerMadeMasters { get; set; }
+        public virtual DbSet<LayShortageDetail> LayShortageDetails { get; set; }
+        public virtual DbSet<LayShortageReqMaster> LayShortageReqMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

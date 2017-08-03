@@ -392,6 +392,11 @@
         <EntityTypeShape EntityType="ArtModel.MarkerMadeMaster" Width="1.5" PointX="25.375" PointY="18.75" />
         <AssociationConnector Association="ArtModel.FK_SubMenuMaster_SubMenuMaster" />
         <AssociationConnector Association="ArtModel.FK_InventoryMaster_UOMMaster" />
+        <EntityTypeShape EntityType="ArtModel.LayShortageDetail" Width="1.5" PointX="23.25" PointY="51.75" />
+        <EntityTypeShape EntityType="ArtModel.LayShortageReqMaster" Width="1.5" PointX="21" PointY="40" />
+        <AssociationConnector Association="ArtModel.FK_LayShortageDetail_FabricRollmaster" />
+        <AssociationConnector Association="ArtModel.FK_LayShortageDetail_LaySheetDetails" />
+        <AssociationConnector Association="ArtModel.FK_LayShortageDetail_LayShortageReqMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

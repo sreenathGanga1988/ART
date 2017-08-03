@@ -256,7 +256,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                 enty.SaveChanges();
 
-                mrnum = smrnmstrdb.SMrnNum;
+                mrnum = smrnmstrdb.SMrnNum +'/'+ trnmstr.SalesDONum;
             }
 
             return mrnum;

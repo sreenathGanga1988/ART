@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class LaySheetDetail
     {
+        public LaySheetDetail()
+        {
+            this.LayShortageDetails = new HashSet<LayShortageDetail>();
+        }
+    
         public decimal LaySheetDet_PK { get; set; }
         public Nullable<decimal> LaySheet_PK { get; set; }
         public Nullable<decimal> Roll_PK { get; set; }
@@ -27,5 +32,6 @@ namespace ArtWebApp.DataModels
     
         public virtual LaySheetMaster LaySheetMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
+        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
     }
 }

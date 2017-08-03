@@ -565,34 +565,34 @@
                   <Width>0.41892in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.53544in</Width>
+                  <Width>0.48886in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.44097in</Width>
+                  <Width>0.41974in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.36937in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.53982in</Width>
+                  <Width>0.43565in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.49323in</Width>
+                  <Width>0.39446in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.49531in</Width>
+                  <Width>0.44532in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.47729in</Width>
+                  <Width>0.3752in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.42283in</Width>
+                  <Width>0.40456in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.55351in</Width>
+                  <Width>0.41443in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.40424in</Width>
+                  <Width>0.30215in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.36666in</Width>
@@ -601,33 +601,33 @@
                   <Width>0.45577in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.52083in</Width>
+                  <Width>0.30943in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.50865in</Width>
+                  <Width>0.43573in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74581in</Width>
+                  <Width>0.66166in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.51073in</Width>
+                  <Width>0.40815in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.5625in</Width>
+                  <Width>0.4518in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.40625in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.55208in</Width>
+                  <Width>0.41666in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.60417in</Width>
+                  <Width>0.375in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.42187in</Height>
+                  <Height>0.46354in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -740,7 +740,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>	S</Value>
+                                  <Value>	S </Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -781,7 +781,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>AYard</Value>
+                                  <Value>A Yard</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -849,7 +849,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>AShrink</Value>
+                                  <Value>A Shrink</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -917,7 +917,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>AWidth</Value>
+                                  <Value>A Width</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1019,7 +1019,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SGSM</Value>
+                                  <Value>S  GSM</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1053,7 +1053,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>AGSM</Value>
+                                  <Value>A GSM</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1087,7 +1087,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SWeight</Value>
+                                  <Value>S Weight</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1121,7 +1121,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LOTnum</Value>
+                                  <Value>LOT </Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1359,7 +1359,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SKUDETPK</Value>
+                                  <Value>SKU Det</Value>
                                   <Style>
                                     <FontFamily>calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2954,7 +2954,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.53143in</Size>
+                            <Size>0.43841in</Size>
                             <CellContents>
                               <Textbox Name="Textbox247">
                                 <CanGrow>true</CanGrow>
@@ -3100,7 +3100,7 @@
                             </SortExpression>
                           </SortExpressions>
                           <TablixHeader>
-                            <Size>0.53143in</Size>
+                            <Size>0.43841in</Size>
                             <CellContents>
                               <Textbox Name="ShadeGroup">
                                 <CanGrow>true</CanGrow>
@@ -3141,7 +3141,7 @@
                         </TablixMember>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.53143in</Size>
+                            <Size>0.43841in</Size>
                             <CellContents>
                               <Textbox Name="Textbox362">
                                 <CanGrow>true</CanGrow>
@@ -3185,8 +3185,8 @@
             <DataSetName>DataSet2</DataSetName>
             <Top>2.81472in</Top>
             <Left>0.01538in</Left>
-            <Height>0.99999in</Height>
-            <Width>12.36823in</Width>
+            <Height>1.04166in</Height>
+            <Width>10.64661in</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
@@ -3437,7 +3437,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>12.43569in</Width>
+      <Width>10.70652in</Width>
       <Page>
         <PageFooter>
           <Height>0.4375in</Height>

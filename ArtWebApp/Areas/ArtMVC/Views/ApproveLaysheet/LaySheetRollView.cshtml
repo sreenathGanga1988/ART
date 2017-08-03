@@ -1,0 +1,191 @@
+﻿@*@model ArtWebApp.Areas.ArtMVC.Models.ViewModel.LaySheetShortageViewModel
+<script src="~/JQuery/GridJQuery.js"></script>
+<script>
+  
+</script>
+<div class="container">
+    <table class="table table-bordered table-striped table-responsive">
+        <tr>
+            <th>
+                @Html.CheckBox("SelectAll")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.LaySheetDet_PK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.LayCutNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.RollNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.NoOfPlies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.FabUtilized)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.EndBit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.BalToCut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.ExcessOrShort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.IsRecuttable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.Roll_PK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.ShadeGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.ShrinkageGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.WidthGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.approvelaysheetModel.MarkerType)
+            </th>
+
+        </tr>
+
+        @if (Model != null)
+        {
+
+
+
+            for (int i = 0; i < Model.rolldetailcollection.Count; i++)
+            {
+
+                <tr>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.rolldetailcollection[i].IsSelected, new { @onclick = "Check_ClickNew(this)" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].LaySheetDet_PK)
+                        @Html.HiddenFor(model => Model.rolldetailcollection[i].LaySheetDet_PK, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].LayCutNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].RollNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].NoOfPlies)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].FabUtilized)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.rolldetailcollection[i].EndBit)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.rolldetailcollection[i].BalToCut)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.rolldetailcollection[i].ExcessOrShort)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].IsRecuttable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].Roll_PK)
+                        @Html.HiddenFor(model => Model.rolldetailcollection[i].Roll_PK, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].ShadeGroup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].ShrinkageGroup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].WidthGroup)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].MarkerType)
+                    </td>
+
+                </tr>
+
+            }
+
+           
+
+
+
+
+        }
+
+        <tfoot>
+            <tr>
+                <th>
+                    Total
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+
+            </tr>
+
+        </tfoot>
+
+
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Submit" type="submit" value="Submit Fabric request" class="btn btn-default show" />
+        </div>
+    </div>
+</div>*@

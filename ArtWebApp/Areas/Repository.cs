@@ -1,4 +1,5 @@
 ﻿using ArtWebApp.Areas.ArtMVC.Models.ViewModel;
+using ArtWebApp.Areas.CuttingMVC.Models;
 using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ArtWebApp.Areas
 
     public class IPORepository
     {
-     ArtEntitiesnew db = new ArtEntitiesnew();
+        ArtEntitiesnew db = new ArtEntitiesnew();
 
 
 
@@ -151,6 +152,97 @@ namespace ArtWebApp.Areas
             return q;
         }
     }
+
+
+
+
+    public class LaysheetRollRepository
+    {
+        ArtEntitiesnew db = new ArtEntitiesnew();
+
+     public  List<ApprovelaysheetModel> getlaysheetRollData(decimal[] laysheetpkarry)
+    {
+
+
+            var q = (from laydet in db.LaySheetDetails
+                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0)
+                     select new ApprovelaysheetModel
+                     {
+
+
+                         LaySheetDet_PK = laydet.LaySheetDet_PK,
+                         IsSelected = false,
+                         LaySheet_PK = laydet.LaySheet_PK??0,
+                         LayCutNum = laydet.LaySheetMaster.LaySheetNum,
+                         RollNum = laydet.FabricRollmaster.RollNum,
+       NoOfPlies=laydet.NoOfPlies??0,
+       FabUtilized=laydet.FabUtilized??0,
+       EndBit=laydet.EndBit??0,
+       BalToCut=laydet.BalToCut??0,
+       ExcessOrShort=laydet.ExcessOrShort??0,
+       IsRecuttable=laydet.IsRecuttable,
+       Roll_PK=laydet.Roll_PK??0,
+       ShadeGroup= laydet.FabricRollmaster.RollNum,
+                         ShrinkageGroup = laydet.FabricRollmaster.ShrinkageGroup,
+                         WidthGroup =laydet.FabricRollmaster.WidthGroup,
+                         MarkerType = laydet.FabricRollmaster.MarkerType,
+
+
+
+
+
+                     }).ToList();
+
+            return q;
+    }
+
+
+
+        public String InsertLaysheetShortageRoll(LaySheetShortageViewModel model)
+        {
+            String msg = "";
+
+
+            LayShortageReqMaster layreqmstr = new DataModels.LayShortageReqMaster();
+            layreqmstr.AtcID = model.Atcid;
+            layreqmstr.AddedBY = model.AddedBy;
+            layreqmstr.AddedDate = model.AddedDate;
+            layreqmstr.Type = model.Type;
+            layreqmstr.IsEndBit = model.IsEndBIT;
+            layreqmstr.IsLayShortage = model.IsLayShortage;
+            db.LayShortageReqMasters.Add(layreqmstr);
+
+            db.SaveChanges();
+            msg= layreqmstr.LayShortageReqCode= "LSH" + layreqmstr.LayShortageMasterID.ToString().PadLeft(6, '0');
+            foreach (ApprovelaysheetModel rollmodel in model.rolldetailcollection)
+            {
+
+               
+
+                LayShortageDetail layrolldet = new DataModels.LayShortageDetail();
+                layrolldet.Roll_PK = rollmodel.Roll_PK;
+                layrolldet.EndBit = rollmodel.EndBit;
+                layrolldet.LaySheetDet_PK = rollmodel.LaySheetDet_PK;
+                layrolldet.ExcessOrShort = rollmodel.ExcessOrShort;
+                layrolldet.AddedBy = model.AddedBy;
+                layrolldet.LayShortageMasterID = layreqmstr.LayShortageMasterID;
+                layrolldet.AddedDate = model.AddedDate;
+                db.LayShortageDetails.Add(layrolldet);
+            }
+
+            db.SaveChanges();
+            
+
+
+
+
+            return msg;
+        }
+
+
+
+    }
+
 
 
 }

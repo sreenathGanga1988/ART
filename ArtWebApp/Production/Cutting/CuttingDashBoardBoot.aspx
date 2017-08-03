@@ -128,8 +128,57 @@ WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded
   </div>
 
 
+           <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRatioDiv">Pending Ratio for Cutplan</button>
+  <div id="PendingRatioDiv" class="collapse in" >
+                       
+   <asp:GridView ID="PendingRatioGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered" datasourceid="PendingCutOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
+                                <Columns>
+                                    <asp:BoundField DataField="CutPlanNUM" HeaderText="CutPlanNUM" SortExpression="CutPlanNUM" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                    <asp:BoundField DataField="ColorName" HeaderText="ColorName" SortExpression="ColorName" />
+                                    <asp:BoundField DataField="FabDescription" HeaderText="FabDescription" SortExpression="FabDescription" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                    <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                                </Columns>
+                                <HeaderStyle CssClass="header" />
+                                <PagerStyle CssClass="pager" />
+                                <RowStyle CssClass="rows" />
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="PendingRatio" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMaster.CutPlanNUM, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.FabDescription, LocationMaster.LocationName, CutPlanMaster.MarkerType, CutPlanMaster.IsApproved, 
+                         CutPlanMaster.IsRatioAdded, CutPlanMaster.AddedBy, CutPlanMaster.IsPatternAdded, CutPlanMaster.IsCutorderGiven
+FROM            CutPlanMaster INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
+WHERE        (CutPlanMaster.IsRatioAdded = N'N')"></asp:SqlDataSource>
+                              
+  </div>
 
 
+    
+           <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRollDiv">Pending Roll for Cutplan</button>
+  <div id="PendingRollDiv" class="collapse in" >
+                       
+   <asp:GridView ID="PendingRollGrid" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered" datasourceid="PendingCutOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
+                                <Columns>
+                                    <asp:BoundField DataField="CutPlanNUM" HeaderText="CutPlanNUM" SortExpression="CutPlanNUM" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                    <asp:BoundField DataField="ColorName" HeaderText="ColorName" SortExpression="ColorName" />
+                                    <asp:BoundField DataField="FabDescription" HeaderText="FabDescription" SortExpression="FabDescription" />
+                                    <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                                    <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                                </Columns>
+                                <HeaderStyle CssClass="header" />
+                                <PagerStyle CssClass="pager" />
+                                <RowStyle CssClass="rows" />
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="PendingRoll" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMaster.CutPlanNUM, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.FabDescription, LocationMaster.LocationName, CutPlanMaster.MarkerType, CutPlanMaster.IsApproved, 
+                         CutPlanMaster.IsRatioAdded, CutPlanMaster.AddedBy, CutPlanMaster.IsPatternAdded, CutPlanMaster.IsCutorderGiven
+FROM            CutPlanMaster INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
+WHERE        (CutPlanMaster.IsRatioAdded = N'Y') AND (CutPlanMaster.IsRollAdded = N'N') "></asp:SqlDataSource>
+                              
+  </div>
 
 
 

@@ -63,6 +63,20 @@ WHERE(CutPlanMaster.IsApproved = N'Y') AND(CutPlanMaster.IsPatternAdded = N'Y') 
 
 
 
+                    PendingRatio.SelectCommand = @"SELECT        CutPlanMaster.CutPlanNUM, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.FabDescription, LocationMaster.LocationName, CutPlanMaster.MarkerType, CutPlanMaster.IsApproved, 
+                         CutPlanMaster.IsRatioAdded, CutPlanMaster.AddedBy, CutPlanMaster.IsPatternAdded, CutPlanMaster.IsCutorderGiven, UserMaster.UserLoc_PK
+FROM            CutPlanMaster INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         UserMaster ON CutPlanMaster.AddedBy = UserMaster.UserName
+WHERE (CutPlanMaster.IsRatioAdded = 'N') AND (UserMaster.UserLoc_PK = " + userloc_pk + ")";
+                    PendingRoll.SelectCommand = @"SELECT        CutPlanMaster.CutPlanNUM, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.FabDescription, LocationMaster.LocationName, CutPlanMaster.MarkerType, CutPlanMaster.IsApproved, 
+                         CutPlanMaster.IsRatioAdded, CutPlanMaster.AddedBy, CutPlanMaster.IsPatternAdded, CutPlanMaster.IsCutorderGiven, UserMaster.UserLoc_PK
+FROM            CutPlanMaster INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         UserMaster ON CutPlanMaster.AddedBy = UserMaster.UserName
+WHERE (CutPlanMaster.IsRatioAdded = 'N') AND  AND (CutPlanMaster.IsRollAdded = N'N')  AND (UserMaster.UserLoc_PK = " + userloc_pk + ")";
 
                     if (userloc_pk == 2)
                     {

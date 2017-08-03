@@ -12,8 +12,9 @@ namespace ArtWebApp.Areas.ArtMVC
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
+          
             context.MapRoute(
                 "ArtMVC_default",
                 "ArtMVC/{controller}/{action}/{id}",
