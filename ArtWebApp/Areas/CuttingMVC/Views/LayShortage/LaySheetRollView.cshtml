@@ -139,71 +139,71 @@
 
 
 
-            for (int i = 0; i < Model.rolldetailcollection.Count; i++)
+            for (int i = 0; i < Model.RollDetails.Count; i++)
             {
 
                 <tr>
                     <td>
-                        @Html.EditorFor(modelItem => Model.rolldetailcollection[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })
+                        @Html.EditorFor(modelItem => Model.RollDetails[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].LaySheetDet_PK)
-                        @Html.HiddenFor(model => Model.rolldetailcollection[i].LaySheetDet_PK, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].LaySheetDet_PK)
+                        @Html.HiddenFor(model => Model.RollDetails[i].LaySheetDet_PK, new { htmlAttributes = new { @class = "form-control" } })
 
 
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].LayCutNum)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].LayCutNum)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].RollNum)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].RollNum)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].NoOfPlies)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].NoOfPlies)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].FabUtilized)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].FabUtilized)
                     </td>
                     <td>
                         <div class="endbit">
-                            @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].EndBit)
+                            @Html.DisplayFor(modelItem => Model.RollDetails[i].EndBit)
                         </div>    
                       
-                        @Html.HiddenFor(model => Model.rolldetailcollection[i].EndBit, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.HiddenFor(model => Model.RollDetails[i].EndBit, new { htmlAttributes = new { @class = "form-control" } })
 
 
 
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].BalToCut)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].BalToCut)
                     </td>
                     <td>   <div class="ExcessOrShort">
-                                 @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].ExcessOrShort)                             
+                                 @Html.DisplayFor(modelItem => Model.RollDetails[i].ExcessOrShort)                             
                         </div>                             
-                        @Html.HiddenFor(model => Model.rolldetailcollection[i].ExcessOrShort)
+                        @Html.HiddenFor(model => Model.RollDetails[i].ExcessOrShort)
 
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].IsRecuttable)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].IsRecuttable)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].Roll_PK)
-                        @Html.HiddenFor(model => Model.rolldetailcollection[i].Roll_PK, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].Roll_PK)
+                        @Html.HiddenFor(model => Model.RollDetails[i].Roll_PK, new { htmlAttributes = new { @class = "form-control" } })
 
 
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].ShadeGroup)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].ShadeGroup)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].ShrinkageGroup)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].ShrinkageGroup)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].WidthGroup)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].WidthGroup)
 
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.rolldetailcollection[i].MarkerType)
+                        @Html.DisplayFor(modelItem => Model.RollDetails[i].MarkerType)
                     </td>
 
                 </tr>

@@ -3,8 +3,17 @@
     ViewBag.Title = "LaysheetShortage";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
-
-<h2>LayShortage</h2>
+@if (ViewBag.SuccessMessage != null)
+{
+    <text>
+        <script>
+            $(document).ready(function () {
+               alert('@ViewBag.SuccessMessage');
+            });
+        </script>
+    </text>
+}
+<h2>Extra request against Shortage/EndBit</h2>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -43,6 +52,32 @@
                 }
             });
 
+            $.ajax({
+                url: "@Url.Action("PopulateOFabric", "LayShortage")",
+                type: 'Get',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            //  data: JSON.stringify(123),
+            data: { 'Id': Id },
+            success: function (data) {
+                $('#SkuID').empty();
+                $.each(data, function () {
+
+
+                    $('#SkuID').append('<option value=' +
+                      this.Value + '>' + this.Text + '</option>');
+                });
+                $("#SkuID").trigger("chosen:updated");
+
+
+                $("#SkuID").trigger("change");
+
+
+            },
+            error: function (data) {
+
+            }
+        });
 
 
 
@@ -57,6 +92,8 @@
             var SelectedOurStyle = new Array();
             SelectedOurStyle = $("#OurStyleID").chosen().val();
 
+            var Id = $('#SkuID').find('option:selected').val();
+
             if (SelectedOurStyle != null)
             {
 
@@ -67,7 +104,7 @@
                 contentType: "application/json; charset=utf-8",
                 datatype: "json",
                 traditional: true,
-                data: { 'SelectedOurStyle': SelectedOurStyle },
+                data: { 'SelectedOurStyle': SelectedOurStyle, 'Id': Id },
                 success: function (data) {
                     $('#LaySheetID').empty()
                     $.each(data, function () {
@@ -168,7 +205,7 @@
                     @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
                 </div>
                 <div class="col-md-10">
-                    @Html.DropDownList("AtcID", null, htmlAttributes: new { @class = "chosen-select form-control" })
+                    @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
 
 
 
@@ -179,6 +216,35 @@
 
 
         </div>
+
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Fab#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SkuID,Model.SkuList, "Please select Fabric", new { @class = "chosen-select form-control" })
+                @Html.ValidationMessageFor(m => m.SkuID)
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
 
 
         <div class="form-group">

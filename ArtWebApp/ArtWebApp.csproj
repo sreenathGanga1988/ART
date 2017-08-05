@@ -1604,6 +1604,7 @@
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="Areas\ArtAdministrator\ArtAdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\ArtAdministrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
@@ -4171,6 +4172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\ArtAdministrator\Models\" />
+    <Folder Include="Areas\ArtAdministrator\Views\Home\" />
     <Folder Include="Areas\ArtAdministrator\Views\Shared\" />
     <Folder Include="Areas\ArtMVCMaster\Models\" />
     <Folder Include="Areas\ArtMVCMaster\Views\GarmentCategories\" />

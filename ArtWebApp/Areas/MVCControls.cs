@@ -13,7 +13,7 @@ namespace ArtWebApp.Areas
     public static class MVCControls
     {
 
-        public static List<SelectListItem> DataTabletoSelectList(String Valuecolumnname, String textcolumnname, DataTable dt, string OptionalInstialText = "")
+        public static SelectList DataTabletoSelectList(String Valuecolumnname, String textcolumnname, DataTable dt, string OptionalInstialText = "")
         {
             List<SelectListItem> list = new List<SelectListItem>();
 
@@ -24,11 +24,11 @@ namespace ArtWebApp.Areas
             foreach (DataRow row in dt.Rows)
             {
 
-                list.Add(new SelectListItem { Text = Convert.ToString(row[textcolumnname]), Value = Convert.ToString(row[textcolumnname]) });
+                list.Add(new SelectListItem { Text = Convert.ToString(row[textcolumnname]), Value = Convert.ToString(row[Valuecolumnname]) });
 
             }
-
-            return list;
+            return new SelectList(list, "Value", "Text");
+           
         }
 
 

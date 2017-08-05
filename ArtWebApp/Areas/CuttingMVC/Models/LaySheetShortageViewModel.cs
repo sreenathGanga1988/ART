@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ArtWebApp.Areas.CuttingMVC.Models
 {
@@ -52,25 +53,58 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
     public class LaySheetShortageViewModel
     {
 
+       
+      
+     
+      
+        public IEnumerable<SelectListItem> ActOptions { get; set; }
+        public IEnumerable<SelectListItem> OurStyleOptions { get; set; }
+        public IEnumerable<SelectListItem> LaySheetOptions { get; set; }
 
-
-        [Key]
+     
         [Display(Name = "ID")]
         public Decimal ShortageID { get; set; }
         public int Location_pk { get; set; }
-        public int Atcid { get; set; }
-        public int OurstyleID { get; set; }
-        public DateTime AddedDate { get; set; }
-        public String AddedBy { get; set; }
-        public String Type { get; set; }
+        [Display(Name = "Atcc#")]
+        [Required(ErrorMessage = "Please select a ....")]
+        public int? AtcID { get; set; }
+
+        [Display(Name = "Fab#")]
+        [Required(ErrorMessage = "Please select a Fabric")]
+        public int? SkuID { get; set; }
+
+        [Display(Name = "OurStyle#")]
+        [Required(ErrorMessage = "Please select a ....")]
+        public IEnumerable<int> OurStyleID { get; set; }
+
+      
+
+
+        [Display(Name = "LaySheet#")]
+        [Required(ErrorMessage = "Please select a ....")]
+        public IEnumerable<int> LaySheetID { get; set; }
+
 
         [Display(Name = " Against EndBIT")]
         public Boolean IsEndBIT { get; set; }
         [Display(Name = " Against LayShortage")]
         public Boolean IsLayShortage { get; set; }
-        public List<ApprovelaysheetModel> rolldetailcollection { get; set; }
+
+
+        public SelectList AtcList { get; set; }
+
+        public SelectList OurStyleList { get; set; }
+
+        public SelectList SkuList { get; set; }
+
+        public List<ApprovelaysheetModel> RollDetails { get; set; }
 
 
         public ApprovelaysheetModel approvelaysheetModel { get; set; }
+
+
+        public DateTime AddedDate { get; set; }
+        public String AddedBy { get; set; }
+        public String Type { get; set; }
     }
 }

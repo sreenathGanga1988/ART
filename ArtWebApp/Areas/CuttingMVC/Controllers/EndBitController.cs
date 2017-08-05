@@ -25,10 +25,10 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
             Model.AddedDate = DateTime.Now;
             var Number = (from n
-                   in Model.rolldetailcollection
+                   in Model.RollDetails
                           where n.IsSelected == true
                           select n).ToList();
-            Model.rolldetailcollection = Number;
+            Model.RollDetails = Number;
             Model.Type = "EndBit";
             LaysheetRollRepository lyipores = new LaysheetRollRepository();
             String code = lyipores.InsertLaysheetShortageRoll(Model);

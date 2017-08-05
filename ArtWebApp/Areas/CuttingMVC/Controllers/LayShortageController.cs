@@ -18,7 +18,18 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         public ActionResult LaysheetShortage()
         {
             LaySheetShortageViewModel mdl = new LaySheetShortageViewModel();
-            ViewBag.AtcID = new SelectList(db.AtcMasters.Where(o => o.IsClosed == "N"), "AtcId", "AtcNum");
+
+            ConfigureViewModel(mdl);
+         //   ViewBag.AtcID = new SelectList(db.AtcMasters.Where(o => o.IsClosed == "N"), "AtcId", "AtcNum");
+            try
+            {
+                ViewBag.SuccessMessage = TempData["shortMessage"].ToString();
+            }
+            catch (Exception)
+            {
+
+             
+            }
             return View(mdl);
         }
         [HttpPost]
@@ -28,15 +39,16 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
             Model.AddedDate = DateTime.Now;
             var Number = (from n
-                   in Model.rolldetailcollection
+                   in Model.RollDetails
                           where n.IsSelected == true
                           select n).ToList();
-            Model.rolldetailcollection = Number;
+            Model.RollDetails = Number;
             Model.Type = "LayShortage";
             LaysheetRollRepository lyipores = new LaysheetRollRepository();
             String code = lyipores.InsertLaysheetShortageRoll(Model);
+            TempData["shortMessage"] = "Extra Fabric Request Added Sucessfullt Ref#" + code.ToString();
 
-            return View();
+            return RedirectToAction("LaysheetShortage");
         }
 
         [HttpGet]
@@ -52,10 +64,22 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             return jsd;
 
         }
+        [HttpGet]
+        public JsonResult PopulateOFabric(int Id = 0)
+        {
 
+
+            SelectList SkuList = ComboRepository.fillFabColorofAtc(Id); ;
+
+
+            JsonResult jsd = Json(SkuList, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
 
         [HttpGet]
-        public JsonResult PopulateLaysheetSelectionlist(decimal[] SelectedOurStyle)
+        public JsonResult PopulateLaysheetSelectionlist(decimal[] SelectedOurStyle, int Id=0)
         {
 
 
@@ -67,13 +91,42 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
         }
 
+    
+
         [HttpGet]
         public PartialViewResult GetRollView(decimal[] SelectedOurStyle)
         {
             LaySheetShortageViewModel model = new LaySheetShortageViewModel();
             LaysheetRollRepository lyipores = new LaysheetRollRepository();
-            model.rolldetailcollection = lyipores.getlaysheetRollData(SelectedOurStyle);
+            model.RollDetails = lyipores.getlaysheetRollData(SelectedOurStyle);
             return PartialView("LaySheetRollView", model);
         }
+
+
+
+        private void ConfigureViewModel(LaySheetShortageViewModel model)
+        {
+            int atcid = 0;
+          
+            model.AtcList = new SelectList(db.AtcMasters.Where(o => o.IsClosed == "N"), "AtcId", "AtcNum");
+            if (model.AtcID.HasValue)
+            {
+                SelectList ourstyleitem = new SelectList(db.AtcDetails.Where(o => o.AtcId == model.AtcID), "OurStyleID", "OurStyle");
+
+                model.OurStyleList = ourstyleitem;
+                atcid = int.Parse(model.AtcID.ToString ());
+                model.SkuList = ComboRepository.fillFabColorofAtc(atcid);
+            }
+            else
+            {
+                model.OurStyleOptions = new SelectList(Enumerable.Empty<SelectListItem>());
+                model.SkuList = new SelectList(Enumerable.Empty<SelectListItem>());
+            }
+          
+        }
+    
+
+
+
     }
 }

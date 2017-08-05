@@ -3,14 +3,14 @@ using ArtWebApp.Areas.CuttingMVC.Models;
 using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ArtWebApp.Areas
 {
-    public class Repository
-    {
-    }
+    
 
     public class IPORepository
     {
@@ -204,17 +204,18 @@ namespace ArtWebApp.Areas
 
 
             LayShortageReqMaster layreqmstr = new DataModels.LayShortageReqMaster();
-            layreqmstr.AtcID = model.Atcid;
+            layreqmstr.AtcID = model.AtcID;
             layreqmstr.AddedBY = model.AddedBy;
             layreqmstr.AddedDate = model.AddedDate;
             layreqmstr.Type = model.Type;
             layreqmstr.IsEndBit = model.IsEndBIT;
             layreqmstr.IsLayShortage = model.IsLayShortage;
+            layreqmstr.IsApproved = false;
             db.LayShortageReqMasters.Add(layreqmstr);
 
             db.SaveChanges();
             msg= layreqmstr.LayShortageReqCode= "LSH" + layreqmstr.LayShortageMasterID.ToString().PadLeft(6, '0');
-            foreach (ApprovelaysheetModel rollmodel in model.rolldetailcollection)
+            foreach (ApprovelaysheetModel rollmodel in model.RollDetails)
             {
 
                
@@ -243,6 +244,28 @@ namespace ArtWebApp.Areas
 
     }
 
+
+
+
+
+    public static class  ComboRepository
+    {
+        /// <summary>
+        /// get the fabric and Skudetpk of the same of a atc
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public static SelectList fillFabColorofAtc(int atcid)
+        {
+            DataTable dt = DBTransaction.Productiontransaction.CutPlanTransaction.GetfabricofATC(atcid);
+
+            SelectList skulist  = Areas.MVCControls.DataTabletoSelectList("SkuDet_PK", "ItemDescription", dt, "Select fabric");
+
+            return skulist;
+
+        }
+
+    }
 
 
 }

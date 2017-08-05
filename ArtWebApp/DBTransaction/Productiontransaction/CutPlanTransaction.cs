@@ -68,6 +68,50 @@ HAVING        (StyleCostingMaster.OurStyleID = @ourstyleid)";
             return dt;
         }
 
+
+        public static DataTable GetfabricofATC(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                string query = "";
+
+               
+              
+                    query = @"SELECT        SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, SkuRawMaterialMaster.Atc_id
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
+                         ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID
+WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric')
+GROUP BY SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N'') + ISNULL(SkuRawMaterialMaster.Width, 
+                         N'') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, N'') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, N''), SkuRawmaterialDetail.SkuDet_PK, SkuRawMaterialMaster.Atc_id, 
+                         SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '')
+HAVING        (SkuRawMaterialMaster.Atc_id = @atcid)";
+                
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
         /// <summary>
         /// get the summary of sizewise data
         /// </summary>
