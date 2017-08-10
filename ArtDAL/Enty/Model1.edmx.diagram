@@ -4,9 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="11f07f8b89ce4f5382bdc7672270ab8d" Name="Diagram1">
+      <Diagram DiagramId="11f07f8b89ce4f5382bdc7672270ab8d" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="MVCArtModel.ItemGroupMaster" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="MVCArtModel.SubMenuMaster" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="MVCArtModel.FK_SubMenuMaster_SubMenuMaster" />
+        <EntityTypeShape EntityType="MVCArtModel.UserProfileRight" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="MVCArtModel.FK_UserProfileRights_SubMenuMaster_menu_PK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

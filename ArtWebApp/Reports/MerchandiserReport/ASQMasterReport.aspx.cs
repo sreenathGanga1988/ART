@@ -223,7 +223,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                         // tb.ReadOnly = true;
                         tb.Attributes.Add("onkeypress", "return isNumberKey(event,this)");
                         tb.Attributes.Add("onchange", "sumofQty(this)");
-                        tb.ID = "tb" + i + j;
+                        tb.ID = "tb" + i + j + dt.Rows[i][j].ToString() + "Row" + i + "col" + j;                     
                         tb.Text = dt.Rows[i][j].ToString();
 
                         //    Add the control to the TableCell
@@ -618,35 +618,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
         {
 
 
-            //Response.Clear();
-            //Response.Buffer = true;
-            //Response.ContentType = "Application/vnd.ms-excel";
-            //Response.AddHeader("Content-Disposition", "attachment;filename=fileName.xls");
-            //System.IO.StringWriter oStringWriter = new System.IO.StringWriter();
-            //System.Web.UI.HtmlTextWriter oHtmlTextWriter = new System.Web.UI.HtmlTextWriter(oStringWriter);
-            //pnl.RenderControl(oHtmlTextWriter);
-            //Response.Write(oStringWriter.ToString());
-            //Response.Flush();
-            //Response.Close();
-
-
-            //Response.Clear();
-            //Response.Buffer = true;
-            //Response.ClearContent();
-            //Response.ClearHeaders();
-            //Response.Charset = "";
-            //string FileName = "Vithal" + DateTime.Now + ".xls";
-            //StringWriter strwritter = new StringWriter();
-            //HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
-            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //Response.ContentType = "application/vnd.ms-excel";
-            //Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
-            //tbl_podata.GridLines = GridLines.Both;
-            //tbl_podata.HeaderStyle.Font.Bold = true;
-            //tbl_podata.RenderControl(htmltextwrtter);
-            //Response.Write(strwritter.ToString());
-            //Response.End();
-
+           
             Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.xls");
@@ -897,7 +869,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                         //  Set a unique ID for each TextBox added
                         // tb.ReadOnly = true;
 
-                        tb.ID = "tb" + i + j;
+                        tb.ID = "tb" + i + j + dt.Rows[i][j].ToString() + "Row" + i + "col" + j;
                         tb.Text = dt.Rows[i][j].ToString();
                         tb.Font.Size = 8;
                         //    Add the control to the TableCell

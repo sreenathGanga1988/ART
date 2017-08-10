@@ -732,6 +732,32 @@
           <Property Name="DeliveryTerms_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeliveryTerm" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="DeviceMaster">
+          <Key>
+            <PropertyRef Name="NodeID" />
+          </Key>
+          <Property Name="NodeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MacID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeviceType" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="OSRef" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="DeviceTypeID" />
+          </Key>
+          <Property Name="DeviceTypeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="DocDetails">
           <Key>
             <PropertyRef Name="DocDet_Pk" />
@@ -3386,6 +3412,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeviceMaster_DeviceType">
+          <End Role="DeviceType" Type="Self.DeviceType" Multiplicity="0..1" />
+          <End Role="DeviceMaster" Type="Self.DeviceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="DeviceTypeID" />
+            </Principal>
+            <Dependent Role="DeviceMaster">
+              <PropertyRef Name="DeviceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceMaster_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="DeviceMaster" Type="Self.DeviceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="DeviceMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DocMaster_LocationMaster">
           <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
           <End Role="DocMaster" Type="Self.DocMaster" Multiplicity="*" />
@@ -5446,6 +5496,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="DeliveryReceiptStockDetail" EntityType="Self.DeliveryReceiptStockDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryStockReceiptMaster" EntityType="Self.DeliveryStockReceiptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryTermMaster" EntityType="Self.DeliveryTermMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceMaster" EntityType="Self.DeviceMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocDetails" EntityType="Self.DocDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocMaster" EntityType="Self.DocMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DORollDetails" EntityType="Self.DORollDetails" Schema="dbo" store:Type="Tables" />
@@ -5797,6 +5849,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_DeliveryStockReceiptMaster_DeliveryOrderStockMaster" Association="Self.FK_DeliveryStockReceiptMaster_DeliveryOrderStockMaster">
             <End Role="DeliveryOrderStockMaster" EntitySet="DeliveryOrderStockMaster" />
             <End Role="DeliveryStockReceiptMaster" EntitySet="DeliveryStockReceiptMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceMaster_DeviceType" Association="Self.FK_DeviceMaster_DeviceType">
+            <End Role="DeviceType" EntitySet="DeviceType" />
+            <End Role="DeviceMaster" EntitySet="DeviceMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceMaster_LocationMaster" Association="Self.FK_DeviceMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="DeviceMaster" EntitySet="DeviceMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_DocMaster_LocationMaster" Association="Self.FK_DocMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
@@ -7562,6 +7622,16 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LayShortageReqMaster" EntitySet="LayShortageReqMasters" />
             <End Role="LayShortageDetail" EntitySet="LayShortageDetails" />
           </AssociationSet>
+          <EntitySet Name="DeviceMasters" EntityType="ArtModel.DeviceMaster" />
+          <EntitySet Name="DeviceTypes" EntityType="ArtModel.DeviceType" />
+          <AssociationSet Name="FK_DeviceMaster_DeviceType" Association="ArtModel.FK_DeviceMaster_DeviceType">
+            <End Role="DeviceType" EntitySet="DeviceTypes" />
+            <End Role="DeviceMaster" EntitySet="DeviceMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceMaster_LocationMaster" Association="ArtModel.FK_DeviceMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="DeviceMaster" EntitySet="DeviceMasters" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -8988,6 +9058,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="DocMasters" Relationship="ArtModel.FK_DocMaster_LocationMaster" FromRole="LocationMaster" ToRole="DocMaster" />
           <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="LocationMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="SupplierDocumentMasters" Relationship="ArtModel.FK_SupplierDocumentMaster_LocationMaster" FromRole="LocationMaster" ToRole="SupplierDocumentMaster" />
+          <NavigationProperty Name="DeviceMasters" Relationship="ArtModel.FK_DeviceMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeviceMaster" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -13661,6 +13732,59 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DeviceMaster">
+          <Key>
+            <PropertyRef Name="NodeID" />
+          </Key>
+          <Property Name="NodeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MacID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceType" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OSRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeviceType1" Relationship="ArtModel.FK_DeviceMaster_DeviceType" FromRole="DeviceMaster" ToRole="DeviceType" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DeviceMaster_LocationMaster" FromRole="DeviceMaster" ToRole="LocationMaster" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="DeviceTypeID" />
+          </Key>
+          <Property Name="DeviceTypeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DeviceMasters" Relationship="ArtModel.FK_DeviceMaster_DeviceType" FromRole="DeviceType" ToRole="DeviceMaster" />
+        </EntityType>
+        <Association Name="FK_DeviceMaster_DeviceType">
+          <End Type="ArtModel.DeviceType" Role="DeviceType" Multiplicity="0..1" />
+          <End Type="ArtModel.DeviceMaster" Role="DeviceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="DeviceTypeID" />
+            </Principal>
+            <Dependent Role="DeviceMaster">
+              <PropertyRef Name="DeviceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeviceMaster" Role="DeviceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="DeviceMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17068,6 +17192,34 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="AtcID" ColumnName="AtcID" />
                 <ScalarProperty Name="LayShortageMasterID" ColumnName="LayShortageMasterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceMasters">
+            <EntityTypeMapping TypeName="ArtModel.DeviceMaster">
+              <MappingFragment StoreEntitySet="DeviceMaster">
+                <ScalarProperty Name="OSRef" ColumnName="OSRef" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="NodeID" ColumnName="NodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceTypes">
+            <EntityTypeMapping TypeName="ArtModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DeviceTypeName" ColumnName="DeviceTypeName" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

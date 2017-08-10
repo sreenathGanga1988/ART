@@ -44,6 +44,7 @@ namespace ArtWebApp.DataModels
             this.DocMasters = new HashSet<DocMaster>();
             this.JobContractMasters = new HashSet<JobContractMaster>();
             this.SupplierDocumentMasters = new HashSet<SupplierDocumentMaster>();
+            this.DeviceMasters = new HashSet<DeviceMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -92,5 +93,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DocMaster> DocMasters { get; set; }
         public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual ICollection<SupplierDocumentMaster> SupplierDocumentMasters { get; set; }
+        public virtual ICollection<DeviceMaster> DeviceMasters { get; set; }
     }
 }

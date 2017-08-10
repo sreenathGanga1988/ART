@@ -27,5 +27,6 @@ namespace ArtDAL.Enty
     
         public virtual DbSet<ItemGroupMaster> ItemGroupMasters { get; set; }
         public virtual DbSet<SubMenuMaster> SubMenuMasters { get; set; }
+        public virtual DbSet<UserProfileRight> UserProfileRights { get; set; }
     }
 }

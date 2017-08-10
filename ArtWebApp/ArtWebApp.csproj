@@ -1272,6 +1272,11 @@
     <Content Include="Areas\CuttingMVC\Views\LayShortage\LaysheetShortage.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\LayShortage\LaySheetRollView.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\EndBit\EndBit.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Create.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Delete.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Details.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Edit.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1628,8 +1633,15 @@
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
+    <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
     <Compile Include="DataModels\CutTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeviceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeviceType.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LayShortageDetail.cs">

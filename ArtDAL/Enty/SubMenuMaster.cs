@@ -14,6 +14,13 @@ namespace ArtDAL.Enty
     
     public partial class SubMenuMaster
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SubMenuMaster()
+        {
+            this.SubMenuMaster1 = new HashSet<SubMenuMaster>();
+            this.UserProfileRights = new HashSet<UserProfileRight>();
+        }
+    
         public decimal Menu_PK { get; set; }
         public string MenuText { get; set; }
         public string MenuURL { get; set; }
@@ -22,5 +29,12 @@ namespace ArtDAL.Enty
         public string IsNormal { get; set; }
         public string Description { get; set; }
         public string MVCURL { get; set; }
+        public bool IsActive { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubMenuMaster> SubMenuMaster1 { get; set; }
+        public virtual SubMenuMaster SubMenuMaster2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserProfileRight> UserProfileRights { get; set; }
     }
 }

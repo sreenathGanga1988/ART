@@ -17,16 +17,21 @@ namespace ArtDAL.Masters
         /// </summary>
         /// <param name="parentid"></param>
         /// <returns></returns>
-        public static IEnumerable<SubMenuMaster>  GetsubMenulist(Decimal? parentid)
+        public static IEnumerable<SubMenuMaster>  GetsubMenulist(Decimal? parentid ,int userprofilepk = 0)
         {
             using (Enty.NewDBEnty enty = new NewDBEnty())
             {
-
+             
                 if (parentid == 0)
                 {
                     parentid = null;
                 }
-                 var q = enty.SubMenuMasters.Where(u => u.ParentID == parentid).ToList();
+
+                var q = (from submenumstr in enty.SubMenuMasters
+                        join userProfileRights in enty.UserProfileRights on submenumstr.Menu_PK equals userProfileRights.Menu_PK
+                        where userProfileRights.UserProfile_Pk == userprofilepk && submenumstr.ParentID==parentid
+                        select submenumstr).ToList();
+               //  var q = enty.SubMenuMasters.Where(u => u.ParentID == parentid).ToList();
 
                 return q;
             }

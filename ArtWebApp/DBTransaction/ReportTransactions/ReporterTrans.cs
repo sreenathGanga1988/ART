@@ -502,19 +502,18 @@ WHERE        (SupplierStockInvoiceMaster.SupplierStockInvoice_PK = @Param1)
                 SqlCommand cmd = new SqlCommand(@"SELECT        InvoiceMaster.InvoiceNum, BuyerMaster.BuyerName, LocationMaster.LocationName, BankMaster.BankName, ShipmentHandOverMaster.ShipmentHandOverCode, AtcMaster.AtcNum, 
                          PoPackMaster.PoPacknum + '/' + PoPackMaster.BuyerPO AS PoPacknum, InvoiceDetail.FOB, ShipmentHandOverDetails.ShippedQty, AtcDetails.OurStyle, InvoiceDetail.InvoiceQty, InvoiceDetail.CartonNum, 
                          InvoiceMaster.Invoice_PK
-FROM            PoPackMaster INNER JOIN
-                         AtcMaster INNER JOIN
+FROM            AtcMaster INNER JOIN
                          BuyerMaster ON AtcMaster.Buyer_ID = BuyerMaster.BuyerID INNER JOIN
                          AtcDetails ON AtcMaster.AtcId = AtcDetails.AtcId INNER JOIN
-                         JobContractDetail INNER JOIN
+                         PoPackMaster INNER JOIN
                          InvoiceMaster INNER JOIN
                          InvoiceDetail ON InvoiceMaster.Invoice_PK = InvoiceDetail.Invoice_PK INNER JOIN
                          BankMaster ON InvoiceMaster.Bank_PK = BankMaster.Bank_PK INNER JOIN
                          ShipmentHandOverDetails ON InvoiceDetail.ShipmentHandOver_PK = ShipmentHandOverDetails.ShipmentHandOver_PK INNER JOIN
-                         ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK ON 
-                         JobContractDetail.JobContractDetail_pk = ShipmentHandOverDetails.JobContractDetail_pk INNER JOIN
-                         LocationMaster ON InvoiceMaster.Location_PK = LocationMaster.Location_PK ON AtcDetails.OurStyleID = JobContractDetail.OurStyleID ON PoPackMaster.PoPackId = JobContractDetail.PoPackID
-WHERE        (InvoiceMaster.Invoice_PK =@Param1)
+                         ShipmentHandOverMaster ON ShipmentHandOverDetails.ShipmentHandMaster_PK = ShipmentHandOverMaster.ShipmentHandMaster_PK INNER JOIN
+                         LocationMaster ON InvoiceMaster.Location_PK = LocationMaster.Location_PK ON PoPackMaster.PoPackId = ShipmentHandOverDetails.POPackId ON 
+                         AtcDetails.OurStyleID = ShipmentHandOverDetails.OurStyleID
+WHERE        (InvoiceMaster.Invoice_PK = @Param1)
 ", con);
                 cmd.Parameters.AddWithValue("@Param1", inv_PK);
 

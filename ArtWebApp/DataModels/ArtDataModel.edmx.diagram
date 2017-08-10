@@ -397,6 +397,10 @@
         <AssociationConnector Association="ArtModel.FK_LayShortageDetail_FabricRollmaster" />
         <AssociationConnector Association="ArtModel.FK_LayShortageDetail_LaySheetDetails" />
         <AssociationConnector Association="ArtModel.FK_LayShortageDetail_LayShortageReqMaster" />
+        <EntityTypeShape EntityType="ArtModel.DeviceMaster" Width="1.5" PointX="26.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArtModel.DeviceType" Width="1.5" PointX="6.375" PointY="26.75" />
+        <AssociationConnector Association="ArtModel.FK_DeviceMaster_DeviceType" />
+        <AssociationConnector Association="ArtModel.FK_DeviceMaster_LocationMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

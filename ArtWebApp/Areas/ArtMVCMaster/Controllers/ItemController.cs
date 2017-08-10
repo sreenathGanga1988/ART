@@ -20,8 +20,9 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
         {
          Itemmenu itmmenu = new Itemmenu();
             itmmenu.itemmenupk = 1;
-
-            SubMenusiewModal asd = itmmenu.SubMenusiewModal;
+            itmmenu.profilepk = 1;
+            
+             SubMenusiewModal asd = itmmenu.SubMenusiewModal;
 
      
 

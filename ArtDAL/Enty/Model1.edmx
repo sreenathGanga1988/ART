@@ -25,10 +25,52 @@
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="MVCURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserProfileRights">
+          <Key>
+            <PropertyRef Name="UserRight_PK" />
+          </Key>
+          <Property Name="UserRight_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfile_Pk" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Menu_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_SubMenuMaster_SubMenuMaster">
+          <End Role="SubMenuMaster" Type="Self.SubMenuMaster" Multiplicity="0..1" />
+          <End Role="SubMenuMaster1" Type="Self.SubMenuMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="SubMenuMaster1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfileRights_SubMenuMaster_menu_PK">
+          <End Role="SubMenuMaster" Type="Self.SubMenuMaster" Multiplicity="0..1" />
+          <End Role="UserProfileRights" Type="Self.UserProfileRights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="UserProfileRights">
+              <PropertyRef Name="Menu_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MVCArtModelStoreContainer">
           <EntitySet Name="ItemGroupMaster" EntityType="Self.ItemGroupMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuMaster" EntityType="Self.SubMenuMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfileRights" EntityType="Self.UserProfileRights" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SubMenuMaster_SubMenuMaster" Association="Self.FK_SubMenuMaster_SubMenuMaster">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMaster" />
+            <End Role="SubMenuMaster1" EntitySet="SubMenuMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfileRights_SubMenuMaster_menu_PK" Association="Self.FK_UserProfileRights_SubMenuMaster_menu_PK">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMaster" />
+            <End Role="UserProfileRights" EntitySet="UserProfileRights" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -37,6 +79,15 @@
         <EntityContainer Name="NewDBEnty" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ItemGroupMasters" EntityType="MVCArtModel.ItemGroupMaster" />
           <EntitySet Name="SubMenuMasters" EntityType="MVCArtModel.SubMenuMaster" />
+          <AssociationSet Name="FK_SubMenuMaster_SubMenuMaster" Association="MVCArtModel.FK_SubMenuMaster_SubMenuMaster">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMasters" />
+            <End Role="SubMenuMaster1" EntitySet="SubMenuMasters" />
+          </AssociationSet>
+          <EntitySet Name="UserProfileRights" EntityType="MVCArtModel.UserProfileRight" />
+          <AssociationSet Name="FK_UserProfileRights_SubMenuMaster_menu_PK" Association="MVCArtModel.FK_UserProfileRights_SubMenuMaster_menu_PK">
+            <End Role="SubMenuMaster" EntitySet="SubMenuMasters" />
+            <End Role="UserProfileRight" EntitySet="UserProfileRights" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ItemGroupMaster">
           <Key>
@@ -58,7 +109,44 @@
           <Property Name="IsNormal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MVCURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SubMenuMaster1" Relationship="MVCArtModel.FK_SubMenuMaster_SubMenuMaster" FromRole="SubMenuMaster" ToRole="SubMenuMaster1" />
+          <NavigationProperty Name="SubMenuMaster2" Relationship="MVCArtModel.FK_SubMenuMaster_SubMenuMaster" FromRole="SubMenuMaster1" ToRole="SubMenuMaster" />
+          <NavigationProperty Name="UserProfileRights" Relationship="MVCArtModel.FK_UserProfileRights_SubMenuMaster_menu_PK" FromRole="SubMenuMaster" ToRole="UserProfileRight" />
         </EntityType>
+        <Association Name="FK_SubMenuMaster_SubMenuMaster">
+          <End Type="MVCArtModel.SubMenuMaster" Role="SubMenuMaster" Multiplicity="0..1" />
+          <End Type="MVCArtModel.SubMenuMaster" Role="SubMenuMaster1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="SubMenuMaster1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserProfileRight">
+          <Key>
+            <PropertyRef Name="UserRight_PK" />
+          </Key>
+          <Property Name="UserRight_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfile_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Menu_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="SubMenuMaster" Relationship="MVCArtModel.FK_UserProfileRights_SubMenuMaster_menu_PK" FromRole="UserProfileRight" ToRole="SubMenuMaster" />
+        </EntityType>
+        <Association Name="FK_UserProfileRights_SubMenuMaster_menu_PK">
+          <End Type="MVCArtModel.SubMenuMaster" Role="SubMenuMaster" Multiplicity="0..1" />
+          <End Type="MVCArtModel.UserProfileRight" Role="UserProfileRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMenuMaster">
+              <PropertyRef Name="Menu_PK" />
+            </Principal>
+            <Dependent Role="UserProfileRight">
+              <PropertyRef Name="Menu_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -77,6 +165,7 @@
           <EntitySetMapping Name="SubMenuMasters">
             <EntityTypeMapping TypeName="MVCArtModel.SubMenuMaster">
               <MappingFragment StoreEntitySet="SubMenuMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="MVCURL" ColumnName="MVCURL" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsNormal" ColumnName="IsNormal" />
@@ -85,6 +174,15 @@
                 <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
                 <ScalarProperty Name="MenuText" ColumnName="MenuText" />
                 <ScalarProperty Name="Menu_PK" ColumnName="Menu_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileRights">
+            <EntityTypeMapping TypeName="MVCArtModel.UserProfileRight">
+              <MappingFragment StoreEntitySet="UserProfileRights">
+                <ScalarProperty Name="Menu_PK" ColumnName="Menu_PK" />
+                <ScalarProperty Name="UserProfile_Pk" ColumnName="UserProfile_Pk" />
+                <ScalarProperty Name="UserRight_PK" ColumnName="UserRight_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

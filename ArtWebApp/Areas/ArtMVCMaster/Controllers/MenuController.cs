@@ -15,7 +15,7 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
         {
             UserMenu itmmenu = new UserMenu();
             itmmenu.itemmenupk = Id;
-
+            itmmenu.profilepk = int.Parse(Session["UserProfile_Pk"].ToString());
             SubMenusiewModal asd = itmmenu.SubMenusiewModal;
 
 

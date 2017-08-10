@@ -12,12 +12,13 @@ namespace ArtWebApp.ViewModel.Master
     public class UserMenu
     {
         public Decimal itemmenupk { get; set; }
-
+        public int profilepk { get; set; }
+   
         public SubMenusiewModal SubMenusiewModal
         {
             get
             {
-                return new SubMenusiewModal(this.itemmenupk);
+                return new SubMenusiewModal(this.itemmenupk, profilepk);
             }
 
             set
@@ -48,19 +49,21 @@ namespace ArtWebApp.ViewModel.Master
 
     public class SubMenusiewModal
     {
-        public SubMenusiewModal(Decimal parentid)
+        public SubMenusiewModal(Decimal parentid,int profilepk)
         {
             this.Menu_PK = parentid;
+            this.profilepk = profilepk;
 
         }
 
         public decimal? Menu_PK { get; set; }
+        public int profilepk { get; set; }
 
         public IEnumerable<MenuViewModal> MenuList
         {
             get
             {
-                return GetSubMenuofItem(this.Menu_PK);
+                return GetSubMenuofItem(this.Menu_PK,this.profilepk);
             }
 
             set
@@ -71,12 +74,12 @@ namespace ArtWebApp.ViewModel.Master
 
         private IEnumerable<MenuViewModal> menuList;
 
-        public IEnumerable<MenuViewModal> GetSubMenuofItem(Decimal? menu_pk)
+        public IEnumerable<MenuViewModal> GetSubMenuofItem(Decimal? menu_pk,int profilepk)
         {
             List<MenuViewModal> menuViewModalList = new List<MenuViewModal>();
 
 
-            foreach (var element in ArtDAL.Masters.MenuDal.GetsubMenulist(menu_pk))
+            foreach (var element in ArtDAL.Masters.MenuDal.GetsubMenulist(menu_pk, profilepk))
             {
 
 
