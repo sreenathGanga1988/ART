@@ -27,9 +27,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> BalanceYardage { get; set; }
         public string Status { get; set; }
     
-        public virtual CutOrderDetail CutOrderDetail { get; set; }
-        public virtual CutOrderMaster CutOrderMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
         public virtual LaySheetRollMaster LaySheetRollMaster { get; set; }
+        public virtual CutOrderDetail CutOrderDetail { get; set; }
+        public virtual CutOrderMaster CutOrderMaster { get; set; }
     }
 }

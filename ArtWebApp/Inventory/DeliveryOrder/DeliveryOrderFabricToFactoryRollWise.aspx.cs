@@ -82,9 +82,9 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
         protected void btn_saveDO_Click(object sender, EventArgs e)
         {
-            if (checkdatagridValue(tbl_InverntoryDetails, "lbl_balacetocut", "txt_deliveryQty"))
+            if (CheckdatagridValue(tbl_InverntoryDetails, "lbl_balacetocut", "txt_deliveryQty"))
             {
-                if (checkdatagridValue(tbl_InverntoryDetails, "lbl_OnhandQty", "txt_deliveryQty"))
+                if (CheckdatagridValue(tbl_InverntoryDetails, "lbl_OnhandQty", "txt_deliveryQty"))
                 {
                     btn_saveDO.Enabled = false;
                     string msg = InsertDOdata();
@@ -252,7 +252,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
 
-        public Boolean checkdatagridValue(GridView tblgrid, String lbl_Qty1, String txt_Qty2)
+        public Boolean CheckdatagridValue(GridView tblgrid, String lbl_Qty1, String txt_Qty2)
         {
 
             Boolean isQtyok = true;

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 
@@ -21,7 +22,7 @@ namespace ArtWebApp.BLL.UserBLL
 
 
 
-        public void insertUserdata()
+        public void InsertUserdata()
         {
             using (DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
             {
@@ -29,7 +30,12 @@ namespace ArtWebApp.BLL.UserBLL
                 um.UserName = this.UserName;
                 um.Password = this.Password;
                 //um.UserLoc_PK = this.UserLoc_PK;
-               
+                um.IsActiveUser = true;
+                um.IsDeleteduser = false;
+                um.IsLockedUser = false;
+                um.AllowOutSideAction = false;
+                um.IsVerified = false;
+                um.ITVerified = false;
                 enty.UserMasters.Add(um);
                 enty.SaveChanges();
             }
@@ -41,7 +47,7 @@ namespace ArtWebApp.BLL.UserBLL
         /// </summary>
         /// <param name="skudetPK"></param>
         /// <returns></returns>
-        public Boolean isUserPresent(String username)
+        public Boolean IsUserPresent(String username)
         {
             Boolean ispresent = false;
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
@@ -159,17 +165,17 @@ namespace ArtWebApp.BLL.UserBLL
                     var q = (from usr in enty.UserMasters
                             join loc in enty.LocationMasters
                             on usr.UserLoc_PK equals loc.Location_PK
-                            where usr.UserName.Trim() == username && usr.Password == Password && usr.IsDeleted=="N"
+                            where usr.UserName.Trim() == username && usr.Password == Password && usr.IsDeleteduser==false
                             select new { 
                             
-                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK ,usr.IsActive
+                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK ,usr.IsActiveUser
 
                             }).ToList();
 
                     foreach (var user in q)
                     {
 
-                        if(user.IsActive.Trim ()=="Y")
+                        if(user.IsActiveUser==true)
                         {
 
                             HttpContext.Current.Session["Username"] = user.UserName;
@@ -188,6 +194,8 @@ namespace ArtWebApp.BLL.UserBLL
                             foreach (var userk in q1)
                             {
                                 userk.LastLogin = DateTime.Now;
+
+                                string IPAddress = GetIPAddress();
                             }
 
                         }
@@ -221,7 +229,27 @@ namespace ArtWebApp.BLL.UserBLL
         }
 
 
+        
+        public string GetIPAddress()
+        {
+            string IPAddress = "";
 
+               IPHostEntry Host = default(IPHostEntry);
+            string Hostname = null;
+            Hostname = System.Environment.MachineName;
+            Host = Dns.GetHostEntry(Hostname);
+            foreach (IPAddress IP in Host.AddressList)
+            {
+                //if (IP.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                //{
+                //    IPAddress = Convert.ToString(IP);
+                //}
+
+                IPAddress = IPAddress+" / "+ Convert.ToString(IP);
+            }
+            return IPAddress;
+
+        }
 
 
         /// <summary>
@@ -229,7 +257,7 @@ namespace ArtWebApp.BLL.UserBLL
         /// </summary>
         /// <param name="skudetPK"></param>
         /// <returns></returns>
-        public Boolean isUserAdmin(int userpk )
+        public Boolean IsUserAdmin(int userpk )
         {
             Boolean ispresent = false;
             using (ArtEntitiesnew entty = new ArtEntitiesnew())

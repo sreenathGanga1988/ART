@@ -54,7 +54,7 @@ namespace ArtWebApp.Reports.Production.MSI
             String Reportheading = "Shipment Report for the month of " + cmb_Month.SelectedItem.ToString () + " ," + year+"  as of "+ DateTime.Now.ToString("dd/MM/yyyy");
 
             DateTime todate = DateTime.Parse(lbl_todate.Text.ToString());
-            System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.getShippedTargetandShorClosedofMonth(year,month,fromdate,todate);
+            System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.GetShippedTargetandShorClosedofMonth(year,month,fromdate,todate);
           
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();

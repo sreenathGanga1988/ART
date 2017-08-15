@@ -10,7 +10,7 @@ namespace ArtWebApp.DBTransaction.Productiontransaction
     {
 
 
-        public static System.Data.DataTable getShippedTargetandShorClosedofMonth(int year, int month ,DateTime fromdate ,DateTime todate)
+        public static System.Data.DataTable GetShippedTargetandShorClosedofMonth(int year, int month ,DateTime fromdate ,DateTime todate)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "GetCountryWiseBuyerWiseTargetandShipmentofMonth_SP";

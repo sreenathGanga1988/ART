@@ -119,12 +119,12 @@ namespace ArtWebApp.Merchandiser
                 tbl_Podetails.DataSource = null;
                 tbl_Podetails.DataBind();
                 upd_detail.Update();
-                updateStatus( msg);
+                UpdateStatus( msg);
                
                
             }else
             {
-                updateStatus( "Check Unit rate or Qty Exceed Allowed");
+                UpdateStatus( "Check Unit rate or Qty Exceed Allowed");
             }
            
         }
@@ -133,7 +133,7 @@ namespace ArtWebApp.Merchandiser
 
 
 
-        public void updateStatus(String msg)
+        public void UpdateStatus(String msg)
         {
             lbl_mssg.Text = msg;
             upd_label.Update();
@@ -168,7 +168,7 @@ namespace ArtWebApp.Merchandiser
             catch (Exception ex)
             {
                 WebMsgBox.Show("Select Country");
-                updateStatus("Select Currency");
+                UpdateStatus("Select Currency");
                 throw;
             }
             string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
@@ -422,7 +422,7 @@ namespace ArtWebApp.Merchandiser
             catch (Exception)
             {
                 
-               updateStatus( "Select Currency");
+               UpdateStatus( "Select Currency");
             }
             
             int baseuompk = int.Parse((currentRow.FindControl("lbl_uomPK") as Label).Text.ToString());

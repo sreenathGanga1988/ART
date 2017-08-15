@@ -16,7 +16,6 @@ namespace ArtWebApp.DataModels
     {
         public LocationMaster()
         {
-            this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
             this.DeliveryOrderMasters1 = new HashSet<DeliveryOrderMaster>();
             this.DeliveryOrderStockMasters = new HashSet<DeliveryOrderStockMaster>();
@@ -44,7 +43,9 @@ namespace ArtWebApp.DataModels
             this.DocMasters = new HashSet<DocMaster>();
             this.JobContractMasters = new HashSet<JobContractMaster>();
             this.SupplierDocumentMasters = new HashSet<SupplierDocumentMaster>();
+            this.UserMasters = new HashSet<UserMaster>();
             this.DeviceMasters = new HashSet<DeviceMaster>();
+            this.CutOrderMasters = new HashSet<CutOrderMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -65,7 +66,6 @@ namespace ArtWebApp.DataModels
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
     
-        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters1 { get; set; }
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters { get; set; }
@@ -93,6 +93,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DocMaster> DocMasters { get; set; }
         public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual ICollection<SupplierDocumentMaster> SupplierDocumentMasters { get; set; }
+        public virtual ICollection<UserMaster> UserMasters { get; set; }
         public virtual ICollection<DeviceMaster> DeviceMasters { get; set; }
+        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace ArtWebApp.Administrator
         {
             BLL.UserBLL.UserData usmsdta = new BLL.UserBLL.UserData();
             //usmsdta.FetchUserData();
-            if (usmsdta.isUserPresent(txt_username.Text.Trim()))
+            if (usmsdta.IsUserPresent(txt_username.Text.Trim()))
             {
                 Label3.Text = "User Already exist";
             }
@@ -58,7 +58,7 @@ namespace ArtWebApp.Administrator
 
 
               usmsdta.UserPROFILE_PK = int.Parse(drp_userlocation.SelectedValue.ToString());
-                usmsdta.insertUserdata();
+                usmsdta.InsertUserdata();
                 Label3.Text = "User "+ txt_username.Text.Trim() + " Added Sucessfully";
 
             }

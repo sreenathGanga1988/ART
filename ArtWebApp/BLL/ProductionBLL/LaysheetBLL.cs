@@ -206,7 +206,7 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
                     {
 
 
-                        DataTable dt = getLaysheetMasterDataFromArt(laysheetPK);
+                        DataTable dt = GetLaysheetMasterDataFromArt(laysheetPK);
 
                         ArtLaySheetMasterData lymstrdata = new DataModelAtcWorld.ArtLaySheetMasterData();
                         foreach (DataRow dr in dt.Rows)
@@ -326,7 +326,7 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
 
 
 
-        public static DataTable getLaysheetMasterDataFromArt(int laysheetpk)
+        public static DataTable GetLaysheetMasterDataFromArt(int laysheetpk)
         {
             DataTable dt = new DataTable();
 

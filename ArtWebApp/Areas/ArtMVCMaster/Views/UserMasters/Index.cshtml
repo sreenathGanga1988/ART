@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.UserMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.LastLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNum)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.LastPassWordDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActiveUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleteduser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLockedUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsVerified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ITVerified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowOutSideAction)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentMaster.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserProfileMaster.UserProfileName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.LastLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNum)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPassWordDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActiveUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleteduser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsLockedUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsVerified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ITVerified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllowOutSideAction)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentMaster.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfileMaster.UserProfileName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.User_PK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.User_PK }) |
+          
+        </td>
+    </tr>
+}
+
+</table>

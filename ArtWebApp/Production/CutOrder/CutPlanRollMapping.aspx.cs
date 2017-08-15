@@ -157,7 +157,7 @@ namespace ArtWebApp.Production.CutOrder
 
 
 
-        public void fillroll()
+        public void Fillroll()
         {
 
             int cutplanpk = int.Parse(drp_cutorder.SelectedValue.ToString());
@@ -232,7 +232,7 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
-            fillroll();
+            Fillroll();
             txt_alreadyAdded.Text = BLL.CutOrderBLL.CutPlan.getAlreadyAllocatedAyardage(int.Parse(drp_cutorder.SelectedValue.ToString())).ToString();
 
             String fabreq = BLL.CutOrderBLL.CutPlan.GetCutFabreq(int.Parse(drp_cutorder.SelectedValue.ToString())).ToString ();

@@ -16,6 +16,7 @@ namespace ArtWebApp.DataModels
     {
         public CutOrderMaster()
         {
+            this.CutOrderDetails = new HashSet<CutOrderDetail>();
             this.CutOrderDOes = new HashSet<CutOrderDO>();
             this.DORollDetails = new HashSet<DORollDetail>();
             this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
@@ -50,12 +51,13 @@ namespace ArtWebApp.DataModels
         public string IsDeleted { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
+        public virtual AtcMaster AtcMaster { get; set; }
+        public virtual ICollection<CutOrderDetail> CutOrderDetails { get; set; }
         public virtual ICollection<CutOrderDO> CutOrderDOes { get; set; }
         public virtual ExtraRequestReasonMaster ExtraRequestReasonMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
     }
 }

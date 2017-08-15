@@ -15,7 +15,7 @@ namespace ArtWebApp.DataModels
     public partial class DeviceMaster
     {
         public decimal NodeID { get; set; }
-        public Nullable<decimal> MacID { get; set; }
+        public string MacID { get; set; }
         public string DeviceName { get; set; }
         public string IPAddress { get; set; }
         public string Username { get; set; }

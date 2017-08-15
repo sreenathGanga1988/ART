@@ -21,7 +21,7 @@ namespace ArtWebApp.Production.Cutting
             }
             else
             {
-                fillsizedata();
+                Fillsizedata();
             }
         }
 
@@ -230,7 +230,7 @@ namespace ArtWebApp.Production.Cutting
             }
 
         }
-        public void fillColorcombo(int ourstyleid)
+        public void FillColorcombo(int ourstyleid)
         {
 
 
@@ -247,17 +247,17 @@ namespace ArtWebApp.Production.Cutting
             //DataTable   dt = createdatatable(int.Parse(drp_ourstyle.SelectedValue.ToString ().ToString()));
             //ViewState["sizedata"] = dt;
             //GenerateTable(dt);
-            fillsizedata();
+            Fillsizedata();
            
-            fillColorcombo(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
+            FillColorcombo(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
         }
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
             FillMarkernum(int.Parse(drp_cutorder.SelectedValue.ToString().ToString()));
-            GenerateCutorderTable(fillsizedata());
+            GenerateCutorderTable(Fillsizedata());
         }
 
-        public System.Data.DataTable createdatatable(int ourstyleid)
+        public System.Data.DataTable Createdatatable(int ourstyleid)
         {
             DataTable dt = new DataTable();
 
@@ -382,7 +382,7 @@ namespace ArtWebApp.Production.Cutting
         }
 
 
-        public DataTable fillsizedata()
+        public DataTable Fillsizedata()
         {
             DataTable dt = new DataTable();
             try
@@ -392,7 +392,7 @@ namespace ArtWebApp.Production.Cutting
                 if (ViewState["sizedata"] == null)
                 {
 
-                    dt = createdatatable(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
+                    dt = Createdatatable(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
                     ViewState["sizedata"] = dt;
                 }
                 else
@@ -1408,8 +1408,8 @@ namespace ArtWebApp.Production.Cutting
             tbl_RollDetails.DataSource = dt;
             tbl_RollDetails.DataBind();
             upd_grid.Update();
-            GenerateTable(fillsizedata(), plies);
-            GenerateCutorderTable(fillsizedata());
+            GenerateTable(Fillsizedata(), plies);
+            GenerateCutorderTable(Fillsizedata());
             Table1.Enabled = false;
         }
 

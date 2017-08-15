@@ -1277,6 +1277,26 @@
     <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Details.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Edit.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\DeviceTypes\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\DepartmentMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\DepartmentMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\DepartmentMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\DepartmentMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\DepartmentMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserProfileMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserProfileMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserProfileMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserProfileMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserProfileMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\UserMasters\Index.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Create.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Delete.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Details.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Edit.cshtml" />
+    <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1614,6 +1634,7 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CutTypeMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\DepartmentMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\GarmentCategoriesController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ItemGroupMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerDirectionMastersController.cs" />
@@ -1629,13 +1650,25 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWeightsController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\TemplateWidthsController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\Template_MasterController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\UserMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\UserProfileMastersController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
+    <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="DataModels\CutOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CutTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DepartmentMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\DeviceMaster.cs">
@@ -1656,6 +1689,7 @@
     <Compile Include="DataModels\MarkerMadeMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\PartialClasses.cs" />
     <Compile Include="DataModels\SupplierTypemaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -1904,13 +1938,7 @@
     <Compile Include="DataModels\CurrencyMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModels\CutOrderDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModels\CutOrderDO.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutOrderMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CutOrderSizeDetail.cs">

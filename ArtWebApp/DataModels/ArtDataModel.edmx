@@ -732,12 +732,19 @@
           <Property Name="DeliveryTerms_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeliveryTerm" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="Deapartment_PK" />
+          </Key>
+          <Property Name="Deapartment_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="DeviceMaster">
           <Key>
             <PropertyRef Name="NodeID" />
           </Key>
           <Property Name="NodeID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MacID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
           <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
@@ -2683,26 +2690,37 @@
             <PropertyRef Name="User_PK" />
           </Key>
           <Property Name="User_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserLoc_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="PassCode" Type="nvarchar" MaxLength="50" />
           <Property Name="IsAdmin" Type="nchar" MaxLength="10" />
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="UserProfile_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Department_PK" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="IsActive" Type="nchar" MaxLength="10" />
-          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="PssWrd" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastPassWordDate" Type="datetime" />
+          <Property Name="IsActiveUser" Type="bit" Nullable="false" />
+          <Property Name="IsDeleteduser" Type="bit" Nullable="false" />
+          <Property Name="IsLockedUser" Type="bit" Nullable="false" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="ITVerified" Type="bit" Nullable="false" />
+          <Property Name="AllowOutSideAction" Type="bit" Nullable="false" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserProfileMaster">
           <Key>
             <PropertyRef Name="UserProfile_Pk" />
           </Key>
           <Property Name="UserProfile_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserProfileName" Type="nvarchar" MaxLength="50" />
-          <Property Name="UserProfileCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserProfileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserProfileCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="nchar" MaxLength="10" />
+          <Property Name="isActiveProfile" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserProfileRights">
           <Key>
@@ -2917,6 +2935,18 @@
             </Principal>
             <Dependent Role="BuyerStyleMaster">
               <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderDetails_CutOrderDetails">
+          <End Role="CutOrderMaster" Type="Self.CutOrderMaster" Multiplicity="0..1" />
+          <End Role="CutOrderDetails" Type="Self.CutOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="CutOrderDetails">
+              <PropertyRef Name="CutID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5257,6 +5287,30 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserMaster_DepartmentMaster">
+          <End Role="DepartmentMaster" Type="Self.DepartmentMaster" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentMaster">
+              <PropertyRef Name="Deapartment_PK" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="Department_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMaster_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="UserLoc_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserMaster_UserProfileMaster">
           <End Role="UserProfileMaster" Type="Self.UserProfileMaster" Multiplicity="0..1" />
           <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
@@ -5496,6 +5550,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="DeliveryReceiptStockDetail" EntityType="Self.DeliveryReceiptStockDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryStockReceiptMaster" EntityType="Self.DeliveryStockReceiptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryTermMaster" EntityType="Self.DeliveryTermMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentMaster" EntityType="Self.DepartmentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceMaster" EntityType="Self.DeviceMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocDetails" EntityType="Self.DocDetails" Schema="dbo" store:Type="Tables" />
@@ -5685,6 +5740,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_BuyerStyleMaster_BuyerMaster" Association="Self.FK_BuyerStyleMaster_BuyerMaster">
             <End Role="BuyerMaster" EntitySet="BuyerMaster" />
             <End Role="BuyerStyleMaster" EntitySet="BuyerStyleMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderDetails_CutOrderDetails" Association="Self.FK_CutOrderDetails_CutOrderDetails">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMaster" />
+            <End Role="CutOrderDetails" EntitySet="CutOrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_CutOrderDO_CutOrderDO" Association="Self.FK_CutOrderDO_CutOrderDO">
             <End Role="CutOrderDO" EntitySet="CutOrderDO" />
@@ -6462,6 +6521,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="TransferToGstockMaster" EntitySet="TransferToGstockMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserMaster_DepartmentMaster" Association="Self.FK_UserMaster_DepartmentMaster">
+            <End Role="DepartmentMaster" EntitySet="DepartmentMaster" />
+            <End Role="UserMaster" EntitySet="UserMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMaster_LocationMaster" Association="Self.FK_UserMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="UserMaster" EntitySet="UserMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserMaster_UserProfileMaster" Association="Self.FK_UserMaster_UserProfileMaster">
             <End Role="UserProfileMaster" EntitySet="UserProfileMaster" />
             <End Role="UserMaster" EntitySet="UserMaster" />
@@ -6614,9 +6681,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="CountryMasters" EntityType="ArtModel.CountryMaster" />
           <EntitySet Name="CourierTables" EntityType="ArtModel.CourierTable" />
           <EntitySet Name="CurrencyMasters" EntityType="ArtModel.CurrencyMaster" />
-          <EntitySet Name="CutOrderDetails" EntityType="ArtModel.CutOrderDetail" />
           <EntitySet Name="CutOrderDOes" EntityType="ArtModel.CutOrderDO" />
-          <EntitySet Name="CutOrderMasters" EntityType="ArtModel.CutOrderMaster" />
           <EntitySet Name="CutOrderSizeDetails" EntityType="ArtModel.CutOrderSizeDetail" />
           <EntitySet Name="CutPlanASQDetails" EntityType="ArtModel.CutPlanASQDetail" />
           <EntitySet Name="CutPlanMarkerSizeDetails" EntityType="ArtModel.CutPlanMarkerSizeDetail" />
@@ -6720,7 +6785,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="TransferToGstockDetails" EntityType="ArtModel.TransferToGstockDetail" />
           <EntitySet Name="TransferToGstockMasters" EntityType="ArtModel.TransferToGstockMaster" />
           <EntitySet Name="UOMMasters" EntityType="ArtModel.UOMMaster" />
-          <EntitySet Name="UserMasters" EntityType="ArtModel.UserMaster" />
           <EntitySet Name="WrongInventoryDocuments" EntityType="ArtModel.WrongInventoryDocument" />
           <EntitySet Name="WrongPODetails" EntityType="ArtModel.WrongPODetail" />
           <EntitySet Name="WrongPOMasters" EntityType="ArtModel.WrongPOMaster" />
@@ -6732,17 +6796,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="UOMMaster" EntitySet="UOMMasters" />
             <End Role="AltUOMMaster" EntitySet="AltUOMMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK_ApprovalTable_UserMaster" Association="ArtModel.FK_ApprovalTable_UserMaster">
-            <End Role="UserMaster" EntitySet="UserMasters" />
-            <End Role="ApprovalTable" EntitySet="ApprovalTables" />
-          </AssociationSet>
           <AssociationSet Name="FK_AtcDetailApproval_AtcDetails" Association="ArtModel.FK_AtcDetailApproval_AtcDetails">
             <End Role="AtcDetail" EntitySet="AtcDetails" />
             <End Role="AtcDetailApproval" EntitySet="AtcDetailApprovals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutOrderMaster_AtcDetails" Association="ArtModel.FK_CutOrderMaster_AtcDetails">
-            <End Role="AtcDetail" EntitySet="AtcDetails" />
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_JobContractDetail_AtcDetails" Association="ArtModel.FK_JobContractDetail_AtcDetails">
             <End Role="AtcDetail" EntitySet="AtcDetails" />
@@ -6796,37 +6852,13 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="CurrencyMaster" EntitySet="CurrencyMasters" />
             <End Role="SupplierMaster" EntitySet="SupplierMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK_CutOrderSizeDetails_CutOrderDetails" Association="ArtModel.FK_CutOrderSizeDetails_CutOrderDetails">
-            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
-            <End Role="CutOrderSizeDetail" EntitySet="CutOrderSizeDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_CutOrderDO_CutOrderDO" Association="ArtModel.FK_CutOrderDO_CutOrderDO">
             <End Role="CutOrderDO" EntitySet="CutOrderDOes" />
             <End Role="CutOrderDO1" EntitySet="CutOrderDOes" />
           </AssociationSet>
-          <AssociationSet Name="FK_CutOrderDO_CutOrderMaster" Association="ArtModel.FK_CutOrderDO_CutOrderMaster">
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-            <End Role="CutOrderDO" EntitySet="CutOrderDOes" />
-          </AssociationSet>
           <AssociationSet Name="FK_CutOrderDO_DeliveryOrderDetails" Association="ArtModel.FK_CutOrderDO_DeliveryOrderDetails">
             <End Role="DeliveryOrderDetail" EntitySet="DeliveryOrderDetails" />
             <End Role="CutOrderDO" EntitySet="CutOrderDOes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutOrderMaster_ExtraRequestReasonMaster" Association="ArtModel.FK_CutOrderMaster_ExtraRequestReasonMaster">
-            <End Role="ExtraRequestReasonMaster" EntitySet="ExtraRequestReasonMasters" />
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutOrderMaster_LocationMaster" Association="ArtModel.FK_CutOrderMaster_LocationMaster">
-            <End Role="LocationMaster" EntitySet="LocationMasters" />
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutOrderMaster_SkuRawmaterialDetail" Association="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail">
-            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DORollDetails_CutOrderMaster" Association="ArtModel.FK_DORollDetails_CutOrderMaster">
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-            <End Role="DORollDetail" EntitySet="DORollDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_CutPlanASQDetails_SkuRawmaterialDetail" Association="ArtModel.FK_CutPlanASQDetails_SkuRawmaterialDetail">
             <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
@@ -7253,10 +7285,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="SubMenuMaster" EntitySet="SubMenuMasters" />
             <End Role="UserProfileRight" EntitySet="UserProfileRights" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserMaster_UserProfileMaster" Association="ArtModel.FK_UserMaster_UserProfileMaster">
-            <End Role="UserProfileMaster" EntitySet="UserProfileMasters" />
-            <End Role="UserMaster" EntitySet="UserMasters" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserProfileRights_UserProfileMaster_userProfile" Association="ArtModel.FK_UserProfileRights_UserProfileMaster_userProfile">
             <End Role="UserProfileMaster" EntitySet="UserProfileMasters" />
             <End Role="UserProfileRight" EntitySet="UserProfileRights" />
@@ -7370,10 +7398,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           </AssociationSet>
           <EntitySet Name="SampleFabricEntryMasters" EntityType="ArtModel.SampleFabricEntryMaster" />
           <EntitySet Name="LaySheetMasters" EntityType="ArtModel.LaySheetMaster" />
-          <AssociationSet Name="FK_LaySheetMaster_CutOrderDetails" Association="ArtModel.FK_LaySheetMaster_CutOrderDetails">
-            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
-            <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
-          </AssociationSet>
           <EntitySet Name="RollInventoryMasters" EntityType="ArtModel.RollInventoryMaster" />
           <EntitySet Name="AtcMasters" EntityType="ArtModel.AtcMaster" />
           <AssociationSet Name="FK_AtcMaster_CountryMaster" Association="ArtModel.FK_AtcMaster_CountryMaster">
@@ -7383,10 +7407,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_AtcRawMaterialMaster_tbl_AtcMaster" Association="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMasters" />
             <End Role="AtcRawMaterialMaster" EntitySet="AtcRawMaterialMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutOrderMaster_AtcMaster" Association="ArtModel.FK_CutOrderMaster_AtcMaster">
-            <End Role="AtcMaster" EntitySet="AtcMasters" />
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryOrderMaster_AtcMaster" Association="ArtModel.FK_DeliveryOrderMaster_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMasters" />
@@ -7419,14 +7439,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="YearMonthMasters" EntityType="ArtModel.YearMonthMaster" />
           <EntitySet Name="SamSupplierMasters" EntityType="ArtModel.SamSupplierMaster" />
           <EntitySet Name="LaySheetRollDetails" EntityType="ArtModel.LaySheetRollDetail" />
-          <AssociationSet Name="FK_LaySheetRolls_CutOrderDetails" Association="ArtModel.FK_LaySheetRolls_CutOrderDetails">
-            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
-            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LaySheetRolls_CutOrderMaster" Association="ArtModel.FK_LaySheetRolls_CutOrderMaster">
-            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
-            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
-          </AssociationSet>
           <EntitySet Name="LaySheetDetails" EntityType="ArtModel.LaySheetDetail" />
           <AssociationSet Name="FK_LaySheetDetails_LaySheetDetails" Association="ArtModel.FK_LaySheetDetails_LaySheetDetails">
             <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
@@ -7622,8 +7634,26 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LayShortageReqMaster" EntitySet="LayShortageReqMasters" />
             <End Role="LayShortageDetail" EntitySet="LayShortageDetails" />
           </AssociationSet>
-          <EntitySet Name="DeviceMasters" EntityType="ArtModel.DeviceMaster" />
           <EntitySet Name="DeviceTypes" EntityType="ArtModel.DeviceType" />
+          <EntitySet Name="DepartmentMasters" EntityType="ArtModel.DepartmentMaster" />
+          <EntitySet Name="UserMasters" EntityType="ArtModel.UserMaster" />
+          <AssociationSet Name="FK_ApprovalTable_UserMaster" Association="ArtModel.FK_ApprovalTable_UserMaster">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ApprovalTable" EntitySet="ApprovalTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMaster_DepartmentMaster" Association="ArtModel.FK_UserMaster_DepartmentMaster">
+            <End Role="DepartmentMaster" EntitySet="DepartmentMasters" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMaster_LocationMaster" Association="ArtModel.FK_UserMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMaster_UserProfileMaster" Association="ArtModel.FK_UserMaster_UserProfileMaster">
+            <End Role="UserProfileMaster" EntitySet="UserProfileMasters" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+          <EntitySet Name="DeviceMasters" EntityType="ArtModel.DeviceMaster" />
           <AssociationSet Name="FK_DeviceMaster_DeviceType" Association="ArtModel.FK_DeviceMaster_DeviceType">
             <End Role="DeviceType" EntitySet="DeviceTypes" />
             <End Role="DeviceMaster" EntitySet="DeviceMasters" />
@@ -7631,6 +7661,56 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_DeviceMaster_LocationMaster" Association="ArtModel.FK_DeviceMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMasters" />
             <End Role="DeviceMaster" EntitySet="DeviceMasters" />
+          </AssociationSet>
+          <EntitySet Name="CutOrderDetails" EntityType="ArtModel.CutOrderDetail" />
+          <EntitySet Name="CutOrderMasters" EntityType="ArtModel.CutOrderMaster" />
+          <AssociationSet Name="FK_CutOrderMaster_AtcDetails" Association="ArtModel.FK_CutOrderMaster_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderMaster_AtcMaster" Association="ArtModel.FK_CutOrderMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderDetails_CutOrderDetails" Association="ArtModel.FK_CutOrderDetails_CutOrderDetails">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderSizeDetails_CutOrderDetails" Association="ArtModel.FK_CutOrderSizeDetails_CutOrderDetails">
+            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
+            <End Role="CutOrderSizeDetail" EntitySet="CutOrderSizeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_CutOrderDetails" Association="ArtModel.FK_LaySheetMaster_CutOrderDetails">
+            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetRolls_CutOrderDetails" Association="ArtModel.FK_LaySheetRolls_CutOrderDetails">
+            <End Role="CutOrderDetail" EntitySet="CutOrderDetails" />
+            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderDO_CutOrderMaster" Association="ArtModel.FK_CutOrderDO_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="CutOrderDO" EntitySet="CutOrderDOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderMaster_ExtraRequestReasonMaster" Association="ArtModel.FK_CutOrderMaster_ExtraRequestReasonMaster">
+            <End Role="ExtraRequestReasonMaster" EntitySet="ExtraRequestReasonMasters" />
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderMaster_LocationMaster" Association="ArtModel.FK_CutOrderMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CutOrderMaster_SkuRawmaterialDetail" Association="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail">
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DORollDetails_CutOrderMaster" Association="ArtModel.FK_DORollDetails_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="DORollDetail" EntitySet="DORollDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetRolls_CutOrderMaster" Association="ArtModel.FK_LaySheetRolls_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
@@ -8112,13 +8192,13 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AtcDetailApprovals" Relationship="ArtModel.FK_AtcDetailApproval_AtcDetails" FromRole="AtcDetail" ToRole="AtcDetailApproval" />
-          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="JobContractDetails" Relationship="ArtModel.FK_JobContractDetail_AtcDetails" FromRole="AtcDetail" ToRole="JobContractDetail" />
           <NavigationProperty Name="StyleCostingMasters" Relationship="ArtModel.FK_StyleCostingMaster_AtcDetails" FromRole="AtcDetail" ToRole="StyleCostingMaster" />
           <NavigationProperty Name="PackingListDetails" Relationship="ArtModel.FK_PackingListDetails_AtcDetails" FromRole="AtcDetail" ToRole="PackingListDetail" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutPlanMaster" />
           <NavigationProperty Name="JobContractOptionalDetails" Relationship="ArtModel.FK_JobContractOptionalDetail_AtcDetails" FromRole="AtcDetail" ToRole="JobContractOptionalDetail" />
           <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="AtcDetail" ToRole="POPackDetail" />
+          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutOrderMaster" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -8292,22 +8372,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SupplierMasters" Relationship="ArtModel.FK_SupplierMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="SupplierMaster" />
           <NavigationProperty Name="ServicePOMasters" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="CurrencyMaster" ToRole="ServicePOMaster" />
         </EntityType>
-        <EntityType Name="CutOrderDetail">
-          <Key>
-            <PropertyRef Name="CutOrderDet_PK" />
-          </Key>
-          <Property Name="CutOrderDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="MarkerNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfPc" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="MarkerLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LayLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="CutOrderSizeDetails" Relationship="ArtModel.FK_CutOrderSizeDetails_CutOrderDetails" FromRole="CutOrderDetail" ToRole="CutOrderSizeDetail" />
-          <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="CutOrderDetail" ToRole="LaySheetMaster" />
-          <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="CutOrderDetail" ToRole="LaySheetRollDetail" />
-        </EntityType>
         <EntityType Name="CutOrderDO">
           <Key>
             <PropertyRef Name="CutOrderDO_PK" />
@@ -8319,48 +8383,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Skudet_PK" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="CutOrderDO1" Relationship="ArtModel.FK_CutOrderDO_CutOrderDO" FromRole="CutOrderDO" ToRole="CutOrderDO1" />
           <NavigationProperty Name="CutOrderDO2" Relationship="ArtModel.FK_CutOrderDO_CutOrderDO" FromRole="CutOrderDO1" ToRole="CutOrderDO" />
-          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_CutOrderDO_CutOrderMaster" FromRole="CutOrderDO" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderDetail" Relationship="ArtModel.FK_CutOrderDO_DeliveryOrderDetails" FromRole="CutOrderDO" ToRole="DeliveryOrderDetail" />
-        </EntityType>
-        <EntityType Name="CutOrderMaster">
-          <Key>
-            <PropertyRef Name="CutID" />
-          </Key>
-          <Property Name="CutID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cut_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CutPlan_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="CutWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Shrinkage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FabQty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="CutOrderQty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ConsumptionQty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="IsCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="BalanceQty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="FabNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DelivedQty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="FromLoc" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToLoc" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CutOrderDate" Type="DateTime" Precision="3" />
-          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CutOrderType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SkuDet_pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ExtraReason_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PaternName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MarkerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CutPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="CutOrderMaster" ToRole="AtcDetail" />
-          <NavigationProperty Name="CutOrderDOes" Relationship="ArtModel.FK_CutOrderDO_CutOrderMaster" FromRole="CutOrderMaster" ToRole="CutOrderDO" />
-          <NavigationProperty Name="ExtraRequestReasonMaster" Relationship="ArtModel.FK_CutOrderMaster_ExtraRequestReasonMaster" FromRole="CutOrderMaster" ToRole="ExtraRequestReasonMaster" />
-          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_CutOrderMaster_LocationMaster" FromRole="CutOrderMaster" ToRole="LocationMaster" />
-          <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="CutOrderMaster" ToRole="SkuRawmaterialDetail" />
-          <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="CutOrderMaster" ToRole="DORollDetail" />
-          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="CutOrderMaster" ToRole="AtcMaster" />
-          <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LaySheetRollDetail" />
-          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_CutOrderDO_CutOrderMaster" FromRole="CutOrderDO" ToRole="CutOrderMaster" />
         </EntityType>
         <EntityType Name="CutOrderSizeDetail">
           <Key>
@@ -8642,11 +8666,11 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="DO_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DODet_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="DORollDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderDetail" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderDetails" FromRole="DORollDetail" ToRole="DeliveryOrderDetail" />
           <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DORollDetail" ToRole="DeliveryOrderMaster" />
           <Property Name="IsRollReturned" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_DORollDetails_FabricRollmaster" FromRole="DORollDetail" ToRole="FabricRollmaster" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="DORollDetail" ToRole="CutOrderMaster" />
         </EntityType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -9030,7 +9054,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="DeliveryOrderMasters1" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster1" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="DeliveryOrderStockMasters" Relationship="ArtModel.FK_DeliveryOrderStockMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryOrderStockMaster" />
@@ -9058,7 +9081,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="DocMasters" Relationship="ArtModel.FK_DocMaster_LocationMaster" FromRole="LocationMaster" ToRole="DocMaster" />
           <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_JobContractMaster" FromRole="LocationMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="SupplierDocumentMasters" Relationship="ArtModel.FK_SupplierDocumentMaster_LocationMaster" FromRole="LocationMaster" ToRole="SupplierDocumentMaster" />
+          <NavigationProperty Name="UserMasters" Relationship="ArtModel.FK_UserMaster_LocationMaster" FromRole="LocationMaster" ToRole="UserMaster" />
           <NavigationProperty Name="DeviceMasters" Relationship="ArtModel.FK_DeviceMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeviceMaster" />
+          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="CutOrderMaster" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -9555,7 +9580,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Dependency" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="CutPlanASQDetails" Relationship="ArtModel.FK_CutPlanASQDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutPlanASQDetail" />
           <NavigationProperty Name="ExtraBOMRequestDetails" Relationship="ArtModel.FK_ExtraBOMRequestDetail_SkuRawmaterialDetail1" FromRole="SkuRawmaterialDetail" ToRole="ExtraBOMRequestDetail" />
           <NavigationProperty Name="InventoryMasters" Relationship="ArtModel.FK_InventoryMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="InventoryMaster" />
@@ -9565,6 +9589,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SkuRawMaterialMaster" Relationship="ArtModel.FK_SkuRawmaterialDetail_SkuRawMaterialMaster" FromRole="SkuRawmaterialDetail" ToRole="SkuRawMaterialMaster" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutPlanMaster" />
           <NavigationProperty Name="ProcurmentPlanDetails" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ProcurmentPlanDetail" />
+          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutOrderMaster" />
         </EntityType>
         <EntityType Name="StockGoodsInTransit">
           <Key>
@@ -10009,24 +10034,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StocPOForODOOs" Relationship="ArtModel.FK_StocPOForODOO_UOMMaster" FromRole="UOMMaster" ToRole="StocPOForODOO" />
           <NavigationProperty Name="InventoryMasters" Relationship="ArtModel.FK_InventoryMaster_UOMMaster" FromRole="UOMMaster" ToRole="InventoryMaster" />
         </EntityType>
-        <EntityType Name="UserMaster">
-          <Key>
-            <PropertyRef Name="User_PK" />
-          </Key>
-          <Property Name="User_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserLoc_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PassCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsAdmin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="LastLogin" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ApprovalTables" Relationship="ArtModel.FK_ApprovalTable_UserMaster" FromRole="UserMaster" ToRole="ApprovalTable" />
-          <Property Name="UserProfile_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="UserProfileMaster" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserMaster" ToRole="UserProfileMaster" />
-          <Property Name="Department_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="IsActive" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="WrongInventoryDocument">
           <Key>
             <PropertyRef Name="WrongInvtDoc_PK" />
@@ -10102,18 +10109,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ApprovalTable_UserMaster">
-          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.ApprovalTable" Role="ApprovalTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserMaster">
-              <PropertyRef Name="User_PK" />
-            </Principal>
-            <Dependent Role="ApprovalTable">
-              <PropertyRef Name="User_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AtcDetailApproval_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
           <End Type="ArtModel.AtcDetailApproval" Role="AtcDetailApproval" Multiplicity="*" />
@@ -10122,18 +10117,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               <PropertyRef Name="OurStyleID" />
             </Principal>
             <Dependent Role="AtcDetailApproval">
-              <PropertyRef Name="OurStyleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutOrderMaster_AtcDetails">
-          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtcDetail">
-              <PropertyRef Name="OurStyleID" />
-            </Principal>
-            <Dependent Role="CutOrderMaster">
               <PropertyRef Name="OurStyleID" />
             </Dependent>
           </ReferentialConstraint>
@@ -10294,18 +10277,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CutOrderSizeDetails_CutOrderDetails">
-          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderSizeDetail" Role="CutOrderSizeDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderDetail">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Principal>
-            <Dependent Role="CutOrderSizeDetail">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CutOrderDO_CutOrderDO">
           <End Type="ArtModel.CutOrderDO" Role="CutOrderDO" Multiplicity="1" />
           <End Type="ArtModel.CutOrderDO" Role="CutOrderDO1" Multiplicity="0..1" />
@@ -10318,18 +10289,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CutOrderDO_CutOrderMaster">
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderDO" Role="CutOrderDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderMaster">
-              <PropertyRef Name="CutID" />
-            </Principal>
-            <Dependent Role="CutOrderDO">
-              <PropertyRef Name="CutID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CutOrderDO_DeliveryOrderDetails">
           <End Type="ArtModel.DeliveryOrderDetail" Role="DeliveryOrderDetail" Multiplicity="0..1" />
           <End Type="ArtModel.CutOrderDO" Role="CutOrderDO" Multiplicity="*" />
@@ -10339,54 +10298,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="CutOrderDO">
               <PropertyRef Name="DoDet_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutOrderMaster_ExtraRequestReasonMaster">
-          <End Type="ArtModel.ExtraRequestReasonMaster" Role="ExtraRequestReasonMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ExtraRequestReasonMaster">
-              <PropertyRef Name="ExtraReason_Pk" />
-            </Principal>
-            <Dependent Role="CutOrderMaster">
-              <PropertyRef Name="ExtraReason_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutOrderMaster_LocationMaster">
-          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="CutOrderMaster">
-              <PropertyRef Name="ToLoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutOrderMaster_SkuRawmaterialDetail">
-          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkuRawmaterialDetail">
-              <PropertyRef Name="SkuDet_PK" />
-            </Principal>
-            <Dependent Role="CutOrderMaster">
-              <PropertyRef Name="SkuDet_pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DORollDetails_CutOrderMaster">
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DORollDetail" Role="DORollDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderMaster">
-              <PropertyRef Name="CutID" />
-            </Principal>
-            <Dependent Role="DORollDetail">
-              <PropertyRef Name="CutID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11686,12 +11597,13 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <PropertyRef Name="UserProfile_Pk" />
           </Key>
           <Property Name="UserProfile_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserProfileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserProfileCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserProfileCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="UserMasters" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserProfileMaster" ToRole="UserMaster" />
           <NavigationProperty Name="UserProfileRights" Relationship="ArtModel.FK_UserProfileRights_UserProfileMaster_userProfile" FromRole="UserProfileMaster" ToRole="UserProfileRight" />
+          <Property Name="isActiveProfile" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserMasters" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserProfileMaster" ToRole="UserMaster" />
         </EntityType>
         <EntityType Name="UserProfileRight">
           <Key>
@@ -11712,18 +11624,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="UserProfileRight">
               <PropertyRef Name="Menu_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserMaster_UserProfileMaster">
-          <End Type="ArtModel.UserProfileMaster" Role="UserProfileMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfileMaster">
-              <PropertyRef Name="UserProfile_Pk" />
-            </Principal>
-            <Dependent Role="UserMaster">
-              <PropertyRef Name="UserProfile_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12403,26 +12303,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="OustyleID" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="LaySheetNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LayCutNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
           <NavigationProperty Name="LaySheetDetails" Relationship="ArtModel.FK_LaySheetDetails_LaySheetDetails" FromRole="LaySheetMaster" ToRole="LaySheetDetail" />
           <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsDetailUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
         </EntityType>
-        <Association Name="FK_LaySheetMaster_CutOrderDetails">
-          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderDetail">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Principal>
-            <Dependent Role="LaySheetMaster">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="RollInventoryMaster">
           <Key>
             <PropertyRef Name="RollInventory_PK" />
@@ -12463,7 +12351,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ProductionCountryID" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="CountryMaster" Relationship="ArtModel.FK_AtcMaster_CountryMaster" FromRole="AtcMaster" ToRole="CountryMaster" />
           <NavigationProperty Name="AtcRawMaterialMasters" Relationship="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" FromRole="AtcMaster" ToRole="AtcRawMaterialMaster" />
-          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="JobContractOptionalMasters" Relationship="ArtModel.FK_JobContractOptionalMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractOptionalMaster" />
           <NavigationProperty Name="PackingListMasters" Relationship="ArtModel.FK_PackingListMaster_AtcMaster" FromRole="AtcMaster" ToRole="PackingListMaster" />
@@ -12473,6 +12360,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SkuRawMaterialMasters" Relationship="ArtModel.FK_SkuMaster_tbl_SkuMaster_tbl" FromRole="AtcMaster" ToRole="SkuRawMaterialMaster" />
           <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="BuyerMaster" Relationship="ArtModel.FK_AtcMaster_BuyerMaster" FromRole="AtcMaster" ToRole="BuyerMaster" />
+          <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -12495,18 +12383,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="AtcRawMaterialMaster">
               <PropertyRef Name="Atc_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutOrderMaster_AtcMaster">
-          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtcMaster">
-              <PropertyRef Name="AtcId" />
-            </Principal>
-            <Dependent Role="CutOrderMaster">
-              <PropertyRef Name="AtcID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12634,36 +12510,12 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="LaysheetRollmaster_Pk" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Yardage" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="BalanceYardage" Type="Decimal" Precision="18" Scale="3" />
-          <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="LaySheetRollDetail" ToRole="CutOrderDetail" />
-          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="LaySheetRollDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_LaySheetRolls_FabricRolls" FromRole="LaySheetRollDetail" ToRole="FabricRollmaster" />
           <NavigationProperty Name="LaySheetRollMaster" Relationship="ArtModel.FK_LaySheetRollDetails_LaySheetRollMaster" FromRole="LaySheetRollDetail" ToRole="LaySheetRollMaster" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="LaySheetRollDetail" ToRole="CutOrderDetail" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="LaySheetRollDetail" ToRole="CutOrderMaster" />
         </EntityType>
-        <Association Name="FK_LaySheetRolls_CutOrderDetails">
-          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
-          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderDetail">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Principal>
-            <Dependent Role="LaySheetRollDetail">
-              <PropertyRef Name="CutOrderDet_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LaySheetRolls_CutOrderMaster">
-          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutOrderMaster">
-              <PropertyRef Name="CutID" />
-            </Principal>
-            <Dependent Role="LaySheetRollDetail">
-              <PropertyRef Name="Cutid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="LaySheetDetail">
           <Key>
             <PropertyRef Name="LaySheetDet_PK" />
@@ -13732,12 +13584,107 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="DeviceTypeID" />
+          </Key>
+          <Property Name="DeviceTypeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DeviceMasters" Relationship="ArtModel.FK_DeviceMaster_DeviceType" FromRole="DeviceType" ToRole="DeviceMaster" />
+        </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="Deapartment_PK" />
+          </Key>
+          <Property Name="Deapartment_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserMasters" Relationship="ArtModel.FK_UserMaster_DepartmentMaster" FromRole="DepartmentMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="User_PK" />
+          </Key>
+          <Property Name="User_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserLoc_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PassCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="UserProfile_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Department_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PssWrd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastPassWordDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActiveUser" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleteduser" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedUser" Type="Boolean" Nullable="false" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="ITVerified" Type="Boolean" Nullable="false" />
+          <Property Name="AllowOutSideAction" Type="Boolean" Nullable="false" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ApprovalTables" Relationship="ArtModel.FK_ApprovalTable_UserMaster" FromRole="UserMaster" ToRole="ApprovalTable" />
+          <NavigationProperty Name="DepartmentMaster" Relationship="ArtModel.FK_UserMaster_DepartmentMaster" FromRole="UserMaster" ToRole="DepartmentMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_UserMaster_LocationMaster" FromRole="UserMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="UserProfileMaster" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserMaster" ToRole="UserProfileMaster" />
+        </EntityType>
+        <Association Name="FK_ApprovalTable_UserMaster">
+          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ApprovalTable" Role="ApprovalTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_PK" />
+            </Principal>
+            <Dependent Role="ApprovalTable">
+              <PropertyRef Name="User_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMaster_DepartmentMaster">
+          <End Type="ArtModel.DepartmentMaster" Role="DepartmentMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentMaster">
+              <PropertyRef Name="Deapartment_PK" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="Department_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="UserLoc_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMaster_UserProfileMaster">
+          <End Type="ArtModel.UserProfileMaster" Role="UserProfileMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfileMaster">
+              <PropertyRef Name="UserProfile_Pk" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="UserProfile_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="DeviceMaster">
           <Key>
             <PropertyRef Name="NodeID" />
           </Key>
           <Property Name="NodeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MacID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -13751,15 +13698,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="OSRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DeviceType1" Relationship="ArtModel.FK_DeviceMaster_DeviceType" FromRole="DeviceMaster" ToRole="DeviceType" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DeviceMaster_LocationMaster" FromRole="DeviceMaster" ToRole="LocationMaster" />
-        </EntityType>
-        <EntityType Name="DeviceType">
-          <Key>
-            <PropertyRef Name="DeviceTypeID" />
-          </Key>
-          <Property Name="DeviceTypeID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="DeviceMasters" Relationship="ArtModel.FK_DeviceMaster_DeviceType" FromRole="DeviceType" ToRole="DeviceMaster" />
         </EntityType>
         <Association Name="FK_DeviceMaster_DeviceType">
           <End Type="ArtModel.DeviceType" Role="DeviceType" Multiplicity="0..1" />
@@ -13782,6 +13720,208 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="DeviceMaster">
               <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CutOrderDetail">
+          <Key>
+            <PropertyRef Name="CutOrderDet_PK" />
+          </Key>
+          <Property Name="CutOrderDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MarkerNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoOfPc" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MarkerLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LayLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_CutOrderDetails_CutOrderDetails" FromRole="CutOrderDetail" ToRole="CutOrderMaster" />
+          <NavigationProperty Name="CutOrderSizeDetails" Relationship="ArtModel.FK_CutOrderSizeDetails_CutOrderDetails" FromRole="CutOrderDetail" ToRole="CutOrderSizeDetail" />
+          <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="CutOrderDetail" ToRole="LaySheetMaster" />
+          <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="CutOrderDetail" ToRole="LaySheetRollDetail" />
+        </EntityType>
+        <EntityType Name="CutOrderMaster">
+          <Key>
+            <PropertyRef Name="CutID" />
+          </Key>
+          <Property Name="CutID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cut_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CutPlan_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="CutWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shrinkage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FabQty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="CutOrderQty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConsumptionQty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="IsCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="BalanceQty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="FabNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DelivedQty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="FromLoc" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToLoc" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutOrderDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CutOrderType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SkuDet_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExtraReason_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaternName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MarkerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CutPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="CutOrderMaster" ToRole="AtcDetail" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="CutOrderMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="CutOrderDetails" Relationship="ArtModel.FK_CutOrderDetails_CutOrderDetails" FromRole="CutOrderMaster" ToRole="CutOrderDetail" />
+          <NavigationProperty Name="CutOrderDOes" Relationship="ArtModel.FK_CutOrderDO_CutOrderMaster" FromRole="CutOrderMaster" ToRole="CutOrderDO" />
+          <NavigationProperty Name="ExtraRequestReasonMaster" Relationship="ArtModel.FK_CutOrderMaster_ExtraRequestReasonMaster" FromRole="CutOrderMaster" ToRole="ExtraRequestReasonMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_CutOrderMaster_LocationMaster" FromRole="CutOrderMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="CutOrderMaster" ToRole="SkuRawmaterialDetail" />
+          <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="CutOrderMaster" ToRole="DORollDetail" />
+          <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LaySheetRollDetail" />
+        </EntityType>
+        <Association Name="FK_CutOrderMaster_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="CutOrderMaster">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="CutOrderMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderDetails_CutOrderDetails">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="CutOrderDetail">
+              <PropertyRef Name="CutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderSizeDetails_CutOrderDetails">
+          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderSizeDetail" Role="CutOrderSizeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderDetail">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Principal>
+            <Dependent Role="CutOrderSizeDetail">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetMaster_CutOrderDetails">
+          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderDetail">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetRolls_CutOrderDetails">
+          <End Type="ArtModel.CutOrderDetail" Role="CutOrderDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderDetail">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Principal>
+            <Dependent Role="LaySheetRollDetail">
+              <PropertyRef Name="CutOrderDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderDO_CutOrderMaster">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderDO" Role="CutOrderDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="CutOrderDO">
+              <PropertyRef Name="CutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderMaster_ExtraRequestReasonMaster">
+          <End Type="ArtModel.ExtraRequestReasonMaster" Role="ExtraRequestReasonMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExtraRequestReasonMaster">
+              <PropertyRef Name="ExtraReason_Pk" />
+            </Principal>
+            <Dependent Role="CutOrderMaster">
+              <PropertyRef Name="ExtraReason_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="CutOrderMaster">
+              <PropertyRef Name="ToLoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CutOrderMaster_SkuRawmaterialDetail">
+          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawmaterialDetail">
+              <PropertyRef Name="SkuDet_PK" />
+            </Principal>
+            <Dependent Role="CutOrderMaster">
+              <PropertyRef Name="SkuDet_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DORollDetails_CutOrderMaster">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DORollDetail" Role="DORollDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="DORollDetail">
+              <PropertyRef Name="CutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetRolls_CutOrderMaster">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="LaySheetRollDetail">
+              <PropertyRef Name="Cutid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14477,20 +14617,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CutOrderDetails">
-            <EntityTypeMapping TypeName="ArtModel.CutOrderDetail">
-              <MappingFragment StoreEntitySet="CutOrderDetails">
-                <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
-                <ScalarProperty Name="LayLength" ColumnName="LayLength" />
-                <ScalarProperty Name="MarkerLength" ColumnName="MarkerLength" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="NoOfPc" ColumnName="NoOfPc" />
-                <ScalarProperty Name="MarkerNo" ColumnName="MarkerNo" />
-                <ScalarProperty Name="CutID" ColumnName="CutID" />
-                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CutOrderDOes">
             <EntityTypeMapping TypeName="ArtModel.CutOrderDO">
               <MappingFragment StoreEntitySet="CutOrderDO">
@@ -14499,39 +14625,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="CutID" ColumnName="CutID" />
                 <ScalarProperty Name="DoDet_Pk" ColumnName="DoDet_Pk" />
                 <ScalarProperty Name="CutOrderDO_PK" ColumnName="CutOrderDO_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CutOrderMasters">
-            <EntityTypeMapping TypeName="ArtModel.CutOrderMaster">
-              <MappingFragment StoreEntitySet="CutOrderMaster">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CutPlan" ColumnName="CutPlan" />
-                <ScalarProperty Name="MarkerType" ColumnName="MarkerType" />
-                <ScalarProperty Name="PaternName" ColumnName="PaternName" />
-                <ScalarProperty Name="ExtraReason_Pk" ColumnName="ExtraReason_Pk" />
-                <ScalarProperty Name="SkuDet_pk" ColumnName="SkuDet_pk" />
-                <ScalarProperty Name="CutOrderType" ColumnName="CutOrderType" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="CutOrderDate" ColumnName="CutOrderDate" />
-                <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
-                <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
-                <ScalarProperty Name="DelivedQty" ColumnName="DelivedQty" />
-                <ScalarProperty Name="FabNO" ColumnName="FabNO" />
-                <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
-                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
-                <ScalarProperty Name="ConsumptionQty" ColumnName="ConsumptionQty" />
-                <ScalarProperty Name="CutOrderQty" ColumnName="CutOrderQty" />
-                <ScalarProperty Name="FabQty" ColumnName="FabQty" />
-                <ScalarProperty Name="Shrinkage" ColumnName="Shrinkage" />
-                <ScalarProperty Name="CutWidth" ColumnName="CutWidth" />
-                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
-                <ScalarProperty Name="CutPlan_Pk" ColumnName="CutPlan_Pk" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
-                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
-                <ScalarProperty Name="Cut_NO" ColumnName="Cut_NO" />
-                <ScalarProperty Name="CutID" ColumnName="CutID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -16021,23 +16114,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserMasters">
-            <EntityTypeMapping TypeName="ArtModel.UserMaster">
-              <MappingFragment StoreEntitySet="UserMaster">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Department_PK" ColumnName="Department_PK" />
-                <ScalarProperty Name="UserProfile_Pk" ColumnName="UserProfile_Pk" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="PassCode" ColumnName="PassCode" />
-                <ScalarProperty Name="UserLoc_PK" ColumnName="UserLoc_PK" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WrongInventoryDocuments">
             <EntityTypeMapping TypeName="ArtModel.WrongInventoryDocument">
               <MappingFragment StoreEntitySet="WrongInventoryDocument">
@@ -16130,6 +16206,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="UserProfileMasters">
             <EntityTypeMapping TypeName="ArtModel.UserProfileMaster">
               <MappingFragment StoreEntitySet="UserProfileMaster">
+                <ScalarProperty Name="isActiveProfile" ColumnName="isActiveProfile" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="UserProfileCode" ColumnName="UserProfileCode" />
@@ -17195,6 +17272,50 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DeviceTypes">
+            <EntityTypeMapping TypeName="ArtModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DeviceTypeName" ColumnName="DeviceTypeName" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentMasters">
+            <EntityTypeMapping TypeName="ArtModel.DepartmentMaster">
+              <MappingFragment StoreEntitySet="DepartmentMaster">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Deapartment_PK" ColumnName="Deapartment_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="ArtModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AllowOutSideAction" ColumnName="AllowOutSideAction" />
+                <ScalarProperty Name="ITVerified" ColumnName="ITVerified" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="IsLockedUser" ColumnName="IsLockedUser" />
+                <ScalarProperty Name="IsDeleteduser" ColumnName="IsDeleteduser" />
+                <ScalarProperty Name="IsActiveUser" ColumnName="IsActiveUser" />
+                <ScalarProperty Name="LastPassWordDate" ColumnName="LastPassWordDate" />
+                <ScalarProperty Name="PssWrd" ColumnName="PssWrd" />
+                <ScalarProperty Name="MobileNum" ColumnName="MobileNum" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Department_PK" ColumnName="Department_PK" />
+                <ScalarProperty Name="UserProfile_Pk" ColumnName="UserProfile_Pk" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="PassCode" ColumnName="PassCode" />
+                <ScalarProperty Name="UserLoc_PK" ColumnName="UserLoc_PK" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DeviceMasters">
             <EntityTypeMapping TypeName="ArtModel.DeviceMaster">
               <MappingFragment StoreEntitySet="DeviceMaster">
@@ -17214,12 +17335,50 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeviceTypes">
-            <EntityTypeMapping TypeName="ArtModel.DeviceType">
-              <MappingFragment StoreEntitySet="DeviceType">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DeviceTypeName" ColumnName="DeviceTypeName" />
-                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+          <EntitySetMapping Name="CutOrderDetails">
+            <EntityTypeMapping TypeName="ArtModel.CutOrderDetail">
+              <MappingFragment StoreEntitySet="CutOrderDetails">
+                <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
+                <ScalarProperty Name="LayLength" ColumnName="LayLength" />
+                <ScalarProperty Name="MarkerLength" ColumnName="MarkerLength" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="NoOfPc" ColumnName="NoOfPc" />
+                <ScalarProperty Name="MarkerNo" ColumnName="MarkerNo" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
+                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutOrderMasters">
+            <EntityTypeMapping TypeName="ArtModel.CutOrderMaster">
+              <MappingFragment StoreEntitySet="CutOrderMaster">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CutPlan" ColumnName="CutPlan" />
+                <ScalarProperty Name="MarkerType" ColumnName="MarkerType" />
+                <ScalarProperty Name="PaternName" ColumnName="PaternName" />
+                <ScalarProperty Name="ExtraReason_Pk" ColumnName="ExtraReason_Pk" />
+                <ScalarProperty Name="SkuDet_pk" ColumnName="SkuDet_pk" />
+                <ScalarProperty Name="CutOrderType" ColumnName="CutOrderType" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="CutOrderDate" ColumnName="CutOrderDate" />
+                <ScalarProperty Name="ToLoc" ColumnName="ToLoc" />
+                <ScalarProperty Name="FromLoc" ColumnName="FromLoc" />
+                <ScalarProperty Name="DelivedQty" ColumnName="DelivedQty" />
+                <ScalarProperty Name="FabNO" ColumnName="FabNO" />
+                <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="ConsumptionQty" ColumnName="ConsumptionQty" />
+                <ScalarProperty Name="CutOrderQty" ColumnName="CutOrderQty" />
+                <ScalarProperty Name="FabQty" ColumnName="FabQty" />
+                <ScalarProperty Name="Shrinkage" ColumnName="Shrinkage" />
+                <ScalarProperty Name="CutWidth" ColumnName="CutWidth" />
+                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
+                <ScalarProperty Name="CutPlan_Pk" ColumnName="CutPlan_Pk" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="Cut_NO" ColumnName="Cut_NO" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

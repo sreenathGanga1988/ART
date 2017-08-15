@@ -16,7 +16,6 @@ namespace ArtWebApp.DataModels
     {
         public SkuRawmaterialDetail()
         {
-            this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
             this.ExtraBOMRequestDetails = new HashSet<ExtraBOMRequestDetail>();
             this.InventoryMasters = new HashSet<InventoryMaster>();
@@ -25,6 +24,7 @@ namespace ArtWebApp.DataModels
             this.TransferToGstockDetails = new HashSet<TransferToGstockDetail>();
             this.CutPlanMasters = new HashSet<CutPlanMaster>();
             this.ProcurmentPlanDetails = new HashSet<ProcurmentPlanDetail>();
+            this.CutOrderMasters = new HashSet<CutOrderMaster>();
         }
     
         public decimal SkuDet_PK { get; set; }
@@ -42,7 +42,6 @@ namespace ArtWebApp.DataModels
         public string ColorName { get; set; }
         public string SizeName { get; set; }
     
-        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual ICollection<ExtraBOMRequestDetail> ExtraBOMRequestDetails { get; set; }
         public virtual ICollection<InventoryMaster> InventoryMasters { get; set; }
@@ -52,5 +51,6 @@ namespace ArtWebApp.DataModels
         public virtual SkuRawMaterialMaster SkuRawMaterialMaster { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
         public virtual ICollection<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
+        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
     }
 }

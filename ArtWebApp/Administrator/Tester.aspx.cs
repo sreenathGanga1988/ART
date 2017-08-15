@@ -23,12 +23,12 @@ namespace ArtWebApp.Administrator
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            doactionSizetransfer();
+            DoactionSizetransfer();
         }
 
 
 
-        public  void doactionSizetransfer()
+        public  void DoactionSizetransfer()
         {
 
             DataTable Sizeonart = GetArtData();

@@ -17,7 +17,6 @@ namespace ArtWebApp.DataModels
         public AtcMaster()
         {
             this.AtcRawMaterialMasters = new HashSet<AtcRawMaterialMaster>();
-            this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
             this.JobContractOptionalMasters = new HashSet<JobContractOptionalMaster>();
             this.PackingListMasters = new HashSet<PackingListMaster>();
@@ -26,6 +25,7 @@ namespace ArtWebApp.DataModels
             this.RequestOrderStockMasters = new HashSet<RequestOrderStockMaster>();
             this.SkuRawMaterialMasters = new HashSet<SkuRawMaterialMaster>();
             this.JobContractMasters = new HashSet<JobContractMaster>();
+            this.CutOrderMasters = new HashSet<CutOrderMaster>();
         }
     
         public decimal AtcId { get; set; }
@@ -48,7 +48,6 @@ namespace ArtWebApp.DataModels
     
         public virtual CountryMaster CountryMaster { get; set; }
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
-        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
         public virtual ICollection<JobContractOptionalMaster> JobContractOptionalMasters { get; set; }
         public virtual ICollection<PackingListMaster> PackingListMasters { get; set; }
@@ -58,5 +57,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
         public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual BuyerMaster BuyerMaster { get; set; }
+        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
     }
 }

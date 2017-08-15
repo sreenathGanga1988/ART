@@ -45,9 +45,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<CountryMaster> CountryMasters { get; set; }
         public virtual DbSet<CourierTable> CourierTables { get; set; }
         public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
-        public virtual DbSet<CutOrderDetail> CutOrderDetails { get; set; }
         public virtual DbSet<CutOrderDO> CutOrderDOes { get; set; }
-        public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual DbSet<CutOrderSizeDetail> CutOrderSizeDetails { get; set; }
         public virtual DbSet<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual DbSet<CutPlanMarkerSizeDetail> CutPlanMarkerSizeDetails { get; set; }
@@ -151,7 +149,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<TransferToGstockDetail> TransferToGstockDetails { get; set; }
         public virtual DbSet<TransferToGstockMaster> TransferToGstockMasters { get; set; }
         public virtual DbSet<UOMMaster> UOMMasters { get; set; }
-        public virtual DbSet<UserMaster> UserMasters { get; set; }
         public virtual DbSet<WrongInventoryDocument> WrongInventoryDocuments { get; set; }
         public virtual DbSet<WrongPODetail> WrongPODetails { get; set; }
         public virtual DbSet<WrongPOMaster> WrongPOMasters { get; set; }
@@ -217,8 +214,12 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<MarkerMadeMaster> MarkerMadeMasters { get; set; }
         public virtual DbSet<LayShortageDetail> LayShortageDetails { get; set; }
         public virtual DbSet<LayShortageReqMaster> LayShortageReqMasters { get; set; }
-        public virtual DbSet<DeviceMaster> DeviceMasters { get; set; }
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
+        public virtual DbSet<DepartmentMaster> DepartmentMasters { get; set; }
+        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<DeviceMaster> DeviceMasters { get; set; }
+        public virtual DbSet<CutOrderDetail> CutOrderDetails { get; set; }
+        public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

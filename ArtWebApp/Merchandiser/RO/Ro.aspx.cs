@@ -63,7 +63,7 @@ namespace ArtWebApp.Merchandiser
             {
                 lbl_message.Text = "Select the item from  which transfer should happen";
             }
-            else if(!isRateOK())
+            else if(!IsRateOK())
             {
                 lbl_message.Text = "The Unitprices Didnt Match Change the price in costing";
             }
@@ -167,7 +167,7 @@ namespace ArtWebApp.Merchandiser
 
 
 
-        public Boolean isRateOK()
+        public Boolean IsRateOK()
         {
             int skuuompk = 0;
             int newuompk = 0;

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.UserProfileMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserProfileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserProfileCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isActiveProfile)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfileCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isActiveProfile)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserProfile_Pk }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserProfile_Pk }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserProfile_Pk })
+        </td>
+    </tr>
+}
+
+</table>

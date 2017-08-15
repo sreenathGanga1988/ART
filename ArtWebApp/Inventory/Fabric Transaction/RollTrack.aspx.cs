@@ -39,7 +39,7 @@ HAVING        (LaySheetRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as LaysheetNUM,(
 SELECT STUFF((SELECT ',' +  CutPlanNUM 
-            FROM (SELECT        CutPlanMaster.CutPlanNUM
+            FROM (SELECT         (CutPlanMaster.CutPlanNUM +'('+CutPlanRollDetails.IsDeleted+')')as CutPlanNUM
 FROM            CutPlanRollDetails INNER JOIN
                          CutPlanMaster ON CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
@@ -73,7 +73,7 @@ HAVING        (LaySheetRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as LaysheetNUM,(
 SELECT STUFF((SELECT ',' +  CutPlanNUM 
-            FROM (SELECT        CutPlanMaster.CutPlanNUM
+            FROM (SELECT         (CutPlanMaster.CutPlanNUM +'('+CutPlanRollDetails.IsDeleted+')')as CutPlanNUM
 FROM            CutPlanRollDetails INNER JOIN
                          CutPlanMaster ON CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
@@ -107,7 +107,7 @@ HAVING        (LaySheetRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as LaysheetNUM,(
 SELECT STUFF((SELECT ',' +  CutPlanNUM 
-            FROM (SELECT        CutPlanMaster.CutPlanNUM
+            FROM (SELECT          (CutPlanMaster.CutPlanNUM +'('+CutPlanRollDetails.IsDeleted+')')as CutPlanNUM
 FROM            CutPlanRollDetails INNER JOIN
                          CutPlanMaster ON CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt

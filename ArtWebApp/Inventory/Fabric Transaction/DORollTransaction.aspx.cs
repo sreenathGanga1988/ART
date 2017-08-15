@@ -92,7 +92,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 
         }
 
-        public void fillAlreadyDetails()
+        public void FillAlreadyDetails()
         {
             RollDelivery rlldelivery = new RollDelivery();
             rlldelivery = rlldelivery.GetDeliveryDetailsofDocument("WW", int.Parse(ddl_do.SelectedValue.ToString()), int.Parse(drp_color.SelectedValue.ToString()));

@@ -29,9 +29,9 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void buttonAtc_Click(object sender, EventArgs e)
         {
-            fillcontrol();
+            Fillcontrol();
         }
-        public void fillcontrol()
+        public void Fillcontrol()
         {
             int atcid = int.Parse(cmb_atc.SelectedValue.ToString());
 

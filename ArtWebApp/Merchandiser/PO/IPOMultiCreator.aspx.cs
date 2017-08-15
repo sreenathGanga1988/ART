@@ -177,7 +177,7 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
 
    
 
-        public void fillcontrils(int temmplatepk,GridViewRow currentRow)
+        public void Fillcontrils(int temmplatepk,GridViewRow currentRow)
         {
            
 
@@ -394,7 +394,7 @@ FROM(SELECT        POId, POLineID, Description, PONum AS IPO, SPO_PK, Odoo_UOM, 
             if (currentRow != null)
             {
 
-               fillcontrils(templatepk, currentRow); 
+               Fillcontrils(templatepk, currentRow); 
 
                
             }

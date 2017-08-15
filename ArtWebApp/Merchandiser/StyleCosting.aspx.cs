@@ -85,7 +85,7 @@ namespace ArtWebApp.Merchandiser
                
                 var  currentRow = (GridViewRow)txtcons.Parent.Parent;
               
-                calculateperdozen(currentRow);
+                Calculateperdozen(currentRow);
 
             }
             catch (Exception)
@@ -104,7 +104,7 @@ namespace ArtWebApp.Merchandiser
                 TextBox txtcons = (TextBox)sender;
                 GridViewRow currentRow = (GridViewRow)txtcons.Parent.Parent;
 
-                calculateperdozen(currentRow);
+                Calculateperdozen(currentRow);
 
             }
             catch (Exception)
@@ -127,12 +127,12 @@ namespace ArtWebApp.Merchandiser
             }
             else
             {
-                fillQtyandFOB(int.Parse(ddl_ourstyle.SelectedValue.ToString()));
+                FillQtyandFOB(int.Parse(ddl_ourstyle.SelectedValue.ToString()));
             }
             
-            fillmandatorycomponent(oldcostingid);
+            Fillmandatorycomponent(oldcostingid);
             fillOptionalComponentsOfCosting(oldcostingid);
-            fillOptionalComponents();
+            FillOptionalComponents();
             LoadCostingGrid();
         }
  
@@ -310,7 +310,7 @@ namespace ArtWebApp.Merchandiser
 
 
 
-        public void fillmandatorycomponent(int oldcostingid)
+        public void Fillmandatorycomponent(int oldcostingid)
         {
             CostingTransaction csttrans = new CostingTransaction();
             DataTable dtcomp = csttrans.GetManadatoryCostingComponents(oldcostingid);
@@ -330,7 +330,7 @@ namespace ArtWebApp.Merchandiser
             udp_optionalGrid.Update();
         }
 
-        public void fillOptionalComponents()
+        public void FillOptionalComponents()
         {
             CostingTransaction csttrans = new CostingTransaction();
             DataTable dtoptcomb = csttrans.GetOptionalCostingComponents();
@@ -366,7 +366,7 @@ namespace ArtWebApp.Merchandiser
 
 
             //Fill the Mandatory Components
-            fillmandatorycomponent(costingid);
+            Fillmandatorycomponent(costingid);
            
             //ArrayList fabcost = csttrans.GetFabTrimCost(costingid);
             //fillMandatoryComponentvalue(fabcost);
@@ -374,7 +374,7 @@ namespace ArtWebApp.Merchandiser
             MessageBoxShow(" Costing #  " + costingid.ToString() + " Created Against " + ddl_ourstyle.SelectedItem.Text.Trim());
         }
         //calculateperdozenprice
-        public void calculateperdozen(GridViewRow currentRow)
+        public void Calculateperdozen(GridViewRow currentRow)
         {
             TextBox rate = (currentRow.FindControl("txt_rate") as TextBox);
             TextBox txtcons = (currentRow.FindControl("txt_consumption") as TextBox);
@@ -395,7 +395,7 @@ namespace ArtWebApp.Merchandiser
             String msg = "Notupdated";
             foreach (GridViewRow currentRow in tbl_costing.Rows)
             {
-                calculateperdozen(currentRow);
+                Calculateperdozen(currentRow);
                 msg = "Updated";
             }
 
@@ -451,7 +451,7 @@ namespace ArtWebApp.Merchandiser
             }
             return textvalue;
         }
-        public void fillMandatoryComponentvalue(ArrayList asd)
+        public void FillMandatoryComponentvalue(ArrayList asd)
         {
             if (tbl_manadatorycomponent.Rows.Count>0)
             {
@@ -486,7 +486,7 @@ namespace ArtWebApp.Merchandiser
         /// fill style fob and qty
         /// </summary>
         /// <param name="ourstyleid"></param>
-        public void fillQtyandFOB(int ourstyleid)
+        public void FillQtyandFOB(int ourstyleid)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {

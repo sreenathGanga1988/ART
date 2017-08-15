@@ -83,7 +83,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         {
 
 
-            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.OustyleID ?? 0)), "LaySheet_PK", "LaySheetNum");
+            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.OustyleID ?? 0) && o.CutOrderDetail.CutOrderMaster.SkuDet_pk==Id), "LaySheet_PK", "LaySheetNum");
 
             JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
 

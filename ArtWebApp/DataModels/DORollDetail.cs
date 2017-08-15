@@ -21,9 +21,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CutID { get; set; }
         public string IsRollReturned { get; set; }
     
-        public virtual CutOrderMaster CutOrderMaster { get; set; }
         public virtual DeliveryOrderDetail DeliveryOrderDetail { get; set; }
         public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
+        public virtual CutOrderMaster CutOrderMaster { get; set; }
     }
 }

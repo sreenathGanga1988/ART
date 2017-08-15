@@ -1,0 +1,161 @@
+﻿@model ArtWebApp.DataModels.UserMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAdmin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAdmin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNum)
+        </dd>
+
+      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastPassWordDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastPassWordDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActiveUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActiveUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleteduser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleteduser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsLockedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsLockedUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsVerified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsVerified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ITVerified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ITVerified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowOutSideAction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowOutSideAction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentMaster.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentMaster.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserProfileMaster.UserProfileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserProfileMaster.UserProfileName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.User_PK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -30,6 +30,7 @@ namespace ArtWebApp.DataModels
         public string LayLength { get; set; }
         public Nullable<decimal> CutPlanMarkerDetails_PK { get; set; }
     
+        public virtual CutOrderMaster CutOrderMaster { get; set; }
         public virtual ICollection<CutOrderSizeDetail> CutOrderSizeDetails { get; set; }
         public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
