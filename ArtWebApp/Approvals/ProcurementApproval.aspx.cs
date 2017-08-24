@@ -11,9 +11,9 @@ namespace ArtWebApp.Approvals
 {
     public partial class ProcurementApproval : System.Web.UI.Page
     {
-        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi" , "sree" });
+        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek" , "Sreenath" });
 
-        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "shaveed" ,"vineeth"});
+        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhishek", "shaveed" ,"vineeth"});
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -72,15 +72,26 @@ namespace ArtWebApp.Approvals
                         {
                             setgridviewSPO();
                         }
+                        else if (navtype == "RO")
+                        {
+                            setgridviewRO();
+                        }
+                        else if (navtype == "SRO")
+                        {
+                            setgridviewSRO();
+                        }
 
-                    }
+
+
+                        
+                                }
                 }
                 else
                 {
                     Response.Redirect("../Authorisation.aspx?navtype=Approval");
                 }
 
-                //    if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" || HttpContext.Current.User.Identity.Name == "vineeth" || HttpContext.Current.User.Identity.Name == "siraj")
+                //    if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh" || HttpContext.Current.User.Identity.Name == "vineeth" || HttpContext.Current.User.Identity.Name == "siraj")
                 //{
                     
                 //}
@@ -180,8 +191,8 @@ FROM            ProcurementMaster INNER JOIN
                          ProcurementDetails ON ProcurementMaster.PO_Pk = ProcurementDetails.PO_Pk LEFT OUTER JOIN
                          POApproval ON ProcurementMaster.PO_Pk = POApproval.PO_PK
 GROUP BY ProcurementMaster.PO_Pk, ProcurementMaster.PONum, AtcMaster.AtcNum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, ProcurementMaster.AddedDate, ProcurementMaster.AddedBy, 
-                         ProcurementMaster.IsApproved, ProcurementMaster.IsDeleted, AtcMaster.MerchandiserName
-HAVING        (ProcurementMaster.IsApproved = N'N') AND (ProcurementMaster.IsDeleted <> N'Y')  AND(AtcMaster.MerchandiserName  like '" + Session["username"].ToString().Trim() + "') order by ProcurementMaster.PO_Pk";
+                         ProcurementMaster.IsApproved, ProcurementMaster.IsDeleted, AtcMaster.MerchandiserName ,ProcurementMaster.IsNormal
+HAVING        (ProcurementMaster.IsApproved = N'N') AND (ProcurementMaster.IsDeleted <> N'Y') AND (ProcurementMaster.IsNormal = N'Y')   AND(AtcMaster.MerchandiserName  like '" + Session["username"].ToString().Trim() + "') order by ProcurementMaster.PO_Pk";
             }
             tbl_podata.DataBind();
 
@@ -257,7 +268,7 @@ HAVING        (StockPOMaster.IsApproved = N'N') AND (UserMaster.Department_PK = 
 
 
         #region SPO
-
+    
         /// <summary>
         /// Approve SPO
         /// </summary>
@@ -318,7 +329,51 @@ HAVING        (StockPOMaster.IsApproved = N'N') AND (UserMaster.Department_PK = 
 
         #region RO
 
+        public void setgridviewRO()
+        {
+            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+            {
 
+                SqlDataSource3.SelectCommand = @"
+SELECT        RO_Pk, RONum, FRMATC, TOATC, ISNULL(FRMTEMP, '') + '' + ISNULL(FRMCOMP, '') + '' + ISNULL(FRMCONS, '') + '' + ISNULL(FRMWEIG, '') + '' + ISNULL(FRMITEMCOLOR, '') + '' + ISNULL(FRMSUPPCOLOR, '') 
+                         + '' + ISNULL(FRMITEMSIZE, '') + '' + ISNULL(FRMSUPPSIZE, '') AS DESCRIPTION, Qty, Qty * RATE AS POVALUE, UOM, LocationName, LocationAddress, IsForwarded, UserName
+FROM            (SELECT        RequestOrderMaster.RONum, AtcMaster.AtcNum AS FRMATC, AtcMaster_1.AtcNum AS TOATC, Template_Master.Description AS TOTEMP, Template_Master_1.Description AS FRMTEMP, RequestOrderDetails.Qty, 
+                         SkuRawMaterialMaster.Composition AS FRMCOMP, SkuRawMaterialMaster.Construction AS FRMCONS, SkuRawMaterialMaster.Weight AS FRMWEIG, SkuRawMaterialMaster.Width AS FROMWID, 
+                         SkuRawmaterialDetail.ItemColor AS FRMITEMCOLOR, SkuRawmaterialDetail.SupplierColor AS FRMSUPPCOLOR, SkuRawmaterialDetail.ItemSize AS FRMITEMSIZE, 
+                         SkuRawmaterialDetail.SupplierSize AS FRMSUPPSIZE, RequestOrderDetails.CUnitPrice AS RATE, UOMMaster.UomName AS UOM, SkuRawMaterialMaster_1.Composition, SkuRawMaterialMaster_1.Construction, 
+                         LocationMaster.LocationName, LocationMaster.LocationAddress, RequestOrderMaster.RO_Pk, RequestOrderMaster.IsApproved, RequestOrderMaster.IsForwarded, RequestOrderMaster.AddedBy, 
+                         UserMaster.UserName, UserMaster.Department_PK
+FROM            SkuRawmaterialDetail INNER JOIN
+                         RequestOrderMaster INNER JOIN
+                         RequestOrderDetails ON RequestOrderMaster.RO_Pk = RequestOrderDetails.RO_Pk ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.FromSkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail AS SkuRawmaterialDetail_1 ON RequestOrderDetails.ToSkuDet_PK = SkuRawmaterialDetail_1.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         SkuRawMaterialMaster AS SkuRawMaterialMaster_1 ON SkuRawmaterialDetail_1.Sku_PK = SkuRawMaterialMaster_1.Sku_Pk INNER JOIN
+                         AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
+                         AtcMaster AS AtcMaster_1 ON SkuRawMaterialMaster_1.Atc_id = AtcMaster_1.AtcId INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
+                         Template_Master AS Template_Master_1 ON SkuRawMaterialMaster_1.Template_pk = Template_Master_1.Template_PK INNER JOIN
+                         InventoryMaster ON RequestOrderDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK INNER JOIN
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         UOMMaster ON InventoryMaster.Uom_Pk = UOMMaster.Uom_PK INNER JOIN
+                         UserMaster ON RequestOrderMaster.AddedBy = UserMaster.UserName
+GROUP BY RequestOrderMaster.RONum, RequestOrderMaster.CreatedDate, RequestOrderMaster.AddedBy, AtcMaster.AtcNum, AtcMaster_1.AtcNum, Template_Master.Description, Template_Master_1.Description, 
+                         RequestOrderDetails.Qty, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawMaterialMaster.Weight, SkuRawMaterialMaster.Width, SkuRawmaterialDetail.ItemColor, 
+                         SkuRawmaterialDetail.SupplierColor, SkuRawmaterialDetail.ItemSize, SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.CUnitPrice, UOMMaster.UomName, SkuRawMaterialMaster_1.Composition, 
+                         SkuRawMaterialMaster_1.Construction, SkuRawMaterialMaster_1.Weight, SkuRawMaterialMaster_1.Width, SkuRawmaterialDetail_1.ItemColor, SkuRawmaterialDetail_1.SupplierColor, 
+                         SkuRawmaterialDetail_1.ItemSize, SkuRawmaterialDetail_1.SupplierSize, LocationMaster.LocationName, LocationMaster.LocationAddress, RequestOrderMaster.RO_Pk, RequestOrderMaster.IsApproved, 
+                         RequestOrderMaster.IsForwarded, UserMaster.UserName, UserMaster.Department_PK
+HAVING        (RequestOrderMaster.IsApproved = N'N') AND (UserMaster.Department_PK = " + Session["Department_PK"].ToString().Trim() + ")) AS TT";
+
+
+
+
+            }
+            tbl_ro.DataBind();
+
+        }
+
+        
 
         /// <summary>
         /// Approve RO
@@ -393,7 +448,32 @@ HAVING        (StockPOMaster.IsApproved = N'N') AND (UserMaster.Department_PK = 
 
 
         #region SRO
+        public void setgridviewSRO()
+        {
+            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+            {
 
+                SqlDataSource4.SelectCommand = @"
+SELECT        RequestOrderStockMaster.SRO_Pk, RequestOrderStockMaster.RONum, ISNULL(SkuRawMaterialMaster.RMNum, '') + ' ' + ISNULL(SkuRawMaterialMaster.Composition, '') 
+                         + ' ' + ISNULL(SkuRawMaterialMaster.Construction, '') + ' ' + ISNULL(SkuRawmaterialDetail.SupplierColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.SupplierSize, '') AS dESCRIPTION, RequestOrderStockDetails.Qty, 
+                         RequestOrderStockDetails.Qty * RequestOrderStockDetails.CUnitPrice AS Povalue, LocationMaster.LocationName + '  GStock ' AS fromLocation, RequestOrderStockDetails.ToSkuDet_PK, 
+                         RequestOrderStockMaster.IsForwarded, RequestOrderStockMaster.IsApproved, RequestOrderStockMaster.AddedBy, UserMaster.Department_PK
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         RequestOrderStockDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderStockDetails.ToSkuDet_PK INNER JOIN
+                         StockInventoryMaster ON RequestOrderStockDetails.SInventoryItem_PK = StockInventoryMaster.SInventoryItem_PK INNER JOIN
+                         LocationMaster ON StockInventoryMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
+                         RequestOrderStockMaster ON RequestOrderStockDetails.SRO_Pk = RequestOrderStockMaster.SRO_Pk INNER JOIN
+                         UserMaster ON RequestOrderStockMaster.AddedBy = UserMaster.UserName
+WHERE        (RequestOrderStockMaster.IsApproved = 'N') AND (UserMaster.Department_PK =  " + Session["Department_PK"].ToString().Trim() + ")";
+
+
+
+
+            }
+            tbl_sro.DataBind();
+
+        }
         /// <summary>
         /// Approve RO
         /// </summary>

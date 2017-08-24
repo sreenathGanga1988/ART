@@ -722,6 +722,11 @@
                                                                 </td>
                                                             </tr>
                                                             
+                                                            <tr>
+                                                                <td class="NormalTD">Weighted BOm Cons</td>
+                                                                <td class="NormalTD"><asp:Label ID="lbl_historyconsumption" runat="server" Text="0"></asp:Label></td>
+                                                            </tr>
+                                                            
                                                         </table>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>

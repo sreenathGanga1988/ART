@@ -46,7 +46,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             Model.Type = "LayShortage";
             LaysheetRollRepository lyipores = new LaysheetRollRepository();
             String code = lyipores.InsertLaysheetShortageRoll(Model);
-            TempData["shortMessage"] = "Extra Fabric Request Added Sucessfullt Ref#" + code.ToString();
+            TempData["shortMessage"] = "Extra Fabric Request Added Sucessfull Ref#" + code.ToString();
 
             return RedirectToAction("LaysheetShortage");
         }

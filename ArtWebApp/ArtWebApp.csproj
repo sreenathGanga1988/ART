@@ -220,6 +220,7 @@
     <Content Include="Accounts\DebitNoteGenerator.aspx" />
     <Content Include="Accounts\Debitnote\AccountsdashBoard.aspx" />
     <Content Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx" />
+    <Content Include="Accounts\InventorySalesReceivableVoucher.aspx" />
     <Content Include="Accounts\StockSupplierInvoicing.aspx" />
     <Content Include="Accounts\SupplierInvoicing.aspx" />
     <Content Include="Administrator\SupportTicket.aspx" />
@@ -1297,6 +1298,7 @@
     <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Details.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Edit.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LayShortageadjust\LayShortageadjust.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1537,6 +1539,13 @@
     <Compile Include="Accounts\Debitnote\DebitSupplierAgainstASNShortage.aspx.designer.cs">
       <DependentUpon>DebitSupplierAgainstASNShortage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Accounts\InventorySalesReceivableVoucher.aspx.cs">
+      <DependentUpon>InventorySalesReceivableVoucher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\InventorySalesReceivableVoucher.aspx.designer.cs">
+      <DependentUpon>InventorySalesReceivableVoucher.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\StockSupplierInvoicing.aspx.cs">
       <DependentUpon>StockSupplierInvoicing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1653,8 +1662,10 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\UserMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\UserProfileMastersController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
-    <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\LayShortageadjustController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
+    <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
@@ -1675,6 +1686,12 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\DeviceType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LayAdjustDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LayShortageCutorderAdjustment.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LayShortageDetail.cs">
@@ -4159,7 +4176,9 @@
     <EmbeddedResource Include="Reports\RDLC\do.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\DOR.RDLC" />
     <EmbeddedResource Include="Reports\RDLC\dowithroll.rdlc" />
-    <EmbeddedResource Include="Reports\RDLC\ExtraFabricRequest.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\ExtraFabricRequest.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\RDLC\ExtraReqQty.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\FinalCosting.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Goodsintransist.rdlc" />
@@ -4222,6 +4241,8 @@
     <Folder Include="Areas\ArtMVCMaster\Views\TemplateWeights\" />
     <Folder Include="Areas\ArtMVCMaster\Views\TemplateWidths\" />
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
+    <Folder Include="Areas\CuttingMVC\Views\Laysheet\" />
+    <Folder Include="Areas\CuttingMVC\Views\lay\" />
     <Folder Include="Areas\CuttingMVC\Views\Shared\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />

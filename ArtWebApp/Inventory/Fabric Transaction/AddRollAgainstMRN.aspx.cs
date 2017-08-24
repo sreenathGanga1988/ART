@@ -241,47 +241,51 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             List<BLL.InventoryBLL.FabricRollmasterDataDetails> rk = new List<BLL.InventoryBLL.FabricRollmasterDataDetails>();
             for (int i = 0; i < tbl_InverntoryDetails.Rows.Count; i++)
             {
+                CheckBox chkBx = (CheckBox)tbl_InverntoryDetails.Rows[i].FindControl("Chk_select");
 
-                String txt_rollnum = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_rollnum") as TextBox).Text.ToString());
-                //Decimal txt_qty = Decimal.Parse((tbl_InverntoryDetails.Rows[i].FindControl("txt_qty") as TextBox).Text.ToString());
-                String txt_remark = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_remark") as TextBox).Text.ToString());
-                String lbl_uom = ((tbl_InverntoryDetails.Rows[i].FindControl("lbl_uom") as Label).Text.ToString());
-                String txt_syard = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_syard") as TextBox).Text.ToString());
-                String txt_sshrinkage = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sshrinkage") as TextBox).Text.ToString());
-                String txt_sWidth = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sWidth") as TextBox).Text.ToString());
-                String txt_Sshade = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_Sshade") as TextBox).Text.ToString());
-                String txt_sgsm = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sgsm") as TextBox).Text.ToString());
-                String Lotnum = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_lot") as TextBox).Text.ToString());
-                String txt_sweight= ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sweight") as TextBox).Text.ToString());
-                BLL.InventoryBLL.FabricRollmasterDataDetails rolldata = new BLL.InventoryBLL.FabricRollmasterDataDetails();
+                if (chkBx != null && chkBx.Checked)
+                {
 
-                rolldata.PO_PK = int.Parse(ddl_po.SelectedValue.ToString());
-                rolldata.MRnDet_PK = int.Parse(drp_color.SelectedValue.ToString());
-               // rolldata.SkuDet_PK = 0;
-              
-                rolldata.RollNum = txt_rollnum;
-                rolldata.Qty = Decimal.Parse(txt_syard.ToString());
-                rolldata.UOM = lbl_uom;
-                rolldata.Remark = txt_remark;
-                rolldata.SShrink = txt_sshrinkage;
-                rolldata.SYard = txt_syard;
-                rolldata.SShade = txt_Sshade;
-                rolldata.SWidth = txt_sWidth;
-                rolldata.AShrink = "";
-                rolldata.AShade = "";
-                rolldata.AWidth = "";
-                rolldata.AYard = "0";
-                rolldata.SGSM = txt_sgsm;
-                rolldata.Sweight = txt_sweight;
-                rolldata.Lotnum = Lotnum;
-                rolldata.SUpplierDoc_PK = int.Parse(drp_asn.SelectedValue.ToString());
+                    String txt_rollnum = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_rollnum") as TextBox).Text.ToString());
+                    //Decimal txt_qty = Decimal.Parse((tbl_InverntoryDetails.Rows[i].FindControl("txt_qty") as TextBox).Text.ToString());
+                    String txt_remark = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_remark") as TextBox).Text.ToString());
+                    String lbl_uom = ((tbl_InverntoryDetails.Rows[i].FindControl("lbl_uom") as Label).Text.ToString());
+                    String txt_syard = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_syard") as TextBox).Text.ToString());
+                    String txt_sshrinkage = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sshrinkage") as TextBox).Text.ToString());
+                    String txt_sWidth = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sWidth") as TextBox).Text.ToString());
+                    String txt_Sshade = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_Sshade") as TextBox).Text.ToString());
+                    String txt_sgsm = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sgsm") as TextBox).Text.ToString());
+                    String Lotnum = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_lot") as TextBox).Text.ToString());
+                    String txt_sweight = ((tbl_InverntoryDetails.Rows[i].FindControl("txt_sweight") as TextBox).Text.ToString());
+                    BLL.InventoryBLL.FabricRollmasterDataDetails rolldata = new BLL.InventoryBLL.FabricRollmasterDataDetails();
+
+                    rolldata.PO_PK = int.Parse(ddl_po.SelectedValue.ToString());
+                    rolldata.MRnDet_PK = int.Parse(drp_color.SelectedValue.ToString());
+                    // rolldata.SkuDet_PK = 0;
+
+                    rolldata.RollNum = txt_rollnum;
+                    rolldata.Qty = Decimal.Parse(txt_syard.ToString());
+                    rolldata.UOM = lbl_uom;
+                    rolldata.Remark = txt_remark;
+                    rolldata.SShrink = txt_sshrinkage;
+                    rolldata.SYard = txt_syard;
+                    rolldata.SShade = txt_Sshade;
+                    rolldata.SWidth = txt_sWidth;
+                    rolldata.AShrink = "";
+                    rolldata.AShade = "";
+                    rolldata.AWidth = "";
+                    rolldata.AYard = "0";
+                    rolldata.SGSM = txt_sgsm;
+                    rolldata.Sweight = txt_sweight;
+                    rolldata.Lotnum = Lotnum;
+                    rolldata.SUpplierDoc_PK = int.Parse(drp_asn.SelectedValue.ToString());
 
 
-                rk.Add(rolldata);
+                    rk.Add(rolldata);
+                }
+
+
             }
-
-
-
 
             return rk;
 

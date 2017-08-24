@@ -220,6 +220,8 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<DeviceMaster> DeviceMasters { get; set; }
         public virtual DbSet<CutOrderDetail> CutOrderDetails { get; set; }
         public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
+        public virtual DbSet<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
+        public virtual DbSet<LayAdjustDetail> LayAdjustDetails { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

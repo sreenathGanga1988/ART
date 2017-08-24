@@ -444,14 +444,15 @@ namespace ArtWebApp.Production.CutOrder
 
 
             lbl_balyard.Text = ((float.Parse(cddet.rollYard.ToString()) + float.Parse(cddet.DeliverdrollYard.ToString())) - (locationcutplanyardage + cddet.deliveredayardsumdummy)).ToString();
-
-
+         
+            //creates a consumption based on history
+            float historyconsumption  = BLL.CutOrderBLL.CutPlan.GetConsumptionBasedonHistory(ourtyleid, factorylocation, skudetpk, balanccetocutinlocation, cddet.bomconsumption);
 
             // lbl_balyard.Text = (float.Parse(cddet.rollYard.ToString())  + float.Parse(cddet.DeliverdrollYard.ToString())) - locationcutplanyardage).ToString());
 
 
-            
 
+            lbl_historyconsumption.Text = historyconsumption.ToString();
             lbl_baltocutlocation.Text = balanccetocutinlocation.ToString();
             lbl_totalcutplanyardage.Text = totalcutplanyardage.ToString();
             lbl_locationcutplanyardage.Text = locationcutplanyardage.ToString();
@@ -1160,7 +1161,7 @@ namespace ArtWebApp.Production.CutOrder
 
         protected void btn_showgrid_Click(object sender, EventArgs e)
         {
-            filltable();
+            
 
 
             try
@@ -1173,6 +1174,7 @@ namespace ArtWebApp.Production.CutOrder
 
                
             }
+            filltable();
         }
 
         protected void btn_cutorder_Click(object sender, EventArgs e)

@@ -22,6 +22,8 @@ namespace ArtWebApp.Reports.Production.LaySheet
             FillLaysheetCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
 
             FillLaysheetRollCombo();
+
+            FillExtrarequest(int.Parse(drp_Atc.SelectedValue.ToString()));
         }
 
         public void FillLaysheetCombo(int atcid)
@@ -72,6 +74,33 @@ namespace ArtWebApp.Reports.Production.LaySheet
             }
         }
 
+
+        public void FillExtrarequest(int atcid)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from ponmbr in entty.LayShortageReqMasters
+                        where ponmbr.AtcID == atcid
+                        select new
+                        {
+                            name = ponmbr.LayShortageReqCode,
+                            pk = ponmbr.LayShortageMasterID
+                        };
+
+                drp_extrarequest.DataSource = q.ToList();
+                drp_extrarequest.DataTextField = "name";
+                drp_extrarequest.DataValueField = "pk";
+                drp_extrarequest.DataBind();
+                upd_extra.Update();
+
+
+
+            }
+        }
+
+
+
+
         protected void Button1_Click(object sender, EventArgs e)
         {
                  }
@@ -100,6 +129,18 @@ namespace ArtWebApp.Reports.Production.LaySheet
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
 
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CutOrderPendingToLay.rdlc";
+        }
+
+        protected void Button9_Click(object sender, EventArgs e)
+        {
+            DataTable dt = DBTransaction.LaysheetTransaction.GetExtraRrequest(int.Parse (drp_extrarequest.SelectedValue.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\ExtraFabricrequest.rdlc";
+            
         }
     }
 }

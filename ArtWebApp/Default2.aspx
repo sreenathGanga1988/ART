@@ -68,12 +68,14 @@
                     Alert
                     </div>
 
-                    <div>
-                        <%--<marquee behavior="scroll" direction="left" scrollamount="2">
-<asp:HyperLink ID="HyperLink1" runat="server">Department Heads  are requested to create a list of menus which need to be enabled to   each user (userrights) before 15-jan-2017 </asp:HyperLink>
+                    <div id="messagediv" runat="server"  visible="false" style="font-family: Calibri; font-size: large; font-weight: bold; font-style: normal; font-variant: normal; text-transform: uppercase; width: 100%; height: 100%; border: thick dashed #000080">
+                 <%--  <marquee id="mq" direction="DOWN" scrollamount="1"  loop="true" onmouseover="this.stop();" önmouseout="this.start();">   --%>
 
-                           
-</marquee>--%>
+   <asp:HyperLink ID="hprlink" NavigateUrl="/ArtMVCMaster/UserMasters" runat="server">Dear Art user if you are viewing this message you User Profile or password is too weak or not updated correctly. Please Update it Either By clicking this Link or By clicking your  User Name in the Top right of this page </asp:HyperLink>
+                        
+                       <%-- </marquee>
+                 --%>
+
 
                         
 

@@ -109,7 +109,7 @@ namespace ArtWebApp.Reports
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.AtcDetail.AtcId == atcid && ponmbr.IsApproved=="Y"
+                        where ponmbr.AtcDetail.AtcId == atcid 
                         select new
                         {
                             name = ponmbr.CutPlanNUM,

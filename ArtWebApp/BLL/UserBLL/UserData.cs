@@ -94,18 +94,29 @@ namespace ArtWebApp.BLL.UserBLL
             {
 
 
-                var q = from user in enty.UserMasters
-                        where user.User_PK == this.UserID
-
-                        select user;
-
-
-                foreach (var element in q)
+                try
                 {
-                    element.UserProfile_Pk = this.UserPROFILE_PK;
-                }
+                    var q = from user in enty.UserMasters
+                            where user.User_PK == this.UserID
 
-                enty.SaveChanges();
+                            select user;
+
+
+                    foreach (var element in q)
+                    {
+                       
+                        element.UserProfile_Pk = this.UserPROFILE_PK;
+
+                      
+                    }
+                    enty.Configuration.ValidateOnSaveEnabled = false;
+                    enty.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
             }
         }
 
@@ -168,7 +179,7 @@ namespace ArtWebApp.BLL.UserBLL
                             where usr.UserName.Trim() == username && usr.Password == Password && usr.IsDeleteduser==false
                             select new { 
                             
-                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK ,usr.IsActiveUser
+                                usr.UserName,usr.UserLoc_PK,loc.LocationPrefix,usr.User_PK,usr.UserProfile_Pk,usr.UserProfileMaster.UserProfileName,usr.Department_PK ,usr.IsActiveUser,usr.LastPassWordDate
 
                             }).ToList();
 
@@ -177,7 +188,7 @@ namespace ArtWebApp.BLL.UserBLL
 
                         if(user.IsActiveUser==true)
                         {
-
+                            HttpContext.Current.Session["IsVerified"] = "Y";
                             HttpContext.Current.Session["Username"] = user.UserName;
                             HttpContext.Current.Session["User_PK"] = user.User_PK;
                             HttpContext.Current.Session["UserLoc_pk"] = user.UserLoc_PK;
@@ -196,6 +207,19 @@ namespace ArtWebApp.BLL.UserBLL
                                 userk.LastLogin = DateTime.Now;
 
                                 string IPAddress = GetIPAddress();
+                            }
+
+
+
+                            try
+                            {
+                                DateTime lastpasswordchangeddate = DateTime.Parse(user.LastPassWordDate.ToString());
+                            }
+                            catch (Exception)
+                            {
+                                HttpContext.Current.Session["IsVerified"] = "N";
+                                WebMsgBox.Show("Your Password  seems to be very week  Please Update ct IT ");
+
                             }
 
                         }

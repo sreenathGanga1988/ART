@@ -7,7 +7,7 @@
     <link href="../../css/style.css" rel="stylesheet" />
     <title></title>
     <style type="text/css">
-        .auto-style1 {
+        .A4{
             width: 600px;
         }
         .auto-style2 {
@@ -21,8 +21,7 @@
         {
             font-family:Calibri;
             border: 1px solid black;
-            width:100%;
-
+          
         }
         .auto-style4 {
             height: 30px;
@@ -32,7 +31,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="auto-style1" >
+    <div class="A4" >
     <table   border="1" style="border-collapse:collapse; font-family: Calibri;width: 600px; font-size: medium; font-weight: bold; font-style: normal">
         <tr>
             <td class="RedHeadding"><span class="auto-style2">CUT PLAN REPORT </span> <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -40,7 +39,8 @@
         </tr>
         <tr>
             <td>
-                <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
+                <div>
+                    <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
                                 <ContentTemplate>
 
  <table class="tittlebar" border="1">
@@ -302,6 +302,10 @@
                 </table>
                                        </ContentTemplate>
                             </asp:UpdatePanel>
+
+                </div>
+
+                
                
             </td>
         </tr>
@@ -310,7 +314,8 @@
         </tr>
         <tr>
             <td>
-                <asp:UpdatePanel ID="updASQgrid" runat="server" UpdateMode="Conditional">
+                <div>
+                    <asp:UpdatePanel ID="updASQgrid" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <table class="DataEntryTable">
                             <tr>
@@ -445,6 +450,9 @@
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
+
+                </div>
+                
             </td>
         </tr>
         <tr>
@@ -464,7 +472,11 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td>    <asp:UpdatePanel ID="upd_roll" runat="server" UpdateMode="Conditional">
+            <td> 
+                
+                <div>
+
+                     <asp:UpdatePanel ID="upd_roll" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
                                             <asp:GridView ID="tbl_rolldata" runat="server" AutoGenerateColumns="False" DataKeyNames="Roll_PK" DataSourceID="Rolldata">
                     <Columns>
@@ -484,6 +496,9 @@
                 </asp:GridView>
                                               </ContentTemplate>
                                     </asp:UpdatePanel>
+
+                </div>
+               
                 
             </td>
         </tr>

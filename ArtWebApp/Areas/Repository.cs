@@ -165,7 +165,7 @@ namespace ArtWebApp.Areas
 
 
             var q = (from laydet in db.LaySheetDetails
-                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0)
+                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && laydet.IsRecuttable=="N"
                      select new ApprovelaysheetModel
                      {
 
@@ -198,7 +198,7 @@ namespace ArtWebApp.Areas
 
 
 
-        public String InsertLaysheetShortageRoll(LaySheetShortageViewModel model)
+      public String InsertLaysheetShortageRoll(LaySheetShortageViewModel model)
         {
             String msg = "";
 
@@ -211,6 +211,7 @@ namespace ArtWebApp.Areas
             layreqmstr.IsEndBit = model.IsEndBIT;
             layreqmstr.IsLayShortage = model.IsLayShortage;
             layreqmstr.IsApproved = false;
+            layreqmstr.SkuDet_PK = model.SkuID;
             db.LayShortageReqMasters.Add(layreqmstr);
 
             db.SaveChanges();
@@ -239,6 +240,102 @@ namespace ArtWebApp.Areas
 
             return msg;
         }
+
+
+
+      public string InsertCutOrderAdjust(LayShortageCutorderAdjustmentViewModal model)
+        {
+            String msg = "";
+
+
+            LayAdjustDetail layadjstdet = new DataModels.LayAdjustDetail();
+            layadjstdet.CutID = model.CutID;
+            layadjstdet.LayShortageMasterID = model.LayShortageMasterID;
+            layadjstdet.AddedDate = model.AddedDate;
+            layadjstdet.AddedBy = model.AddedBy;
+            layadjstdet.Qty = model.ToAddQty;
+        
+            db.LayAdjustDetails.Add(layadjstdet);
+
+
+            var q = from cutord in db.CutOrderMasters
+                    where cutord.CutID == model.CutID
+                    select cutord;
+                 foreach(var element in q)
+            {
+                element.FabQty = element.FabQty + model.ToAddQty;
+            }
+
+            db.SaveChanges();
+          
+            
+            
+
+
+
+
+            return msg;
+        }
+
+
+
+
+
+
+        public LayShortageCutorderAdjustmentViewModal PopulateLayRequestModel(int CutID = 0, int LayShortageMasterID = 0)
+        {
+            LayShortageCutorderAdjustmentViewModal model = new LayShortageCutorderAdjustmentViewModal();
+          
+          
+            
+            var requestqtyvar = db.LayShortageDetails.Where(u => u.LayShortageMasterID == LayShortageMasterID).Sum(u => u.ExcessOrShort);
+            Decimal requestqty = Decimal.Parse( requestqtyvar.ToString());
+            model.RequestQty = requestqty;
+
+            var alreadyallocated = db.LayAdjustDetails.Where(U => U.LayShortageMasterID == LayShortageMasterID).Sum(U => U.Qty);
+            if (alreadyallocated != null) { model.AllocatedQty = Decimal.Parse(alreadyallocated.ToString()); } else { model.AllocatedQty = 0; };
+
+            model.BalanceQty = model.RequestQty - model.AllocatedQty;
+
+            model.ToAddQty = model.BalanceQty;
+
+
+
+
+            var q = from cutorder in db.CutOrderMasters
+                    where cutorder.CutID == CutID
+                    select new { cutorder.FabQty, cutorder.MarkerType, cutorder.Shrinkage, cutorder.CutWidth, cutorder.CutQty };
+            foreach (var element in q)
+            {
+                model.CutOrderQty = element.FabQty;
+                model.MarkerType = element.MarkerType;
+                model.Shrinkage = element.Shrinkage;
+                model.CutWidth = element.CutWidth;
+                model.CutQty = element.CutQty.ToString();
+            }
+
+            var DeliveryQty = db.CutOrderDOes.Where(U => U.CutID == CutID).Sum(U => U.DeliveryQty);
+
+            if (DeliveryQty != null) { model.DeliveredQty = DeliveryQty.ToString(); } else { model.DeliveredQty = "0"; };
+       
+
+           
+    
+          
+
+            return model;
+
+
+            
+
+        }
+
+
+
+
+
+
+
 
 
 

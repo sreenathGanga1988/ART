@@ -33,5 +33,6 @@ namespace ArtWebApp.DataModels
         public virtual LaySheetMaster LaySheetMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
         public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
+        public virtual LaySheetRollDetail LaySheetRollDetail { get; set; }
     }
 }

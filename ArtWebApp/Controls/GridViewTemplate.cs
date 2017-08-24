@@ -53,7 +53,9 @@ namespace ArtWebApp.Controls
                     }
                     else if (_columnName == "Color")
                     {
+                        tb1.Columns = 10;
                         tb1.CssClass = "Color";
+                        tb1.Width = 300;
                     }
                     else
                     {

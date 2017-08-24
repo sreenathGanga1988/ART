@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -51,11 +52,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
     }
 
     public class LaySheetShortageViewModel
-    {
-
-       
-      
-     
+    {      
       
         public IEnumerable<SelectListItem> ActOptions { get; set; }
         public IEnumerable<SelectListItem> OurStyleOptions { get; set; }
@@ -107,4 +104,68 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         public String AddedBy { get; set; }
         public String Type { get; set; }
     }
+
+
+
+
+    public  class LayShortageCutorderAdjustmentViewModal
+    {
+            
+
+
+        public decimal LayShortageCutorderAdjustmentViewModalID { get; set; }
+
+        [Display(Name = "Request Qty#")]
+        public Nullable<decimal> RequestQty { get; set; }
+
+        [Display(Name = "Allocated Qty#")]
+        public Nullable<decimal> AllocatedQty { get; set; }
+
+        [Display(Name = "Balance Qty To allocate#")]
+        public Nullable<decimal> BalanceQty { get; set; }
+
+        [Display(Name = "Cut Order Qty #")]
+        public Nullable<decimal> CutOrderQty { get; set; }
+        [Display(Name = "New Qty to Adjust#")]
+        public Nullable<decimal> ToAddQty { get; set; }
+  
+
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public string AddedBy { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+
+
+        [Display(Name = "Atcc#")]
+        [Required(ErrorMessage = "Please select a Atc")]
+        public int? AtcID { get; set; }
+
+        public SelectList AtcList { get; set; }
+
+        [Display(Name = "LayShortageReq#")]
+        [Required(ErrorMessage = "Please select a LayShortageReq")]
+        public int? LayShortageMasterID { get; set; }
+        public SelectList LayShortageMasterreqlist { get; set; }
+
+        [Display(Name = "CutOrder#")]
+        [Required(ErrorMessage = "Please select a CutID")]
+        public int? CutID { get; set; }
+        public SelectList Cutorderlist { get; set; }
+
+
+
+        public string MarkerType { get; set; }
+
+        public string Shrinkage { get; set; }
+
+        public string CutWidth { get; set; }
+
+        public string DeliveredQty { get; set; }
+
+        public string CutQty { get; set; }
+
+
+    }
+
+
+
 }

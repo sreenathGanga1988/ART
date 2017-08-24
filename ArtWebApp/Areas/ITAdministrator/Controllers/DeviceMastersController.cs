@@ -17,7 +17,7 @@ namespace ArtWebApp.Areas.ITAdministrator.Controllers
         // GET: ITAdministrator/DeviceMasters
         public ActionResult Index()
         {
-            var deviceMasters = db.DeviceMasters.Include(d => d.DeviceType1).Include(d => d.LocationMaster);
+            var deviceMasters = db.DeviceMasters.Include(d => d.DeviceType1).OrderBy(u=>u.Manufacturer).Include(d => d.LocationMaster);
             return View(deviceMasters.ToList());
         }
 

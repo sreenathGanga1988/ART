@@ -27,26 +27,24 @@ namespace ArtWebApp.Merchandiser.PO
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand(@"SELECT        tt.SPODetails_PK, tt.SPO_Pk, tt.SPONum, tt.SupplierName, tt.CurrencyCode, tt.Description, tt.Remark, tt.POQty, tt.ReceivedQty, tt.UomName, tt.AddedDate, 
-                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation
+                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation,tt.CUrate
 FROM            ODOOGPOMaster INNER JOIN
                          StocPOForODOO ON ODOOGPOMaster.POId = StocPOForODOO.POId AND ODOOGPOMaster.POLineID = StocPOForODOO.POLineID RIGHT OUTER JOIN
-                             (SELECT        StockPODetails.SPODetails_PK, StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, 
-                                                         ISNULL(Template_Master.Description, '') + ' ' + ISNULL(StockPODetails.Composition, '') + ' ' + ISNULL(StockPODetails.Construct, '') 
-                                                         + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') + ' ' + ISNULL(StockPODetails.TemplateWidth, '') 
-                                                         + ' ' + ISNULL(StockPODetails.TemplateWeight, '') AS Description, StockPOMaster.Remark, StockPODetails.POQty, 
-                                                         SUM(StockMRNDetails.ReceivedQty) AS ReceivedQty, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.IsApproved
-                               FROM            StockPOMaster INNER JOIN
-                                                         StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
-                                                         CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
-                                                         UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
-                                                         Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
-                                                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK LEFT OUTER JOIN
-                                                         StockMRNDetails ON StockPODetails.SPODetails_PK = StockMRNDetails.SPODetails_PK
-                               GROUP BY CurrencyMaster.CurrencyCode, StockPOMaster.SPONum, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.Remark, 
-                                                         StockPOMaster.IsApproved, ISNULL(Template_Master.Description, '') + ' ' + ISNULL(StockPODetails.Composition, '') 
-                                                         + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
-                                                         + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, ''), StockPODetails.POQty, StockPOMaster.SPO_Pk, 
-                                                         SupplierMaster.SupplierName, StockPODetails.SPODetails_PK) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND 
+                             (SELECT        StockPODetails.SPODetails_PK, StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, ISNULL(Template_Master.Description, '') 
+                         + ' ' + ISNULL(StockPODetails.Composition, '') + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
+                         + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, '') AS Description, StockPOMaster.Remark, StockPODetails.POQty, SUM(StockMRNDetails.ReceivedQty) 
+                         AS ReceivedQty, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.IsApproved, StockPODetails.CUrate
+FROM            StockPOMaster INNER JOIN
+                         StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
+                         CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
+                         UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+                         Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
+                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK LEFT OUTER JOIN
+                         StockMRNDetails ON StockPODetails.SPODetails_PK = StockMRNDetails.SPODetails_PK
+GROUP BY CurrencyMaster.CurrencyCode, StockPOMaster.SPONum, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.Remark, StockPOMaster.IsApproved, ISNULL(Template_Master.Description, '') 
+                         + ' ' + ISNULL(StockPODetails.Composition, '') + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
+                         + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, ''), StockPODetails.POQty, StockPOMaster.SPO_Pk, SupplierMaster.SupplierName, 
+                         StockPODetails.SPODetails_PK, StockPODetails.CUrate) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND 
                          StocPOForODOO.SPoDet_PK = tt.SPODetails_PK "))
 
 
@@ -79,7 +77,7 @@ FROM            ODOOGPOMaster INNER JOIN
             StringBuilder html = new StringBuilder();
 
             //Table start.
-            html.Append("<table  id='example' class='example' border = '2'>");
+            html.Append("<table  id='example' class='example mydatagrid' border = '2'>");
 
             //Building the Header row.
             html.Append(" <thead> <tr>");

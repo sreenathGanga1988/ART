@@ -14,7 +14,7 @@ namespace ArtWebApp.Approvals
         {
             if (!IsPostBack)
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "sree")
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Sreenath")
                 {
                     proc = new ProcurementTransaction();
                     tbl_servicePO.DataSource = proc.GetServicePoForApproval();

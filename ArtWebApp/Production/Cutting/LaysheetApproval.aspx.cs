@@ -5,6 +5,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using ArtWebApp.BLL.ProductionBLL;
+using System.Web.Services;
 
 namespace ArtWebApp.Production.Cutting
 {
@@ -526,7 +527,15 @@ namespace ArtWebApp.Production.Cutting
         }
 
 
+        [WebMethod]
+        public static string DeletelaysheetDetailAysnc(int Planid)
+        {
 
+            BLL.ProductionBLL.LaysheetMasterData lblmstr = new BLL.ProductionBLL.LaysheetMasterData();
+
+
+            return lblmstr.DeleteLaysheetRollDetails(Planid);
+        }
 
     }
 }

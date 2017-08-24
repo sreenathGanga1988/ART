@@ -145,7 +145,44 @@ GROUP BY SizeName";
             return dt;
         }
 
+        
 
+        /// <summary>
+        /// get the history of the previous cutplansmade for a color for a location and style
+        /// </summary>
+        /// <param name="cutplan_PK"></param>
+        /// <returns></returns>
+        public static DataTable GetPreviousCutPlansofSkuofLocation(int ourstyleid, int location_pk, int skudet_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                string query = @"SELECT        SUM(CutPlanASQDetails.CutQty) AS Qty, ISNULL(CutPlanMaster.CutplanConsumption, CutPlanMaster.BOMConsumption) AS CONSUMPTION, SUM(CutPlanASQDetails.CutQty) 
+                         * ISNULL(CutPlanMaster.CutplanConsumption, CutPlanMaster.BOMConsumption) AS fabreq
+FROM            CutPlanMaster INNER JOIN
+                         CutPlanASQDetails ON CutPlanMaster.CutPlan_PK = CutPlanASQDetails.CutPlan_PK
+GROUP BY CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.SkuDet_PK, CutPlanMaster.Location_PK, CutPlanMaster.OurStyleID
+HAVING        (CutPlanMaster.Location_PK = @location_pk) AND (CutPlanMaster.SkuDet_PK = @skudet_pk) AND (CutPlanMaster.OurStyleID = @ourstyleid)";
+
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@location_pk", location_pk);
+                cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
 
         public static DataTable GetCutplanmarkerSizeQty(int CutPlanMarkerDetails_PK)
         {

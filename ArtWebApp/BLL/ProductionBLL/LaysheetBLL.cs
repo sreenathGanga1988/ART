@@ -607,12 +607,12 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
                 //     lsmstr.CutOrderDet_PK = this.CutOrderDet_PK;
 
-                var q = (from layref in enty.LaySheetRollDetails
+                var q = (from layref in enty.LaySheetRollMasters
                          where layref.LaysheetRollmaster_Pk == this.LaysheetRollmaster_Pk
-                         select new { layref.CutOrderDet_PK, layref.Cutid, layref.LaySheetRollMaster.LayRollRef }).ToList();
+                         select new { layref.CutOrderDet_PK, layref.CutID, layref.LayRollRef }).ToList();
                 foreach (var element in q)
                 {
-                    this.cutid = int.Parse(element.Cutid.ToString());
+                    this.cutid = int.Parse(element.CutID.ToString());
                     this.CutOrderDet_PK = int.Parse(element.CutOrderDet_PK.ToString());
                     this.LayRollRef = element.LayRollRef;
                 }
@@ -731,6 +731,93 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
             return Cutn;
         }
+
+
+        public string DeleteLaysheetRollDetails(int laydetpk)
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var rollpkobj = enty.LaySheetDetails.Where(u => u.LaySheetDet_PK == laydetpk).Select(u => u.Roll_PK).FirstOrDefault();
+                int rollpk = int.Parse(rollpkobj.ToString());
+
+                var LaySheetRoll_Pkobj = enty.LaySheetDetails.Where(u => u.LaySheetDet_PK == laydetpk).Select(u => u.LaySheetRoll_Pk).FirstOrDefault();
+                int LaySheetRoll_Pk = int.Parse(rollpkobj.ToString());
+
+
+                Decimal rollyard = 0;
+
+                using (var dbContextTransaction = enty.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var q = from layroll in enty.LaySheetDetails
+                                where layroll.LaySheetDet_PK == laydetpk
+                                select layroll;
+                        foreach (var element in q)
+                        {
+
+                            rollyard = Decimal.Parse(element.FabUtilized.ToString()) + Decimal.Parse(element.ExcessOrShort.ToString());
+                        }
+
+                        
+                       var Q1 = from lyrolldet in enty.LaySheetRollDetails
+                                 where lyrolldet.LaySheetRoll_Pk == LaySheetRoll_Pk
+                                 select lyrolldet;
+                       
+
+                      foreach (var laysheetrolls in Q1)
+                        {
+
+                            laysheetrolls.IsUsed = "W";
+                            laysheetrolls.BalanceYardage = rollyard;
+
+
+                        }
+
+                        var q3 = from roll in enty.FabricRollmasters
+                                where roll.Roll_PK == rollpk
+                                 select roll;
+                        foreach (var element in q3)
+                        {
+                            element.IsCut = "Y";
+                        }
+
+
+
+                        foreach (var element in q)
+                        {
+
+                            enty.LaySheetDetails.Remove(element);
+                        }
+
+                        enty.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+                
+              
+
+                  
+
+                  
+
+                    
+                 
+                   
+
+
+               
+
+            }
+
+            return Cutn;
+        }
+
 
     }
 

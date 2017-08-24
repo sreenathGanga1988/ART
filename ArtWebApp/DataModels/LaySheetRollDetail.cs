@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class LaySheetRollDetail
     {
+        public LaySheetRollDetail()
+        {
+            this.LaySheetDetails = new HashSet<LaySheetDetail>();
+        }
+    
         public decimal LaySheetRoll_Pk { get; set; }
         public Nullable<decimal> Roll_PK { get; set; }
         public string IsUsed { get; set; }
@@ -31,5 +36,6 @@ namespace ArtWebApp.DataModels
         public virtual LaySheetRollMaster LaySheetRollMaster { get; set; }
         public virtual CutOrderDetail CutOrderDetail { get; set; }
         public virtual CutOrderMaster CutOrderMaster { get; set; }
+        public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
     }
 }

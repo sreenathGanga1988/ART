@@ -53,6 +53,48 @@
             width: 698px;
         }
         </style>
+          <script type="text/javascript">
+
+   
+
+           
+
+           function DeleteSelection(objref) {
+               debugger
+               var retVal = confirm("Do you want to continue  Deleting Roll from LaySheet ?");
+               if (retVal == true) {
+                  
+                   
+
+                   var row = objref.parentNode.parentNode;
+                   alert(row);
+
+                   var planpk = row.getElementsByClassName("lbl_LaySheetRoll_Pk")[0].innerHTML;
+                   alert(planpk);
+               
+                   PageMethods.Deletelaysheetrollysnc(planpk, onSucess, onError);
+                   function onSucess(result) {
+                       alert(result);
+                       objref.innerHTML = objref.innerHTML.strike();
+                       objref.innerHTML = objref.innerHTML.fontcolor("red");
+
+                       $(objref).closest('tr').children('td,th').css('background-color', '#000');
+                   }
+                   function onError(result) {
+                       alert('Something wrong.');
+                   }
+               }
+               else {
+
+               }
+
+
+
+
+           }
+</script>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -324,6 +366,22 @@
                                     <ContentTemplate>
                                         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" DataKeyNames="LaySheetDet_PK" DataSourceID="RollData" ForeColor="Black" OnRowDataBound="GridView1_RowDataBound" ShowFooter="True">
                                             <Columns>
+
+
+                                                  <asp:TemplateField>
+                               
+                                <ItemTemplate>
+                                    <asp:Label ID="chk_select" Text="Delete" runat="server" onclick="DeleteSelection(this)" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                                                 <asp:TemplateField HeaderText="LaySheetDet_PK" SortExpression="LaySheetDet_PK">
+                                                    
+                                                     <ItemTemplate>
+                                                         <asp:Label ID="lbl_LaySheetDet_PK" runat="server"  CssClass="lbl_LaySheetRoll_Pk"  Text='<%# Bind("LaySheetDet_PK") %>' onclick="DeleteSelection(this)" ></asp:Label>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                                <asp:BoundField DataField="Roll_PK" HeaderText="Roll_PK" SortExpression="Roll_PK" />
+
                                                 <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
                                                 <asp:BoundField DataField="invoice" HeaderText="invoice" SortExpression="invoice" ReadOnly="True" />
 
@@ -402,7 +460,13 @@
                                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                             <SortedDescendingHeaderStyle BackColor="#383838" />
                                         </asp:GridView>
-                                        <asp:SqlDataSource ID="RollData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT FabricRollmaster.RollNum, FabricRollmaster.AShade, LaySheetDetails.NoOfPlies, FabricRollmaster.SYard, FabricRollmaster.AYard, LaySheetDetails.FabUtilized, LaySheetDetails.EndBit, LaySheetDetails.BalToCut, SupplierDocumentMaster.AtracotrackingNum + '/' + SupplierDocumentMaster.SupplierDocnum AS invoice, LaySheetDetails.LaySheetDet_PK, LaySheetDetails.ExcessOrShort, LaySheetDetails.IsRecuttable, FabricRollmaster.AWidth, FabricRollmaster.AShrink, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup FROM LaySheetDetails INNER JOIN FabricRollmaster ON LaySheetDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk WHERE (LaySheetDetails.LaySheet_PK = @Param1)">
+                                        <asp:SqlDataSource ID="RollData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                                            SelectCommand="SELECT        FabricRollmaster.RollNum, FabricRollmaster.AShade, LaySheetDetails.NoOfPlies, FabricRollmaster.SYard, FabricRollmaster.AYard, LaySheetDetails.FabUtilized, LaySheetDetails.EndBit, 
+                         LaySheetDetails.BalToCut, SupplierDocumentMaster.AtracotrackingNum + '/' + SupplierDocumentMaster.SupplierDocnum AS invoice, LaySheetDetails.LaySheetDet_PK, LaySheetDetails.ExcessOrShort, 
+                         LaySheetDetails.IsRecuttable, FabricRollmaster.AWidth, FabricRollmaster.AShrink, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, 
+                         LaySheetDetails.Roll_PK FROM  LaySheetDetails INNER JOIN FabricRollmaster ON LaySheetDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk  WHERE 
+                                            (LaySheetDetails.LaySheet_PK = @Param1)">
                                             <SelectParameters>
                                                 <asp:ControlParameter ControlID="drp_cutRoll" Name="Param1" PropertyName="SelectedValue" />
                                             </SelectParameters>

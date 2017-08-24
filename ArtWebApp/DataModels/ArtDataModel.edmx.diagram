@@ -405,6 +405,10 @@
         <AssociationConnector Association="ArtModel.FK_CutOrderMaster_LocationMaster" />
         <AssociationConnector Association="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" />
         <AssociationConnector Association="ArtModel.FK_DORollDetails_CutOrderMaster" />
+        <EntityTypeShape EntityType="ArtModel.LayShortageCutorderAdjustment" Width="1.5" PointX="26.25" PointY="58.625" />
+        <AssociationConnector Association="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster" />
+        <AssociationConnector Association="ArtModel.FK_LayShortageCutorderAdjustment_LayShortageReqMaster" />
+        <EntityTypeShape EntityType="ArtModel.LayAdjustDetail" Width="1.5" PointX="26.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

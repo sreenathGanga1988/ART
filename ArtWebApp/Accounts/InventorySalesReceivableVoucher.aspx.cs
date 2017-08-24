@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace ArtWebApp.Accounts
 {
-    public partial class DebitnoteforFactory : System.Web.UI.Page
+    public partial class InventorySalesReceivableVoucher : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,14 +19,14 @@ namespace ArtWebApp.Accounts
         {
             using (DataModels.ArtEntitiesnew entty = new ArtEntitiesnew())
             {
-                var q = from order in entty.LocationMasters
-                        where order.LocType == "W"
+                var q = from order in entty.LocalBuyerMasters
+
                         select new
                         {
-                            name = order.LocationName,
-                            pk = order.Location_PK
+                            name = order.LocalBuyerName,
+                            pk = order.LocalBuyer_PK
                         };
-               
+
                 drp_ToWarehouse.DataSource = q.ToList();
                 drp_ToWarehouse.DataBind();
 
@@ -89,24 +89,19 @@ namespace ArtWebApp.Accounts
 
 
                     int lbl_sdopk = int.Parse(((di.FindControl("lbl_sdopk") as Label).Text.ToString()));
-                 
+
 
 
                     BLL.AccountsBLL.DebitNoteAgainstSalesDetails lsdetdata = new BLL.AccountsBLL.DebitNoteAgainstSalesDetails();
 
-                 
+
                     lsdetdata.SDO_PK = lbl_sdopk;
-                
+
                     rk.Add(lsdetdata);
                 }
             }
             return rk;
 
-
-        }
-
-        protected void SalesDOData_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
-        {
 
         }
     }

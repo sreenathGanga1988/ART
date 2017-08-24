@@ -13,12 +13,30 @@
     <script src="~/Areas/Controls/chosen_v1.7.0/docsupport/init.js"></script>
     <script src="~/Areas/Controls/chosen_v1.7.0/docsupport/prism.js"></script>
     <link href="~/Areas/Controls/chosen_v1.7.0/chosen.css" rel="stylesheet" />
+    <script src="~/JQuery/ExporttoExcel.js"></script>
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href=" https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+
+
+
+
 
     <script>
      
         $(document).ready(function () {
-            $(".chosen-select").chosen()
+            $(".chosen-select").chosen();
+
+            $(".MyDataTable").DataTable();
         });
+
+      
      
     </script>
 

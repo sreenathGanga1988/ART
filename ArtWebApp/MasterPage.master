@@ -149,7 +149,9 @@
              document.body.style.backgroundColor = "white";
          }
 
-         
+         function navigatetoProfile() {
+             window.location.href = '/ArtMVCMaster/UserMasters';
+         }
 </script>
 
 
@@ -185,7 +187,8 @@
                 <table class="LoginColumn" border="0">
                     <tr>
                        <td >
-                            <asp:LoginName ID="LoginName1" runat="server" />
+                          
+                            <asp:LoginName ID="LoginName1" runat="server"  onclick="navigatetoProfile()" />
                         </td>
                         <td >
                              <asp:Label ID="lbl_loc" runat="server" />

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="DebitnoteforFactory.aspx.cs" Inherits="ArtWebApp.Accounts.DebitnoteforFactory" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="InventorySalesReceivableVoucher.aspx.cs" Inherits="ArtWebApp.Accounts.InventorySalesReceivableVoucher" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../css/style.css" rel="stylesheet" />
 
@@ -11,12 +11,14 @@
         function Onselection(objref)
         {
             Check_Click(objref)
-            calculatesumofyardage();
+              calculatesumofyardage();
+              calculatesumofagreedValue();
         }
 
         function OnSelectAllClick(objref) {
             checkAll(objref)
-            calculatesumofyardage();
+              calculatesumofyardage();
+              calculatesumofagreedValue();
         }
 
 
@@ -41,6 +43,22 @@
         }
 
 
+              //function to calculate the sum of user enter
+              function calculatesumofagreedValue() {
+                  var gridView = document.getElementById("<%= tbl_podata.ClientID %>");
+                  var sum = 0
+                  for (var i = 1; i < gridView.rows.length - 1; i++) {
+                      var chkConfirm = gridView.rows[i].cells[0].getElementsByTagName('input')[0];
+                      if (chkConfirm.checked) {
+                          var txt_syard = gridView.rows[i].getElementsByClassName("txt_agreedsyard")[0];
+
+                          sum = sum + parseFloat(txt_syard.value);
+                      }
+
+                  }
+                  var totalyardfooter = document.getElementsByClassName("txt_totalagreedyard")[0];
+                  totalyardfooter.value = sum;
+              }
 
 
 
@@ -55,7 +73,7 @@
 
         <table class="DataEntryTable">
             <tr>
-                <td class="NormalTD">Debit From</td>
+                <td class="NormalTD">Buyer</td>
                 <td class="NormalTD">
                     <ucc:DropDownListChosen ID="drp_ToWarehouse" runat="server" DataTextField="name" DataValueField="pk" DisableSearchThreshold="10" TextField="name" ValueField="pk" Width="200px">
                     </ucc:DropDownListChosen>
@@ -137,6 +155,16 @@
                         <asp:Label ID="Label2" CssClass="txt_syard" runat="server" Text='<%# Bind("DOvalue") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Agreed value" SortExpression="DOvalue">
+                   <FooterTemplate>
+                                                  <asp:TextBox ID="txt_totalagreedyard" CssClass="txt_totalagreedyard" runat="server"></asp:TextBox>
+
+                                              </FooterTemplate>
+                    <ItemTemplate>
+                        <asp:TextBox ID="Label2" CssClass="txt_agreedsyard" onchange=" calculatesumofagreedValue()" runat="server" Text='<%# Bind("DOvalue") %>'></asp:TextBox>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="SalesDate" HeaderText="SalesDate" SortExpression="SalesDate" />
                 <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" SortExpression="AddedBy" />
                 <asp:BoundField DataField="AddedDate" HeaderText="AddedDate" SortExpression="AddedDate" />
@@ -151,12 +179,13 @@
             <SortedDescendingCellStyle BackColor="#F6F0C0" />
             <SortedDescendingHeaderStyle BackColor="#7E0000" />
         </asp:GridView>
-        <asp:SqlDataSource ID="SalesDOData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="GetSalesDOforDebitNote_SP" SelectCommandType="StoredProcedure" OnSelecting="SalesDOData_Selecting">
+        <asp:SqlDataSource ID="SalesDOData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>"
+            SelectCommand="GetSalesDOforDebitNote_SP" SelectCommandType="StoredProcedure">
             <SelectParameters>
                 <asp:ControlParameter ControlID="drp_ToWarehouse" Name="locationpk" PropertyName="SelectedValue" Type="Int32" />
                 <asp:ControlParameter ControlID="lbl_fromdate" Name="fromdate" PropertyName="Text" Type="DateTime" />
                 <asp:ControlParameter ControlID="lbl_todate" Name="todate" PropertyName="Text" Type="DateTime" />
-                <asp:Parameter DefaultValue="Internal" Name="Dotype" Type="String" />
+                 <asp:Parameter DefaultValue="External" Name="Dotype" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
 

@@ -218,7 +218,7 @@ GROUP BY RequestOrderMaster.RONum, RequestOrderMaster.CreatedDate, RequestOrderM
               <asp:View ID="SRO" runat="server">
                   <table class="DataEntryTable">
         <tr>
-            <td class="RedHeadding">rO Approval</td>
+            <td class="RedHeadding">SrO Approval</td>
         </tr>
         <tr>
             <td>

@@ -543,10 +543,10 @@ namespace ArtWebApp.BLL.CutOrderBLL
         public static float GetCutFabreq(int cutplanpk)
         {
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"SELECT       isnull( (SUM(CutPlanASQDetails.CutQty) *CutPlanMaster.BOMConsumption),0) as Fabreq
+            cmd.CommandText = @"SELECT        isnull(CutPlanFabReq, (SUM(CutPlanASQDetails.CutQty) *CutPlanMaster.BOMConsumption))as Fabreq
 FROM            CutPlanASQDetails INNER JOIN
                          CutPlanMaster ON CutPlanASQDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK
-GROUP BY CutPlanMaster.CutPlan_PK, CutPlanMaster.BOMConsumption
+GROUP BY CutPlanMaster.CutPlan_PK, CutPlanMaster.BOMConsumption,CutPlanMaster.CutPlanFabReq
 HAVING        (CutPlanMaster.CutPlan_PK = @Param1)";
             cmd.Parameters.AddWithValue("@param1", cutplanpk);
             float balqty = float.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
@@ -555,6 +555,71 @@ HAVING        (CutPlanMaster.CutPlan_PK = @Param1)";
         }
 
 
+        public static float GetConsumptionBasedonHistory(int ourstyleid, int location_pk, int skudet_pk, float balanceQty, float bomConsumption)
+        {
+            float consumptio = 0;
+            DataTable dt = GetPreviousCutPlansofSkuofLocation(ourstyleid, location_pk, skudet_pk, balanceQty, bomConsumption);
+
+            if (dt != null)
+            {
+                if (dt.Rows.Count != 0)
+                {
+
+
+                    if (dt.Rows[0][0].ToString() != "")
+                    {
+
+
+                        object SumFabreq= dt.Compute("Sum(fabreq)", "");
+
+
+                        object SumQty = dt.Compute("Sum(Qty)", "");
+
+                        consumptio = float.Parse(SumFabreq.ToString()) / float.Parse(SumQty.ToString());
+                    }
+                }
+            }
+                        return consumptio;
+        }
+
+
+
+
+
+        public static DataTable GetPreviousCutPlansofSkuofLocation(int ourstyleid,int location_pk,int skudet_pk,float  balanceQty , float bomConsumption)
+        {
+            DataTable dt = DBTransaction.Productiontransaction.CutPlanTransaction.GetPreviousCutPlansofSkuofLocation(ourstyleid, location_pk, skudet_pk);
+
+            if (dt != null)
+            {
+                if(dt.Rows.Count!=0)
+                {
+
+
+                    if(dt.Rows[0][0].ToString()!="")
+                    {
+
+                        foreach (DataColumn col in dt.Columns)
+                            col.ReadOnly = false;
+
+
+                        if (balanceQty > 0)
+                        {
+                            dt.Rows.Add(balanceQty, bomConsumption, balanceQty * bomConsumption);
+                        }
+                      
+
+                        
+
+
+                        
+
+                    }
+
+                }
+            }
+            return dt;
+        }
 
         public static float getAlreadyAllocatedAyardage(int cutplanpk)
         {
@@ -1294,6 +1359,20 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                    
                 }
 
+
+
+                var q6= from ponmbr in enty.CutPlanRollDetails
+                        where ponmbr.CutPlan_PK == cutplan_pk
+                        select ponmbr;
+
+
+                foreach (var element in q6)
+                {
+
+                    enty.CutPlanRollDetails.Remove(element);
+
+                }
+
                 var q5 = from ponmbr in enty.CutPlanMasters
                         where ponmbr.CutPlan_PK == cutplan_pk 
                         select ponmbr;
@@ -1332,14 +1411,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
                 }
-                var q6 = from ponmbr in enty.CutPlanRollDetails
-                         where ponmbr.CutPlan_PK == cutplan_pk
-                         select ponmbr;
-                foreach (var element in q6)
-                {
-
-                    enty.CutPlanRollDetails.Remove(element);
-                }
+               
 
                     DeletedCutPlan ctplndel = new DeletedCutPlan();
                 ctplndel.CutPlan_PK = cutplan_pk;

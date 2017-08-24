@@ -20,6 +20,7 @@ namespace ArtWebApp.DataModels
             this.CutOrderDOes = new HashSet<CutOrderDO>();
             this.DORollDetails = new HashSet<DORollDetail>();
             this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
+            this.LayShortageCutorderAdjustments = new HashSet<LayShortageCutorderAdjustment>();
         }
     
         public decimal CutID { get; set; }
@@ -59,5 +60,6 @@ namespace ArtWebApp.DataModels
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
+        public virtual ICollection<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
     }
 }

@@ -360,10 +360,47 @@ body
                                  </asp:TemplateField>
 
                            
-                           
+                                            <asp:TemplateField HeaderText="ADN Details">
+                                     <ItemTemplate>
+                                         <asp:GridView ID="tbl_ADN" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" 
+                                             BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
+                                             <Columns>
+                                                 <asp:BoundField DataField="DocNum" HeaderText="ADN" />
+                                                <asp:BoundField DataField="ContainerNum" HeaderText="Ref#" />
+                                                 <asp:BoundField DataField="BOENum" HeaderText="Cont#" />
+                                                 <asp:BoundField DataField="PONum" HeaderText="PONum" />
+                                                 <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                                  <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
+                                                  <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
+                                                 
+                                             </Columns>
+                                             <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />
+                                             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                             <RowStyle BackColor="#FFF7E7" ForeColor="Black" />
+                                             <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                             <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                             <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                             <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                             <SortedDescendingHeaderStyle BackColor="#93451F" />
+                                         </asp:GridView>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
 
 
-
+                                   <asp:TemplateField HeaderText="ADN Qty" SortExpression="PlannedQty">
+                                    
+                                     <ItemTemplate>
+                                         <asp:Label ID="lbl_adnqty" runat="server" ></asp:Label>
+                                     </ItemTemplate>
+                                </asp:TemplateField>
+                          
+                                 <asp:TemplateField HeaderText="balance To ADN" SortExpression="BalanceQty">
+                                    
+                                     <ItemTemplate>
+                                         <asp:Label ID="lbl_baladnqty" runat="server" Text='<%# Bind("BalanceQty") %>'></asp:Label>
+                                     </ItemTemplate>
+                                </asp:TemplateField>
                               
                               
                            

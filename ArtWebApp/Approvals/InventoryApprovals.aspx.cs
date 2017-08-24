@@ -19,7 +19,7 @@ namespace ArtWebApp.Approvals
             string v = Request.QueryString["navtype"];
             if (navtype == "Ro Approval")
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" ||  HttpContext.Current.User.Identity.Name == "siraj")
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" ||  HttpContext.Current.User.Identity.Name == "siraj")
                 {
                     MultiView1.ActiveViewIndex = 0;
                 }
@@ -35,7 +35,7 @@ namespace ArtWebApp.Approvals
             }
             else if (navtype == "Loan Approval")
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" ||HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" ||HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
                 {
                     MultiView1.ActiveViewIndex = 1;
                 }
@@ -50,7 +50,7 @@ namespace ArtWebApp.Approvals
             }
             else if (navtype == "Transfer")
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhi" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
                 {
                     MultiView1.ActiveViewIndex = 2;
                 }

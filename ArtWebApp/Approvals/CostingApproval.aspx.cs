@@ -12,9 +12,9 @@ namespace ArtWebApp.Approvals
 {
     public partial class CostingApproval : System.Web.UI.Page
     {
-        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi", "sree" });
+        List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" });
 
-        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhi", "vineeth" });
+        List<String> forwaderlist = new List<String>(new String[] { "Mahendra", "Vijeesh", "Abhishek", "vineeth" });
         protected void Page_Load(object sender, EventArgs e)
         {
 

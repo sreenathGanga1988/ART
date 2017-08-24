@@ -16,7 +16,7 @@ namespace ArtWebApp.Reports.ManagementReports
             if (!IsPostBack)
             {
 
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "sree" || HttpContext.Current.User.Identity.Name == "siraj" )
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "siraj" )
                 {
                   
 

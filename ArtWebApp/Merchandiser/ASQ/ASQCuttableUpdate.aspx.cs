@@ -14,7 +14,7 @@ namespace ArtWebApp.Merchandiser.ASQ
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhi", "sree" });
+            List<String> Approverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" });
             string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
             if (Approverlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase) )

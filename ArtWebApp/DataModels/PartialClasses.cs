@@ -23,17 +23,17 @@ namespace ArtWebApp.DataModels
             [Required(ErrorMessage = "Please enter the User Nam")]
             public string UserName { get; set; }
             [Required]
-            [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-            [RegularExpression(@"^ ((?=.*[a - z])(?=.*[A - Z])(?=.*\d)).+$")]
+            [StringLength(18, ErrorMessage = "Minimum 8 characters atleast 1 Alphabet, 1 Number and 1 Special Character.")]
+            [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$")]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [Required(ErrorMessage = "Confirm Password is required")]
-            [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+            [StringLength(255, ErrorMessage = "Confirm Passwrod and Password should match", MinimumLength = 5)]
             [DataType(DataType.Password)]
             [Compare("Password")]
-            [Display(Name = "Password")]
+            [Display(Name = "Confirm Password")]
             public string PssWrd { get; set; }
 
             [Display(Name = " Location")]

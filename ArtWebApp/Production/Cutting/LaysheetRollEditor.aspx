@@ -52,10 +52,10 @@
                    
 
                    var row = objref.parentNode.parentNode;
-                   alert(row);
+                 
 
                    var planpk = row.getElementsByClassName("lbl_LaySheetRoll_Pk")[0].innerHTML;
-                   alert(planpk);
+                  
                
                    PageMethods.Deletelaysheetrollysnc(planpk, onSucess, onError);
                    function onSucess(result) {

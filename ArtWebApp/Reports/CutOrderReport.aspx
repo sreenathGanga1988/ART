@@ -47,7 +47,7 @@
             <td class="NormalTD" >
                 <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <asp:Button ID="btn_showApprovedcutplan" runat="server" Font-Size="Smaller" OnClick="btn_showApprovedcutplan_Click" Text="Show Approved Cutplan" ToolTip="Show All Cut Plan  of Selected Atc Approved By QAD " Width="190px" />
+                        <asp:Button ID="btn_showApprovedcutplan" runat="server" Font-Size="Smaller" OnClick="btn_showApprovedcutplan_Click" Text="Show All Cutplan" ToolTip="Show All Cut Plan  of Selected Atc Approved By QAD " Width="190px" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 </td>

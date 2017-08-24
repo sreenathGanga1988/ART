@@ -157,6 +157,42 @@ namespace ArtWebApp.Reports.Production.LaySheet {
         protected global::System.Web.UI.WebControls.Button Button6;
         
         /// <summary>
+        /// upd_extra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_extra;
+        
+        /// <summary>
+        /// drp_extrarequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_extrarequest;
+        
+        /// <summary>
+        /// UpdatePanel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        
+        /// <summary>
+        /// Button9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button9;
+        
+        /// <summary>
         /// ReportViewer1 control.
         /// </summary>
         /// <remarks>

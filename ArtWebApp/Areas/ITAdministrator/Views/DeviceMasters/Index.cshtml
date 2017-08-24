@@ -10,46 +10,49 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MacID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeviceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IPAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SerialNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OSRef)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeviceType1.DeviceTypeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
-        </th>
-        <th></th>
-    </tr>
+<table class="table MyDataTable mydatagrid">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MacID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IPAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OSRef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceType1.DeviceTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    
 
 @foreach (var item in Model) {
     <tr>

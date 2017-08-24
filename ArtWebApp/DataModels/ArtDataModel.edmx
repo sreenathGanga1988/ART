@@ -1220,6 +1220,17 @@
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="LayAdjustDetails">
+          <Key>
+            <PropertyRef Name="LayCutAdjustID" />
+          </Key>
+          <Property Name="LayCutAdjustID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LayShortageMasterID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="LaySheetDetails">
           <Key>
             <PropertyRef Name="LaySheetDet_PK" />
@@ -1285,6 +1296,18 @@
           <Property Name="LocationSequencenum" Type="nvarchar" MaxLength="50" />
           <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="LayShortageCutorderAdjustment">
+          <Key>
+            <PropertyRef Name="LayShortageCutorderAdjustmentID" />
+          </Key>
+          <Property Name="LayShortageCutorderAdjustmentID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CutID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LayShortageMasterID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="LayShortageDetail">
           <Key>
             <PropertyRef Name="LayShortageDetID" />
@@ -1314,6 +1337,7 @@
           <Property Name="IsApproved" Type="bit" />
           <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ApprovedDate" Type="date" />
+          <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LCBankAdviceDetail">
           <Key>
@@ -3934,6 +3958,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LaySheetDetails_LaySheetRolls">
+          <End Role="LaySheetRollDetails" Type="Self.LaySheetRollDetails" Multiplicity="0..1" />
+          <End Role="LaySheetDetails" Type="Self.LaySheetDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaySheetRollDetails">
+              <PropertyRef Name="LaySheetRoll_Pk" />
+            </Principal>
+            <Dependent Role="LaySheetDetails">
+              <PropertyRef Name="LaySheetRoll_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LaySheetMaster_CutOrderDetails">
           <End Role="CutOrderDetails" Type="Self.CutOrderDetails" Multiplicity="0..1" />
           <End Role="LaySheetMaster" Type="Self.LaySheetMaster" Multiplicity="*" />
@@ -3991,6 +4027,30 @@
             </Principal>
             <Dependent Role="LaySheetRollDetails">
               <PropertyRef Name="Roll_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayShortageCutorderAdjustment_CutOrderMaster">
+          <End Role="CutOrderMaster" Type="Self.CutOrderMaster" Multiplicity="1" />
+          <End Role="LayShortageCutorderAdjustment" Type="Self.LayShortageCutorderAdjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="LayShortageCutorderAdjustment">
+              <PropertyRef Name="CutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayShortageCutorderAdjustment_LayShortageReqMaster">
+          <End Role="LayShortageReqMaster" Type="Self.LayShortageReqMaster" Multiplicity="0..1" />
+          <End Role="LayShortageCutorderAdjustment" Type="Self.LayShortageCutorderAdjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayShortageReqMaster">
+              <PropertyRef Name="LayShortageMasterID" />
+            </Principal>
+            <Dependent Role="LayShortageCutorderAdjustment">
+              <PropertyRef Name="LayShortageMasterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5583,10 +5643,12 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="JobContractMaster" EntityType="Self.JobContractMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobContractOptionalDetail" EntityType="Self.JobContractOptionalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobContractOptionalMaster" EntityType="Self.JobContractOptionalMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LayAdjustDetails" EntityType="Self.LayAdjustDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetDetails" EntityType="Self.LaySheetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetMaster" EntityType="Self.LaySheetMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetRollDetails" EntityType="Self.LaySheetRollDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetRollMaster" EntityType="Self.LaySheetRollMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LayShortageCutorderAdjustment" EntityType="Self.LayShortageCutorderAdjustment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayShortageDetail" EntityType="Self.LayShortageDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayShortageReqMaster" EntityType="Self.LayShortageReqMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LCBankAdviceDetail" EntityType="Self.LCBankAdviceDetail" Schema="dbo" store:Type="Tables" />
@@ -6073,6 +6135,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
             <End Role="LaySheetDetails" EntitySet="LaySheetDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_LaySheetDetails_LaySheetRolls" Association="Self.FK_LaySheetDetails_LaySheetRolls">
+            <End Role="LaySheetRollDetails" EntitySet="LaySheetRollDetails" />
+            <End Role="LaySheetDetails" EntitySet="LaySheetDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_LaySheetMaster_CutOrderDetails" Association="Self.FK_LaySheetMaster_CutOrderDetails">
             <End Role="CutOrderDetails" EntitySet="CutOrderDetails" />
             <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
@@ -6092,6 +6158,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_LaySheetRolls_FabricRolls" Association="Self.FK_LaySheetRolls_FabricRolls">
             <End Role="FabricRollmaster" EntitySet="FabricRollmaster" />
             <End Role="LaySheetRollDetails" EntitySet="LaySheetRollDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayShortageCutorderAdjustment_CutOrderMaster" Association="Self.FK_LayShortageCutorderAdjustment_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMaster" />
+            <End Role="LayShortageCutorderAdjustment" EntitySet="LayShortageCutorderAdjustment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayShortageCutorderAdjustment_LayShortageReqMaster" Association="Self.FK_LayShortageCutorderAdjustment_LayShortageReqMaster">
+            <End Role="LayShortageReqMaster" EntitySet="LayShortageReqMaster" />
+            <End Role="LayShortageCutorderAdjustment" EntitySet="LayShortageCutorderAdjustment" />
           </AssociationSet>
           <AssociationSet Name="FK_LayShortageDetail_FabricRollmaster" Association="Self.FK_LayShortageDetail_FabricRollmaster">
             <End Role="FabricRollmaster" EntitySet="FabricRollmaster" />
@@ -7711,6 +7785,20 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_LaySheetRolls_CutOrderMaster" Association="ArtModel.FK_LaySheetRolls_CutOrderMaster">
             <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
             <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
+          </AssociationSet>
+          <EntitySet Name="LayShortageCutorderAdjustments" EntityType="ArtModel.LayShortageCutorderAdjustment" />
+          <AssociationSet Name="FK_LayShortageCutorderAdjustment_CutOrderMaster" Association="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="LayShortageCutorderAdjustment" EntitySet="LayShortageCutorderAdjustments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayShortageCutorderAdjustment_LayShortageReqMaster" Association="ArtModel.FK_LayShortageCutorderAdjustment_LayShortageReqMaster">
+            <End Role="LayShortageReqMaster" EntitySet="LayShortageReqMasters" />
+            <End Role="LayShortageCutorderAdjustment" EntitySet="LayShortageCutorderAdjustments" />
+          </AssociationSet>
+          <EntitySet Name="LayAdjustDetails" EntityType="ArtModel.LayAdjustDetail" />
+          <AssociationSet Name="FK_LaySheetDetails_LaySheetRolls" Association="ArtModel.FK_LaySheetDetails_LaySheetRolls">
+            <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
+            <End Role="LaySheetDetail" EntitySet="LaySheetDetails" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
@@ -12515,6 +12603,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetRolls_CutOrderDetails" FromRole="LaySheetRollDetail" ToRole="CutOrderDetail" />
           <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="LaySheetRollDetail" ToRole="CutOrderMaster" />
+          <NavigationProperty Name="LaySheetDetails" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetRollDetail" ToRole="LaySheetDetail" />
         </EntityType>
         <EntityType Name="LaySheetDetail">
           <Key>
@@ -12533,6 +12622,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LaySheetMaster" Relationship="ArtModel.FK_LaySheetDetails_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LaySheetMaster" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_LaySheetDetails_FabricRollmaster" FromRole="LaySheetDetail" ToRole="FabricRollmaster" />
           <NavigationProperty Name="LayShortageDetails" Relationship="ArtModel.FK_LayShortageDetail_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LayShortageDetail" />
+          <NavigationProperty Name="LaySheetRollDetail" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetDetail" ToRole="LaySheetRollDetail" />
         </EntityType>
         <Association Name="FK_LaySheetDetails_LaySheetDetails">
           <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="0..1" />
@@ -13547,6 +13637,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsApproved" Type="Boolean" />
           <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="LayShortageCutorderAdjustments" Relationship="ArtModel.FK_LayShortageCutorderAdjustment_LayShortageReqMaster" FromRole="LayShortageReqMaster" ToRole="LayShortageCutorderAdjustment" />
+          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_LayShortageDetail_FabricRollmaster">
           <End Type="ArtModel.FabricRollmaster" Role="FabricRollmaster" Multiplicity="0..1" />
@@ -13780,6 +13872,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="CutOrderMaster" ToRole="SkuRawmaterialDetail" />
           <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="CutOrderMaster" ToRole="DORollDetail" />
           <NavigationProperty Name="LaySheetRollDetails" Relationship="ArtModel.FK_LaySheetRolls_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LaySheetRollDetail" />
+          <NavigationProperty Name="LayShortageCutorderAdjustments" Relationship="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LayShortageCutorderAdjustment" />
         </EntityType>
         <Association Name="FK_CutOrderMaster_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
@@ -13922,6 +14015,67 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="LaySheetRollDetail">
               <PropertyRef Name="Cutid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LayShortageCutorderAdjustment">
+          <Key>
+            <PropertyRef Name="LayShortageCutorderAdjustmentID" />
+          </Key>
+          <Property Name="LayShortageCutorderAdjustmentID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LayShortageMasterID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster" FromRole="LayShortageCutorderAdjustment" ToRole="CutOrderMaster" />
+          <NavigationProperty Name="LayShortageReqMaster" Relationship="ArtModel.FK_LayShortageCutorderAdjustment_LayShortageReqMaster" FromRole="LayShortageCutorderAdjustment" ToRole="LayShortageReqMaster" />
+        </EntityType>
+        <Association Name="FK_LayShortageCutorderAdjustment_CutOrderMaster">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="1" />
+          <End Type="ArtModel.LayShortageCutorderAdjustment" Role="LayShortageCutorderAdjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="LayShortageCutorderAdjustment">
+              <PropertyRef Name="CutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayShortageCutorderAdjustment_LayShortageReqMaster">
+          <End Type="ArtModel.LayShortageReqMaster" Role="LayShortageReqMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LayShortageCutorderAdjustment" Role="LayShortageCutorderAdjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayShortageReqMaster">
+              <PropertyRef Name="LayShortageMasterID" />
+            </Principal>
+            <Dependent Role="LayShortageCutorderAdjustment">
+              <PropertyRef Name="LayShortageMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LayAdjustDetail">
+          <Key>
+            <PropertyRef Name="LayCutAdjustID" />
+          </Key>
+          <Property Name="LayCutAdjustID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LayShortageMasterID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_LaySheetDetails_LaySheetRolls">
+          <End Type="ArtModel.LaySheetRollDetail" Role="LaySheetRollDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetDetail" Role="LaySheetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LaySheetRollDetail">
+              <PropertyRef Name="LaySheetRoll_Pk" />
+            </Principal>
+            <Dependent Role="LaySheetDetail">
+              <PropertyRef Name="LaySheetRoll_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -17257,6 +17411,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LayShortageReqMasters">
             <EntityTypeMapping TypeName="ArtModel.LayShortageReqMaster">
               <MappingFragment StoreEntitySet="LayShortageReqMaster">
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
@@ -17379,6 +17534,31 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="AtcID" ColumnName="AtcID" />
                 <ScalarProperty Name="Cut_NO" ColumnName="Cut_NO" />
                 <ScalarProperty Name="CutID" ColumnName="CutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LayShortageCutorderAdjustments">
+            <EntityTypeMapping TypeName="ArtModel.LayShortageCutorderAdjustment">
+              <MappingFragment StoreEntitySet="LayShortageCutorderAdjustment">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="LayShortageMasterID" ColumnName="LayShortageMasterID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
+                <ScalarProperty Name="LayShortageCutorderAdjustmentID" ColumnName="LayShortageCutorderAdjustmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LayAdjustDetails">
+            <EntityTypeMapping TypeName="ArtModel.LayAdjustDetail">
+              <MappingFragment StoreEntitySet="LayAdjustDetails">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="CutID" ColumnName="CutID" />
+                <ScalarProperty Name="LayShortageMasterID" ColumnName="LayShortageMasterID" />
+                <ScalarProperty Name="LayCutAdjustID" ColumnName="LayCutAdjustID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -49,7 +49,7 @@ namespace ArtWebApp
             Application["OnlineUsers"] = (int)Application["OnlineUsers"] + 1;
             Application.UnLock();
 
-            //Session["Username"] = "Sree";
+            //Session["Username"] = "Sreenath";
             //Session["UserLoc_pk"] = 4;
             //Session["lOC_Code"] = "ATRW";
             //Session["lOC_Type"] = "W";

@@ -842,7 +842,7 @@ namespace ArtWebApp.Production.Cutting
         protected void btn_deleteCutorder_Click(object sender, EventArgs e)
         {
             
-                 BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
+             BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
             cmstrdata.Refpattern = txt_refpattern.Text;
             cmstrdata.DeleteCutPlan(int.Parse(drp_cutplan.SelectedValue.ToString()));
 

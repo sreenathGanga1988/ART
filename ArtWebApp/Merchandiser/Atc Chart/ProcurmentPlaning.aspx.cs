@@ -74,7 +74,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),"atc",0);
             DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
             DataTable Remarkdata = BLL.FactoryAtcChart.GetPlanningRemark(int.Parse(cmb_atc.SelectedValue.ToString()));
-
+            DataTable AdnofATC = BLL.FactoryAtcChart.GetADNDetails(int.Parse(cmb_atc.SelectedValue.ToString()));
             if (BomData.Rows.Count <= 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('No BOM Available');", true);
@@ -85,6 +85,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                 ViewState["Bomdata"] = BomData;
                 ViewState["ProPlandata"] = procurementplandata;
                 ViewState["Remarkdata"] = Remarkdata;
+                ViewState["AdnofATC"] = AdnofATC;
                 tbl_bom.DataSource = BomData;
                 tbl_bom.DataBind();
                 Upd_maingrid.Update();
@@ -230,6 +231,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                 float lbl_reqdqty = float.Parse((e.Row.FindControl("lbl_reqdqty") as Label).Text);
                 
                 float planndqty = 0;
+                float adnqty = 0;
                 DataTable newresult = new DataTable();
                 try
                 {
@@ -280,7 +282,20 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
 
                     }
 
-                (e.Row.FindControl("lbl_plannedqty") as Label).Text = planndqty.ToString();
+
+                 
+
+
+
+
+
+
+
+
+
+
+
+                    (e.Row.FindControl("lbl_plannedqty") as Label).Text = planndqty.ToString();
                     (e.Row.FindControl("lbl_balplanqty") as Label).Text = baltoplan.ToString();
 
                 }
@@ -307,9 +322,34 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
 
                 }
 
-                
+                try
+                {
+                    
+                    DataTable dt5 = (DataTable)(ViewState["AdnofATC"]);
+                    DataTable cutordertemp = dt5.Select("Skudet_Pk=" + skudetpk).CopyToDataTable();
+
+                    object Adndoneqty = newresult.Compute("Sum(Qty)", "");
+                    if (Adndoneqty.ToString().Trim() == "")
+                    {
+                        adnqty = 0;
+                    }
+                    else
+                    {
+                        adnqty = float.Parse(Adndoneqty.ToString());
+                    }
+                    GridView tbl_ADN = (e.Row.FindControl("tbl_ADN") as GridView);
+                    tbl_ADN.DataSource = cutordertemp;
+                    tbl_ADN.DataBind();
+
+                }
+                catch (Exception)
+                {
 
 
+                }
+                 float baltoadn= lbl_reqdqty - adnqty;
+                (e.Row.FindControl("lbl_adnqty") as Label).Text = adnqty.ToString();
+                (e.Row.FindControl("lbl_baladnqty") as Label).Text = baltoadn.ToString();
 
             }
         }

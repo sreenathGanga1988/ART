@@ -104,14 +104,43 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_PK,UserName,Password,UserLoc_PK,PassCode,IsAdmin,LastLogin,UserProfile_Pk,Department_PK,EmailId,MobileNum,PssWrd,LastPassWordDate,IsActiveUser,IsDeleteduser,IsLockedUser,IsVerified,ITVerified,AllowOutSideAction,AddedBy,AddedDate")] UserMaster userMaster)
+        public ActionResult Edit([Bind(Include = "User_PK,UserName,Password,UserLoc_PK,PassCode,IsAdmin,LastLogin,UserProfile_Pk,Department_PK,EmailId,MobileNum,PssWrd,LastPassWordDate,IsActiveUser" +
+            ",IsDeleteduser,IsLockedUser,IsVerified,ITVerified,AllowOutSideAction,AddedBy,AddedDate")] UserMaster userMaster)
         {
+            if (Session["UserProfile_Pk"].ToString().Trim() != "11" || Session["UserProfile_Pk"].ToString().Trim() != "1")
+            {
+                ModelState.Remove("UserLoc_PK");
+                ModelState.Remove("IsAdmin");
+                ModelState.Remove("LastLogin");
+                ModelState.Remove("UserProfile_Pk");
+                ModelState.Remove("Department_PK");
+                ModelState.Remove("LastPassWordDate");
+                ModelState.Remove("IsActiveUser");
+                ModelState.Remove("IsDeleteduser");
+                ModelState.Remove("IsLockedUser");
+                ModelState.Remove("IsVerified");
+                ModelState.Remove("ITVerified");
+                ModelState.Remove("IsActiveUser");
+                ModelState.Remove("AllowOutSideAction");
+                ModelState.Remove("UserName");
+              
+
+            }
             if (ModelState.IsValid)
             {
                 userMaster.AddedBy = Session["Username"].ToString();
                 userMaster.AddedDate = DateTime.Now;
                 userMaster.LastPassWordDate = DateTime.Now;
-                db.Entry(userMaster).State = EntityState.Modified;
+
+
+
+                    db.Entry(userMaster).State = EntityState.Modified;
+                Feildsnonchangable(userMaster);
+
+
+
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -120,6 +149,37 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
             ViewBag.UserProfile_Pk = new SelectList(db.UserProfileMasters, "UserProfile_Pk", "UserProfileName", userMaster.UserProfile_Pk);
             return View(userMaster);
         }
+
+
+
+        public void Feildsnonchangable(UserMaster userMaster)
+        {
+            if (Session["UserProfile_Pk"].ToString().Trim() != "11" || Session["UserProfile_Pk"].ToString().Trim() != "1")
+            {
+                db.Entry(userMaster).Property(x => x.UserLoc_PK).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsAdmin).IsModified = false;
+                db.Entry(userMaster).Property(x => x.LastLogin).IsModified = false;
+                db.Entry(userMaster).Property(x => x.UserProfile_Pk).IsModified = false;
+                db.Entry(userMaster).Property(x => x.Department_PK).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsActiveUser).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsDeleteduser).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsLockedUser).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsVerified).IsModified = false;
+                db.Entry(userMaster).Property(x => x.ITVerified).IsModified = false;
+                db.Entry(userMaster).Property(x => x.IsActiveUser).IsModified = false;
+                db.Entry(userMaster).Property(x => x.AllowOutSideAction).IsModified = false;
+                db.Entry(userMaster).Property(x => x.UserName).IsModified = false;
+            }
+        }
+
+
+
+
+       
+
+
+
+
 
         // GET: ArtMVCMaster/UserMasters/Delete/5
         public ActionResult Delete(decimal id)

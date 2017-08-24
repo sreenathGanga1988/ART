@@ -634,6 +634,15 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_alreadycutofgroup;
         
         /// <summary>
+        /// lbl_historyconsumption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_historyconsumption;
+        
+        /// <summary>
         /// Upd_consumption control.
         /// </summary>
         /// <remarks>

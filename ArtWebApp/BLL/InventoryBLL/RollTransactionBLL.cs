@@ -1785,7 +1785,7 @@ FROM            AtcMaster INNER JOIN
                          ProcurementDetails INNER JOIN
                          FabricRollmaster ON ProcurementDetails.PODet_PK = FabricRollmaster.podet_pk INNER JOIN
                          ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk ON SupplierMaster.Supplier_PK = ProcurementMaster.Supplier_Pk ON AtcMaster.AtcId = ProcurementMaster.AtcId
-WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDoc_pk = @asn_pk) and  (FabricRollmaster.SkuDet_PK = @skudet_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails)
+WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDoc_pk = @asn_pk) and  (FabricRollmaster.SkuDet_PK = @skudet_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails WHERE (IsDeleted = N'N') )
 ";
                 cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
                 cmd.Parameters.AddWithValue("@asn_pk", asn_pk);

@@ -97,6 +97,32 @@
         </tr>
       
         <tr>
+            <td class="NormalTD"  >Extra Fabric request</td>
+            <td class="NormalTD" >
+                 <asp:UpdatePanel ID="upd_extra" runat="server" UpdateMode="Conditional">
+                     <ContentTemplate>
+                         <ucc:DropDownListChosen ID="drp_extrarequest" runat="server" Width="200px">
+                         </ucc:DropDownListChosen>
+                     </ContentTemplate>
+                 </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD" >
+                <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="Button9" runat="server" Text="S" OnClick="Button9_Click" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD" >
+                &nbsp;</td>
+            <td class="NormalTD">
+                &nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD">&nbsp;</td>
+        </tr>
+      
+        <tr>
             <td  class="ReportViewSection" colspan="8" >
                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%">
                 </rsweb:ReportViewer>
