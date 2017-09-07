@@ -68,7 +68,7 @@ namespace ArtWebApp.Production.JobContractNew
 
             jcdata.JCmstrdata = GetJCMasterData();
             jcdata.JobContractDetailDataCollection = GetJobContractDetailData();
-            String jcnum = jcdata.insertOtherJObContract(jcdata);
+            String jcnum = jcdata.insertOtherJObContractDetailsNew(jcdata);
 
 
             msg = "JobContract # : " + jcnum + " is generated Sucessfully";
@@ -225,7 +225,14 @@ namespace ArtWebApp.Production.JobContractNew
                 ((TextBox)di.FindControl("txt_emb")).Enabled = false;
                 ((TextBox)di.FindControl("txt_printing")).Enabled = false;
 
-                
+                ((TextBox)di.FindControl("txt_washing")).Text = "0";
+                ((TextBox)di.FindControl("txt_dryprocess")).Text = "0";
+                ((TextBox)di.FindControl("txt_fabcomission")).Text = "0";
+                ((TextBox)di.FindControl("txt_garcomission")).Text = "0";
+                ((TextBox)di.FindControl("txt_cmplogistic")).Text = "0";
+                ((TextBox)di.FindControl("txt_factorylogistic")).Text = "0";
+                ((TextBox)di.FindControl("txt_emb")).Text = "0";
+                ((TextBox)di.FindControl("txt_printing")).Text = "0";
 
 
             }

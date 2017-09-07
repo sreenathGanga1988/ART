@@ -336,7 +336,7 @@ HAVING(JobContractMaster.JobContract_pk = @Param1 )", con);
             return dt;
         }
 
-        public DataTable GetSalesDO(int sdo_PK)
+        public DataTable GetSalesDO(int sdo_PK,String DoType)
         {
             DataTable dt = new DataTable();
 
@@ -349,6 +349,7 @@ HAVING(JobContractMaster.JobContract_pk = @Param1 )", con);
 
                 SqlCommand cmd = new SqlCommand("GetSalesDO_SP", con);
                 cmd.Parameters.AddWithValue("@SalesDO_PK", sdo_PK);
+                cmd.Parameters.AddWithValue("@Dotype", DoType);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataReader rdr = cmd.ExecuteReader();
 

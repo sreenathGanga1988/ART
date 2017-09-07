@@ -78,8 +78,11 @@
                     <ucc:DropDownListChosen ID="drp_ToWarehouse" runat="server" DataTextField="name" DataValueField="pk" DisableSearchThreshold="10" TextField="name" ValueField="pk" Width="200px">
                     </ucc:DropDownListChosen>
                 </td>
+           
                 <td class="NormalTD">&nbsp;</td>
                 <td class="NormalTD">&nbsp;</td>
+                 <td class="SearchButtonTD">&nbsp;</td>
+                 <td class="NormalTD">&nbsp;</td>
                  <td class="NormalTD">&nbsp;</td>
             </tr>
             <tr>
@@ -93,6 +96,7 @@
                      </ucc:DropDownListChosen>
                      <asp:SqlDataSource ID="Year" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [YearName] FROM [YearMonthMaster]"></asp:SqlDataSource>
                 </td>
+               
                <td class="NormalTD">Month</td>
               <td class="NormalTD">
                   <ucc:DropDownListChosen ID="cmb_Month" runat="server" DataSourceID="Month" DataTextField="MonthName" DataValueField="MonthNum" DisableSearchThreshold="10" Width="200px">
@@ -103,19 +107,28 @@
                       </SelectParameters>
                   </asp:SqlDataSource>
                 </td>
-              <td class="NormalTD">
+              <td class="SearchButtonTD">
                   <asp:Button ID="S" runat="server" OnClick="Button3_Click1" Text="S" />
                 </td>
+              <td class="NormalTD">
+                  SDO</td>
+              <td class="NormalTD">
+                  <ucc:DropDownListChosen ID="drp_sdo" runat="server"  DataTextField="SalesDONum" DataValueField="SalesDO_PK" DisableSearchThreshold="10" Width="200px">
+                  </ucc:DropDownListChosen>
+                  </td>
             </tr>
             <tr>
          <td class="NormalTD">From </td>
                             <td class="NormalTD">
                                 <asp:Label ID="lbl_fromdate" runat="server" Text="0"></asp:Label>
                             </td>
+                           
                             <td class="SearchButtonTD">To</td>
                             <td>
                                 <asp:Label ID="lbl_todate" runat="server" Text="0"></asp:Label>
                             </td>
+              <td class="SearchButtonTD">&nbsp;</td>
+              <td class="NormalTD">&nbsp;</td>
               <td class="NormalTD">&nbsp;</td>
             </tr>
         </table>

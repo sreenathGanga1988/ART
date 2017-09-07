@@ -340,9 +340,12 @@ ORDER BY StyleSize.Orderof";
         {
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color, FabQty, CutWidth, Shrinkage, MarkerType, PaternName, CutQty, layed, CutQty - layed AS Pending, CutPlan_Pk, LocationName
+                cmd.CommandText = @"SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color,  CutWidth, Shrinkage, MarkerType, PaternName,FabQty,isnull(DeliveryQty,0) as DeliveryQty, CutQty, layed, CutQty - layed AS Pending, CutPlan_Pk, LocationName
 FROM            (SELECT        CutOrderMaster.CutID, CutOrderMaster.Cut_NO, AtcMaster.AtcNum, AtcDetails.OurStyle, CutOrderMaster.Color, CutOrderMaster.CutQty, CutOrderMaster.FabQty, CutOrderMaster.CutWidth, 
-                         CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.PaternName, ISNULL
+                         CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.PaternName,
+(SELECT        SUM(DeliveryQty)
+FROM            CutOrderDO
+WHERE        (CutID = CutOrderMaster.CutID)) As DeliveryQty ,ISNULL
                              ((SELECT        SUM(LaySheetDetails.NoOfPlies * CutOrderSizeDetails.Ratio) AS Alreadylayed
                                  FROM            LaySheetDetails INNER JOIN
                                                           LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
@@ -356,6 +359,7 @@ FROM            CutOrderMaster INNER JOIN
                          LocationMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK
 WHERE        (CutOrderMaster.CutPlan_Pk IS NOT NULL) AND (CutOrderMaster.CutOrderDate > CONVERT(DATETIME, '2017-05-15 00:00:00', 102))) AS tt
 WHERE        (CutQty - layed > 0)
+
 ";
              
 

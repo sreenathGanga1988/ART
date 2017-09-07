@@ -196,7 +196,11 @@
                                          <tr>
                                              <td class="NormalTD">Item</td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="drp_templateforComp" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_Pk"><DropDownItemBinding TextField="Description" ValueField="Template_Pk" /></ig1:WebDropDown>
+                                             <%--    <ig1:WebDropDown ID="" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_Pk"><DropDownItemBinding TextField="Description" ValueField="Template_Pk" /></ig1:WebDropDown>
+                                         --%>    
+                                               <ucc:DropDownListChosen ID="drp_templateforComp" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                             
                                              </td>
                                              <td>
                                                  <asp:SqlDataSource ID="ItemMasterData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT Template_PK, TemplateCode, Description FROM Template_Master ORDER BY TemplateCode"></asp:SqlDataSource>
@@ -263,7 +267,10 @@
                                          <tr>
                                              <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="drp_templateforcon" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
+                                                 
+                                                 <ucc:DropDownListChosen ID="drp_templateforcon" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                             
                                              </td>
                                              <td>
                                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="drp_templateforcon" ErrorMessage="Select  Item" ForeColor="#FF3300" InitialValue="Select Item" ValidationGroup="con">*</asp:RequiredFieldValidator>
@@ -414,7 +421,10 @@
                                          <tr>
                                              <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="drp_templatewidth" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
+                                               
+                                                    <ucc:DropDownListChosen ID="drp_templatewidth" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                             
                                              </td>
                                              <td>
                                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="drp_templatewidth" ErrorMessage="Select  Item" ForeColor="#FF3300" InitialValue="Select Item" ValidationGroup="width">*</asp:RequiredFieldValidator>
@@ -490,8 +500,11 @@
                                          <tr>
                                              <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="drp_Color" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
-                                             </td>
+
+                                                          <ucc:DropDownListChosen ID="drp_Color" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                                 
+                                                                 </td>
                                              <td>
                                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="drp_Color" ErrorMessage="Select  Item" ForeColor="#FF3300" InitialValue="Select Item" ValidationGroup="color">*</asp:RequiredFieldValidator>
                                              </td>
@@ -566,7 +579,11 @@
                                          <tr>
                                              <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="drp_Size" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
+                                                  
+                                                          <ucc:DropDownListChosen ID="drp_Size" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                             
+                                             
                                              </td>
                                              <td>
                                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="drp_Size" ErrorMessage="Select  Item" ForeColor="#FF3300" InitialValue="Select Item" ValidationGroup="size">*</asp:RequiredFieldValidator>
@@ -637,8 +654,9 @@
                                          <tr>
                                              <td class="NormalTD">Item </td>
                                              <td class="auto-style10">
-                                                 <ig1:WebDropDown ID="WebDropDown1" runat="server" Width="200px" CurrentValue="Select Item" DataSourceID="ItemMasterData" TextField="Description" ValueField="Template_pk"><DropDownItemBinding TextField="Description" ValueField="Template_pk" /></ig1:WebDropDown>
-                                             </td>
+                                                    <ucc:DropDownListChosen ID="WebDropDown1" Width="200px" DataSourceID="ItemMasterData" DataTextField="Description" DataValueField="Template_Pk" runat="server">
+                                             </ucc:DropDownListChosen>
+                                            
                                              <td>
                                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="drp_Size" ErrorMessage="Select  Item" ForeColor="#FF3300" InitialValue="Select Item" ValidationGroup="size">*</asp:RequiredFieldValidator>
                                              </td>

@@ -19,7 +19,7 @@
         {
             font-family:Calibri;
             border: 1px solid black;
-            width:100%;
+            /*width:100%;*/
 
         }
         .auto-style4 {

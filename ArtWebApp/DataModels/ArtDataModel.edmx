@@ -1079,6 +1079,11 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
           <Property Name="CuRate" Type="decimal" Precision="18" Scale="5" />
           <Property Name="IsReceived" Type="nchar" MaxLength="10" />
+          <Property Name="AgreedCurRate" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="CuRateUpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurateUpdatedDate" Type="datetime" />
+          <Property Name="IsInvoiced" Type="bit" />
+          <Property Name="InvoiceNum" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="InventorySalesMaster">
           <Key>
@@ -1158,6 +1163,7 @@
           <Property Name="Sinvnum" Type="nvarchar" MaxLength="50" />
           <Property Name="Refnum" Type="nvarchar" MaxLength="20" />
           <Property Name="InvoiceDate" Type="datetime" />
+          <Property Name="IsPosted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ItemGroupMaster">
           <Key>
@@ -3898,18 +3904,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_JobContractOptionalDetail_PoPackMaster">
-          <End Role="PoPackMaster" Type="Self.PoPackMaster" Multiplicity="0..1" />
-          <End Role="JobContractOptionalDetail" Type="Self.JobContractOptionalDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PoPackMaster">
-              <PropertyRef Name="PoPackId" />
-            </Principal>
-            <Dependent Role="JobContractOptionalDetail">
-              <PropertyRef Name="PoPackID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_JobContractOptionalMaster_AtcMaster">
           <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
           <End Role="JobContractOptionalMaster" Type="Self.JobContractOptionalMaster" Multiplicity="*" />
@@ -5522,6 +5516,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
         </Function>
         <Function Name="GetSalesDO_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SalesDO_PK" Type="int" Mode="In" />
+          <Parameter Name="Dotype" Type="varchar" Mode="In" />
         </Function>
         <Function Name="GetSPO_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SPO_Pk" Type="int" Mode="In" />
@@ -6115,10 +6110,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="JobContractOptionalMaster" EntitySet="JobContractOptionalMaster" />
             <End Role="JobContractOptionalDetail" EntitySet="JobContractOptionalDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_JobContractOptionalDetail_PoPackMaster" Association="Self.FK_JobContractOptionalDetail_PoPackMaster">
-            <End Role="PoPackMaster" EntitySet="PoPackMaster" />
-            <End Role="JobContractOptionalDetail" EntitySet="JobContractOptionalDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_JobContractOptionalMaster_AtcMaster" Association="Self.FK_JobContractOptionalMaster_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMaster" />
             <End Role="JobContractOptionalMaster" EntitySet="JobContractOptionalMaster" />
@@ -6699,7 +6690,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <Parameter Name="Datetoday" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetSalesDO_SP" ReturnType="Collection(ArtModel.GetSalesDO_SP_Result)">
-          <Parameter Name="SalesDO_PK" Mode="In" Type="Int32" />
+            <Parameter Name="SalesDO_PK" Mode="In" Type="Int32" />
+            <Parameter Name="Dotype" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetSPO_SP" ReturnType="Collection(ArtModel.GetSPO_SP_Result)">
           <Parameter Name="SPO_Pk" Mode="In" Type="Int32" />
@@ -6785,7 +6777,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="InventoryLoanMasters" EntityType="ArtModel.InventoryLoanMaster" />
           <EntitySet Name="InventoryMasters" EntityType="ArtModel.InventoryMaster" />
           <EntitySet Name="InventoryMissingDetails" EntityType="ArtModel.InventoryMissingDetail" />
-          <EntitySet Name="InventorySalesDetails" EntityType="ArtModel.InventorySalesDetail" />
           <EntitySet Name="InventorySalesMasters" EntityType="ArtModel.InventorySalesMaster" />
           <EntitySet Name="InventoryStockTransferDetails" EntityType="ArtModel.InventoryStockTransferDetail" />
           <EntitySet Name="InventoryStockTransferMasters" EntityType="ArtModel.InventoryStockTransferMaster" />
@@ -7081,10 +7072,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_TransferToGstockDetails_InventoryMaster" Association="ArtModel.FK_TransferToGstockDetails_InventoryMaster">
             <End Role="InventoryMaster" EntitySet="InventoryMasters" />
             <End Role="TransferToGstockDetail" EntitySet="TransferToGstockDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InventorySalesDetail_InventorySalesMaster" Association="ArtModel.FK_InventorySalesDetail_InventorySalesMaster">
-            <End Role="InventorySalesMaster" EntitySet="InventorySalesMasters" />
-            <End Role="InventorySalesDetail" EntitySet="InventorySalesDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_InventorySalesMaster_LocationMaster" Association="ArtModel.FK_InventorySalesMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMasters" />
@@ -7799,6 +7786,11 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_LaySheetDetails_LaySheetRolls" Association="ArtModel.FK_LaySheetDetails_LaySheetRolls">
             <End Role="LaySheetRollDetail" EntitySet="LaySheetRollDetails" />
             <End Role="LaySheetDetail" EntitySet="LaySheetDetails" />
+          </AssociationSet>
+          <EntitySet Name="InventorySalesDetails" EntityType="ArtModel.InventorySalesDetail" />
+          <AssociationSet Name="FK_InventorySalesDetail_InventorySalesMaster" Association="ArtModel.FK_InventorySalesDetail_InventorySalesMaster">
+            <End Role="InventorySalesMaster" EntitySet="InventorySalesMasters" />
+            <End Role="InventorySalesDetail" EntitySet="InventorySalesDetails" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
@@ -8933,20 +8925,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="InventoryMissingRequest" Relationship="ArtModel.FK_InventoryMissingDetails_InventoryMissingRequest" FromRole="InventoryMissingDetail" ToRole="InventoryMissingRequest" />
         </EntityType>
-        <EntityType Name="InventorySalesDetail">
-          <Key>
-            <PropertyRef Name="SalesDODet_PK" />
-          </Key>
-          <Property Name="SalesDODet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalesDO_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="SInventoryItem_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CuRate" Type="Decimal" Precision="18" Scale="5" />
-          <NavigationProperty Name="InventorySalesMaster" Relationship="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" FromRole="InventorySalesDetail" ToRole="InventorySalesMaster" />
-          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="InventorySalesMaster">
           <Key>
             <PropertyRef Name="SalesDO_PK" />
@@ -8966,10 +8944,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ISApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ApprovedBY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="InventorySalesDetails" Relationship="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" FromRole="InventorySalesMaster" ToRole="InventorySalesDetail" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_InventorySalesMaster_LocationMaster" FromRole="InventorySalesMaster" ToRole="LocationMaster" />
           <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsDebited" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="InventorySalesDetails" Relationship="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" FromRole="InventorySalesMaster" ToRole="InventorySalesDetail" />
         </EntityType>
         <EntityType Name="InventoryStockTransferDetail">
           <Key>
@@ -9032,6 +9010,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="BankMaster" Relationship="ArtModel.FK_InvoiceMaster_BankMaster" FromRole="InvoiceMaster" ToRole="BankMaster" />
           <NavigationProperty Name="InvoiceDetails" Relationship="ArtModel.FK_InvoiceDetails_InvoiceMaster" FromRole="InvoiceMaster" ToRole="InvoiceDetail" />
           <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+          <Property Name="IsPosted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="ItemGroupMaster">
           <Key>
@@ -10830,18 +10809,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="TransferToGstockDetail">
               <PropertyRef Name="InventoryItemPK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InventorySalesDetail_InventorySalesMaster">
-          <End Type="ArtModel.InventorySalesMaster" Role="InventorySalesMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.InventorySalesDetail" Role="InventorySalesDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InventorySalesMaster">
-              <PropertyRef Name="SalesDO_PK" />
-            </Principal>
-            <Dependent Role="InventorySalesDetail">
-              <PropertyRef Name="SalesDO_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -14079,6 +14046,37 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="InventorySalesDetail">
+          <Key>
+            <PropertyRef Name="SalesDODet_PK" />
+          </Key>
+          <Property Name="SalesDODet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesDO_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SInventoryItem_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CuRate" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AgreedCurRate" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="CuRateUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurateUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsInvoiced" Type="Boolean" />
+          <Property Name="InvoiceNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InventorySalesMaster" Relationship="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" FromRole="InventorySalesDetail" ToRole="InventorySalesMaster" />
+        </EntityType>
+        <Association Name="FK_InventorySalesDetail_InventorySalesMaster">
+          <End Type="ArtModel.InventorySalesMaster" Role="InventorySalesMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.InventorySalesDetail" Role="InventorySalesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventorySalesMaster">
+              <PropertyRef Name="SalesDO_PK" />
+            </Principal>
+            <Dependent Role="InventorySalesDetail">
+              <PropertyRef Name="SalesDO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15198,20 +15196,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InventorySalesDetails">
-            <EntityTypeMapping TypeName="ArtModel.InventorySalesDetail">
-              <MappingFragment StoreEntitySet="InventorySalesDetail">
-                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
-                <ScalarProperty Name="CuRate" ColumnName="CuRate" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
-                <ScalarProperty Name="DeliveryQty" ColumnName="DeliveryQty" />
-                <ScalarProperty Name="SInventoryItem_PK" ColumnName="SInventoryItem_PK" />
-                <ScalarProperty Name="SalesDO_PK" ColumnName="SalesDO_PK" />
-                <ScalarProperty Name="SalesDODet_PK" ColumnName="SalesDODet_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="InventorySalesMasters">
             <EntityTypeMapping TypeName="ArtModel.InventorySalesMaster">
               <MappingFragment StoreEntitySet="InventorySalesMaster">
@@ -15283,6 +15267,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="InvoiceMasters">
             <EntityTypeMapping TypeName="ArtModel.InvoiceMaster">
               <MappingFragment StoreEntitySet="InvoiceMaster">
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
                 <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
                 <ScalarProperty Name="Refnum" ColumnName="Refnum" />
                 <ScalarProperty Name="Sinvnum" ColumnName="Sinvnum" />
@@ -17559,6 +17544,25 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="CutID" ColumnName="CutID" />
                 <ScalarProperty Name="LayShortageMasterID" ColumnName="LayShortageMasterID" />
                 <ScalarProperty Name="LayCutAdjustID" ColumnName="LayCutAdjustID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventorySalesDetails">
+            <EntityTypeMapping TypeName="ArtModel.InventorySalesDetail">
+              <MappingFragment StoreEntitySet="InventorySalesDetail">
+                <ScalarProperty Name="InvoiceNum" ColumnName="InvoiceNum" />
+                <ScalarProperty Name="IsInvoiced" ColumnName="IsInvoiced" />
+                <ScalarProperty Name="CurateUpdatedDate" ColumnName="CurateUpdatedDate" />
+                <ScalarProperty Name="CuRateUpdatedBy" ColumnName="CuRateUpdatedBy" />
+                <ScalarProperty Name="AgreedCurRate" ColumnName="AgreedCurRate" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="CuRate" ColumnName="CuRate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="DeliveryQty" ColumnName="DeliveryQty" />
+                <ScalarProperty Name="SInventoryItem_PK" ColumnName="SInventoryItem_PK" />
+                <ScalarProperty Name="SalesDO_PK" ColumnName="SalesDO_PK" />
+                <ScalarProperty Name="SalesDODet_PK" ColumnName="SalesDODet_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

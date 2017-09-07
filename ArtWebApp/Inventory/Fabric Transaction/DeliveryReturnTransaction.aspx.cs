@@ -110,8 +110,8 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            BLL.InventoryBLL.FabricRollEntryDO dorolldata = new BLL.InventoryBLL.FabricRollEntryDO();
             //mrnrolldata.rollinvdata = getmstrdetails();
+            BLL.InventoryBLL.FabricRollEntryDO dorolldata = new BLL.InventoryBLL.FabricRollEntryDO();            
             dorolldata.Docnum = ddl_do.SelectedItem.Text;
             dorolldata.cutid = int.Parse(drp_cutorder.SelectedValue.ToString());
             dorolldata.DoID = int.Parse(ddl_do.SelectedValue.ToString());
@@ -121,6 +121,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             tbl_inventory.DataSource = null;
             tbl_inventory.DataBind();
             upd_grid.Update();
+            ArtWebApp.Controls.WebMsgBox.Show("Rolls Returned Successfully");
         }
 
 

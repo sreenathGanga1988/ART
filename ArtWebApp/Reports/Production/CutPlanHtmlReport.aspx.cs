@@ -77,8 +77,16 @@ namespace ArtWebApp.Reports.Production
 
                     lbl_addedBY.Text = element.AddedBy.ToString();
                     lbl_addeddate.Text = element.AddedDate.ToString();
-                    lbl_approvedBy.Text = element.ApprovedBy.ToString();
-                    lbl_approveddate.Text = element.ApprovedDate.ToString();
+                    try
+                    {
+                        lbl_approvedBy.Text = element.ApprovedBy.ToString();
+                        lbl_approveddate.Text = element.ApprovedDate.ToString();
+                    }
+                    catch (Exception)
+                    {
+
+                     
+                    }
                     lbl_cutnum.Text = element.CutPlanNUM.ToString();
                     lbl_style.Text = element.BuyerStyle.ToString();
                     lbl_cutplancons.Text = element.CutplanConsumption.ToString ();

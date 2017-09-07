@@ -28,5 +28,18 @@ namespace ArtWebApp.Reports.Inventoryreport
 
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\InventoryMissedReplaced.rdlc";
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            DBTransaction.InventoryTransaction.InventoryReportTransaction invtran = new DBTransaction.InventoryTransaction.InventoryReportTransaction();
+
+            DataTable dt = invtran.GetInventoryMisplacedofAtc(int.Parse(cmb_atc0.SelectedValue.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\MisplacementofAtc.rdlc";
+        }
     }
 }

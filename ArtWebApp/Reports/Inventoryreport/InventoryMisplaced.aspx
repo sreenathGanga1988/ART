@@ -14,17 +14,24 @@
                     <td class="RedHeadding" colspan="12">Inventory MisplacedReports</td>
                 </tr>
                 <tr>
-                    <td class="NormalTD">Inventory Misplaced req#
-                    </td>
+                    <td class="NormalTD">Atc</td>
                     <td  class="NormalTD">
-                        <ucc:DropDownListChosen ID="dll_reg" runat="server" DataSourceID="MisplacedReq" DataTextField="reqnum" DataValueField="MisplaceApp_pk" DisableSearchThreshold="10" Width="200px">
-                        </ucc:DropDownListChosen>
+                        <asp:UpdatePanel ID="upd_atc" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <ucc:DropDownListChosen ID="cmb_atc0" runat="server" DataSourceID="SqlDataSource1" DataTextField="AtcNum" DataValueField="AtcId" Height="17px" Width="200px">
+                                        </ucc:DropDownListChosen>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         
                     </td>
                     <td class="NormalTD">
                         &nbsp;</td>
                     <td class ="NormalTD">
-                        <asp:Button ID="btn_showRO" runat="server" OnClick="btn_showpo_Click" Text="Show  Report" ToolTip="Show the " />
+                        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Show All Misplacement of Atc" />
                     </td>
                     <td  class="NormalTD">&nbsp;</td>
                     <td class="NormalTD" >&nbsp;</td>
@@ -32,6 +39,29 @@
                     <td class="NormalTD" >&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD" >&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                </tr>
+         
+               
+                <tr>
+                    <td class="NormalTD">Inventory Misplaced req# </td>
+                    <td class="NormalTD">
+                        <ucc:DropDownListChosen ID="dll_reg" runat="server" DataSourceID="MisplacedReq" DataTextField="reqnum" DataValueField="MisplaceApp_pk" DisableSearchThreshold="10" Width="200px">
+                        </ucc:DropDownListChosen>
+                    </td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">
+                        <asp:Button ID="btn_showRO" runat="server" OnClick="btn_showpo_Click" Text="Show  Report" ToolTip="Show the " />
+                    </td>
+                    <td class="NormalTD">
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') ORDER BY AtcNum, AtcId"></asp:SqlDataSource>
+                    </td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                 </tr>

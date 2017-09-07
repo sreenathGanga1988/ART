@@ -71,7 +71,34 @@ WHERE        (InventoryMaster.InventoryItem_PK = @Param1) AND (CutOrderMaster.To
 
 
 
+        public DataTable GetCutOrderDO(int cutid)
+        {
+            DataTable dt = new DataTable();
 
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        DeliveryOrderMaster.DONum, DeliveryOrderMaster.DeliveryDate, DeliveryOrderMaster.BoeNum, DeliveryOrderMaster.ContainerNumber, DeliveryOrderMaster.AddedBy, DeliveryOrderMaster.AddedDate, 
+                         DeliveryOrderMaster.DoType, CutOrderDO.DeliveryQty, CutOrderDO.Skudet_PK, CutOrderDO.CutID
+FROM            CutOrderDO INNER JOIN
+                         DeliveryOrderDetails ON CutOrderDO.DoDet_Pk = DeliveryOrderDetails.DODet_PK INNER JOIN
+                         DeliveryOrderMaster ON DeliveryOrderDetails.DO_PK = DeliveryOrderMaster.DO_PK
+WHERE        (CutOrderDO.CutID = @Param1)", con);
+                cmd.Parameters.AddWithValue("@Param1", cutid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
 
         public DataTable GetCutOrderData(int cutid)
         {

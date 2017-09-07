@@ -71,7 +71,10 @@
 
           </style>
     <script src="../../JQuery/GridJQuery.js"></script>
+    
    <script src='http://code.jquery.com/jquery-latest.min.js' type='text/javascript'></script>
+    <script src="../../Scripts/jquery.table2excel.js"></script>
+    <script src="../../JQuery/ExporttoExcel.js"></script>
     <script >
 
         function fnExcelReport() {
@@ -337,7 +340,7 @@
                                          
                                              DataKeyNames="PoPackId"
                                              OnRowDataBound="tbl_podata_RowDataBound"
-                                             style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnRowCommand="tbl_podata_RowCommand" OnSelectedIndexChanged="tbl_podata_SelectedIndexChanged" Font-Size="Smaller">
+                                             style="font-size: small; font-family: Calibri; font-weight: 400;" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnRowCommand="tbl_podata_RowCommand" OnSelectedIndexChanged="tbl_podata_SelectedIndexChanged" Font-Size="Smaller" CssClass="mydatagrid">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>
                                     

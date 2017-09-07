@@ -108,15 +108,15 @@
                     
                     <td>  <asp:UpdatePanel ID="UpdatePanel3" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
-                       <asp:Button ID="btn_cutorder" runat="server" Text="S" Width="33px"  CssClass="auto-style10" OnClick="btn_cutorder_Click"  /></td>
+                       <asp:Button ID="btn_cutorder" runat="server" Text="S" Width="33px"  OnClick="btn_cutorder_Click"  /></td>
                      </ContentTemplate>
                                             </asp:UpdatePanel> </td>
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                  <%--  <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:Button ID="Button3" runat="server" CssClass="auto-style10" OnClick="Button2_Click" Text="S" Width="33px" />
                             </td>
                         </ContentTemplate>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel>--%>
                     
                     <td >
                           &nbsp;</td>

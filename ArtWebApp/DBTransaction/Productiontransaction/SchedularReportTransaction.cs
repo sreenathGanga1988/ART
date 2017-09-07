@@ -182,6 +182,41 @@ namespace ArtWebApp.DBTransaction.Productiontransaction
 
         }
 
+
+        
+        public static System.Data.DataTable PreponedofMonth(int year, int month)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "PrePonedPOsofMonth_SP";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@month", month);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+        }
+
+
+        public static System.Data.DataTable ShortcloseofMonth(int year, int month)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "[ShortClosedPosOfMonth_SP]";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@month", month);
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+        }
+
         public static System.Data.DataTable GetSalesReportofMonth(DateTime fromdate, DateTime todate)
         {
             SqlCommand cmd = new SqlCommand();

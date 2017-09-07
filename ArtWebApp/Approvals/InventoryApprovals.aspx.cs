@@ -13,9 +13,9 @@ namespace ArtWebApp.Approvals
         {
             String navtype = Request.QueryString["navtype"];
 
+            string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
-          
-
+            List<String> LoanApproverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" , "mithilesh" ,"ravi", "martin"});
             string v = Request.QueryString["navtype"];
             if (navtype == "Ro Approval")
             {
@@ -35,10 +35,15 @@ namespace ArtWebApp.Approvals
             }
             else if (navtype == "Loan Approval")
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" ||HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
-                {
+                //if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj" || HttpContext.Current.User.Identity.Name == "martin")
+                //{
+                 if (LoanApproverlist.Contains(currentusername, StringComparer.OrdinalIgnoreCase))
+
+               { 
+
                     MultiView1.ActiveViewIndex = 1;
                 }
+                //}
                 else
                 {
 

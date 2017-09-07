@@ -260,7 +260,7 @@
                     <asp:SqlDataSource ID="MenuData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SubMenuMaster.Menu_PK, SubMenuMaster.MenuText, SubMenuMaster.MenuURL, SubMenuMaster.ParentID, SubMenuMaster.isEnable, SubMenuMaster.IsNormal, UserProfileRights.UserProfile_Pk,(REPLACE(REPLACE(cast(MenuURL as nvarchar(max)), CHAR(13), ''), CHAR(10), '')) AS url
 FROM            SubMenuMaster INNER JOIN
                          UserProfileRights ON SubMenuMaster.Menu_PK = UserProfileRights.Menu_PK
-WHERE        (UserProfileRights.UserProfile_Pk = @Param1)">
+WHERE        (UserProfileRights.UserProfile_Pk = @Param1) and (SubMenuMaster.IsActive = 1)">
                         <SelectParameters>
                             <asp:SessionParameter DefaultValue="0" Name="Param1" SessionField="UserProfile_Pk" />
                         </SelectParameters>

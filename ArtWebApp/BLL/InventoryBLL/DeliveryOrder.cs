@@ -760,7 +760,7 @@ namespace ArtWebApp.BLL.InventoryBLL
         public string Level1ApprovedBY { get; set; }
         public int IsApproved { get; set; }
         public int ApprovedBy { get; set; }
-
+        public string Reason { get; set; }
 
         public DeliveryOrderMasterData Domstrdata { get; set; }
         public List<DeliveryOrderDetailsData> DeliveryOrderDetailsDataCollection
@@ -785,6 +785,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                 domstr.Level1Approval ="N";
                 domstr.Level1ApprovedBY = "";
                 domstr.IsApproved = "N";
+                domstr.Reason = Dodata.Reason;
                 //domstr.ApprovedBy ="N";
                 //domstr.IsApproved ="N";
                 enty.InventoryMissingRequests.Add(domstr);

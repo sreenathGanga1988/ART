@@ -475,7 +475,14 @@ FROM            StockPODetails INNER JOIN
                     enty.SalesDebitNoteDetails.Add(shpdert);
 
 
-
+                    var Q = from inventorySalesMaster in enty.InventorySalesMasters
+                            where inventorySalesMaster.SalesDO_PK == di.SDO_PK
+                            select inventorySalesMaster;
+                            
+                    foreach(var element in Q)
+                    {
+                        element.IsDebited = "Y";
+                    }
 
 
                 }
@@ -666,6 +673,43 @@ FROM            StockPODetails INNER JOIN
 }
   
 
+    public class ExternalDoInvoiceDetails
+    {
+        public int SDODet_PK { get; set; }
 
+        public Decimal AgreedCurate { get; set; }
+    }
+    public class ExternalDoInvoiceMaster
+    {
 
+        public String  Docnum { get; set; }
+        public List<ExternalDoInvoiceDetails> ExternalDoInvoiceDetailsCollection { get; set; }
+ 
+        public String  Updateinvoicedetails()
+        {
+
+            String msg = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                foreach (ExternalDoInvoiceDetails di in this.ExternalDoInvoiceDetailsCollection)
+                {
+                    var q = from inventorySalesDetail in enty.InventorySalesDetails
+                            where inventorySalesDetail.SalesDODet_PK == di.SDODet_PK
+                            select inventorySalesDetail;
+                    foreach(var element in q)
+                    {
+
+                        element.AgreedCurRate = Decimal.Parse( di.AgreedCurate.ToString ());
+                        element.IsInvoiced = true;
+                        element.CuRateUpdatedBy = HttpContext.Current.Session["Username"].ToString();
+                        element.CurateUpdatedDate = DateTime.Now;
+                        msg = element.InventorySalesMaster.SalesDONum;
+                    }
+                }
+            }
+
+            return msg;
+      }
+    }
 }

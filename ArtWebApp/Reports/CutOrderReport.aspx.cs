@@ -290,5 +290,32 @@ namespace ArtWebApp.Reports
             Session["cutpkrpt"] = int.Parse(drp_cutplan.SelectedValue.ToString());
             Response.Redirect("~/Reports/Production/CutPlanHtmlReportWithRoll.aspx");
         }
+
+        protected void Button9_Click(object sender, EventArgs e)
+        {
+            loadDOPOreport();
+        }
+
+
+
+
+        public void loadDOPOreport()
+        {
+
+
+
+            DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+
+            DataTable dt = potrsans.GetCutOrderDO(int.Parse(drp_costingpk.SelectedValue.ToString().Trim()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\cutorderDO.rdlc";
+
+
+
+        }
+
     }
 }

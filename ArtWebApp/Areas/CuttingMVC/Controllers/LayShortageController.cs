@@ -81,9 +81,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         [HttpGet]
         public JsonResult PopulateLaysheetSelectionlist(decimal[] SelectedOurStyle, int Id=0)
         {
+            int locationpk= int.Parse ( HttpContext.Session["UserLoc_pk"].ToString());
 
-
-            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.OustyleID ?? 0) && o.CutOrderDetail.CutOrderMaster.SkuDet_pk==Id), "LaySheet_PK", "LaySheetNum");
+            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.OustyleID ?? 0) && o.CutOrderDetail.CutOrderMaster.SkuDet_pk==Id && o.Location_PK== locationpk), "LaySheet_PK", "LaySheetNum");
 
             JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
 

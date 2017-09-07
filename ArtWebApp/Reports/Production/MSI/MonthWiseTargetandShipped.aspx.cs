@@ -1,6 +1,7 @@
 ﻿using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -117,7 +118,55 @@ namespace ArtWebApp.Reports.Production.MSI
 
 
 
+        public void loadsTargetofMonthWithDetails()
+        {
 
+            int year = int.Parse(cmb_year.SelectedItem.Text);
+            int month = int.Parse(cmb_Month.SelectedValue.ToString());
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\TargetofMonthWithdetails.rdlc";
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            String Reportheading = "Target for the month of " + cmb_Month.SelectedItem.ToString() + " ," + year;
+
+
+            System.Data.DataTable dt = DBTransaction.Productiontransaction.SchedularReportTransaction.GetTargetofMonth(year, month);
+
+
+            DataTable dt1 = DBTransaction.Productiontransaction.SchedularReportTransaction.PreponedofMonth(year, month);
+
+            DataTable dt2 = DBTransaction.Productiontransaction.SchedularReportTransaction.ShortcloseofMonth(year, month);
+
+
+    
+            
+
+            //DataTable dt = padapt.GetDataBy(drp_PO.SelectedItem.Text.Trim());
+            //dt1 = adapt.GetDataByPO(int.Parse(drp_PO.SelectedItem.Value.ToString()));
+            //Microsoft.Reporting.WebForms.ReportDataSource DataSet1= new ReportDataSource () ;
+            //DataSet1.Value = dt;
+            //Microsoft.Reporting.WebForms.ReportDataSource DataSet2 = new ReportDataSource();
+            //DataSet2.Value = dt1;
+            // this.ReportViewer1.LocalReport.DataSources.Add(DataSet1);
+            // this.ReportViewer1.LocalReport.DataSources.Add(DataSet2);
+
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportDataSource rd1 = new ReportDataSource("DataSet1", dt);
+            ReportViewer1.LocalReport.DataSources.Add(rd1);
+            if (dt1 != null)
+            {
+                ReportDataSource rd2 = new ReportDataSource("DataSet2", dt1);
+                ReportViewer1.LocalReport.DataSources.Add(rd2);
+            }
+            if (dt2 != null)
+            {
+                ReportDataSource rd3 = new ReportDataSource("DataSet3", dt2);
+                ReportViewer1.LocalReport.DataSources.Add(rd3);
+            }
+            this.ReportViewer1.LocalReport.DisplayName = "Target for the month of " + cmb_Month.SelectedItem.ToString() + " ," + year;
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+            ReportViewer1.LocalReport.Refresh();
+
+        }
 
 
 
@@ -126,6 +175,11 @@ namespace ArtWebApp.Reports.Production.MSI
         protected void Button1_Click(object sender, EventArgs e)
         {
             loaDYearlyTargetofMonth();
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            loadsTargetofMonthWithDetails();
         }
     }
 }

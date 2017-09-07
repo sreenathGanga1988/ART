@@ -26,6 +26,7 @@
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,19 +87,29 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.Common.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\WebArtSampler\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WebForms.12.0.2402.15\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.802.134\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -216,6 +227,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Accounts\AccountsDashBoardBoot.aspx" />
     <Content Include="Accounts\DebitnoteforFactory.aspx" />
     <Content Include="Accounts\DebitNoteGenerator.aspx" />
     <Content Include="Accounts\Debitnote\AccountsdashBoard.aspx" />
@@ -283,6 +295,7 @@
     <Content Include="DynamicMenuBar.ascx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Image\password.jpg" />
     <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
@@ -1323,6 +1336,7 @@
     <Content Include="Shipping\AtcExpenseMaster.aspx" />
     <Content Include="Shipping\CourierEntry.aspx" />
     <Content Include="Shipping\Documentreceipt.aspx" />
+    <Content Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx" />
     <Content Include="Shipping\InboundEdit.aspx" />
     <Content Include="Shipping\Invoicing.aspx" />
     <Content Include="Shipping\LC\BankAdvice.aspx" />
@@ -1333,6 +1347,19 @@
     <Content Include="Shipping\ShiipingDashBoard.aspx" />
     <Content Include="Shipping\ShipmentClosing.aspx" />
     <Content Include="Shipping\ShippingTracker.aspx" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="User Manual\InventoryUserGuide.htm" />
     <Content Include="User Manual\InventoryUserGuide_files\colorschememapping.xml" />
     <Content Include="User Manual\InventoryUserGuide_files\filelist.xml" />
@@ -1511,6 +1538,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\AccountsDashBoardBoot.aspx.cs">
+      <DependentUpon>AccountsDashBoardBoot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\AccountsDashBoardBoot.aspx.designer.cs">
+      <DependentUpon>AccountsDashBoardBoot.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\DebitnoteforFactory.aspx.cs">
       <DependentUpon>DebitnoteforFactory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1717,6 +1751,14 @@
     <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.designer.cs">
       <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.cs">
+      <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.designer.cs">
+      <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModel\Master\Item.cs" />
     <Compile Include="ViewModel\Master\Menu.cs" />
     <Content Include="App_Code\HtmlHelperExtensions.cs" />
@@ -4165,6 +4207,7 @@
     <EmbeddedResource Include="Reports\RDLC\CorierDetailsReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\costingreport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrder.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CutOrderDO.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderNew.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderPendingToLay.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderSummary.rdlc" />
@@ -4191,9 +4234,11 @@
     <EmbeddedResource Include="Reports\RDLC\InvoiceReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\jc-cm.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\JC-OTHER.RDLC" />
+    <EmbeddedResource Include="Reports\RDLC\JC-OTHERNew.RDLC" />
     <EmbeddedResource Include="Reports\RDLC\LaySheetReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\LOAN.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\LocationWiseCutplanPendingReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\MisplacementofAtc.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MonthlyNew.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MonthlyReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\OrderOnHand FactoryWise.rdlc" />
@@ -4224,6 +4269,7 @@
     <EmbeddedResource Include="Reports\RDLC\STOCK-MRN.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\stockdo.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\TargetofMonth.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\TargetofMonthWithdetails.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Targetshipmentdetails.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\WIPReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\WrongPoReport.rdlc" />

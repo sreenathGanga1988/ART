@@ -115,9 +115,11 @@
                 <asp:Button ID="Button5" runat="server" Text="Show Cut Order Report" OnClick="Button5_Click" Font-Size="Smaller" />
             </td>
             <td>
-                <asp:Button ID="Button8" runat="server" OnClick="Button8_Click" Text="Button" />
+                <asp:Button ID="Button8" runat="server" OnClick="Button8_Click" Text="CutOrder" />
             </td>
-            <td >&nbsp;</td>
+            <td >
+                <asp:Button ID="Button9" runat="server" Font-Size="Smaller" OnClick="Button9_Click" Text="Show Cut Order Do Report" />
+            </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

@@ -84,7 +84,7 @@
 
     <div class="FullTable">
         <div class="RedHeaddingdIV">
-            fabric lay sheet Rolls(cut # creation)
+            fabric lay sheet Rolls(LAY # creation)
 
         </div>
         <div>

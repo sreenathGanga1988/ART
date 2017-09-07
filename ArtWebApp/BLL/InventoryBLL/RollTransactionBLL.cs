@@ -1779,14 +1779,18 @@ WHERE        (SkuDet_PK = @skudetpk) AND (SupplierDoc_pk = @asn_pk) ";
                          FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.AWidth, FabricRollmaster.AYard, FabricRollmaster.IsSaved, FabricRollmaster.IsApproved, FabricRollmaster.IsAcceptable, 
                          FabricRollmaster.MarkerType, SupplierMaster.SupplierName, AtcMaster.AtcNum, AtcMaster.AtcId, FabricRollmaster.SupplierDoc_pk, ProcurementMaster.PONum, FabricRollmaster.SGsm, FabricRollmaster.AGsm, 
                          FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.TotalDefect, FabricRollmaster.TotalDefecton100, FabricRollmaster.TotalPoint, 
-                         FabricRollmaster.TotalPointon100yard,FabricRollmaster.Lotnum
+                         FabricRollmaster.TotalPointon100yard, FabricRollmaster.LOTnum, LocationMaster.LocType, RollInventoryMaster.IsPresent
 FROM            AtcMaster INNER JOIN
                          SupplierMaster INNER JOIN
                          ProcurementDetails INNER JOIN
                          FabricRollmaster ON ProcurementDetails.PODet_PK = FabricRollmaster.podet_pk INNER JOIN
-                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk ON SupplierMaster.Supplier_PK = ProcurementMaster.Supplier_Pk ON AtcMaster.AtcId = ProcurementMaster.AtcId
-WHERE         (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDoc_pk = @asn_pk) and  (FabricRollmaster.SkuDet_PK = @skudet_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails WHERE (IsDeleted = N'N') )
-";
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk ON SupplierMaster.Supplier_PK = ProcurementMaster.Supplier_Pk ON AtcMaster.AtcId = ProcurementMaster.AtcId INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
+                         LocationMaster ON RollInventoryMaster.Location_Pk = LocationMaster.Location_PK
+WHERE        (FabricRollmaster.IsSaved = N'Y') AND (FabricRollmaster.SupplierDoc_pk = @asn_pk) AND (FabricRollmaster.SkuDet_PK = @skudet_pk) AND (FabricRollmaster.Roll_PK NOT IN
+                             (SELECT        Roll_PK
+                               FROM            CutPlanRollDetails
+                               WHERE        (IsDeleted = N'N'))) AND (LocationMaster.LocType = N'W') AND (RollInventoryMaster.IsPresent = N'Y')";
                 cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
                 cmd.Parameters.AddWithValue("@asn_pk", asn_pk);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);

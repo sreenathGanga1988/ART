@@ -21,6 +21,7 @@
                             <td class="auto-style1" colspan="4">
 
                                    &nbsp;</td>
+                            <td class="auto-style1">&nbsp;</td>
                             </tr>
 
                         
@@ -48,6 +49,7 @@
                             <td>
                                
                                 &nbsp;</td>
+                            <td>&nbsp;</td>
                             </tr>
 
                         
@@ -101,8 +103,9 @@
                               
                             </td>
                             <td>
-                                <asp:Button ID="Button1" runat="server" Text="Show target Of Month" OnClick="Button1_Click" />
+                                <asp:Button ID="Button1" runat="server" Text="Show target Of Month" OnClick="Button1_Click" style="font-size: xx-small" />
                             </td>
+                            <td><asp:Button ID="Button2" runat="server" Text="Show target Of Month With Shortclose & Prepone" OnClick="Button2_Click" style="font-size: x-small"  /></td>
                         </tr>
 
                         
@@ -142,6 +145,7 @@
                             <td>
                                 <asp:Label ID="lbl_todate" runat="server" Text="0"></asp:Label>
                             </td>
+                            <td>&nbsp;</td>
                         </tr>
 
                         

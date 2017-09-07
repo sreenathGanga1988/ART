@@ -225,13 +225,53 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            //            allPodatasorce.SelectCommand = @"SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
+            //FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
+            //                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
+            //                                 FROM            ShipmentHandOverDetails INNER JOIN
+            //                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
+            //                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
+            //                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+            //                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate, MAX(POPackDetails.IsShortClosed) AS Expr1
+            //FROM PoPackMaster INNER JOIN
+            //                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+            //                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+            //GROUP BY PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, POPackDetails.OurStyleID, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+            //                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate
+            //HAVING(PoPackMaster.HandoverDate < GETDATE()) AND(MIN(POPackDetails.IsShortClosed) = N'N') ) AS tt
+            //WHERE(POQty - ShipedQty > 0)
+
+
+            //Union
+
+
+
+
+
+            //SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
+            //FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
+            //                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
+            //                                 FROM            ShipmentHandOverDetails INNER JOIN
+            //                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
+            //                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
+            //                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+            //                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate
+            //FROM            PoPackMaster INNER JOIN
+            //                         POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+            //                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+            //GROUP BY PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, POPackDetails.OurStyleID, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+            //                         PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate
+            //HAVING(PoPackMaster.HandoverDate > GETDATE())
+            //                          ) AS tt
+            //WHERE(POQty - ShipedQty > 0) and(ShipedQty != 0)";
+
+
             allPodatasorce.SelectCommand = @"SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
 FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
-                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
-                                 FROM            ShipmentHandOverDetails INNER JOIN
-                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
-                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
-                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+                             ((SELECT        SUM(ShippedQty) AS Expr1
+FROM            ShipmentHandOverDetails
+GROUP BY POPackId, OurStyleID
+HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
                          PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate, MAX(POPackDetails.IsShortClosed) AS Expr1
 FROM PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
@@ -250,11 +290,10 @@ Union
 
 SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate
 FROM(SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
-                             ((SELECT        SUM(ShipmentHandOverDetails.ShippedQty) AS Expr1
-                                 FROM            ShipmentHandOverDetails INNER JOIN
-                                                          JobContractDetail ON ShipmentHandOverDetails.JobContractDetail_pk = JobContractDetail.JobContractDetail_pk
-                                 GROUP BY JobContractDetail.PoPackID, JobContractDetail.OurStyleID
-                                 HAVING(JobContractDetail.PoPackID = PoPackMaster.PoPackId) AND(JobContractDetail.OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+                             ((SELECT        SUM(ShippedQty) AS Expr1
+FROM            ShipmentHandOverDetails
+GROUP BY POPackId, OurStyleID
+HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
                          PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
@@ -264,6 +303,7 @@ GROUP BY PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, At
 HAVING(PoPackMaster.HandoverDate > GETDATE())
                           ) AS tt
 WHERE(POQty - ShipedQty > 0) and(ShipedQty != 0)";
+
 
             tbl_podata.DataSource = allPodatasorce;
             //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);

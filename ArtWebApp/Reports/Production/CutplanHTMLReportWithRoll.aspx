@@ -27,6 +27,12 @@
             height: 30px;
             width: 200px;
         }
+        .auto-style5 {
+            width: 100%;
+        }
+        .auto-style6 {
+            height: 25px;
+        }
     </style>
 </head>
 <body>
@@ -459,9 +465,13 @@
             <td>
                 <div id="Messaediv" runat="server">
                  
+                    <div>
+                          
+                        
 
+                    </div>
 
-                           <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+                         
 
 
                      
@@ -478,7 +488,8 @@
 
                      <asp:UpdatePanel ID="upd_roll" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                            <asp:GridView ID="tbl_rolldata" runat="server" AutoGenerateColumns="False" DataKeyNames="Roll_PK" DataSourceID="Rolldata">
+                                            <asp:GridView ID="tbl_rolldata" runat="server" AutoGenerateColumns="False" 
+                                                DataKeyNames="Roll_PK" DataSourceID="Rolldata">
                     <Columns>
                         <asp:BoundField DataField="Roll_PK" HeaderText="Roll_PK" InsertVisible="False" ReadOnly="True" SortExpression="Roll_PK" />
                         <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />

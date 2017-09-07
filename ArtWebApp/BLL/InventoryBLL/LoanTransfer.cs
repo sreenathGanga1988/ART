@@ -617,7 +617,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 trnmstr.AddedDate = DateTime.Now;
                 trnmstr.ContainerNumber = this.ContainerNumber;
-
+                trnmstr.IsDebited = "N";
                 enty.InventorySalesMasters.Add(trnmstr);
                 enty.SaveChanges();
 
@@ -630,7 +630,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                     sinvdetdb.SInventoryItem_PK = sinvdet.SInventoryItem_PK;
                     sinvdetdb.DeliveryQty = sinvdet.DeliveryQty;
                     sinvdetdb.CuRate = sinvdet.CUrate;
-
+                    sinvdetdb.IsInvoiced = false;
 
 
                     enty.InventorySalesDetails.Add(sinvdetdb);
@@ -679,7 +679,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 trnmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 trnmstr.AddedDate = DateTime.Now;
                 trnmstr.ContainerNumber = this.ContainerNumber;
-
+                trnmstr.IsDebited = "N";
                 enty.InventorySalesMasters.Add(trnmstr);
                 enty.SaveChanges();
                 mrnum = trnmstr.SalesDONum = ArtWebApp.CodeGenerator.GetUniqueCode("EDO", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(trnmstr.SalesDO_PK.ToString()));
@@ -691,7 +691,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                     sinvdetdb.SInventoryItem_PK = sinvdet.SInventoryItem_PK;
                     sinvdetdb.DeliveryQty = sinvdet.DeliveryQty;
                     sinvdetdb.CuRate = sinvdet.CUrate;
-
+                    sinvdetdb.IsInvoiced = false;
 
 
                     enty.InventorySalesDetails.Add(sinvdetdb);

@@ -63,6 +63,7 @@ namespace ArtWebApp.Inventory.Inventory_Requests
 
             BLL.InventoryBLL.InventoryMissingRequestData dodata = new BLL.InventoryBLL.InventoryMissingRequestData();
             dodata.Explanation = txt_explanation.Text.Trim();
+            dodata.Reason = drp_reason.SelectedItem.Text;
             dodata.Domstrdata = GetDoMasterData();
             dodata.DeliveryOrderDetailsDataCollection = GetDeliveryOrderDetailsData();
             String donum = dodata.insertMissingInventoryRequest(dodata);

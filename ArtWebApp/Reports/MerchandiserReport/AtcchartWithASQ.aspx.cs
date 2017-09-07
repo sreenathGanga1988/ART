@@ -842,7 +842,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
         protected void tbl_transist_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             
-if (e.Row.RowType == DataControlRowType.DataRow)
+         if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 //Add the value of column
                 transisttotalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "OnhandQty"));

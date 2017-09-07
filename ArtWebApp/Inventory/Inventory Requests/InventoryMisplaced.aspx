@@ -92,7 +92,7 @@
                         rEASON:</td>
                     <td>
                         
-                        <ucc:DropDownListChosen ID="drp_fromWarehouse0" runat="server" DataSourceID="ExtraReason" DataTextField="Reason" DataValueField="ExtraRequestReasonID" DisableSearchThreshold="10" Width="200px">
+                        <ucc:DropDownListChosen ID="drp_reason" runat="server" DataSourceID="ExtraReason" DataTextField="Reason" DataValueField="ExtraRequestReasonID" DisableSearchThreshold="10" Width="200px">
                         </ucc:DropDownListChosen>
                         
                         

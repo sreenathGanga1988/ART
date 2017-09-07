@@ -75,7 +75,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<InventoryLoanMaster> InventoryLoanMasters { get; set; }
         public virtual DbSet<InventoryMaster> InventoryMasters { get; set; }
         public virtual DbSet<InventoryMissingDetail> InventoryMissingDetails { get; set; }
-        public virtual DbSet<InventorySalesDetail> InventorySalesDetails { get; set; }
         public virtual DbSet<InventorySalesMaster> InventorySalesMasters { get; set; }
         public virtual DbSet<InventoryStockTransferDetail> InventoryStockTransferDetails { get; set; }
         public virtual DbSet<InventoryStockTransferMaster> InventoryStockTransferMasters { get; set; }
@@ -222,6 +221,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual DbSet<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
         public virtual DbSet<LayAdjustDetail> LayAdjustDetails { get; set; }
+        public virtual DbSet<InventorySalesDetail> InventorySalesDetails { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {
@@ -423,13 +423,17 @@ namespace ArtWebApp.DataModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRecieptofDay_SP_Result>("GetRecieptofDay_SP", location_PkParameter, datetodayParameter);
         }
     
-        public virtual ObjectResult<GetSalesDO_SP_Result> GetSalesDO_SP(Nullable<int> salesDO_PK)
+        public virtual ObjectResult<GetSalesDO_SP_Result> GetSalesDO_SP(Nullable<int> salesDO_PK, string dotype)
         {
             var salesDO_PKParameter = salesDO_PK.HasValue ?
                 new ObjectParameter("SalesDO_PK", salesDO_PK) :
                 new ObjectParameter("SalesDO_PK", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesDO_SP_Result>("GetSalesDO_SP", salesDO_PKParameter);
+            var dotypeParameter = dotype != null ?
+                new ObjectParameter("Dotype", dotype) :
+                new ObjectParameter("Dotype", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesDO_SP_Result>("GetSalesDO_SP", salesDO_PKParameter, dotypeParameter);
         }
     
         public virtual ObjectResult<GetSPO_SP_Result> GetSPO_SP(Nullable<int> sPO_Pk)

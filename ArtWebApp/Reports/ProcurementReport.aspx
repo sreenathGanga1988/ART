@@ -154,8 +154,11 @@
         </td>
     </tr>
     <tr>
-        <td class="ReportViewSection">
-            <asp:UpdatePanel ID="upl_rpt" runat="server">
+        <td class="ReportViewSection" >
+
+            
+                <div style="height:100vh">
+                    <asp:UpdatePanel ID="upl_rpt" runat="server">
                 <ContentTemplate>
                     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%">
                         <LocalReport ReportPath="Reports\RDLC\APO.rdlc">
@@ -164,6 +167,9 @@
                 </ContentTemplate>
 
             </asp:UpdatePanel>
+                </div>
+
+            
 
         </td>
     </tr>

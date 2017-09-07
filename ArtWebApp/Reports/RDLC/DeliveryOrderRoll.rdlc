@@ -142,7 +142,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>1.55083in</Top>
+        <Top>1.42583in</Top>
         <Left>0.11458in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -175,7 +175,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox7</rd:DefaultName>
-        <Top>1.55083in</Top>
+        <Top>1.42583in</Top>
         <Left>2.81125in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -208,7 +208,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>1.87028in</Top>
+        <Top>1.74528in</Top>
         <Left>0.11458in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -241,7 +241,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox7</rd:DefaultName>
-        <Top>1.87028in</Top>
+        <Top>1.74528in</Top>
         <Left>2.81125in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -257,7 +257,7 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>2.55431in</Top>
+        <Top>2.80431in</Top>
         <Height>0in</Height>
         <Width>5.39583in</Width>
         <ZIndex>8</ZIndex>
@@ -1347,7 +1347,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>2.62375in</Top>
+        <Top>2.87375in</Top>
         <Left>0.11458in</Left>
         <Height>0.91666in</Height>
         <Width>5.16194in</Width>
@@ -1376,7 +1376,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>2.18972in</Top>
+        <Top>2.06472in</Top>
         <Left>0.11458in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1406,7 +1406,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DONum</rd:DefaultName>
-        <Top>1.51958in</Top>
+        <Top>1.39458in</Top>
         <Left>1.35417in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1436,7 +1436,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>FromLocation</rd:DefaultName>
-        <Top>1.87028in</Top>
+        <Top>1.74528in</Top>
         <Left>1.35417in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1466,7 +1466,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Cut_NO</rd:DefaultName>
-        <Top>2.18972in</Top>
+        <Top>2.06472in</Top>
         <Left>1.35417in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1496,8 +1496,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DeliveryDate</rd:DefaultName>
-        <Top>1.55083in</Top>
-        <Left>3.88069in</Left>
+        <Top>1.42583in</Top>
+        <Left>4.00569in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
         <ZIndex>14</ZIndex>
@@ -1526,8 +1526,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ToLocation</rd:DefaultName>
-        <Top>1.87028in</Top>
-        <Left>3.88069in</Left>
+        <Top>1.74528in</Top>
+        <Left>4.00569in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
         <ZIndex>15</ZIndex>
@@ -1541,8 +1541,197 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox38">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>CUT Width </Value>
+                <Style>
+                  <FontFamily>CAlibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox5</rd:DefaultName>
+        <Top>2.05084in</Top>
+        <Left>2.83209in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>16</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Cut_NO2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!CutWidth.Value, "DataSet1")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Cut_NO</rd:DefaultName>
+        <Top>2.06472in</Top>
+        <Left>3.94668in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>17</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox39">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>CUT Shirnkage</Value>
+                <Style>
+                  <FontFamily>CAlibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox5</rd:DefaultName>
+        <Top>2.39521in</Top>
+        <Left>0.11458in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>18</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Cut_NO3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Shrinkage.Value, "DataSet1")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Cut_NO</rd:DefaultName>
+        <Top>2.39521in</Top>
+        <Left>1.37375in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox40">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>CUT  Marker Type </Value>
+                <Style>
+                  <FontFamily>CAlibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox5</rd:DefaultName>
+        <Top>2.39521in</Top>
+        <Left>2.81125in</Left>
+        <Height>0.25in</Height>
+        <Width>0.97395in</Width>
+        <ZIndex>20</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Cut_NO4">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value EvaluationMode="Constant">First(Fields!CutMarkerType.Value, "DataSet1")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Cut_NO</rd:DefaultName>
+        <Top>2.39521in</Top>
+        <Left>4.00569in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>21</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>3.54041in</Height>
+    <Height>3.85291in</Height>
     <Style />
   </Body>
   <Width>5.46749in</Width>
@@ -1592,7 +1781,7 @@
         </Field>
         <Field Name="AYard">
           <DataField>AYard</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="MarkerType">
           <DataField>MarkerType</DataField>
@@ -1634,10 +1823,30 @@
           <DataField>Cut_NO</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Shrinkage">
+          <DataField>Shrinkage</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CutWidth">
+          <DataField>CutWidth</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CutMarkerType">
+          <DataField>CutMarkerType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CutID">
+          <DataField>CutID</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SkuDet_pk">
+          <DataField>SkuDet_pk</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>ArtDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2013\WebSites\WebSite4\App_Code\ArtDataSet1.xsd</rd:SchemaPath>
+        <rd:DataSetName>ReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2015\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>GetRollDetail_sp</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

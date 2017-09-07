@@ -22,6 +22,11 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
         public Nullable<decimal> CuRate { get; set; }
         public string IsReceived { get; set; }
+        public Nullable<decimal> AgreedCurRate { get; set; }
+        public string CuRateUpdatedBy { get; set; }
+        public Nullable<System.DateTime> CurateUpdatedDate { get; set; }
+        public Nullable<bool> IsInvoiced { get; set; }
+        public string InvoiceNum { get; set; }
     
         public virtual InventorySalesMaster InventorySalesMaster { get; set; }
     }

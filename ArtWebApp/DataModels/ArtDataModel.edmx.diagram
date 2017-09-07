@@ -53,7 +53,6 @@
         <EntityTypeShape EntityType="ArtModel.InventoryLoanMaster" Width="1.5" PointX="3.75" PointY="138.375" />
         <EntityTypeShape EntityType="ArtModel.InventoryMaster" Width="1.5" PointX="9.75" PointY="67.875" />
         <EntityTypeShape EntityType="ArtModel.InventoryMissingDetail" Width="1.5" PointX="3.75" PointY="10.625" />
-        <EntityTypeShape EntityType="ArtModel.InventorySalesDetail" Width="1.5" PointX="6" PointY="98.375" />
         <EntityTypeShape EntityType="ArtModel.InventorySalesMaster" Width="1.5" PointX="3.75" PointY="97.5" />
         <EntityTypeShape EntityType="ArtModel.InventoryStockTransferDetail" Width="1.5" PointX="8.75" PointY="5.25" />
         <EntityTypeShape EntityType="ArtModel.InventoryStockTransferMaster" Width="1.5" PointX="6.5" PointY="5" />
@@ -184,7 +183,6 @@
         <AssociationConnector Association="ArtModel.FK_InventoryMaster_ProcurementDetails" />
         <AssociationConnector Association="ArtModel.FK_InventoryMaster_SkuRawmaterialDetail" />
         <AssociationConnector Association="ArtModel.FK_TransferToGstockDetails_InventoryMaster" />
-        <AssociationConnector Association="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" />
         <AssociationConnector Association="ArtModel.FK_InventorySalesMaster_LocationMaster" />
         <AssociationConnector Association="ArtModel.FK_InventoryStockTransferDetails_InventoryStockTransferMaster" />
         <AssociationConnector Association="ArtModel.FK_InvoiceDetails_InvoiceMaster" />
@@ -409,6 +407,8 @@
         <AssociationConnector Association="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster" />
         <AssociationConnector Association="ArtModel.FK_LayShortageCutorderAdjustment_LayShortageReqMaster" />
         <EntityTypeShape EntityType="ArtModel.LayAdjustDetail" Width="1.5" PointX="26.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArtModel.InventorySalesDetail" Width="1.5" PointX="6" PointY="98" />
+        <AssociationConnector Association="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

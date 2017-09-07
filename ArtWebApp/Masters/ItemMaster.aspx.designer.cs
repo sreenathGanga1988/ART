@@ -198,7 +198,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_templateforComp;
+    protected global::CustomDropDown.DropDownListChosen drp_templateforComp;
     
     /// <summary>
     /// ItemMasterData control.
@@ -288,7 +288,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_templateforcon;
+    protected global::CustomDropDown.DropDownListChosen drp_templateforcon;
     
     /// <summary>
     /// RequiredFieldValidator5 control.
@@ -450,7 +450,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_templatewidth;
+    protected global::CustomDropDown.DropDownListChosen drp_templatewidth;
     
     /// <summary>
     /// RequiredFieldValidator7 control.
@@ -531,7 +531,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_Color;
+    protected global::CustomDropDown.DropDownListChosen drp_Color;
     
     /// <summary>
     /// RequiredFieldValidator9 control.
@@ -612,7 +612,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_Size;
+    protected global::CustomDropDown.DropDownListChosen drp_Size;
     
     /// <summary>
     /// RequiredFieldValidator11 control.
@@ -693,7 +693,7 @@ public partial class Masters_ItemMaster {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::Infragistics.Web.UI.ListControls.WebDropDown WebDropDown1;
+    protected global::CustomDropDown.DropDownListChosen WebDropDown1;
     
     /// <summary>
     /// RequiredFieldValidator13 control.

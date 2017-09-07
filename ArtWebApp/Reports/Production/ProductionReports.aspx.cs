@@ -211,7 +211,7 @@ namespace ArtWebApp.Reports.Production
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
             //this.reportViewer1.LocalReport.ReportEmbeddedResource = "D:\\report1.rdlc";
-            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\JC-OTHER.rdlc";
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\JC-OTHERNew.rdlc";
         }
 
         protected void btn_showjc_Click(object sender, EventArgs e)

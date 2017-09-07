@@ -54,6 +54,12 @@ namespace ArtWebApp.Accounts
             tbl_podata.DataBind();
         }
 
+
+       public void loadSDO()
+       {
+
+       }
+
         protected void btn_sumbit_Click(object sender, EventArgs e)
         {
             string msg = "";

@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using ArtWebApp.DataModels;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,11 +27,19 @@ namespace ArtWebApp.Reports.Inventoryreport
         public void loaDSDOeport()
         {
 
+            String dotypestrng = "";
+            
+           DBTransaction.ReportTransactions.ReporterTrans repotrans = new DBTransaction.ReportTransactions.ReporterTrans();
 
 
-            DBTransaction.ReportTransactions.ReporterTrans repotrans = new DBTransaction.ReportTransactions.ReporterTrans();
-
-            DataTable dt = repotrans.GetSalesDO(int.Parse(drp_sdo.SelectedItem.Value.ToString()));
+            int sdopk = int.Parse(drp_sdo.SelectedItem.Value.ToString());
+            using (DataModels.ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var dotype = entty.InventorySalesMasters.Where(u => u.SalesDO_PK == sdopk).Select(u => u.DoType).FirstOrDefault();
+                dotypestrng = dotype.ToString().Trim();
+            }
+            
+            DataTable dt = repotrans.GetSalesDO(sdopk, dotypestrng);
 
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();

@@ -121,84 +121,176 @@ namespace ArtWebApp.BLL.ProductionBLL
             String Donum = "";
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
-                using (AtcWorldEntities atcenty = new AtcWorldEntities())
+                if (this.JCmstrdata.Location_Pk != 14)
                 {
 
-
-
-               
-
-                    if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
+                    using (AtcWorldEntities atcenty = new AtcWorldEntities())
                     {
 
-                        JobContractMaster jcmstr = new JobContractMaster();
-                        jcmstr.AtcID = this.JCmstrdata.AtcID;
-                        jcmstr.AddedDate = DateTime.Now;
-                        jcmstr.AddedBy = this.JCmstrdata.AddedBy;
-                        jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
-                        jcmstr.Remark = this.JCmstrdata.remark;
-                        jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
-                        jcmstr.CM = this.JCmstrdata.CMCost;
-                        enty.JobContractMasters.Add(jcmstr);
 
 
-                        enty.SaveChanges();
 
-                        Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-
-
-                        ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
-                                          
-                        ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;                     
-                        ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
-                        ajcmstr.CM = this.JCmstrdata.CMCost;
-                        ajcmstr.JobContractNum = Donum;
-                        atcenty.ArtJobContractMasters.Add(ajcmstr);
-
-
-                        atcenty.SaveChanges();
-                        enty.SaveChanges();
-                    }
-                    else
-                    {
-
-                        var q = from jbmstr in enty.JobContractMasters
-                                where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
-                                select jbmstr;
-                        foreach (var element in q)
+                        if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
                         {
 
+                            JobContractMaster jcmstr = new JobContractMaster();
+                            jcmstr.AtcID = this.JCmstrdata.AtcID;
+                            jcmstr.AddedDate = DateTime.Now;
+                            jcmstr.AddedBy = this.JCmstrdata.AddedBy;
+                            jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
+                            jcmstr.Remark = this.JCmstrdata.remark;
+                            jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                            jcmstr.CM = this.JCmstrdata.CMCost;
+                            enty.JobContractMasters.Add(jcmstr);
 
-                            element.AddedDate = DateTime.Now;
-                            element.AddedBy = this.JCmstrdata.AddedBy;
 
-                            element.Remark = this.JCmstrdata.remark;
-                            Donum = element.JOBContractNUM;
-                            element.CM = this.JCmstrdata.CMCost;
+                            enty.SaveChanges();
+
+                            Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
 
 
+                            ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
 
+                            ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
+                            ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                            ajcmstr.CM = this.JCmstrdata.CMCost;
+                            ajcmstr.JobContractNum = Donum;
+                            atcenty.ArtJobContractMasters.Add(ajcmstr);
+
+
+                            atcenty.SaveChanges();
+                            enty.SaveChanges();
                         }
-
-
-                        var q1 = from jbmstr in atcenty.ArtJobContractMasters
-                                where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == this.JCmstrdata.Location_Pk
-                                select jbmstr;
-                        foreach (var element in q1)
+                        else
                         {
 
+                            var q = from jbmstr in enty.JobContractMasters
+                                    where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
+                                    select jbmstr;
+                            foreach (var element in q)
+                            {
 
-                           
-                            element.CM = this.JCmstrdata.CMCost;
+
+                                element.AddedDate = DateTime.Now;
+                                element.AddedBy = this.JCmstrdata.AddedBy;
+
+                                element.Remark = this.JCmstrdata.remark;
+                                Donum = element.JOBContractNUM;
+                                element.CM = this.JCmstrdata.CMCost;
 
 
+
+                            }
+
+
+                            var q1 = from jbmstr in atcenty.ArtJobContractMasters
+                                     where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == this.JCmstrdata.Location_Pk
+                                     select jbmstr;
+                            foreach (var element in q1)
+                            {
+
+
+
+                                element.CM = this.JCmstrdata.CMCost;
+
+
+
+                            }
+                            atcenty.SaveChanges();
+                            enty.SaveChanges();
 
                         }
-                        atcenty.SaveChanges();
-                        enty.SaveChanges();
-
                     }
+
+
+
                 }
+
+                else
+                {
+                    using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
+                    {
+
+
+
+
+                        if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
+                        {
+
+                            JobContractMaster jcmstr = new JobContractMaster();
+                            jcmstr.AtcID = this.JCmstrdata.AtcID;
+                            jcmstr.AddedDate = DateTime.Now;
+                            jcmstr.AddedBy = this.JCmstrdata.AddedBy;
+                            jcmstr.Location_Pk = this.JCmstrdata.Location_Pk;
+                            jcmstr.Remark = this.JCmstrdata.remark;
+                            jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                            jcmstr.CM = this.JCmstrdata.CMCost;
+                            enty.JobContractMasters.Add(jcmstr);
+
+
+                            enty.SaveChanges();
+
+                            Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
+
+
+                            ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
+
+                            ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
+                            ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                            ajcmstr.CM = this.JCmstrdata.CMCost;
+                            ajcmstr.JobContractNum = Donum;
+                            atcenty.ArtJobContractMasters.Add(ajcmstr);
+
+
+                            atcenty.SaveChanges();
+                            enty.SaveChanges();
+                        }
+                        else
+                        {
+
+                            var q = from jbmstr in enty.JobContractMasters
+                                    where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_Pk == this.JCmstrdata.Location_Pk
+                                    select jbmstr;
+                            foreach (var element in q)
+                            {
+
+
+                                element.AddedDate = DateTime.Now;
+                                element.AddedBy = this.JCmstrdata.AddedBy;
+
+                                element.Remark = this.JCmstrdata.remark;
+                                Donum = element.JOBContractNUM;
+                                element.CM = this.JCmstrdata.CMCost;
+
+
+
+                            }
+
+
+                            var q1 = from jbmstr in atcenty.ArtJobContractMasters
+                                     where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == this.JCmstrdata.Location_Pk
+                                     select jbmstr;
+                            foreach (var element in q1)
+                            {
+
+
+
+                                element.CM = this.JCmstrdata.CMCost;
+
+
+
+                            }
+                            atcenty.SaveChanges();
+                            enty.SaveChanges();
+
+                        }
+                    }
+
+
+                }
+
+
+
 
 
 
@@ -263,7 +355,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                         foreach (var element in q)
                         {
 
-
+                            
                             element.Wash = di.Washvalue;
                             element.EmbroidaryPrinting = di.Embriodaryvalue;
                             element.CompanyLogistic = di.cmblogic;

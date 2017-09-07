@@ -125,11 +125,19 @@ namespace ArtWebApp.Reports.Production.LaySheet
             int noofliesint = 0;
 
             DataTable dt = DBTransaction.LaysheetTransaction.getSizeRatioofLaysheet(laysheetpk);
-            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            try
             {
-                var nopopplies = entty.LaySheetDetails.Where(i => i.LaySheet_PK == laysheetpk).Select(i => i.NoOfPlies).Sum();
-               // noofliesint = int.Parse(nopopplies.ToString());
-                noofliesint = (int)Math.Round(float.Parse (nopopplies.ToString ()), 0);
+                using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                {
+                    var nopopplies = entty.LaySheetDetails.Where(i => i.LaySheet_PK == laysheetpk).Select(i => i.NoOfPlies).Sum();
+                    // noofliesint = int.Parse(nopopplies.ToString());
+                    noofliesint = (int)Math.Round(float.Parse(nopopplies.ToString()), 0);
+                }
+            }
+            catch (Exception)
+            {
+
+              
             }
             DataTable UniqueSizeunsorted = dt.DefaultView.ToTable(true, "Size", "Orderof");
             DataView dv = UniqueSizeunsorted.DefaultView;

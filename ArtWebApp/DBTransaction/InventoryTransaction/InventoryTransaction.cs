@@ -1651,6 +1651,30 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             return dt;
         }
 
+
+
+        public DataTable GetInventoryMisplacedofAtc(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+                cmd.CommandText = @"MisPlacedInventoryOfAtc_SP";
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+            }
+
+        }
+
+
+
+
         /// <summary>
         /// get the Wrong PO details against a request
         /// </summary>

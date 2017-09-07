@@ -49,13 +49,13 @@ namespace ArtWebApp.Inventory.Inventory_Requests {
         protected global::Infragistics.Web.UI.EditorControls.WebDatePicker dtp_dodate;
         
         /// <summary>
-        /// drp_fromWarehouse0 control.
+        /// drp_reason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CustomDropDown.DropDownListChosen drp_fromWarehouse0;
+        protected global::CustomDropDown.DropDownListChosen drp_reason;
         
         /// <summary>
         /// txt_explanation control.
