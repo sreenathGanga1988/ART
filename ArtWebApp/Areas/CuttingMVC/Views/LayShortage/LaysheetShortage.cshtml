@@ -86,11 +86,66 @@
 
 
 
+
+
+
+
         $("#OurStyleID").change(function (e, params) {
 
             debugger;
             var SelectedOurStyle = new Array();
             SelectedOurStyle = $("#OurStyleID").chosen().val();
+
+            var Id = $('#SkuID').find('option:selected').val();
+
+            if (SelectedOurStyle != null)
+            {
+
+                //Populate arrayOfValues
+                $.ajax({
+                    url: "@Url.Action("PopulateCutOrderofStyle", "LayShortage")",
+                    type: "Get",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                traditional: true,
+                data: { 'SelectedOurStyle': SelectedOurStyle, 'Id': Id },
+                success: function (data) {
+                    $('#Cutid').empty()
+                    $.each(data, function () {
+
+
+                        $('#Cutid').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#Cutid").trigger("chosen:updated");
+
+
+                    $("#Cutid").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+
+
+        });
+
+
+
+
+
+
+
+
+
+        $("#Cutid").change(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#Cutid").chosen().val();
 
             var Id = $('#SkuID').find('option:selected').val();
 
@@ -265,6 +320,31 @@
 
         </div>
 
+
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Cut order#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownList("Cutid", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
         <div class="form-group">
 
 
@@ -296,10 +376,10 @@
                     @Html.EditorFor(modelItem => Model.IsLayShortage)
                     @Html.DisplayNameFor(model => model.IsLayShortage)
                 </div>
-                <div class="col-md-10">
+                @*<div class="col-md-10">
                     @Html.EditorFor(modelItem => Model.IsEndBIT)
                     @Html.DisplayNameFor(model => model.IsEndBIT)
-                </div>
+                </div>*@
 
             </div>
 

@@ -165,7 +165,7 @@ namespace ArtWebApp.Areas
 
 
             var q = (from laydet in db.LaySheetDetails
-                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && laydet.IsRecuttable=="N"
+                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && laydet.IsRecuttable=="N" && !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
                      select new ApprovelaysheetModel
                      {
 
@@ -193,6 +193,17 @@ namespace ArtWebApp.Areas
 
                      }).ToList();
 
+
+
+   
+
+
+
+
+
+
+
+
             return q;
     }
 
@@ -208,7 +219,7 @@ namespace ArtWebApp.Areas
             layreqmstr.AddedBY = model.AddedBy;
             layreqmstr.AddedDate = model.AddedDate;
             layreqmstr.Type = model.Type;
-            layreqmstr.IsEndBit = model.IsEndBIT;
+            layreqmstr.IsEndBit = false;
             layreqmstr.IsLayShortage = model.IsLayShortage;
             layreqmstr.IsApproved = false;
             layreqmstr.SkuDet_PK = model.SkuID;

@@ -43,6 +43,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> Approveddate { get; set; }
         public string IsSubmitted { get; set; }
         public string ForwardedBy { get; set; }
+        public string MarkCompleted { get; set; }
     
         public virtual CurrencyMaster CurrencyMaster { get; set; }
         public virtual DeliveryTermMaster DeliveryTermMaster { get; set; }

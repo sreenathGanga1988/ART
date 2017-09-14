@@ -524,6 +524,8 @@ namespace ArtWebApp.Production.Cutting
         protected void Button1_Click(object sender, EventArgs e)
         {
             LaySheetfunction.ApproveLaysheet(int.Parse (drp_cutRoll.SelectedValue.ToString()));
+
+          ArtWebApp.Controls.WebMsgBox.Show("Approved and Send laysheet to AtcWorld");
         }
 
 

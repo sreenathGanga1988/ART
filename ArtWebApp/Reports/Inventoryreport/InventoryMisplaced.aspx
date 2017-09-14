@@ -14,8 +14,31 @@
                     <td class="RedHeadding" colspan="12">Inventory MisplacedReports</td>
                 </tr>
                 <tr>
-                    <td class="NormalTD">Atc</td>
+                    <td class="NormalTD">Factory</td>
                     <td  class="NormalTD">
+                        <ucc:DropDownListChosen ID="drp_fromWarehouse" runat="server" Width="200px">
+                        </ucc:DropDownListChosen>
+                        
+                    </td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class ="NormalTD">
+                        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Show All Misplacement of Factory" />
+                    </td>
+                    <td  class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD" >&nbsp;</td>
+                    <td  class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD" >&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD" >&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                </tr>
+         
+               
+                <tr>
+                    <td class="NormalTD">Atc</td>
+                    <td class="NormalTD">
                         <asp:UpdatePanel ID="upd_atc" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
@@ -26,19 +49,17 @@
                                 </asp:UpdatePanel>
                             </ContentTemplate>
                         </asp:UpdatePanel>
-                        
                     </td>
+                    <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">
-                        &nbsp;</td>
-                    <td class ="NormalTD">
                         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Show All Misplacement of Atc" />
                     </td>
-                    <td  class="NormalTD">&nbsp;</td>
-                    <td class="NormalTD" >&nbsp;</td>
-                    <td  class="NormalTD">&nbsp;</td>
-                    <td class="NormalTD" >&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
-                    <td class="NormalTD" >&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                     <td class="NormalTD">&nbsp;</td>
                 </tr>

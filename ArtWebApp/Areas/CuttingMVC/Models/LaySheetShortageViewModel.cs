@@ -74,7 +74,10 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         [Required(ErrorMessage = "Please select a ....")]
         public IEnumerable<int> OurStyleID { get; set; }
 
-      
+
+        [Display(Name = "Cut#")]
+        [Required(ErrorMessage = "Please select a Cut")]
+        public IEnumerable<int> Cutid { get; set; }
 
 
         [Display(Name = "LaySheet#")]
@@ -93,6 +96,8 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         public SelectList OurStyleList { get; set; }
 
         public SelectList SkuList { get; set; }
+
+        public SelectList Cutorderlist { get; set; }
 
         public List<ApprovelaysheetModel> RollDetails { get; set; }
 

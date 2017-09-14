@@ -44,6 +44,7 @@ namespace ArtWebApp.DataModels
         public string POType { get; set; }
         public string ForwardedBy { get; set; }
         public string IsNormal { get; set; }
+        public string MarkCompleted { get; set; }
     
         public virtual ICollection<ProcurementDetail> ProcurementDetails { get; set; }
         public virtual ICollection<WrongPOMaster> WrongPOMasters { get; set; }

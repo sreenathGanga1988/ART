@@ -1672,6 +1672,24 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
         }
 
+        public DataTable GetInventoryMisplacedofFactory(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+                cmd.CommandText = @"MisPlacedInventoryOfFactory_SP";
+                cmd.Parameters.AddWithValue("@@facid", atcid);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+
+
+            }
+
+        }
 
 
 

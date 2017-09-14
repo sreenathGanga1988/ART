@@ -78,12 +78,33 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
         }
 
+
+        [HttpGet]
+        public JsonResult PopulateCutOrderofStyle(decimal[] SelectedOurStyle, int Id = 0)
+        {
+            int locationpk = int.Parse(HttpContext.Session["UserLoc_pk"].ToString());
+
+            SelectList ourstyleitem = new SelectList(db.CutOrderMasters.Where(o => SelectedOurStyle.Contains(o.OurStyleID ?? 0) && o.SkuDet_pk == Id && o.ToLoc == locationpk), "CutID", "Cut_NO");
+
+            JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
+
+
+
+
+
+
+
+
         [HttpGet]
         public JsonResult PopulateLaysheetSelectionlist(decimal[] SelectedOurStyle, int Id=0)
         {
             int locationpk= int.Parse ( HttpContext.Session["UserLoc_pk"].ToString());
 
-            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.OustyleID ?? 0) && o.CutOrderDetail.CutOrderMaster.SkuDet_pk==Id && o.Location_PK== locationpk), "LaySheet_PK", "LaySheetNum");
+            SelectList ourstyleitem = new SelectList(db.LaySheetMasters.Where(o => SelectedOurStyle.Contains(o.CutOrderDetail.CutID ?? 0) && o.CutOrderDetail.CutOrderMaster.SkuDet_pk==Id && o.Location_PK== locationpk), "LaySheet_PK", "LaySheetNum");
 
             JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
 

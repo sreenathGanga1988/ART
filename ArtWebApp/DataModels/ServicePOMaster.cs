@@ -31,6 +31,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string Remark { get; set; }
+        public string IsPosted { get; set; }
     
         public virtual CurrencyMaster CurrencyMaster { get; set; }
         public virtual ServiceTypeMaster ServiceTypeMaster { get; set; }

@@ -17935,6 +17935,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnDeliveryQty;
             
+            private global::System.Data.DataColumn columnCutOrderDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public PendingtolayDataTable() {
@@ -18098,6 +18100,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutOrderDateColumn {
+                get {
+                    return this.columnCutOrderDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -18133,7 +18143,23 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public PendingtolayRow AddPendingtolayRow(string Cut_NO, string AtcNum, string OurStyle, string Color, decimal FabQty, string CutWidth, string Shrinkage, string MarkerType, string PaternName, decimal CutQty, decimal layed, decimal Pending, decimal CutPlan_Pk, string LocationName, decimal DeliveryQty) {
+            public PendingtolayRow AddPendingtolayRow(
+                        string Cut_NO, 
+                        string AtcNum, 
+                        string OurStyle, 
+                        string Color, 
+                        decimal FabQty, 
+                        string CutWidth, 
+                        string Shrinkage, 
+                        string MarkerType, 
+                        string PaternName, 
+                        decimal CutQty, 
+                        decimal layed, 
+                        decimal Pending, 
+                        decimal CutPlan_Pk, 
+                        string LocationName, 
+                        decimal DeliveryQty, 
+                        System.DateTime CutOrderDate) {
                 PendingtolayRow rowPendingtolayRow = ((PendingtolayRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -18151,7 +18177,8 @@ namespace ArtWebApp.Reports.Dataset {
                         Pending,
                         CutPlan_Pk,
                         LocationName,
-                        DeliveryQty};
+                        DeliveryQty,
+                        CutOrderDate};
                 rowPendingtolayRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPendingtolayRow);
                 return rowPendingtolayRow;
@@ -18197,6 +18224,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnCutPlan_Pk = base.Columns["CutPlan_Pk"];
                 this.columnLocationName = base.Columns["LocationName"];
                 this.columnDeliveryQty = base.Columns["DeliveryQty"];
+                this.columnCutOrderDate = base.Columns["CutOrderDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18234,6 +18262,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnLocationName);
                 this.columnDeliveryQty = new global::System.Data.DataColumn("DeliveryQty", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDeliveryQty);
+                this.columnCutOrderDate = new global::System.Data.DataColumn("CutOrderDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutOrderDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnCutID}, true));
                 this.columnCutID.AutoIncrement = true;
@@ -40014,6 +40044,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime CutOrderDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablePendingtolay.CutOrderDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutOrderDate\' in table \'Pendingtolay\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePendingtolay.CutOrderDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCut_NONull() {
                 return this.IsNull(this.tablePendingtolay.Cut_NOColumn);
             }
@@ -40178,6 +40224,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDeliveryQtyNull() {
                 this[this.tablePendingtolay.DeliveryQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutOrderDateNull() {
+                return this.IsNull(this.tablePendingtolay.CutOrderDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutOrderDateNull() {
+                this[this.tablePendingtolay.CutOrderDateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -54219,6 +54277,7 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
             tableMapping.ColumnMappings.Add("CutPlan_Pk", "CutPlan_Pk");
             tableMapping.ColumnMappings.Add("LocationName", "LocationName");
             tableMapping.ColumnMappings.Add("DeliveryQty", "DeliveryQty");
+            tableMapping.ColumnMappings.Add("CutOrderDate", "CutOrderDate");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -54235,32 +54294,40 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color,  CutWidth, Shrinkage, Marke" +
-                "rType, PaternName,FabQty,isnull(DeliveryQty,0) as DeliveryQty, CutQty, layed, Cu" +
-                "tQty - layed AS Pending, CutPlan_Pk, LocationName\r\nFROM            (SELECT      " +
-                "  CutOrderMaster.CutID, CutOrderMaster.Cut_NO, AtcMaster.AtcNum, AtcDetails.OurS" +
-                "tyle, CutOrderMaster.Color, CutOrderMaster.CutQty, CutOrderMaster.FabQty, CutOrd" +
-                "erMaster.CutWidth, \r\n                         CutOrderMaster.Shrinkage, CutOrder" +
-                "Master.MarkerType, CutOrderMaster.PaternName,\r\n(SELECT        SUM(DeliveryQty)\r\n" +
-                "FROM            CutOrderDO\r\nWHERE        (CutID = CutOrderMaster.CutID)) As Deli" +
-                "veryQty ,ISNULL\r\n                             ((SELECT        SUM(LaySheetDetail" +
-                "s.NoOfPlies * CutOrderSizeDetails.Ratio) AS Alreadylayed\r\n                      " +
-                "           FROM            LaySheetDetails INNER JOIN\r\n                         " +
-                "                                 LaySheetMaster ON LaySheetDetails.LaySheet_PK =" +
-                " LaySheetMaster.LaySheet_PK INNER JOIN\r\n                                        " +
-                "                  CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDet" +
-                "ails.CutOrderDet_PK INNER JOIN\r\n                                                " +
-                "          CutOrderSizeDetails ON CutOrderDetails.CutOrderDet_PK = CutOrderSizeDe" +
-                "tails.CutOrderDet_PK\r\n                                 WHERE        (CutOrderDet" +
-                "ails.CutID = CutOrderMaster.CutID)\r\n                                 GROUP BY Cu" +
-                "tOrderDetails.CutID), 0) AS layed, CutOrderMaster.CutPlan_Pk, LocationMaster.Loc" +
-                "ationName, CutOrderMaster.CutOrderDate\r\nFROM            CutOrderMaster INNER JOI" +
-                "N\r\n                         AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails" +
-                ".OurStyleID INNER JOIN\r\n                         AtcMaster ON CutOrderMaster.Atc" +
-                "ID = AtcMaster.AtcId INNER JOIN\r\n                         LocationMaster ON CutO" +
-                "rderMaster.ToLoc = LocationMaster.Location_PK\r\nWHERE        (CutOrderMaster.CutP" +
-                "lan_Pk IS NOT NULL) AND (CutOrderMaster.CutOrderDate > CONVERT(DATETIME, \'2017-0" +
-                "5-15 00:00:00\', 102))) AS tt\r\nWHERE        (CutQty - layed > 0)";
+            this._commandCollection[0].CommandText = "SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color, CutWidth, Shrinkage, Marker" +
+                "Type, PaternName, FabQty, ISNULL(DeliveryQty, 0) AS DeliveryQty, CutQty, layed, " +
+                "CutQty - layed AS Pending, CutPlan_Pk, LocationName, \r\n                         " +
+                "CutOrderDate\r\nFROM            (SELECT        CutOrderMaster.CutID, CutOrderMaste" +
+                "r.Cut_NO, AtcMaster.AtcNum, AtcDetails.OurStyle, CutOrderMaster.Color, CutOrderM" +
+                "aster.CutQty, CutOrderMaster.FabQty, CutOrderMaster.CutWidth, \r\n                " +
+                "                                    CutOrderMaster.Shrinkage, CutOrderMaster.Mar" +
+                "kerType, CutOrderMaster.PaternName,\r\n                                           " +
+                "             (SELECT        SUM(DeliveryQty) AS Expr1\r\n                         " +
+                "                                 FROM            CutOrderDO\r\n                   " +
+                "                                       WHERE        (CutID = CutOrderMaster.CutI" +
+                "D)) AS DeliveryQty, ISNULL\r\n                                                    " +
+                "    ((SELECT        SUM(LaySheetDetails.NoOfPlies * CutOrderSizeDetails.Ratio) A" +
+                "S Alreadylayed\r\n                                                            FROM" +
+                "            LaySheetDetails INNER JOIN\r\n                                        " +
+                "                                             LaySheetMaster ON LaySheetDetails.L" +
+                "aySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN\r\n                            " +
+                "                                                         CutOrderDetails ON LayS" +
+                "heetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN\r\n         " +
+                "                                                                            CutO" +
+                "rderSizeDetails ON CutOrderDetails.CutOrderDet_PK = CutOrderSizeDetails.CutOrder" +
+                "Det_PK\r\n                                                            WHERE       " +
+                " (CutOrderDetails.CutID = CutOrderMaster.CutID)\r\n                               " +
+                "                             GROUP BY CutOrderDetails.CutID), 0) AS layed, CutOr" +
+                "derMaster.CutPlan_Pk, LocationMaster.LocationName, CutOrderMaster.CutOrderDate, " +
+                "AtcMaster.IsCuttingCompleted\r\n                          FROM            CutOrder" +
+                "Master INNER JOIN\r\n                                                    AtcDetail" +
+                "s ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN\r\n             " +
+                "                                       AtcMaster ON CutOrderMaster.AtcID = AtcMa" +
+                "ster.AtcId INNER JOIN\r\n                                                    Locat" +
+                "ionMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK\r\n                " +
+                "          WHERE        (CutOrderMaster.CutPlan_Pk IS NOT NULL) AND (CutOrderMast" +
+                "er.CutOrderDate > CONVERT(DATETIME, \'2017-05-15 00:00:00\', 102)) AND (AtcMaster." +
+                "IsCuttingCompleted = N\'N\')) AS tt\r\nWHERE        (CutQty - layed > 0)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

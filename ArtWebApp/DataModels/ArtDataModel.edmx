@@ -136,6 +136,7 @@
           <Property Name="ProjectionQty" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsProjectionApproved" Type="nchar" MaxLength="10" />
           <Property Name="ProductionCountryID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsCuttingCompleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -1710,6 +1711,7 @@
           <Property Name="POType" Type="nchar" MaxLength="4" />
           <Property Name="ForwardedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
+          <Property Name="MarkCompleted" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="ProcurmentPlanDetails">
           <Key>
@@ -2011,6 +2013,7 @@
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="ApprovedDate" Type="datetime" />
           <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsPosted" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="ServiceTypeMaster">
           <Key>
@@ -2279,6 +2282,7 @@
           <Property Name="Approveddate" Type="datetime" />
           <Property Name="IsSubmitted" Type="nchar" MaxLength="10" />
           <Property Name="ForwardedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkCompleted" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="StockRecieptMaster">
           <Key>
@@ -9331,6 +9335,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsNormal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ProcurementDetails" Relationship="ArtModel.FK_ProcurementDetails_ProcurementMaster" FromRole="ProcurementMaster" ToRole="ProcurementDetail" />
           <NavigationProperty Name="WrongPOMasters" Relationship="ArtModel.FK_WrongPOMaster_ProcurementMaster" FromRole="ProcurementMaster" ToRole="WrongPOMaster" />
+          <Property Name="MarkCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="ProductionReportDetail">
           <Key>
@@ -9760,6 +9765,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StockPOMaster1" Relationship="ArtModel.FK_StockPOMaster_StockPOMaster" FromRole="StockPOMaster" ToRole="StockPOMaster1" />
           <NavigationProperty Name="StockPOMaster2" Relationship="ArtModel.FK_StockPOMaster_StockPOMaster" FromRole="StockPOMaster1" ToRole="StockPOMaster" />
           <NavigationProperty Name="SupplierMaster" Relationship="ArtModel.FK_StockPOMaster_SupplierMaster" FromRole="StockPOMaster" ToRole="SupplierMaster" />
+          <Property Name="MarkCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="StockRecieptMaster">
           <Key>
@@ -12416,6 +12422,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractMaster" />
           <NavigationProperty Name="BuyerMaster" Relationship="ArtModel.FK_AtcMaster_BuyerMaster" FromRole="AtcMaster" ToRole="BuyerMaster" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
+          <Property Name="IsCuttingCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -12876,6 +12883,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CurrencyMaster" Relationship="ArtModel.FK_ServicePOMaster_CurrencyMaster" FromRole="ServicePOMaster" ToRole="CurrencyMaster" />
           <NavigationProperty Name="ServiceTypeMaster" Relationship="ArtModel.ServiceTypePK" FromRole="ServicePOMaster" ToRole="ServiceTypeMaster" />
+          <Property Name="IsPosted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_ServicePOMaster_CurrencyMaster">
           <End Type="ArtModel.CurrencyMaster" Role="CurrencyMaster" Multiplicity="0..1" />
@@ -15527,6 +15535,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ProcurementMasters">
             <EntityTypeMapping TypeName="ArtModel.ProcurementMaster">
               <MappingFragment StoreEntitySet="ProcurementMaster">
+                <ScalarProperty Name="MarkCompleted" ColumnName="MarkCompleted" />
                 <ScalarProperty Name="IsNormal" ColumnName="IsNormal" />
                 <ScalarProperty Name="ForwardedBy" ColumnName="ForwardedBy" />
                 <ScalarProperty Name="POType" ColumnName="POType" />
@@ -15924,6 +15933,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="StockPOMasters">
             <EntityTypeMapping TypeName="ArtModel.StockPOMaster">
               <MappingFragment StoreEntitySet="StockPOMaster">
+                <ScalarProperty Name="MarkCompleted" ColumnName="MarkCompleted" />
                 <ScalarProperty Name="ForwardedBy" ColumnName="ForwardedBy" />
                 <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
                 <ScalarProperty Name="Approveddate" ColumnName="Approveddate" />
@@ -16780,6 +16790,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="AtcMasters">
             <EntityTypeMapping TypeName="ArtModel.AtcMaster">
               <MappingFragment StoreEntitySet="AtcMaster">
+                <ScalarProperty Name="IsCuttingCompleted" ColumnName="IsCuttingCompleted" />
                 <ScalarProperty Name="ProductionCountryID" ColumnName="ProductionCountryID" />
                 <ScalarProperty Name="IsProjectionApproved" ColumnName="IsProjectionApproved" />
                 <ScalarProperty Name="ProjectionQty" ColumnName="ProjectionQty" />
@@ -17003,6 +17014,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ServicePOMasters">
             <EntityTypeMapping TypeName="ArtModel.ServicePOMaster">
               <MappingFragment StoreEntitySet="ServicePOMaster">
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />

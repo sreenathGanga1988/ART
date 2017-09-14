@@ -939,6 +939,8 @@ ORDER BY tt.RollNum ";
                         element.IsApproved = "N";
                         element.IsSaved = "Y";
                         element.IsGrouped = "N";
+                        element.ValidatedDate = DateTime.Now;
+                        
 
                     }
 

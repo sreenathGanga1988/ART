@@ -340,24 +340,25 @@ ORDER BY StyleSize.Orderof";
         {
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color,  CutWidth, Shrinkage, MarkerType, PaternName,FabQty,isnull(DeliveryQty,0) as DeliveryQty, CutQty, layed, CutQty - layed AS Pending, CutPlan_Pk, LocationName
+                cmd.CommandText = @"SELECT        CutID, Cut_NO, AtcNum, OurStyle, Color, CutWidth, Shrinkage, MarkerType, PaternName, FabQty, ISNULL(DeliveryQty, 0) AS DeliveryQty, CutQty, layed, CutQty - layed AS Pending, CutPlan_Pk, LocationName, 
+                         CutOrderDate
 FROM            (SELECT        CutOrderMaster.CutID, CutOrderMaster.Cut_NO, AtcMaster.AtcNum, AtcDetails.OurStyle, CutOrderMaster.Color, CutOrderMaster.CutQty, CutOrderMaster.FabQty, CutOrderMaster.CutWidth, 
-                         CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.PaternName,
-(SELECT        SUM(DeliveryQty)
-FROM            CutOrderDO
-WHERE        (CutID = CutOrderMaster.CutID)) As DeliveryQty ,ISNULL
-                             ((SELECT        SUM(LaySheetDetails.NoOfPlies * CutOrderSizeDetails.Ratio) AS Alreadylayed
-                                 FROM            LaySheetDetails INNER JOIN
-                                                          LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
-                                                          CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
-                                                          CutOrderSizeDetails ON CutOrderDetails.CutOrderDet_PK = CutOrderSizeDetails.CutOrderDet_PK
-                                 WHERE        (CutOrderDetails.CutID = CutOrderMaster.CutID)
-                                 GROUP BY CutOrderDetails.CutID), 0) AS layed, CutOrderMaster.CutPlan_Pk, LocationMaster.LocationName, CutOrderMaster.CutOrderDate
-FROM            CutOrderMaster INNER JOIN
-                         AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-                         AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
-                         LocationMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK
-WHERE        (CutOrderMaster.CutPlan_Pk IS NOT NULL) AND (CutOrderMaster.CutOrderDate > CONVERT(DATETIME, '2017-05-15 00:00:00', 102))) AS tt
+                                                    CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.PaternName,
+                                                        (SELECT        SUM(DeliveryQty) AS Expr1
+                                                          FROM            CutOrderDO
+                                                          WHERE        (CutID = CutOrderMaster.CutID)) AS DeliveryQty, ISNULL
+                                                        ((SELECT        SUM(LaySheetDetails.NoOfPlies * CutOrderSizeDetails.Ratio) AS Alreadylayed
+                                                            FROM            LaySheetDetails INNER JOIN
+                                                                                     LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                                                                                     CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                                                                                     CutOrderSizeDetails ON CutOrderDetails.CutOrderDet_PK = CutOrderSizeDetails.CutOrderDet_PK
+                                                            WHERE        (CutOrderDetails.CutID = CutOrderMaster.CutID)
+                                                            GROUP BY CutOrderDetails.CutID), 0) AS layed, CutOrderMaster.CutPlan_Pk, LocationMaster.LocationName, CutOrderMaster.CutOrderDate, AtcMaster.IsCuttingCompleted
+                          FROM            CutOrderMaster INNER JOIN
+                                                    AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                                                    AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
+                                                    LocationMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK
+                          WHERE        (CutOrderMaster.CutPlan_Pk IS NOT NULL) AND (CutOrderMaster.CutOrderDate > CONVERT(DATETIME, '2017-05-15 00:00:00', 102)) AND (AtcMaster.IsCuttingCompleted = N'N')) AS tt
 WHERE        (CutQty - layed > 0)
 
 ";

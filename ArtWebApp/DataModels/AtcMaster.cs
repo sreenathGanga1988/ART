@@ -45,6 +45,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ProjectionQty { get; set; }
         public string IsProjectionApproved { get; set; }
         public Nullable<decimal> ProductionCountryID { get; set; }
+        public string IsCuttingCompleted { get; set; }
     
         public virtual CountryMaster CountryMaster { get; set; }
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
