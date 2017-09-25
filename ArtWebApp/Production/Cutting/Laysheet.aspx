@@ -98,6 +98,11 @@
                footer.value = sum.toString();
 
                calculatenewbalance(sum);
+             
+               if (document.getElementById("<%=txt_baltocutnow.ClientID%>").value < parseFloat(sum)) {
+                   alert("Cannot Enter More than Allowed Plies");
+                   
+                 }
            }
 
 

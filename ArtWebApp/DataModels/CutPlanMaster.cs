@@ -19,6 +19,7 @@ namespace ArtWebApp.DataModels
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
             this.CutPlanMarkerTypes = new HashSet<CutPlanMarkerType>();
             this.CutPlanRollDetails = new HashSet<CutPlanRollDetail>();
+            this.CutPlanRejectHistories = new HashSet<CutPlanRejectHistory>();
         }
     
         public decimal CutPlan_PK { get; set; }
@@ -59,6 +60,12 @@ namespace ArtWebApp.DataModels
         public string IsRollAdded { get; set; }
         public Nullable<decimal> RollYard { get; set; }
         public string CutType { get; set; }
+        public string IsRejected { get; set; }
+        public string RejectionReason { get; set; }
+        public string Remark { get; set; }
+        public Nullable<System.DateTime> RejectionDate { get; set; }
+        public string RejectedBy { get; set; }
+        public Nullable<decimal> CutOrderConsumption { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
@@ -66,5 +73,6 @@ namespace ArtWebApp.DataModels
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
         public virtual ICollection<CutPlanRollDetail> CutPlanRollDetails { get; set; }
+        public virtual ICollection<CutPlanRejectHistory> CutPlanRejectHistories { get; set; }
     }
 }

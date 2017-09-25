@@ -85,7 +85,32 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
             return balqty;
         }
 
+        public float GetActualCutPlies(int CutOrderDet_PK)
+        {
+            float balqty = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"
+Select isnull((SELECT        ISNULL(SUM(LaySheetDetails.NoOfPlies), 0) AS NoOfPlies
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+GROUP BY LaySheetMaster.CutOrderDet_PK
+HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
+),0)";
+            cmd.Parameters.AddWithValue("@param1", CutOrderDet_PK);
 
+            var obj = QueryFunctions.ReturnQueryValue(cmd);
+            if (obj == null)
+            {
+                obj = "0";
+            }
+            else
+            {
+
+            }
+            balqty = float.Parse(obj.ToString());
+
+            return balqty;
+        }
 
 
         public ArrayList getcutplanMarkerdata(int CutOrderDet_PK)
@@ -150,8 +175,27 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
 
 
 
+        public static  void ApprovelaysheetAction(int laysheetPK)
+        {
+            int locationpk = 0;
+            using (ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+            {
+                var locationpkvar = enty.LaySheetMasters.Where(u => u.LaySheet_PK == laysheetPK).Select(u => u.Location_PK).FirstOrDefault();
+                locationpk = int.Parse(locationpkvar.ToString());
+            }
+            if(locationpk==13 || locationpk == 14)
+            {
+                ApproveLaysheetEthiopia(laysheetPK);
+            }
+            else
+            {
+                ApproveLaysheet(laysheetPK);
+            }
+        }
 
-        public static void ApproveLaysheet(int laysheetPK)
+
+
+            public static void ApproveLaysheet(int laysheetPK)
         {
             Boolean ismasteralreadypresent = false;
 
@@ -226,7 +270,7 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
                             lymstrdata.OurStyleID = int.Parse(dr["OurStyleID"].ToString());
                             lymstrdata.CutPlan_PK = int.Parse(dr["CutPlan_PK"].ToString());
                             lymstrdata.LaySheet_PK = int.Parse(dr["LaySheet_PK"].ToString());
-
+                            lymstrdata.CutPlanMarkerDetails_PK= CutPlanMarkerDetails_PK;
 
                             lymstrdata.IsApproved = dr["IsApproved"].ToString();
 
@@ -304,14 +348,31 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
                     foreach (var element in laysheetDetails)
                     {
 
+                        if (!atcenty.ArtLaySheetDetails.Any(f => f.LaySheetDet_PK == element.LaySheetDet_PK))
+                        {
+                            string layshheetnum = "";
 
-                        ArtLaySheetDetail artlydet = new ArtLaySheetDetail();
+                            try
+                            {
+                                var laysheetrefnum = element.LaySheetRollDetail.LaySheetRollMaster.LocationSequencenum;
+                                layshheetnum = laysheetrefnum.ToString();
+                            }
+                            catch (Exception)
+                            {
 
-                        artlydet.LaySheetDet_PK = element.LaySheetDet_PK;
-                        artlydet.LaySheet_PK = element.LaySheet_PK;
-                        artlydet.Roll_PK = element.Roll_PK;
-                        artlydet.NoOfPlies = element.NoOfPlies;
-                        atcenty.ArtLaySheetDetails.Add(artlydet);
+                               
+                            }
+
+                            ArtLaySheetDetail artlydet = new ArtLaySheetDetail();
+
+                            artlydet.LaySheetDet_PK = element.LaySheetDet_PK;
+                            artlydet.LaySheet_PK = element.LaySheet_PK;
+                            artlydet.Roll_PK = element.Roll_PK;
+                            artlydet.NoOfPlies = element.NoOfPlies;
+                            artlydet.ShadeGroup = element.FabricRollmaster.ShadeGroup;
+                            artlydet.LocationSequencenum = layshheetnum;
+                            atcenty.ArtLaySheetDetails.Add(artlydet);
+                        }
                     }
 
 
@@ -324,7 +385,193 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
 
 
 
+        public static void ApproveLaysheetEthiopia(int laysheetPK)
+        {
+            Boolean ismasteralreadypresent = false;
 
+            int CutPlanMarkerDetails_PK = 0;
+
+            int cutplanpk = 0;
+
+            using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
+            {
+
+                using (ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+                {
+
+
+
+                    // approves Kenya
+
+                    var q1 = from lymstr in atcenty.ArtLaySheetMasterDatas
+                             where lymstr.LaySheet_PK == laysheetPK
+                             select lymstr;
+
+                    foreach (var atcwolrdelement in q1)
+                    {
+
+                        atcwolrdelement.IsApproved = "Y";
+                        ismasteralreadypresent = true;
+
+                    }
+
+
+
+                    //approves dubai and then get cutplanmarkerdetails
+                    var q = from lymstr in enty.LaySheetMasters
+                            where lymstr.LaySheet_PK == laysheetPK
+                            select lymstr;
+
+                    foreach (var element in q)
+                    {
+
+                        element.IsApproved = "Y";
+                        CutPlanMarkerDetails_PK = int.Parse(element.CutOrderDetail.CutPlanMarkerDetails_PK.ToString());
+
+                        if (ismasteralreadypresent == true)
+                        {
+                            element.IsEdited = "N";
+                            element.IsUploaded = "N";
+                        }
+
+                    }
+
+                    if (ismasteralreadypresent == false)
+                    {
+
+
+                        DataTable dt = GetLaysheetMasterDataFromArt(laysheetPK);
+
+                        ArtLaySheetMasterData lymstrdata = new DataModelAtcWorld.ArtLaySheetMasterData();
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            lymstrdata.CutPlanNUM = dr["CutPlanNUM"].ToString();
+                            lymstrdata.ColorCode = dr["ColorName"].ToString();
+                            lymstrdata.LaySheetNum = dr["LaySheetNum"].ToString().Trim();
+                            lymstrdata.LocationName = dr["LocationName"].ToString();
+                            lymstrdata.Location_PK = int.Parse(dr["Location_PK"].ToString());
+                            lymstrdata.CutOrderDet_PK = int.Parse(dr["CutOrderDet_PK"].ToString());
+                            lymstrdata.CutID = int.Parse(dr["CutID"].ToString());
+                            lymstrdata.Cut_NO = dr["Cut_NO"].ToString();
+                            lymstrdata.Shrinkage = dr["Shrinkage"].ToString();
+                            lymstrdata.MarkerType = dr["MarkerType"].ToString();
+                            lymstrdata.CutWidth = dr["CutWidth"].ToString();
+                            lymstrdata.AtcID = int.Parse(dr["AtcID"].ToString());
+                            lymstrdata.OurStyleID = int.Parse(dr["OurStyleID"].ToString());
+                            lymstrdata.CutPlan_PK = int.Parse(dr["CutPlan_PK"].ToString());
+                            lymstrdata.LaySheet_PK = int.Parse(dr["LaySheet_PK"].ToString());
+                            lymstrdata.CutPlanMarkerDetails_PK = CutPlanMarkerDetails_PK;
+
+                            lymstrdata.IsApproved = dr["IsApproved"].ToString();
+
+
+                            atcenty.ArtLaySheetMasterDatas.Add(lymstrdata);
+                        }
+                    }
+
+                    //CutplanASQ
+
+                    var objCutPlan_PK = enty.CutPlanMarkerSizeDetails.Where(u => u.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK).Select(u => u.CutPlan_PK).FirstOrDefault();
+                    cutplanpk = int.Parse(objCutPlan_PK.ToString());
+                    var cutplanASQ = (from cplasq in enty.CutPlanASQDetails
+                                      where cplasq.CutPlan_PK == cutplanpk
+                                      select cplasq).ToList();
+
+                    foreach (var element in cutplanASQ)
+                    {
+                        int cutplanasqdet = int.Parse(element.CutPlanASQDetails_PK.ToString());
+
+                        if (!atcenty.ArtCutPlanASQDets.Any(f => f.CutPlanASQDetails_PK == cutplanasqdet))
+                        {
+                            ArtCutPlanASQDet asqdet = new DataModelAtcWorld.ArtCutPlanASQDet();
+
+                            asqdet.PoPackId = int.Parse(element.PoPackId.ToString());
+                            asqdet.PoPack_Detail_PK = int.Parse(element.PoPack_Detail_PK.ToString());
+                            asqdet.ColorName = element.ColorName.ToString();
+                            asqdet.SizeName = element.SizeName.ToString();
+                            asqdet.CutQty = Decimal.Parse(element.CutQty.ToString());
+                            asqdet.CutPlan_PK = int.Parse(element.CutPlan_PK.ToString());
+                            asqdet.CutPlanASQDetails_PK = int.Parse(element.CutPlanASQDetails_PK.ToString());
+
+                            atcenty.ArtCutPlanASQDets.Add(asqdet);
+
+
+                        }
+
+                    }
+
+
+                    var cutplanmarkerSize = (from cplasqmar in enty.CutPlanMarkerSizeDetails
+                                             where cplasqmar.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK
+                                             select cplasqmar).ToList();
+
+                    foreach (var element in cutplanmarkerSize)
+                    {
+                        int CutPlanSize_PK = int.Parse(element.CutPlanSize_PK.ToString());
+
+                        if (!atcenty.ArtCutPlanMarkerSizeDetails.Any(f => f.CutPlanSize_PK == CutPlanSize_PK))
+                        {
+                            ArtCutPlanMarkerSizeDetail asqdet = new DataModelAtcWorld.ArtCutPlanMarkerSizeDetail();
+
+
+
+                            asqdet.CutPlanSize_PK = int.Parse(element.CutPlanSize_PK.ToString());
+                            asqdet.Size = element.Size.ToString();
+                            asqdet.Ratio = int.Parse(element.Ratio.ToString());
+                            asqdet.Qty = Decimal.Parse(element.Qty.ToString());
+                            asqdet.CutPlan_PK = int.Parse(element.CutPlan_PK.ToString());
+                            asqdet.CutPlanMarkerDetails_PK = int.Parse(element.CutPlanMarkerDetails_PK.ToString());
+
+
+                            atcenty.ArtCutPlanMarkerSizeDetails.Add(asqdet);
+
+
+                        }
+
+                    }
+
+
+                    var laysheetDetails = (from lydet in enty.LaySheetDetails
+                                           where lydet.LaySheet_PK == laysheetPK
+                                           select lydet).ToList();
+
+                    foreach (var element in laysheetDetails)
+                    {
+
+                        if (!atcenty.ArtLaySheetDetails.Any(f => f.LaySheetDet_PK == element.LaySheetDet_PK))
+                        {
+                            string layshheetnum = "";
+
+                            try
+                            {
+                                var laysheetrefnum = element.LaySheetRollDetail.LaySheetRollMaster.LocationSequencenum;
+                                layshheetnum = laysheetrefnum.ToString();
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+                            ArtLaySheetDetail artlydet = new ArtLaySheetDetail();
+
+                            artlydet.LaySheetDet_PK = element.LaySheetDet_PK;
+                            artlydet.LaySheet_PK = element.LaySheet_PK;
+                            artlydet.Roll_PK = element.Roll_PK;
+                            artlydet.NoOfPlies = element.NoOfPlies;
+                            artlydet.ShadeGroup = element.FabricRollmaster.ShadeGroup;
+                            artlydet.LocationSequencenum = layshheetnum;
+                            atcenty.ArtLaySheetDetails.Add(artlydet);
+                        }
+                    }
+
+
+                    atcenty.SaveChanges();
+                    enty.SaveChanges();
+                }
+            }
+
+        }
 
         public static DataTable GetLaysheetMasterDataFromArt(int laysheetpk)
         {
@@ -839,3 +1086,4 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
     }
 
 }
+

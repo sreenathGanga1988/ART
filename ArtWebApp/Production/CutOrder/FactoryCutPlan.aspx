@@ -886,13 +886,7 @@
                                                                     <asp:Label ID="Label1" runat="server" Text='<%# Bind("ASQ") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                               <td class="NormalTD">PoPack#</td>
-                                                               <td class="NormalTD">
-                                                                    <asp:Label ID="na" runat="server" Text='<%# Bind("PoPacknum") %>'></asp:Label>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
+                                                           <tr>
                                                                <td class="NormalTD">BuyerPO</td>
                                                                <td class="NormalTD">
                                                                     <asp:Label ID="na1" runat="server" Text='<%# Bind("BuyerPO") %>'></asp:Label>
@@ -916,7 +910,12 @@
                                                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("SeasonName") %>'></asp:Label>
                                                                 </td>
                                                             </tr>
-                                                            
+                                                             <tr>
+                                                               <td class="NormalTD">HD</td>
+                                                               <td class="NormalTD">
+                                                                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("HandoverDate") %>'></asp:Label>
+                                                                </td>
+                                                            </tr>
                                                         </table>
                                                     </ItemTemplate>
                                                     <ControlStyle Width="200px" />

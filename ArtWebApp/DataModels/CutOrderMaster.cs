@@ -21,6 +21,7 @@ namespace ArtWebApp.DataModels
             this.DORollDetails = new HashSet<DORollDetail>();
             this.LaySheetRollDetails = new HashSet<LaySheetRollDetail>();
             this.LayShortageCutorderAdjustments = new HashSet<LayShortageCutorderAdjustment>();
+            this.LaySheetRollMasters = new HashSet<LaySheetRollMaster>();
         }
     
         public decimal CutID { get; set; }
@@ -50,6 +51,7 @@ namespace ArtWebApp.DataModels
         public string MarkerType { get; set; }
         public string CutPlan { get; set; }
         public string IsDeleted { get; set; }
+        public Nullable<decimal> ActualConsumption { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
@@ -61,5 +63,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
         public virtual ICollection<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
+        public virtual ICollection<LaySheetRollMaster> LaySheetRollMasters { get; set; }
     }
 }

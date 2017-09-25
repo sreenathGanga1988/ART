@@ -46,6 +46,10 @@ namespace ArtWebApp.DataModels
             this.UserMasters = new HashSet<UserMaster>();
             this.DeviceMasters = new HashSet<DeviceMaster>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
+            this.RejectionExtraFabbReqs = new HashSet<RejectionExtraFabbReq>();
+            this.LocationGroupDetails = new HashSet<LocationGroupDetail>();
+            this.LocationGroupMasters = new HashSet<LocationGroupMaster>();
+            this.PatternNameBanks = new HashSet<PatternNameBank>();
         }
     
         public decimal Location_PK { get; set; }
@@ -96,5 +100,9 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<UserMaster> UserMasters { get; set; }
         public virtual ICollection<DeviceMaster> DeviceMasters { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
+        public virtual ICollection<RejectionExtraFabbReq> RejectionExtraFabbReqs { get; set; }
+        public virtual ICollection<LocationGroupDetail> LocationGroupDetails { get; set; }
+        public virtual ICollection<LocationGroupMaster> LocationGroupMasters { get; set; }
+        public virtual ICollection<PatternNameBank> PatternNameBanks { get; set; }
     }
 }

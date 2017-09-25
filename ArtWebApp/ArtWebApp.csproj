@@ -303,15 +303,19 @@
     <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
     <Content Include="JQuery\ExporttoExcel.js" />
     <Content Include="loader.gif" />
+    <Content Include="Merchandiser\PO\GPODashBoard.aspx" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
+    <Content Include="Production\Cutting\ApprovedLaysheet.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
+    <Content Include="Production\Cutting\CutplanApproval.aspx" />
     <Content Include="Production\Cutting\CuttingDashBoardBoot.aspx" />
     <Content Include="Production\Cutting\LaysheetApproval.aspx" />
     <Content Include="Production\Cutting\LaysheetRollEditor.aspx" />
+    <Content Include="Production\Cutting\RejectionGarmentFab.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
     <Content Include="Production\JobContractNew\JobContractOthersNew.aspx" />
     <Content Include="Production\RollDisplayer.aspx" />
@@ -1312,6 +1316,22 @@
     <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Edit.cshtml" />
     <Content Include="Areas\ITAdministrator\Views\DeviceMasters\Index.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\LayShortageadjust\LayShortageadjust.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\RejectpanelAdjust\RejectpanelAdjust.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CityMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CityMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CityMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CityMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\CityMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupDetails\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupDetails\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupDetails\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupDetails\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupDetails\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1347,6 +1367,7 @@
     <Content Include="Shipping\ShiipingDashBoard.aspx" />
     <Content Include="Shipping\ShipmentClosing.aspx" />
     <Content Include="Shipping\ShippingTracker.aspx" />
+    <Content Include="Shipping\WebForm1.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1675,11 +1696,14 @@
     <Compile Include="Areas\ArtAdministrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\CityMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CutTypeMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\DepartmentMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\GarmentCategoriesController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ItemGroupMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\LocationGroupDetailsController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\LocationGroupMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerDirectionMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerMadeMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\SizeMastersController.cs" />
@@ -1699,15 +1723,29 @@
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageadjustController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\RejectpanelAdjustController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
+    <Compile Include="DataModelAtcWorld\FabricRequest_tbl.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CityMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CutOrderDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CutOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanRejectHistory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanRejectionMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CutTypeMaster.cs">
@@ -1734,6 +1772,12 @@
     <Compile Include="DataModels\LayShortageReqMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\LocationGroupDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocationGroupMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\MarkerDirectionMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -1741,8 +1785,44 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\PartialClasses.cs" />
+    <Compile Include="DataModels\PatternNameBank.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RejectionAdjustDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RejectionExtraFabbReq.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RejectReqDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RejectReqMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\SupplierTypemaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\GPODashBoard.aspx.cs">
+      <DependentUpon>GPODashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\GPODashBoard.aspx.designer.cs">
+      <DependentUpon>GPODashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Cutting\ApprovedLaysheet.aspx.cs">
+      <DependentUpon>ApprovedLaysheet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\ApprovedLaysheet.aspx.designer.cs">
+      <DependentUpon>ApprovedLaysheet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Cutting\CutplanApproval.aspx.cs">
+      <DependentUpon>CutplanApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\CutplanApproval.aspx.designer.cs">
+      <DependentUpon>CutplanApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.cs">
       <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
@@ -1751,12 +1831,26 @@
     <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.designer.cs">
       <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\Cutting\RejectionGarmentFab.aspx.cs">
+      <DependentUpon>RejectionGarmentFab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\RejectionGarmentFab.aspx.designer.cs">
+      <DependentUpon>RejectionGarmentFab.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.designer.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shipping\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModel\Master\Item.cs" />
@@ -4319,6 +4413,7 @@
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
     <Folder Include="Areas\CuttingMVC\Views\Laysheet\" />
     <Folder Include="Areas\CuttingMVC\Views\lay\" />
+    <Folder Include="Areas\CuttingMVC\Views\RejectPanel\" />
     <Folder Include="Areas\CuttingMVC\Views\Shared\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />

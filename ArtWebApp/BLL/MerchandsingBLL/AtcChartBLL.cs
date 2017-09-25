@@ -478,6 +478,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                     this.InhouseDate = DateTime.Parse(element.InhouseDate.ToString());
                     this.ETADate = DateTime.Parse ( element.ETADate.ToString ());
                     this.Adntype = element.ADNType;
+                    this.Supplier_PK =int.Parse( element.Supplier_PK.ToString());
                    // this.currency_Pk =int.Parse (element.Currency_PK.ToString ());
                 } 
 

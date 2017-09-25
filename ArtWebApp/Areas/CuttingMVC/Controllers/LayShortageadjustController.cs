@@ -158,8 +158,8 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             LaysheetRollRepository lyipores = new LaysheetRollRepository();
             String code = lyipores.InsertCutOrderAdjust(mdl);
             TempData["shortMessage"] = "Updated";
-
-            return RedirectToAction("LaysheetShortage");
+          
+            return RedirectToAction("LayShortageadjust");
         }
 
 

@@ -209,6 +209,24 @@ namespace ArtWebApp.BLL.UserBLL
                                 string IPAddress = GetIPAddress();
                             }
 
+                            if (int.Parse( user.UserProfile_Pk.ToString ())==1&& int.Parse(user.UserProfile_Pk.ToString()) == 11)
+                            {
+                               var ApprovedLocationlist = enty.LocationGroupDetails.Where(u => u.LocationGroupID == 6).Select(u => u.Loication_PK).ToList();
+
+                                List<decimal?> list = ApprovedLocationlist  as List<decimal?>;
+
+                                HttpContext.Current.Session["ApprovedLocationlist"] = list;
+
+                            }
+                            else
+                            {
+                              
+                                   var ApprovedLocationlist = enty.LocationGroupDetails.Where(u => u.LocationGroupMaster.MasterLocationID == user.UserLoc_PK).Select(u => u.Loication_PK).ToList();
+                                List<decimal?> list = ApprovedLocationlist as List<decimal?>;
+                                HttpContext.Current.Session["ApprovedLocationlist"] = list;
+                            }
+                           //var q2 = enty.LocationGroupDetails.Where(u => u.LocationGroupID == user.UserLoc_PK).Select(u => u.Loication_PK).ToList();
+
 
 
                             try

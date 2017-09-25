@@ -29,5 +29,6 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Location_Pk { get; set; }
     
         public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
+        public virtual CutOrderMaster CutOrderMaster { get; set; }
     }
 }

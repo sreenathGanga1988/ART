@@ -58,7 +58,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
             txt_container.Text = rcptmstrdata.ContainerNum;
             dtp_deliverydate.Value = rcptmstrdata.ETADate;
             ddl_adnType.SelectedValue = rcptmstrdata.Adntype;
-
+            drp_supplier.SelectedValue = rcptmstrdata.Supplier_PK.ToString();
 
 
         }

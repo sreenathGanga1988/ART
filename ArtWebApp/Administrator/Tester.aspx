@@ -19,6 +19,8 @@
     
      <strong>    <asp:Button ID="btn_productiondata" runat="server"  Text="Get productionData as of date" CssClass="auto-style1" Height="338px" Width="379px" OnClick="btn_productiondata_Click"  />
     </strong>
+      <strong>    <asp:Button ID="btn_rejectreq" runat="server"  Text="Get Rejection Request " CssClass="auto-style1" Height="338px" Width="379px" OnClick="btn_rejectreq_Click"  />
+    </strong>
 <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
 <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 </asp:Content>

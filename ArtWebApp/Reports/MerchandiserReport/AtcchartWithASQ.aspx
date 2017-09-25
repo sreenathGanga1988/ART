@@ -476,7 +476,7 @@ body
                                          
                                                     <asp:GridView ID="tbl_eta" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">
                                              <Columns>
-                                                 <asp:BoundField DataField="Qty" HeaderText="Qty" />
+                                                 <asp:BoundField DataField="Qty" HeaderText="Qty" Visible="false" />
                                                  <asp:BoundField DataField="ETADate" HeaderText="ETA" DataFormatString="{0:MM/dd/yyyy}"  />
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />

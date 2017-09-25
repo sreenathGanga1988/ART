@@ -18,6 +18,7 @@ namespace ArtWebApp.DataModels
         {
             this.ASQAllocationMasters = new HashSet<ASQAllocationMaster>();
             this.CutPlanASQDetails = new HashSet<CutPlanASQDetail>();
+            this.RejectionExtraFabbReqs = new HashSet<RejectionExtraFabbReq>();
         }
     
         public decimal PoPack_Detail_PK { get; set; }
@@ -48,5 +49,6 @@ namespace ArtWebApp.DataModels
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual PoPackMaster PoPackMaster { get; set; }
+        public virtual ICollection<RejectionExtraFabbReq> RejectionExtraFabbReqs { get; set; }
     }
 }

@@ -222,6 +222,16 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
         public virtual DbSet<LayAdjustDetail> LayAdjustDetails { get; set; }
         public virtual DbSet<InventorySalesDetail> InventorySalesDetails { get; set; }
+        public virtual DbSet<RejectionExtraFabbReq> RejectionExtraFabbReqs { get; set; }
+        public virtual DbSet<RejectReqDetail> RejectReqDetails { get; set; }
+        public virtual DbSet<RejectReqMaster> RejectReqMasters { get; set; }
+        public virtual DbSet<RejectionAdjustDetail> RejectionAdjustDetails { get; set; }
+        public virtual DbSet<CityMaster> CityMasters { get; set; }
+        public virtual DbSet<LocationGroupDetail> LocationGroupDetails { get; set; }
+        public virtual DbSet<LocationGroupMaster> LocationGroupMasters { get; set; }
+        public virtual DbSet<CutPlanRejectionMaster> CutPlanRejectionMasters { get; set; }
+        public virtual DbSet<PatternNameBank> PatternNameBanks { get; set; }
+        public virtual DbSet<CutPlanRejectHistory> CutPlanRejectHistories { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="11a350ffee1248daa8a59c565414fcb9" Name="Diagram1" ZoomLevel="62">
+      <Diagram DiagramId="11a350ffee1248daa8a59c565414fcb9" Name="Diagram1" ZoomLevel="106">
         <EntityTypeShape EntityType="AtcModelModel.LocationMaster_tbl" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="AtcModelModel.PackingListDetailsAtc" Width="1.5" PointX="7.375" PointY="7.75" />
         <EntityTypeShape EntityType="AtcModelModel.ASQAllocationMaster_tbl" Width="1.5" PointX="0.75" PointY="6.75" />
@@ -16,8 +16,10 @@
         <EntityTypeShape EntityType="AtcModelModel.ArtJobContractMaster" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="AtcModelModel.ArtCutPlanASQDet" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="AtcModelModel.ArtCutPlanMarkerSizeDetail" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="AtcModelModel.FabricRequest_tbl" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="AtcModelModel.ArtLaySheetDetail" Width="1.5" PointX="13.375" PointY="0.75" />
+        <AssociationConnector Association="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl" />
         <EntityTypeShape EntityType="AtcModelModel.ArtLaySheetMasterData" Width="1.5" PointX="11.375" PointY="7.75" />
-        <EntityTypeShape EntityType="AtcModelModel.ArtLaySheetDetail" Width="1.5" PointX="3.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -648,5 +648,91 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
 
         #endregion
 
-    }
+        protected void btn_rejectreq_Click(object sender, EventArgs e)
+        {
+            using (AtcWorldEntities atcenty = new AtcWorldEntities())
+            {
+                var q = from lymstr in atcenty.FabricRequest_tbl
+                        where lymstr.IsUploaded == false
+                        select lymstr;
+                foreach (var element in q)
+                {
+
+                    using (ArtEntitiesnew entynew = new ArtEntitiesnew())
+                    {
+
+                        RejectionExtraFabbReq rejectionExtraFabbReq = new RejectionExtraFabbReq();
+
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.Location_PK == element.Location_PK).Select(u => u.ArtLocation_PK).FirstOrDefault();
+
+
+                        rejectionExtraFabbReq.Location_PK =int.Parse(atclocation_pk.ToString());
+                        rejectionExtraFabbReq.Fabreqid = element.Fabreqid;
+                        rejectionExtraFabbReq.Fabreqno = element.Fabreqno;
+                        rejectionExtraFabbReq.Reqdate = element.Reqdate;
+                        rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
+                        rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                        rejectionExtraFabbReq.ReqQty = element.ReqQty;
+              
+                        entynew.RejectionExtraFabbReqs.Add(rejectionExtraFabbReq);
+                        entynew.SaveChanges();
+                    }
+
+                    element.IsUploaded = true;
+                }
+
+
+
+
+
+
+                atcenty.SaveChanges();
+
+            }
+
+
+
+            using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
+            {
+                var q = from lymstr in atcenty.FabricRequest_tbl
+                        where lymstr.IsUploaded == false
+                        select lymstr;
+                foreach (var element in q)
+                {
+
+                    using (ArtEntitiesnew entynew = new ArtEntitiesnew())
+                    {
+
+                        RejectionExtraFabbReq rejectionExtraFabbReq = new RejectionExtraFabbReq();
+
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.Location_PK == element.Location_PK).Select(u => u.ArtLocation_PK).FirstOrDefault();
+
+
+                        rejectionExtraFabbReq.Location_PK = int.Parse(atclocation_pk.ToString());
+
+                        rejectionExtraFabbReq.Fabreqid = element.Fabreqid;
+                        rejectionExtraFabbReq.Fabreqno = element.Fabreqno;
+                        rejectionExtraFabbReq.Reqdate = element.Reqdate;
+                        rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
+                        rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                        rejectionExtraFabbReq.ReqQty = element.ReqQty;
+                        rejectionExtraFabbReq.IsApproved = false;
+                        entynew.RejectionExtraFabbReqs.Add(rejectionExtraFabbReq);
+                        entynew.SaveChanges();
+                    }
+
+                    element.IsUploaded = true;
+                }
+
+
+
+
+
+
+                atcenty.SaveChanges();
+
+            }
+
+        }
+        }
 }

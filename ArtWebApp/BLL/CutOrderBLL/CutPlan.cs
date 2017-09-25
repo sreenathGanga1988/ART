@@ -827,7 +827,70 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
         }
 
 
+        public static  String GetreferncepatterofCutplan(int cutplanpk)
+        {
+            String pattername = "";
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                int ourstyleid = 0, skudetpk = 0, locationpk = 0;
+                string shrinkagegroup = "";
 
+                try
+                {
+                    var q = from cutplnmstr in entty.CutPlanMasters
+                            where cutplnmstr.CutPlan_PK == cutplanpk
+                            select new { cutplnmstr.Location_PK, cutplnmstr.SkuDet_PK, cutplnmstr.OurStyleID, cutplnmstr.ShrinkageGroup };
+                    foreach (var element in q)
+                    {
+                        ourstyleid = int.Parse(element.OurStyleID.ToString());
+                        skudetpk = int.Parse(element.SkuDet_PK.ToString());
+                        locationpk = int.Parse(element.Location_PK.ToString());
+                        shrinkagegroup = element.ShrinkageGroup.ToString();
+
+                    }
+                    pattername = Getreferncepatter(ourstyleid, skudetpk, locationpk, shrinkagegroup);
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+            }
+            return pattername;
+        }
+
+
+
+
+
+        public static String Getreferncepatter(int ourstyleid, int skudetpk, int locationpk, string shrinkagegroup)
+        {
+            String pattername = "";
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+
+
+                try
+                {
+                    var q = entty.PatternNameBanks.Where(u => u.OurStyleID == ourstyleid && u.Skudetpk == skudetpk && u.Location_Pk == locationpk && u.Shrinkage == shrinkagegroup).Select(u => u).ToList();
+
+                    foreach (var element in q)
+                    {
+
+                        pattername = pattername + "/" + element.PatternName;
+                    }
+
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+            }
+            return pattername;
+        }
 
 
         public static float GetCutplanfabutilisedofAGroup(int skudet_pk, int ouustyleid, int location, string ShrinkageGroup, string WidthGroup, string MarkerType)
@@ -977,6 +1040,14 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
         public List<CutPlanMarkerDetailsData> CutPlanMarkerDetailsDataCollection { get; set; }
         public List<CutPlanMarkerTypeData> CutPlanMarkerTypeDataDataCollection { get; set; }
 
+
+
+        public int Rejectionid { get; set; }
+        public String Rejectionreason { get; set; }
+
+
+
+
         public String InsertNewCutPlanMaster()
         {
             string Cutn = "";
@@ -1076,6 +1147,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                         ctmstr.IsDeleted = "N";
                         ctmstr.IsCutorderGiven = "N";
                         ctmstr.IsRollAdded = "N";
+                        ctmstr.IsRejected = "N";
                         ctmstr.RefPattern = "";
                         ctmstr.RollYard = 0;
                         ctmstr.CutplanConsumption = 0;
@@ -1126,6 +1198,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
             return Cutn;
         }
+
+
 
 
         public String InsertCutASQDetailsPlan()
@@ -1201,27 +1275,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
         }
 
-        //public String InsertCutPlanMarkerTypes()
-        //{
-        //    string Cutn = "";
-        //    using (ArtEntitiesnew enty = new ArtEntitiesnew())
-        //    {
-
-
-              
-
-
-
-
-        //        enty.SaveChanges();
-
-
-
-        //    }
-
-        //    return Cutn;
-
-        //}
+  
 
         public void ApproveCutPlan(int cutplan_pk)
         {
@@ -1235,12 +1289,49 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 {
                     element.RefPattern = this.Refpattern;
                     element.IsApproved = "Y";
+                    element.IsRejected = "N";
                     element.ApprovedBy = HttpContext.Current.Session["Username"].ToString().Trim(); ;
                     element.ApprovedDate = DateTime.Now;
                 }
                 enty.SaveChanges();
             }
        }
+
+
+
+        public void RejectCutPlan(int cutplan_pk)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ctplnmstr in enty.CutPlanMasters
+                        where ctplnmstr.CutPlan_PK == cutplan_pk
+                        select ctplnmstr;
+
+                foreach (var element in q)
+                {
+                    element.RejectionReason = this.Rejectionreason;
+                    element.IsRejected = "Y";
+                    element.IsApproved = "N";
+                    element.RejectedBy = HttpContext.Current.Session["Username"].ToString().Trim(); ;
+                    element.RejectionDate = DateTime.Now;
+                    
+                }
+                CutPlanRejectHistory cutplnhistory = new CutPlanRejectHistory();
+                cutplnhistory.Cutplan_PK = this.CutPlan_PK;
+                cutplnhistory.CutPlanRejectionID = this.Rejectionid;
+                cutplnhistory.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim(); ;
+                cutplnhistory.AddedDate = DateTime.Now;
+                enty.CutPlanRejectHistories.Add(cutplnhistory);
+                enty.SaveChanges();
+            }
+        }
+
+
+
+
+
+
+
 
         public String  UpdateMarkerDetails()
         {
@@ -1467,7 +1558,56 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
             }
+
+
+
+
+        public string AddCutPlanPattern(int cutplan_pk ,string patternanme)
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q1 = from cutplnmstr in enty.CutPlanMasters
+                         where cutplnmstr.CutPlan_PK == cutplan_pk
+                         select cutplnmstr;
+                foreach (var element in q1)
+                {
+                    if (!enty.PatternNameBanks.Any(f => f.OurStyleID == element.OurStyleID && f.Skudetpk==element.SkuDet_PK && f.Location_Pk == element.Location_PK && f.Shrinkage.Trim() == element.ShrinkageGroup.Trim() && f.PatternName.Trim() == patternanme.Trim()))
+                    {
+
+                        PatternNameBank ctpnref = new PatternNameBank();
+
+                        ctpnref.OurStyleID = element.OurStyleID;
+                        ctpnref.Skudetpk = element.SkuDet_PK;
+                        ctpnref.Shrinkage = element.ShrinkageGroup;
+
+                        ctpnref.PatternName = patternanme.Trim();
+                        ctpnref.Location_Pk = element.Location_PK;
+                        ctpnref.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        ctpnref.AddedDate = DateTime.Now;
+
+                        enty.PatternNameBanks.Add(ctpnref);
+                    }
+
+                }
+
+
+                   
+
+                enty.SaveChanges();
+
+                Cutn = "Sucess";
+
+            }
+
+            return Cutn;
         }
+
+
+
+
+    }
 
 
     public class CutPlanMarkerTypeData

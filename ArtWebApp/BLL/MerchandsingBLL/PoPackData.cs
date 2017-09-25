@@ -1634,28 +1634,28 @@ ORDER BY PoPackMaster.PoPackId";
                 if (colorcode == "CM")
                 {
                     query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
-                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
 WHERE        (POPackDetails.OurStyleID = @OurStyleID)
 GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
-                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate
 HAVING        (MAX(POPackDetails.IsCutable) = N'Y') AND (PoPackMaster.ExpectedLocation_PK = @location_PK)
-ORDER BY PoPackMaster.PoPackId";
+ORDER BY PoPackMaster.HandoverDate";
                 }
                 else
                 {
                     query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
-                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+                         AtcDetails.BuyerStyle, PoPackMaster.AtcId, SUM(POPackDetails.PoQty) AS poqTY, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
 WHERE        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)
 GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, AtcDetails.BuyerStyle, 
-                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK
+                         PoPackMaster.AtcId, PoPackMaster.SeasonName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate
 HAVING        (MAX(POPackDetails.IsCutable) = N'Y') AND (PoPackMaster.ExpectedLocation_PK = @location_PK)
-ORDER BY PoPackMaster.PoPackId";
+ORDER BY PoPackMaster.HandoverDate";
                 }
                 SqlCommand cmd = new SqlCommand(query, con);
 

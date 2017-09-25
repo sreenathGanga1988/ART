@@ -175,7 +175,34 @@
        }
 
 
-  
+       function Addpattern(objref) {
+           debugger
+           var retVal = confirm("Do you want to continue  Add New Pattern from Cutplan ?");
+           if (retVal == true) {
+            
+               var planpk = document.getElementById('<%= lbl_cutid.ClientID %>').innerHTML;
+               var txtname = document.getElementById('<%= txt_patternmaenew.ClientID %>').value;
+               alert(planpk);
+               alert(txtname);
+               PageMethods.Addpatternaysncmethod(planpk,txtname, onSucess, onError);
+               function onSucess(result) {
+                   alert(result);
+                   document.getElementById('<%= btn_addpattern.ClientID %>').style.visibility = 'hidden';
+                   
+               
+               }
+               function onError(result) {
+                   alert('Something wrong.');
+               }
+           }
+           else {
+
+           }
+
+
+
+
+       }
 
 </script>
 
@@ -282,8 +309,10 @@
                             
                                <asp:UpdatePanel ID="upd_cutorder" UpdateMode="Conditional"  runat="server">
                                             <ContentTemplate>
-                            <ucc:DropDownListChosen ID="drp_cutorder" runat="server"  DataTextField="name" DataValueField="pk" Width="200px">
+                            <ucc:DropDownListChosen ID="drp_cutorder" CssClass="drp_cutorder" runat="server"  DataTextField="name" DataValueField="pk" Width="200px">
                         </ucc:DropDownListChosen>
+                                                
+                                                
                                                 
                                      </ContentTemplate>
                                         </asp:UpdatePanel>            
@@ -297,8 +326,13 @@
                         </td>
                         <td class="NormalTD">
                                &nbsp;</td>
-                        <td class="auto-style7"><asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">
-                                        </asp:UpdatePanel></td>
+                        <td class="auto-style7">
+                            <asp:UpdatePanel ID="upd_cutid" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Label ID="lbl_cutid" runat="server" Text="0"></asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
                         <td class="NormalTD"></td>
                         <td class="NormalTD"></td>
                     </tr>
@@ -344,6 +378,7 @@
                                                             <strong>
                                                             <asp:Label ID="lbl_ourstyle" runat="server" Text="0"></asp:Label>
                                                             </strong>
+                                                            <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
                                                         </td>
                                                         <td class="smallTD">Location</td>
                                                         <td class="smallTD">
@@ -446,7 +481,11 @@
                                         </td>
                                         <td>New&nbsp; pattern name</td>
                                         <td>
-                                            <asp:TextBox ID="txt_patternmaenew" runat="server"></asp:TextBox>
+                                            <asp:UpdatePanel ID="upd_patternmaenew" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
+                                            <asp:TextBox ID="txt_patternmaenew" CssClass="txt_patternmaenew" runat="server"></asp:TextBox>
+                                                </ContentTemplate>
+                                        </asp:UpdatePanel>
                                         </td>
                                     </tr>
                                 </table>
@@ -457,7 +496,13 @@
                           
                         </td>
                         <td class="NormalTD" >
-                            &nbsp;</td>
+                           
+                            <asp:UpdatePanel ID="upd_addpatern" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+ <asp:Button ID="btn_addpattern" runat="server" style="font-size: x-small" Text="Add"  OnClientClick="Addpattern(this)" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
                     </tr>
                     <tr>
                         <td class="gridcolumn"  colspan="7">

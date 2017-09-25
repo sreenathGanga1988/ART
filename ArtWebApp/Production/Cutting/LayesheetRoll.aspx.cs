@@ -95,7 +95,7 @@ namespace ArtWebApp.Production.Cutting
             string msg = "";
             String num = "";
 
-            if(txt_newplies.Text!="")
+            if (txt_newplies.Text != "")
             {
                 BLL.ProductionBLL.LaysheetMasterData lblmstr = new BLL.ProductionBLL.LaysheetMasterData();
                 lblmstr.AddedDate = DateTime.Now;
@@ -105,19 +105,44 @@ namespace ArtWebApp.Production.Cutting
                 lblmstr.NoofPlies = int.Parse(txt_newplies.Text);
                 lblmstr.markernum = drp_markernum.SelectedItem.Text.ToString();
                 lblmstr.Location_PK = int.Parse(drp_fact.SelectedValue.ToString());
-                    
 
-                lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
+                if (lblmstr.NoofPlies > float.Parse(txt_balplies.Text))
+                {
 
-                num = lblmstr.InsertLaySheetRoll();
+                    if(lblmstr.NoofPlies <= float.Parse(lbl_balancetocut.Text))
+                    {
+                        lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
 
-                msg = num + " is generated Successfully";
-                tbl_RollDetails.DataSource = null;
-                tbl_RollDetails.DataBind();
-                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+                        num = lblmstr.InsertLaySheetRoll();
+
+                        msg = num + " is generated Successfully";
+                        tbl_RollDetails.DataSource = null;
+                        tbl_RollDetails.DataBind();
+                        ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+                    }
+                    else
+                    {
+                        msg = "Cannot Add more Plies than Allowed";
+                        ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "error", msg);
+                    }
+                   
+                }
+                else
+                {
+
+                    lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
+
+                    num = lblmstr.InsertLaySheetRoll();
+
+                    msg = num + " is generated Successfully";
+                    tbl_RollDetails.DataSource = null;
+                    tbl_RollDetails.DataBind();
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+                }
+
             }
 
-           
+
         }
 
 
@@ -147,7 +172,7 @@ namespace ArtWebApp.Production.Cutting
                     Decimal lbl_ayard = Decimal.Parse(((di.FindControl("lbl_ayard") as Label).Text.ToString()));
                     String rollstatus = ((di.FindControl("lbl_rollstatus") as Label).Text.ToString());
                     CheckBox chk_cutable = (di.FindControl("chk_cutable") as CheckBox);
-                    
+
 
                     BLL.ProductionBLL.LaysheetDetaolsData lsdetdata = new BLL.ProductionBLL.LaysheetDetaolsData();
 
@@ -174,7 +199,7 @@ namespace ArtWebApp.Production.Cutting
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutOrderMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk == skudet_pk && ponmbr.IsDeleted=="N"
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_pk == skudet_pk && ponmbr.IsDeleted == "N"
                         select new
                         {
                             name = ponmbr.Cut_NO,
@@ -420,7 +445,7 @@ namespace ArtWebApp.Production.Cutting
 
 
 
-          
+
 
             //Creat the Table and Add it to the Page
             Table1.Rows.Clear();
@@ -1262,14 +1287,14 @@ namespace ArtWebApp.Production.Cutting
         protected void btn_marker_Click(object sender, EventArgs e)
         {
             BLL.ProductionBLL.LaysheetBLL lblldata = new BLL.ProductionBLL.LaysheetBLL();
-            DataTable dt = lblldata.getRollofaCutorderNotlayed(int.Parse(drp_cutorder.SelectedValue.ToString()),int.Parse (drp_fact.SelectedValue.ToString()));
+            DataTable dt = lblldata.getRollofaCutorderNotlayed(int.Parse(drp_cutorder.SelectedValue.ToString()), int.Parse(drp_fact.SelectedValue.ToString()));
 
 
 
 
             if (dt.Rows.Count > 0)
             {
-                
+
                 DataView view = new DataView(dt);
                 DataTable shadetable = view.ToTable(true, "ShadeGroup");
                 drp_shade.DataSource = shadetable;
@@ -1287,17 +1312,19 @@ namespace ArtWebApp.Production.Cutting
 
 
             float plies = 0;
-
+            float alreadycutplies = 0;
             try
             {
-              //  plies = lblldata.GetCutPlies(int.Parse(drp_markernum.SelectedValue.ToString()));
+                //  plies = lblldata.GetCutPlies(int.Parse(drp_markernum.SelectedValue.ToString()));
 
                 plies = lblldata.GetCutPliesFORROLL(int.Parse(drp_markernum.SelectedValue.ToString()));
 
                 txt_pliescut.Text = plies.ToString();
                 upd_pliescut.Update();
-
-
+                alreadycutplies= lblldata.GetActualCutPlies(int.Parse(drp_markernum.SelectedValue.ToString()));
+                txt_cutplies.Text = alreadycutplies.ToString();
+                upd_cutplies.Update();
+                
                 ArrayList ary = lblldata.getcutplanMarkerdata(int.Parse(drp_markernum.SelectedValue.ToString()));
                 txt_cutperplies.Text = ary[0].ToString();
                 txt_noofplies.Text = ary[1].ToString();
@@ -1315,8 +1342,21 @@ namespace ArtWebApp.Production.Cutting
 
             };
 
+            float balanceplies = 0;
+            balanceplies = float.Parse(txt_noofplies.Text) - float.Parse(txt_pliescut.Text);
 
-            float balanceplies = float.Parse(txt_noofplies.Text) - float.Parse(txt_pliescut.Text);
+            float actualbalncetocut = 0;
+            actualbalncetocut = float.Parse(txt_noofplies.Text) - float.Parse(txt_cutplies.Text);
+            lbl_balancetocut.Text = actualbalncetocut.ToString();
+            upd_balanceactualtocut.Update();
+
+
+
+
+           
+          
+
+
             txt_balplies.Text = balanceplies.ToString();
             upd_balplies.Update();
             tbl_RollDetails.DataSource = dt;
@@ -1332,7 +1372,10 @@ namespace ArtWebApp.Production.Cutting
             GenerateTable(fillsizedata(), plies);
             GenerateCutorderTable(fillsizedata());
             Table1.Enabled = false;
+            if (float.Parse(txt_balplies.Text) <= 0)
+            {
 
+            }
         }
 
 
@@ -1366,7 +1409,7 @@ namespace ArtWebApp.Production.Cutting
             float refab = float.Parse(txt_Laylength.Text) * float.Parse(txt_newplies.Text);
 
 
-            
+
             lbl_apprximateyard.Text = refab.ToString();
 
             upd_apprximateyard.Update();

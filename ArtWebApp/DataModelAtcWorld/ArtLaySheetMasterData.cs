@@ -32,5 +32,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<decimal> OurStyleID { get; set; }
         public Nullable<decimal> CutPlan_PK { get; set; }
         public Nullable<decimal> LaySheet_PK { get; set; }
+        public Nullable<decimal> CutPlanMarkerDetails_PK { get; set; }
     }
 }

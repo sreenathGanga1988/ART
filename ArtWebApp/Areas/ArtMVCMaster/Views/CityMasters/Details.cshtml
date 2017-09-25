@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.CityMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CityMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryMaster.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryMaster.ShortName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CityID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

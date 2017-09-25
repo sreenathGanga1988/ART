@@ -19,5 +19,7 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<decimal> LaySheet_PK { get; set; }
         public Nullable<decimal> Roll_PK { get; set; }
         public Nullable<decimal> NoOfPlies { get; set; }
+        public string ShadeGroup { get; set; }
+        public string LocationSequencenum { get; set; }
     }
 }

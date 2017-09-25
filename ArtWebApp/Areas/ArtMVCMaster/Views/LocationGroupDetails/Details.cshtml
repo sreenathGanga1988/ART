@@ -1,0 +1,51 @@
+﻿@model ArtWebApp.DataModels.LocationGroupDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LocationGroupDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationGroupMaster.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationGroupMaster.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LocationDetailID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

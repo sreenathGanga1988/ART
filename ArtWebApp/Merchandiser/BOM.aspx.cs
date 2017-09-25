@@ -468,5 +468,10 @@ namespace ArtWebApp.Merchandiser
             Session["atcid"] = int.Parse(cmb_atc.SelectedValue.ToString());
             GeneratePO1("AppendPO");
         }
+
+        protected void cmb_atc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

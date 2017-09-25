@@ -49,6 +49,15 @@ namespace ArtWebApp.Administrator {
         protected global::System.Web.UI.WebControls.Button btn_productiondata;
         
         /// <summary>
+        /// btn_rejectreq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_rejectreq;
+        
+        /// <summary>
         /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>

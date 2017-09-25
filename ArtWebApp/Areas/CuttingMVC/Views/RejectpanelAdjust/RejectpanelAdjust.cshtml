@@ -1,0 +1,352 @@
+﻿
+
+@model ArtWebApp.Areas.CuttingMVC.Models.LayShortageCutorderAdjustmentViewModal
+@{
+    ViewBag.Title = "AdjustLayShortage";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <text>
+        <script>
+            $(document).ready(function () {
+               alert('@ViewBag.SuccessMessage');
+            });
+        </script>
+    </text>
+}
+<h2>Adjust Reject Garment Req Against CutOrder </h2>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#AtcID").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+
+            $.ajax({
+                url: "@Url.Action("PopulateLayShortagerequest", "LayShortageadjust")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#LayShortageMasterID').empty();
+                    $.each(data, function () {
+
+
+                        $('#LayShortageMasterID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#LayShortageMasterID").trigger("chosen:updated");
+
+
+                    $("#LayShortageMasterID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+
+
+
+
+        });
+
+
+
+
+        $("#LayShortageMasterID").change(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+
+            var Id = $('#LayShortageMasterID').find('option:selected').val();
+
+            if (Id != null)
+            {
+
+                //Populate arrayOfValues
+                $.ajax({
+                    url: "@Url.Action("PopulateCutorderList", "LayShortageadjust")",
+                    type: "Get",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                traditional: true,
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#CutID').empty()
+                    $.each(data, function () {
+
+
+                        $('#CutID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#CutID").trigger("chosen:updated");
+
+
+                    $("#CutID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+
+
+        });
+
+
+
+        $("#CutID").change(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+
+            var CutId = $('#CutID').find('option:selected').val();
+            var LayShortageMasterID = $('#LayShortageMasterID').find('option:selected').val();
+
+            if (CutId != null )
+            {
+                if (LayShortageMasterID != null) {
+
+                    //Populate arrayOfValues
+                    $.ajax({
+                        url: "@Url.Action("PopulateLayRequestModel", "LayShortageadjust")",
+                        type: "Get",
+                        contentType: "application/json; charset=utf-8",
+                        datatype: "json",
+                        traditional: true,
+                        data: { 'CutId': CutId, 'LayShortageMasterID': LayShortageMasterID },
+                        success: function (data) {
+                            $("#RequestQty").val(data.RequestQty);
+                            $("#CutOrderQty").val(data.CutOrderQty);
+                            $("#MarkerType").val(data.MarkerType);
+                            $("#Shrinkage").val(data.Shrinkage);
+                            $("#CutWidth").val(data.CutWidth);
+                            $("#CutQty").val(data.CutQty);
+                            $("#DeliveredQty").val(data.DeliveredQty);
+                            $("#AllocatedQty").val(data.AllocatedQty);
+                            $("#ToAddQty").val(data.ToAddQty);
+                            $("#BalanceQty").val(data.ToAddQty);
+
+
+                        },
+                        error: function (data) {
+
+                        }
+                    }
+                    );
+                }
+        }
+
+
+        });
+
+
+
+
+    });
+
+    $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#LaySheetID").chosen().val();
+
+            if (SelectedOurStyle != null)
+            {
+
+
+                $.ajax({
+                    url: "@Url.Action("GetRollView", "LayShortage")",
+                    traditional: true,
+                    data: { 'SelectedOurStyle': SelectedOurStyle },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+
+
+
+         }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SampCutReqMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
+
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Extra req Against Rejection#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.LayShortageMasterID, Model.LayShortageMasterreqlist, "Please select layshortagerequest", new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(m => m.LayShortageMasterID)
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Cut order#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.CutID, Model.Cutorderlist, "Please select Cutorder", new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(m => m.LayShortageMasterID)
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>@Html.DisplayNameFor(model => model.RequestQty) </td>
+                            <td>@Html.DisplayNameFor(model => model.AllocatedQty) </td>
+                            <td> @Html.DisplayNameFor(model => model.BalanceQty)</td>
+                            <td> @Html.DisplayNameFor(model => model.CutOrderQty)</td>
+                            <td>@Html.DisplayNameFor(model => model.ToAddQty) </td>
+
+                        </tr>
+                        <tr>
+                            <td>@Html.EditorFor(model => model.RequestQty) </td>
+                            <td>@Html.EditorFor(model => model.AllocatedQty) </td>
+                            <td> @Html.EditorFor(model => model.BalanceQty)</td>
+                            <td> @Html.EditorFor(model => model.CutOrderQty)</td>
+                            <td>@Html.EditorFor(model => model.ToAddQty) </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>@Html.DisplayNameFor(model => model.MarkerType) </td>
+                            <td>@Html.DisplayNameFor(model => model.CutWidth) </td>
+                            <td> @Html.DisplayNameFor(model => model.Shrinkage)</td>
+                            <td> @Html.DisplayNameFor(model => model.DeliveredQty)</td>
+                            <td> @Html.DisplayNameFor(model => model.CutQty)</td>
+
+                        </tr>
+                        <tr>
+                            <td>@Html.EditorFor(model => model.MarkerType) </td>
+                            <td>@Html.EditorFor(model => model.CutWidth) </td>
+                            <td> @Html.EditorFor(model => model.Shrinkage)</td>
+                            <td> @Html.EditorFor(model => model.DeliveredQty)</td>
+                            <td> @Html.EditorFor(model => model.CutQty)</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+        </div>
+
+        <div id='output' class="">
+            <!-- Output goes here -->
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="Submit" type="submit" value="Approve Adjust" class="btn btn-default show" />
+            </div>
+        </div>
+
+    </div>
+}

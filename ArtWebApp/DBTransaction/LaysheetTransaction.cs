@@ -168,7 +168,7 @@ WHERE        (DORollDetails.CutID = @cutid) AND (FabricRollmaster.Roll_PK NOT IN
 FROM            SupplierDocumentMaster INNER JOIN
                          FabricRollmaster ON SupplierDocumentMaster.SupplierDoc_pk = FabricRollmaster.SupplierDoc_pk INNER JOIN
                          LaySheetRollDetails ON FabricRollmaster.Roll_PK = LaySheetRollDetails.Roll_PK
-WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref)";
+WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref) ORDER BY FabricRollmaster.ShadeGroup ";
                 cmd.Parameters.AddWithValue("@Laysheetref", Laysheetref);
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);

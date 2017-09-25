@@ -39,7 +39,7 @@ z-index: 10;
                                 <td >ATC # : </td>
                                 <td >
                              
-                                    <ucc:DropDownListChosen ID="cmb_atc" runat="server" DataSourceID="SqlDataSource1" DataTextField="AtcNum" DataValueField="AtcId" Height="17px" Width="200px">
+                                    <ucc:DropDownListChosen ID="cmb_atc" runat="server" DataSourceID="SqlDataSource1" DataTextField="AtcNum" DataValueField="AtcId" Height="17px" Width="200px" OnSelectedIndexChanged="cmb_atc_SelectedIndexChanged">
                                     </ucc:DropDownListChosen>
                     
                

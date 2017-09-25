@@ -257,8 +257,8 @@ namespace ArtWebApp.Areas
       public string InsertCutOrderAdjust(LayShortageCutorderAdjustmentViewModal model)
         {
             String msg = "";
-
-
+            int cutplanpk = 0;
+            decimal newconsumption = 0;
             LayAdjustDetail layadjstdet = new DataModels.LayAdjustDetail();
             layadjstdet.CutID = model.CutID;
             layadjstdet.LayShortageMasterID = model.LayShortageMasterID;
@@ -275,7 +275,21 @@ namespace ArtWebApp.Areas
                  foreach(var element in q)
             {
                 element.FabQty = element.FabQty + model.ToAddQty;
+             
+                element.ActualConsumption =  element.FabQty / element.CutQty;
+                newconsumption = decimal.Parse(element.ActualConsumption.ToString());
+                cutplanpk =int.Parse ( element.CutPlan_Pk.ToString());
             }
+
+            var q1=from cutplnmstr in db.CutPlanMasters
+                   where cutplnmstr.CutPlan_PK == cutplanpk
+                   select cutplnmstr;
+            foreach (var element in q1)
+            {
+                element.CutOrderConsumption = newconsumption;
+             
+            }
+
 
             db.SaveChanges();
           
@@ -288,6 +302,40 @@ namespace ArtWebApp.Areas
             return msg;
         }
 
+
+        public string InsertRejectionCutOrderAdjust(LayShortageCutorderAdjustmentViewModal model)
+        {
+            String msg = "";
+
+
+            RejectionAdjustDetail layadjstdet = new DataModels.RejectionAdjustDetail();
+            layadjstdet.CutID = model.CutID;
+            layadjstdet.RejReqMasterIDID = model.LayShortageMasterID;
+            layadjstdet.AddedDate = model.AddedDate;
+            layadjstdet.AddedBy = model.AddedBy;
+            layadjstdet.Qty = model.ToAddQty;
+
+            db.RejectionAdjustDetails.Add(layadjstdet);
+
+
+            var q = from cutord in db.CutOrderMasters
+                    where cutord.CutID == model.CutID
+                    select cutord;
+            foreach (var element in q)
+            {
+                element.FabQty = element.FabQty + model.ToAddQty;
+            }
+
+            db.SaveChanges();
+
+
+
+
+
+
+
+            return msg;
+        }
 
 
 

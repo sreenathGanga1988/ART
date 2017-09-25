@@ -31,11 +31,11 @@ namespace ArtWebApp.Merchandiser.PO
 
                 if (selectedpoid == "")
                 {
-                    selectedpoid = selectedpoid + polineid.ToString ();
+                    selectedpoid = selectedpoid + polineid.ToString ().Trim();
                 }
                 else
                 {
-                    selectedpoid = selectedpoid + "," + polineid.ToString();
+                    selectedpoid = selectedpoid + "," + polineid.ToString().Trim();
                 }
 
             }

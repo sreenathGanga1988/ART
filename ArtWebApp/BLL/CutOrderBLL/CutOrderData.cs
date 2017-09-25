@@ -111,6 +111,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 ctmstr.SkuDet_pk = cdata.Skudet_pk;
                 ctmstr.ExtraReason_Pk = cdata.ExtraReason_Pk;
                 ctmstr.ConsumptionQty = cdata.ApprovedConsumption;
+                ctmstr.IsDeleted = "N";
                 enty.CutOrderMasters.Add(ctmstr);
 
                 enty.SaveChanges();
@@ -149,6 +150,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
                 ctmstr.ExtraReason_Pk = this.ExtraReason_Pk;
                 ctmstr.ConsumptionQty = this.ApprovedConsumption;
                 ctmstr.MarkerType = this.MarkerType;
+                ctmstr.IsDeleted = "N";
+                ctmstr.ActualConsumption = this.ApprovedConsumption;
                 enty.CutOrderMasters.Add(ctmstr);
                 enty.SaveChanges();
 
@@ -258,8 +261,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
                     element.SkuDet_pk = cdata.Skudet_pk;
                     element.ExtraReason_Pk = cdata.ExtraReason_Pk;
                     element.ConsumptionQty = cdata.ApprovedConsumption;
+                    element.ActualConsumption = cdata.ApprovedConsumption; 
 
-                   
                 }
 
                 enty.SaveChanges();
@@ -627,6 +630,7 @@ HAVING        (CutID = @Param1)";
                     this.Tofactid = int.Parse ( element.Location_PK.ToString ());
                     this.Skudet_pk = int.Parse(element.SkuDet_PK.ToString());
                     element.IsCutorderGiven = "Y";
+                    element.CutOrderConsumption= this.ApprovedConsumption;
 
                 }
                 CutOrderMaster ctmstr = new CutOrderMaster();
@@ -654,7 +658,7 @@ HAVING        (CutID = @Param1)";
 
                 ctmstr.ExtraReason_Pk = this.ExtraReason_Pk;
                 ctmstr.ConsumptionQty = this.ApprovedConsumption;
-
+                ctmstr.ActualConsumption= this.ApprovedConsumption;
                 enty.CutOrderMasters.Add(ctmstr);
                 enty.SaveChanges();
 

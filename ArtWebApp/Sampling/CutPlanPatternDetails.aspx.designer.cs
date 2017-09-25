@@ -139,13 +139,22 @@ namespace ArtWebApp.Sampling {
         protected global::System.Web.UI.WebControls.Button Button4;
         
         /// <summary>
-        /// UpdatePanel9 control.
+        /// upd_cutid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+        protected global::System.Web.UI.UpdatePanel upd_cutid;
+        
+        /// <summary>
+        /// lbl_cutid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_cutid;
         
         /// <summary>
         /// upd_table control.
@@ -200,6 +209,15 @@ namespace ArtWebApp.Sampling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_ourstyle;
+        
+        /// <summary>
+        /// Label5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
         
         /// <summary>
         /// lbl_location control.
@@ -346,6 +364,15 @@ namespace ArtWebApp.Sampling {
         protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
+        /// upd_patternmaenew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_patternmaenew;
+        
+        /// <summary>
         /// txt_patternmaenew control.
         /// </summary>
         /// <remarks>
@@ -353,6 +380,24 @@ namespace ArtWebApp.Sampling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_patternmaenew;
+        
+        /// <summary>
+        /// upd_addpatern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_addpatern;
+        
+        /// <summary>
+        /// btn_addpattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_addpattern;
         
         /// <summary>
         /// upd_grid control.

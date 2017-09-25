@@ -409,6 +409,28 @@
         <EntityTypeShape EntityType="ArtModel.LayAdjustDetail" Width="1.5" PointX="26.375" PointY="0.75" />
         <EntityTypeShape EntityType="ArtModel.InventorySalesDetail" Width="1.5" PointX="6" PointY="98" />
         <AssociationConnector Association="ArtModel.FK_InventorySalesDetail_InventorySalesMaster" />
+        <EntityTypeShape EntityType="ArtModel.RejectionExtraFabbReq" Width="1.5" PointX="22.25" PointY="46.875" />
+        <AssociationConnector Association="ArtModel.FK_RejectionExtraFabbReq_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_RejectionExtraFabbReq_POPackDetails" />
+        <EntityTypeShape EntityType="ArtModel.RejectReqDetail" Width="1.5" PointX="26.375" PointY="24.75" />
+        <EntityTypeShape EntityType="ArtModel.RejectReqMaster" Width="1.5" PointX="27.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ArtModel.RejectionAdjustDetail" Width="1.5" PointX="27.375" PointY="11.75" />
+        <EntityTypeShape EntityType="ArtModel.CityMaster" Width="1.5" PointX="10.5" PointY="86.125" />
+        <AssociationConnector Association="ArtModel.FK_CityMaster_CountryMaster" />
+        <EntityTypeShape EntityType="ArtModel.LocationGroupDetail" Width="1.5" PointX="9" PointY="61.5" />
+        <EntityTypeShape EntityType="ArtModel.LocationGroupMaster" Width="1.5" PointX="3.75" PointY="57.875" />
+        <AssociationConnector Association="ArtModel.FK_LocationGroupDetails_LocationGroupMaster" />
+        <AssociationConnector Association="ArtModel.FK_LocationGroupDetails_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_LocationGroupMaster_LocationMaster" />
+        <AssociationConnector Association="ArtModel.LaySheetRollMaster_IDFK" />
+        <EntityTypeShape EntityType="ArtModel.CutPlanRejectionMaster" Width="1.5" PointX="24" PointY="44" />
+        <EntityTypeShape EntityType="ArtModel.PatternNameBank" Width="1.5" PointX="26" PointY="64.375" />
+        <AssociationConnector Association="ArtModel.FK_PatternNameBank_AtcDetails" />
+        <AssociationConnector Association="ArtModel.FK_PatternNameBank_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_PatternNameBank_SkuRawmaterialDetail" />
+        <EntityTypeShape EntityType="ArtModel.CutPlanRejectHistory" Width="1.5" PointX="26.25" PointY="53.5" />
+        <AssociationConnector Association="ArtModel.FK_CutPlanRejectHistory_CutPlanMaster" />
+        <AssociationConnector Association="ArtModel.FK_CutPlanRejectHistory_CutPlanRejectionMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

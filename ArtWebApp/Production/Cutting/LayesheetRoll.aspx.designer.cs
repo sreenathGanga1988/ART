@@ -364,6 +364,42 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.Label lbl_apprximateyard;
         
         /// <summary>
+        /// upd_cutplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_cutplies;
+        
+        /// <summary>
+        /// txt_cutplies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_cutplies;
+        
+        /// <summary>
+        /// upd_balanceactualtocut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_balanceactualtocut;
+        
+        /// <summary>
+        /// lbl_balancetocut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_balancetocut;
+        
+        /// <summary>
         /// upd_main control.
         /// </summary>
         /// <remarks>

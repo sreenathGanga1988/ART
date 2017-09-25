@@ -52,6 +52,8 @@
           <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Roll_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="ShadeGroup" Type="varchar" MaxLength="20" />
+          <Property Name="LocationSequencenum" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ArtLaySheetMasterData">
           <Key>
@@ -75,6 +77,7 @@
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutPlanMarkerDetails_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQAllocationMaster_tbl">
           <Key>
@@ -151,6 +154,23 @@
           <Property Name="ArtAsqShuffle_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="FabricRequest_tbl">
+          <Key>
+            <PropertyRef Name="Fabreqid" />
+          </Key>
+          <Property Name="Fabreqid" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fabreqno" Type="varchar" MaxLength="50" />
+          <Property Name="Reqdate" Type="datetime" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ReqQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="User_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="HostName" Type="varchar" MaxLength="150" />
+          <Property Name="MachineIP" Type="varchar" MaxLength="150" />
+          <Property Name="IsUploaded" Type="bit" />
+        </EntityType>
         <EntityType Name="LocationMaster_tbl">
           <Key>
             <PropertyRef Name="Location_PK" />
@@ -224,6 +244,18 @@
           <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Orderof" Type="numeric" Precision="3" Scale="0" />
         </EntityType>
+        <Association Name="FK_FabricRequest_tbl_LocationMaster_tbl">
+          <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
+          <End Role="FabricRequest_tbl" Type="Self.FabricRequest_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="FabricRequest_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PackingListDetailsAtc_PackingListMasterAtcPro">
           <End Role="PackingListMasterAtcPro" Type="Self.PackingListMasterAtcPro" Multiplicity="0..1" />
           <End Role="PackingListDetailsAtc" Type="Self.PackingListDetailsAtc" Multiplicity="*" />
@@ -245,10 +277,15 @@
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="Self.ASQAllocationMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleDetailsAtc" EntityType="Self.ASQShuffleDetailsAtc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleMasterAtc" EntityType="Self.ASQShuffleMasterAtc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FabricRequest_tbl" EntityType="Self.FabricRequest_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationMaster_tbl" EntityType="Self.LocationMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingListDetailsAtc" EntityType="Self.PackingListDetailsAtc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingListMasterAtcPro" EntityType="Self.PackingListMasterAtcPro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StyleSizeMaster" EntityType="Self.StyleSizeMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FabricRequest_tbl_LocationMaster_tbl" Association="Self.FK_FabricRequest_tbl_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="FabricRequest_tbl" EntitySet="FabricRequest_tbl" />
+          </AssociationSet>
           <AssociationSet Name="FK_PackingListDetailsAtc_PackingListMasterAtcPro" Association="Self.FK_PackingListDetailsAtc_PackingListMasterAtcPro">
             <End Role="PackingListMasterAtcPro" EntitySet="PackingListMasterAtcPro" />
             <End Role="PackingListDetailsAtc" EntitySet="PackingListDetailsAtc" />
@@ -273,8 +310,13 @@
           <EntitySet Name="ArtJobContractMasters" EntityType="AtcModelModel.ArtJobContractMaster" />
           <EntitySet Name="ArtCutPlanASQDets" EntityType="AtcModelModel.ArtCutPlanASQDet" />
           <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="AtcModelModel.ArtCutPlanMarkerSizeDetail" />
-          <EntitySet Name="ArtLaySheetMasterDatas" EntityType="AtcModelModel.ArtLaySheetMasterData" />
+          <EntitySet Name="FabricRequest_tbl" EntityType="AtcModelModel.FabricRequest_tbl" />
           <EntitySet Name="ArtLaySheetDetails" EntityType="AtcModelModel.ArtLaySheetDetail" />
+          <AssociationSet Name="FK_FabricRequest_tbl_LocationMaster_tbl" Association="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="FabricRequest_tbl" EntitySet="FabricRequest_tbl" />
+          </AssociationSet>
+          <EntitySet Name="ArtLaySheetMasterDatas" EntityType="AtcModelModel.ArtLaySheetMasterData" />
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -299,6 +341,7 @@
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="HRLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="FabricRequest_tbl" Relationship="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl" FromRole="LocationMaster_tbl" ToRole="FabricRequest_tbl" />
         </EntityType>
         <EntityType Name="PackingListDetailsAtc">
           <Key>
@@ -476,6 +519,48 @@
           <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="FabricRequest_tbl">
+          <Key>
+            <PropertyRef Name="Fabreqid" />
+          </Key>
+          <Property Name="Fabreqid" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fabreqno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reqdate" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ReqQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="User_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="HostName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MachineIP" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IsUploaded" Type="Boolean" />
+          <NavigationProperty Name="LocationMaster_tbl" Relationship="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl" FromRole="FabricRequest_tbl" ToRole="LocationMaster_tbl" />
+        </EntityType>
+        <EntityType Name="ArtLaySheetDetail">
+          <Key>
+            <PropertyRef Name="ArtLaySheetDet_PK" />
+          </Key>
+          <Property Name="ArtLaySheetDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LaySheetDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Roll_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ShadeGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LocationSequencenum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_FabricRequest_tbl_LocationMaster_tbl">
+          <End Type="AtcModelModel.LocationMaster_tbl" Role="LocationMaster_tbl" Multiplicity="0..1" />
+          <End Type="AtcModelModel.FabricRequest_tbl" Role="FabricRequest_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="FabricRequest_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ArtLaySheetMasterData">
           <Key>
             <PropertyRef Name="LayMasterDataID" />
@@ -498,16 +583,7 @@
           <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="ArtLaySheetDetail">
-          <Key>
-            <PropertyRef Name="ArtLaySheetDet_PK" />
-          </Key>
-          <Property Name="ArtLaySheetDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LaySheetDet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Roll_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -711,9 +787,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FabricRequest_tbl">
+            <EntityTypeMapping TypeName="AtcModelModel.FabricRequest_tbl">
+              <MappingFragment StoreEntitySet="FabricRequest_tbl">
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+                <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Reqdate" ColumnName="Reqdate" />
+                <ScalarProperty Name="Fabreqno" ColumnName="Fabreqno" />
+                <ScalarProperty Name="Fabreqid" ColumnName="Fabreqid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtLaySheetDetails">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetDetail">
+              <MappingFragment StoreEntitySet="ArtLaySheetDetails">
+                <ScalarProperty Name="LocationSequencenum" ColumnName="LocationSequencenum" />
+                <ScalarProperty Name="ShadeGroup" ColumnName="ShadeGroup" />
+                <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
+                <ScalarProperty Name="Roll_PK" ColumnName="Roll_PK" />
+                <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
+                <ScalarProperty Name="LaySheetDet_PK" ColumnName="LaySheetDet_PK" />
+                <ScalarProperty Name="ArtLaySheetDet_PK" ColumnName="ArtLaySheetDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ArtLaySheetMasterDatas">
             <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetMasterData">
               <MappingFragment StoreEntitySet="ArtLaySheetMasterData">
+                <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
                 <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
                 <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
                 <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
@@ -732,17 +840,6 @@
                 <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
                 <ScalarProperty Name="CutPlanNUM" ColumnName="CutPlanNUM" />
                 <ScalarProperty Name="LayMasterDataID" ColumnName="LayMasterDataID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ArtLaySheetDetails">
-            <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetDetail">
-              <MappingFragment StoreEntitySet="ArtLaySheetDetails">
-                <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
-                <ScalarProperty Name="Roll_PK" ColumnName="Roll_PK" />
-                <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
-                <ScalarProperty Name="LaySheetDet_PK" ColumnName="LaySheetDet_PK" />
-                <ScalarProperty Name="ArtLaySheetDet_PK" ColumnName="ArtLaySheetDet_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

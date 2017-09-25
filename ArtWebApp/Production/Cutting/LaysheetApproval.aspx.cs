@@ -75,7 +75,7 @@ namespace ArtWebApp.Production.Cutting
         }
 
 
-        public void Filllaysheet(int cutid,int lctn_pk)
+        public void Filllaysheet(int ourstyleid,int lctn_pk)
         {
 
             
@@ -83,7 +83,7 @@ namespace ArtWebApp.Production.Cutting
             {
 
                 var sizedetails = (from ponmbr in entty.LaySheetMasters
-                                   where ponmbr.OustyleID == cutid && ponmbr.Location_PK== lctn_pk
+                                   where ponmbr.OustyleID == ourstyleid && ponmbr.Location_PK== lctn_pk && ponmbr.IsApproved=="N"
                                    select new
                                    {
                                        ponmbr.LaySheetNum,
@@ -523,9 +523,12 @@ namespace ArtWebApp.Production.Cutting
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            LaySheetfunction.ApproveLaysheet(int.Parse (drp_cutRoll.SelectedValue.ToString()));
+            LaySheetfunction.ApprovelaysheetAction(int.Parse (drp_cutRoll.SelectedValue.ToString()));
 
-          ArtWebApp.Controls.WebMsgBox.Show("Approved and Send laysheet to AtcWorld");
+        
+          
+            Response.Redirect(String.Format("~/Production/Cutting/ApprovedLaysheet.aspx"));
+            ArtWebApp.Controls.WebMsgBox.Show("Approved and Send laysheet to AtcWorld");
         }
 
 

@@ -250,7 +250,7 @@
 
                
                     <tr>
-                        <td class="NormalTD">Number of Plies&Number of Plies&nbsp;Already Cut</td>
+                        <td class="NormalTD">Number of Plies&amp;Number of Plies&nbsp;Already&nbsp; Planned</td>
                         <td class="NormalTD">
                                <asp:UpdatePanel ID="upd_pliescut" runat="server" UpdateMode="Conditional">
                                    <ContentTemplate>
@@ -259,12 +259,12 @@
                                </asp:UpdatePanel>
                         </td>
                         <td class="SearchButtonTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;Balance Plies</td>
+                        <td class="NormalTD">&nbsp;Balance Plies to Plan</td>
                         <td class="NormalTD">
                              
                             <asp:UpdatePanel ID="upd_balplies" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:TextBox ID="txt_balplies" runat="server" Enabled="False" OnTextChanged="txt_balplies_TextChanged"></asp:TextBox>
+                                    <asp:TextBox ID="txt_balplies" runat="server" Enabled="False" OnTextChanged="txt_balplies_TextChanged">0</asp:TextBox>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                              
@@ -300,8 +300,33 @@
                                </asp:UpdatePanel>
                         </td>
                         <td class="SearchButtonTD">&nbsp;</td>
+                        <td class="NormalTD">Already cut</td>
+                        <td class="NormalTD">
+                            <asp:UpdatePanel ID="upd_cutplies" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:TextBox ID="txt_cutplies" runat="server" Enabled="False" OnTextChanged="txt_balplies_TextChanged">0</asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+           
+                    <tr>
+                        <td class="NormalTD">Balance Plies to cut</td>
+                        <td class="NormalTD">
+                                 <asp:UpdatePanel ID="upd_balanceactualtocut" runat="server" UpdateMode="Conditional">
+                                   <ContentTemplate>
+                             <asp:Label ID="lbl_balancetocut" runat="server" Text="0"></asp:Label>
+                                         </ContentTemplate>
+                               </asp:UpdatePanel>
+                        </td>
+                        <td class="SearchButtonTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">
+                             &nbsp;</td>
+                        <td class="SearchButtonTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">
+                            &nbsp;</td>
                     </tr>
 
                     </table>

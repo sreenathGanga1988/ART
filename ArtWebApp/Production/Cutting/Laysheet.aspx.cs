@@ -104,13 +104,28 @@ namespace ArtWebApp.Production.Cutting
             lblmstr.LayRollRef = drp_cutRoll.SelectedItem.Text;
             lblmstr.LaysheetRollmaster_Pk = int.Parse(drp_cutRoll.SelectedValue.ToString());
             lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
-          
-            num = lblmstr.InsertLaySheet();
 
-            msg = "Laysheet # : " + num + " is generated Successfully";
-            tbl_RollDetails.DataSource = null;
-            tbl_RollDetails.DataBind();
-            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+            var sum= lblmstr.LaysheetDetaolsDataCollection.Sum(item => item.NoOfPlies);
+
+            float baltocutnow = float.Parse(txt_baltocutnow.Text);
+
+            float balanceqty = baltocutnow - float.Parse(sum.ToString ());
+
+            if (balanceqty < 0)
+            {
+                msg = "Cannot Add more Plies than Allowed";
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "error", msg);
+            }
+            else
+            {
+                num = lblmstr.InsertLaySheet();
+
+                msg = "Laysheet # : " + num + " is generated Successfully";
+                tbl_RollDetails.DataSource = null;
+                tbl_RollDetails.DataBind();
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+            }
+          
         }
 
 

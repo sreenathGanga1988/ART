@@ -14,24 +14,30 @@ namespace ArtWebApp.Reports.Production.LaySheet
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+         
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            FillLaysheetCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
+            List<decimal?> list = Session["ApprovedLocationlist"] as List<decimal?>;
 
-            FillLaysheetRollCombo();
+            FillLaysheetCombo(int.Parse(drp_Atc.SelectedValue.ToString()), list);
 
-            FillExtrarequest(int.Parse(drp_Atc.SelectedValue.ToString()));
+            FillLaysheetRollCombo(int.Parse(drp_Atc.SelectedValue.ToString()), list);
+
+            FillExtrarequest(int.Parse(drp_Atc.SelectedValue.ToString()), list);
         }
 
-        public void FillLaysheetCombo(int atcid)
+        public void FillLaysheetCombo(int atcid, List<decimal?> list)
         {
+
+          
+
+           
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.LaySheetMasters
-                        where ponmbr.AtcID == atcid
+                        where ponmbr.AtcID == atcid && list.Contains(ponmbr.Location_PK )
                         select new
                         {
                             name = ponmbr.LaySheetNum,
@@ -51,12 +57,12 @@ namespace ArtWebApp.Reports.Production.LaySheet
 
 
 
-        public void FillLaysheetRollCombo()
+        public void FillLaysheetRollCombo(int atcid, List<decimal?> list)
         {
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.LaySheetRollMasters
-                     
+                        where ponmbr.CutOrderMaster.AtcID== atcid && list.Contains(ponmbr.Location_Pk)
                         select new
                         {
                             name = ponmbr.LayRollRef,
@@ -75,12 +81,15 @@ namespace ArtWebApp.Reports.Production.LaySheet
         }
 
 
-        public void FillExtrarequest(int atcid)
+        public void FillExtrarequest(int atcid, List<decimal?> list)
         {
+         
+
+
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.LayShortageReqMasters
-                        where ponmbr.AtcID == atcid
+                        where ponmbr.AtcID == atcid 
                         select new
                         {
                             name = ponmbr.LayShortageReqCode,

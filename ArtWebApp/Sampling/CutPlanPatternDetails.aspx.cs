@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -136,26 +137,32 @@ namespace ArtWebApp.Sampling
         }
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
-
+            lbl_cutid.Text = drp_cutorder.SelectedValue.ToString();
+            upd_cutid.Update();
             ViewState["sizedata"] = null;
             DataTable dt1 = createdatatable(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
             ViewState["sizedata"] = dt1;
 
 
-            String cutplnqty = BLL.CutOrderBLL.CutPlan.GetCutplanQty(int.Parse(drp_cutorder.SelectedValue.ToString().ToString())).ToString();
-            lbl_cutQty.Text = cutplnqty;
-       
-            //ViewState["cutsizedata"] = null;
+            string refpattern = BLL.CutOrderBLL.CutPlan.GetreferncepatterofCutplan(int.Parse(drp_cutorder.SelectedValue.ToString()));
+            txt_patternmaenew.Text = refpattern;
+            upd_patternmaenew.Update();
 
-
-            //DataTable dt = BLL.CutOrderBLL.CutPlan.GetCutPlanSizeData(int.Parse(drp_cutorder.SelectedValue.ToString().ToString()));
-            //ViewState["cutsizedata"] = dt;
-
+            if (refpattern.Trim() != "")
+            {
+                btn_addpattern.Visible = false;
+              
+            }
+            else
+            {
+                btn_addpattern.Visible = true;
+            }
 
             fillcutplandetails(int.Parse(drp_cutorder.SelectedValue.ToString()));
             fillsmalltable();
             tbl_markertype.DataSource = cutplanmarkertypedata;
             tbl_markertype.DataBind();
+            upd_addpatern.Update();
             upd_markertype.Update();
             upd_grid.Update();
         }
@@ -977,5 +984,26 @@ namespace ArtWebApp.Sampling
             // Response.Redirect("~/Reports/Production/CutPlanHtmlReport.aspx");
             //Context.Response.Write("<script> language='javascript'>window.open('','_blank');</script>");
         }
+
+
+
+
+
+
+        [WebMethod]
+        public static string Addpatternaysncmethod(int cutplanpk, string patternaname)
+        {
+
+        
+
+            BLL.CutOrderBLL.CutPlanMasterData ctmstr = new BLL.CutOrderBLL.CutPlanMasterData();
+
+            return ctmstr.AddCutPlanPattern(cutplanpk, patternaname);
+
+          
+
+          
+        }
+
     }
 }

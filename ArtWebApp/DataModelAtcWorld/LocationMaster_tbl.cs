@@ -14,6 +14,12 @@ namespace ArtWebApp.DataModelAtcWorld
     
     public partial class LocationMaster_tbl
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LocationMaster_tbl()
+        {
+            this.FabricRequest_tbl = new HashSet<FabricRequest_tbl>();
+        }
+    
         public decimal Location_PK { get; set; }
         public string LocationName { get; set; }
         public string LocationPrefix { get; set; }
@@ -33,5 +39,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> ArtLocation_PK { get; set; }
         public Nullable<decimal> HRLocation_PK { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FabricRequest_tbl> FabricRequest_tbl { get; set; }
     }
 }
