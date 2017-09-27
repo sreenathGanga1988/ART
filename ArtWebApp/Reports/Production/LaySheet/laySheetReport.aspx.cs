@@ -33,7 +33,6 @@ namespace ArtWebApp.Reports.Production.LaySheet
 
           
 
-           
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.LaySheetMasters

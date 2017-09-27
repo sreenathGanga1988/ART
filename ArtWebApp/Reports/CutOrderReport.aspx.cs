@@ -72,7 +72,25 @@ namespace ArtWebApp.Reports
         }
 
 
+        public void FillShrinkageofSkudetpk(int ourstyleid,int skudetpk)
+        {
 
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = (from ponmbr in entty.CutPlanMasters
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.SkuDet_PK== skudetpk
+                        select new { name= ponmbr.ShrinkageGroup} ).Distinct();
+
+                drp_shrinkage.DataSource = q.ToList();
+                drp_shrinkage.DataTextField = "name";
+                drp_shrinkage.DataValueField = "name";
+                drp_shrinkage.DataBind();
+                upd_shrinkage.Update();
+
+
+
+            }
+        }
 
 
 
@@ -317,5 +335,34 @@ namespace ArtWebApp.Reports
 
         }
 
+        protected void btn_showShrinkage_Click(object sender, EventArgs e)
+        {
+            FillShrinkageofSkudetpk(int.Parse(drp_ourstyle.SelectedValue.ToString()), int.Parse(ddl_color.SelectedValue.ToString()));
+        }
+
+        protected void btn_showshrinkagecritical_Click(object sender, EventArgs e)
+        {
+
+            DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+
+            DataTable dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), drp_shrinkage.SelectedValue.ToString());
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
+        }
+
+        protected void btn_showshrinkagereportofstyle_Click(object sender, EventArgs e)
+        {
+            DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+
+            DataTable dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), "NA");
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
+        }
     }
 }

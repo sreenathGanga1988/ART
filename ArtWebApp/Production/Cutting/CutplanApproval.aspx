@@ -353,7 +353,7 @@
                                 <tr>
                                     <td class="NormalTD">Ref paattern if any </td>
                                     <td class="NormalTD">
-                                           <asp:UpdatePanel ID="upd_refpattern" runat="server">
+                                           <asp:UpdatePanel ID="upd_refpattern" UpdateMode="Conditional" runat="server">
                                        <ContentTemplate>
                                         <asp:TextBox ID="txt_refpattern" runat="server" Height="144px" Width="198px"></asp:TextBox>
                                              </ContentTemplate>

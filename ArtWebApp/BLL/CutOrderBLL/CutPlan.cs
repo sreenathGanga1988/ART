@@ -1407,7 +1407,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
                 foreach (var element in q1)
-                {
+                { 
                     
                     enty.CutPlanMarkerSizeDetails.Remove(element);
                    

@@ -1,0 +1,101 @@
+﻿@model ArtWebApp.Areas.ArtMVCGPO.ViewModal.GMRNViewModal
+@{
+    ViewBag.Title = "GMRNDocumentUpload";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GMRNDocumentUpload</h2>
+
+<form action="" method="post" enctype="multipart/form-data">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("GMRN#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownList("MrnID", Model.MrnList, htmlAttributes: new { @class = "chosen-select form-control" })
+
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <label for="file">Upload File:</label><input type="file" name="file" id="file" />
+    <input type="submit" />
+    @if (TempData["Success"] != null)
+    {
+        <div class="success">
+            <p>@TempData["Success"].ToString()</p>
+        </div>
+    }
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Display("Uploadid")
+            </th>
+            <th>
+                @Html.Display("Mrn_PK")
+            </th>
+            <th>
+                @Html.Display("StringLength")
+            </th>
+            <th>
+                @Html.Display("MrnType")
+            </th>
+            <th>
+                @Html.Display("AddedBy")
+            </th>
+            <th>
+                @Html.Display("AddedDate")
+            </th>
+            
+            <th></th>
+        </tr>
+
+
+        @if(Model.MrnFileUploads!=null){
+        
+        
+        foreach (var item in Model.MrnFileUploads)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mrn_PK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StringLength)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MrnType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.FileUploadID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.FileUploadID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.FileUploadID })
+                </td>
+            </tr>
+        }
+
+        
+        }
+     
+    </table>
+
+</form>

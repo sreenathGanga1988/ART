@@ -1332,6 +1332,13 @@
     <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Details.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Edit.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\LocationGroupMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\web.config" />
+    <Content Include="Areas\ArtMVCGPO\Views\GMRNDocumentUpload\GMRNDocumentUpload.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\MrnFileUploads\Create.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\MrnFileUploads\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\MrnFileUploads\Details.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\MrnFileUploads\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\MrnFileUploads\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1695,6 +1702,10 @@
     <Compile Include="Areas\ArtAdministrator\ArtAdministratorAreaRegistration.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
+    <Compile Include="Areas\ArtMVCGPO\ArtMVCGPOAreaRegistration.cs" />
+    <Compile Include="Areas\ArtMVCGPO\Controllers\GMRNDocumentUploadController.cs" />
+    <Compile Include="Areas\ArtMVCGPO\Controllers\MrnFileUploadsController.cs" />
+    <Compile Include="Areas\ArtMVCGPO\ViewModal\GMRNViewModal.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CityMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
@@ -1782,6 +1793,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\MarkerMadeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MrnFileUpload.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\PartialClasses.cs" />
@@ -4293,6 +4307,7 @@
     <EmbeddedResource Include="Reports\RDLC\CorierDetailsReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\costing.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\costingreport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\CriticalReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrder.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderDO.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\CutOrderNew.rdlc" />
@@ -4403,6 +4418,8 @@
     <Folder Include="Areas\ArtAdministrator\Models\" />
     <Folder Include="Areas\ArtAdministrator\Views\Home\" />
     <Folder Include="Areas\ArtAdministrator\Views\Shared\" />
+    <Folder Include="Areas\ArtMVCGPO\Models\" />
+    <Folder Include="Areas\ArtMVCGPO\Views\Shared\" />
     <Folder Include="Areas\ArtMVCMaster\Models\" />
     <Folder Include="Areas\ArtMVCMaster\Views\GarmentCategories\" />
     <Folder Include="Areas\ArtMVCMaster\Views\Shared\" />
@@ -4419,6 +4436,7 @@
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
     <Folder Include="Repository\" />
+    <Folder Include="Uploads\Gmrn\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

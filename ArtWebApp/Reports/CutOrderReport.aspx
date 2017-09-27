@@ -17,6 +17,7 @@
         <td class="NormalTD">&nbsp;</td>
         <td class="NormalTD">&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td >&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -39,6 +40,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
+            <td class="NormalTD">&nbsp;</td>
             <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
                         <asp:Button ID="btn_showApproved" runat="server" Text="Show All Cutorder" Width="190px" OnClick="Button1_Click" Font-Size="Smaller" />
@@ -72,6 +74,8 @@
             </td>
             <td>
                 &nbsp;</td>
+            <td>
+                &nbsp;</td>
             <td >
                 
             </td>
@@ -91,8 +95,48 @@
                  
                 </asp:UpdatePanel></td>
             <td>
-                <asp:Button ID="Button7" runat="server" Font-Size="Smaller" OnClick="Button7_Click" Text="CutOrder summary of a Fabric of a style" ToolTip="Show the CutOrder Summary of Selected fabric against the selected oursstyle" />
+                <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btn_showShrinkage" runat="server" Font-Size="Smaller" OnClick="btn_showShrinkage_Click" Text="Show Shrinkage" ToolTip="Fill the dropdown with the shrinkage groups used in the Cut plan" Width="190px" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </td>
+            <td>
+                
+                <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btn_showshrinkagereportofstyle" runat="server" Font-Size="Smaller" OnClick="btn_showshrinkagereportofstyle_Click" Text="Show Critical Report" ToolTip="Show Critical report of Selected fabric of Ourstyle" Width="190px" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                
+            </td>
+            <td >
+               <asp:Button ID="Button7" runat="server" Font-Size="Smaller" OnClick="Button7_Click" Text="CutOrder summary of a Fabric of a style" ToolTip="Show the CutOrder Summary of Selected fabric against the selected oursstyle" /></td>
+            <td>
+                &nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td >sHRINKAGE</td>
+            <td class="NormalTD" colspan="2" >
+                <asp:UpdatePanel ID="upd_shrinkage" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <ucc:DropDownListChosen ID="drp_shrinkage" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
+                                      </ucc:DropDownListChosen>
+                  
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td>
+                <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btn_showshrinkagecritical" runat="server" Font-Size="Smaller" OnClick="btn_showshrinkagecritical_Click" Text="Show crtitcal Path of Shrinkage" ToolTip="Showw the Shrinkage report of Selected ourstyle  Fabric and Shrinkage" Width="190px" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td>
+                &nbsp;</td>
             <td >
                 
                 &nbsp;</td>
@@ -114,6 +158,8 @@
         <td class="NormalTD">
                 <asp:Button ID="Button5" runat="server" Text="Show Cut Order Report" OnClick="Button5_Click" Font-Size="Smaller" />
             </td>
+            <td>
+                &nbsp;</td>
             <td>
                 <asp:Button ID="Button8" runat="server" OnClick="Button8_Click" Text="CutOrder" />
             </td>
@@ -139,6 +185,8 @@
                 <asp:Button ID="btn_showCutplam" runat="server" Font-Size="Smaller" OnClick="btn_showCutplam_Click" Text="Show Cut Plan Report" />
             </td>
              <td class="NormalTD">
+                 &nbsp;</td>
+             <td class="NormalTD">
                 <asp:Button ID="btn_showCutplanRoll" runat="server" Font-Size="Smaller" Text="Show Cut Plan Report With Roll" OnClick="btn_showCutplanRoll_Click" />
             </td>
             <td>
@@ -150,7 +198,7 @@
         </tr>
       
         <tr>
-            <td  class="ReportViewSection" colspan="8" >
+            <td  class="ReportViewSection" colspan="9" >
                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%">
                 </rsweb:ReportViewer>
             </td>

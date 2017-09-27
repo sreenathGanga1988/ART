@@ -1543,6 +1543,17 @@
           <Property Name="Uom_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Doc_Pk" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="MrnFileUpload">
+          <Key>
+            <PropertyRef Name="FileUploadID" />
+          </Key>
+          <Property Name="FileUploadID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mrn_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="StringLength" Type="nvarchar" MaxLength="100" />
+          <Property Name="MrnType" Type="nchar" MaxLength="10" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="MrnMaster">
           <Key>
             <PropertyRef Name="Mrn_PK" />
@@ -5926,6 +5937,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="MarqueeMaster" EntityType="Self.MarqueeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MerchandiserMaster" EntityType="Self.MerchandiserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MrnDetails" EntityType="Self.MrnDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MrnFileUpload" EntityType="Self.MrnFileUpload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MrnMaster" EntityType="Self.MrnMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ODOOGPOMaster" EntityType="Self.ODOOGPOMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrginUpdatedTable" EntityType="Self.OrginUpdatedTable" Schema="dbo" store:Type="Tables" />
@@ -8171,6 +8183,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="CutPlanRejectionMaster" EntitySet="CutPlanRejectionMasters" />
             <End Role="CutPlanRejectHistory" EntitySet="CutPlanRejectHistories" />
           </AssociationSet>
+          <EntitySet Name="MrnFileUploads" EntityType="ArtModel.MrnFileUpload" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -14743,6 +14756,17 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MrnFileUpload">
+          <Key>
+            <PropertyRef Name="FileUploadID" />
+          </Key>
+          <Property Name="FileUploadID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mrn_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="StringLength" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MrnType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -18358,6 +18382,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="CutPlanRejectionID" ColumnName="CutPlanRejectionID" />
                 <ScalarProperty Name="Cutplan_PK" ColumnName="Cutplan_PK" />
                 <ScalarProperty Name="CutplanRejectionDetailID" ColumnName="CutplanRejectionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MrnFileUploads">
+            <EntityTypeMapping TypeName="ArtModel.MrnFileUpload">
+              <MappingFragment StoreEntitySet="MrnFileUpload">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="MrnType" ColumnName="MrnType" />
+                <ScalarProperty Name="StringLength" ColumnName="StringLength" />
+                <ScalarProperty Name="Mrn_PK" ColumnName="Mrn_PK" />
+                <ScalarProperty Name="FileUploadID" ColumnName="FileUploadID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

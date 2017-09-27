@@ -112,6 +112,8 @@ namespace ArtWebApp.Reports.Dataset {
         
         private MisPlacedInventoryOfAtc_SPDataTable tableMisPlacedInventoryOfAtc_SP;
         
+        private Criticalpath_SPDataTable tableCriticalpath_SP;
+        
         private DataTable2DataTable tableDataTable2;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -273,6 +275,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["MisPlacedInventoryOfAtc_SP"] != null)) {
                     base.Tables.Add(new MisPlacedInventoryOfAtc_SPDataTable(ds.Tables["MisPlacedInventoryOfAtc_SP"]));
+                }
+                if ((ds.Tables["Criticalpath_SP"] != null)) {
+                    base.Tables.Add(new Criticalpath_SPDataTable(ds.Tables["Criticalpath_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -739,6 +744,16 @@ namespace ArtWebApp.Reports.Dataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Criticalpath_SPDataTable Criticalpath_SP {
+            get {
+                return this.tableCriticalpath_SP;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable2DataTable DataTable2 {
             get {
                 return this.tableDataTable2;
@@ -943,6 +958,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["MisPlacedInventoryOfAtc_SP"] != null)) {
                     base.Tables.Add(new MisPlacedInventoryOfAtc_SPDataTable(ds.Tables["MisPlacedInventoryOfAtc_SP"]));
+                }
+                if ((ds.Tables["Criticalpath_SP"] != null)) {
+                    base.Tables.Add(new Criticalpath_SPDataTable(ds.Tables["Criticalpath_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -1244,6 +1262,12 @@ namespace ArtWebApp.Reports.Dataset {
                     this.tableMisPlacedInventoryOfAtc_SP.InitVars();
                 }
             }
+            this.tableCriticalpath_SP = ((Criticalpath_SPDataTable)(base.Tables["Criticalpath_SP"]));
+            if ((initTable == true)) {
+                if ((this.tableCriticalpath_SP != null)) {
+                    this.tableCriticalpath_SP.InitVars();
+                }
+            }
             this.tableDataTable2 = ((DataTable2DataTable)(base.Tables["DataTable2"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable2 != null)) {
@@ -1348,6 +1372,8 @@ namespace ArtWebApp.Reports.Dataset {
             base.Tables.Add(this.tableShortClosedPosOfMonth_SP);
             this.tableMisPlacedInventoryOfAtc_SP = new MisPlacedInventoryOfAtc_SPDataTable();
             base.Tables.Add(this.tableMisPlacedInventoryOfAtc_SP);
+            this.tableCriticalpath_SP = new Criticalpath_SPDataTable();
+            base.Tables.Add(this.tableCriticalpath_SP);
             this.tableDataTable2 = new DataTable2DataTable();
             base.Tables.Add(this.tableDataTable2);
         }
@@ -1618,6 +1644,12 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeCriticalpath_SP() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeDataTable2() {
             return false;
         }
@@ -1808,6 +1840,9 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void MisPlacedInventoryOfAtc_SPRowChangeEventHandler(object sender, MisPlacedInventoryOfAtc_SPRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void Criticalpath_SPRowChangeEventHandler(object sender, Criticalpath_SPRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void DataTable2RowChangeEventHandler(object sender, DataTable2RowChangeEvent e);
@@ -24394,6 +24429,528 @@ namespace ArtWebApp.Reports.Dataset {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Criticalpath_SPDataTable : global::System.Data.TypedTableBase<Criticalpath_SPRow> {
+            
+            private global::System.Data.DataColumn columnLocationName;
+            
+            private global::System.Data.DataColumn columnOurStyle;
+            
+            private global::System.Data.DataColumn columnColorName;
+            
+            private global::System.Data.DataColumn columnColorCode;
+            
+            private global::System.Data.DataColumn columnCutPlanNUM;
+            
+            private global::System.Data.DataColumn columnFabDescription;
+            
+            private global::System.Data.DataColumn columnShrinkageGroup;
+            
+            private global::System.Data.DataColumn columnWidthGroup;
+            
+            private global::System.Data.DataColumn columnMarkerType;
+            
+            private global::System.Data.DataColumn columnBOMConsumption;
+            
+            private global::System.Data.DataColumn columnCutplanConsumption;
+            
+            private global::System.Data.DataColumn columnNewPatternName;
+            
+            private global::System.Data.DataColumn columnCutOrderConsumption;
+            
+            private global::System.Data.DataColumn columnMarkerDirection;
+            
+            private global::System.Data.DataColumn columnCutOrderDate;
+            
+            private global::System.Data.DataColumn columnRevisions;
+            
+            private global::System.Data.DataColumn columnReason;
+            
+            private global::System.Data.DataColumn columnMarkerStatus;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPDataTable() {
+                this.TableName = "Criticalpath_SP";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal Criticalpath_SPDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected Criticalpath_SPDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LocationNameColumn {
+                get {
+                    return this.columnLocationName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn OurStyleColumn {
+                get {
+                    return this.columnOurStyle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ColorNameColumn {
+                get {
+                    return this.columnColorName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ColorCodeColumn {
+                get {
+                    return this.columnColorCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutPlanNUMColumn {
+                get {
+                    return this.columnCutPlanNUM;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FabDescriptionColumn {
+                get {
+                    return this.columnFabDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ShrinkageGroupColumn {
+                get {
+                    return this.columnShrinkageGroup;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WidthGroupColumn {
+                get {
+                    return this.columnWidthGroup;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MarkerTypeColumn {
+                get {
+                    return this.columnMarkerType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn BOMConsumptionColumn {
+                get {
+                    return this.columnBOMConsumption;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutplanConsumptionColumn {
+                get {
+                    return this.columnCutplanConsumption;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NewPatternNameColumn {
+                get {
+                    return this.columnNewPatternName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutOrderConsumptionColumn {
+                get {
+                    return this.columnCutOrderConsumption;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MarkerDirectionColumn {
+                get {
+                    return this.columnMarkerDirection;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutOrderDateColumn {
+                get {
+                    return this.columnCutOrderDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RevisionsColumn {
+                get {
+                    return this.columnRevisions;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ReasonColumn {
+                get {
+                    return this.columnReason;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MarkerStatusColumn {
+                get {
+                    return this.columnMarkerStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRow this[int index] {
+                get {
+                    return ((Criticalpath_SPRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Criticalpath_SPRowChangeEventHandler Criticalpath_SPRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Criticalpath_SPRowChangeEventHandler Criticalpath_SPRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Criticalpath_SPRowChangeEventHandler Criticalpath_SPRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Criticalpath_SPRowChangeEventHandler Criticalpath_SPRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddCriticalpath_SPRow(Criticalpath_SPRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRow AddCriticalpath_SPRow(
+                        string LocationName, 
+                        string OurStyle, 
+                        string ColorName, 
+                        string ColorCode, 
+                        string CutPlanNUM, 
+                        string FabDescription, 
+                        string ShrinkageGroup, 
+                        string WidthGroup, 
+                        string MarkerType, 
+                        decimal BOMConsumption, 
+                        decimal CutplanConsumption, 
+                        string NewPatternName, 
+                        decimal CutOrderConsumption, 
+                        string MarkerDirection, 
+                        System.DateTime CutOrderDate, 
+                        int Revisions, 
+                        string Reason, 
+                        string MarkerStatus) {
+                Criticalpath_SPRow rowCriticalpath_SPRow = ((Criticalpath_SPRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        LocationName,
+                        OurStyle,
+                        ColorName,
+                        ColorCode,
+                        CutPlanNUM,
+                        FabDescription,
+                        ShrinkageGroup,
+                        WidthGroup,
+                        MarkerType,
+                        BOMConsumption,
+                        CutplanConsumption,
+                        NewPatternName,
+                        CutOrderConsumption,
+                        MarkerDirection,
+                        CutOrderDate,
+                        Revisions,
+                        Reason,
+                        MarkerStatus};
+                rowCriticalpath_SPRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowCriticalpath_SPRow);
+                return rowCriticalpath_SPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Criticalpath_SPDataTable cln = ((Criticalpath_SPDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Criticalpath_SPDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnLocationName = base.Columns["LocationName"];
+                this.columnOurStyle = base.Columns["OurStyle"];
+                this.columnColorName = base.Columns["ColorName"];
+                this.columnColorCode = base.Columns["ColorCode"];
+                this.columnCutPlanNUM = base.Columns["CutPlanNUM"];
+                this.columnFabDescription = base.Columns["FabDescription"];
+                this.columnShrinkageGroup = base.Columns["ShrinkageGroup"];
+                this.columnWidthGroup = base.Columns["WidthGroup"];
+                this.columnMarkerType = base.Columns["MarkerType"];
+                this.columnBOMConsumption = base.Columns["BOMConsumption"];
+                this.columnCutplanConsumption = base.Columns["CutplanConsumption"];
+                this.columnNewPatternName = base.Columns["NewPatternName"];
+                this.columnCutOrderConsumption = base.Columns["CutOrderConsumption"];
+                this.columnMarkerDirection = base.Columns["MarkerDirection"];
+                this.columnCutOrderDate = base.Columns["CutOrderDate"];
+                this.columnRevisions = base.Columns["Revisions"];
+                this.columnReason = base.Columns["Reason"];
+                this.columnMarkerStatus = base.Columns["MarkerStatus"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnLocationName = new global::System.Data.DataColumn("LocationName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocationName);
+                this.columnOurStyle = new global::System.Data.DataColumn("OurStyle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOurStyle);
+                this.columnColorName = new global::System.Data.DataColumn("ColorName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColorName);
+                this.columnColorCode = new global::System.Data.DataColumn("ColorCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColorCode);
+                this.columnCutPlanNUM = new global::System.Data.DataColumn("CutPlanNUM", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutPlanNUM);
+                this.columnFabDescription = new global::System.Data.DataColumn("FabDescription", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFabDescription);
+                this.columnShrinkageGroup = new global::System.Data.DataColumn("ShrinkageGroup", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShrinkageGroup);
+                this.columnWidthGroup = new global::System.Data.DataColumn("WidthGroup", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWidthGroup);
+                this.columnMarkerType = new global::System.Data.DataColumn("MarkerType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMarkerType);
+                this.columnBOMConsumption = new global::System.Data.DataColumn("BOMConsumption", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBOMConsumption);
+                this.columnCutplanConsumption = new global::System.Data.DataColumn("CutplanConsumption", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutplanConsumption);
+                this.columnNewPatternName = new global::System.Data.DataColumn("NewPatternName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNewPatternName);
+                this.columnCutOrderConsumption = new global::System.Data.DataColumn("CutOrderConsumption", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutOrderConsumption);
+                this.columnMarkerDirection = new global::System.Data.DataColumn("MarkerDirection", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMarkerDirection);
+                this.columnCutOrderDate = new global::System.Data.DataColumn("CutOrderDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutOrderDate);
+                this.columnRevisions = new global::System.Data.DataColumn("Revisions", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRevisions);
+                this.columnReason = new global::System.Data.DataColumn("Reason", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReason);
+                this.columnMarkerStatus = new global::System.Data.DataColumn("MarkerStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMarkerStatus);
+                this.columnLocationName.MaxLength = 50;
+                this.columnOurStyle.AllowDBNull = false;
+                this.columnOurStyle.MaxLength = 50;
+                this.columnColorName.MaxLength = 50;
+                this.columnColorCode.MaxLength = 50;
+                this.columnCutPlanNUM.MaxLength = 50;
+                this.columnFabDescription.MaxLength = 2147483647;
+                this.columnShrinkageGroup.MaxLength = 50;
+                this.columnWidthGroup.MaxLength = 50;
+                this.columnMarkerType.MaxLength = 50;
+                this.columnNewPatternName.MaxLength = 50;
+                this.columnMarkerDirection.ReadOnly = true;
+                this.columnMarkerDirection.MaxLength = 2147483647;
+                this.columnCutOrderDate.ReadOnly = true;
+                this.columnRevisions.ReadOnly = true;
+                this.columnReason.ReadOnly = true;
+                this.columnReason.MaxLength = 2147483647;
+                this.columnMarkerStatus.ReadOnly = true;
+                this.columnMarkerStatus.MaxLength = 1;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRow NewCriticalpath_SPRow() {
+                return ((Criticalpath_SPRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Criticalpath_SPRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Criticalpath_SPRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Criticalpath_SPRowChanged != null)) {
+                    this.Criticalpath_SPRowChanged(this, new Criticalpath_SPRowChangeEvent(((Criticalpath_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Criticalpath_SPRowChanging != null)) {
+                    this.Criticalpath_SPRowChanging(this, new Criticalpath_SPRowChangeEvent(((Criticalpath_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Criticalpath_SPRowDeleted != null)) {
+                    this.Criticalpath_SPRowDeleted(this, new Criticalpath_SPRowChangeEvent(((Criticalpath_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Criticalpath_SPRowDeleting != null)) {
+                    this.Criticalpath_SPRowDeleting(this, new Criticalpath_SPRowChangeEvent(((Criticalpath_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveCriticalpath_SPRow(Criticalpath_SPRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ReportDataSet ds = new ReportDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Criticalpath_SPDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable2DataTable : global::System.Data.TypedTableBase<DataTable2Row> {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -45800,6 +46357,508 @@ namespace ArtWebApp.Reports.Dataset {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class Criticalpath_SPRow : global::System.Data.DataRow {
+            
+            private Criticalpath_SPDataTable tableCriticalpath_SP;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal Criticalpath_SPRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableCriticalpath_SP = ((Criticalpath_SPDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string LocationName {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.LocationNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LocationName\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.LocationNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string OurStyle {
+                get {
+                    return ((string)(this[this.tableCriticalpath_SP.OurStyleColumn]));
+                }
+                set {
+                    this[this.tableCriticalpath_SP.OurStyleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ColorName {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.ColorNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ColorName\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.ColorNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ColorCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.ColorCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ColorCode\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.ColorCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string CutPlanNUM {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.CutPlanNUMColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutPlanNUM\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutPlanNUMColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string FabDescription {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.FabDescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FabDescription\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.FabDescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ShrinkageGroup {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.ShrinkageGroupColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ShrinkageGroup\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.ShrinkageGroupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string WidthGroup {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.WidthGroupColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WidthGroup\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.WidthGroupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string MarkerType {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.MarkerTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MarkerType\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.MarkerTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal BOMConsumption {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.BOMConsumptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BOMConsumption\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.BOMConsumptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal CutplanConsumption {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.CutplanConsumptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutplanConsumption\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutplanConsumptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string NewPatternName {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.NewPatternNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NewPatternName\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.NewPatternNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal CutOrderConsumption {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.CutOrderConsumptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutOrderConsumption\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutOrderConsumptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string MarkerDirection {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.MarkerDirectionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MarkerDirection\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.MarkerDirectionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime CutOrderDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableCriticalpath_SP.CutOrderDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutOrderDate\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutOrderDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int Revisions {
+                get {
+                    try {
+                        return ((int)(this[this.tableCriticalpath_SP.RevisionsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Revisions\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.RevisionsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Reason {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.ReasonColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Reason\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.ReasonColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string MarkerStatus {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.MarkerStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MarkerStatus\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.MarkerStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLocationNameNull() {
+                return this.IsNull(this.tableCriticalpath_SP.LocationNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLocationNameNull() {
+                this[this.tableCriticalpath_SP.LocationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColorNameNull() {
+                return this.IsNull(this.tableCriticalpath_SP.ColorNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColorNameNull() {
+                this[this.tableCriticalpath_SP.ColorNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColorCodeNull() {
+                return this.IsNull(this.tableCriticalpath_SP.ColorCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColorCodeNull() {
+                this[this.tableCriticalpath_SP.ColorCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutPlanNUMNull() {
+                return this.IsNull(this.tableCriticalpath_SP.CutPlanNUMColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutPlanNUMNull() {
+                this[this.tableCriticalpath_SP.CutPlanNUMColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFabDescriptionNull() {
+                return this.IsNull(this.tableCriticalpath_SP.FabDescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFabDescriptionNull() {
+                this[this.tableCriticalpath_SP.FabDescriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsShrinkageGroupNull() {
+                return this.IsNull(this.tableCriticalpath_SP.ShrinkageGroupColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetShrinkageGroupNull() {
+                this[this.tableCriticalpath_SP.ShrinkageGroupColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWidthGroupNull() {
+                return this.IsNull(this.tableCriticalpath_SP.WidthGroupColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWidthGroupNull() {
+                this[this.tableCriticalpath_SP.WidthGroupColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMarkerTypeNull() {
+                return this.IsNull(this.tableCriticalpath_SP.MarkerTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMarkerTypeNull() {
+                this[this.tableCriticalpath_SP.MarkerTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsBOMConsumptionNull() {
+                return this.IsNull(this.tableCriticalpath_SP.BOMConsumptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetBOMConsumptionNull() {
+                this[this.tableCriticalpath_SP.BOMConsumptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutplanConsumptionNull() {
+                return this.IsNull(this.tableCriticalpath_SP.CutplanConsumptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutplanConsumptionNull() {
+                this[this.tableCriticalpath_SP.CutplanConsumptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNewPatternNameNull() {
+                return this.IsNull(this.tableCriticalpath_SP.NewPatternNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNewPatternNameNull() {
+                this[this.tableCriticalpath_SP.NewPatternNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutOrderConsumptionNull() {
+                return this.IsNull(this.tableCriticalpath_SP.CutOrderConsumptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutOrderConsumptionNull() {
+                this[this.tableCriticalpath_SP.CutOrderConsumptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMarkerDirectionNull() {
+                return this.IsNull(this.tableCriticalpath_SP.MarkerDirectionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMarkerDirectionNull() {
+                this[this.tableCriticalpath_SP.MarkerDirectionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutOrderDateNull() {
+                return this.IsNull(this.tableCriticalpath_SP.CutOrderDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutOrderDateNull() {
+                this[this.tableCriticalpath_SP.CutOrderDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRevisionsNull() {
+                return this.IsNull(this.tableCriticalpath_SP.RevisionsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRevisionsNull() {
+                this[this.tableCriticalpath_SP.RevisionsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsReasonNull() {
+                return this.IsNull(this.tableCriticalpath_SP.ReasonColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetReasonNull() {
+                this[this.tableCriticalpath_SP.ReasonColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMarkerStatusNull() {
+                return this.IsNull(this.tableCriticalpath_SP.MarkerStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMarkerStatusNull() {
+                this[this.tableCriticalpath_SP.MarkerStatusColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class DataTable2Row : global::System.Data.DataRow {
             
             private DataTable2DataTable tableDataTable2;
@@ -47294,6 +48353,40 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MisPlacedInventoryOfAtc_SPRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class Criticalpath_SPRowChangeEvent : global::System.EventArgs {
+            
+            private Criticalpath_SPRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRowChangeEvent(Criticalpath_SPRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -56806,6 +57899,217 @@ WHERE        (CutOrderDO.CutID = @Param1)";
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             ReportDataSet.MisPlacedInventoryOfAtc_SPDataTable dataTable = new ReportDataSet.MisPlacedInventoryOfAtc_SPDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class Criticalpath_SPTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public Criticalpath_SPTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Criticalpath_SP";
+            tableMapping.ColumnMappings.Add("LocationName", "LocationName");
+            tableMapping.ColumnMappings.Add("OurStyle", "OurStyle");
+            tableMapping.ColumnMappings.Add("ColorName", "ColorName");
+            tableMapping.ColumnMappings.Add("ColorCode", "ColorCode");
+            tableMapping.ColumnMappings.Add("CutPlanNUM", "CutPlanNUM");
+            tableMapping.ColumnMappings.Add("FabDescription", "FabDescription");
+            tableMapping.ColumnMappings.Add("ShrinkageGroup", "ShrinkageGroup");
+            tableMapping.ColumnMappings.Add("WidthGroup", "WidthGroup");
+            tableMapping.ColumnMappings.Add("MarkerType", "MarkerType");
+            tableMapping.ColumnMappings.Add("BOMConsumption", "BOMConsumption");
+            tableMapping.ColumnMappings.Add("CutplanConsumption", "CutplanConsumption");
+            tableMapping.ColumnMappings.Add("NewPatternName", "NewPatternName");
+            tableMapping.ColumnMappings.Add("CutOrderConsumption", "CutOrderConsumption");
+            tableMapping.ColumnMappings.Add("MarkerDirection", "MarkerDirection");
+            tableMapping.ColumnMappings.Add("CutOrderDate", "CutOrderDate");
+            tableMapping.ColumnMappings.Add("Revisions", "Revisions");
+            tableMapping.ColumnMappings.Add("Reason", "Reason");
+            tableMapping.ColumnMappings.Add("MarkerStatus", "MarkerStatus");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.Criticalpath_SP";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@p1", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@p2", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ReportDataSet.Criticalpath_SPDataTable dataTable, global::System.Nullable<int> p1, global::System.Nullable<int> p2) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((p1.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(p1.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((p2.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(p2.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ReportDataSet.Criticalpath_SPDataTable GetData(global::System.Nullable<int> p1, global::System.Nullable<int> p2) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((p1.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(p1.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((p2.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(p2.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            ReportDataSet.Criticalpath_SPDataTable dataTable = new ReportDataSet.Criticalpath_SPDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.MrnFileUpload>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Mrn_PK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StringLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MrnType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mrn_PK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StringLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MrnType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FileUploadID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FileUploadID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FileUploadID })
+        </td>
+    </tr>
+}
+
+</table>

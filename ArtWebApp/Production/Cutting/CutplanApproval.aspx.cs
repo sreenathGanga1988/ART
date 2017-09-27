@@ -43,7 +43,7 @@ namespace ArtWebApp.Production.Cutting
              
             string refpattern= BLL.CutOrderBLL.CutPlan.GetreferncepatterofCutplan(int.Parse(drp_cutplan.SelectedValue.ToString()));
             txt_refpattern.Text = refpattern;
-            upd_refpattern.Update();
+        
             upd_cutplanmarkergrid.Update();
             upd_markertype.Update();
             fillasqgrid();
@@ -60,7 +60,7 @@ namespace ArtWebApp.Production.Cutting
             {
                 Button1.Enabled = true;
             }
-
+            upd_refpattern.Update();
         }
 
 
