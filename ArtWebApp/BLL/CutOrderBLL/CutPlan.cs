@@ -293,7 +293,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 var q3 = (from marasq in entty.CutPlanASQDetails
                           join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
-                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.OurStyleID == ourstyleid
+                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.OurStyleID == ourstyleid && cutplnmstr.IsDeleted=="N"
                           select new { marasq.CutQty });
                 foreach (var element in q3)
                 {
@@ -312,7 +312,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 var q4 = (from marasq in entty.CutPlanASQDetails 
                           join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
-                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.Location_PK== tofactid && cutplnmstr.OurStyleID == ourstyleid
+                          where marasq.Skudet_PK == skudet_PK && cutplnmstr.Location_PK== tofactid && cutplnmstr.OurStyleID == ourstyleid && cutplnmstr.IsDeleted == "N"
                           select new { marasq.CutQty });
                 foreach (var element in q4)
                 {
@@ -326,7 +326,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                           join cutplnmstr in entty.CutPlanMasters on marasq.CutPlan_PK equals cutplnmstr.CutPlan_PK
                           where marasq.Skudet_PK == skudet_PK && cutplnmstr.Location_PK == tofactid && cutplnmstr.OurStyleID == ourstyleid &&
                           cutplnmstr.ShrinkageGroup == Shrinkagegroup &&
-                                   cutplnmstr.WidthGroup == widthgroup && cutplnmstr.MarkerType == markerTyple
+                                   cutplnmstr.WidthGroup == widthgroup && cutplnmstr.MarkerType == markerTyple && cutplnmstr.IsDeleted == "N"
                           select new { marasq.CutQty });
                 foreach (var element in q5)
                 {
@@ -341,8 +341,8 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
              var cutplanrolldetail= (from cplndet in entty.CutPlanRollDetails
                                     where cplndet.CutPlanMaster.SkuDet_PK == skudet_PK && cplndet.CutPlanMaster.ShrinkageGroup == Shrinkagegroup &&
-                                   cplndet.CutPlanMaster.WidthGroup == widthgroup && cplndet.CutPlanMaster.MarkerType == markerTyple
-                                    select new { cplndet.FabricRollmaster.AYard, cplndet.FabricRollmaster.Roll_PK });
+                                   cplndet.CutPlanMaster.WidthGroup == widthgroup && cplndet.CutPlanMaster.MarkerType == markerTyple && cplndet.CutPlanMaster.IsDeleted == "N"
+                                     select new { cplndet.FabricRollmaster.AYard, cplndet.FabricRollmaster.Roll_PK });
                 foreach (var element in cutplanrolldetail)
                 {
                     cutplanblockedroll++;
@@ -1181,6 +1181,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                             cddetail.ColorName = di.ColorName;
                             cddetail.SizeName = di.SizeName;
                             cddetail.Skudet_PK = di.skudet_PK;
+                            cddetail.IsDeleted = "Y";
                             enty.CutPlanASQDetails.Add(cddetail);
                         }
                         enty.SaveChanges();
@@ -1407,9 +1408,9 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
 
                 foreach (var element in q1)
-                { 
-                    
-                    enty.CutPlanMarkerSizeDetails.Remove(element);
+                {
+                    element.IsDeleted = "Y";
+                 //   enty.CutPlanMarkerSizeDetails.Remove(element);
                    
                 }
 
@@ -1421,8 +1422,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 foreach (var element in q2)
                 {
-                    
-                    enty.CutPlanMarkerTypes.Remove(element);
+                  //  element.IsDeleted = "Y";
+                  //  enty.CutPlanMarkerTypes.Remove(element);
                     
                 }
 
@@ -1433,8 +1434,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 foreach (var element in q3)
                 {
-
-                    enty.CutPlanMarkerDetails.Remove(element);
+                    element.IsDeleted = "Y";
+                   // enty.CutPlanMarkerDetails.Remove(element);
                   
                 }
 
@@ -1445,8 +1446,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 foreach (var element in q4)
                 {
-
-                    enty.CutPlanASQDetails.Remove(element);
+                    element.IsDeleted = "Y";
+                   // enty.CutPlanASQDetails.Remove(element);
                    
                 }
 
@@ -1459,8 +1460,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 foreach (var element in q6)
                 {
-
-                    enty.CutPlanRollDetails.Remove(element);
+                    //element.IsDeleted=""
+                  //  enty.CutPlanRollDetails.Remove(element);
 
                 }
 
@@ -1495,9 +1496,9 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                     cutplannum = element.CutPlanNUM.ToString();
 
+                    element.IsDeleted = "Y";
+                    //    enty.CutPlanMasters.Remove(element);
 
-                    enty.CutPlanMasters.Remove(element);
-                    
 
 
 
@@ -1751,7 +1752,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 ctmdet.PaternMarkerName = "";
                 ctmdet.MarkerDetAddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 ctmdet.MarkerDetAddedDate = DateTime.Now;
-
+                ctmdet.IsDeleted = "N";
                 enty.CutPlanMarkerDetails.Add(ctmdet);
                 enty.SaveChanges();
 
@@ -1767,7 +1768,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                         cddetail.Qty = di.Qty;
                         cddetail.CutPlanMarkerDetails_PK = ctmdet.CutPlanMarkerDetails_PK;
                         cddetail.Ratio = di.Ratio;
-                        enty.CutPlanMarkerSizeDetails.Add(cddetail);
+                    cddetail.IsDeleted = "N";
+                    enty.CutPlanMarkerSizeDetails.Add(cddetail);
                     //}
                     //else
                     //{
@@ -1863,7 +1865,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                     ctmdet.CutPerPlies = this.Cutperplies;
                     ctmdet.MarkerLength = 0;
                     ctmdet.Efficiency = 0;
-                   
+                    ctmdet.IsDeleted = "N";
 
                     ctmdet.PaternMarkerName = "";
                     ctmdet.MarkerDetAddedBy = HttpContext.Current.Session["Username"].ToString().Trim(); 
@@ -1880,6 +1882,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                         cddetail.Qty = di.Qty;
                         cddetail.CutPlanMarkerDetails_PK = ctmdet.CutPlanMarkerDetails_PK;
                         cddetail.Ratio = di.Ratio;
+                        cddetail.IsDeleted = "N";
                         enty.CutPlanMarkerSizeDetails.Add(cddetail);
 
                         enty.SaveChanges();
@@ -1946,7 +1949,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 if(sucess== "true")
                 {
-                    var allocatedqty = enty.CutPlanRollDetails.Where(i => i.CutPlan_PK == CutPlan_PK).Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
+                    var allocatedqty = enty.CutPlanRollDetails.Where(i => i.CutPlan_PK == CutPlan_PK && i.IsDeleted=="N" ).Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
                     var q = from cplmstr in enty.CutPlanMasters
                             where cplmstr.CutPlan_PK == CutPlan_PK
                             select cplmstr;
@@ -1986,6 +1989,15 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                     {
                         element.IsDeleted = "Y";
                         element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                    }
+                    var allocatedqty = enty.CutPlanRollDetails.Where(i => i.CutPlan_PK == CutPlan_PK && i.IsDeleted == "N").Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
+                    var q1 = from cplmstr in enty.CutPlanMasters
+                            where cplmstr.CutPlan_PK == CutPlan_PK
+                            select cplmstr;
+                    foreach (var element in q1)
+                    {
+                       
+                        element.RollYard = Decimal.Parse(allocatedqty.ToString());
                     }
                     enty.SaveChanges();
                     asqshuffle = "Sucessfully Deleted";

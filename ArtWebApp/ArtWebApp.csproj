@@ -1852,6 +1852,9 @@
     <Compile Include="Production\Cutting\RejectionGarmentFab.aspx.designer.cs">
       <DependentUpon>RejectionGarmentFab.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Dataset\ReportDataSet.cs">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

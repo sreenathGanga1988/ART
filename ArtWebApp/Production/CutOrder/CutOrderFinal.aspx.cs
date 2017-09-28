@@ -112,7 +112,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsPatternAdded=="Y"
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsPatternAdded=="Y" && ponmbr.IsDeleted=="N"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -186,7 +186,7 @@ namespace ArtWebApp.Production.CutOrder
                         join ourstyledet in entty.AtcDetails on ponmbr.OurStyleID equals ourstyledet.OurStyleID
                         join atcmstr in entty.AtcMasters on ourstyledet.AtcId equals atcmstr.AtcId
                         where ponmbr.CutPlan_PK == cutplanpk
-                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle , ponmbr.CutplanConsumption,ponmbr.CutPlanFabReq};
+                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle , ponmbr.CutplanConsumption,ponmbr.CutPlanFabReq,ponmbr.RollYard};
 
                foreach(var element in q)
                 {
@@ -199,6 +199,7 @@ namespace ArtWebApp.Production.CutOrder
                     lbl_fabric.Text = element.FabDescription.ToString();
                     lbl_coconsumption.Text = element.CutplanConsumption.ToString();
                     lbl_fabreq.Text = element.CutPlanFabReq.ToString();
+                    lbl_rollyard.Text = element.RollYard.ToString();
                 }
 
 

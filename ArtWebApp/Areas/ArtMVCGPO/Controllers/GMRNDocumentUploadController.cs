@@ -17,9 +17,9 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
         [HttpGet]
         public ActionResult GMRNDocumentUpload(GMRNViewModal model=null)
         {
-            GMRNViewModal grvmdl = new GMRNViewModal();
-            ConfigureViewModel(grvmdl);
-            return View(grvmdl);
+           
+            ConfigureViewModel(model);
+            return View(model);
         }
 
 
@@ -57,7 +57,7 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
                 string fl = path.Substring(path.LastIndexOf("\\"));
                 string[] split = fl.Split('\\');
                 string newpath = split[1];
-                string imagepath = "~/uploads/" + newpath;
+                string imagepath = "~/uploads/Gmrn/" + newpath;
 
                 MrnFileUpload mrnFileUpload = new MrnFileUpload();
                 mrnFileUpload.Mrn_PK = model.MrnID;
@@ -68,5 +68,24 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
             TempData["Success"] = "Upload successful";
             return RedirectToAction("GMRNDocumentUpload", model);
         }
+
+        public FileResult Download(int id)
+        {
+            int fid = Convert.ToInt32(id);
+            
+            string filename = (from f in db.MrnFileUploads
+                               where f.FileUploadID == id
+                               select f.StringLength).First();
+            string contentType = "application/pdf";
+            //Parameters to file are
+            //1. The File Path on the File Server
+            //2. The connent type MIME type
+            //3. The paraneter for the file save asked by the browser
+            return File(filename, contentType, "Report.pdf");
+        }
+
+
+
+
     }
 }

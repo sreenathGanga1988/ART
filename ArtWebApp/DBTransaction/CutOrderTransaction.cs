@@ -551,13 +551,13 @@ WHERE        (CutOrderDet_PK = @CutOrderDet_PK)", con);
 
 
 
-        public DataTable GetCriticalPath(int ourstyleid, int  skudetpk,String ShrinkageGroup)
+        public DataTable GetCriticalPath(int ourstyleid, int  skudetpk,String ShrinkageGroup, int locationid)
         {
             DataTable dt = new DataTable();
 
 
 
-            if (ShrinkageGroup == "NA" && ourstyleid != 0 && skudetpk != 0)
+            if (ShrinkageGroup == "NA" && ourstyleid != 0 && skudetpk != 0 && locationid==0)
             {
 
 
@@ -565,7 +565,7 @@ WHERE        (CutOrderDet_PK = @CutOrderDet_PK)", con);
 
 
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty  from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerType 
             FROM (SELECT        CutPlanmarkerType
@@ -584,7 +584,16 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus
+) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard,CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)
@@ -599,11 +608,11 @@ FROM            CutPlanMaster INNER JOIN
 
             }
 
-            else
+             else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid == 0)
             {
 
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerType 
             FROM (SELECT        CutPlanmarkerType
@@ -622,7 +631,116 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus
+) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
+FROM            CutPlanMaster INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)  and (CutPlanMaster.Location_PK=@locationid)
+						)tt
+
+
+ ");
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                cmd.Parameters.AddWithValue("@shrinkagegroup", ShrinkageGroup);
+                cmd.Parameters.AddWithValue("@locationid", locationid);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            }
+
+            else if (ShrinkageGroup == "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
+            {
+
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
+SELECT STUFF((SELECT ',' + CutPlanmarkerType 
+            FROM (SELECT        CutPlanmarkerType
+FROM            CutPlanMarkerType
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
+HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
+FROM            CutPlanRejectHistory
+GROUP BY Cutplan_PK
+HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
+SELECT STUFF((SELECT ',' + CutplanRejection 
+            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
+FROM            CutPlanRejectHistory INNER JOIN
+                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
+WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard,CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
+FROM            CutPlanMaster INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  and (CutPlanMaster.Location_PK=@locationid)
+						)tt
+
+ ");
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                cmd.Parameters.AddWithValue("@locationid", locationid);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            } 
+
+            else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
+            {
+
+                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
+SELECT STUFF((SELECT ',' + CutPlanmarkerType 
+            FROM (SELECT        CutPlanmarkerType
+FROM            CutPlanMarkerType
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
+HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
+FROM            CutPlanRejectHistory
+GROUP BY Cutplan_PK
+HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
+SELECT STUFF((SELECT ',' + CutplanRejection 
+            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
+FROM            CutPlanRejectHistory INNER JOIN
+                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
+WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)
@@ -640,13 +758,55 @@ FROM            CutPlanMaster INNER JOIN
             }
 
 
+            else
+            {
+
+
+                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
+SELECT STUFF((SELECT ',' + CutPlanmarkerType 
+            FROM (SELECT        CutPlanmarkerType
+FROM            CutPlanMarkerType
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
+HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
+FROM            CutPlanRejectHistory
+GROUP BY Cutplan_PK
+HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
+SELECT STUFF((SELECT ',' + CutplanRejection 
+            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
+FROM            CutPlanRejectHistory INNER JOIN
+                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
+WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard
+FROM            CutPlanMaster INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)
+						)tt
+
+ ");
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            }
 
 
 
-          
         }
-
-
 
 
 

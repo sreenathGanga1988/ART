@@ -13,6 +13,24 @@ namespace ArtWebApp.Reports {
     public partial class AtcCrystalReporter {
         
         /// <summary>
+        /// UPD_FACT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UPD_FACT;
+        
+        /// <summary>
+        /// drp_fact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_fact;
+        
+        /// <summary>
         /// Upd_atc control.
         /// </summary>
         /// <remarks>

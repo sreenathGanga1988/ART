@@ -19,7 +19,7 @@
 
       
 
-    </style>
+        </style>
     <link href="../../css/style.css" rel="stylesheet" />
     
 </asp:Content>
@@ -90,19 +90,35 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td >Payment Term :</td>
                                 <td >
-                                    <ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentCodeDescription" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px">
+                                    Payment Term</td>
+                                <td ><ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentCodeDescription" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
                                 <td >&nbsp;</td>
-                                <td >po tYPE :</td>
+                                <td >Po Type :</td>
                                 <td >
                                     
                                     <ucc:DropDownListChosen ID="cmb_suppliertype" runat="server" Width="200px">
                                         <asp:ListItem Value="F">Fabric</asp:ListItem>
                                         <asp:ListItem Value="T">Trims</asp:ListItem>
                                     </ucc:DropDownListChosen>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Freight type</td>
+                                <td>
+                                    <ucc:DropDownListChosen ID="cmb_suppliertype0" runat="server" Width="200px">
+                                        <asp:ListItem>No Charges</asp:ListItem>
+                                        <asp:ListItem>Sea</asp:ListItem>
+                                        <asp:ListItem>Air</asp:ListItem>
+                                        <asp:ListItem>Courier</asp:ListItem>
+                                    </ucc:DropDownListChosen>
+                                </td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>freight charge</td>
+                                <td>
+                                    <asp:TextBox ID="txt_freightcharges" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>

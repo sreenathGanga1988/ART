@@ -274,6 +274,15 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.TextBox lbl_fabreq;
         
         /// <summary>
+        /// lbl_rollyard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_rollyard;
+        
+        /// <summary>
         /// upd_cutno control.
         /// </summary>
         /// <remarks>

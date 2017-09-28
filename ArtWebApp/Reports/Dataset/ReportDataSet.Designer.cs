@@ -24467,6 +24467,16 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnMarkerStatus;
             
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnRollCount;
+            
+            private global::System.Data.DataColumn columnRollyard;
+            
+            private global::System.Data.DataColumn columnCutPlanFabReq;
+            
+            private global::System.Data.DataColumn columncutQty;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Criticalpath_SPDataTable() {
@@ -24646,6 +24656,46 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RollCountColumn {
+                get {
+                    return this.columnRollCount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RollyardColumn {
+                get {
+                    return this.columnRollyard;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutPlanFabReqColumn {
+                get {
+                    return this.columnCutPlanFabReq;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn cutQtyColumn {
+                get {
+                    return this.columncutQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -24699,7 +24749,12 @@ namespace ArtWebApp.Reports.Dataset {
                         System.DateTime CutOrderDate, 
                         int Revisions, 
                         string Reason, 
-                        string MarkerStatus) {
+                        string MarkerStatus, 
+                        string IsDeleted, 
+                        int RollCount, 
+                        decimal Rollyard, 
+                        decimal CutPlanFabReq, 
+                        decimal cutQty) {
                 Criticalpath_SPRow rowCriticalpath_SPRow = ((Criticalpath_SPRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LocationName,
@@ -24719,7 +24774,12 @@ namespace ArtWebApp.Reports.Dataset {
                         CutOrderDate,
                         Revisions,
                         Reason,
-                        MarkerStatus};
+                        MarkerStatus,
+                        IsDeleted,
+                        RollCount,
+                        Rollyard,
+                        CutPlanFabReq,
+                        cutQty};
                 rowCriticalpath_SPRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCriticalpath_SPRow);
                 return rowCriticalpath_SPRow;
@@ -24760,6 +24820,11 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnRevisions = base.Columns["Revisions"];
                 this.columnReason = base.Columns["Reason"];
                 this.columnMarkerStatus = base.Columns["MarkerStatus"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnRollCount = base.Columns["RollCount"];
+                this.columnRollyard = base.Columns["Rollyard"];
+                this.columnCutPlanFabReq = base.Columns["CutPlanFabReq"];
+                this.columncutQty = base.Columns["cutQty"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -24801,6 +24866,16 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnReason);
                 this.columnMarkerStatus = new global::System.Data.DataColumn("MarkerStatus", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMarkerStatus);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnRollCount = new global::System.Data.DataColumn("RollCount", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRollCount);
+                this.columnRollyard = new global::System.Data.DataColumn("Rollyard", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRollyard);
+                this.columnCutPlanFabReq = new global::System.Data.DataColumn("CutPlanFabReq", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutPlanFabReq);
+                this.columncutQty = new global::System.Data.DataColumn("cutQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncutQty);
                 this.columnLocationName.MaxLength = 50;
                 this.columnOurStyle.AllowDBNull = false;
                 this.columnOurStyle.MaxLength = 50;
@@ -24820,6 +24895,10 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnReason.MaxLength = 2147483647;
                 this.columnMarkerStatus.ReadOnly = true;
                 this.columnMarkerStatus.MaxLength = 1;
+                this.columnIsDeleted.MaxLength = 10;
+                this.columnRollCount.ReadOnly = true;
+                this.columnRollyard.ReadOnly = true;
+                this.columncutQty.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -46653,6 +46732,86 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsDeleted {
+                get {
+                    try {
+                        return ((string)(this[this.tableCriticalpath_SP.IsDeletedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsDeleted\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int RollCount {
+                get {
+                    try {
+                        return ((int)(this[this.tableCriticalpath_SP.RollCountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RollCount\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.RollCountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Rollyard {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.RollyardColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Rollyard\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.RollyardColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal CutPlanFabReq {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.CutPlanFabReqColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CutPlanFabReq\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutPlanFabReqColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal cutQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.cutQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cutQty\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.cutQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsLocationNameNull() {
                 return this.IsNull(this.tableCriticalpath_SP.LocationNameColumn);
             }
@@ -46853,6 +47012,66 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetMarkerStatusNull() {
                 this[this.tableCriticalpath_SP.MarkerStatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsDeletedNull() {
+                return this.IsNull(this.tableCriticalpath_SP.IsDeletedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsDeletedNull() {
+                this[this.tableCriticalpath_SP.IsDeletedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRollCountNull() {
+                return this.IsNull(this.tableCriticalpath_SP.RollCountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRollCountNull() {
+                this[this.tableCriticalpath_SP.RollCountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRollyardNull() {
+                return this.IsNull(this.tableCriticalpath_SP.RollyardColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRollyardNull() {
+                this[this.tableCriticalpath_SP.RollyardColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCutPlanFabReqNull() {
+                return this.IsNull(this.tableCriticalpath_SP.CutPlanFabReqColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCutPlanFabReqNull() {
+                this[this.tableCriticalpath_SP.CutPlanFabReqColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscutQtyNull() {
+                return this.IsNull(this.tableCriticalpath_SP.cutQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcutQtyNull() {
+                this[this.tableCriticalpath_SP.cutQtyColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -58043,6 +58262,11 @@ WHERE        (CutOrderDO.CutID = @Param1)";
             tableMapping.ColumnMappings.Add("Revisions", "Revisions");
             tableMapping.ColumnMappings.Add("Reason", "Reason");
             tableMapping.ColumnMappings.Add("MarkerStatus", "MarkerStatus");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("RollCount", "RollCount");
+            tableMapping.ColumnMappings.Add("Rollyard", "Rollyard");
+            tableMapping.ColumnMappings.Add("CutPlanFabReq", "CutPlanFabReq");
+            tableMapping.ColumnMappings.Add("cutQty", "cutQty");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -58050,7 +58274,7 @@ WHERE        (CutOrderDO.CutID = @Param1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -58062,27 +58286,41 @@ WHERE        (CutOrderDO.CutID = @Param1)";
             this._commandCollection[0].CommandText = "dbo.Criticalpath_SP";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@p1", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@p2", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ourstyleid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@skudetpk", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@locationpk", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@shrinkagegroup", global::System.Data.SqlDbType.VarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportDataSet.Criticalpath_SPDataTable dataTable, global::System.Nullable<int> p1, global::System.Nullable<int> p2) {
+        public virtual int Fill(ReportDataSet.Criticalpath_SPDataTable dataTable, global::System.Nullable<int> ourstyleid, global::System.Nullable<int> skudetpk, global::System.Nullable<int> locationpk, string shrinkagegroup) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((p1.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(p1.Value));
+            if ((ourstyleid.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ourstyleid.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((p2.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(p2.Value));
+            if ((skudetpk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(skudetpk.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((locationpk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((int)(locationpk.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((shrinkagegroup == null)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((string)(shrinkagegroup));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -58095,19 +58333,31 @@ WHERE        (CutOrderDO.CutID = @Param1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportDataSet.Criticalpath_SPDataTable GetData(global::System.Nullable<int> p1, global::System.Nullable<int> p2) {
+        public virtual ReportDataSet.Criticalpath_SPDataTable GetData(global::System.Nullable<int> ourstyleid, global::System.Nullable<int> skudetpk, global::System.Nullable<int> locationpk, string shrinkagegroup) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((p1.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(p1.Value));
+            if ((ourstyleid.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ourstyleid.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((p2.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(p2.Value));
+            if ((skudetpk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(skudetpk.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((locationpk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((int)(locationpk.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((shrinkagegroup == null)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((string)(shrinkagegroup));
             }
             ReportDataSet.Criticalpath_SPDataTable dataTable = new ReportDataSet.Criticalpath_SPDataTable();
             this.Adapter.Fill(dataTable);

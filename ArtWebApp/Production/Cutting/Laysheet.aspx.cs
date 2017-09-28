@@ -28,6 +28,7 @@ namespace ArtWebApp.Production.Cutting
 
         public void FillAtcCombo()
         {
+            List<decimal?> list = Session["ApprovedLocationlist"] as List<decimal?>;
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from atcorder in entty.AtcMasters
@@ -45,7 +46,7 @@ namespace ArtWebApp.Production.Cutting
                 upd_atc.Update();
 
                 var q1 = from order in entty.LocationMasters
-                         where order.LocType == "F"
+                         where order.LocType == "F" && list.Contains(order.Location_PK)
                          select new
                          {
                              name = order.LocationName,

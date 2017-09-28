@@ -25,6 +25,7 @@ namespace ArtWebApp.Reports
 
         public void FillAtcCombo()
         {
+            List<decimal?> list = Session["ApprovedLocationlist"] as List<decimal?>;
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from atcorder in entty.AtcMasters
@@ -41,6 +42,17 @@ namespace ArtWebApp.Reports
                 drp_Atc.DataBind();
                 Upd_atc.Update();
 
+                var q1 = from order in entty.LocationMasters
+                         where order.LocType == "F" && list.Contains(order.Location_PK)
+                         select new
+                         {
+                             name = order.LocationName,
+                             pk = order.Location_PK
+                         };
+                drp_fact.DataSource = q1.ToList();
+                drp_fact.DataBind();
+                drp_fact.Items.Insert(0, new ListItem("Select All", "0"));
+                UPD_FACT.Update();
 
 
             }
@@ -344,25 +356,49 @@ namespace ArtWebApp.Reports
         {
 
             DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+            DataTable dt = new DataTable();
+            if (drp_fact.SelectedItem.Text == "Select All")
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), drp_shrinkage.SelectedValue.ToString(),0);
+            }
+            else
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), drp_shrinkage.SelectedValue.ToString(),int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()));
+            }
 
-            DataTable dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), drp_shrinkage.SelectedValue.ToString());
-
+            String Reportheading = "Critical Report  As  of " + DateTime.Now.Date.ToString("dd/MM/yyyy") +"for "+drp_ourstyle.SelectedItem.Text  + " " +ddl_color.SelectedItem.Text +"  Shrinkage :"+ drp_shrinkage.SelectedItem.Text;
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
         }
 
         protected void btn_showshrinkagereportofstyle_Click(object sender, EventArgs e)
         {
             DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+            DataTable dt = new DataTable();
+            if (drp_fact.SelectedItem.Text=="Select All")
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), "NA",0);
+            }
+            else
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), "NA",int.Parse (drp_fact.SelectedValue.ToString()));
+            }
 
-            DataTable dt = potrsans.GetCriticalPath(int.Parse(drp_ourstyle.SelectedValue.ToString().Trim()), int.Parse(ddl_color.SelectedValue.ToString().Trim()), "NA");
+    
+            String Reportheading = "Critical Report  As  of " + DateTime.Now.Date.ToString("dd/MM/yyyy") + "  for " + drp_ourstyle.SelectedItem.Text + " " + ddl_color.SelectedItem.Text;
+
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+           
 
             ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
             this.ReportViewer1.LocalReport.DataSources.Clear();
             this.ReportViewer1.LocalReport.DataSources.Add(datasource);
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
         }
     }
 }

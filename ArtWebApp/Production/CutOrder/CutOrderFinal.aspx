@@ -467,8 +467,10 @@
                                                     <td class="NormalTD">
                                                         <asp:TextBox ID="lbl_fabreq" runat="server" CssClass="lbl_fabreq12344" Text="0"></asp:TextBox>
                                                     </td>
-                                                    <td class="NormalTD">&nbsp;</td>
-                                                    <td class="NormalTD">&nbsp;</td>
+                                                    <td class="NormalTD">Cut Plan RollYard</td>
+                                                    <td class="NormalTD">
+                                                        <asp:Label ID="lbl_rollyard" runat="server" Font-Size="X-Small" style="font-weight: 700" Text="0"></asp:Label>
+                                                    </td>
                                                     <td class="NormalTD">&nbsp;</td>
                                                     <td class="NormalTD">&nbsp;</td>
                                                 </tr>

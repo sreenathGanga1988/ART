@@ -503,6 +503,8 @@
                         <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
                         <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />
                         <asp:BoundField DataField="MarkerType" HeaderText="MarkerType" SortExpression="MarkerType" />
+                           <asp:BoundField DataField="IsDeleted" HeaderText="IsDeleted" SortExpression="IsDeleted" />
+                        
                     </Columns>
                 </asp:GridView>
                                               </ContentTemplate>
@@ -517,7 +519,7 @@
             <td>
                
                         <asp:SqlDataSource ID="Rolldata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, FabricRollmaster.AYard, FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.AWidth, FabricRollmaster.AGsm, FabricRollmaster.SWeight, 
-                         CutPlanRollDetails.CutPlan_PK, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.MarkerType
+                         CutPlanRollDetails.CutPlan_PK, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.MarkerType,CutPlanRollDetails.IsDeleted
 FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
 WHERE        (CutPlanRollDetails.CutPlan_PK = @Param1)">

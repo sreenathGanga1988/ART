@@ -440,6 +440,8 @@
           <Property Name="CutQty" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Skudet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="OurStyleId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="OldQty" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="CutPlanMarkerDetails">
           <Key>
@@ -463,6 +465,7 @@
           <Property Name="PatternAddedDate" Type="date" />
           <Property Name="PaternMarkerName" Type="nvarchar" MaxLength="50" />
           <Property Name="Efficiency" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CutPlanMarkerSizeDetails">
           <Key>
@@ -476,6 +479,7 @@
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CutPlanMarkerType">
           <Key>
@@ -8892,6 +8896,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutPlanMaster" Relationship="ArtModel.FK_CutPlanASQDetails_CutPlanASQDetails" FromRole="CutPlanASQDetail" ToRole="CutPlanMaster" />
           <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="CutPlanASQDetail" ToRole="POPackDetail" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OldQty" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="CutPlanMarkerSizeDetail">
           <Key>
@@ -8905,6 +8911,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="CuttingDetail">
           <Key>
@@ -12134,6 +12141,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="PatternAddedDate" Type="DateTime" Precision="0" />
           <Property Name="PaternMarkerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Efficiency" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="AtcApproval">
           <Key>
@@ -15488,6 +15496,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanASQDetails">
             <EntityTypeMapping TypeName="ArtModel.CutPlanASQDetail">
               <MappingFragment StoreEntitySet="CutPlanASQDetails">
+                <ScalarProperty Name="OldQty" ColumnName="OldQty" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
                 <ScalarProperty Name="Skudet_PK" ColumnName="Skudet_PK" />
                 <ScalarProperty Name="CutQty" ColumnName="CutQty" />
@@ -15503,6 +15513,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanMarkerSizeDetails">
             <EntityTypeMapping TypeName="ArtModel.CutPlanMarkerSizeDetail">
               <MappingFragment StoreEntitySet="CutPlanMarkerSizeDetails">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
                 <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
@@ -17077,6 +17088,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanMarkerDetails">
             <EntityTypeMapping TypeName="ArtModel.CutPlanMarkerDetail">
               <MappingFragment StoreEntitySet="CutPlanMarkerDetails">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Efficiency" ColumnName="Efficiency" />
                 <ScalarProperty Name="PaternMarkerName" ColumnName="PaternMarkerName" />
                 <ScalarProperty Name="PatternAddedDate" ColumnName="PatternAddedDate" />

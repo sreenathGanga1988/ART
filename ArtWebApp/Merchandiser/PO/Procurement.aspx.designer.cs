@@ -121,6 +121,24 @@ namespace ArtWebApp.Merchandiser {
         protected global::CustomDropDown.DropDownListChosen cmb_suppliertype;
         
         /// <summary>
+        /// cmb_suppliertype0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen cmb_suppliertype0;
+        
+        /// <summary>
+        /// txt_freightcharges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_freightcharges;
+        
+        /// <summary>
         /// upd_label control.
         /// </summary>
         /// <remarks>

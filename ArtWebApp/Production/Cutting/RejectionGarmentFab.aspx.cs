@@ -84,6 +84,7 @@ namespace ArtWebApp.Production.Cutting
 
             tbl_podetails.DataSource = dt;
             tbl_podetails.DataBind();
+            upd_grid.Update();
          }
         public void insertmrn()
         {

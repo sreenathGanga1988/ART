@@ -1770,7 +1770,8 @@ FROM            CutPlanMarkerSizeDetails INNER JOIN
                          CutPlanMaster ON CutPlanMarkerSizeDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK INNER JOIN
                          StyleSize ON CutPlanMaster.OurStyleID = StyleSize.OurStyleID AND CutPlanMarkerSizeDetails.Size = StyleSize.SizeName
 WHERE        (CutPlanMaster.CutPlan_PK = @cutplan_PK)
-GROUP BY CutPlanMarkerSizeDetails.Size,StyleSize.Orderof
+GROUP BY CutPlanMarkerSizeDetails.Size,StyleSize.Orderof,CutPlanMaster.IsDeleted 
+HAVING        (CutPlanMaster.IsDeleted = N'N')
 ORDER BY StyleSize.Orderof";
 
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -1967,7 +1968,7 @@ ORDER BY StyleSize.Orderof";
                          CutPlanASQDetails.CutPlanASQDetails_PK, POPackDetails.OurStyleID, CutPlanASQDetails.Skudet_PK
 FROM            CutPlanASQDetails INNER JOIN
                          POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK
-WHERE(POPackDetails.OurStyleID = @OurStyleID) AND(CutPlanASQDetails.Skudet_PK = @skudetpk)";
+WHERE(POPackDetails.OurStyleID = @OurStyleID) AND(CutPlanASQDetails.Skudet_PK = @skudetpk) AND (CutPlanASQDetails.IsDeleted = N'N')";
                 }
                 else
                 {
@@ -1975,7 +1976,7 @@ WHERE(POPackDetails.OurStyleID = @OurStyleID) AND(CutPlanASQDetails.Skudet_PK = 
                          CutPlanASQDetails.CutPlanASQDetails_PK, POPackDetails.OurStyleID, POPackDetails.ColorCode
 FROM            CutPlanASQDetails INNER JOIN
                          POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK
-WHERE        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)  AND(CutPlanASQDetails.Skudet_PK = @skudetpk)";
+WHERE        (POPackDetails.OurStyleID = @OurStyleID) AND (POPackDetails.ColorCode = @ColorCode)  AND(CutPlanASQDetails.Skudet_PK = @skudetpk) AND (CutPlanASQDetails.IsDeleted = N'N')";
                 }
                 SqlCommand cmd = new SqlCommand(query, con);
 

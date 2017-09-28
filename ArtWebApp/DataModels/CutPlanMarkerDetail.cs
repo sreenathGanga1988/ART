@@ -32,5 +32,6 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> PatternAddedDate { get; set; }
         public string PaternMarkerName { get; set; }
         public Nullable<decimal> Efficiency { get; set; }
+        public string IsDeleted { get; set; }
     }
 }

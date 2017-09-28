@@ -209,9 +209,9 @@ namespace ArtWebApp.BLL.UserBLL
                                 string IPAddress = GetIPAddress();
                             }
 
-                            if (int.Parse( user.UserProfile_Pk.ToString ())==1&& int.Parse(user.UserProfile_Pk.ToString()) == 11)
+                            if (int.Parse( user.UserProfile_Pk.ToString ())==1 || int.Parse(user.UserProfile_Pk.ToString()) == 11)
                             {
-                               var ApprovedLocationlist = enty.LocationGroupDetails.Where(u => u.LocationGroupID == 6).Select(u => u.Loication_PK).ToList();
+                               var ApprovedLocationlist = enty.LocationGroupDetails.Select(u => u.Loication_PK).ToList();
 
                                 List<decimal?> list = ApprovedLocationlist  as List<decimal?>;
 

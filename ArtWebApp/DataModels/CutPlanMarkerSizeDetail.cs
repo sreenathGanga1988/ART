@@ -22,5 +22,6 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> CutPlan_PK { get; set; }
         public Nullable<decimal> CutPlanMarkerDetails_PK { get; set; }
+        public string IsDeleted { get; set; }
     }
 }

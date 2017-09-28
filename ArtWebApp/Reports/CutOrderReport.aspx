@@ -13,8 +13,15 @@
 
         <table class="DataEntryTable">
         <tr>
-            <td >&nbsp;</td>
-        <td class="NormalTD">&nbsp;</td>
+            <td >Factory/warehouse</td>
+        <td class="NormalTD">
+            <asp:UpdatePanel ID="UPD_FACT" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <ucc:DropDownListChosen ID="drp_fact" runat="server" DataTextField="Name" DataValueField="Pk" Width="200px">
+                    </ucc:DropDownListChosen>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            </td>
         <td class="NormalTD">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
