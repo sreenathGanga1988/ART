@@ -43,6 +43,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> HandoverDate { get; set; }
         public Nullable<decimal> ExpectedLocation_PK { get; set; }
         public string IsDeleted { get; set; }
+        public string IsShuffulable { get; set; }
     
         public virtual BuyerDestinationMaster BuyerDestinationMaster { get; set; }
         public virtual ChannelMaster ChannelMaster { get; set; }

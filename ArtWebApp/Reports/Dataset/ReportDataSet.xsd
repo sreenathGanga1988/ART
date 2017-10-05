@@ -1180,7 +1180,7 @@ GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.Locat
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="InventorymissplacedTableAdapter" GeneratorDataComponentClassName="InventorymissplacedTableAdapter" Name="Inventorymissplaced" UserDataComponentName="InventorymissplacedTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, ISNULL(SkuRawMaterialMaster.Composition, '') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, '') 
@@ -1189,7 +1189,8 @@ GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.Locat
                          LocationMaster.LocationName, InventoryMissingRequest.MisplaceDate, InventoryMissingRequest.Explanation, InventoryMissingRequest.AddedBy, InventoryMissingRequest.Addeddate, 
                          InventoryMissingRequest.Level1Approval, ISNULL(InventoryMissingRequest.reqnum, '') AS Reqnum, InventoryMissingDetails.MisplaceAppDet_PK, InventoryMissingDetails.Qty AS DeliveredQty, 
                          InventoryMissingRequest.reqnum AS Expr1, InventoryMissingRequest.Level1ApprovedBY, InventoryMissingRequest.IsApproved, InventoryMissingRequest.ApprovedBy, 
-                         InventoryMissingRequest.L1ApprovedDate, InventoryMissingRequest.ApprovedDate ,InventoryMaster.CURate,(InventoryMaster.CURate*InventoryMissingDetails.Qty) as MisplacedValue
+                         InventoryMissingRequest.L1ApprovedDate, InventoryMissingRequest.ApprovedDate, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMissingDetails.Qty AS MisplacedValue, 
+                         InventoryMissingRequest.Reason
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -1228,6 +1229,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
               <Mapping SourceColumn="ApprovedDate" DataSetColumn="ApprovedDate" />
               <Mapping SourceColumn="CURate" DataSetColumn="CURate" />
               <Mapping SourceColumn="MisplacedValue" DataSetColumn="MisplacedValue" />
+              <Mapping SourceColumn="Reason" DataSetColumn="Reason" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2098,6 +2100,39 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
               <Mapping SourceColumn="Rollyard" DataSetColumn="Rollyard" />
               <Mapping SourceColumn="CutPlanFabReq" DataSetColumn="CutPlanFabReq" />
               <Mapping SourceColumn="cutQty" DataSetColumn="cutQty" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="LaySheetSummary_SPTableAdapter" GeneratorDataComponentClassName="LaySheetSummary_SPTableAdapter" Name="LaySheetSummary_SP" UserDataComponentName="LaySheetSummary_SPTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectName="Art.dbo.LaySheetSummary_SP" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                    <CommandText>dbo.LaySheetSummary_SP</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@atcid" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="LocationName" DataSetColumn="LocationName" />
+              <Mapping SourceColumn="AtcNum" DataSetColumn="AtcNum" />
+              <Mapping SourceColumn="BuyerStyle" DataSetColumn="BuyerStyle" />
+              <Mapping SourceColumn="OurStyle" DataSetColumn="OurStyle" />
+              <Mapping SourceColumn="LaySheetNum" DataSetColumn="LaySheetNum" />
+              <Mapping SourceColumn="LayCutNum" DataSetColumn="LayCutNum" />
+              <Mapping SourceColumn="NoOfPlies" DataSetColumn="NoOfPlies" />
+              <Mapping SourceColumn="IsApproved" DataSetColumn="IsApproved" />
+              <Mapping SourceColumn="AddedBY" DataSetColumn="AddedBY" />
+              <Mapping SourceColumn="AddedDate" DataSetColumn="AddedDate" />
+              <Mapping SourceColumn="Cut_NO" DataSetColumn="Cut_NO" />
+              <Mapping SourceColumn="CutOrderDet_PK" DataSetColumn="CutOrderDet_PK" />
+              <Mapping SourceColumn="MarkerNo" DataSetColumn="MarkerNo" />
+              <Mapping SourceColumn="Color" DataSetColumn="Color" />
+              <Mapping SourceColumn="AtcId" DataSetColumn="AtcId" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -4304,6 +4339,13 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
               <xs:element name="ApprovedDate" msprop:Generator_ColumnVarNameInTable="columnApprovedDate" msprop:Generator_ColumnPropNameInRow="ApprovedDate" msprop:Generator_ColumnPropNameInTable="ApprovedDateColumn" msprop:Generator_UserColumnName="ApprovedDate" type="xs:dateTime" minOccurs="0" />
               <xs:element name="CURate" msprop:Generator_ColumnVarNameInTable="columnCURate" msprop:Generator_ColumnPropNameInRow="CURate" msprop:Generator_ColumnPropNameInTable="CURateColumn" msprop:Generator_UserColumnName="CURate" type="xs:decimal" minOccurs="0" />
               <xs:element name="MisplacedValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMisplacedValue" msprop:Generator_ColumnPropNameInRow="MisplacedValue" msprop:Generator_ColumnPropNameInTable="MisplacedValueColumn" msprop:Generator_UserColumnName="MisplacedValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Reason" msprop:Generator_ColumnVarNameInTable="columnReason" msprop:Generator_ColumnPropNameInRow="Reason" msprop:Generator_ColumnPropNameInTable="ReasonColumn" msprop:Generator_UserColumnName="Reason" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -5899,6 +5941,93 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="LaySheetSummary_SP" msprop:Generator_TableClassName="LaySheetSummary_SPDataTable" msprop:Generator_TableVarName="tableLaySheetSummary_SP" msprop:Generator_TablePropName="LaySheetSummary_SP" msprop:Generator_RowDeletingName="LaySheetSummary_SPRowDeleting" msprop:Generator_RowChangingName="LaySheetSummary_SPRowChanging" msprop:Generator_RowEvHandlerName="LaySheetSummary_SPRowChangeEventHandler" msprop:Generator_RowDeletedName="LaySheetSummary_SPRowDeleted" msprop:Generator_UserTableName="LaySheetSummary_SP" msprop:Generator_RowChangedName="LaySheetSummary_SPRowChanged" msprop:Generator_RowEvArgName="LaySheetSummary_SPRowChangeEvent" msprop:Generator_RowClassName="LaySheetSummary_SPRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LocationName" msprop:Generator_ColumnVarNameInTable="columnLocationName" msprop:Generator_ColumnPropNameInRow="LocationName" msprop:Generator_ColumnPropNameInTable="LocationNameColumn" msprop:Generator_UserColumnName="LocationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AtcNum" msprop:Generator_ColumnVarNameInTable="columnAtcNum" msprop:Generator_ColumnPropNameInRow="AtcNum" msprop:Generator_ColumnPropNameInTable="AtcNumColumn" msprop:Generator_UserColumnName="AtcNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BuyerStyle" msprop:Generator_ColumnVarNameInTable="columnBuyerStyle" msprop:Generator_ColumnPropNameInRow="BuyerStyle" msprop:Generator_ColumnPropNameInTable="BuyerStyleColumn" msprop:Generator_UserColumnName="BuyerStyle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OurStyle" msprop:Generator_ColumnVarNameInTable="columnOurStyle" msprop:Generator_ColumnPropNameInRow="OurStyle" msprop:Generator_ColumnPropNameInTable="OurStyleColumn" msprop:Generator_UserColumnName="OurStyle">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LaySheetNum" msprop:Generator_ColumnVarNameInTable="columnLaySheetNum" msprop:Generator_ColumnPropNameInRow="LaySheetNum" msprop:Generator_ColumnPropNameInTable="LaySheetNumColumn" msprop:Generator_UserColumnName="LaySheetNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LayCutNum" msprop:Generator_ColumnVarNameInTable="columnLayCutNum" msprop:Generator_ColumnPropNameInRow="LayCutNum" msprop:Generator_ColumnPropNameInTable="LayCutNumColumn" msprop:Generator_UserColumnName="LayCutNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NoOfPlies" msprop:Generator_ColumnVarNameInTable="columnNoOfPlies" msprop:Generator_ColumnPropNameInRow="NoOfPlies" msprop:Generator_ColumnPropNameInTable="NoOfPliesColumn" msprop:Generator_UserColumnName="NoOfPlies" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IsApproved" msprop:Generator_ColumnVarNameInTable="columnIsApproved" msprop:Generator_ColumnPropNameInRow="IsApproved" msprop:Generator_ColumnPropNameInTable="IsApprovedColumn" msprop:Generator_UserColumnName="IsApproved" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AddedBY" msprop:Generator_ColumnVarNameInTable="columnAddedBY" msprop:Generator_ColumnPropNameInRow="AddedBY" msprop:Generator_ColumnPropNameInTable="AddedBYColumn" msprop:Generator_UserColumnName="AddedBY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AddedDate" msprop:Generator_ColumnVarNameInTable="columnAddedDate" msprop:Generator_ColumnPropNameInRow="AddedDate" msprop:Generator_ColumnPropNameInTable="AddedDateColumn" msprop:Generator_UserColumnName="AddedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Cut_NO" msprop:Generator_ColumnVarNameInTable="columnCut_NO" msprop:Generator_ColumnPropNameInRow="Cut_NO" msprop:Generator_ColumnPropNameInTable="Cut_NOColumn" msprop:Generator_UserColumnName="Cut_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CutOrderDet_PK" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCutOrderDet_PK" msprop:Generator_ColumnPropNameInRow="CutOrderDet_PK" msprop:Generator_ColumnPropNameInTable="CutOrderDet_PKColumn" msprop:Generator_UserColumnName="CutOrderDet_PK" type="xs:decimal" />
+              <xs:element name="MarkerNo" msprop:Generator_ColumnVarNameInTable="columnMarkerNo" msprop:Generator_ColumnPropNameInRow="MarkerNo" msprop:Generator_ColumnPropNameInTable="MarkerNoColumn" msprop:Generator_UserColumnName="MarkerNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Color" msprop:Generator_ColumnVarNameInTable="columnColor" msprop:Generator_ColumnPropNameInRow="Color" msprop:Generator_ColumnPropNameInTable="ColorColumn" msprop:Generator_UserColumnName="Color" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AtcId" msprop:Generator_ColumnVarNameInTable="columnAtcId" msprop:Generator_ColumnPropNameInRow="AtcId" msprop:Generator_ColumnPropNameInTable="AtcIdColumn" msprop:Generator_UserColumnName="AtcId" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -5980,6 +6109,10 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
     <xs:unique name="LayShortageRequest_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:LayShortageRequest_SP" />
       <xs:field xpath="mstns:LayShortageMasterID" />
+    </xs:unique>
+    <xs:unique name="LaySheetSummary_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:LaySheetSummary_SP" />
+      <xs:field xpath="mstns:CutOrderDet_PK" />
     </xs:unique>
   </xs:element>
 </xs:schema>

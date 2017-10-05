@@ -108,7 +108,7 @@
                             <tr>
                                 <td>Freight type</td>
                                 <td>
-                                    <ucc:DropDownListChosen ID="cmb_suppliertype0" runat="server" Width="200px">
+                                    <ucc:DropDownListChosen ID="drp_freightChargetype" runat="server" Width="200px">
                                         <asp:ListItem>No Charges</asp:ListItem>
                                         <asp:ListItem>Sea</asp:ListItem>
                                         <asp:ListItem>Air</asp:ListItem>
@@ -118,7 +118,7 @@
                                 <td>&nbsp;&nbsp;</td>
                                 <td>freight charge</td>
                                 <td>
-                                    <asp:TextBox ID="txt_freightcharges" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txt_freightcharges" runat="server">0</asp:TextBox>
                                 </td>
                             </tr>
                             <tr>

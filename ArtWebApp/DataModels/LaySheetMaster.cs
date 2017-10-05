@@ -34,6 +34,7 @@ namespace ArtWebApp.DataModels
         public string IsUploaded { get; set; }
         public string IsDetailUploaded { get; set; }
         public string IsDeleted { get; set; }
+        public Nullable<decimal> NoOfPlies { get; set; }
     
         public virtual ICollection<LaySheetDetail> LaySheetDetails { get; set; }
         public virtual CutOrderDetail CutOrderDetail { get; set; }

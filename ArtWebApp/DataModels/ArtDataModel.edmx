@@ -466,6 +466,8 @@
           <Property Name="PaternMarkerName" Type="nvarchar" MaxLength="50" />
           <Property Name="Efficiency" Type="decimal" Precision="18" Scale="4" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeletedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="CutPlanMarkerSizeDetails">
           <Key>
@@ -909,6 +911,14 @@
           <Property Name="BookedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ExceptionAtcList">
+          <Key>
+            <PropertyRef Name="ExceptionID" />
+          </Key>
+          <Property Name="ExceptionID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="ExtraBOMRequestDetail">
           <Key>
             <PropertyRef Name="ExtraBOMDetail_PK" />
@@ -1006,6 +1016,30 @@
           <Property Name="FactWar_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FromLoc_pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ToLoc_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="FreightRequestMaster">
+          <Key>
+            <PropertyRef Name="FreightRequestID" />
+          </Key>
+          <Property Name="FreightRequestID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FreightRequestNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="FromParty" Type="nvarchar(max)" />
+          <Property Name="ToParty" Type="nvarchar(max)" />
+          <Property Name="Shipper" Type="nvarchar(max)" />
+          <Property Name="Weight" Type="nvarchar(max)" />
+          <Property Name="ContentofPackage" Type="nvarchar(max)" />
+          <Property Name="DebitTo" Type="nvarchar(max)" />
+          <Property Name="Reason" Type="nvarchar(max)" />
+          <Property Name="Merchandiser" Type="nvarchar(max)" />
+          <Property Name="ForwarderDetails" Type="nvarchar(max)" />
+          <Property Name="ApproximateCharges" Type="nvarchar(max)" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="1" />
+          <Property Name="IsPosted" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="GarmentCategory">
           <Key>
@@ -1309,6 +1343,7 @@
           <Property Name="IsUploaded" Type="nchar" MaxLength="10" />
           <Property Name="IsDetailUploaded" Type="nchar" MaxLength="10" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LaySheetRollDetails">
           <Key>
@@ -1751,6 +1786,7 @@
           <Property Name="HandoverDate" Type="datetime" />
           <Property Name="ExpectedLocation_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="IsShuffulable" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ProcurementDetails">
           <Key>
@@ -1795,6 +1831,8 @@
           <Property Name="ForwardedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="IsNormal" Type="nchar" MaxLength="10" />
           <Property Name="MarkCompleted" Type="nchar" MaxLength="1" />
+          <Property Name="FreightType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FreightCharge" Type="numeric" Precision="18" Scale="5" />
         </EntityType>
         <EntityType Name="ProcurmentPlanDetails">
           <Key>
@@ -5895,12 +5933,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EtaDate" EntityType="Self.EtaDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EthiopiaToARTShip_Tbl" EntityType="Self.EthiopiaToARTShip_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionAtcList" EntityType="Self.ExceptionAtcList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraBOMRequestDetail" EntityType="Self.ExtraBOMRequestDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraBOMRequestMaster" EntityType="Self.ExtraBOMRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraRequestReasonMaster" EntityType="Self.ExtraRequestReasonMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricRollmaster" EntityType="Self.FabricRollmaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FactoryType" EntityType="Self.FactoryType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FactWareLinkMaster" EntityType="Self.FactWareLinkMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FreightRequestMaster" EntityType="Self.FreightRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GarmentCategory" EntityType="Self.GarmentCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsInTransit" EntityType="Self.GoodsInTransit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupDependantItems" EntityType="Self.GroupDependantItems" Schema="dbo" store:Type="Tables" />
@@ -8188,6 +8228,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="CutPlanRejectHistory" EntitySet="CutPlanRejectHistories" />
           </AssociationSet>
           <EntitySet Name="MrnFileUploads" EntityType="ArtModel.MrnFileUpload" />
+          <EntitySet Name="FreightRequestMasters" EntityType="ArtModel.FreightRequestMaster" />
+          <EntitySet Name="ExceptionAtcLists" EntityType="ArtModel.ExceptionAtcList" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -9737,6 +9779,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="ProcurementDetails" Relationship="ArtModel.FK_ProcurementDetails_ProcurementMaster" FromRole="ProcurementMaster" ToRole="ProcurementDetail" />
           <NavigationProperty Name="WrongPOMasters" Relationship="ArtModel.FK_WrongPOMaster_ProcurementMaster" FromRole="ProcurementMaster" ToRole="WrongPOMaster" />
           <Property Name="MarkCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FreightType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FreightCharge" Type="Decimal" Precision="18" Scale="5" />
         </EntityType>
         <EntityType Name="ProductionReportDetail">
           <Key>
@@ -12142,6 +12186,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="PaternMarkerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Efficiency" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="AtcApproval">
           <Key>
@@ -12394,6 +12440,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_PoPackMaster_AtcMaster" FromRole="PoPackMaster" ToRole="AtcMaster" />
           <NavigationProperty Name="JobContractOptionalDetails" Relationship="ArtModel.FK_JobContractOptionalDetail_PoPackMaster" FromRole="PoPackMaster" ToRole="JobContractOptionalDetail" />
           <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="PoPackMaster" ToRole="POPackDetail" />
+          <Property Name="IsShuffulable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_PoPackMaster_BuyerDestinationMaster">
           <End Type="ArtModel.BuyerDestinationMaster" Role="BuyerDestinationMaster" Multiplicity="0..1" />
@@ -12781,6 +12828,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsDetailUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
+          <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="RollInventoryMaster">
           <Key>
@@ -14775,6 +14823,38 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="FreightRequestMaster">
+          <Key>
+            <PropertyRef Name="FreightRequestID" />
+          </Key>
+          <Property Name="FreightRequestID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FreightRequestNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="FromParty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ToParty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shipper" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentofPackage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DebitTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchandiser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ForwarderDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApproximateCharges" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsPosted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ExceptionAtcList">
+          <Key>
+            <PropertyRef Name="ExceptionID" />
+          </Key>
+          <Property Name="ExceptionID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16228,6 +16308,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ProcurementMasters">
             <EntityTypeMapping TypeName="ArtModel.ProcurementMaster">
               <MappingFragment StoreEntitySet="ProcurementMaster">
+                <ScalarProperty Name="FreightCharge" ColumnName="FreightCharge" />
+                <ScalarProperty Name="FreightType" ColumnName="FreightType" />
                 <ScalarProperty Name="MarkCompleted" ColumnName="MarkCompleted" />
                 <ScalarProperty Name="IsNormal" ColumnName="IsNormal" />
                 <ScalarProperty Name="ForwardedBy" ColumnName="ForwardedBy" />
@@ -17088,6 +17170,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanMarkerDetails">
             <EntityTypeMapping TypeName="ArtModel.CutPlanMarkerDetail">
               <MappingFragment StoreEntitySet="CutPlanMarkerDetails">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Efficiency" ColumnName="Efficiency" />
                 <ScalarProperty Name="PaternMarkerName" ColumnName="PaternMarkerName" />
@@ -17274,6 +17358,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="PoPackMasters">
             <EntityTypeMapping TypeName="ArtModel.PoPackMaster">
               <MappingFragment StoreEntitySet="PoPackMaster">
+                <ScalarProperty Name="IsShuffulable" ColumnName="IsShuffulable" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ExpectedLocation_PK" ColumnName="ExpectedLocation_PK" />
                 <ScalarProperty Name="HandoverDate" ColumnName="HandoverDate" />
@@ -17452,6 +17537,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetMasters">
             <EntityTypeMapping TypeName="ArtModel.LaySheetMaster">
               <MappingFragment StoreEntitySet="LaySheetMaster">
+                <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsDetailUploaded" ColumnName="IsDetailUploaded" />
                 <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
@@ -18406,6 +18492,40 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="StringLength" ColumnName="StringLength" />
                 <ScalarProperty Name="Mrn_PK" ColumnName="Mrn_PK" />
                 <ScalarProperty Name="FileUploadID" ColumnName="FileUploadID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FreightRequestMasters">
+            <EntityTypeMapping TypeName="ArtModel.FreightRequestMaster">
+              <MappingFragment StoreEntitySet="FreightRequestMaster">
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ApproximateCharges" ColumnName="ApproximateCharges" />
+                <ScalarProperty Name="ForwarderDetails" ColumnName="ForwarderDetails" />
+                <ScalarProperty Name="Merchandiser" ColumnName="Merchandiser" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="DebitTo" ColumnName="DebitTo" />
+                <ScalarProperty Name="ContentofPackage" ColumnName="ContentofPackage" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="ToParty" ColumnName="ToParty" />
+                <ScalarProperty Name="FromParty" ColumnName="FromParty" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="FreightRequestNum" ColumnName="FreightRequestNum" />
+                <ScalarProperty Name="FreightRequestID" ColumnName="FreightRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionAtcLists">
+            <EntityTypeMapping TypeName="ArtModel.ExceptionAtcList">
+              <MappingFragment StoreEntitySet="ExceptionAtcList">
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="AtcNum" ColumnName="AtcNum" />
+                <ScalarProperty Name="ExceptionID" ColumnName="ExceptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

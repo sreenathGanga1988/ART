@@ -432,6 +432,8 @@
         <AssociationConnector Association="ArtModel.FK_CutPlanRejectHistory_CutPlanMaster" />
         <AssociationConnector Association="ArtModel.FK_CutPlanRejectHistory_CutPlanRejectionMaster" />
         <EntityTypeShape EntityType="ArtModel.MrnFileUpload" Width="1.5" PointX="27.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ArtModel.FreightRequestMaster" Width="1.5" PointX="16.375" PointY="27.75" />
+        <EntityTypeShape EntityType="ArtModel.ExceptionAtcList" Width="1.5" PointX="27.375" PointY="17.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -148,6 +148,24 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.Label lbl_fabric;
         
         /// <summary>
+        /// upd_refpattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_refpattern;
+        
+        /// <summary>
+        /// txt_refpattern control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_refpattern;
+        
+        /// <summary>
         /// lbl_fabrication control.
         /// </summary>
         /// <remarks>
@@ -245,24 +263,6 @@ namespace ArtWebApp.Production.Cutting {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tbl_ASQdata;
-        
-        /// <summary>
-        /// upd_refpattern control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_refpattern;
-        
-        /// <summary>
-        /// txt_refpattern control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_refpattern;
         
         /// <summary>
         /// drp_rejionreason control.

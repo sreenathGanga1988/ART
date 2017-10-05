@@ -97,6 +97,10 @@ namespace ArtWebApp.Merchandiser
             drp_potype.SelectedValue = pmmstrdata.PoType.ToString().Trim();
             // = pmmstrdata.PoType.ToString();
             dtp_deliverydate.Value = pmmstrdata.Deliverydate;
+
+
+            txt_freightcharges.Text =pmmstrdata.freightcharge.ToString();
+            drp_freightChargetype.Text = pmmstrdata.FreightType;
             try
             {
                 txtarea.Text = pmmstrdata.Remark.ToString();
@@ -129,7 +133,8 @@ namespace ArtWebApp.Merchandiser
             POmstr.PaymentTermID = int.Parse(drp_paymentterm.SelectedValue.ToString());
             POmstr.DeliveryMethod_Pk = int.Parse(drp_deliverymethod.SelectedValue.ToString());
             POmstr.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
-
+            POmstr.freightcharge = Decimal.Parse(txt_freightcharges.Text);
+            POmstr.FreightType = drp_freightChargetype.SelectedItem.Text;
 
             try
             {

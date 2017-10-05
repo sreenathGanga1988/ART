@@ -156,7 +156,8 @@ namespace ArtWebApp.Merchandiser
             POmstr.PaymentTermID = int.Parse(drp_paymentterm.SelectedValue.ToString());
             POmstr.DeliveryMethod_Pk = int.Parse(drp_deliverymethod.SelectedValue.ToString());
             POmstr.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
-
+            POmstr.freightcharge = Decimal.Parse (txt_freightcharges.Text);
+            POmstr.FreightType = drp_freightChargetype.SelectedItem.Text;
 
 
 

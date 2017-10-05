@@ -105,7 +105,7 @@ namespace ArtWebApp.Production.Cutting
             lblmstr.LayRollRef = drp_cutRoll.SelectedItem.Text;
             lblmstr.LaysheetRollmaster_Pk = int.Parse(drp_cutRoll.SelectedValue.ToString());
             lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
-
+            lblmstr.NoofPlies = 0;
             var sum= lblmstr.LaysheetDetaolsDataCollection.Sum(item => item.NoOfPlies);
 
             float baltocutnow = float.Parse(txt_baltocutnow.Text);

@@ -602,7 +602,7 @@ GROUP BY ExtraBOM_PK, Reqnum, AtcNum, MerchandiserName, Explanation, AddedBY, Ad
             StringBuilder html = new StringBuilder();
 
             //Table start.
-            html.Append("<table   class='table table-striped table-bordered mydatagrid collapse in' border = '2'>");
+            html.Append("<table   class='table table-striped table-bordered mydatagrid' border = '2'>");
 
             //Building the Header row.
             html.Append(" <thead> <tr>");

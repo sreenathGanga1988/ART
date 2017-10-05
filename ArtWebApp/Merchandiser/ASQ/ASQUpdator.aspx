@@ -242,6 +242,16 @@
                                                             </ItemTemplate>
                                                 </asp:TemplateField>   
                                                        <asp:ButtonField CommandName="PackableUpdate" Text="Pack Update" ButtonType="Button" />
+                                                
+                                                  <asp:TemplateField HeaderText="Delete">
+                                                           
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lbl_isAsqable" runat="server" Text='<%# Bind("IsDeleted") %>'></asp:Label>
+                                                            
+                                                                <asp:CheckBox ID="chK_isAsqable"  onclick="ShowAlert(this)" runat="server"></asp:CheckBox>
+                                                            </ItemTemplate>
+                                                </asp:TemplateField>   
+                                                       <asp:ButtonField CommandName="MarkAsqable" Text="Shuffalable " ButtonType="Button" />
 
                                                   <asp:TemplateField HeaderText="Delete">
                                                            

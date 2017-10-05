@@ -61,7 +61,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
         public DateTime DeletedDate { get; set; }
         public DateTime Approveddate { get; set; }
         public DateTime Deliverydate { get; set; }
-
+        public string FreightType { get; set; }
+        public decimal freightcharge { get; set; }
         public List<ProcurementDetails> ProcurementDetailsCollection { get; set; }
 
         public DataTable POdetails { get; set; }
@@ -102,6 +103,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
                             POmstr.DeliveryDate = Pmmstr.Deliverydate;
                             POmstr.Remark = Pmmstr.Remark;
                             POmstr.IsNormal = "Y";
+                            POmstr.FreightCharge = Pmmstr.freightcharge;
+                            POmstr.FreightType = Pmmstr.FreightType;
                             POmstr.PONum = CreatePOnum();
                             entty.ProcurementMasters.Add(POmstr);
 
@@ -516,7 +519,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
                     POmstr.Deliverydate = DateTime.Parse(element.DeliveryDate.ToString());
                     POmstr.PONum = element.PONum;
                     POmstr.Remark = element.Remark;
-                    
+                    POmstr.freightcharge =Decimal.Parse( element.FreightCharge.ToString());
+                    POmstr.FreightType = element.FreightType;
 
 
 
@@ -560,7 +564,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
                     POmstr.POType = PMdata.PoType;
                     POmstr.DeliveryDate = PMdata.Deliverydate;
                     POmstr.Remark = PMdata.Remark;
-
+                    POmstr.FreightCharge = PMdata.freightcharge;
+                    POmstr.FreightType = PMdata.FreightType;
 
 
 

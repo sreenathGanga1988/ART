@@ -15,91 +15,111 @@
             <div class="col-md-2">
                 @Html.Label("GMRN#", new { @class = "control-label col-md-2" });
             </div>
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.DropDownList("MrnID", Model.MrnList, htmlAttributes: new { @class = "chosen-select form-control" })
+                @Html.HiddenFor(model => Model.MrnID, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+
+
 
 
 
             </div>
+            <div class="col-md-4">
+           
+                @Html.ActionLink("link caption", "ShowMRN", "GMRNDocumentUpload", new { MrnID = Model.MrnID }, null);
+                <div>
 
-        </div>
-
+            </div>
+        
 
 
     </div>
 
+</div>
+        <div class="row">
+            <label for="file">Upload File:</label><input type="file" name="file" id="file" />
+            <input type="submit" value="Save" />
+            @if (TempData["Success"] != null)
+            {
+                <div class="success">
+                    <p>@TempData["Success"].ToString()</p>
+                </div>
+            }
 
-    <label for="file">Upload File:</label><input type="file" name="file" id="file" />
-    <input type="submit" value="Save" />
-    @if (TempData["Success"] != null)
-    {
-        <div class="success">
-            <p>@TempData["Success"].ToString()</p>
         </div>
-    }
+            <table class="table table-bordered table-striped table-responsive>
+                <tr>
+                    <th>
+                        @Html.Display("Uploadid")
+                    </th>
+                    <th>
+                        @Html.Display("Mrn_PK")
+                    </th>
+                    <th>
+                        @Html.Display("StringLength")
+                    </th>
+                    <th>
+                        @Html.Display("MrnType")
+                    </th>
+                    <th>
+                        @Html.Display("AddedBy")
+                    </th>
+                    <th>
+                        @Html.Display("AddedDate")
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
 
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.Display("Uploadid")
-            </th>
-            <th>
-                @Html.Display("Mrn_PK")
-            </th>
-            <th>
-                @Html.Display("StringLength")
-            </th>
-            <th>
-                @Html.Display("MrnType")
-            </th>
-            <th>
-                @Html.Display("AddedBy")
-            </th>
-            <th>
-                @Html.Display("AddedDate")
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
+                @if (Model.MrnFileUploads != null)
+                {
 
 
-        @if(Model.MrnFileUploads!=null){
-        
-        
-        foreach (var item in Model.MrnFileUploads)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Mrn_PK)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StringLength)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MrnType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddedDate)
-                </td>
-                <td>
-                    @Html.ActionLink("Download", "Download", new { id = item.FileUploadID })
+                    foreach (var item in Model.MrnFileUploads)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mrn_PK)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StringLength)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MrnType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AddedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AddedDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Download", "Download", new { id = item.FileUploadID })
 
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.FileUploadID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.FileUploadID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.FileUploadID })
-                </td>
-            </tr>
-        }
+                            </td>
+                            <td>
+                                @if (item.AddedBy == Session["Username"].ToString())
+                                {
 
-        
-        }
-     
-    </table>
+                                    Html.ActionLink("Delete", "Delete", new { id = item.FileUploadID });
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+
+
+
+
+
+
+                }
+
+            </table>
 
 </form>

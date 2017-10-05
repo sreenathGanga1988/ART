@@ -103,6 +103,24 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.WebControls.Button btn_showApprovedcutplan;
         
         /// <summary>
+        /// UpdatePanel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
+        
+        /// <summary>
+        /// btn_showshrinkagereportofAtc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_showshrinkagereportofAtc;
+        
+        /// <summary>
         /// btn_showApprovedcutplan0 control.
         /// </summary>
         /// <remarks>

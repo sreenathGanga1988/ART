@@ -1,0 +1,83 @@
+﻿@model ArtWebApp.DataModels.PatternNameBank
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PatternNameBank</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Shrinkage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shrinkage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatternName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatternName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReferncePatternName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReferncePatternName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtcDetail.OurStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PatternID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

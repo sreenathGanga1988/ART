@@ -114,6 +114,8 @@ namespace ArtWebApp.Reports.Dataset {
         
         private Criticalpath_SPDataTable tableCriticalpath_SP;
         
+        private LaySheetSummary_SPDataTable tableLaySheetSummary_SP;
+        
         private DataTable2DataTable tableDataTable2;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -278,6 +280,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["Criticalpath_SP"] != null)) {
                     base.Tables.Add(new Criticalpath_SPDataTable(ds.Tables["Criticalpath_SP"]));
+                }
+                if ((ds.Tables["LaySheetSummary_SP"] != null)) {
+                    base.Tables.Add(new LaySheetSummary_SPDataTable(ds.Tables["LaySheetSummary_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -754,6 +759,16 @@ namespace ArtWebApp.Reports.Dataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public LaySheetSummary_SPDataTable LaySheetSummary_SP {
+            get {
+                return this.tableLaySheetSummary_SP;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable2DataTable DataTable2 {
             get {
                 return this.tableDataTable2;
@@ -961,6 +976,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["Criticalpath_SP"] != null)) {
                     base.Tables.Add(new Criticalpath_SPDataTable(ds.Tables["Criticalpath_SP"]));
+                }
+                if ((ds.Tables["LaySheetSummary_SP"] != null)) {
+                    base.Tables.Add(new LaySheetSummary_SPDataTable(ds.Tables["LaySheetSummary_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -1268,6 +1286,12 @@ namespace ArtWebApp.Reports.Dataset {
                     this.tableCriticalpath_SP.InitVars();
                 }
             }
+            this.tableLaySheetSummary_SP = ((LaySheetSummary_SPDataTable)(base.Tables["LaySheetSummary_SP"]));
+            if ((initTable == true)) {
+                if ((this.tableLaySheetSummary_SP != null)) {
+                    this.tableLaySheetSummary_SP.InitVars();
+                }
+            }
             this.tableDataTable2 = ((DataTable2DataTable)(base.Tables["DataTable2"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable2 != null)) {
@@ -1374,6 +1398,8 @@ namespace ArtWebApp.Reports.Dataset {
             base.Tables.Add(this.tableMisPlacedInventoryOfAtc_SP);
             this.tableCriticalpath_SP = new Criticalpath_SPDataTable();
             base.Tables.Add(this.tableCriticalpath_SP);
+            this.tableLaySheetSummary_SP = new LaySheetSummary_SPDataTable();
+            base.Tables.Add(this.tableLaySheetSummary_SP);
             this.tableDataTable2 = new DataTable2DataTable();
             base.Tables.Add(this.tableDataTable2);
         }
@@ -1650,6 +1676,12 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeLaySheetSummary_SP() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeDataTable2() {
             return false;
         }
@@ -1843,6 +1875,9 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void Criticalpath_SPRowChangeEventHandler(object sender, Criticalpath_SPRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void LaySheetSummary_SPRowChangeEventHandler(object sender, LaySheetSummary_SPRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void DataTable2RowChangeEventHandler(object sender, DataTable2RowChangeEvent e);
@@ -13422,6 +13457,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnMisplacedValue;
             
+            private global::System.Data.DataColumn columnReason;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public InventorymissplacedDataTable() {
@@ -13641,6 +13678,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ReasonColumn {
+                get {
+                    return this.columnReason;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -13697,7 +13742,8 @@ namespace ArtWebApp.Reports.Dataset {
                         System.DateTime L1ApprovedDate, 
                         System.DateTime ApprovedDate, 
                         decimal CURate, 
-                        decimal MisplacedValue) {
+                        decimal MisplacedValue, 
+                        string Reason) {
                 InventorymissplacedRow rowInventorymissplacedRow = ((InventorymissplacedRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -13722,7 +13768,8 @@ namespace ArtWebApp.Reports.Dataset {
                         L1ApprovedDate,
                         ApprovedDate,
                         CURate,
-                        MisplacedValue};
+                        MisplacedValue,
+                        Reason};
                 rowInventorymissplacedRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInventorymissplacedRow);
                 return rowInventorymissplacedRow;
@@ -13768,6 +13815,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnApprovedDate = base.Columns["ApprovedDate"];
                 this.columnCURate = base.Columns["CURate"];
                 this.columnMisplacedValue = base.Columns["MisplacedValue"];
+                this.columnReason = base.Columns["Reason"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13819,6 +13867,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnCURate);
                 this.columnMisplacedValue = new global::System.Data.DataColumn("MisplacedValue", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMisplacedValue);
+                this.columnReason = new global::System.Data.DataColumn("Reason", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReason);
                 this.columnInventoryItem_PK.AutoIncrement = true;
                 this.columnInventoryItem_PK.AutoIncrementSeed = -1;
                 this.columnInventoryItem_PK.AutoIncrementStep = -1;
@@ -13845,6 +13895,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnIsApproved.MaxLength = 50;
                 this.columnApprovedBy.MaxLength = 50;
                 this.columnMisplacedValue.ReadOnly = true;
+                this.columnReason.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -24985,6 +25036,477 @@ namespace ArtWebApp.Reports.Dataset {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "Criticalpath_SPDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class LaySheetSummary_SPDataTable : global::System.Data.TypedTableBase<LaySheetSummary_SPRow> {
+            
+            private global::System.Data.DataColumn columnLocationName;
+            
+            private global::System.Data.DataColumn columnAtcNum;
+            
+            private global::System.Data.DataColumn columnBuyerStyle;
+            
+            private global::System.Data.DataColumn columnOurStyle;
+            
+            private global::System.Data.DataColumn columnLaySheetNum;
+            
+            private global::System.Data.DataColumn columnLayCutNum;
+            
+            private global::System.Data.DataColumn columnNoOfPlies;
+            
+            private global::System.Data.DataColumn columnIsApproved;
+            
+            private global::System.Data.DataColumn columnAddedBY;
+            
+            private global::System.Data.DataColumn columnAddedDate;
+            
+            private global::System.Data.DataColumn columnCut_NO;
+            
+            private global::System.Data.DataColumn columnCutOrderDet_PK;
+            
+            private global::System.Data.DataColumn columnMarkerNo;
+            
+            private global::System.Data.DataColumn columnColor;
+            
+            private global::System.Data.DataColumn columnAtcId;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPDataTable() {
+                this.TableName = "LaySheetSummary_SP";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal LaySheetSummary_SPDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected LaySheetSummary_SPDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LocationNameColumn {
+                get {
+                    return this.columnLocationName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AtcNumColumn {
+                get {
+                    return this.columnAtcNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn BuyerStyleColumn {
+                get {
+                    return this.columnBuyerStyle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn OurStyleColumn {
+                get {
+                    return this.columnOurStyle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LaySheetNumColumn {
+                get {
+                    return this.columnLaySheetNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LayCutNumColumn {
+                get {
+                    return this.columnLayCutNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn NoOfPliesColumn {
+                get {
+                    return this.columnNoOfPlies;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsApprovedColumn {
+                get {
+                    return this.columnIsApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AddedBYColumn {
+                get {
+                    return this.columnAddedBY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AddedDateColumn {
+                get {
+                    return this.columnAddedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Cut_NOColumn {
+                get {
+                    return this.columnCut_NO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutOrderDet_PKColumn {
+                get {
+                    return this.columnCutOrderDet_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MarkerNoColumn {
+                get {
+                    return this.columnMarkerNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ColorColumn {
+                get {
+                    return this.columnColor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AtcIdColumn {
+                get {
+                    return this.columnAtcId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRow this[int index] {
+                get {
+                    return ((LaySheetSummary_SPRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event LaySheetSummary_SPRowChangeEventHandler LaySheetSummary_SPRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event LaySheetSummary_SPRowChangeEventHandler LaySheetSummary_SPRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event LaySheetSummary_SPRowChangeEventHandler LaySheetSummary_SPRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event LaySheetSummary_SPRowChangeEventHandler LaySheetSummary_SPRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddLaySheetSummary_SPRow(LaySheetSummary_SPRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRow AddLaySheetSummary_SPRow(string LocationName, string AtcNum, string BuyerStyle, string OurStyle, string LaySheetNum, string LayCutNum, decimal NoOfPlies, string IsApproved, string AddedBY, System.DateTime AddedDate, string Cut_NO, string MarkerNo, string Color, decimal AtcId) {
+                LaySheetSummary_SPRow rowLaySheetSummary_SPRow = ((LaySheetSummary_SPRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        LocationName,
+                        AtcNum,
+                        BuyerStyle,
+                        OurStyle,
+                        LaySheetNum,
+                        LayCutNum,
+                        NoOfPlies,
+                        IsApproved,
+                        AddedBY,
+                        AddedDate,
+                        Cut_NO,
+                        null,
+                        MarkerNo,
+                        Color,
+                        AtcId};
+                rowLaySheetSummary_SPRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowLaySheetSummary_SPRow);
+                return rowLaySheetSummary_SPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRow FindByCutOrderDet_PK(decimal CutOrderDet_PK) {
+                return ((LaySheetSummary_SPRow)(this.Rows.Find(new object[] {
+                            CutOrderDet_PK})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                LaySheetSummary_SPDataTable cln = ((LaySheetSummary_SPDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new LaySheetSummary_SPDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnLocationName = base.Columns["LocationName"];
+                this.columnAtcNum = base.Columns["AtcNum"];
+                this.columnBuyerStyle = base.Columns["BuyerStyle"];
+                this.columnOurStyle = base.Columns["OurStyle"];
+                this.columnLaySheetNum = base.Columns["LaySheetNum"];
+                this.columnLayCutNum = base.Columns["LayCutNum"];
+                this.columnNoOfPlies = base.Columns["NoOfPlies"];
+                this.columnIsApproved = base.Columns["IsApproved"];
+                this.columnAddedBY = base.Columns["AddedBY"];
+                this.columnAddedDate = base.Columns["AddedDate"];
+                this.columnCut_NO = base.Columns["Cut_NO"];
+                this.columnCutOrderDet_PK = base.Columns["CutOrderDet_PK"];
+                this.columnMarkerNo = base.Columns["MarkerNo"];
+                this.columnColor = base.Columns["Color"];
+                this.columnAtcId = base.Columns["AtcId"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnLocationName = new global::System.Data.DataColumn("LocationName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocationName);
+                this.columnAtcNum = new global::System.Data.DataColumn("AtcNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcNum);
+                this.columnBuyerStyle = new global::System.Data.DataColumn("BuyerStyle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuyerStyle);
+                this.columnOurStyle = new global::System.Data.DataColumn("OurStyle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOurStyle);
+                this.columnLaySheetNum = new global::System.Data.DataColumn("LaySheetNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLaySheetNum);
+                this.columnLayCutNum = new global::System.Data.DataColumn("LayCutNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLayCutNum);
+                this.columnNoOfPlies = new global::System.Data.DataColumn("NoOfPlies", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoOfPlies);
+                this.columnIsApproved = new global::System.Data.DataColumn("IsApproved", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApproved);
+                this.columnAddedBY = new global::System.Data.DataColumn("AddedBY", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedBY);
+                this.columnAddedDate = new global::System.Data.DataColumn("AddedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedDate);
+                this.columnCut_NO = new global::System.Data.DataColumn("Cut_NO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCut_NO);
+                this.columnCutOrderDet_PK = new global::System.Data.DataColumn("CutOrderDet_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutOrderDet_PK);
+                this.columnMarkerNo = new global::System.Data.DataColumn("MarkerNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMarkerNo);
+                this.columnColor = new global::System.Data.DataColumn("Color", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColor);
+                this.columnAtcId = new global::System.Data.DataColumn("AtcId", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcId);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnCutOrderDet_PK}, true));
+                this.columnLocationName.MaxLength = 50;
+                this.columnAtcNum.MaxLength = 10;
+                this.columnBuyerStyle.MaxLength = 50;
+                this.columnOurStyle.AllowDBNull = false;
+                this.columnOurStyle.MaxLength = 50;
+                this.columnLaySheetNum.MaxLength = 50;
+                this.columnLayCutNum.MaxLength = 50;
+                this.columnIsApproved.MaxLength = 10;
+                this.columnAddedBY.MaxLength = 50;
+                this.columnCut_NO.MaxLength = 50;
+                this.columnCutOrderDet_PK.AutoIncrement = true;
+                this.columnCutOrderDet_PK.AutoIncrementSeed = -1;
+                this.columnCutOrderDet_PK.AutoIncrementStep = -1;
+                this.columnCutOrderDet_PK.AllowDBNull = false;
+                this.columnCutOrderDet_PK.ReadOnly = true;
+                this.columnCutOrderDet_PK.Unique = true;
+                this.columnMarkerNo.MaxLength = 50;
+                this.columnColor.MaxLength = 2147483647;
+                this.columnAtcId.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRow NewLaySheetSummary_SPRow() {
+                return ((LaySheetSummary_SPRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new LaySheetSummary_SPRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(LaySheetSummary_SPRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.LaySheetSummary_SPRowChanged != null)) {
+                    this.LaySheetSummary_SPRowChanged(this, new LaySheetSummary_SPRowChangeEvent(((LaySheetSummary_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.LaySheetSummary_SPRowChanging != null)) {
+                    this.LaySheetSummary_SPRowChanging(this, new LaySheetSummary_SPRowChangeEvent(((LaySheetSummary_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.LaySheetSummary_SPRowDeleted != null)) {
+                    this.LaySheetSummary_SPRowDeleted(this, new LaySheetSummary_SPRowChangeEvent(((LaySheetSummary_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.LaySheetSummary_SPRowDeleting != null)) {
+                    this.LaySheetSummary_SPRowDeleting(this, new LaySheetSummary_SPRowChangeEvent(((LaySheetSummary_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveLaySheetSummary_SPRow(LaySheetSummary_SPRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ReportDataSet ds = new ReportDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "LaySheetSummary_SPDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -36826,6 +37348,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Reason {
+                get {
+                    try {
+                        return ((string)(this[this.tableInventorymissplaced.ReasonColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Reason\' in table \'Inventorymissplaced\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInventorymissplaced.ReasonColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsRMNumNull() {
                 return this.IsNull(this.tableInventorymissplaced.RMNumColumn);
             }
@@ -37062,6 +37600,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetMisplacedValueNull() {
                 this[this.tableInventorymissplaced.MisplacedValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsReasonNull() {
+                return this.IsNull(this.tableInventorymissplaced.ReasonColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetReasonNull() {
+                this[this.tableInventorymissplaced.ReasonColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -47078,6 +47628,390 @@ namespace ArtWebApp.Reports.Dataset {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class LaySheetSummary_SPRow : global::System.Data.DataRow {
+            
+            private LaySheetSummary_SPDataTable tableLaySheetSummary_SP;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal LaySheetSummary_SPRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableLaySheetSummary_SP = ((LaySheetSummary_SPDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string LocationName {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.LocationNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LocationName\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.LocationNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string AtcNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.AtcNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AtcNum\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.AtcNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string BuyerStyle {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.BuyerStyleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BuyerStyle\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.BuyerStyleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string OurStyle {
+                get {
+                    return ((string)(this[this.tableLaySheetSummary_SP.OurStyleColumn]));
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.OurStyleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string LaySheetNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.LaySheetNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LaySheetNum\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.LaySheetNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string LayCutNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.LayCutNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LayCutNum\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.LayCutNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal NoOfPlies {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLaySheetSummary_SP.NoOfPliesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NoOfPlies\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.NoOfPliesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsApproved {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.IsApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsApproved\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.IsApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string AddedBY {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.AddedBYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedBY\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.AddedBYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime AddedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableLaySheetSummary_SP.AddedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedDate\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.AddedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Cut_NO {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.Cut_NOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cut_NO\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.Cut_NOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal CutOrderDet_PK {
+                get {
+                    return ((decimal)(this[this.tableLaySheetSummary_SP.CutOrderDet_PKColumn]));
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.CutOrderDet_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string MarkerNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.MarkerNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MarkerNo\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.MarkerNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Color {
+                get {
+                    try {
+                        return ((string)(this[this.tableLaySheetSummary_SP.ColorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Color\' in table \'LaySheetSummary_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.ColorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal AtcId {
+                get {
+                    return ((decimal)(this[this.tableLaySheetSummary_SP.AtcIdColumn]));
+                }
+                set {
+                    this[this.tableLaySheetSummary_SP.AtcIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLocationNameNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.LocationNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLocationNameNull() {
+                this[this.tableLaySheetSummary_SP.LocationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAtcNumNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.AtcNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAtcNumNull() {
+                this[this.tableLaySheetSummary_SP.AtcNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsBuyerStyleNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.BuyerStyleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetBuyerStyleNull() {
+                this[this.tableLaySheetSummary_SP.BuyerStyleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLaySheetNumNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.LaySheetNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLaySheetNumNull() {
+                this[this.tableLaySheetSummary_SP.LaySheetNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLayCutNumNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.LayCutNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLayCutNumNull() {
+                this[this.tableLaySheetSummary_SP.LayCutNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsNoOfPliesNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.NoOfPliesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetNoOfPliesNull() {
+                this[this.tableLaySheetSummary_SP.NoOfPliesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsApprovedNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.IsApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsApprovedNull() {
+                this[this.tableLaySheetSummary_SP.IsApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAddedBYNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.AddedBYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAddedBYNull() {
+                this[this.tableLaySheetSummary_SP.AddedBYColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAddedDateNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.AddedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAddedDateNull() {
+                this[this.tableLaySheetSummary_SP.AddedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCut_NONull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.Cut_NOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCut_NONull() {
+                this[this.tableLaySheetSummary_SP.Cut_NOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMarkerNoNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.MarkerNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMarkerNoNull() {
+                this[this.tableLaySheetSummary_SP.MarkerNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsColorNull() {
+                return this.IsNull(this.tableLaySheetSummary_SP.ColorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetColorNull() {
+                this[this.tableLaySheetSummary_SP.ColorColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class DataTable2Row : global::System.Data.DataRow {
             
             private DataTable2DataTable tableDataTable2;
@@ -48606,6 +49540,40 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Criticalpath_SPRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class LaySheetSummary_SPRowChangeEvent : global::System.EventArgs {
+            
+            private LaySheetSummary_SPRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRowChangeEvent(LaySheetSummary_SPRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public LaySheetSummary_SPRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -53518,6 +54486,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("ApprovedDate", "ApprovedDate");
             tableMapping.ColumnMappings.Add("CURate", "CURate");
             tableMapping.ColumnMappings.Add("MisplacedValue", "MisplacedValue");
+            tableMapping.ColumnMappings.Add("Reason", "Reason");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -53525,7 +54494,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -53550,22 +54519,22 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
                 " InventoryMissingRequest.reqnum AS Expr1, InventoryMissingRequest.Level1Approved" +
                 "BY, InventoryMissingRequest.IsApproved, InventoryMissingRequest.ApprovedBy, \r\n  " +
                 "                       InventoryMissingRequest.L1ApprovedDate, InventoryMissingR" +
-                "equest.ApprovedDate ,InventoryMaster.CURate,(InventoryMaster.CURate*InventoryMis" +
-                "singDetails.Qty) as MisplacedValue\r\nFROM            InventoryMaster INNER JOIN\r\n" +
-                "                         ProcurementDetails ON InventoryMaster.PoDet_PK = Procur" +
-                "ementDetails.PODet_PK INNER JOIN\r\n                         SkuRawmaterialDetail " +
-                "ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n   " +
-                "                      SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuR" +
-                "awMaterialMaster.Sku_Pk INNER JOIN\r\n                         UOMMaster ON Procur" +
-                "ementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN\r\n                         Inve" +
-                "ntoryMissingDetails ON InventoryMaster.InventoryItem_PK = InventoryMissingDetail" +
-                "s.InventoryItem_PK INNER JOIN\r\n                         InventoryMissingRequest " +
-                "ON InventoryMissingDetails.MisplaceApp_PK = InventoryMissingRequest.MisplaceApp_" +
-                "pk INNER JOIN\r\n                         LocationMaster ON InventoryMissingReques" +
-                "t.FromLctn_pk = LocationMaster.Location_PK\r\nORDER BY SkuRawMaterialMaster.RMNum," +
-                " Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, Pro" +
-                "curementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCod" +
-                "e";
+                "equest.ApprovedDate, InventoryMaster.CURate, InventoryMaster.CURate * InventoryM" +
+                "issingDetails.Qty AS MisplacedValue, \r\n                         InventoryMissing" +
+                "Request.Reason\r\nFROM            InventoryMaster INNER JOIN\r\n                    " +
+                "     ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_P" +
+                "K INNER JOIN\r\n                         SkuRawmaterialDetail ON ProcurementDetail" +
+                "s.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n                       " +
+                "  SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku" +
+                "_Pk INNER JOIN\r\n                         UOMMaster ON ProcurementDetails.Uom_PK " +
+                "= UOMMaster.Uom_PK INNER JOIN\r\n                         InventoryMissingDetails " +
+                "ON InventoryMaster.InventoryItem_PK = InventoryMissingDetails.InventoryItem_PK I" +
+                "NNER JOIN\r\n                         InventoryMissingRequest ON InventoryMissingD" +
+                "etails.MisplaceApp_PK = InventoryMissingRequest.MisplaceApp_pk INNER JOIN\r\n     " +
+                "                    LocationMaster ON InventoryMissingRequest.FromLctn_pk = Loca" +
+                "tionMaster.Location_PK\r\nORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRaw" +
+                "materialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.Supp" +
+                "lierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -58360,6 +59329,201 @@ WHERE        (CutOrderDO.CutID = @Param1)";
                 this.Adapter.SelectCommand.Parameters[4].Value = ((string)(shrinkagegroup));
             }
             ReportDataSet.Criticalpath_SPDataTable dataTable = new ReportDataSet.Criticalpath_SPDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class LaySheetSummary_SPTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public LaySheetSummary_SPTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "LaySheetSummary_SP";
+            tableMapping.ColumnMappings.Add("LocationName", "LocationName");
+            tableMapping.ColumnMappings.Add("AtcNum", "AtcNum");
+            tableMapping.ColumnMappings.Add("BuyerStyle", "BuyerStyle");
+            tableMapping.ColumnMappings.Add("OurStyle", "OurStyle");
+            tableMapping.ColumnMappings.Add("LaySheetNum", "LaySheetNum");
+            tableMapping.ColumnMappings.Add("LayCutNum", "LayCutNum");
+            tableMapping.ColumnMappings.Add("NoOfPlies", "NoOfPlies");
+            tableMapping.ColumnMappings.Add("IsApproved", "IsApproved");
+            tableMapping.ColumnMappings.Add("AddedBY", "AddedBY");
+            tableMapping.ColumnMappings.Add("AddedDate", "AddedDate");
+            tableMapping.ColumnMappings.Add("Cut_NO", "Cut_NO");
+            tableMapping.ColumnMappings.Add("CutOrderDet_PK", "CutOrderDet_PK");
+            tableMapping.ColumnMappings.Add("MarkerNo", "MarkerNo");
+            tableMapping.ColumnMappings.Add("Color", "Color");
+            tableMapping.ColumnMappings.Add("AtcId", "AtcId");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.LaySheetSummary_SP";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@atcid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ReportDataSet.LaySheetSummary_SPDataTable dataTable, global::System.Nullable<int> atcid) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((atcid.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(atcid.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ReportDataSet.LaySheetSummary_SPDataTable GetData(global::System.Nullable<int> atcid) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((atcid.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(atcid.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            ReportDataSet.LaySheetSummary_SPDataTable dataTable = new ReportDataSet.LaySheetSummary_SPDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

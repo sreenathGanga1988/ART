@@ -648,6 +648,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
         public String InsertLaySheet()
         {
             string Cutn = "";
+            decimal? noofplu = 0;
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 LaySheetMaster lsmstr = new LaySheetMaster();
@@ -659,7 +660,8 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                 lsmstr.AddedBY = HttpContext.Current.Session["Username"].ToString();
                 lsmstr.AddedDate = DateTime.Now;
                 lsmstr.LayCutNum = this.cutnum;
-                Cutn = lsmstr.LaySheetNum = "L" + this.LayRollRef;
+                lsmstr.NoOfPlies = 0;
+               
 
                 lsmstr.IsApproved = "N";
                 lsmstr.IsDeleted = "N";
@@ -668,7 +670,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                 lsmstr.IsUploaded = "N";
                 enty.LaySheetMasters.Add(lsmstr);
                 enty.SaveChanges();
-
+                Cutn = lsmstr.LaySheetNum = "L" + this.LayRollRef + '/' + lsmstr.LaySheet_PK;
                 //     Cutn = lsmstr.LaySheetNum = CodeGenerator.GetUniqueCode("LS", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(lsmstr.LaySheet_PK.ToString()));
 
 
@@ -689,7 +691,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                     lcdet.ExcessOrShort = di.ExceSShortage;
                     lcdet.LaySheetRoll_Pk = di.LaySheetRoll_Pk;
                     enty.LaySheetDetails.Add(lcdet);
-
+                    noofplu = noofplu + lcdet.NoOfPlies;
 
 
                     var qlayroll = from rlldata in enty.LaySheetRollDetails
@@ -725,7 +727,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
 
 
-
+                lsmstr.NoOfPlies = noofplu;
                 enty.SaveChanges();
 
 
@@ -746,7 +748,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                 //     lsmstr.CutOrderDet_PK = this.CutOrderDet_PK;
 
 
-                Cutn = "C" + this.cutnum + "/" + DBTransaction.LaysheetTransaction.getlaysheetnum(this.cutid).ToString() + " /" + this.markernum + "/" + DBTransaction.LaysheetTransaction.getlaysheetnumofcutorder(this.CutOrderDet_PK).ToString();
+                Cutn = "C" + this.cutnum + "/" + DBTransaction.LaysheetTransaction.getlaysheetnum(this.cutid).ToString() + "/" + this.markernum + "/" + DBTransaction.LaysheetTransaction.getlaysheetnumofcutorder(this.CutOrderDet_PK).ToString();
 
 
                 LaySheetRollMaster lmmstr = new DataModels.LaySheetRollMaster();

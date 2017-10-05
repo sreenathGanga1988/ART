@@ -17,7 +17,15 @@ namespace ArtWebApp.Production.Cutting
             if (!IsPostBack)
             {
                
+                if(Session["UserProfile_Pk"].ToString().Trim()=="1" || Session["UserLoc_pk"].ToString().Trim() == "6")
+                {
+                    btn_deleteCutorder.Visible = true;
 
+                }
+                else
+                {
+                    btn_deleteCutorder.Visible = false;
+                }
             }
             else
             {
@@ -844,18 +852,52 @@ namespace ArtWebApp.Production.Cutting
             
              BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
             cmstrdata.Refpattern = txt_refpattern.Text;
-            cmstrdata.DeleteCutPlan(int.Parse(drp_cutplan.SelectedValue.ToString()));
+            int cutplanpk = int.Parse(drp_cutplan.SelectedValue.ToString());
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                if (!enty.CutPlanRollDetails.Any(f => f.CutPlan_PK == cutplanpk && f.IsDeleted == "N"))
+                {
 
-            tbl_ASQdata.DataSource = null;
-            tbl_cutplanmarkerdata.DataSource = null;
-            tbl_markertype.DataSource = null;
+
+                    if (!enty.CutOrderMasters.Any(f => f.CutPlan_Pk == cutplanpk && f.IsDeleted == "N"))
+                    {
+                        cmstrdata.DeleteCutPlan(int.Parse(drp_cutplan.SelectedValue.ToString()));
+
+                        tbl_ASQdata.DataSource = null;
+                        tbl_cutplanmarkerdata.DataSource = null;
+                        tbl_markertype.DataSource = null;
 
 
-            tbl_ASQdata.DataBind();
-            tbl_ASQdata.DataBind();
-            tbl_ASQdata.DataBind();
-            string msg = " CutPlan Deleted .But cutorder may have been Created Please call HO to cancel it";
-            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+                        tbl_ASQdata.DataBind();
+                        tbl_ASQdata.DataBind();
+                        tbl_ASQdata.DataBind();
+                        string msg = " CutPlan Deleted .But cutorder may have been Created Please call HO to cancel it";
+                        ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+
+                     
+
+                    }
+                    else
+                    {
+                        string msg = " CutPlan Cannot Be deleted as Cutorder is Given ";
+                        ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+
+                    }
+
+                   
+                }
+
+                
+                else
+                {
+                    string msg = " CutPlan Cannot Be deleted as Rolls are not removed from  Cutplan";
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+
+
+                }
+            }
+
+           
         }
 
         protected void Button2_Click(object sender, EventArgs e)

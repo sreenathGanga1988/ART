@@ -123,5 +123,42 @@ namespace ArtWebApp.DataModels
         
     }
 
+    [MetadataType(typeof(FreightRequestMaster))]
+    public partial class FreightRequestMaster
+    {
+        //public decimal FreightRequestID { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string FreightRequestNum { get; set; }
 
+        //[Display(Name = " Virtual Department")]
+        //public string AddedBy { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public Nullable<System.DateTime> AddedDate { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string FromParty { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string ToParty { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string Shipper { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string Weight { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string ContentofPackage { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string DebitTo { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string Reason { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string Merchandiser { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string ForwarderDetails { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string ApproximateCharges { get; set; }
+        //[Display(Name = " Virtual Department")]
+        //public string Remark { get; set; }
+        //public string ApprovedBy { get; set; }
+        //public Nullable<System.DateTime> ApprovedDate { get; set; }
+        //public string IsApproved { get; set; }
+        //public string IsPosted { get; set; }
+    }
 }

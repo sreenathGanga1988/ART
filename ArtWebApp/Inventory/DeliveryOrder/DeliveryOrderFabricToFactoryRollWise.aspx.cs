@@ -335,12 +335,38 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
 
-                        
+
+                        Boolean isexeptionalAtc = false;
+                        using (ArtEntitiesnew entty = new ArtEntitiesnew())
+                        {
+
+                            int atcid = int.Parse(cmb_atc.SelectedValue.ToString());
+
+
+                            if (!entty.ExceptionAtcLists.Any(f => f.AtcID == atcid ))
+                            {
+                                isexeptionalAtc = true;
+                            }
+                            else
+                            {
+                                isexeptionalAtc = false;
+                            }
+
+                            }
+                        DataTable dt = new DataTable();
+                        if (isexeptionalAtc)
+                        {
+                             dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorder(InventoryItem_PK, cutid,int.Parse(Session["UserLoc_pk"].ToString ()));
+
+                        }
+                        else
+                        {
+                          dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorderAgainstCutPlan(InventoryItem_PK, cutid, int.Parse(Session["UserLoc_pk"].ToString()));
+
+                        }
 
 
 
-
-                        DataTable dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofAItemPKandCutorder(InventoryItem_PK, cutid,int.Parse(Session["UserLoc_pk"].ToString ()));
                         if (dt.Rows.Count > 0)
                         {
                             DataView view = new DataView(dt);

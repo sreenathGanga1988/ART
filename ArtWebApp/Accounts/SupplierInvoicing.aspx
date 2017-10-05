@@ -26,13 +26,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table class="FullTable">
-        <tr>
-            <td class="RedHeadding">PAYABLE PO VOUCHER</td>
-        </tr>
-        <tr>
-            <td>
-                <table class="DataEntryTable">
+  
+         <div class="RedHeaddingdIV">
+            PAYABLE PO VOUCHER
+        </div>
+    <div>
+        <table >
                     <tr>
                         <td class="NormalTD">Supplier :</td>
                         <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -100,6 +99,16 @@
                     </tr>
                     
                 </table>
+
+    </div>
+    
+    <table class="FullTable">
+
+   
+
+        <tr>
+            <td>
+                
             </td>
         </tr>
         <tr class="smallgridtable">

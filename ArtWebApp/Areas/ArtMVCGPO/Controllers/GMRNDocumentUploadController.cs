@@ -22,7 +22,15 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
             return View(model);
         }
 
-
+        [HttpGet]
+        public ActionResult ShowMRN(int MrnID=0)
+        {
+            GMRNViewModal model = new GMRNViewModal();
+            model.MrnID = MrnID;
+           
+           
+            return RedirectToAction("GMRNDocumentUpload",model);
+        }
         private void ConfigureViewModel(GMRNViewModal model)
         {
           

@@ -1,0 +1,89 @@
+﻿@model ArtWebApp.DataModels.PatternNameBank
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PatternNameBank</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Shrinkage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shrinkage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatternName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatternName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReferncePatternName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReferncePatternName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtcDetail.OurStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

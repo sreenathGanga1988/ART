@@ -193,7 +193,13 @@ namespace ArtWebApp.Merchandiser.ASQ
                     chK_IsDeleted.Checked = true;
                     chK_IsDeleted.Enabled = false;
                 }
-
+                string lbl_isAsqable = BLL.popackupdater.IsDeleted(ourstyleid, popackid);
+                CheckBox chK_isAsqable = (e.Row.FindControl("chK_isAsqable") as CheckBox);
+                if (lbl_isAsqable.Trim() == "Y")
+                {
+                    chK_isAsqable.Checked = true;
+                    chK_isAsqable.Enabled = false;
+                }
 
 
             }

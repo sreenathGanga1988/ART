@@ -33,5 +33,7 @@ namespace ArtWebApp.DataModels
         public string PaternMarkerName { get; set; }
         public Nullable<decimal> Efficiency { get; set; }
         public string IsDeleted { get; set; }
+        public string DeletedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     }
 }

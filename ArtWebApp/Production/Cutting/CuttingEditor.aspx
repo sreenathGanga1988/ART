@@ -60,7 +60,7 @@
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
                         <td class="NormalTD">
-                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlan_PK], [CutPlanNUM] FROM [CutPlanMaster]">
+                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlan_PK], [CutPlanNUM] FROM [CutPlanMaster] WHERE        (IsRejected = N'N') AND (IsDeleted = N'N') ">
                                 
                             </asp:SqlDataSource>
                         </td>

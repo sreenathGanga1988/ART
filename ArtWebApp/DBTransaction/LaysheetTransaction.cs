@@ -295,6 +295,25 @@ FROM            LaySheetRollMaster where        (CutOrderDet_PK = @CutOrderDet_P
                 return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
             }
         }
+
+        /// <summary>
+        /// get the laysheetmASTERdATA OF A LAYSHEET FOR REPORT
+        /// </summary>
+        /// <param name="laysheetPK"></param>
+        /// <returns></returns>
+        public static DataTable LaySheetSummary(int atcid)
+        {
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "LaySheetSummary_SP";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+
+                return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+        }
+
         public static DataTable getSizeRatioofLaysheet(int laysheetPK)
         {
             using (SqlCommand cmd = new SqlCommand())

@@ -518,6 +518,47 @@ ORDER BY tt.RollNum ";
 
 
 
+        /// <summary>
+        /// Get All Fabric Rolls of A Item based on the sskudetpk of that item and will show those rolls which
+        /// have same cutwidth and Shrinkage of that cutorder an is presnt5 in the location(warehouse)
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public static DataTable getFabricRollofAItemPKandCutorderAgainstCutPlan(int iitemPK, int cutid, int location_pk)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT        tt.Roll_PK, tt.RollNum, tt.ASN, tt.PONum, tt.itemDescription, tt.WidthGroup, tt.ShadeGroup, tt.ShrinkageGroup, tt.AYard, tt.AtcNum, tt.InventoryItem_PK, tt.Location_PK, RollInventoryMaster.IsPresent, 
+                         RollInventoryMaster.Location_Pk AS Expr1, tt.MarkerType, tt.AWidth, tt.AShrink, tt.AShade,ISNULL( tt.SWeight,'NA') as SWeight
+FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
+                         ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
+                         + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, InventoryMaster.InventoryItem_PK, InventoryMaster.Location_PK, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
+                         FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, CutPlanRollDetails.IsDeleted
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
+                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN
+                         SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster.Supplier_PK INNER JOIN
+                         InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk INNER JOIN
+                         CurrencyMaster ON SupplierMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
+                         CutOrderMaster ON FabricRollmaster.ShrinkageGroup = CutOrderMaster.Shrinkage AND FabricRollmaster.WidthGroup = CutOrderMaster.CutWidth INNER JOIN
+                         CutPlanRollDetails ON FabricRollmaster.Roll_PK = CutPlanRollDetails.Roll_PK AND CutOrderMaster.CutPlan_Pk = CutPlanRollDetails.CutPlan_PK
+WHERE        (InventoryMaster.InventoryItem_PK = @iitemPK) AND (CutOrderMaster.CutID = @cutid) AND (FabricRollmaster.IsDelivered <> N'Y') AND (CutPlanRollDetails.IsDeleted = N'N')) AS tt INNER JOIN
+                         RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK
+WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @location_pk)
+ORDER BY tt.RollNum ";
+                cmd.Parameters.AddWithValue("@iitemPK", iitemPK);
+                cmd.Parameters.AddWithValue("@cutid", cutid);
+                cmd.Parameters.AddWithValue("@location_pk", location_pk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
+
+
 
 
         public static DataTable getFabricRollAvailableforCutPLan(int cutplan_PK, int location_pk)

@@ -150,5 +150,21 @@ namespace ArtWebApp.Reports.Production.LaySheet
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\ExtraFabricrequest.rdlc";
             
         }
+
+        protected void btn_showLaysheetsummary(object sender, EventArgs e)
+        {
+            DataTable dt = DBTransaction.LaysheetTransaction.LaySheetSummary(int.Parse(drp_Atc.SelectedValue.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\LaysheetTemplate.rdlc";
+            String Reportheading = "Laysheet Summary  Report  As  of " + DateTime.Now.Date.ToString("dd/MM/yyyy") + "  for " + drp_Atc.SelectedItem.Text ;
+
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1
+    });
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace ArtWebApp.Production.Cutting
             {
 
                 var sizedetails = (from ponmbr in entty.LaySheetMasters
-                                   where ponmbr.OustyleID == ourstyleid && ponmbr.Location_PK== lctn_pk && ponmbr.IsApproved=="N"
+                                   where ponmbr.OustyleID == ourstyleid && ponmbr.Location_PK== lctn_pk && ponmbr.IsApproved=="N" && ponmbr.NoOfPlies>0
                                    select new
                                    {
                                        ponmbr.LaySheetNum,

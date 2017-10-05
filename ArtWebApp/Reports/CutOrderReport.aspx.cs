@@ -139,7 +139,7 @@ namespace ArtWebApp.Reports
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.AtcDetail.AtcId == atcid 
+                        where ponmbr.AtcDetail.AtcId == atcid  && ponmbr.IsDeleted=="N"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -400,5 +400,33 @@ namespace ArtWebApp.Reports
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
             ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
         }
+
+        protected void btn_showshrinkagereportofAtc_Click(object sender, EventArgs e)
+        {
+
+            DBTransaction.CutOrderTransaction potrsans = new DBTransaction.CutOrderTransaction();
+            DataTable dt = new DataTable();
+            if (drp_fact.SelectedItem.Text == "Select All")
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_Atc.SelectedValue.ToString().Trim()), 0);
+            }
+            else
+            {
+                dt = potrsans.GetCriticalPath(int.Parse(drp_Atc.SelectedValue.ToString().Trim()), int.Parse(drp_fact.SelectedValue.ToString()));
+            }
+
+
+            String Reportheading = "Critical Report  As  of " + DateTime.Now.Date.ToString("dd/MM/yyyy") + "  for " + drp_Atc.SelectedItem.Text + " in " + drp_fact.SelectedItem.Text;
+
+            ReportParameter rp1 = new ReportParameter("Heading", Reportheading);
+            
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
+            ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
+        }
+      
     }
 }

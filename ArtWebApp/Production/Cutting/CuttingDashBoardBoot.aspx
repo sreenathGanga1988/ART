@@ -44,7 +44,7 @@
 FROM            CutPlanMaster INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
-WHERE        (CutPlanMaster.IsApproved = N'N') AND (CutPlanMaster.IsRollAdded = N'Y')"></asp:SqlDataSource>
+WHERE        (CutPlanMaster.IsApproved = N'N') AND (CutPlanMaster.IsRollAdded = N'Y') AND (CutPlanMaster.IsDeleted = N'N')"></asp:SqlDataSource>
   </div>
 
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingpatternDiv">Pending Pattern</button>
@@ -68,7 +68,7 @@ WHERE        (CutPlanMaster.IsApproved = N'N') AND (CutPlanMaster.IsRollAdded = 
 FROM            CutPlanMaster INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
-WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded = N'N')">
+WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded = N'N') AND (CutPlanMaster.IsDeleted = N'N')">
                             </asp:SqlDataSource>
   </div>
 
@@ -95,7 +95,7 @@ WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded
 FROM            CutPlanMaster INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK
-WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded = N'Y') AND (CutPlanMaster.IsCutorderGiven = 'N')"></asp:SqlDataSource>
+WHERE        (CutPlanMaster.IsApproved = N'Y') AND (CutPlanMaster.IsPatternAdded = N'Y') AND (CutPlanMaster.IsCutorderGiven = 'N')AND (CutPlanMaster.IsDeleted = N'N')"></asp:SqlDataSource>
                               
 
                             

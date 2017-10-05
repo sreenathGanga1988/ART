@@ -47,18 +47,28 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
-            <td class="NormalTD">&nbsp;</td>
-            <td class="NormalTD"><asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+            <td class="NormalTD">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <asp:Button ID="btn_showApproved" runat="server" Text="Show All Cutorder" Width="190px" OnClick="Button1_Click" Font-Size="Smaller" />
+                        <asp:Button ID="btn_showApproved" runat="server" Font-Size="Smaller" OnClick="Button1_Click" Text="Show All Cutorder" Width="190px" />
                     </ContentTemplate>
-                </asp:UpdatePanel></td>
-            <td class="NormalTD" >
+                </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD">
                 <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <asp:Button ID="btn_showApprovedcutplan" runat="server" Font-Size="Smaller" OnClick="btn_showApprovedcutplan_Click" Text="Show All Cutplan" ToolTip="Show All Cut Plan  of Selected Atc Approved By QAD " Width="190px" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
+            </td>
+            <td class="NormalTD" >
+                
+                <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Button ID="btn_showshrinkagereportofAtc" runat="server" Font-Size="Smaller" OnClick="btn_showshrinkagereportofAtc_Click" Text="Show Critical Report" ToolTip="Show Critical report of Selected fabric of Ourstyle" Width="190px" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                
                 </td>
             <td class="NormalTD">
                 <asp:Button ID="btn_showApprovedcutplan0" runat="server" Font-Size="Smaller" Text="Show Cutplan History" ToolTip="Show All Cut Plan  and Cutorder Details of Atc" Width="190px" OnClick="btn_showApprovedcutplan0_Click" />
@@ -82,7 +92,8 @@
             <td>
                 &nbsp;</td>
             <td>
-                &nbsp;</td>
+                
+            </td>
             <td >
                 
             </td>

@@ -18,14 +18,11 @@
  
     </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <table class="DataEntryTable">
-        <tr>
-            <td class="RedHeadding">cut order size details</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
+    <div class="RedHeaddingdIV">
+        cUT PLAN aPPROVAL
+    </div>
+    <div class="DataEntryTable">
+        <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
                                 <ContentTemplate>
 
  <table class="tittlebar">
@@ -47,7 +44,7 @@
                             <asp:Button ID="btn_cutorder" runat="server"  Text="S" OnClick="btn_cutorder_Click" /></ContentTemplate>
                                         </asp:UpdatePanel></td>
                         <td class="NormalTD">
-                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT CutPlan_PK, CutPlanNUM, IsRollAdded FROM CutPlanMaster WHERE (IsApproved = @IsApproved) AND (IsRatioAdded = @IsRatioAdded) AND (IsRollAdded = N'Y')">
+                            <asp:SqlDataSource ID="cutplandatasource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT CutPlan_PK, CutPlanNUM, IsRollAdded FROM CutPlanMaster WHERE (IsApproved = @IsApproved) AND (IsRatioAdded = @IsRatioAdded) AND (IsRollAdded = N'Y') AND (IsDeleted = N'N')">
                                 <SelectParameters>
                                     <asp:Parameter DefaultValue="N" Name="IsApproved" Type="String" />
                                     <asp:Parameter DefaultValue="Y" Name="IsRatioAdded" Type="String" />
@@ -108,8 +105,13 @@
                                              <td class="NormalTD">
                                                  <asp:Label ID="lbl_fabric" runat="server" Font-Size="X-Small" Text="0"></asp:Label>
                                              </td>
-                                             <td class="NormalTD">&nbsp;</td>
-                                             <td class="NormalTD">&nbsp;</td>
+                                             <td class="NormalTD">Ref paattern if any </td>
+                                             <td class="NormalTD">  
+                                                 <asp:UpdatePanel ID="upd_refpattern" UpdateMode="Conditional" runat="server">
+                                       <ContentTemplate>
+                                        <asp:TextBox ID="txt_refpattern" runat="server" Height="19px" Width="96px"></asp:TextBox>
+                                             </ContentTemplate>
+                                                     </asp:UpdatePanel></td>
                                          </tr>
                                          <tr>
                                              <td class="NormalTD">Fabrication</td>
@@ -237,17 +239,13 @@
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
                 </table>
-                                       </ContentTemplate>
+                                      
+                                    
+                                </ContentTemplate>
                             </asp:UpdatePanel>
-               
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:UpdatePanel ID="updASQgrid" runat="server" UpdateMode="Conditional">
+    </div>
+    <div>
+        <asp:UpdatePanel ID="updASQgrid" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <table class="DataEntryTable">
                             <tr>
@@ -351,14 +349,20 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="NormalTD">Ref paattern if any </td>
+                                    <td class="NormalTD"></td>
                                     <td class="NormalTD">
-                                           <asp:UpdatePanel ID="upd_refpattern" UpdateMode="Conditional" runat="server">
-                                       <ContentTemplate>
-                                        <asp:TextBox ID="txt_refpattern" runat="server" Height="144px" Width="198px"></asp:TextBox>
-                                             </ContentTemplate>
-                                       
+                                        </tr>
+    </table>    
+                                       </ContentTemplate>
                                     </asp:UpdatePanel>
+    </div>
+    <div>
+        <table class="DataEntryTable">
+    
+       
+        <tr>
+            <td>
+                
                                     </td>
                                     <td class="NormalTD">
                                         If Rejected reason</td>
@@ -369,7 +373,15 @@
                                     <td class="NormalTD"></td>
                                     <td class="NormalTD"></td>
                                 </tr>
-                            </tr>
+                         
+                        </table>
+
+    </div>
+    <div>
+
+          <table class="DataEntryTable">
+
+               
                             <tr>
                                 <td class="auto-style8" colspan="3">
                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
@@ -400,13 +412,13 @@
                                     </asp:UpdatePanel>
                                 </td>
                             </tr>
-                        </table>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </td>
-        </tr>
-        <tr>
-            <td>
+
+          </table>
+
+    </div>
+    
+    
+         
                 <div id="Messaediv" runat="server">
                  
 
@@ -415,9 +427,8 @@
 
 
                      
-               </div></td>
-        </tr>
-    </table>
+               </div>
+    
     <asp:SqlDataSource ID="cutplanmarkerdetails" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        CutPlanMarkerDetails_PK, CutPlan_PK, MarkerNo, NoOfPc, Qty, MarkerLength, LayLength, NoOfPlies, CutPerPlies, Cutreq
 FROM            CutPlanMarkerDetails
 WHERE        (CutPlan_PK = @CutPlan_PK) ">

@@ -233,6 +233,8 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<PatternNameBank> PatternNameBanks { get; set; }
         public virtual DbSet<CutPlanRejectHistory> CutPlanRejectHistories { get; set; }
         public virtual DbSet<MrnFileUpload> MrnFileUploads { get; set; }
+        public virtual DbSet<FreightRequestMaster> FreightRequestMasters { get; set; }
+        public virtual DbSet<ExceptionAtcList> ExceptionAtcLists { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

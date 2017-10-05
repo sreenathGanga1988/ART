@@ -45,6 +45,8 @@ namespace ArtWebApp.DataModels
         public string ForwardedBy { get; set; }
         public string IsNormal { get; set; }
         public string MarkCompleted { get; set; }
+        public string FreightType { get; set; }
+        public Nullable<decimal> FreightCharge { get; set; }
     
         public virtual ICollection<ProcurementDetail> ProcurementDetails { get; set; }
         public virtual ICollection<WrongPOMaster> WrongPOMasters { get; set; }

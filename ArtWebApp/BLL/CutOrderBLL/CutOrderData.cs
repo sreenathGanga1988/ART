@@ -202,9 +202,10 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                 foreach (var element in q)
                 {
-                    enty.CutOrderMasters.Remove(element);
-                    enty.SaveChanges();
+
+                    element.IsDeleted = "Y";
                 }
+                enty.SaveChanges();
             }
         }
 

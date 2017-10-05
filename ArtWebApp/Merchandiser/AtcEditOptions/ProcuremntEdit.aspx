@@ -12,6 +12,11 @@
         }
 
 
+        .auto-style1 {
+            width: 30px;
+        }
+
+
         </style>
     <link href="../../css/style.css" rel="stylesheet" />
 </asp:Content>
@@ -36,7 +41,7 @@
                                     <ucc:DropDownListChosen ID="drp_Atc" runat="server"  DataTextField="name" DataValueField="pk" Height="17px" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
-                                <td >
+                                <td class="auto-style1" >
                                     <asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click" />
                                 </td>
                                 <td >po#</td>
@@ -64,7 +69,7 @@
                                      <ucc:DropDownListChosen ID="drp_supplier" runat="server" DataSourceID="supplierdata" DataTextField="SupplierName" DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
-                                <td ></td>
+                                <td class="auto-style1" ></td>
                                 <td aria-invalid="grammar" class="auto-style20">Delivery Date :</td>
                                 <td >
                                     <ig:WebDatePicker ID="dtp_deliverydate" runat="server" Height="23px" Width="200px">
@@ -78,7 +83,7 @@
                                        <ucc:DropDownListChosen ID="drp_deliveryterm" runat="server" DataSourceID="deliveryterm" DataTextField="DeliveryTerm" DataValueField="DeliveryTerms_Pk" DisableSearchThreshold="10" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
-                                <td ></td>
+                                <td class="auto-style1" ></td>
                                 <td >Delivery Destination :</td>
                                 <td >
                                       <ucc:DropDownListChosen ID="drp_deliverydestination" runat="server" DataSourceID="Wharehousedata" DataTextField="LocationName" DataValueField="Location_PK" DisableSearchThreshold="10" Width="200px">
@@ -92,7 +97,7 @@
                                      <ucc:DropDownListChosen ID="drp_deliverymethod" runat="server" DataSourceID="DeliveryMethodData" DataTextField="DeliveryMethod" DataValueField="Deliverymethod_Pk" DisableSearchThreshold="10" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
-                                <td >&nbsp;</td>
+                                <td class="auto-style1" >&nbsp;</td>
                                 <td >&nbsp;Currency :</td>
                                 <td >
                                     <ucc:DropDownListChosen ID="drp_currency" runat="server" DataSourceID="currencydata" DataTextField="CurrencyCode" DataValueField="CurrencyID"  DisableSearchThreshold="10" Width="200px" AutoPostBack="True" OnSelectedIndexChanged="drp_currency_SelectedIndexChanged">
@@ -106,7 +111,7 @@
                                      <ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentTermCode" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px">
                                     </ucc:DropDownListChosen>
                                 </td>
-                                <td >&nbsp;</td>
+                                <td class="auto-style1" >&nbsp;</td>
                                 <td >po tYPE :</td>
                                 <td >
                                     <ucc:DropDownListChosen ID="drp_potype" runat="server" Width="200px">
@@ -119,15 +124,31 @@
                             <tr>
                                 <td>Remark</td>
                                 <td><asp:TextBox ID="txtarea" runat="server" Height="47px" Width="171px"></asp:TextBox></td>
-                                <td>&nbsp;</td>
+                                <td class="auto-style1">&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
+                                <td>Freight type</td>
+                                <td>
+                                    <ucc:DropDownListChosen ID="drp_freightChargetype" runat="server" Width="200px">
+                                        <asp:ListItem>No Charges</asp:ListItem>
+                                        <asp:ListItem>Sea</asp:ListItem>
+                                        <asp:ListItem>Air</asp:ListItem>
+                                        <asp:ListItem>Courier</asp:ListItem>
+                                    </ucc:DropDownListChosen>
+                                </td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td>freight charge</td>
+                                <td>
+                                    <asp:TextBox ID="txt_freightcharges" runat="server">0</asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td >&nbsp;</td>
                                 <td >&nbsp;</td>
-                                <td >&nbsp;</td>
+                                <td class="auto-style1" >&nbsp;</td>
                                 <td >
                                     <asp:Label ID="lbl_mssg" runat="server" Text="*"></asp:Label>
                                 </td>

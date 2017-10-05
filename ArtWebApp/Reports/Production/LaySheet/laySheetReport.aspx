@@ -32,7 +32,9 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
-            <td class="NormalTD">&nbsp;</td>
+            <td class="NormalTD">
+                <asp:Button ID="Button10" runat="server" Font-Size="Smaller" OnClick="btn_showLaysheetsummary" Text="Show laysheet summary of Atc" />
+            </td>
             <td class="NormalTD" >
                 <asp:Button ID="Button8" runat="server" Font-Size="Smaller" OnClick="Button8_Click" Text="Show laysheet pending of All location" ToolTip="Show laysheet pending of All location All Atc" />
             </td>

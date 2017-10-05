@@ -100,7 +100,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsCutorderGiven=="N"
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsCutorderGiven=="N"  && ponmbr.IsDeleted=="N" && ponmbr.IsPatternAdded == "N"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
