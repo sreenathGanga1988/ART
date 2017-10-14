@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.ExtDeliveryToken>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveredQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BalanceToDeliver)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Isdeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SKU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AtcMaster.AtcNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationMaster1.LocationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemGroupMaster.ItemGroupName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveredQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BalanceToDeliver)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Isdeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SKU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationMaster1.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SkuRawmaterialDetail.ColorCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemGroupMaster.ItemGroupName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExtDeliveryTokenID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExtDeliveryTokenID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExtDeliveryTokenID })
+        </td>
+    </tr>
+}
+
+</table>

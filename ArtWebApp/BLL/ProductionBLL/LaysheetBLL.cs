@@ -41,8 +41,8 @@ namespace ArtWebApp.BLL.ProductionBLL
             cmd.CommandText = @"select isnull(qty,0)as  NoOfPlies from  ( SELECT        SUM(LaySheetDetails.NoOfPlies) AS qty
 FROM            LaySheetDetails INNER JOIN
                          LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
-GROUP BY LaySheetMaster.CutOrderDet_PK
-HAVING        (LaySheetMaster.CutOrderDet_PK = @param1))tt";
+GROUP BY LaySheetMaster.CutOrderDet_PK , LaySheetDetails.IsDeleted
+HAVING        (LaySheetMaster.CutOrderDet_PK = @param1) AND (LaySheetDetails.IsDeleted = N'N'))tt";
             cmd.Parameters.AddWithValue("@param1", CutOrderDet_PK);
 
             var obj = QueryFunctions.ReturnQueryValue(cmd);
@@ -688,6 +688,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                     lcdet.LaySheet_PK = lsmstr.LaySheet_PK;
                     lcdet.FabUtilized = di.fabqty;
                     lcdet.BalToCut = di.Balance;
+                    lcdet.IsDeleted = "N";
                     lcdet.ExcessOrShort = di.ExceSShortage;
                     lcdet.LaySheetRoll_Pk = di.LaySheetRoll_Pk;
                     enty.LaySheetDetails.Add(lcdet);
@@ -737,6 +738,90 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
             return Cutn;
 
         }
+
+
+
+
+
+
+
+
+
+
+        public String DeletelaysheetdetailRoll(int laysheetdetpk)
+        {
+            string Cutn = "";
+            decimal? noofplu = 0;
+            decimal newbalance = 0;
+            String isreusable = "";
+            int laysheetrolldetpk = 0;
+            int laysheetpk = 0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from laysheetdet in enty.LaySheetDetails
+                        where laysheetdet.LaySheetDet_PK == laysheetdetpk
+                        select laysheetdet;
+                foreach(var element in q)
+                {
+                    laysheetrolldetpk = int.Parse( element.LaySheetRoll_Pk.ToString());
+                    element.IsDeleted = "Y";
+                    element.DeletedBy = HttpContext.Current.Session["Username"].ToString();
+                    element.Deleteddate = DateTime.Now;
+                    laysheetpk = int.Parse(element.LaySheetRoll_Pk.ToString());
+
+                    if (element.IsRecuttable == "Y")
+                    {
+                        isreusable = "R";
+                        newbalance = decimal.Parse(element.FabUtilized.ToString()) + decimal.Parse(element.ExcessOrShort.ToString()) + decimal.Parse(element.BalToCut.ToString());
+                    }
+                    else
+                    {
+                        isreusable = "R";
+                       
+                        newbalance = decimal.Parse(element.FabUtilized.ToString()) + decimal.Parse(element.ExcessOrShort.ToString()) + decimal.Parse(element.BalToCut.ToString());
+
+                    }
+                }
+
+
+                var q1 = from laysheetrolldetil in enty.LaySheetRollDetails
+                         where laysheetrolldetil.LaySheetRoll_Pk == laysheetrolldetpk
+                         select laysheetrolldetil;
+
+                foreach(var element in q1)
+                {
+                    element.IsUsed = isreusable;
+                    element.BalanceYardage = newbalance;
+                }
+                enty.SaveChanges();
+
+                try
+                {
+                    var allocatedqty = enty.LaySheetDetails.Where(i => i.LaySheet_PK == LaySheet_PK && i.IsDeleted == "N").Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
+                    noofplu = decimal.Parse(allocatedqty.ToString());
+                }
+                catch (Exception)
+                {
+
+                   
+                }
+
+                var q3 = from cplmstr in enty.LaySheetMasters
+                         where cplmstr.LaySheet_PK == laysheetpk
+                         select cplmstr;
+                foreach (var element in q3)
+                {
+
+                    element.NoOfPlies = Decimal.Parse(noofplu.ToString());
+                }
+
+                enty.SaveChanges();
+            }
+            return Cutn;
+        }
+
+
+
 
 
         public String InsertLaySheetRoll()

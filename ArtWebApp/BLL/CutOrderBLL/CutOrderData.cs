@@ -74,11 +74,33 @@ namespace ArtWebApp.BLL.CutOrderBLL
             {
                 if (!enty.CutOrderDOes.Any(f => f.CutID.ToString().Trim () == cutid.ToString ().Trim()))
                 {
+
                     ispresent = false;
                 }
                 else
                 {
-                    ispresent = true;
+                  
+
+                    Decimal deliveryqty = 0;
+                    var alreadyallocated = enty.CutOrderDOes.Where(U => U.CutID == cutid).Sum(U => U.DeliveryQty);
+                    if (alreadyallocated != null)
+                    {
+                        deliveryqty = Decimal.Parse(alreadyallocated.ToString());
+                    }
+                    else
+                    {
+                        deliveryqty = 0;
+                    };
+
+
+                    if (deliveryqty <= 0)
+                    {
+                        ispresent = false;
+                    }
+                    else
+                    {
+                        ispresent = true;
+                    }
                 }
             }
             return ispresent;
@@ -286,7 +308,16 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
         }
 
+        public DataTable GetTrimDescription(int atcid)
+        {
+            DataTable dt = new DataTable();
+            cuttrans = new CutOrderTransaction();
+            dt = cuttrans.GetTrimsDescription(atcid);
 
+
+            return dt;
+
+        }
 
 
 

@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class RejectReqMaster
     {
+        public RejectReqMaster()
+        {
+            this.RejectReqDetails = new HashSet<RejectReqDetail>();
+        }
+    
         public decimal RejReqMasterID { get; set; }
         public Nullable<decimal> AtcID { get; set; }
         public string AddedBY { get; set; }
@@ -21,5 +26,8 @@ namespace ArtWebApp.DataModels
         public bool IsAdjusted { get; set; }
         public Nullable<decimal> Location_PK { get; set; }
         public string Reqnum { get; set; }
+        public string RejectionType { get; set; }
+    
+        public virtual ICollection<RejectReqDetail> RejectReqDetails { get; set; }
     }
 }

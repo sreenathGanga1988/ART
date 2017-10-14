@@ -343,13 +343,13 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                             int atcid = int.Parse(cmb_atc.SelectedValue.ToString());
 
 
-                            if (!entty.ExceptionAtcLists.Any(f => f.AtcID == atcid ))
+                            if (!entty.ExceptionAtcLists.Any(f =>f.AtcID == atcid ))
                             {
-                                isexeptionalAtc = true;
+                                isexeptionalAtc = false;
                             }
                             else
                             {
-                                isexeptionalAtc = false;
+                                isexeptionalAtc = true;
                             }
 
                             }

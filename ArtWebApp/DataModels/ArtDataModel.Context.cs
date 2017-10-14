@@ -235,6 +235,9 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<MrnFileUpload> MrnFileUploads { get; set; }
         public virtual DbSet<FreightRequestMaster> FreightRequestMasters { get; set; }
         public virtual DbSet<ExceptionAtcList> ExceptionAtcLists { get; set; }
+        public virtual DbSet<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
+        public virtual DbSet<FreightChargeDetail> FreightChargeDetails { get; set; }
+        public virtual DbSet<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

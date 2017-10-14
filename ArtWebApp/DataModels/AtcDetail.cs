@@ -25,6 +25,7 @@ namespace ArtWebApp.DataModels
             this.POPackDetails = new HashSet<POPackDetail>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.PatternNameBanks = new HashSet<PatternNameBank>();
+            this.LaySheetMasters = new HashSet<LaySheetMaster>();
         }
     
         public decimal OurStyleID { get; set; }
@@ -46,5 +47,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<POPackDetail> POPackDetails { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<PatternNameBank> PatternNameBanks { get; set; }
+        public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
     }
 }

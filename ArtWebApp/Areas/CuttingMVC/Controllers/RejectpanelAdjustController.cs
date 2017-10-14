@@ -14,7 +14,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         public ActionResult RejectpanelAdjust()
         {
 
-            LayShortageCutorderAdjustmentViewModal mdl = new LayShortageCutorderAdjustmentViewModal();
+            RejectionCutorderAdjustmentViewModal mdl = new RejectionCutorderAdjustmentViewModal();
 
             ConfigureViewModel(mdl);
             try
@@ -67,9 +67,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         [HttpGet]
         public JsonResult PopulateLayRequestModel(int CutID = 0, int LayShortageMasterID = 0)
         {
-            LayShortageCutorderAdjustmentViewModal model = new LayShortageCutorderAdjustmentViewModal();
-            LaysheetRollRepository lyipores = new LaysheetRollRepository();
-            model = lyipores.PopulateLayRequestModel(CutID, LayShortageMasterID);
+            RejectionCutorderAdjustmentViewModal model = new RejectionCutorderAdjustmentViewModal();
+            Rejectionfabricrepository lyipores = new Rejectionfabricrepository();
+            model = lyipores.PopulateRejectionRequestModel(CutID, LayShortageMasterID);
             //String cutorderQty = "0";
             //String MarkerType = "0";
             //String Shrinkage = "0";
@@ -116,7 +116,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         }
 
 
-        private void ConfigureViewModel(LayShortageCutorderAdjustmentViewModal model)
+        private void ConfigureViewModel(RejectionCutorderAdjustmentViewModal model)
         {
             int atcid = 0;
 
@@ -144,10 +144,11 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
 
 
+        
 
 
         [HttpPost]
-        public ActionResult RejectpanelAdjust(LayShortageCutorderAdjustmentViewModal mdl)
+        public ActionResult RejectpanelAdjust(RejectionCutorderAdjustmentViewModal mdl)
         {
             mdl.AddedBy = HttpContext.Session["Username"].ToString();
 

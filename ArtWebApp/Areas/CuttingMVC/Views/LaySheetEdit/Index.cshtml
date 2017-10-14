@@ -1,0 +1,101 @@
+﻿@model ArtWebApp.DataModels.LaySheetMaster
+@{
+    ViewBag.Title = "LaySheet Edit ";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/BootStrapScript.css" rel="stylesheet" />
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#Showlaysheet").click(
+            function (e, params) {
+                //var Id = $('#LaySheet_PK').val();
+                var Id = $('#LaySheet_PK').find('option:selected').val();
+                if (Id != null) {
+                    $.ajax({
+                        url: "@Url.Action("Details", "LaySheetEdit")",
+                    traditional: true,
+                    data: { 'id': Id },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                     
+                        $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        alert("nodata");
+                    }
+                });
+            }
+            });
+        $("body").on("click",".Delete" ,function () {
+         
+            var row = $(this).closest('tr');
+            var Id = parseInt(row.find('.LaySheetDet_PK').text(), 10);
+           
+                
+
+                  if (Id != null)
+                  {
+                      alert(Id);
+                $.ajax({
+                    url: "@Url.Action("DeleteRoll", "LaySheetEdit")",
+                    traditional: true,
+                    data: { 'rollid': Id },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                    
+                        $(row).children('td,th').css('background-color', '#000');
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+            }
+        });
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<h2 class="top-buffer">LaySheet Delete </h2>
+<div class="form-group">
+    @Html.Label("LaySheet #", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-8">
+        @Html.DropDownList("LaySheet_PK", null, htmlAttributes: new { @class = "chosen-select form-control" })
+        @Html.ValidationMessageFor(model => model.LaySheet_PK, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="col-md-2">
+        <button type="button" id="Showlaysheet" class="btn btn-primary">Show</button>
+    </div>
+
+</div>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+<div><button type="button" id="Approve" class="btn btn-primary">Show</button></div>

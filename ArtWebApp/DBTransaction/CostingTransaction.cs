@@ -460,6 +460,53 @@ FROM            StyleCostingMaster WHERE        (IsLast = N'Y') AND (OurStyleID 
 
 
 
+        /// <summary>
+        /// get the last costing
+        /// </summary>
+        /// <param name="ourstyle"></param>
+        /// <returns></returns>
+        public Decimal GetAllowedFreightCharges(int atcid)
+        {
+            Decimal costingpk = 0;
+
+
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand(@"SELECT       Sum( Perpc * PoQty) AS Allowedvalue
+FROM            (SELECT        SUM(POPackDetails.PoQty) AS PoQty, AtcDetails.OurStyleID, AtcDetails.OurStyle, ISNULL
+                                                        ((SELECT        MAX(StyleCostingDetails.Rate) AS Expr1
+                                                            FROM            StyleCostingDetails INNER JOIN
+                                                                                     StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                                                            WHERE        (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)), 0) AS Perpc
+                          FROM            AtcDetails INNER JOIN
+                                                    POPackDetails ON AtcDetails.OurStyleID = POPackDetails.OurStyleID
+                          GROUP BY AtcDetails.AtcId, AtcDetails.OurStyleID, AtcDetails.OurStyle
+                          HAVING         (AtcDetails.AtcId =@atcid)) AS tt", con);
+
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+                try
+                {
+                    costingpk = Decimal.Parse(cmd.ExecuteScalar().ToString());
+                }
+                catch (Exception)
+                {
+
+                    costingpk = 0;
+                }
+            }
+
+
+
+
+            return costingpk;
+        }
+
+
+
+
 
 
 

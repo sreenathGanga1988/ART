@@ -1,0 +1,255 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.Models.RejectionPanelViewModal
+<script src="~/JQuery/GridJQuery.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+
+
+        $('#SelectAll').change(function () {
+            // this will contain a reference to the checkbox
+            if (this.checked) {
+                // the checkbox is now checked
+
+                var parenttable = $(this).closest('table');
+                parenttable.children('tr,td, th').css('background-color', '#8AE1E9');
+                $("[id$=IsSelected]").prop('checked', true);
+                getshortagesum();
+
+            } else {
+
+
+                if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+
+                    $("[id$=IsSelected]").prop('checked', false);
+                }
+                // the checkbox is now no longer checked
+
+            }
+            getshortagesum();
+        });
+
+
+        $("[id$=IsSelected]").change(function () {
+
+            if (this.checked) {
+
+                $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+            }
+            else
+            {
+                $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+
+            }
+
+            getshortagesum();
+
+        });
+
+    });
+
+
+
+    function getshortagesum()
+    {
+        debugger
+        var table = document.getElementsByClassName("table")[0];
+        var sum = 0
+        var endbitsum = 0;
+        for (var i = 1; i < table.rows.length - 1; i++) {
+
+            var currentrow = table.rows[i];
+
+            var chkConfirm = currentrow.getElementsByClassName('IsSelected')[0];
+
+
+            if (chkConfirm.checked) {
+                var txt_ayard = currentrow.getElementsByClassName('ReqQty')[0];
+
+                var txt_endbit = currentrow.getElementsByClassName('Allowedfabric')[0];
+
+                sum = sum + parseFloat(txt_ayard.innerHTML);
+                endbitsum = endbitsum + parseFloat(txt_endbit.innerHTML);
+            }
+
+        }
+        var totalyardfooter = document.getElementsByClassName("ExcessOrShortfooter")[0];
+        totalyardfooter.value = sum;
+
+        var endbitfooter = document.getElementsByClassName("endbitfooter")[0];
+        endbitfooter.value = endbitsum;
+    }
+
+</script>
+<div class="container">
+    <table class="table table-bordered table-striped table-responsive">
+
+        Fabreqid								
+        <tr>
+            <th>
+                @Html.CheckBox("SelectAll")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.Fabreqid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.Fabreqno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.Reqdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.ReqQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.ColorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.OurStyle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.LocationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FabreqDetailsModdel.Allowedfabric)
+            </th>
+       
+
+        </tr>
+
+        @if (Model != null)
+        {
+
+
+
+            for (int i = 0; i < Model.FabreqDetails.Count; i++)
+            {
+
+                <tr>
+                    <td>
+                        @Html.EditorFor(modelItem => Model.FabreqDetails[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.FabreqDetails[i].Fabreqid)
+                        @Html.HiddenFor(model => Model.FabreqDetails[i].Fabreqid, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.FabreqDetails[i].Fabreqno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.FabreqDetails[i].Reqdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.FabreqDetails[i].DepartmentName)
+                    </td>
+                    <td>
+                        <div class="ReqQty">
+                            @Html.DisplayFor(modelItem => Model.FabreqDetails[i].ReqQty)
+                            </div>
+</td>
+                    <td>
+                       
+                            @Html.DisplayFor(modelItem => Model.FabreqDetails[i].ColorName)
+                        <
+
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.FabreqDetails[i].OurStyle)
+                    </td>
+                    <td>
+                      
+                            @Html.DisplayFor(modelItem => Model.FabreqDetails[i].LocationName)
+                       
+                      
+
+                    </td>
+                    <td>
+                        <div class="Allowedfabric">
+                            @Html.EditorFor(modelItem => Model.FabreqDetails[i].Allowedfabric)
+                            </div>
+</td>
+                   
+                </tr>
+
+            }
+
+
+
+
+
+
+        }
+
+        <tfoot>
+            <tr>
+                <th>
+                    Total
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    <input id="txt" class="endbitfooter" />
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    <input id="txt" class="ExcessOrShortfooter" />
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+
+            </tr>
+
+        </tfoot>
+
+
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Submit" type="submit" value="Submit Fabric request" class="btn btn-default show" />
+        </div>
+    </div>
+</div>
+
+

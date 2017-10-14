@@ -1,0 +1,256 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.Models.RejectionPanelViewModal
+@{
+    ViewBag.Title = "RejectionPanelAccept";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <text>
+        <script>
+            $(document).ready(function () {
+               alert('@ViewBag.SuccessMessage');
+            });
+        </script>
+    </text>
+}
+
+<h2>RejectionPanelAccept</h2>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#AtcID").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+
+            $.ajax({
+                url: "@Url.Action("PopulateOurStyle", "LayShortage")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#OurStyleID').empty();
+                    $.each(data, function () {
+
+
+                        $('#OurStyleID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#OurStyleID").trigger("chosen:updated");
+
+
+                    $("#OurStyleID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+            $.ajax({
+                url: "@Url.Action("PopulateOFabric", "LayShortage")",
+                type: 'Get',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            //  data: JSON.stringify(123),
+            data: { 'Id': Id },
+            success: function (data) {
+                $('#SkuID').empty();
+                $.each(data, function () {
+
+
+                    $('#SkuID').append('<option value=' +
+                      this.Value + '>' + this.Text + '</option>');
+                });
+                $("#SkuID").trigger("chosen:updated");
+
+
+                $("#SkuID").trigger("change");
+
+
+            },
+            error: function (data) {
+
+            }
+        });
+
+
+
+        });
+
+
+
+
+    });
+
+    $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+
+            debugger;
+            
+           
+            var ourstyleid = $("#OurStyleID").find('option:selected').val();
+            var Id = $("#LocationID").find('option:selected').val();
+            if (Id != null)
+            {
+                alert('Hi');
+
+                $.ajax({
+                    url: "@Url.Action("GetRequestDetailView", "RejectionPanel")",
+                    traditional: true,
+                    data: { 'ourstyleid': ourstyleid, 'locationid': Id },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+
+
+
+         }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SampCutReqMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Location#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.LocationID, Model.LocaionList, "Please select Location", htmlAttributes: new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(m => m.LocationID)
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
+                    @Html.ValidationMessageFor(m => m.AtcID)
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        
+
+
+
+
+
+
+
+
+
+        <div class="form-group">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownList("OurStyleID", new SelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control" })
+               
+                    @*@Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })*@
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+        
+
+
+
+
+
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="Show" type="button" value="Show" class="btn btn-default show" />
+            </div>
+        </div>
+
+        
+
+        <div id='output' class="">
+            <!-- Output goes here -->
+        </div>
+
+
+    </div>
+}
+
+
+

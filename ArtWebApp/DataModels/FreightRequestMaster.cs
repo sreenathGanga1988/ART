@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class FreightRequestMaster
     {
+        public FreightRequestMaster()
+        {
+            this.FreightChargeDetails = new HashSet<FreightChargeDetail>();
+        }
+    
         public decimal FreightRequestID { get; set; }
         public string FreightRequestNum { get; set; }
         public string AddedBy { get; set; }
@@ -33,5 +38,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string IsApproved { get; set; }
         public string IsPosted { get; set; }
+    
+        public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
     }
 }

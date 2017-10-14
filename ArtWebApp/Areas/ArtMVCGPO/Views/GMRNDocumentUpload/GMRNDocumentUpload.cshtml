@@ -4,7 +4,7 @@
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
-<h2>GMRNDocumentUpload</h2>
+<h2> General MRN Document Uploader</h2>
 
 <form action="" method="post" enctype="multipart/form-data">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -28,8 +28,9 @@
 
             </div>
             <div class="col-md-4">
-           
-                @Html.ActionLink("link caption", "ShowMRN", "GMRNDocumentUpload", new { MrnID = Model.MrnID }, null);
+                <input type="submit" value="Show" name="action:Show" />
+                
+             
                 <div>
 
             </div>
@@ -39,36 +40,60 @@
     </div>
 
 </div>
-        <div class="row">
-            <label for="file">Upload File:</label><input type="file" name="file" id="file" />
-            <input type="submit" value="Save" />
+
+        <div class="top-buffer"></div>
+
+        <div class="row form-group"">
+            <label for="file">Upload File:</label><input type="file" name="file" id="file" /> 
+            <div class="top-buffer"></div>
+            <input type="submit" value="Save" name="action:Save" />
+            
+           
+
             @if (TempData["Success"] != null)
-            {
-                <div class="success">
-                    <p>@TempData["Success"].ToString()</p>
+            { <div class="top-buffer"></div>
+                                  
+               
+                <div class="alert alert-success">
+                    <p><strong>@TempData["Success"].ToString()</strong></p>
+                   
                 </div>
             }
 
         </div>
-            <table class="table table-bordered table-striped table-responsive>
+
+
+        <div class="top-buffer"></div>
+        <div class="row">
+            <table class="table table-bordered table-striped table-responsive">
                 <tr>
                     <th>
-                        @Html.Display("Uploadid")
+                        Uploadid
+                      
                     </th>
                     <th>
-                        @Html.Display("Mrn_PK")
+                        Mrn_PK
+                      
                     </th>
                     <th>
-                        @Html.Display("StringLength")
+                        URL
+                        
                     </th>
                     <th>
-                        @Html.Display("MrnType")
+                        Mrn Type
+                      
                     </th>
                     <th>
-                        @Html.Display("AddedBy")
+                        File  Name
+
                     </th>
                     <th>
-                        @Html.Display("AddedDate")
+                        AddedBy
+                       
+                    </th>
+                    <th>
+                        AddedDate
+                        
                     </th>
                     <th></th>
                     <th></th>
@@ -83,6 +108,9 @@
                     {
                         <tr>
                             <td>
+                                @Html.DisplayFor(modelItem => item.FileUploadID)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Mrn_PK)
                             </td>
                             <td>
@@ -90,6 +118,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MrnType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Filename)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.AddedBy)
@@ -102,11 +133,15 @@
 
                             </td>
                             <td>
-                                @if (item.AddedBy == Session["Username"].ToString())
+                                @if(item.AddedBy!=null){
+                                
+                                if (item.AddedBy.Trim() == Session["Username"].ToString().Trim())
                                 {
 
                                     Html.ActionLink("Delete", "Delete", new { id = item.FileUploadID });
                                 }
+                                }
+                                
 
                             </td>
                         </tr>
@@ -122,4 +157,16 @@
 
             </table>
 
+        </div>
+
+        <div class="top-buffer"></div>
+     
+       
+
+            
+        </div>
+
+    <div class="col-md-12">
+        <input type="submit" value=" Mark MRN Complete" name="action:Complete" class="btn-block" />
+    </div>
 </form>

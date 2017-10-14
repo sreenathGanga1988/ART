@@ -648,7 +648,8 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
 
         #endregion
 
-        protected void btn_rejectreq_Click(object sender, EventArgs e)
+
+        public void fullgarmentRejection()
         {
             using (AtcWorldEntities atcenty = new AtcWorldEntities())
             {
@@ -666,14 +667,14 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.Location_PK == element.Location_PK).Select(u => u.ArtLocation_PK).FirstOrDefault();
 
 
-                        rejectionExtraFabbReq.Location_PK =int.Parse(atclocation_pk.ToString());
+                        rejectionExtraFabbReq.Location_PK = int.Parse(atclocation_pk.ToString());
                         rejectionExtraFabbReq.Fabreqid = element.Fabreqid;
                         rejectionExtraFabbReq.Fabreqno = element.Fabreqno;
                         rejectionExtraFabbReq.Reqdate = element.Reqdate;
                         rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
-              
+
                         entynew.RejectionExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }
@@ -732,7 +733,97 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                 atcenty.SaveChanges();
 
             }
+        }
+        public void PanelRejection()
+        {
+            using (AtcWorldEntities atcenty = new AtcWorldEntities())
+            {
+                var q = from lymstr in atcenty.Fabricreqforparts
+                        where lymstr.IsUploaded == false
+                        select lymstr;
+                foreach (var element in q)
+                {
 
+                    using (ArtEntitiesnew entynew = new ArtEntitiesnew())
+                    {
+
+                        RejectionPanelExtraFabbReq rejectionExtraFabbReq = new RejectionPanelExtraFabbReq();
+
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.Location_PK == element.Location_PK).Select(u => u.ArtLocation_PK).FirstOrDefault();
+
+
+                        rejectionExtraFabbReq.Location_PK = int.Parse(atclocation_pk.ToString());
+                        rejectionExtraFabbReq.Fabreqid = element.FabpartreqID;
+                        rejectionExtraFabbReq.Fabreqno = element.FabpartreqNo;
+                        rejectionExtraFabbReq.Reqdate = element.Reqdate;
+                        rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
+                        rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                        rejectionExtraFabbReq.ReqQty = element.ReqQty;
+
+                        entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
+                        entynew.SaveChanges();
+                    }
+
+                    element.IsUploaded = true;
+                }
+
+
+
+
+
+
+                atcenty.SaveChanges();
+
+            }
+
+
+
+            using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
+            {
+                var q = from lymstr in atcenty.Fabricreqforparts
+                        where lymstr.IsUploaded == false
+                        select lymstr;
+                foreach (var element in q)
+                {
+
+                    using (ArtEntitiesnew entynew = new ArtEntitiesnew())
+                    {
+
+                        RejectionPanelExtraFabbReq rejectionExtraFabbReq = new RejectionPanelExtraFabbReq();
+
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.Location_PK == element.Location_PK).Select(u => u.ArtLocation_PK).FirstOrDefault();
+
+
+                        rejectionExtraFabbReq.Location_PK = int.Parse(atclocation_pk.ToString());
+                        rejectionExtraFabbReq.Fabreqid = element.FabpartreqID;
+                        rejectionExtraFabbReq.Fabreqno = element.FabpartreqNo;
+                        rejectionExtraFabbReq.Reqdate = element.Reqdate;
+                        rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
+                        rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
+                        rejectionExtraFabbReq.ReqQty = element.ReqQty;
+
+                        entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
+                        entynew.SaveChanges();
+                    }
+
+                    element.IsUploaded = true;
+                }
+
+
+
+
+
+
+                atcenty.SaveChanges();
+
+            }
+        }
+
+        protected void btn_rejectreq_Click(object sender, EventArgs e)
+        {
+
+            fullgarmentRejection();
+            PanelRejection();
         }
         }
 }

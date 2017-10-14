@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public ItemGroupMaster()
         {
             this.Template_Master = new HashSet<Template_Master>();
+            this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
         }
     
         public decimal ItemGroupID { get; set; }
@@ -24,5 +25,6 @@ namespace ArtWebApp.DataModels
         public string ItemGroupDescription { get; set; }
     
         public virtual ICollection<Template_Master> Template_Master { get; set; }
+        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
     }
 }

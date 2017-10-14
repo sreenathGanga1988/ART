@@ -499,7 +499,7 @@
                            
                             <asp:UpdatePanel ID="upd_addpatern" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
- <asp:Button ID="btn_addpattern" runat="server" style="font-size: x-small" Text="Add"  OnClientClick="Addpattern(this)" />
+ <asp:Button ID="btn_addpattern" runat="server" style="font-size: x-small" Text="Add"  OnClientClick="Addpattern(this)" OnClick="btn_addpattern_Click" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>

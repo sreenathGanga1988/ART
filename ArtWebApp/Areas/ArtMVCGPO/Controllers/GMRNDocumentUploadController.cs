@@ -22,15 +22,16 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult ShowMRN(int MrnID=0)
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Show")]
+        public ActionResult ShowMRN(GMRNViewModal model)
         {
-            GMRNViewModal model = new GMRNViewModal();
-            model.MrnID = MrnID;
+           
            
            
             return RedirectToAction("GMRNDocumentUpload",model);
         }
+   
         private void ConfigureViewModel(GMRNViewModal model)
         {
           
@@ -54,28 +55,66 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
 
 
         [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Save")]
         public ActionResult GMRNDocumentUpload(FileUpload upload, HttpPostedFileBase file, GMRNViewModal model)
         {
             if (file.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
                 var guid = Guid.NewGuid().ToString();
-                var path = Path.Combine(Server.MapPath("~/Uploads/Gmrn"), guid + fileName);
+                string filenametext = guid + fileName;
+                var path = Path.Combine(Server.MapPath("~/Uploads/"), filenametext);
                 file.SaveAs(path);
                 string fl = path.Substring(path.LastIndexOf("\\"));
                 string[] split = fl.Split('\\');
                 string newpath = split[1];
-                string imagepath = "~/uploads/Gmrn/" + newpath;
+                string imagepath = "~/uploads/" + newpath;
 
                 MrnFileUpload mrnFileUpload = new MrnFileUpload();
                 mrnFileUpload.Mrn_PK = model.MrnID;
                 mrnFileUpload.StringLength = imagepath;
+                mrnFileUpload.AddedBy = HttpContext.Session["Username"].ToString();
+                mrnFileUpload.AddedDate = DateTime.Now;
+                mrnFileUpload.Isdeleted = "N";
+                mrnFileUpload.MrnType = "GMRN";
+                mrnFileUpload.Filename = filenametext;
                 db.MrnFileUploads.Add(mrnFileUpload);
                 db.SaveChanges();
             }
             TempData["Success"] = "Upload successful";
             return RedirectToAction("GMRNDocumentUpload", model);
         }
+
+
+
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Complete")]
+        public ActionResult MarkMRNComplete( GMRNViewModal model)
+        {
+            if (model.MrnID!=null)
+            {
+                var q = from gmrnmaster in db.StockMrnMasters
+                        where gmrnmaster.SMrn_PK == model.MrnID
+                        select gmrnmaster;
+
+              foreach(var element in q)
+                {
+                    element.IsCompleted = "Y";
+                    element.MarkedCompletedBy = HttpContext.Session["Username"].ToString();
+                    element.MarkCompletedDate = DateTime.Now;
+                }
+                db.SaveChanges();
+            }
+            TempData["Success"] = "Upload successful";
+            return RedirectToAction("GMRNDocumentUpload", model);
+        }
+
+
+
+
+
+
+
 
         public FileResult Download(int id)
         {

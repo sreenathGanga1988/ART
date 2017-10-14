@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ArtWebApp.App_Start;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -38,7 +40,7 @@ namespace ArtWebApp
                             .Include("~/css/MasterPage.css", "~/css/style.css"));
 
             AreaRegistration.RegisterAllAreas();
-
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
 
 
         }

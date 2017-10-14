@@ -123,42 +123,45 @@ namespace ArtWebApp.DataModels
         
     }
 
-    [MetadataType(typeof(FreightRequestMaster))]
+    [MetadataType(typeof(FreightRequestMasterMD))]
     public partial class FreightRequestMaster
     {
-        //public decimal FreightRequestID { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string FreightRequestNum { get; set; }
+        public class FreightRequestMasterMD
+        {
+            public decimal FreightRequestID { get; set; }
+            [Display(Name = " FreightRequestNum")]
+            public string FreightRequestNum { get; set; }
 
-        //[Display(Name = " Virtual Department")]
-        //public string AddedBy { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public Nullable<System.DateTime> AddedDate { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string FromParty { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string ToParty { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string Shipper { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string Weight { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string ContentofPackage { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string DebitTo { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string Reason { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string Merchandiser { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string ForwarderDetails { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string ApproximateCharges { get; set; }
-        //[Display(Name = " Virtual Department")]
-        //public string Remark { get; set; }
-        //public string ApprovedBy { get; set; }
-        //public Nullable<System.DateTime> ApprovedDate { get; set; }
-        //public string IsApproved { get; set; }
-        //public string IsPosted { get; set; }
+            [Display(Name = " AddedBy")]
+            public string AddedBy { get; set; }
+            [Display(Name = " AddedDate")]
+            public Nullable<System.DateTime> AddedDate { get; set; }
+            [Display(Name = " From Party")]
+            public string FromParty { get; set; }
+            [Display(Name = " To Party")]
+            public string ToParty { get; set; }
+            [Display(Name = " Shipper")]
+            public string Shipper { get; set; }
+            [Display(Name = " Weight")]
+            public string Weight { get; set; }
+            [Display(Name = " Content of Package")]
+            public string ContentofPackage { get; set; }
+            [Display(Name = " Debit To")]
+            public string DebitTo { get; set; }
+            [Display(Name = "Reason")]
+            public string Reason { get; set; }
+            [Display(Name = " Merchandiser")]
+            public string Merchandiser { get; set; }
+            [Display(Name = " Forwarder Details")]
+            public string ForwarderDetails { get; set; }
+            [Display(Name = " Approximate Charges")]
+            public string ApproximateCharges { get; set; }
+            [Display(Name = " Remark")]
+            public string Remark { get; set; }
+            public string ApprovedBy { get; set; }
+            public Nullable<System.DateTime> ApprovedDate { get; set; }
+            public string IsApproved { get; set; }
+            public string IsPosted { get; set; }
+        }
     }
 }

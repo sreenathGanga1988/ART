@@ -148,15 +148,15 @@ namespace ArtWebApp.Sampling
             txt_patternmaenew.Text = refpattern;
             upd_patternmaenew.Update();
 
-            if (refpattern.Trim() != "")
-            {
-                btn_addpattern.Visible = false;
+            //if (refpattern.Trim() != "")
+            //{
+            //    btn_addpattern.Visible = false;
               
-            }
-            else
-            {
-                btn_addpattern.Visible = true;
-            }
+            //}
+            //else
+            //{
+            //    btn_addpattern.Visible = true;
+            //}
 
             fillcutplandetails(int.Parse(drp_cutorder.SelectedValue.ToString()));
             fillsmalltable();
@@ -1005,5 +1005,9 @@ namespace ArtWebApp.Sampling
           
         }
 
+        protected void btn_addpattern_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

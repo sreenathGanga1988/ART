@@ -26,6 +26,7 @@ namespace ArtWebApp.DataModels
             this.ProcurmentPlanDetails = new HashSet<ProcurmentPlanDetail>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.PatternNameBanks = new HashSet<PatternNameBank>();
+            this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
         }
     
         public decimal SkuDet_PK { get; set; }
@@ -54,5 +55,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<PatternNameBank> PatternNameBanks { get; set; }
+        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
     }
 }

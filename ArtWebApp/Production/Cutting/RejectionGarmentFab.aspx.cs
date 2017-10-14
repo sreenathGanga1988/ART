@@ -94,10 +94,10 @@ namespace ArtWebApp.Production.Cutting
             prrrcpt.AtcID = int.Parse(drp_atc.SelectedItem.Value.ToString());
             prrrcpt.RejectReqDetailsDataCollection = GetMRnDetailsData();
 
-            mrnum = prrrcpt.InsertExtraRequest();
+            mrnum = prrrcpt.InsertFullgarmentRejectionExtraRequest();
 
 
-            String msg = "MRN # : " + mrnum + " is generated Sucessfully";
+            String msg = "Full garment rejeion req  # :   " + mrnum + "  is generated Sucessfully";
 
 
             tbl_podetails.DataSource = null;

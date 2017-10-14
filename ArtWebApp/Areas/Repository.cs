@@ -303,7 +303,7 @@ namespace ArtWebApp.Areas
         }
 
 
-        public string InsertRejectionCutOrderAdjust(LayShortageCutorderAdjustmentViewModal model)
+        public string InsertRejectionCutOrderAdjust(RejectionCutorderAdjustmentViewModal model)
         {
             String msg = "";
 
@@ -353,7 +353,6 @@ namespace ArtWebApp.Areas
 
             var alreadyallocated = db.LayAdjustDetails.Where(U => U.LayShortageMasterID == LayShortageMasterID).Sum(U => U.Qty);
             if (alreadyallocated != null) { model.AllocatedQty = Decimal.Parse(alreadyallocated.ToString()); } else { model.AllocatedQty = 0; };
-
             model.BalanceQty = model.RequestQty - model.AllocatedQty;
 
             model.ToAddQty = model.BalanceQty;
@@ -401,7 +400,166 @@ namespace ArtWebApp.Areas
     }
 
 
+    public class Rejectionfabricrepository
+    {
+        ArtEntitiesnew db = new ArtEntitiesnew();
 
+        public List<FabreqDetails> GetRejectionpanelrequestdata(int  ourstyleid, int locationid)
+        {
+
+
+            var q = (from laydet in db.RejectionPanelExtraFabbReqs
+                     where laydet.POPackDetail.OurStyleID ==ourstyleid && laydet.Location_PK == locationid
+                     //&& !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
+                     select new FabreqDetails
+                     {
+                                                
+
+                         Fabreqid = laydet.RejFabPanelReqID,
+                         IsSelected = false,
+                         Fabreqno = laydet.Fabreqno ,
+                         Reqdate = laydet.Reqdate,
+                         DepartmentName = laydet.DepartmentName,
+                         ReqQty = laydet.ReqQty ?? 0,
+                         ColorName = laydet.POPackDetail.ColorCode ,
+                         OurStyle = laydet.POPackDetail.AtcDetail.OurStyle ,
+                         LocationName = laydet.LocationMaster.LocationName ,
+                         Allowedfabric = 0,
+                         
+
+
+
+
+
+                     }).ToList();
+
+
+
+
+
+
+
+
+
+
+
+
+            return q;
+        }
+
+
+        public RejectionCutorderAdjustmentViewModal PopulateRejectionRequestModel(int CutID = 0, int rejionid = 0)
+        {
+            RejectionCutorderAdjustmentViewModal model = new RejectionCutorderAdjustmentViewModal();
+
+
+
+            var requestqtyvar = db.RejectReqDetails.Where(u => u.RejReqMasterID == rejionid).Sum(u => u.AllowedQty);
+            Decimal requestqty = Decimal.Parse(requestqtyvar.ToString());
+            model.RequestQty = requestqty;
+
+            var alreadyallocated = db.RejectionAdjustDetails.Where(U => U.RejReqMasterIDID == rejionid).Sum(U => U.Qty);
+            if (alreadyallocated != null) { model.AllocatedQty = Decimal.Parse(alreadyallocated.ToString()); } else { model.AllocatedQty = 0; };
+
+            model.BalanceQty = model.RequestQty - model.AllocatedQty;
+
+            model.ToAddQty = model.BalanceQty;
+
+
+
+
+            var q = from cutorder in db.CutOrderMasters
+                    where cutorder.CutID == CutID
+                    select new { cutorder.FabQty, cutorder.MarkerType, cutorder.Shrinkage, cutorder.CutWidth, cutorder.CutQty };
+            foreach (var element in q)
+            {
+                model.CutOrderQty = element.FabQty;
+                model.MarkerType = element.MarkerType;
+                model.Shrinkage = element.Shrinkage;
+                model.CutWidth = element.CutWidth;
+                model.CutQty = element.CutQty.ToString();
+            }
+
+            var DeliveryQty = db.CutOrderDOes.Where(U => U.CutID == CutID).Sum(U => U.DeliveryQty);
+
+            if (DeliveryQty != null) { model.DeliveredQty = DeliveryQty.ToString(); } else { model.DeliveredQty = "0"; };
+
+
+
+
+
+
+            return model;
+
+
+
+
+        }
+
+        public String InsertLaysheetShortageRoll(RejectionPanelViewModal model)
+        {
+            String msg = "";
+
+
+            RejectReqMaster lsmstr = new RejectReqMaster();
+            lsmstr.AtcID = model.AtcID;
+            lsmstr.Location_PK = model.LocationID;
+
+
+            lsmstr.AddedBY = HttpContext.Current.Session["Username"].ToString();
+            lsmstr.AddedDate = DateTime.Now;
+            lsmstr.IsAdjusted = false;
+            lsmstr.RejectionType = "P";
+            db.RejectReqMasters.Add(lsmstr);
+            db.SaveChanges();
+            msg = "PR" + lsmstr.RejReqMasterID;
+            lsmstr.Reqnum = msg;
+
+
+
+
+            db.SaveChanges();
+
+
+
+
+
+            foreach (FabreqDetails di in model.FabreqDetails)
+            {
+                RejectReqDetail lcdet = new RejectReqDetail();
+                lcdet.RejFabReqID = di.Fabreqid;
+                lcdet.AllowedQty = di.Allowedfabric;
+                lcdet.RejReqMasterID = lsmstr.RejReqMasterID;
+                db.RejectReqDetails.Add(lcdet);
+
+
+
+                var qlayroll = from rlldata in db.RejectionPanelExtraFabbReqs
+                               where rlldata.RejFabPanelReqID == di.Fabreqid
+                               select rlldata;
+                foreach (var element1 in qlayroll)
+                {
+                    element1.IsApproved = true;
+                }
+
+
+
+
+
+            }
+
+
+            db.SaveChanges();
+
+
+
+
+
+            return msg;
+        }
+
+
+    }
 
 
     public static class  ComboRepository

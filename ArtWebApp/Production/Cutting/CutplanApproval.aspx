@@ -19,7 +19,7 @@
     </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="RedHeaddingdIV">
-        cUT PLAN aPPROVAL
+        CUT PLAN APPROVAL
     </div>
     <div class="DataEntryTable">
         <asp:UpdatePanel ID="upd_main"  UpdateMode="Conditional"  ChildrenAsTriggers="false"       runat="server">
@@ -109,7 +109,7 @@
                                              <td class="NormalTD">  
                                                  <asp:UpdatePanel ID="upd_refpattern" UpdateMode="Conditional" runat="server">
                                        <ContentTemplate>
-                                        <asp:TextBox ID="txt_refpattern" runat="server" Height="19px" Width="96px"></asp:TextBox>
+                                        <asp:TextBox ID="txt_refpattern" runat="server"></asp:TextBox>
                                              </ContentTemplate>
                                                      </asp:UpdatePanel></td>
                                          </tr>

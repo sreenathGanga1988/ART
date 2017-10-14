@@ -50,6 +50,10 @@ namespace ArtWebApp.DataModels
             this.LocationGroupDetails = new HashSet<LocationGroupDetail>();
             this.LocationGroupMasters = new HashSet<LocationGroupMaster>();
             this.PatternNameBanks = new HashSet<PatternNameBank>();
+            this.LaySheetMasters = new HashSet<LaySheetMaster>();
+            this.RejectionPanelExtraFabbReqs = new HashSet<RejectionPanelExtraFabbReq>();
+            this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
+            this.ExtDeliveryTokens1 = new HashSet<ExtDeliveryToken>();
         }
     
         public decimal Location_PK { get; set; }
@@ -104,5 +108,9 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<LocationGroupDetail> LocationGroupDetails { get; set; }
         public virtual ICollection<LocationGroupMaster> LocationGroupMasters { get; set; }
         public virtual ICollection<PatternNameBank> PatternNameBanks { get; set; }
+        public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
+        public virtual ICollection<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
+        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
+        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens1 { get; set; }
     }
 }

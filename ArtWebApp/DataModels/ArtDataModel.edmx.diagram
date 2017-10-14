@@ -434,6 +434,21 @@
         <EntityTypeShape EntityType="ArtModel.MrnFileUpload" Width="1.5" PointX="27.375" PointY="14.75" />
         <EntityTypeShape EntityType="ArtModel.FreightRequestMaster" Width="1.5" PointX="16.375" PointY="27.75" />
         <EntityTypeShape EntityType="ArtModel.ExceptionAtcList" Width="1.5" PointX="27.375" PointY="17.75" />
+        <AssociationConnector Association="ArtModel.FK_LaySheetMaster_AtcDetails" />
+        <AssociationConnector Association="ArtModel.FK_LaySheetMaster_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_LaySheetMaster_LocationMaster" />
+        <EntityTypeShape EntityType="ArtModel.RejectionPanelExtraFabbReq" Width="1.5" PointX="25.25" PointY="47.375" />
+        <AssociationConnector Association="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" />
+        <AssociationConnector Association="ArtModel.FK_RejectReqDetails_RejectReqMaster" />
+        <EntityTypeShape EntityType="ArtModel.FreightChargeDetail" Width="1.5" PointX="18.625" PointY="31.25" />
+        <AssociationConnector Association="ArtModel.FK_FreightChargeDetail_FreightRequestMaster" />
+        <EntityTypeShape EntityType="ArtModel.ExtDeliveryToken" Width="1.5" PointX="21.75" PointY="92.75" />
+        <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_LocationMaster1" />
+        <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_SkuRawmaterialDetail" />
+        <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

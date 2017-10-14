@@ -919,6 +919,30 @@
           <Property Name="AtcNum" Type="nvarchar" MaxLength="50" />
           <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="ExtDeliveryToken">
+          <Key>
+            <PropertyRef Name="ExtDeliveryTokenID" />
+          </Key>
+          <Property Name="ExtDeliveryTokenID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="Fromlocation" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToLocation" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="DeliveredQty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="BalanceToDeliver" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="1" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Isdeleted" Type="nchar" MaxLength="1" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Itemgroup" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SKU" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="ExtraBOMRequestDetail">
           <Key>
             <PropertyRef Name="ExtraBOMDetail_PK" />
@@ -1016,6 +1040,15 @@
           <Property Name="FactWar_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FromLoc_pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ToLoc_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="FreightChargeDetail">
+          <Key>
+            <PropertyRef Name="FreightReqDetID" />
+          </Key>
+          <Property Name="FreightReqDetID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FreightCharge" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="FreightRequestID" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="FreightRequestMaster">
           <Key>
@@ -1323,6 +1356,9 @@
           <Property Name="ExcessOrShort" Type="numeric" Precision="18" Scale="3" />
           <Property Name="IsRecuttable" Type="nchar" MaxLength="10" />
           <Property Name="LaySheetRoll_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deleteddate" Type="datetime" />
         </EntityType>
         <EntityType Name="LaySheetMaster">
           <Key>
@@ -1592,6 +1628,8 @@
           <Property Name="MrnType" Type="nchar" MaxLength="10" />
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
+          <Property Name="Isdeleted" Type="nchar" MaxLength="1" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="MrnMaster">
           <Key>
@@ -1910,13 +1948,28 @@
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsApproved" Type="bit" />
         </EntityType>
+        <EntityType Name="RejectionPanelExtraFabbReq">
+          <Key>
+            <PropertyRef Name="RejFabPanelReqID" />
+          </Key>
+          <Property Name="RejFabPanelReqID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fabreqid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Fabreqno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Reqdate" Type="datetime" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ReqQty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsUploaded" Type="bit" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsApproved" Type="bit" />
+        </EntityType>
         <EntityType Name="RejectReqDetails">
           <Key>
             <PropertyRef Name="RejectReqID" />
           </Key>
           <Property Name="RejectReqID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RejFabReqID" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="AllowedQty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="AllowedQty" Type="decimal" Precision="18" Scale="4" />
           <Property Name="RejReqMasterID" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="RejectReqMaster">
@@ -1930,6 +1983,7 @@
           <Property Name="IsAdjusted" Type="bit" Nullable="false" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Reqnum" Type="nvarchar" MaxLength="50" />
+          <Property Name="RejectionType" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="RequestOrderDetails">
           <Key>
@@ -2404,6 +2458,9 @@
           <Property Name="DoNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SReciept_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsCompleted" Type="nchar" MaxLength="10" />
+          <Property Name="MarkedCompletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkCompletedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="StockPODetails">
           <Key>
@@ -3776,6 +3833,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExtDeliveryToken_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="ExtDeliveryToken" Type="Self.ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_ItemGroupMaster">
+          <End Role="ItemGroupMaster" Type="Self.ItemGroupMaster" Multiplicity="0..1" />
+          <End Role="ExtDeliveryToken" Type="Self.ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGroupMaster">
+              <PropertyRef Name="ItemGroupID" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="Itemgroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="ExtDeliveryToken" Type="Self.ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="Fromlocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_LocationMaster1">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="ExtDeliveryToken" Type="Self.ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="ToLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_SkuRawmaterialDetail">
+          <End Role="SkuRawmaterialDetail" Type="Self.SkuRawmaterialDetail" Multiplicity="0..1" />
+          <End Role="ExtDeliveryToken" Type="Self.ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawmaterialDetail">
+              <PropertyRef Name="SkuDet_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="SkuDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExtraBOMRequestDetail_ExtraBOMRequestMaster">
           <End Role="ExtraBOMRequestMaster" Type="Self.ExtraBOMRequestMaster" Multiplicity="0..1" />
           <End Role="ExtraBOMRequestDetail" Type="Self.ExtraBOMRequestDetail" Multiplicity="*" />
@@ -3821,6 +3938,18 @@
             </Principal>
             <Dependent Role="FactWareLinkMaster">
               <PropertyRef Name="ToLoc_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FreightChargeDetail_FreightRequestMaster">
+          <End Role="FreightRequestMaster" Type="Self.FreightRequestMaster" Multiplicity="0..1" />
+          <End Role="FreightChargeDetail" Type="Self.FreightChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreightRequestMaster">
+              <PropertyRef Name="FreightRequestID" />
+            </Principal>
+            <Dependent Role="FreightChargeDetail">
+              <PropertyRef Name="FreightRequestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4172,6 +4301,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LaySheetMaster_AtcDetails">
+          <End Role="AtcDetails" Type="Self.AtcDetails" Multiplicity="0..1" />
+          <End Role="LaySheetMaster" Type="Self.LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetails">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="OustyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetMaster_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="LaySheetMaster" Type="Self.LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LaySheetMaster_CutOrderDetails">
           <End Role="CutOrderDetails" Type="Self.CutOrderDetails" Multiplicity="0..1" />
           <End Role="LaySheetMaster" Type="Self.LaySheetMaster" Multiplicity="*" />
@@ -4181,6 +4334,18 @@
             </Principal>
             <Dependent Role="LaySheetMaster">
               <PropertyRef Name="CutOrderDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetMaster_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="LaySheetMaster" Type="Self.LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="Location_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4715,6 +4880,42 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Principal>
             <Dependent Role="RejectionExtraFabbReq">
               <PropertyRef Name="PoPack_Detail_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RejectionPanelExtraFabbReq_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="RejectionPanelExtraFabbReq" Type="Self.RejectionPanelExtraFabbReq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="RejectionPanelExtraFabbReq">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RejectionPanelExtraFabbReq_POPackDetails">
+          <End Role="POPackDetails" Type="Self.POPackDetails" Multiplicity="0..1" />
+          <End Role="RejectionPanelExtraFabbReq" Type="Self.RejectionPanelExtraFabbReq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POPackDetails">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Principal>
+            <Dependent Role="RejectionPanelExtraFabbReq">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RejectReqDetails_RejectReqMaster">
+          <End Role="RejectReqMaster" Type="Self.RejectReqMaster" Multiplicity="0..1" />
+          <End Role="RejectReqDetails" Type="Self.RejectReqDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RejectReqMaster">
+              <PropertyRef Name="RejReqMasterID" />
+            </Principal>
+            <Dependent Role="RejectReqDetails">
+              <PropertyRef Name="RejReqMasterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5934,12 +6135,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="EtaDate" EntityType="Self.EtaDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EthiopiaToARTShip_Tbl" EntityType="Self.EthiopiaToARTShip_Tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionAtcList" EntityType="Self.ExceptionAtcList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExtDeliveryToken" EntityType="Self.ExtDeliveryToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraBOMRequestDetail" EntityType="Self.ExtraBOMRequestDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraBOMRequestMaster" EntityType="Self.ExtraBOMRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraRequestReasonMaster" EntityType="Self.ExtraRequestReasonMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricRollmaster" EntityType="Self.FabricRollmaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FactoryType" EntityType="Self.FactoryType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FactWareLinkMaster" EntityType="Self.FactWareLinkMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FreightChargeDetail" EntityType="Self.FreightChargeDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FreightRequestMaster" EntityType="Self.FreightRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GarmentCategory" EntityType="Self.GarmentCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsInTransit" EntityType="Self.GoodsInTransit" Schema="dbo" store:Type="Tables" />
@@ -6002,6 +6205,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="RecieptMaster" EntityType="Self.RecieptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectionAdjustDetails" EntityType="Self.RejectionAdjustDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectionExtraFabbReq" EntityType="Self.RejectionExtraFabbReq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RejectionPanelExtraFabbReq" EntityType="Self.RejectionPanelExtraFabbReq" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectReqDetails" EntityType="Self.RejectReqDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectReqMaster" EntityType="Self.RejectReqMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestOrderDetails" EntityType="Self.RequestOrderDetails" Schema="dbo" store:Type="Tables" />
@@ -6339,6 +6543,26 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="FabricRollmaster" EntitySet="FabricRollmaster" />
             <End Role="DORollDetails" EntitySet="DORollDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_AtcMaster" Association="Self.FK_ExtDeliveryToken_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_ItemGroupMaster" Association="Self.FK_ExtDeliveryToken_ItemGroupMaster">
+            <End Role="ItemGroupMaster" EntitySet="ItemGroupMaster" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_LocationMaster" Association="Self.FK_ExtDeliveryToken_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_LocationMaster1" Association="Self.FK_ExtDeliveryToken_LocationMaster1">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryToken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_SkuRawmaterialDetail" Association="Self.FK_ExtDeliveryToken_SkuRawmaterialDetail">
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetail" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryToken" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExtraBOMRequestDetail_ExtraBOMRequestMaster" Association="Self.FK_ExtraBOMRequestDetail_ExtraBOMRequestMaster">
             <End Role="ExtraBOMRequestMaster" EntitySet="ExtraBOMRequestMaster" />
             <End Role="ExtraBOMRequestDetail" EntitySet="ExtraBOMRequestDetail" />
@@ -6354,6 +6578,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_FactWareLinkMaster_LocationMaster1" Association="Self.FK_FactWareLinkMaster_LocationMaster1">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="FactWareLinkMaster" EntitySet="FactWareLinkMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FreightChargeDetail_FreightRequestMaster" Association="Self.FK_FreightChargeDetail_FreightRequestMaster">
+            <End Role="FreightRequestMaster" EntitySet="FreightRequestMaster" />
+            <End Role="FreightChargeDetail" EntitySet="FreightChargeDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsInTransit_DeliveryOrderMaster" Association="Self.FK_GoodsInTransit_DeliveryOrderMaster">
             <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMaster" />
@@ -6471,8 +6699,20 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LaySheetRollDetails" EntitySet="LaySheetRollDetails" />
             <End Role="LaySheetDetails" EntitySet="LaySheetDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_AtcDetails" Association="Self.FK_LaySheetMaster_AtcDetails">
+            <End Role="AtcDetails" EntitySet="AtcDetails" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_AtcMaster" Association="Self.FK_LaySheetMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_LaySheetMaster_CutOrderDetails" Association="Self.FK_LaySheetMaster_CutOrderDetails">
             <End Role="CutOrderDetails" EntitySet="CutOrderDetails" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_LocationMaster" Association="Self.FK_LaySheetMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="LaySheetMaster" EntitySet="LaySheetMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_LaySheetRollDetails_LaySheetRollMaster" Association="Self.FK_LaySheetRollDetails_LaySheetRollMaster">
@@ -6650,6 +6890,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_RejectionExtraFabbReq_POPackDetails" Association="Self.FK_RejectionExtraFabbReq_POPackDetails">
             <End Role="POPackDetails" EntitySet="POPackDetails" />
             <End Role="RejectionExtraFabbReq" EntitySet="RejectionExtraFabbReq" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RejectionPanelExtraFabbReq_LocationMaster" Association="Self.FK_RejectionPanelExtraFabbReq_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="RejectionPanelExtraFabbReq" EntitySet="RejectionPanelExtraFabbReq" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RejectionPanelExtraFabbReq_POPackDetails" Association="Self.FK_RejectionPanelExtraFabbReq_POPackDetails">
+            <End Role="POPackDetails" EntitySet="POPackDetails" />
+            <End Role="RejectionPanelExtraFabbReq" EntitySet="RejectionPanelExtraFabbReq" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RejectReqDetails_RejectReqMaster" Association="Self.FK_RejectReqDetails_RejectReqMaster">
+            <End Role="RejectReqMaster" EntitySet="RejectReqMaster" />
+            <End Role="RejectReqDetails" EntitySet="RejectReqDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_RequestOrderDetails_RequestOrderMaster" Association="Self.FK_RequestOrderDetails_RequestOrderMaster">
             <End Role="RequestOrderMaster" EntitySet="RequestOrderMaster" />
@@ -8230,6 +8482,57 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="MrnFileUploads" EntityType="ArtModel.MrnFileUpload" />
           <EntitySet Name="FreightRequestMasters" EntityType="ArtModel.FreightRequestMaster" />
           <EntitySet Name="ExceptionAtcLists" EntityType="ArtModel.ExceptionAtcList" />
+          <AssociationSet Name="FK_LaySheetMaster_AtcDetails" Association="ArtModel.FK_LaySheetMaster_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_AtcMaster" Association="ArtModel.FK_LaySheetMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaySheetMaster_LocationMaster" Association="ArtModel.FK_LaySheetMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="LaySheetMaster" EntitySet="LaySheetMasters" />
+          </AssociationSet>
+          <EntitySet Name="RejectionPanelExtraFabbReqs" EntityType="ArtModel.RejectionPanelExtraFabbReq" />
+          <AssociationSet Name="FK_RejectionPanelExtraFabbReq_LocationMaster" Association="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="RejectionPanelExtraFabbReq" EntitySet="RejectionPanelExtraFabbReqs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RejectionPanelExtraFabbReq_POPackDetails" Association="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails">
+            <End Role="POPackDetail" EntitySet="POPackDetails" />
+            <End Role="RejectionPanelExtraFabbReq" EntitySet="RejectionPanelExtraFabbReqs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RejectReqDetails_RejectReqMaster" Association="ArtModel.FK_RejectReqDetails_RejectReqMaster">
+            <End Role="RejectReqMaster" EntitySet="RejectReqMasters" />
+            <End Role="RejectReqDetail" EntitySet="RejectReqDetails" />
+          </AssociationSet>
+          <EntitySet Name="FreightChargeDetails" EntityType="ArtModel.FreightChargeDetail" />
+          <AssociationSet Name="FK_FreightChargeDetail_FreightRequestMaster" Association="ArtModel.FK_FreightChargeDetail_FreightRequestMaster">
+            <End Role="FreightRequestMaster" EntitySet="FreightRequestMasters" />
+            <End Role="FreightChargeDetail" EntitySet="FreightChargeDetails" />
+          </AssociationSet>
+          <EntitySet Name="ExtDeliveryTokens" EntityType="ArtModel.ExtDeliveryToken" />
+          <AssociationSet Name="FK_ExtDeliveryToken_AtcMaster" Association="ArtModel.FK_ExtDeliveryToken_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_LocationMaster" Association="ArtModel.FK_ExtDeliveryToken_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_LocationMaster1" Association="ArtModel.FK_ExtDeliveryToken_LocationMaster1">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_SkuRawmaterialDetail" Association="ArtModel.FK_ExtDeliveryToken_SkuRawmaterialDetail">
+            <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExtDeliveryToken_ItemGroupMaster" Association="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster">
+            <End Role="ItemGroupMaster" EntitySet="ItemGroupMasters" />
+            <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -8718,6 +9021,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="POPackDetails" Relationship="ArtModel.FK_POPackDetails_AtcDetails" FromRole="AtcDetail" ToRole="POPackDetail" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="PatternNameBanks" Relationship="ArtModel.FK_PatternNameBank_AtcDetails" FromRole="AtcDetail" ToRole="PatternNameBank" />
+          <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_AtcDetails" FromRole="AtcDetail" ToRole="LaySheetMaster" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -9463,6 +9767,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ItemGroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ItemGroupDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_Template_Master_ItemGroupMaster" FromRole="ItemGroupMaster" ToRole="Template_Master" />
+          <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster" FromRole="ItemGroupMaster" ToRole="ExtDeliveryToken" />
         </EntityType>
         <EntityType Name="JobContractDetail">
           <Key>
@@ -9598,6 +9903,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LocationGroupDetails" Relationship="ArtModel.FK_LocationGroupDetails_LocationMaster" FromRole="LocationMaster" ToRole="LocationGroupDetail" />
           <NavigationProperty Name="LocationGroupMasters" Relationship="ArtModel.FK_LocationGroupMaster_LocationMaster" FromRole="LocationMaster" ToRole="LocationGroupMaster" />
           <NavigationProperty Name="PatternNameBanks" Relationship="ArtModel.FK_PatternNameBank_LocationMaster" FromRole="LocationMaster" ToRole="PatternNameBank" />
+          <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_LocationMaster" FromRole="LocationMaster" ToRole="LaySheetMaster" />
+          <NavigationProperty Name="RejectionPanelExtraFabbReqs" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster" FromRole="LocationMaster" ToRole="RejectionPanelExtraFabbReq" />
+          <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster" FromRole="LocationMaster" ToRole="ExtDeliveryToken" />
+          <NavigationProperty Name="ExtDeliveryTokens1" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster1" FromRole="LocationMaster" ToRole="ExtDeliveryToken" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -10108,6 +10417,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="ProcurmentPlanDetails" Relationship="ArtModel.FK_ProcurmentPlanDetails_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ProcurmentPlanDetail" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="PatternNameBanks" Relationship="ArtModel.FK_PatternNameBank_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="PatternNameBank" />
+          <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_SkuRawmaterialDetail" FromRole="SkuRawmaterialDetail" ToRole="ExtDeliveryToken" />
         </EntityType>
         <EntityType Name="StockGoodsInTransit">
           <Key>
@@ -10155,6 +10465,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StockMrnMaster1" Relationship="ArtModel.FK_StockMrnMaster_StockMrnMaster" FromRole="StockMrnMaster" ToRole="StockMrnMaster1" />
           <NavigationProperty Name="StockMrnMaster2" Relationship="ArtModel.FK_StockMrnMaster_StockMrnMaster" FromRole="StockMrnMaster1" ToRole="StockMrnMaster" />
           <NavigationProperty Name="StockRecieptMaster" Relationship="ArtModel.FK_StockMrnMaster_StockRecieptMaster" FromRole="StockMrnMaster" ToRole="StockRecieptMaster" />
+          <Property Name="IsCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MarkedCompletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkCompletedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StockPODetail">
           <Key>
@@ -12829,6 +13142,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
           <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_LaySheetMaster_AtcDetails" FromRole="LaySheetMaster" ToRole="AtcDetail" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_LaySheetMaster_AtcMaster" FromRole="LaySheetMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_LaySheetMaster_LocationMaster" FromRole="LaySheetMaster" ToRole="LocationMaster" />
         </EntityType>
         <EntityType Name="RollInventoryMaster">
           <Key>
@@ -12881,6 +13197,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="BuyerMaster" Relationship="ArtModel.FK_AtcMaster_BuyerMaster" FromRole="AtcMaster" ToRole="BuyerMaster" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
           <Property Name="IsCuttingCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_AtcMaster" FromRole="AtcMaster" ToRole="LaySheetMaster" />
+          <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_AtcMaster" FromRole="AtcMaster" ToRole="ExtDeliveryToken" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -13055,6 +13373,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_LaySheetDetails_FabricRollmaster" FromRole="LaySheetDetail" ToRole="FabricRollmaster" />
           <NavigationProperty Name="LayShortageDetails" Relationship="ArtModel.FK_LayShortageDetail_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LayShortageDetail" />
           <NavigationProperty Name="LaySheetRollDetail" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetDetail" ToRole="LaySheetRollDetail" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleteddate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_LaySheetDetails_LaySheetDetails">
           <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="0..1" />
@@ -13736,6 +14057,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutPlanASQDetails" Relationship="ArtModel.FK_CutPlanASQDetails_POPackDetails" FromRole="POPackDetail" ToRole="CutPlanASQDetail" />
           <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="POPackDetail" ToRole="PoPackMaster" />
           <NavigationProperty Name="RejectionExtraFabbReqs" Relationship="ArtModel.FK_RejectionExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionExtraFabbReq" />
+          <NavigationProperty Name="RejectionPanelExtraFabbReqs" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionPanelExtraFabbReq" />
         </EntityType>
         <Association Name="FK_ASQAllocationMaster_POPackDetails">
           <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
@@ -14594,8 +14916,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           </Key>
           <Property Name="RejectReqID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RejFabReqID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AllowedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AllowedQty" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="RejReqMasterID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="RejectReqMaster" Relationship="ArtModel.FK_RejectReqDetails_RejectReqMaster" FromRole="RejectReqDetail" ToRole="RejectReqMaster" />
         </EntityType>
         <EntityType Name="RejectReqMaster">
           <Key>
@@ -14608,6 +14931,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsAdjusted" Type="Boolean" Nullable="false" />
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Reqnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RejectionType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="RejectReqDetails" Relationship="ArtModel.FK_RejectReqDetails_RejectReqMaster" FromRole="RejectReqMaster" ToRole="RejectReqDetail" />
         </EntityType>
         <EntityType Name="RejectionAdjustDetail">
           <Key>
@@ -14822,6 +15147,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="MrnType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="Isdeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Filename" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FreightRequestMaster">
           <Key>
@@ -14846,6 +15173,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
           <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="IsPosted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="FreightChargeDetails" Relationship="ArtModel.FK_FreightChargeDetail_FreightRequestMaster" FromRole="FreightRequestMaster" ToRole="FreightChargeDetail" />
         </EntityType>
         <EntityType Name="ExceptionAtcList">
           <Key>
@@ -14855,6 +15183,206 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AtcNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
+        <Association Name="FK_LaySheetMaster_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="OustyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaySheetMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LaySheetMaster" Role="LaySheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="LaySheetMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RejectionPanelExtraFabbReq">
+          <Key>
+            <PropertyRef Name="RejFabPanelReqID" />
+          </Key>
+          <Property Name="RejFabPanelReqID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fabreqid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Fabreqno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reqdate" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ReqQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsUploaded" Type="Boolean" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster" FromRole="RejectionPanelExtraFabbReq" ToRole="LocationMaster" />
+          <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" FromRole="RejectionPanelExtraFabbReq" ToRole="POPackDetail" />
+        </EntityType>
+        <Association Name="FK_RejectionPanelExtraFabbReq_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.RejectionPanelExtraFabbReq" Role="RejectionPanelExtraFabbReq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="RejectionPanelExtraFabbReq">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RejectionPanelExtraFabbReq_POPackDetails">
+          <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.RejectionPanelExtraFabbReq" Role="RejectionPanelExtraFabbReq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POPackDetail">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Principal>
+            <Dependent Role="RejectionPanelExtraFabbReq">
+              <PropertyRef Name="PoPack_Detail_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RejectReqDetails_RejectReqMaster">
+          <End Type="ArtModel.RejectReqMaster" Role="RejectReqMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.RejectReqDetail" Role="RejectReqDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RejectReqMaster">
+              <PropertyRef Name="RejReqMasterID" />
+            </Principal>
+            <Dependent Role="RejectReqDetail">
+              <PropertyRef Name="RejReqMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FreightChargeDetail">
+          <Key>
+            <PropertyRef Name="FreightReqDetID" />
+          </Key>
+          <Property Name="FreightReqDetID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FreightCharge" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="FreightRequestID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="FreightRequestMaster" Relationship="ArtModel.FK_FreightChargeDetail_FreightRequestMaster" FromRole="FreightChargeDetail" ToRole="FreightRequestMaster" />
+        </EntityType>
+        <Association Name="FK_FreightChargeDetail_FreightRequestMaster">
+          <End Type="ArtModel.FreightRequestMaster" Role="FreightRequestMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.FreightChargeDetail" Role="FreightChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreightRequestMaster">
+              <PropertyRef Name="FreightRequestID" />
+            </Principal>
+            <Dependent Role="FreightChargeDetail">
+              <PropertyRef Name="FreightRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExtDeliveryToken">
+          <Key>
+            <PropertyRef Name="ExtDeliveryTokenID" />
+          </Key>
+          <Property Name="ExtDeliveryTokenID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fromlocation" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToLocation" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="DeliveredQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BalanceToDeliver" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Isdeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_ExtDeliveryToken_AtcMaster" FromRole="ExtDeliveryToken" ToRole="AtcMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster" FromRole="ExtDeliveryToken" ToRole="LocationMaster" />
+          <NavigationProperty Name="LocationMaster1" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster1" FromRole="ExtDeliveryToken" ToRole="LocationMaster" />
+          <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_ExtDeliveryToken_SkuRawmaterialDetail" FromRole="ExtDeliveryToken" ToRole="SkuRawmaterialDetail" />
+          <Property Name="Itemgroup" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SKU" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="ItemGroupMaster" Relationship="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster" FromRole="ExtDeliveryToken" ToRole="ItemGroupMaster" />
+        </EntityType>
+        <Association Name="FK_ExtDeliveryToken_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ExtDeliveryToken" Role="ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ExtDeliveryToken" Role="ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="Fromlocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_LocationMaster1">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ExtDeliveryToken" Role="ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="ToLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_SkuRawmaterialDetail">
+          <End Type="ArtModel.SkuRawmaterialDetail" Role="SkuRawmaterialDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ExtDeliveryToken" Role="ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkuRawmaterialDetail">
+              <PropertyRef Name="SkuDet_PK" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="SkuDet_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExtDeliveryToken_ItemGroupMaster">
+          <End Type="ArtModel.ItemGroupMaster" Role="ItemGroupMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ExtDeliveryToken" Role="ExtDeliveryToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGroupMaster">
+              <PropertyRef Name="ItemGroupID" />
+            </Principal>
+            <Dependent Role="ExtDeliveryToken">
+              <PropertyRef Name="Itemgroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16673,6 +17201,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="StockMrnMasters">
             <EntityTypeMapping TypeName="ArtModel.StockMrnMaster">
               <MappingFragment StoreEntitySet="StockMrnMaster">
+                <ScalarProperty Name="MarkCompletedDate" ColumnName="MarkCompletedDate" />
+                <ScalarProperty Name="MarkedCompletedBy" ColumnName="MarkedCompletedBy" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
                 <ScalarProperty Name="SReciept_Pk" ColumnName="SReciept_Pk" />
                 <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
                 <ScalarProperty Name="DoNumber" ColumnName="DoNumber" />
@@ -17645,6 +18176,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetDetails">
             <EntityTypeMapping TypeName="ArtModel.LaySheetDetail">
               <MappingFragment StoreEntitySet="LaySheetDetails">
+                <ScalarProperty Name="Deleteddate" ColumnName="Deleteddate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="LaySheetRoll_Pk" ColumnName="LaySheetRoll_Pk" />
                 <ScalarProperty Name="IsRecuttable" ColumnName="IsRecuttable" />
                 <ScalarProperty Name="ExcessOrShort" ColumnName="ExcessOrShort" />
@@ -18394,6 +18928,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RejectReqMasters">
             <EntityTypeMapping TypeName="ArtModel.RejectReqMaster">
               <MappingFragment StoreEntitySet="RejectReqMaster">
+                <ScalarProperty Name="RejectionType" ColumnName="RejectionType" />
                 <ScalarProperty Name="Reqnum" ColumnName="Reqnum" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="IsAdjusted" ColumnName="IsAdjusted" />
@@ -18486,6 +19021,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="MrnFileUploads">
             <EntityTypeMapping TypeName="ArtModel.MrnFileUpload">
               <MappingFragment StoreEntitySet="MrnFileUpload">
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="Isdeleted" ColumnName="Isdeleted" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="MrnType" ColumnName="MrnType" />
@@ -18526,6 +19063,57 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="AtcID" ColumnName="AtcID" />
                 <ScalarProperty Name="AtcNum" ColumnName="AtcNum" />
                 <ScalarProperty Name="ExceptionID" ColumnName="ExceptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RejectionPanelExtraFabbReqs">
+            <EntityTypeMapping TypeName="ArtModel.RejectionPanelExtraFabbReq">
+              <MappingFragment StoreEntitySet="RejectionPanelExtraFabbReq">
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+                <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Reqdate" ColumnName="Reqdate" />
+                <ScalarProperty Name="Fabreqno" ColumnName="Fabreqno" />
+                <ScalarProperty Name="Fabreqid" ColumnName="Fabreqid" />
+                <ScalarProperty Name="RejFabPanelReqID" ColumnName="RejFabPanelReqID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FreightChargeDetails">
+            <EntityTypeMapping TypeName="ArtModel.FreightChargeDetail">
+              <MappingFragment StoreEntitySet="FreightChargeDetail">
+                <ScalarProperty Name="FreightRequestID" ColumnName="FreightRequestID" />
+                <ScalarProperty Name="FreightCharge" ColumnName="FreightCharge" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="FreightReqDetID" ColumnName="FreightReqDetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtDeliveryTokens">
+            <EntityTypeMapping TypeName="ArtModel.ExtDeliveryToken">
+              <MappingFragment StoreEntitySet="ExtDeliveryToken">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Itemgroup" ColumnName="Itemgroup" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="Isdeleted" ColumnName="Isdeleted" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="BalanceToDeliver" ColumnName="BalanceToDeliver" />
+                <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
+                <ScalarProperty Name="Fromlocation" ColumnName="Fromlocation" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
+                <ScalarProperty Name="ExtDeliveryTokenID" ColumnName="ExtDeliveryTokenID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

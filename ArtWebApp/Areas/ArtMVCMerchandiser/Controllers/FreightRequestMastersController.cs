@@ -36,6 +36,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         }
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -45,17 +46,23 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FreightRequestID,FreightRequestNum,AddedBy,AddedDate,FromParty,ToParty,Shipper,Weight,ContentofPackage,DebitTo,Reason,Merchandiser,ForwarderDetails,ApproximateCharges,Remark,ApprovedBy,ApprovedDate,IsApproved,IsPosted")] FreightRequestMaster freightRequestMaster)
+        public JsonResult Create(FreightRequestMaster freightRequestMaster)
         {
-            if (ModelState.IsValid)
-            {
-                db.FreightRequestMasters.Add(freightRequestMaster);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            bool status = false;
+            DateTime dateOrg;
+          
+            freightRequestMaster.AddedBy = HttpContext.Session["Username"].ToString();
+            freightRequestMaster.AddedDate = DateTime.Now;
+            freightRequestMaster.IsApproved = "N";
+            freightRequestMaster.IsPosted = "N";
 
-            return View(freightRequestMaster);
+
+
+            ArtWebApp.BLL.MerchandsingBLL.FreightChargeBLL fbll = new BLL.MerchandsingBLL.FreightChargeBLL();
+           fbll. InsertFreightcharges(freightRequestMaster);
+            status = true;
+
+            return new JsonResult { Data = new { status = status } };
         }
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
@@ -123,5 +130,71 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
+        [HttpGet]
+        public JsonResult GetATcList()
+        {
+
+
+            SelectList atclist = new SelectList(db.AtcMasters.Where(u => u.IsCompleted == "N" && u.IsClosed == "N"), "AtcID", "AtcNum");
+             
+
+            JsonResult jsd = Json(atclist, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
+
+
+        [HttpGet]
+        public JsonResult GetAllowedFreightCharge(int id=0)
+        {
+
+            DBTransaction.CostingTransaction costtrans = new DBTransaction.CostingTransaction();
+
+            Decimal allowedvalue = 0;
+
+            allowedvalue = costtrans.GetAllowedFreightCharges(id);
+
+
+
+            var finalvalue = new { success = true, allowedvalue = allowedvalue.ToString() };
+            return Json(finalvalue, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult save(FreightRequestMaster order)
+        {
+            bool status = false;
+            DateTime dateOrg;
+            //var isValidDate = DateTime.TryParseExact(order.OrderDateString, "mm-dd-yyyy", null, System.Globalization.DateTimeStyles.None, out dateOrg);
+            //if (isValidDate)
+            //{
+            //    order.OrderDate = dateOrg;
+            //}
+
+            var isValidModel = TryUpdateModel(order);
+            if (isValidModel)
+            {
+                
+                    db.FreightRequestMasters.Add(order);
+                    db.SaveChanges();
+                    status = true;
+               
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+
+
+
     }
 }

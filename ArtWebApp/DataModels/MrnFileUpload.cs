@@ -20,5 +20,7 @@ namespace ArtWebApp.DataModels
         public string MrnType { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public string Isdeleted { get; set; }
+        public string Filename { get; set; }
     }
 }

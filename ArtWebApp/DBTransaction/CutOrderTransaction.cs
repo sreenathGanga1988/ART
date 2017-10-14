@@ -41,6 +41,54 @@ WHERE        (SkuRawMaterialMaster.Atc_id = @Param1) AND (ItemGroupMaster.ItemGr
         }
 
 
+
+
+
+
+        public DataTable GetTrimsDescription(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@" SELECT SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '')
+                         + '   ' + ISNULL(SkuRawmaterialDetail.ItemColor, '')+ ' (  ' + ISNULL(SkuRawmaterialDetail.ColorCode, '')+ '  ) '   + '   ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
+                         ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID
+WHERE        (SkuRawMaterialMaster.Atc_id = @Param1) AND(ItemGroupMaster.ItemGroupName = N'Trims')", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1", atcid);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public DataTable GetCutOrder(int iipk,int toloc)
         {
             DataTable dt = new DataTable();
@@ -584,7 +632,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -631,7 +689,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -685,7 +753,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus ,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -733,7 +811,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -782,7 +870,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -842,7 +940,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
@@ -890,7 +998,17 @@ FROM            CutPlanRejectHistory INNER JOIN
 WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
             FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,'' as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted

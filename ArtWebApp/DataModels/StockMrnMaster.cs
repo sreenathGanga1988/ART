@@ -24,6 +24,9 @@ namespace ArtWebApp.DataModels
         public string DoNumber { get; set; }
         public Nullable<decimal> Location_Pk { get; set; }
         public Nullable<decimal> SReciept_Pk { get; set; }
+        public string IsCompleted { get; set; }
+        public string MarkedCompletedBy { get; set; }
+        public Nullable<System.DateTime> MarkCompletedDate { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual StockMrnMaster StockMrnMaster1 { get; set; }

@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="AtcModelModel.ArtLaySheetDetail" Width="1.5" PointX="13.375" PointY="0.75" />
         <AssociationConnector Association="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl" />
         <EntityTypeShape EntityType="AtcModelModel.ArtLaySheetMasterData" Width="1.5" PointX="11.375" PointY="7.75" />
+        <EntityTypeShape EntityType="AtcModelModel.Fabricreqforpart" Width="1.5" PointX="13.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

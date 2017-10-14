@@ -1,6 +1,6 @@
 ﻿
 
-@model ArtWebApp.Areas.CuttingMVC.Models.LayShortageCutorderAdjustmentViewModal
+@model ArtWebApp.Areas.CuttingMVC.Models.RejectionCutorderAdjustmentViewModal
 @{
     ViewBag.Title = "AdjustLayShortage";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
@@ -26,19 +26,20 @@
             debugger
             var Id = $(this).find('option:selected').val();
 
+           
 
             $.ajax({
-                url: "@Url.Action("PopulateLayShortagerequest", "LayShortageadjust")",
+              
+               url: "@Url.Action("PopulateLayShortagerequest", "RejectpanelAdjust")",
                 type: 'Get',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-              //  data: JSON.stringify(123),
                 data: { 'Id': Id },
                 success: function (data) {
                     $('#LayShortageMasterID').empty();
                     $.each(data, function () {
 
-
+                        alert(Id)
                         $('#LayShortageMasterID').append('<option value=' +
                           this.Value + '>' + this.Text + '</option>');
                     });
@@ -75,7 +76,7 @@
 
                 //Populate arrayOfValues
                 $.ajax({
-                    url: "@Url.Action("PopulateCutorderList", "LayShortageadjust")",
+                    url: "@Url.Action("PopulateCutorderList", "RejectpanelAdjust")",
                     type: "Get",
                 contentType: "application/json; charset=utf-8",
                 datatype: "json",
@@ -121,7 +122,7 @@
 
                     //Populate arrayOfValues
                     $.ajax({
-                        url: "@Url.Action("PopulateLayRequestModel", "LayShortageadjust")",
+                        url: "@Url.Action("PopulateLayRequestModel", "RejectpanelAdjust")",
                         type: "Get",
                         contentType: "application/json; charset=utf-8",
                         datatype: "json",

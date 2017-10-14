@@ -1369,10 +1369,21 @@
     <Content Include="Areas\CuttingMVC\Views\PatternNameBanks\Details.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\PatternNameBanks\Edit.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\PatternNameBanks\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LaySheetEdit\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LaySheetEdit\_LaysheetDetails.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LaySheetEdit\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\RejectionPanel\RejectionPanelAccept.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\RejectionPanel\GetRequestDetailView.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Sampling\ShowSamplingstatus.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="css\BootStrapScript.css" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
@@ -1683,6 +1694,7 @@
     <Compile Include="Administrator\UserProfileCreation.aspx.designer.cs">
       <DependentUpon>UserProfileCreation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Api\ArtApiController.cs" />
     <Compile Include="Approvals\ASQApprovals.aspx.cs">
       <DependentUpon>ASQApprovals.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1764,20 +1776,28 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\UserMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\UserProfileMastersController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserAreaRegistration.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserRepo.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightRequestMastersController.cs" />
-    <Compile Include="Areas\ArtMVC\Controllers\AtcController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\LaySheetEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageadjustController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\PatternNameBanksController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\RejectionPanelController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\RejectpanelAdjustController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
+    <Compile Include="Areas\CuttingMVC\Models\RejectionPanelViewModal.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
+    <Compile Include="DataModelAtcWorld\Fabricreqforpart.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelAtcWorld\FabricRequest_tbl.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
@@ -1809,6 +1829,12 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ExceptionAtcList.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtDeliveryToken.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FreightChargeDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FreightRequestMaster.cs">
@@ -1849,6 +1875,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RejectionExtraFabbReq.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RejectionPanelExtraFabbReq.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RejectReqDetail.cs">
@@ -1922,6 +1951,7 @@
     </Compile>
     <Compile Include="ViewModel\Master\Item.cs" />
     <Compile Include="ViewModel\Master\Menu.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Code\HtmlHelperExtensions.cs" />
     <Compile Include="Areas\ArtMVCMaster\ArtMVCMasterAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ItemController.cs" />

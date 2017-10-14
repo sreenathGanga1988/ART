@@ -39,11 +39,11 @@ namespace ArtWebApp.Production.Cutting
             tbl_cutplanmarkerdata.DataBind();
             tbl_markertype.DataSource = cutplanmarkertypedata;
             tbl_markertype.DataBind();
+          
 
-             
             string refpattern= BLL.CutOrderBLL.CutPlan.GetreferncepatterofCutplan(int.Parse(drp_cutplan.SelectedValue.ToString()));
             txt_refpattern.Text = refpattern;
-        
+            upd_refpattern.Update();
             upd_cutplanmarkergrid.Update();
             upd_markertype.Update();
             fillasqgrid();
@@ -60,7 +60,7 @@ namespace ArtWebApp.Production.Cutting
             {
                 Button1.Enabled = true;
             }
-            upd_refpattern.Update();
+          
         }
 
 
@@ -89,7 +89,7 @@ namespace ArtWebApp.Production.Cutting
                     lbl_fabric.Text = element.FabDescription.ToString();
                     lbl_fabrication.Text = element.Fabrication.ToString();
                     lbl_loc.Text = element.LocationName.ToString();
-                    txt_refpattern.Text = element.RefPattern.ToString();
+                 
                     lbl_RollAdded.Text = element.IsRollAdded.ToString();
                 }
 

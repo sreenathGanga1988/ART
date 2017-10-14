@@ -29,6 +29,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ExcessOrShort { get; set; }
         public string IsRecuttable { get; set; }
         public Nullable<decimal> LaySheetRoll_Pk { get; set; }
+        public string IsDeleted { get; set; }
+        public string DeletedBy { get; set; }
+        public Nullable<System.DateTime> Deleteddate { get; set; }
     
         public virtual LaySheetMaster LaySheetMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }

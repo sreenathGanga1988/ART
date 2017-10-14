@@ -1,0 +1,163 @@
+﻿@model ArtWebApp.DataModels.ExtDeliveryToken
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ExtDeliveryToken</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveredQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveredQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BalanceToDeliver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BalanceToDeliver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Isdeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Isdeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SKU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SKU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtcMaster.AtcNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcMaster.AtcNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster1.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster1.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemGroupMaster.ItemGroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemGroupMaster.ItemGroupName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExtDeliveryTokenID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -879,7 +879,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK";
                     foreach (var element in q)
                     {
 
-                        pattername = pattername + "/" + element.PatternName;
+                        pattername =  element.PatternName;
                     }
 
                 }
@@ -1577,7 +1577,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                          select cutplnmstr;
                 foreach (var element in q1)
                 {
-                    if (!enty.PatternNameBanks.Any(f => f.OurStyleID == element.OurStyleID && f.Skudetpk==element.SkuDet_PK && f.Location_Pk == element.Location_PK && f.Shrinkage.Trim() == element.ShrinkageGroup.Trim() && f.PatternName.Trim() == patternanme.Trim()))
+                    if (!enty.PatternNameBanks.Any(f => f.OurStyleID == element.OurStyleID && f.Location_Pk == element.Location_PK && f.Shrinkage.Trim() == element.ShrinkageGroup.Trim() && f.PatternName.Trim() == patternanme.Trim()))
                     {
 
                         PatternNameBank ctpnref = new PatternNameBank();
