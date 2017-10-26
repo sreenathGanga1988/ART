@@ -6,6 +6,10 @@
       
     </style>
     <link href="../../css/style.css" rel="stylesheet" />
+
+     <script type="text/javascript">
+     
+</script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -22,7 +26,7 @@
                         <td>
 
 
-                            <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                            <asp:UpdatePanel ID="upd_main" UpdateMode="Conditional" runat="server">
                                 <ContentTemplate>
                                     <table>
                                         <tr>
@@ -51,11 +55,13 @@
                                         <tr>
                                             <td>Supplier</td>
                                             <td>
-                                                <%--<ig:WebDropDown ID="drp_supplier" runat="server" DataSourceID="supplierdata" Height="23px" Style="height: 23px" TextField="SupplierName" ValueField="Supplier_PK" Width="200px">
-                                                    <DropDownItemBinding TextField="SupplierName" ValueField="Supplier_PK" />
-                                                </ig:WebDropDown>--%>
-                                                  <ucc:DropDownListChosen ID="drp_supplier" runat="server" DataSourceID="supplierdata" DataTextField="SupplierName" DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px" >
+                                               <asp:UpdatePanel ID="upd_supplier" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                  <ucc:DropDownListChosen ID="drp_supplier" runat="server" AutoPostBack="true" DataSourceID="supplierdata" DataTextField="SupplierName"
+                                                      DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px"  OnSelectedIndexChanged="drp_supplier_SelectedIndexChanged" >
                             </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                            </asp:UpdatePanel>
                                             </td>
                                             <td></td>
                                             <td aria-invalid="grammar">Delivery Date :</td>
@@ -93,18 +99,22 @@
                                             <td>&nbsp;</td>
                                             <td>&nbsp;Currency :</td>
                                             <td>
-                                               
                                                 <ucc:DropDownListChosen ID="drp_currency" runat="server" DataSourceID="currencydata" DataTextField="CurrencyCode" DataValueField="CurrencyID" DisableSearchThreshold="10" Width="200px" >
                             </ucc:DropDownListChosen>
+                                      
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Payment Term :</td>
                                             <td>
                                                
-
-                                                <ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentTermCode" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px" >
+                                                
+                                                    <asp:UpdatePanel ID="upd_paymentterm" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                <ucc:DropDownListChosen  ID="drp_paymentterm" runat="server" Enabled="false" DataSourceID="Paymenttermdata" DataTextField="PaymentTermCode" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px" >
                             </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                            </asp:UpdatePanel>
                                             </td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>

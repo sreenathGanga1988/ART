@@ -1,0 +1,936 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.Models.CutplanViewModel
+@using System.Data;
+
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+@if (TempData["Error"] != null)
+{
+    <text>
+        <script>
+            $(document).ready(function () {
+               alert('@TempData["Error"]');
+            });
+        </script>
+    </text>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CutPlanMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.cutPlanMaster.CutPlan_PK)
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.Location_PK, "Location_PK", htmlAttributes: new { @class = "control-label col-md-2", @disabled = "disabled" })
+            <div class="col-md-4">
+                @Html.DropDownList("Location_PK", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.Location_PK, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.CutPlanNUM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.CutPlanNUM, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.CutPlanNUM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.ColorName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.ColorName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.ColorName, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.ColorCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.ColorCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.ColorCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.ShrinkageGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.ShrinkageGroup, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.ShrinkageGroup, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.WidthGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.WidthGroup, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.WidthGroup, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.FabDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.FabDescription, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.FabDescription, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.MarkerType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.MarkerType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.MarkerType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.BOMConsumption, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.BOMConsumption, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.BOMConsumption, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.Maxmarkerlength, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.Maxmarkerlength, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.Maxmarkerlength, "", new { @class = "text-danger", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.CutOrderConsumption, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.CutOrderConsumption, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.CutOrderConsumption, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.RollYard, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.cutPlanMaster.RollYard, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.RollYard, "", new { @class = "text-danger", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.MarkerMade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+
+                @Html.DropDownListFor(model => model.cutPlanMaster.MarkerMade, (SelectList)ViewBag.MarkerMade, htmlAttributes: new { @class = "chosen-select  form-control" })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.MarkerMade, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.Fabrication, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @*@Html.DropDownList("Fabrication", null, htmlAttributes: new { @class = "chosen-select  form-control" })*@
+                @Html.DropDownListFor(model => model.cutPlanMaster.Fabrication, (SelectList)ViewBag.Fabrication, htmlAttributes: new { @class = "chosen-select  form-control" })
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.Fabrication, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutPlanMaster.CutType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+
+                @Html.DropDownListFor(model => model.cutPlanMaster.CutType, (SelectList)ViewBag.CutType, htmlAttributes: new { @class = "chosen-select  form-control" })
+
+
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.CutType, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.cutPlanMaster.CutType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+
+                @Html.ValidationMessageFor(model => model.cutPlanMaster.CutPlanMarkerTypes, "", new { @class = "text-danger" })
+                @*@Html.ListBoxFor(model => model.cutPlanMaster.CutPlanMarkerTypes, new MultiSelectList(ViewBag.CutPlanMarkerTypes,"CutplanType", "CutplanType",null,model.cutPlanMaster.CutPlanMarkerTypes), new { @class = "chzn-select", data_placeholder = "" })*@
+
+                @Html.ListBoxFor(model => model.CutPlanMarkerTypes, (MultiSelectList)ViewBag.Categories, new { @class = "select", data_placeholder = "" })
+
+
+            </div>
+            @*@Html.ListBoxFor(m => m.SelectedTags,
+                new MultiSelectList(model.cutPlanMaster.Tags, "TagID", "Tag")
+                , new { @class = "chzn-select", data_placeholder = "Tags..." })*@
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+
+
+                @*<input type="submit" value="Save" name="action:Save"  class="btn btn-default"/>*@
+                <input type="submit" value="Save" name="action:Save" />
+            </div>
+        </div>
+    </div>
+
+    <h2> Size Wise Details</h2>
+    if (TempData["MasterSucess"] != null)
+    { <div class="top-buffer"></div>
+
+
+    <div class="alert alert-success">
+        <p><strong>@TempData["MasterSucess"].ToString()</strong></p>
+
+    </div>
+    }
+
+    if (TempData["Error"] != null)
+    { <div class="top-buffer"></div>
+
+
+    <div class="alert alert-success">
+        <p><strong>@TempData["MasterSucess"].ToString()</strong></p>
+
+    </div>
+    }
+    <table class="table table-bordered table-responsive" id="HeaderTableData">
+        <thead>
+            <tr>
+                @foreach (DataColumn col in Model.HeaderTableData.Columns)
+                {
+                    <th>
+                        @if (col.ColumnName == "Color")
+                        { @col.ColumnName
+                            @*@Html.Label(col.ColumnName, col.ColumnName, new { @class = "YourClass" })*@
+                        }
+                        else
+                        {
+                            @col.ColumnName
+                            @*@Html.Label(col.ColumnName, col.ColumnName, new { @class = "SizeNameHeader" })*@
+                        }
+
+
+
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+
+                int CurentRowofTable = 0;
+
+                foreach (DataRow row in Model.HeaderTableData.Rows)
+                {
+                    int balancerow = Model.HeaderTableData.Rows.Count - 2;
+                    int PlannedRow = 0;
+                    int NewPlannedRow = Model.HeaderTableData.Rows.Count - 1;
+                    int columncount = Model.HeaderTableData.Columns.Count - 1;
+
+
+
+                    DataColumn startincolumn = Model.HeaderTableData.Columns[0];
+                    DataColumn TotalColumn = Model.HeaderTableData.Columns[columncount];
+
+                    <tr>
+
+                        @foreach (DataColumn col in Model.HeaderTableData.Columns)
+                {
+                <td>
+                    @if (col.ColumnName == startincolumn.ColumnName || col.ColumnName == TotalColumn.ColumnName)
+                    {
+                    @row[col.ColumnName]
+                    }
+                    else
+                    {
+
+                        if (CurentRowofTable == PlannedRow)
+                        {
+                        <div class="PlannedQty">
+                        @row[col.ColumnName]
+                         </div>
+                        }
+                        else if (CurentRowofTable == balancerow)
+                        {
+                        <div class="BalanceQty">
+                        @row[col.ColumnName]
+                        </div>
+                        }
+                      else  if (CurentRowofTable == NewPlannedRow)
+                        {
+                        <div class="NewPlannedQty">
+                        @row[col.ColumnName]
+                        </div>
+                        }
+                      else  
+                        {
+                            @row[col.ColumnName]
+                        }
+                    }
+                </td>
+
+                }
+
+
+
+
+                    </tr>
+
+
+
+
+
+                    CurentRowofTable++;
+
+                }
+
+
+
+
+
+            }
+
+        </tbody>
+
+    </table>
+
+
+
+    <div class="row">
+
+        <table class="table-striped table table-bordered">
+
+            <thead>
+                <tr>
+                    <th>Balance To Cut (Reducable)</th>
+                    <th> Old Cutplan Qty</th>
+                    <th> New Culplan Qty</th>
+                    <th>Reduced Qty</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div id="TotalBalance">0</div></td>
+                    <td> <div id="OldTotal">0</div></td>
+                    <td> <div id="NewTotal">0</div></td>
+                    <td> <div id="ReducedQty">0</div></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <h2> ASQ Details</h2>
+
+
+    <table class="table table-bordered table-responsive AsqTable">
+
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th> PO Details</th>
+                <th> SizeColorDetails</th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var asqmstr in Model.ASQMAsters)
+                {
+                <tr>
+                    <td class=" Selector"></td>
+
+                    <td>
+                        <table class="tittlebar">
+                            <tbody>
+                                <tr>
+                                    <td class="NormalTD">ASQ</td>
+                                    <td class="NormalTD">
+                                        <span> @asqmstr.ASQ</span>
+                                        <div>
+
+                                            <div class="Popackid">@asqmstr.Popackid</div>
+                                            <div class="OurStyleID">@asqmstr.OurStyleID</div>
+                                            <div class="CutPlan_PK">@asqmstr.CutPlan_PK</div>
+                                            <div class="ColorName">@asqmstr.ColorName</div>
+
+                                        </div>
+                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NormalTD">BuyerPO</td>
+                                    <td class="NormalTD">
+                                        <span>@asqmstr.BuyerPO</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NormalTD">BuyerStyle</td>
+                                    <td class="NormalTD">
+                                        <span>@asqmstr.BuyerStyle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NormalTD">OurStyle</td>
+                                    <td class="NormalTD">
+                                        <span>@asqmstr.OurStyle</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NormalTD">SeasonName</td>
+                                    <td class="NormalTD">
+                                        <span>@asqmstr.SeasonName</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="NormalTD">HD</td>
+                                    <td class="NormalTD">
+                                        <span>@asqmstr.HandoverDate</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+
+
+                        <table class="table table-bordered Sizewisedetails">
+                            <thead>
+                                <tr>
+                                    @foreach (DataColumn col in asqmstr.SizewiseDetails.Columns)
+                                    {
+                                        <th>
+                                            @if (col.ColumnName == "Color")
+                                            {
+                                                
+                                                @Html.Label(col.ColumnName, col.ColumnName, new { @class = "YourClass" })
+                                            }
+                                            else
+                                            {
+                                                @Html.Label(col.ColumnName, col.ColumnName, new { @class = "SizeName" })
+                                            }
+
+
+
+                                        </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DataRow row in asqmstr.SizewiseDetails.Rows)
+                                {
+
+
+                                    <tr>
+
+                                        @if (asqmstr.SizewiseDetails.Rows.Count - 1 == (int)asqmstr.SizewiseDetails.Rows.IndexOf(row))
+                                        {
+                                            foreach (DataColumn col in asqmstr.SizewiseDetails.Columns)
+                                            {
+
+
+                                                <td>
+
+                                                    @if (col.ColumnName == "Color")
+                                                    {
+                                                        @row[col.ColumnName]
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBox(col.ColumnName, @row[col].ToString(), new { @class = "NewQtyclass", style = "width:60px" })
+                                                    }
+
+
+                                                </td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foreach (DataColumn col in asqmstr.SizewiseDetails.Columns)
+                                            {
+                                                <td>@row[col.ColumnName]</td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Submit" type="button" value="Submit"  class="btn btn-default show" />
+        </div>
+    </div>
+                }
+
+<script>
+
+    $(document).ready(function () {
+        $('body').on('keypress', '.NewQtyclass', function () {
+
+
+            $("#Submit").attr("disabled", true);
+
+
+
+        });
+
+
+        $('body').on('change', '.NewQtyclass', function () {
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+
+
+            var $previoustr = $tr.prev();//previous tr
+            var $nexttr = $tr.next();//next tr
+
+
+            //To get the corresponding td's in the next and prev rows
+            var tdIndex = $td.index();
+
+            var $previousCell = $previoustr.find("td:eq(" + tdIndex + ")");// previous cell
+
+            var prevtextox = $previousCell.text();
+
+            //alert(prevtextox);
+
+
+            //section for summary
+            var TotalNewvalue = 0;
+            $(".NewQtyclass").each(function () {
+                TotalNewvalue += parseInt($(this).val());
+            });
+
+            $("#NewTotal").text(TotalNewvalue.toString());
+    // section for calculating total balance
+            var BalanceQty = 0;
+            $(".BalanceQty").each(function () {
+                BalanceQty += parseInt($(this).text());
+
+
+            });
+
+            $("#TotalBalance").text(BalanceQty.toString());
+
+            //section to get total plan screen
+            var PlannedQty = 0;
+
+            $(".PlannedQty").each(function () {
+                PlannedQty += parseInt($(this).text());
+
+
+            });
+
+            $("#OldTotal").text(PlannedQty.toString());
+
+
+
+
+
+            var reducedqtytotal = (PlannedQty - TotalNewvalue).toString();
+
+            $("#ReducedQty").text(reducedqtytotal);
+
+
+
+            if (reducedqtytotal > BalanceQty) {
+                alert("Cannot Reduce Qty below  Balance Qty");
+
+                isok = false;
+            }
+
+
+
+
+
+
+
+
+
+            var $th = $td.closest('table').find('th').eq($td.index());
+
+            var selectedSize = $th.text();
+
+
+            var HeaderTableDataThead = $("#HeaderTableData table thead tr");
+
+            var $NewValueTD = null;
+            var TotalLayedofSize = 0;
+            var TotalPlannedofSize = 0;
+            var BalanceofSize = 0;
+            $('#HeaderTableData thead tr th').each(function () {
+
+                if ($(this).html().trim() == selectedSize.trim()) {
+
+                    //var td = $(this).cellIndex;
+
+
+                    var td = $(this).index();
+
+
+                    //Get AlreadyLayedvalue of column
+                    var $row = $('#HeaderTableData').find('tr').eq(3);
+                    var $Alreadylayed = $row.find("td:eq(" + td + ")");
+
+                    TotalLayedofSize = $Alreadylayed.text()
+                    $Alreadylayed.css("background-color", "cyan");
+
+
+                    //get the column for entering the new value
+                    var $NewValuerow = $('#HeaderTableData').find('tr').eq(5);
+
+                     $NewValueTD = $NewValuerow.find("td:eq(" + td + ")");
+
+                     $NewValueTD.css("background-color", "green");
+
+
+
+                     var $BalanceRow = $('#HeaderTableData').find('tr').eq(4);
+
+                     var $BalanceValueTD = $BalanceRow.find("td:eq(" + td + ")");
+                     BalanceofSize = $BalanceValueTD.text()
+                     $BalanceValueTD.css("background-color", "yellow");
+
+
+                     var $PlanRow = $('#HeaderTableData').find('tr').eq(1);
+
+                     var $PlanValueTD = $PlanRow.find("td:eq(" + td + ")");
+                     TotalPlannedofSize = $PlanValueTD.text()
+                     $PlanValueTD.css("background-color", "orange");
+
+
+
+                }
+
+            });
+
+
+            //get the sum of new values of changed size
+            var newtotalofselectedsize = 0;
+            $('tbody table.Sizewisedetails thead tr th').each(function () {
+
+
+
+                if ($(this).text().trim() == selectedSize.trim()) {
+                    var td = $(this).index();
+
+                    var $table = $(this).closest("table");
+
+                    var $row = $table.find('tr').eq(2);
+
+                    var $NewTD = $row.find("td:eq(" + td + ")");
+
+
+                    $NewTD.find(".NewQtyclass").each(function () {
+                        newtotalofselectedsize += parseFloat($(this).val());
+
+
+
+                    });
+
+
+
+
+
+                }
+
+
+            });
+
+            $NewValueTD.text(newtotalofselectedsize);
+
+
+
+            if (parseFloat(newtotalofselectedsize.toString()) > parseFloat(TotalPlannedofSize.toString())) {
+
+              //if new total greater than intial planned qty
+                alert("Cannot Replan More than Intial plan");
+                isok = false;
+                $NewValueTD.css("background-color", "LightCoral ");
+            }
+            else if ((parseFloat(TotalPlannedofSize.toString()) - parseFloat(newtotalofselectedsize.toString())) > parseFloat(BalanceofSize.toString()))
+            {
+                //if reduced qty greater than balance available to replan
+                alert("Cannot reduce qty to more than Layed Qty");
+                $NewValueTD.css("background-color", "LightCoral ");
+                isok = false;
+            }
+
+
+
+            if (isok == true)
+            {
+
+                // if everything is ok do a validation for all sizes
+
+                $('#HeaderTableData thead tr th').each(function () {
+
+                    var td = $(this).index();
+
+
+                    if (td != 0) {
+
+                        var $row = $('#HeaderTableData').find('tr').eq(3);
+                        var $Alreadylayed = $row.find("td:eq(" + td + ")");
+
+                        TotalLayedofSize = $Alreadylayed.text()
+
+
+
+                        //get the column for entering the new value
+                        var $NewValuerow = $('#HeaderTableData').find('tr').eq(5);
+
+                        $NewValueTD = $NewValuerow.find("td:eq(" + td + ")");
+
+
+                        newtotalofselectedsize = $NewValueTD.text();
+
+
+
+
+                        var $BalanceRow = $('#HeaderTableData').find('tr').eq(4);
+
+                        var $BalanceValueTD = $BalanceRow.find("td:eq(" + td + ")");
+                        BalanceofSize = $BalanceValueTD.text()
+
+
+
+                        var $PlanRow = $('#HeaderTableData').find('tr').eq(1);
+
+                        var $PlanValueTD = $PlanRow.find("td:eq(" + td + ")");
+                        TotalPlannedofSize = $PlanValueTD.text()
+
+                        if (parseFloat(newtotalofselectedsize.toString()) > parseFloat(TotalPlannedofSize.toString())) {
+
+                            alert('New Total is' + newtotalofselectedsize + 'Planned' + TotalPlannedofSize );
+                            //if new total greater than intial planned qty
+                            alert("Cannot Replan More than Intial plan");
+                            isok = false;
+                            $NewValueTD.css("background-color", "red");
+                        }
+                        else if ((parseFloat(TotalPlannedofSize.toString()) - parseFloat(newtotalofselectedsize.toString())) > parseFloat(BalanceofSize.toString())) {
+                            //if reduced qty greater than balance available to replan
+                            alert("Cannot reduce qty to more than Layed Qty");
+                            $NewValueTD.css("background-color", "LightCoral ");
+                            isok = false;
+                        }
+                        else {
+                            $NewValueTD.css("background-color", "Green ");
+                        }
+                    }
+
+
+
+                });
+
+
+
+                if (isok == true) {
+
+                    $("#Submit").attr("disabled", false);
+                }
+            }
+
+
+        });
+
+        $('#Submit').click(function () {
+
+            var asqtablemaster = document.getElementsByClassName("AsqTable");
+            var list = [];
+            for (var i = 0; i < asqtablemaster.length; i++) {
+
+
+
+
+                var currenttable = asqtablemaster[i];
+
+                var Popackid = currenttable.getElementsByClassName("Popackid")[0].innerHTML;;
+
+                var Oursytlieid = currenttable.getElementsByClassName("OurStyleID")[0].innerHTML;;
+
+                var cutplanpk = currenttable.getElementsByClassName("CutPlan_PK")[0].innerHTML;;
+
+                var colorname = currenttable.getElementsByClassName("ColorName")[0].innerHTML;;
+
+                var sizewisetable = currenttable.getElementsByClassName("Sizewisedetails")[0];
+
+                var qtyies = sizewisetable.getElementsByClassName("NewQtyclass");
+
+
+                for (var j = 0; j < qtyies.length; j++) {
+
+                    var currentqty = qtyies[j];
+
+
+                    var cellindex = currentqty.parentNode.cellIndex;
+
+                    var htmlrow = sizewisetable.rows[0];
+
+                   // alert(currentqty.value);
+                    var Sizename = htmlrow.cells[cellindex].getElementsByClassName("SizeName")[0].innerHTML;;
+
+                    var ASQMAster = { PoPackId: Popackid, OurStyleID: Oursytlieid, CutPlan_PK: cutplanpk, ColorName: colorname, SizeName: Sizename, Qty: currentqty.value };
+
+                    list.push(ASQMAster);
+
+                }
+
+            }
+           
+            var things = JSON.stringify({ 'things': list });
+           
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Create", "CutPlanEdit")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        
+                      
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+
+
+        });
+
+    });
+
+
+    //function ValidateTotal()
+    //{
+    //    var isallok = true;
+
+    //    var asqtablemaster = document.getElementsByClassName("AsqTable");
+    //    var list = [];
+    //    for (var i= 0; i < asqtablemaster.length;i++)
+    //    {
+
+
+
+    //        alert('javas');
+    //        var currenttable = asqtablemaster[i];
+
+    //        var Popackid = currenttable.getElementsByClassName("Popackid")[0].innerHTML;;
+
+    //        var Oursytlieid = currenttable.getElementsByClassName("OurStyleID")[0].innerHTML;;
+
+    //        var cutplanpk = currenttable.getElementsByClassName("CutPlan_PK")[0].innerHTML;;
+
+    //        var colorname = currenttable.getElementsByClassName("ColorName")[0].innerHTML;;
+
+    //        var sizewisetable = currenttable.getElementsByClassName("Sizewisedetails")[0];
+
+    //        var qtyies = sizewisetable.getElementsByClassName("NewQtyclass");
+
+
+    //        for (var j = 0; j < qtyies.length; j++) {
+
+    //            var currentqty = qtyies[j];
+
+
+    //            var cellindex = currentqty.parentNode.cellIndex;
+
+    //            var htmlrow = sizewisetable.rows[0];
+
+
+    //            var Sizename = htmlrow.cells[cellindex].getElementsByClassName("SizeName")[0].innerHTML;;
+
+    //            var ASQMAster = { PoPackId: Popackid, OurStyleID: Oursytlieid, CutPlan_PK: cutplanpk, ColorName: colorname, SizeName: Sizename, Qty: currentqty };
+
+    //            list.push(ASQMAster);
+
+    //        }
+
+    //        }
+    //    var data = {
+
+    //        FreightChargeDetails: list,
+    //    }
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/ArtMVCMerchandiser/FreightRequestMasters/Create',
+    //        data: JSON.stringify(data),
+    //        contentType: 'application/json',
+    //        success: function (data) {
+    //            if (data.status) {
+    //                alert('Successfully saved');
+    //                //here we will clear the form
+    //                list = [];
+    //                $('#orderNo,#orderDate,#description').val('');
+    //                $('#orderdetailsItems').empty();
+    //            }
+    //            else {
+    //                alert('Error');
+    //            }
+    //            $('#submit').val('Save');
+    //        },
+    //        error: function (error) {
+    //            console.log(error);
+    //            $('#submit').val('Save');
+    //        }
+    //    });
+
+    //    }
+
+
+
+
+
+
+
+
+    function SubmitData()
+    {
+
+
+
+
+    }
+
+</script>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

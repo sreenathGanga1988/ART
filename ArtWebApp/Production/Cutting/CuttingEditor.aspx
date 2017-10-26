@@ -140,7 +140,7 @@
                                 <ContentTemplate>
                             <asp:GridView ID="tbl_markertype" runat="server" AutoGenerateColumns="False">
                                 <Columns>
-                                    <asp:BoundField DataField="CutPlanmarkerType" HeaderText="Marker Type" />
+                                    <asp:BoundField DataField="CutPlanmarkerTypeName" HeaderText="Marker Type" />
                                 </Columns>
                             </asp:GridView>
                                     </ContentTemplate>
@@ -389,6 +389,9 @@
                                                         <td>
                                                             <asp:Button ID="btn_deleteCutorder" runat="server" OnClick="btn_deleteCutorder_Click" Text="Delete Cut Plan " />
                                                         </td>
+                                                         <td>
+                                                            <asp:Button ID="btn_repoen" runat="server" Text="Reopen Cutplan" OnClick="btn_repoen_Click" />
+                                                        </td>
                                                         <td>
                                                             <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="ReAssign patternName" />
                                                         </td>
@@ -424,7 +427,7 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
                                             <asp:ControlParameter ControlID="drp_cutplan" DefaultValue="" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
                                         </SelectParameters>
                                     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerType] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
+    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerTypeName] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
         <SelectParameters>
             <asp:ControlParameter ControlID="drp_cutplan" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
         </SelectParameters>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.BLL.UserBLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,12 +15,24 @@ namespace ArtWebApp.Areas.ArtAdministrator.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult BackUPDatabase()
         {
 
 
             return View();
         }
+        [HttpGet]
+        public ActionResult Create()
+        {
+
+            ItAdministratorBLL bll = new ItAdministratorBLL();
+            bll.BackUpDB();
+          return   RedirectToAction("BackUPDatabase");
+        }
+
+
+       
 
 
     }

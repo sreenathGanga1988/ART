@@ -58,6 +58,15 @@ namespace ArtWebApp.Merchandiser {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txt_remark;
         
         /// <summary>
+        /// upd_supplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_supplier;
+        
+        /// <summary>
         /// drp_supplier control.
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace ArtWebApp.Merchandiser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::CustomDropDown.DropDownListChosen drp_currency;
+        
+        /// <summary>
+        /// upd_paymentterm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_paymentterm;
         
         /// <summary>
         /// drp_paymentterm control.

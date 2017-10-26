@@ -765,11 +765,43 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
 
 
 
+        public int GetSupplierPaymentFixed(int supplierpk)
 
 
 
+        {
+            int paymenttermid = 0;
+
+            try
+            {
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+
+                    var q = from ponmbr in enty.SupplierMasters
+                            where ponmbr.Supplier_PK == supplierpk
+                            select ponmbr;
 
 
+                    foreach (var element in q)
+                    {
+                        if (element.IsFixedPaymentTermID == true)
+                        {
+                            paymenttermid = int.Parse(element.PaymentTermID.ToString());
+                        }
+
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                paymenttermid = 0;
+            }
+            return paymenttermid;
+        }
 
 
 

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ArtWebApp.DataModels;
+using ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel;
+using ArtWebApp.Areas.Repository;
 
 namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
 {
@@ -46,21 +48,14 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Create(FreightRequestMaster freightRequestMaster)
+        public JsonResult Create(FreightRequestMasterViewModel order)
         {
+           
             bool status = false;
-            DateTime dateOrg;
-          
-            freightRequestMaster.AddedBy = HttpContext.Session["Username"].ToString();
-            freightRequestMaster.AddedDate = DateTime.Now;
-            freightRequestMaster.IsApproved = "N";
-            freightRequestMaster.IsPosted = "N";
-
-
-
-            ArtWebApp.BLL.MerchandsingBLL.FreightChargeBLL fbll = new BLL.MerchandsingBLL.FreightChargeBLL();
-           fbll. InsertFreightcharges(freightRequestMaster);
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+            string reqnum = freightChargeRepo.InsertFreightCharges(order);
             status = true;
+
 
             return new JsonResult { Data = new { status = status } };
         }
@@ -169,28 +164,16 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
 
 
 
-        [HttpPost]
-        public JsonResult save(FreightRequestMaster order)
-        {
-            bool status = false;
-            DateTime dateOrg;
-            //var isValidDate = DateTime.TryParseExact(order.OrderDateString, "mm-dd-yyyy", null, System.Globalization.DateTimeStyles.None, out dateOrg);
-            //if (isValidDate)
-            //{
-            //    order.OrderDate = dateOrg;
-            //}
+        //[HttpPost]
+        //public JsonResult Save(FreightRequestMasterViewModel order)
+        //{
+           
 
-            var isValidModel = TryUpdateModel(order);
-            if (isValidModel)
-            {
-                
-                    db.FreightRequestMasters.Add(order);
-                    db.SaveChanges();
-                    status = true;
-               
-            }
-            return new JsonResult { Data = new { status = status } };
-        }
+
+
+        
+        //    return new JsonResult { Data = new { status = status } };
+        //}
 
 
 

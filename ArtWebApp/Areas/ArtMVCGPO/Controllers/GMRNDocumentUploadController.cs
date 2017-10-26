@@ -22,6 +22,15 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public ActionResult Index (GMRNViewModal model = null)
+        {
+
+            ConfigureViewModel(model);
+            return View(model);
+        }
+
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "Show")]
         public ActionResult ShowMRN(GMRNViewModal model)
@@ -68,7 +77,7 @@ namespace ArtWebApp.Areas.ArtMVCGPO.Controllers
                 string fl = path.Substring(path.LastIndexOf("\\"));
                 string[] split = fl.Split('\\');
                 string newpath = split[1];
-                string imagepath = "~/uploads/" + newpath;
+                string imagepath = "~/Uploads/" + newpath;
 
                 MrnFileUpload mrnFileUpload = new MrnFileUpload();
                 mrnFileUpload.Mrn_PK = model.MrnID;

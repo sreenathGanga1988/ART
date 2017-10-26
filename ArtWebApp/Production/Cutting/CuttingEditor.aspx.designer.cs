@@ -292,6 +292,15 @@ namespace ArtWebApp.Production.Cutting {
         protected global::System.Web.UI.WebControls.Button btn_deleteCutorder;
         
         /// <summary>
+        /// btn_repoen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_repoen;
+        
+        /// <summary>
         /// Button2 control.
         /// </summary>
         /// <remarks>

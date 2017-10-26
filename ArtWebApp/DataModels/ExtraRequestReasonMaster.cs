@@ -17,11 +17,13 @@ namespace ArtWebApp.DataModels
         public ExtraRequestReasonMaster()
         {
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
+            this.SubConExtraRequests = new HashSet<SubConExtraRequest>();
         }
     
         public decimal ExtraReason_Pk { get; set; }
         public string ExtraReason { get; set; }
     
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
+        public virtual ICollection<SubConExtraRequest> SubConExtraRequests { get; set; }
     }
 }

@@ -185,9 +185,10 @@
                                                 <td class="auto-style5">
                                                     <asp:Label ID="lbl_manualcutnum" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                                <td class="auto-style9">&nbsp;</td>
+                                                <td class="auto-style9">&nbsp;Garment Color</td>
                                                 <td class="auto-style5">
-                                                    &nbsp;</td>
+                                                    <asp:Label ID="lbl_colorname" runat="server" Text="0"></asp:Label>
+                                                </td>
                                                 <td class="auto-style5">&nbsp;</td>
                                                 <td class="auto-style5">
                                                     &nbsp;</td>

@@ -18,7 +18,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> AtcID { get; set; }
         public Nullable<decimal> FreightCharge { get; set; }
         public Nullable<decimal> FreightRequestID { get; set; }
+        public string Remark { get; set; }
     
         public virtual FreightRequestMaster FreightRequestMaster { get; set; }
+        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

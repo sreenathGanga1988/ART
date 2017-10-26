@@ -3,13 +3,64 @@
     ViewBag.Title = "BackUPDatabase";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
+<script>
 
+
+      $(document).ready(function () {
+
+
+
+
+          $("#Create").click(function (e, params) {
+
+            debugger;
+          
+            
+           
+            alert("You Clicked Me");
+
+                $.ajax({
+                    url: "@Url.Action("Create", "SQLAdministrator")",
+                    traditional: true,
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert ("Successfully Updated")
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
 <h2>BackUPDatabase</h2>
 <div class="container">
     <div class="row">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create BackUP" class="btn btn-default" />
+                <input id="Create" type="button" value="Create" class="btn btn-default show" />
             </div>
         </div>
 

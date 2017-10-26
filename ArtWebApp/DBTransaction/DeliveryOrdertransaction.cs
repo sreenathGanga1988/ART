@@ -197,10 +197,10 @@ ORDER BY RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, U
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        DeliveryOrderDetails.DODet_PK, InventoryMaster.InventoryItem_PK,
-                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description,
-                         ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, SkuRawMaterialMaster.RMNum, UOMMaster.UomCode,  DeliveryOrderDetails.DeliveryQty, 
-                        isnull( SUM(DeliveryReceiptDetail.ReceivedQty),0) AS ReceivedQty, (DeliveryOrderDetails.DeliveryQty-isnull( SUM(DeliveryReceiptDetail.ReceivedQty),0)) as BalanceQty
+                SqlCommand cmd = new SqlCommand(@"SELECT        DeliveryOrderDetails.DODet_PK, InventoryMaster.InventoryItem_PK, 
+                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, ProcurementDetails.SupplierSize, 
+                         ProcurementDetails.SupplierColor, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, SkuRawMaterialMaster.RMNum, UOMMaster.UomCode, DeliveryOrderDetails.DeliveryQty, 
+                         ISNULL(SUM(DeliveryReceiptDetail.ReceivedQty), 0) AS ReceivedQty, DeliveryOrderDetails.DeliveryQty - ISNULL(SUM(DeliveryReceiptDetail.ReceivedQty), 0) AS BalanceQty, DeliveryOrderDetails.DO_PK
 FROM            DeliveryOrderDetails INNER JOIN
                          InventoryMaster ON DeliveryOrderDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN

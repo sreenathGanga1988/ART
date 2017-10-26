@@ -9,6 +9,24 @@
 
        <script type="text/javascript">
 
+
+
+          
+           var submit = 0;
+           function CheckDouble() {
+               if (++submit > 1) {
+                   alert('This sometimes takes a few seconds - please be patient.');
+                   return false;
+               }
+           }
+
+
+
+
+
+
+
+
         var gridID = "<%= tbl_RollDetails.ClientID %>";
 
     
@@ -623,7 +641,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Button ID="btn_sumbit" runat="server" OnClick="btn_sumbit_Click" Text="Create Laysheet" />
+                <asp:Button ID="btn_sumbit" runat="server" OnClick="btn_sumbit_Click" OnClientClick="return CheckDouble();" Text="Create Laysheet" />
             </td>
         </tr>
         <tr>

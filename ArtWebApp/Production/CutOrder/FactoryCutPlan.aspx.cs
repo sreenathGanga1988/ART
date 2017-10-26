@@ -1238,6 +1238,7 @@ namespace ArtWebApp.Production.CutOrder
             cmstrdata.Fabrication = drp_fabrication.Text;
             cmstrdata.MarkerType = drp_markerType.SelectedItem.Text.Trim();
             cmstrdata.MakerMade = drp_markermade.Text;
+            cmstrdata.CutType = drp_cuttype.Text;
             cmstrdata.BOMConsumption = Decimal.Parse(lbl_consumption.Text.Trim());
             cmstrdata.CutPlanMarkerTypeDataDataCollection = getmarkertype();
             cmstrdata.Maxmarkerlength = txt_maximumMarkerlength.Text;
@@ -1270,7 +1271,7 @@ namespace ArtWebApp.Production.CutOrder
                 String markertype = item.Value.ToString();
 
                 BLL.CutOrderBLL.CutPlanMarkerTypeData cutdet = new BLL.CutOrderBLL.CutPlanMarkerTypeData();
-                cutdet.MarkerType = markertype.Trim();
+                cutdet.MarkerTypeName = markertype.Trim();
 
 
 

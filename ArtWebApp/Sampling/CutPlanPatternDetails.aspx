@@ -665,7 +665,7 @@
                         <asp:GridView ID="tbl_markertype" runat="server" AutoGenerateColumns="False" CellPadding="4" Font-Bold="True" Font-Size="Smaller" ForeColor="#333333" GridLines="None">
                             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                             <Columns>
-                                <asp:BoundField DataField="CutPlanmarkerType" HeaderText="Marker Direction" />
+                                <asp:BoundField DataField="CutPlanmarkerTypeName" HeaderText="Marker Direction" />
                             </Columns>
                             <EditRowStyle BackColor="#999999" />
                             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -724,7 +724,7 @@
                                         <SelectParameters>
                                             <asp:ControlParameter ControlID="drp_cutorder" DefaultValue="0" Name="CutID" PropertyName="SelectedValue" Type="Decimal" />
                                         </SelectParameters>
-                                    </asp:SqlDataSource><asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerType] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
+                                    </asp:SqlDataSource><asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerTypeName] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
         <SelectParameters>
             <asp:ControlParameter ControlID="drp_cutorder" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
         </SelectParameters>

@@ -15,8 +15,9 @@ namespace ArtWebApp.DataModels
     public partial class CutPlanMarkerType
     {
         public decimal CutPlanMarkerTypes_PK { get; set; }
-        public string CutPlanmarkerType1 { get; set; }
+        public string CutPlanmarkerTypeName { get; set; }
         public Nullable<decimal> CutPlan_PK { get; set; }
+        public string TypeName { get; set; }
     
         public virtual CutPlanMaster CutPlanMaster { get; set; }
     }

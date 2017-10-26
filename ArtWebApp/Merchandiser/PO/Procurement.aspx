@@ -21,7 +21,23 @@
 
         </style>
     <link href="../../css/style.css" rel="stylesheet" />
-    
+    <script type="text/javascript">
+      function SupplierSelected(ddl)
+      {
+         
+
+          var supplierID = ddl.selectedIndex;
+              PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
+          function onSucess(result) {
+              alert(result);
+              objref.innerHTML = objref.innerHTML.strike();
+              objref.innerHTML = objref.innerHTML.fontcolor("red");
+          }
+          function onError(result) {
+              alert('Something wrong.');
+          }
+      }
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1"  runat="server">
     <table class="FullTable">
@@ -36,8 +52,13 @@
                             <tr>
                                 <td >Supplier</td>
                                 <td >
-                                    <ucc:DropDownListChosen ID="drp_supplier" runat="server" DataSourceID="supplierdata" DataTextField="SupplierName" DataValueField="Supplier_PK" DisableSearchThreshold="10">
-                                    </ucc:DropDownListChosen>
+                                         <asp:UpdatePanel ID="upd_supplier" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                  <ucc:DropDownListChosen ID="drp_supplier" runat="server" AutoPostBack="true" DataSourceID="supplierdata" DataTextField="SupplierName"
+                                                      DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px"  OnSelectedIndexChanged="drp_supplier_SelectedIndexChanged" >
+                            </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                                             </asp:UpdatePanel>
                                 </td>
                                 <td ></td>
                                 <td >Delivery Date :</td>
@@ -92,8 +113,12 @@
                             <tr>
                                 <td >
                                     Payment Term</td>
-                                <td ><ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentCodeDescription" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px">
-                                    </ucc:DropDownListChosen>
+                                <td >    <asp:UpdatePanel ID="upd_paymentterm" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                <ucc:DropDownListChosen  ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentCodeDescription" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px" >
+                            </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                            </asp:UpdatePanel>
                                 </td>
                                 <td >&nbsp;</td>
                                 <td >Po Type :</td>
@@ -202,8 +227,8 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Supplier Size">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="ddl_SupSize" runat="server" DataSourceID="Sizedata" DataTextField="TemplateSize" DataValueField="TemplateSize" Width="100%">
-                                        </asp:DropDownList>
+                                        <ucc:DropDownListChosen ID="ddl_SupSize" runat="server" DataSourceID="Sizedata" DataTextField="TemplateSize" DataValueField="TemplateSize" Width="100%">
+                                        </ucc:DropDownListChosen>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                    <asp:TemplateField HeaderText="AltUOM" SortExpression="AltUOM_pk">
@@ -212,8 +237,8 @@
                                             <asp:Label ID="lbl_altuompk" runat="server" Text='<%# Bind("AltUom_pk") %>' Visible="False"></asp:Label>
                                             <asp:UpdatePanel ID="Upd_ddl_AltUOM" UpdateMode="Conditional"  runat="server">
                                                 <ContentTemplate>
-                                                    <asp:DropDownList ID="ddl_AltUOM" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_AltUOM_SelectedIndexChanged">
-                                                    </asp:DropDownList>
+                                                    <ucc:DropDownListChosen ID="ddl_AltUOM" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_AltUOM_SelectedIndexChanged">
+                                                    </ucc:DropDownListChosen>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
                                         </ItemTemplate>

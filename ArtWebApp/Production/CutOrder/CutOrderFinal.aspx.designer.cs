@@ -319,6 +319,15 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::CustomDropDown.DropDownListChosen drp_reason;
         
         /// <summary>
+        /// upd_markername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_markername;
+        
+        /// <summary>
         /// txt_markername control.
         /// </summary>
         /// <remarks>
@@ -346,13 +355,13 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.Label lbl_cutQty;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// upd_fabAllocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel upd_fabAllocation;
         
         /// <summary>
         /// txt_fabAllocation control.

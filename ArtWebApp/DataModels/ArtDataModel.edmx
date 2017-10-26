@@ -412,6 +412,8 @@
           <Property Name="CutPlan" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
           <Property Name="ActualConsumption" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CutOrderSizeDetails">
           <Key>
@@ -488,8 +490,9 @@
             <PropertyRef Name="CutPlanMarkerTypes_PK" />
           </Key>
           <Property Name="CutPlanMarkerTypes_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CutPlanmarkerType" Type="nvarchar(max)" />
+          <Property Name="CutPlanmarkerTypeName" Type="nvarchar(max)" />
           <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CutPlanMaster">
           <Key>
@@ -1049,6 +1052,7 @@
           <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="FreightCharge" Type="decimal" Precision="18" Scale="4" />
           <Property Name="FreightRequestID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Remark" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FreightRequestMaster">
           <Key>
@@ -1330,6 +1334,34 @@
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="LabChargeDetail">
+          <Key>
+            <PropertyRef Name="LabReqDetID" />
+          </Key>
+          <Property Name="LabReqDetID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LabCharge" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="LabRequestID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LabRequestMaster">
+          <Key>
+            <PropertyRef Name="LabRequestID" />
+          </Key>
+          <Property Name="LabRequestID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LabRequestNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="Reason" Type="nvarchar(max)" />
+          <Property Name="Merchandiser" Type="nvarchar(max)" />
+          <Property Name="ApproximateCharges" Type="nvarchar(max)" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="1" />
+          <Property Name="IsPosted" Type="nchar" MaxLength="1" />
+          <Property Name="Supplier_pk" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LayAdjustDetails">
           <Key>
@@ -1800,6 +1832,7 @@
           <Property Name="ShortClosedDate" Type="datetime" />
           <Property Name="MarkedCuttabledate" Type="datetime" />
           <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PoPackMaster">
           <Key>
@@ -2637,6 +2670,23 @@
           <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Orderof" Type="numeric" Precision="3" Scale="0" />
         </EntityType>
+        <EntityType Name="SubConExtraRequest">
+          <Key>
+            <PropertyRef Name="ExtraRequestID" />
+          </Key>
+          <Property Name="ExtraRequestID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CutOrderID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RequestQty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="1" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="1" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExtraReason_Pk" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="SubMenuMaster">
           <Key>
             <PropertyRef Name="Menu_PK" />
@@ -2744,6 +2794,7 @@
           <Property Name="IsPogiven" Type="nchar" MaxLength="10" />
           <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsFixedPaymentTermID" Type="bit" />
         </EntityType>
         <EntityType Name="SupplierStockInvoiceDetail">
           <Key>
@@ -3941,6 +3992,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FreightChargeDetail_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="FreightChargeDetail" Type="Self.FreightChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="FreightChargeDetail">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FreightChargeDetail_FreightRequestMaster">
           <End Role="FreightRequestMaster" Type="Self.FreightRequestMaster" Multiplicity="0..1" />
           <End Role="FreightChargeDetail" Type="Self.FreightChargeDetail" Multiplicity="*" />
@@ -4262,6 +4325,42 @@
             </Principal>
             <Dependent Role="JobContractOptionalMaster">
               <PropertyRef Name="Location_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabChargeDetail_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="LabChargeDetail" Type="Self.LabChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="LabChargeDetail">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabChargeDetail_LabRequestMaster">
+          <End Role="LabRequestMaster" Type="Self.LabRequestMaster" Multiplicity="0..1" />
+          <End Role="LabChargeDetail" Type="Self.LabChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabRequestMaster">
+              <PropertyRef Name="LabRequestID" />
+            </Principal>
+            <Dependent Role="LabChargeDetail">
+              <PropertyRef Name="LabRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabRequestMaster_SupplierMaster">
+          <End Role="SupplierMaster" Type="Self.SupplierMaster" Multiplicity="0..1" />
+          <End Role="LabRequestMaster" Type="Self.LabRequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierMaster">
+              <PropertyRef Name="Supplier_PK" />
+            </Principal>
+            <Dependent Role="LabRequestMaster">
+              <PropertyRef Name="Supplier_pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5267,15 +5366,15 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StockMrnMaster_StockMrnMaster">
-          <End Role="StockMrnMaster" Type="Self.StockMrnMaster" Multiplicity="1" />
-          <End Role="StockMrnMaster1" Type="Self.StockMrnMaster" Multiplicity="0..1" />
+        <Association Name="FK_StockMrnMaster_StockPOMaster">
+          <End Role="StockPOMaster" Type="Self.StockPOMaster" Multiplicity="0..1" />
+          <End Role="StockMrnMaster" Type="Self.StockMrnMaster" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="StockMrnMaster">
-              <PropertyRef Name="SMrn_PK" />
+            <Principal Role="StockPOMaster">
+              <PropertyRef Name="SPO_Pk" />
             </Principal>
-            <Dependent Role="StockMrnMaster1">
-              <PropertyRef Name="SMrn_PK" />
+            <Dependent Role="StockMrnMaster">
+              <PropertyRef Name="SPo_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5516,6 +5615,42 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Principal>
             <Dependent Role="StyleCostingMaster">
               <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubConExtraRequest_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="SubConExtraRequest" Type="Self.SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubConExtraRequest_CutOrderMaster">
+          <End Role="CutOrderMaster" Type="Self.CutOrderMaster" Multiplicity="0..1" />
+          <End Role="SubConExtraRequest" Type="Self.SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="CutOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubConExtraRequest_ExtraRequestReasonMaster">
+          <End Role="ExtraRequestReasonMaster" Type="Self.ExtraRequestReasonMaster" Multiplicity="0..1" />
+          <End Role="SubConExtraRequest" Type="Self.SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExtraRequestReasonMaster">
+              <PropertyRef Name="ExtraReason_Pk" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="ExtraReason_Pk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6162,6 +6297,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="JobContractMaster" EntityType="Self.JobContractMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobContractOptionalDetail" EntityType="Self.JobContractOptionalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobContractOptionalMaster" EntityType="Self.JobContractOptionalMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LabChargeDetail" EntityType="Self.LabChargeDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LabRequestMaster" EntityType="Self.LabRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayAdjustDetails" EntityType="Self.LayAdjustDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetDetails" EntityType="Self.LaySheetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetMaster" EntityType="Self.LaySheetMaster" Schema="dbo" store:Type="Tables" />
@@ -6252,6 +6389,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="StyleCostingDetails" EntityType="Self.StyleCostingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StyleCostingMaster" EntityType="Self.StyleCostingMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StyleSize" EntityType="Self.StyleSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubConExtraRequest" EntityType="Self.SubConExtraRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMenuMaster" EntityType="Self.SubMenuMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuplierASNDebitDetails" EntityType="Self.SuplierASNDebitDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierDebitAsnMaster" EntityType="Self.SupplierDebitAsnMaster" Schema="dbo" store:Type="Tables" />
@@ -6579,6 +6717,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="FactWareLinkMaster" EntitySet="FactWareLinkMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_FreightChargeDetail_AtcMaster" Association="Self.FK_FreightChargeDetail_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="FreightChargeDetail" EntitySet="FreightChargeDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_FreightChargeDetail_FreightRequestMaster" Association="Self.FK_FreightChargeDetail_FreightRequestMaster">
             <End Role="FreightRequestMaster" EntitySet="FreightRequestMaster" />
             <End Role="FreightChargeDetail" EntitySet="FreightChargeDetail" />
@@ -6686,6 +6828,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_JobContractOptionalMaster_JobContractOptionalMaster" Association="Self.FK_JobContractOptionalMaster_JobContractOptionalMaster">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="JobContractOptionalMaster" EntitySet="JobContractOptionalMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabChargeDetail_AtcMaster" Association="Self.FK_LabChargeDetail_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="LabChargeDetail" EntitySet="LabChargeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabChargeDetail_LabRequestMaster" Association="Self.FK_LabChargeDetail_LabRequestMaster">
+            <End Role="LabRequestMaster" EntitySet="LabRequestMaster" />
+            <End Role="LabChargeDetail" EntitySet="LabChargeDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabRequestMaster_SupplierMaster" Association="Self.FK_LabRequestMaster_SupplierMaster">
+            <End Role="SupplierMaster" EntitySet="SupplierMaster" />
+            <End Role="LabRequestMaster" EntitySet="LabRequestMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_LaySheetDetails_FabricRollmaster" Association="Self.FK_LaySheetDetails_FabricRollmaster">
             <End Role="FabricRollmaster" EntitySet="FabricRollmaster" />
@@ -7019,9 +7173,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="StockMrnMaster" EntitySet="StockMrnMaster" />
           </AssociationSet>
-          <AssociationSet Name="FK_StockMrnMaster_StockMrnMaster" Association="Self.FK_StockMrnMaster_StockMrnMaster">
+          <AssociationSet Name="FK_StockMrnMaster_StockPOMaster" Association="Self.FK_StockMrnMaster_StockPOMaster">
+            <End Role="StockPOMaster" EntitySet="StockPOMaster" />
             <End Role="StockMrnMaster" EntitySet="StockMrnMaster" />
-            <End Role="StockMrnMaster1" EntitySet="StockMrnMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_StockMrnMaster_StockRecieptMaster" Association="Self.FK_StockMrnMaster_StockRecieptMaster">
             <End Role="StockRecieptMaster" EntitySet="StockRecieptMaster" />
@@ -7102,6 +7256,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_StyleCostingMaster_AtcDetails" Association="Self.FK_StyleCostingMaster_AtcDetails">
             <End Role="AtcDetails" EntitySet="AtcDetails" />
             <End Role="StyleCostingMaster" EntitySet="StyleCostingMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubConExtraRequest_AtcMaster" Association="Self.FK_SubConExtraRequest_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubConExtraRequest_CutOrderMaster" Association="Self.FK_SubConExtraRequest_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMaster" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubConExtraRequest_ExtraRequestReasonMaster" Association="Self.FK_SubConExtraRequest_ExtraRequestReasonMaster">
+            <End Role="ExtraRequestReasonMaster" EntitySet="ExtraRequestReasonMaster" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequest" />
           </AssociationSet>
           <AssociationSet Name="FK_SubMenuMaster_SubMenuMaster" Association="Self.FK_SubMenuMaster_SubMenuMaster">
             <End Role="SubMenuMaster" EntitySet="SubMenuMaster" />
@@ -7967,7 +8133,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="AtcDetail" EntitySet="AtcDetails" />
             <End Role="PackingListDetail" EntitySet="PackingListDetails" />
           </AssociationSet>
-          <EntitySet Name="CutPlanMarkerTypes" EntityType="ArtModel.CutPlanMarkerType" />
           <EntitySet Name="SubMenuMasters" EntityType="ArtModel.SubMenuMaster" />
           <EntitySet Name="UserProfileMasters" EntityType="ArtModel.UserProfileMaster" />
           <EntitySet Name="UserProfileRights" EntityType="ArtModel.UserProfileRight" />
@@ -8065,10 +8230,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_CutPlanASQDetails_CutPlanASQDetails" Association="ArtModel.FK_CutPlanASQDetails_CutPlanASQDetails">
             <End Role="CutPlanMaster" EntitySet="CutPlanMasters" />
             <End Role="CutPlanASQDetail" EntitySet="CutPlanASQDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CutPlanMarkerType_CutPlanMaster" Association="ArtModel.FK_CutPlanMarkerType_CutPlanMaster">
-            <End Role="CutPlanMaster" EntitySet="CutPlanMasters" />
-            <End Role="CutPlanMarkerType" EntitySet="CutPlanMarkerTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_CutPlanMaster_LocationMaster" Association="ArtModel.FK_CutPlanMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMasters" />
@@ -8532,6 +8693,46 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_ExtDeliveryToken_ItemGroupMaster" Association="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster">
             <End Role="ItemGroupMaster" EntitySet="ItemGroupMasters" />
             <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FreightChargeDetail_AtcMaster" Association="ArtModel.FK_FreightChargeDetail_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="FreightChargeDetail" EntitySet="FreightChargeDetails" />
+          </AssociationSet>
+          <EntitySet Name="CutPlanMarkerTypes" EntityType="ArtModel.CutPlanMarkerType" />
+          <AssociationSet Name="FK_CutPlanMarkerType_CutPlanMaster" Association="ArtModel.FK_CutPlanMarkerType_CutPlanMaster">
+            <End Role="CutPlanMaster" EntitySet="CutPlanMasters" />
+            <End Role="CutPlanMarkerType" EntitySet="CutPlanMarkerTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockMrnMaster_StockPOMaster" Association="ArtModel.FK_StockMrnMaster_StockPOMaster">
+            <End Role="StockPOMaster" EntitySet="StockPOMasters" />
+            <End Role="StockMrnMaster" EntitySet="StockMrnMasters" />
+          </AssociationSet>
+          <EntitySet Name="SubConExtraRequests" EntityType="ArtModel.SubConExtraRequest" />
+          <AssociationSet Name="FK_SubConExtraRequest_AtcMaster" Association="ArtModel.FK_SubConExtraRequest_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubConExtraRequest_CutOrderMaster" Association="ArtModel.FK_SubConExtraRequest_CutOrderMaster">
+            <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubConExtraRequest_ExtraRequestReasonMaster" Association="ArtModel.FK_SubConExtraRequest_ExtraRequestReasonMaster">
+            <End Role="ExtraRequestReasonMaster" EntitySet="ExtraRequestReasonMasters" />
+            <End Role="SubConExtraRequest" EntitySet="SubConExtraRequests" />
+          </AssociationSet>
+          <EntitySet Name="LabChargeDetails" EntityType="ArtModel.LabChargeDetail" />
+          <EntitySet Name="LabRequestMasters" EntityType="ArtModel.LabRequestMaster" />
+          <AssociationSet Name="FK_LabChargeDetail_LabRequestMaster" Association="ArtModel.FK_LabChargeDetail_LabRequestMaster">
+            <End Role="LabRequestMaster" EntitySet="LabRequestMasters" />
+            <End Role="LabChargeDetail" EntitySet="LabChargeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabRequestMaster_SupplierMaster" Association="ArtModel.FK_LabRequestMaster_SupplierMaster">
+            <End Role="SupplierMaster" EntitySet="SupplierMasters" />
+            <End Role="LabRequestMaster" EntitySet="LabRequestMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabChargeDetail_AtcMaster" Association="ArtModel.FK_LabChargeDetail_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="LabChargeDetail" EntitySet="LabChargeDetails" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
@@ -9560,6 +9761,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ExtraReason_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExtraReason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_ExtraRequestReasonMaster" FromRole="ExtraRequestReasonMaster" ToRole="CutOrderMaster" />
+          <NavigationProperty Name="SubConExtraRequests" Relationship="ArtModel.FK_SubConExtraRequest_ExtraRequestReasonMaster" FromRole="ExtraRequestReasonMaster" ToRole="SubConExtraRequest" />
         </EntityType>
         <EntityType Name="FactoryType">
           <Key>
@@ -10468,6 +10670,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="MarkedCompletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MarkCompletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="StockPOMaster" Relationship="ArtModel.FK_StockMrnMaster_StockPOMaster" FromRole="StockMrnMaster" ToRole="StockPOMaster" />
         </EntityType>
         <EntityType Name="StockPODetail">
           <Key>
@@ -10525,6 +10728,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StockPOMaster2" Relationship="ArtModel.FK_StockPOMaster_StockPOMaster" FromRole="StockPOMaster1" ToRole="StockPOMaster" />
           <NavigationProperty Name="SupplierMaster" Relationship="ArtModel.FK_StockPOMaster_SupplierMaster" FromRole="StockPOMaster" ToRole="SupplierMaster" />
           <Property Name="MarkCompleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="StockMrnMasters" Relationship="ArtModel.FK_StockMrnMaster_StockPOMaster" FromRole="StockPOMaster" ToRole="StockMrnMaster" />
         </EntityType>
         <EntityType Name="StockRecieptMaster">
           <Key>
@@ -10700,6 +10904,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="DocMasters" Relationship="ArtModel.FK_DocMaster_SupplierMaster" FromRole="SupplierMaster" ToRole="DocMaster" />
           <NavigationProperty Name="PaymentModeMaster" Relationship="ArtModel.FK_SupplierMaster_PaymentModeMaster" FromRole="SupplierMaster" ToRole="PaymentModeMaster" />
           <NavigationProperty Name="PaymentTermMaster" Relationship="ArtModel.FK_SupplierMaster_PaymentTermMaster" FromRole="SupplierMaster" ToRole="PaymentTermMaster" />
+          <Property Name="IsFixedPaymentTermID" Type="Boolean" />
+          <NavigationProperty Name="LabRequestMasters" Relationship="ArtModel.FK_LabRequestMaster_SupplierMaster" FromRole="SupplierMaster" ToRole="LabRequestMaster" />
         </EntityType>
         <EntityType Name="SupplierStockInvoiceDetail">
           <Key>
@@ -12386,15 +12592,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CutPlanMarkerType">
-          <Key>
-            <PropertyRef Name="CutPlanMarkerTypes_PK" />
-          </Key>
-          <Property Name="CutPlanMarkerTypes_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CutPlanmarkerType1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="CutPlanMaster" Relationship="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" FromRole="CutPlanMarkerType" ToRole="CutPlanMaster" />
-        </EntityType>
         <EntityType Name="SubMenuMaster">
           <Key>
             <PropertyRef Name="Menu_PK" />
@@ -12961,7 +13158,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="NewPatternName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_CutPlanMaster_AtcDetails" FromRole="CutPlanMaster" ToRole="AtcDetail" />
           <NavigationProperty Name="CutPlanASQDetails" Relationship="ArtModel.FK_CutPlanASQDetails_CutPlanASQDetails" FromRole="CutPlanMaster" ToRole="CutPlanASQDetail" />
-          <NavigationProperty Name="CutPlanMarkerTypes" Relationship="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanMarkerType" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_CutPlanMaster_LocationMaster" FromRole="CutPlanMaster" ToRole="LocationMaster" />
           <NavigationProperty Name="SkuRawmaterialDetail" Relationship="ArtModel.FK_CutPlanMaster_SkuRawmaterialDetail" FromRole="CutPlanMaster" ToRole="SkuRawmaterialDetail" />
           <NavigationProperty Name="CutPlanRollDetails" Relationship="ArtModel.FK_CutPlanRollDetails_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanRollDetail" />
@@ -12976,6 +13172,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CutPlanRejectHistories" Relationship="ArtModel.FK_CutPlanRejectHistory_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanRejectHistory" />
           <Property Name="CutOrderConsumption" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="CutPlanMarkerTypes" Relationship="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanMarkerType" />
         </EntityType>
         <Association Name="FK_CutPlanMaster_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
@@ -12997,18 +13194,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               <PropertyRef Name="CutPlan_PK" />
             </Principal>
             <Dependent Role="CutPlanASQDetail">
-              <PropertyRef Name="CutPlan_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CutPlanMarkerType_CutPlanMaster">
-          <End Type="ArtModel.CutPlanMaster" Role="CutPlanMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.CutPlanMarkerType" Role="CutPlanMarkerType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CutPlanMaster">
-              <PropertyRef Name="CutPlan_PK" />
-            </Principal>
-            <Dependent Role="CutPlanMarkerType">
               <PropertyRef Name="CutPlan_PK" />
             </Dependent>
           </ReferentialConstraint>
@@ -13199,6 +13384,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsCuttingCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_AtcMaster" FromRole="AtcMaster" ToRole="LaySheetMaster" />
           <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_AtcMaster" FromRole="AtcMaster" ToRole="ExtDeliveryToken" />
+          <NavigationProperty Name="FreightChargeDetails" Relationship="ArtModel.FK_FreightChargeDetail_AtcMaster" FromRole="AtcMaster" ToRole="FreightChargeDetail" />
+          <NavigationProperty Name="SubConExtraRequests" Relationship="ArtModel.FK_SubConExtraRequest_AtcMaster" FromRole="AtcMaster" ToRole="SubConExtraRequest" />
+          <NavigationProperty Name="LabChargeDetails" Relationship="ArtModel.FK_LabChargeDetail_AtcMaster" FromRole="AtcMaster" ToRole="LabChargeDetail" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -14058,6 +14246,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="POPackDetail" ToRole="PoPackMaster" />
           <NavigationProperty Name="RejectionExtraFabbReqs" Relationship="ArtModel.FK_RejectionExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionExtraFabbReq" />
           <NavigationProperty Name="RejectionPanelExtraFabbReqs" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionPanelExtraFabbReq" />
+          <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_ASQAllocationMaster_POPackDetails">
           <End Type="ArtModel.POPackDetail" Role="POPackDetail" Multiplicity="0..1" />
@@ -14632,6 +14821,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LayShortageCutorderAdjustments" Relationship="ArtModel.FK_LayShortageCutorderAdjustment_CutOrderMaster" FromRole="CutOrderMaster" ToRole="LayShortageCutorderAdjustment" />
           <NavigationProperty Name="LaySheetRollMasters" Relationship="ArtModel.LaySheetRollMaster_IDFK" FromRole="CutOrderMaster" ToRole="LaySheetRollMaster" />
           <Property Name="ActualConsumption" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SubConExtraRequests" Relationship="ArtModel.FK_SubConExtraRequest_CutOrderMaster" FromRole="CutOrderMaster" ToRole="SubConExtraRequest" />
         </EntityType>
         <Association Name="FK_CutOrderMaster_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
@@ -15281,6 +15473,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="FreightCharge" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="FreightRequestID" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="FreightRequestMaster" Relationship="ArtModel.FK_FreightChargeDetail_FreightRequestMaster" FromRole="FreightChargeDetail" ToRole="FreightRequestMaster" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_FreightChargeDetail_AtcMaster" FromRole="FreightChargeDetail" ToRole="AtcMaster" />
         </EntityType>
         <Association Name="FK_FreightChargeDetail_FreightRequestMaster">
           <End Type="ArtModel.FreightRequestMaster" Role="FreightRequestMaster" Multiplicity="0..1" />
@@ -15380,6 +15574,176 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="ExtDeliveryToken">
               <PropertyRef Name="Itemgroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FreightChargeDetail_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.FreightChargeDetail" Role="FreightChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="FreightChargeDetail">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CutPlanMarkerType">
+          <Key>
+            <PropertyRef Name="CutPlanMarkerTypes_PK" />
+          </Key>
+          <Property Name="CutPlanMarkerTypes_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CutPlanmarkerTypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CutPlanMaster" Relationship="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" FromRole="CutPlanMarkerType" ToRole="CutPlanMaster" />
+        </EntityType>
+        <Association Name="FK_CutPlanMarkerType_CutPlanMaster">
+          <End Type="ArtModel.CutPlanMaster" Role="CutPlanMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.CutPlanMarkerType" Role="CutPlanMarkerType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutPlanMaster">
+              <PropertyRef Name="CutPlan_PK" />
+            </Principal>
+            <Dependent Role="CutPlanMarkerType">
+              <PropertyRef Name="CutPlan_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockMrnMaster_StockPOMaster">
+          <End Type="ArtModel.StockPOMaster" Role="StockPOMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.StockMrnMaster" Role="StockMrnMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockPOMaster">
+              <PropertyRef Name="SPO_Pk" />
+            </Principal>
+            <Dependent Role="StockMrnMaster">
+              <PropertyRef Name="SPo_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SubConExtraRequest">
+          <Key>
+            <PropertyRef Name="ExtraRequestID" />
+          </Key>
+          <Property Name="ExtraRequestID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CutOrderID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RequestQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_SubConExtraRequest_AtcMaster" FromRole="SubConExtraRequest" ToRole="AtcMaster" />
+          <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_SubConExtraRequest_CutOrderMaster" FromRole="SubConExtraRequest" ToRole="CutOrderMaster" />
+          <Property Name="ExtraReason_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="ExtraRequestReasonMaster" Relationship="ArtModel.FK_SubConExtraRequest_ExtraRequestReasonMaster" FromRole="SubConExtraRequest" ToRole="ExtraRequestReasonMaster" />
+        </EntityType>
+        <Association Name="FK_SubConExtraRequest_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SubConExtraRequest" Role="SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubConExtraRequest_CutOrderMaster">
+          <End Type="ArtModel.CutOrderMaster" Role="CutOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SubConExtraRequest" Role="SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CutOrderMaster">
+              <PropertyRef Name="CutID" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="CutOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubConExtraRequest_ExtraRequestReasonMaster">
+          <End Type="ArtModel.ExtraRequestReasonMaster" Role="ExtraRequestReasonMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.SubConExtraRequest" Role="SubConExtraRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExtraRequestReasonMaster">
+              <PropertyRef Name="ExtraReason_Pk" />
+            </Principal>
+            <Dependent Role="SubConExtraRequest">
+              <PropertyRef Name="ExtraReason_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LabChargeDetail">
+          <Key>
+            <PropertyRef Name="LabReqDetID" />
+          </Key>
+          <Property Name="LabReqDetID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LabCharge" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="LabRequestID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LabRequestMaster" Relationship="ArtModel.FK_LabChargeDetail_LabRequestMaster" FromRole="LabChargeDetail" ToRole="LabRequestMaster" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_LabChargeDetail_AtcMaster" FromRole="LabChargeDetail" ToRole="AtcMaster" />
+        </EntityType>
+        <EntityType Name="LabRequestMaster">
+          <Key>
+            <PropertyRef Name="LabRequestID" />
+          </Key>
+          <Property Name="LabRequestID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LabRequestNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Merchandiser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApproximateCharges" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsPosted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LabChargeDetails" Relationship="ArtModel.FK_LabChargeDetail_LabRequestMaster" FromRole="LabRequestMaster" ToRole="LabChargeDetail" />
+          <Property Name="Supplier_pk" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="SupplierMaster" Relationship="ArtModel.FK_LabRequestMaster_SupplierMaster" FromRole="LabRequestMaster" ToRole="SupplierMaster" />
+        </EntityType>
+        <Association Name="FK_LabChargeDetail_LabRequestMaster">
+          <End Type="ArtModel.LabRequestMaster" Role="LabRequestMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LabChargeDetail" Role="LabChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabRequestMaster">
+              <PropertyRef Name="LabRequestID" />
+            </Principal>
+            <Dependent Role="LabChargeDetail">
+              <PropertyRef Name="LabRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabRequestMaster_SupplierMaster">
+          <End Type="ArtModel.SupplierMaster" Role="SupplierMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LabRequestMaster" Role="LabRequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierMaster">
+              <PropertyRef Name="Supplier_PK" />
+            </Principal>
+            <Dependent Role="LabRequestMaster">
+              <PropertyRef Name="Supplier_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LabChargeDetail_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.LabChargeDetail" Role="LabChargeDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="LabChargeDetail">
+              <PropertyRef Name="AtcID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -17401,6 +17765,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="SupplierMasters">
             <EntityTypeMapping TypeName="ArtModel.SupplierMaster">
               <MappingFragment StoreEntitySet="SupplierMaster">
+                <ScalarProperty Name="IsFixedPaymentTermID" ColumnName="IsFixedPaymentTermID" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
                 <ScalarProperty Name="IsPogiven" ColumnName="IsPogiven" />
@@ -17631,15 +17996,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="PoPack_Detail_PK" ColumnName="PoPack_Detail_PK" />
                 <ScalarProperty Name="PackingMaster_PK" ColumnName="PackingMaster_PK" />
                 <ScalarProperty Name="PackingDetails_PK" ColumnName="PackingDetails_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CutPlanMarkerTypes">
-            <EntityTypeMapping TypeName="ArtModel.CutPlanMarkerType">
-              <MappingFragment StoreEntitySet="CutPlanMarkerType">
-                <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
-                <ScalarProperty Name="CutPlanmarkerType1" ColumnName="CutPlanmarkerType" />
-                <ScalarProperty Name="CutPlanMarkerTypes_PK" ColumnName="CutPlanMarkerTypes_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -18534,6 +18890,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="POPackDetails">
             <EntityTypeMapping TypeName="ArtModel.POPackDetail">
               <MappingFragment StoreEntitySet="POPackDetails">
+                <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
                 <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
                 <ScalarProperty Name="MarkedCuttabledate" ColumnName="MarkedCuttabledate" />
                 <ScalarProperty Name="ShortClosedDate" ColumnName="ShortClosedDate" />
@@ -18824,6 +19181,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutOrderMasters">
             <EntityTypeMapping TypeName="ArtModel.CutOrderMaster">
               <MappingFragment StoreEntitySet="CutOrderMaster">
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
                 <ScalarProperty Name="ActualConsumption" ColumnName="ActualConsumption" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CutPlan" ColumnName="CutPlan" />
@@ -19085,6 +19444,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="FreightChargeDetails">
             <EntityTypeMapping TypeName="ArtModel.FreightChargeDetail">
               <MappingFragment StoreEntitySet="FreightChargeDetail">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="FreightRequestID" ColumnName="FreightRequestID" />
                 <ScalarProperty Name="FreightCharge" ColumnName="FreightCharge" />
                 <ScalarProperty Name="AtcID" ColumnName="AtcID" />
@@ -19114,6 +19474,64 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
                 <ScalarProperty Name="ExtDeliveryTokenID" ColumnName="ExtDeliveryTokenID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CutPlanMarkerTypes">
+            <EntityTypeMapping TypeName="ArtModel.CutPlanMarkerType">
+              <MappingFragment StoreEntitySet="CutPlanMarkerType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />
+                <ScalarProperty Name="CutPlanmarkerTypeName" ColumnName="CutPlanmarkerTypeName" />
+                <ScalarProperty Name="CutPlanMarkerTypes_PK" ColumnName="CutPlanMarkerTypes_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubConExtraRequests">
+            <EntityTypeMapping TypeName="ArtModel.SubConExtraRequest">
+              <MappingFragment StoreEntitySet="SubConExtraRequest">
+                <ScalarProperty Name="ExtraReason_Pk" ColumnName="ExtraReason_Pk" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="RequestQty" ColumnName="RequestQty" />
+                <ScalarProperty Name="CutOrderID" ColumnName="CutOrderID" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="ExtraRequestID" ColumnName="ExtraRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabChargeDetails">
+            <EntityTypeMapping TypeName="ArtModel.LabChargeDetail">
+              <MappingFragment StoreEntitySet="LabChargeDetail">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="LabRequestID" ColumnName="LabRequestID" />
+                <ScalarProperty Name="LabCharge" ColumnName="LabCharge" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="LabReqDetID" ColumnName="LabReqDetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabRequestMasters">
+            <EntityTypeMapping TypeName="ArtModel.LabRequestMaster">
+              <MappingFragment StoreEntitySet="LabRequestMaster">
+                <ScalarProperty Name="Supplier_pk" ColumnName="Supplier_pk" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ApproximateCharges" ColumnName="ApproximateCharges" />
+                <ScalarProperty Name="Merchandiser" ColumnName="Merchandiser" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="LabRequestNum" ColumnName="LabRequestNum" />
+                <ScalarProperty Name="LabRequestID" ColumnName="LabRequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

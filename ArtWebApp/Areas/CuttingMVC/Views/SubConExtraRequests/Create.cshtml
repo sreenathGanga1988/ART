@@ -1,0 +1,119 @@
+﻿@model ArtWebApp.DataModels.SubConExtraRequest
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#AtcID").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+
+            $.ajax({
+                url: "@Url.Action("PopulateCutorder", "SubConExtraRequests")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#CutOrderID').empty();
+                    $.each(data, function () {
+
+
+                        $('#CutOrderID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#CutOrderID").trigger("chosen:updated");
+
+
+                    $("#CutOrderID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+          
+
+
+
+
+    });
+
+    
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SubConExtraRequest</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AtcID, "AtcID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AtcID", null, htmlAttributes: new { @class = "chosen-select form-control" })
+                @Html.ValidationMessageFor(model => model.AtcID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CutOrderID, "CutOrderID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CutOrderID", null, htmlAttributes: new { @class = "chosen-select form-control" })
+                @Html.ValidationMessageFor(model => model.CutOrderID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RequestQty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RequestQty, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequestQty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExtraReason_Pk, "Extra Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ExtraReason_Pk", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExtraReason_Pk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

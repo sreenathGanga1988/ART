@@ -152,7 +152,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<WrongPODetail> WrongPODetails { get; set; }
         public virtual DbSet<WrongPOMaster> WrongPOMasters { get; set; }
         public virtual DbSet<PackingListDetail> PackingListDetails { get; set; }
-        public virtual DbSet<CutPlanMarkerType> CutPlanMarkerTypes { get; set; }
         public virtual DbSet<SubMenuMaster> SubMenuMasters { get; set; }
         public virtual DbSet<UserProfileMaster> UserProfileMasters { get; set; }
         public virtual DbSet<UserProfileRight> UserProfileRights { get; set; }
@@ -238,6 +237,10 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
         public virtual DbSet<FreightChargeDetail> FreightChargeDetails { get; set; }
         public virtual DbSet<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
+        public virtual DbSet<CutPlanMarkerType> CutPlanMarkerTypes { get; set; }
+        public virtual DbSet<SubConExtraRequest> SubConExtraRequests { get; set; }
+        public virtual DbSet<LabChargeDetail> LabChargeDetails { get; set; }
+        public virtual DbSet<LabRequestMaster> LabRequestMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

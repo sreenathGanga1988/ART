@@ -13,13 +13,13 @@ namespace ArtWebApp.Merchandiser.PO {
     public partial class InternationalPO {
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// upd_main control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel upd_main;
         
         /// <summary>
         /// Label1 control.
@@ -56,6 +56,15 @@ namespace ArtWebApp.Merchandiser.PO {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txt_remark;
+        
+        /// <summary>
+        /// upd_supplier control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_supplier;
         
         /// <summary>
         /// drp_supplier control.
@@ -110,6 +119,15 @@ namespace ArtWebApp.Merchandiser.PO {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::CustomDropDown.DropDownListChosen drp_currency;
+        
+        /// <summary>
+        /// upd_paymentterm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_paymentterm;
         
         /// <summary>
         /// drp_paymentterm control.

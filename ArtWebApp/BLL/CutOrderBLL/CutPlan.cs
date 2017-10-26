@@ -1030,6 +1030,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
         public Decimal BOMConsumption { get; set; }
         public Decimal CutPlanFabReq { get; set; }
         public String MakerMade { get; set; }
+        public String CutType { get; set; }
+        
         public String Maxmarkerlength { get; set; }
         public String Fabrication { get; set; }
         public Decimal Efficiecny { get; set; }
@@ -1093,7 +1095,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                         CutPlanMarkerType cddetail = new CutPlanMarkerType();
                         cddetail.CutPlan_PK = ctmstr.CutPlan_PK;
-                        cddetail.CutPlanmarkerType1 = di.MarkerType;
+                        cddetail.CutPlanmarkerTypeName = di.MarkerTypeName;
 
                         enty.CutPlanMarkerTypes.Add(cddetail);
                     }
@@ -1127,6 +1129,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                     try
                     {
+                     String fabdesc=   this.FabDescription + ' ' + this.ColorCode;
+
                         CutPlanMaster ctmstr = new CutPlanMaster();
                         ctmstr.OurStyleID = this.OurStyleID;
                         ctmstr.SkuDet_PK = this.SkuDet_PK;
@@ -1139,9 +1143,10 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                         ctmstr.AddedBy = this.AddedBy;
                         ctmstr.AddedDate = this.AddedDate;
                         ctmstr.Location_PK = this.location_PK;
-                        ctmstr.FabDescription = this.FabDescription;
+                        ctmstr.FabDescription = fabdesc;
                         ctmstr.BOMConsumption = this.BOMConsumption;
                         ctmstr.MarkerMade = this.MakerMade;
+                        ctmstr.CutType = this.CutType;
                         ctmstr.IsPatternAdded = "N";
                         ctmstr.IsApproved = "N";
                         ctmstr.IsRatioAdded = "N";
@@ -1165,7 +1170,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                             CutPlanMarkerType cddetail = new CutPlanMarkerType();
                             cddetail.CutPlan_PK = ctmstr.CutPlan_PK;
-                            cddetail.CutPlanmarkerType1 = di.MarkerType;
+                            cddetail.CutPlanmarkerTypeName = di.MarkerTypeName;
 
                             enty.CutPlanMarkerTypes.Add(cddetail);
                         }
@@ -1182,6 +1187,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                             cddetail.ColorName = di.ColorName;
                             cddetail.SizeName = di.SizeName;
                             cddetail.Skudet_PK = di.skudet_PK;
+                            cddetail.OurStyleId = this.OurStyleID;
                             cddetail.IsDeleted = "N";
                             enty.CutPlanASQDetails.Add(cddetail);
                         }
@@ -1609,6 +1615,33 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
         }
 
 
+        public string ReopenCutplan(int cutplan_pk)
+        {
+            string Cutn = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q1 = from cutplnmstr in enty.CutPlanMasters
+                         where cutplnmstr.CutPlan_PK == cutplan_pk
+                         select cutplnmstr;
+                foreach (var element in q1)
+                {
+                    element.IsPatternAdded = "N";
+                    element.IsCutorderGiven = "N";
+
+                }
+
+
+
+
+                enty.SaveChanges();
+
+                Cutn = "Sucess";
+
+            }
+
+            return Cutn;
+        }
 
 
     }
@@ -1617,7 +1650,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
     public class CutPlanMarkerTypeData
     {
         public int CutPlan_PK { get; set; }
-        public String MarkerType { get; set; }
+        public String MarkerTypeName { get; set; }
     }
 
 
@@ -1960,9 +1993,9 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                     sucess = "true";
                 }
+                enty.SaveChanges();
 
-
-                if(sucess== "true")
+                if (sucess== "true")
                 {
                     var allocatedqty = enty.CutPlanRollDetails.Where(i => i.CutPlan_PK == CutPlan_PK && i.IsDeleted=="N" ).Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
                     var q = from cplmstr in enty.CutPlanMasters

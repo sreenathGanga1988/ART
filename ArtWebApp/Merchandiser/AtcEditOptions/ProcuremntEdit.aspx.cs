@@ -1,4 +1,5 @@
-﻿using ArtWebApp.DataModels;
+﻿using ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,7 +115,8 @@ namespace ArtWebApp.Merchandiser
             tbl_podetails.DataSource = pmmstrdata.POdetails;
        
             tbl_podetails.DataBind();
-
+            upd_paymentterm.Update();
+            upd_supplier.Update();
 
             ViewState["convfact"] = convfact.Value = (convdatagenerator(int.Parse(pmmstrdata.CurrencyID.ToString()))).ToString();
 
@@ -314,5 +316,29 @@ namespace ArtWebApp.Merchandiser
 
             }
         }
+
+
+        protected void drp_supplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcurementMasterData procurementMasterData = new ProcurementMasterData();
+
+            int selectedindex = procurementMasterData.GetSupplierPaymentFixed(int.Parse(drp_supplier.SelectedItem.Value.ToString()));
+            if (selectedindex != 0)
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = false;
+            }
+            else
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = true;
+            }
+
+            upd_paymentterm.Update();
+        }
+
+
+
+
     }
 }

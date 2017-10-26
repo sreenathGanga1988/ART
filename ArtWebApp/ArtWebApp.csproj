@@ -258,6 +258,7 @@
     <Content Include="Approvals\ServicePoApproval.aspx" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Areas\ArtMVCMerchandiser\Js\FrieightChargeScript.js" />
+    <Content Include="Areas\ArtMVCMerchandiser\Js\LabChargescript.js" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite%402x.png" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite.png" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen.css" />
@@ -1263,11 +1264,6 @@
     <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Details.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Edit.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\SupplierTypemasters\Index.cshtml" />
-    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Create.cshtml" />
-    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Delete.cshtml" />
-    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Details.cshtml" />
-    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Edit.cshtml" />
-    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Index.cshtml" />
     <Content Include="Areas\ArtAdministrator\Views\web.config" />
     <Content Include="Areas\ArtAdministrator\Views\SQLAdministrator\BackUPDatabase.cshtml" />
     <Content Include="Areas\ArtMVCMaster\Views\MarkerDirectionMasters\Create.cshtml" />
@@ -1379,14 +1375,36 @@
     <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Details.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Edit.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\ExtDeliveryTokens\Index.cshtml" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\FreightChargeDetails\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\FreightChargeDetails\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\FreightChargeDetails\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\FreightChargeDetails\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\FreightChargeDetails\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanEdit\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\SalesDoDocument\Index.cshtml" />
+    <Content Include="Areas\ArtMVCGPO\Views\StockMrnMasters\Index.cshtml" />
     <Content Include="Sampling\ShowSamplingstatus.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="css\BootStrapScript.css" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\SupplierMasters\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests\Create.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests\Delete.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests\Edit.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests1\Create.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests1\Delete.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests1\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests1\Edit.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\SubConExtraRequests1\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\LabChargeRequest\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\LabChargeRequest\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\LabChargeRequest\Details.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1750,6 +1768,8 @@
     <Compile Include="Areas\ArtMVCGPO\ArtMVCGPOAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVCGPO\Controllers\GMRNDocumentUploadController.cs" />
     <Compile Include="Areas\ArtMVCGPO\Controllers\MrnFileUploadsController.cs" />
+    <Compile Include="Areas\ArtMVCGPO\Controllers\SalesDoDocumentController.cs" />
+    <Compile Include="Areas\ArtMVCGPO\Controllers\StockMrnMastersController.cs" />
     <Compile Include="Areas\ArtMVCGPO\ViewModal\GMRNViewModal.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CityMastersController.cs" />
@@ -1778,7 +1798,11 @@
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserRepo.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightChargeDetailsController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightRequestMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\LabChargeRequestController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\MerchandiserviewModels.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\CutPlanEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaySheetEditController.cs" />
@@ -1787,12 +1811,18 @@
     <Compile Include="Areas\CuttingMVC\Controllers\PatternNameBanksController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\RejectionPanelController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\RejectpanelAdjustController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\SubConExtraRequests1Controller.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\SubConExtraRequestsController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
+    <Compile Include="Areas\CuttingMVC\Models\CutplanViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\RejectionPanelViewModal.cs" />
+    <Compile Include="Areas\CuttingRepository.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="Areas\Repository\AdministratorRepo.cs" />
+    <Compile Include="Areas\Repository\MerchandiserRepo.cs" />
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
     <Compile Include="DataModelAtcWorld\Fabricreqforpart.cs">
@@ -1840,6 +1870,12 @@
     <Compile Include="DataModels\FreightRequestMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\LabChargeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LabRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\LayAdjustDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -1884,6 +1920,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RejectReqMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SubConExtraRequest.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\SupplierTypemaster.cs">
@@ -4359,8 +4398,6 @@
     <Content Include="User Manual\quality_files\themedata.thmx" />
     <Content Include="User Manual\InventoryUserGuide_files\themedata.thmx" />
     <Content Include="User Manual\Production MANUAL_files\themedata.thmx" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="ViewPage1.cshtml" />

@@ -615,8 +615,8 @@ WHERE        (CutOrderDet_PK = @CutOrderDet_PK)", con);
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty  from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -672,8 +672,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -736,8 +736,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -794,8 +794,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -853,8 +853,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -923,8 +923,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
@@ -981,8 +981,8 @@ FROM            CutPlanMaster INNER JOIN
                 SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
                          MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerType 
-            FROM (SELECT        CutPlanmarkerType
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
 FROM            CutPlanMarkerType
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt

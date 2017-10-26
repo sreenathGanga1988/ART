@@ -222,7 +222,7 @@ WHERE        (CutPlanMarkerDetails_PK = @CutPlan_PK)";
 
                 string query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
                          AtcDetails.BuyerStyle, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.CutPlanASQDetails_PK, 
-                         StyleSize.Orderof
+                         StyleSize.Orderof , PoPackMaster.SeasonName, PoPackMaster.HandoverDate
 FROM            CutPlanASQDetails INNER JOIN
                          POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN

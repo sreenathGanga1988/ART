@@ -516,8 +516,11 @@
                             </tr>
                             <tr>
                                   <td class="NormalTD">Marker/pattern name</td>
-                                 <td class="NormalTD"  >
+                                 <td class="NormalTD"  ><asp:UpdatePanel ID="upd_markername" UpdateMode="Conditional" runat="server">
+                                            <ContentTemplate>
                                     <asp:TextBox ID="txt_markername" runat="server"></asp:TextBox>
+                                                 </ContentTemplate>
+                                        </asp:UpdatePanel>
                                 </td>
                                 <td class="NormalTD">CutPlan Qty:</td>
 
@@ -535,7 +538,7 @@
                             <tr>
                                 <td class="NormalTD" >CO fab Allocation</td>
                                 <td class="NormalTD" >
-                                    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                                    <asp:UpdatePanel ID="upd_fabAllocation" UpdateMode="Conditional" runat="server">
                                             <ContentTemplate>
                                     <asp:TextBox ID="txt_fabAllocation" AutoPostBack="true"  CssClass="txt_fabAllocation" onkeypress="return isNumberKey(event,this)"   runat="server" OnTextChanged="txt_fabAllocation_TextChanged"></asp:TextBox>
                                 </ContentTemplate>

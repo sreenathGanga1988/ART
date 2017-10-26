@@ -250,7 +250,6 @@
         <AssociationConnector Association="ArtModel.FK_WrongPODetail_WrongPODetail" />
         <EntityTypeShape EntityType="ArtModel.PackingListDetail" Width="1.5" PointX="15" PointY="37.125" />
         <AssociationConnector Association="ArtModel.FK_PackingListDetails_AtcDetails" />
-        <EntityTypeShape EntityType="ArtModel.CutPlanMarkerType" Width="1.5" PointX="23.25" PointY="65.125" />
         <EntityTypeShape EntityType="ArtModel.SubMenuMaster" Width="1.5" PointX="6.625" PointY="7.75" />
         <EntityTypeShape EntityType="ArtModel.UserProfileMaster" Width="1.5" PointX="1.25" PointY="1.5" />
         <EntityTypeShape EntityType="ArtModel.UserProfileRight" Width="1.5" PointX="3.5" PointY="0.75" />
@@ -289,7 +288,6 @@
         <EntityTypeShape EntityType="ArtModel.CutPlanMaster" Width="1.5" PointX="21" PointY="54.625" />
         <AssociationConnector Association="ArtModel.FK_CutPlanMaster_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_CutPlanASQDetails_CutPlanASQDetails" />
-        <AssociationConnector Association="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" />
         <AssociationConnector Association="ArtModel.FK_CutPlanMaster_LocationMaster" />
         <AssociationConnector Association="ArtModel.FK_CutPlanMaster_SkuRawmaterialDetail" />
         <EntityTypeShape EntityType="ArtModel.CutplanRefPattern" Width="1.5" PointX="17.375" PointY="13.75" />
@@ -449,6 +447,19 @@
         <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_LocationMaster1" />
         <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_SkuRawmaterialDetail" />
         <AssociationConnector Association="ArtModel.FK_ExtDeliveryToken_ItemGroupMaster" />
+        <AssociationConnector Association="ArtModel.FK_FreightChargeDetail_AtcMaster" />
+        <EntityTypeShape EntityType="ArtModel.CutPlanMarkerType" Width="1.5" PointX="23.25" PointY="41" />
+        <AssociationConnector Association="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" />
+        <AssociationConnector Association="ArtModel.FK_StockMrnMaster_StockPOMaster" />
+        <EntityTypeShape EntityType="ArtModel.SubConExtraRequest" Width="1.5" PointX="26.25" PointY="94.25" />
+        <AssociationConnector Association="ArtModel.FK_SubConExtraRequest_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_SubConExtraRequest_CutOrderMaster" />
+        <AssociationConnector Association="ArtModel.FK_SubConExtraRequest_ExtraRequestReasonMaster" />
+        <EntityTypeShape EntityType="ArtModel.LabChargeDetail" Width="1.5" PointX="30.625" PointY="1.625" />
+        <EntityTypeShape EntityType="ArtModel.LabRequestMaster" Width="1.5" PointX="28.375" PointY="1" />
+        <AssociationConnector Association="ArtModel.FK_LabChargeDetail_LabRequestMaster" />
+        <AssociationConnector Association="ArtModel.FK_LabRequestMaster_SupplierMaster" />
+        <AssociationConnector Association="ArtModel.FK_LabChargeDetail_AtcMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

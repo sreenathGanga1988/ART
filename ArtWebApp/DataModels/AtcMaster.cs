@@ -28,6 +28,9 @@ namespace ArtWebApp.DataModels
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.LaySheetMasters = new HashSet<LaySheetMaster>();
             this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
+            this.FreightChargeDetails = new HashSet<FreightChargeDetail>();
+            this.SubConExtraRequests = new HashSet<SubConExtraRequest>();
+            this.LabChargeDetails = new HashSet<LabChargeDetail>();
         }
     
         public decimal AtcId { get; set; }
@@ -63,5 +66,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
         public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
+        public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
+        public virtual ICollection<SubConExtraRequest> SubConExtraRequests { get; set; }
+        public virtual ICollection<LabChargeDetail> LabChargeDetails { get; set; }
     }
 }

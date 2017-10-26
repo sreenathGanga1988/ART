@@ -113,11 +113,22 @@
         </tr>
         <tr>
             <td>
-                <asp:SqlDataSource ID="Rodata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SRO_Pk, RONum, IsApproved, Iscompleted FROM RequestOrderStockMaster WHERE (IsApproved = N'Y') AND (Iscompleted = N'N')">
+                <asp:SqlDataSource ID="Rodata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    SelectCommand="SELECT SRO_Pk, RONum, IsApproved, Iscompleted FROM RequestOrderStockMaster WHERE (IsApproved = N'Y') AND
+                    (Iscompleted = N'N')">
+
                 </asp:SqlDataSource>
-                <asp:SqlDataSource ID="rodetailsdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT RequestOrderDetails.RODet_Pk, SkuRawMaterialMaster.RMNum, SkuRawMaterialMaster.Composition, SkuRawMaterialMaster.Construction, SkuRawmaterialDetail.SupplierColor, SkuRawmaterialDetail.SupplierSize, RequestOrderDetails.Qty, RequestOrderDetails.CUnitPrice FROM SkuRawMaterialMaster INNER JOIN SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN RequestOrderDetails ON SkuRawmaterialDetail.SkuDet_PK = RequestOrderDetails.FromSkuDet_PK WHERE (RequestOrderDetails.RO_Pk = @param1)">
+
+             
+
+
+                <asp:SqlDataSource ID="rodetailsdata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+                    
+                    
+                    SelectCommand="SELECT RONum, SRO_Pk, IsCompleted, Location_PK FROM RequestOrderStockMaster WHERE (IsApproved = N'Y') AND (IsCompleted = N'N') AND (Location_PK = @Param1) ORDER BY RONum DESC
+">
                     <SelectParameters>
-                        <asp:SessionParameter DefaultValue="" Name="param1" SessionField="Ro_pk" />
+                        <asp:SessionParameter DefaultValue="" Name="param1" SessionField="UserLoc_pk" />
                     </SelectParameters>
                 </asp:SqlDataSource>
             </td>

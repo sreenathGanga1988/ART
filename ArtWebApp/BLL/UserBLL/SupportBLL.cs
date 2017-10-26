@@ -1,6 +1,8 @@
 ﻿using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -76,5 +78,66 @@ namespace ArtWebApp.BLL.UserBLL
 
             return sptcketlbll.Supportnum;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+    }
+
+
+
+    public class ItAdministratorBLL
+    {
+
+
+
+        public void BackUpDB()
+                    {
+            String connStr = ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+
+            string destdir = "D:\\Artbackupdb";
+            //Check that directory already there otherwise create 
+            if (!System.IO.Directory.Exists(destdir))
+            {
+                System.IO.Directory.CreateDirectory("D:\\Artbackupdb");
+            }
+            using (SqlConnection con = new SqlConnection(connStr))
+
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        con.Open();
+                        cmd.Connection = con;
+                        cmd.CommandText = "backup database Art to disk='" + destdir + "\\" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".Bak'";
+                        cmd.ExecuteNonQuery();
+ 
+    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("8888888888888888888888888888888888888888888888888888888888888888888");
+                       
+                        System.Diagnostics.Debug.WriteLine(ex);
+                        throw;
+                    }
+                }
+
+
+            }
+              
+        }
+
     }
 }

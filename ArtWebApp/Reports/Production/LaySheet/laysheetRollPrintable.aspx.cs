@@ -57,7 +57,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
 
                             ctplnmst.CutPlanNUM,
                             cutordrmstr.Cut_NO,
-
+                            ctplnmst.ColorName,
                             cutplanmarkerdet.PaternMarkerName,
                             cutplanmarkerdet.MarkerLength,
                             cutplanmarkerdet.Tolerancelength,
@@ -92,7 +92,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
 
                     lbl_fabric.Text = element.Color.ToString();
                     lbl_loc.Text = element.LocationName;
-
+                    lbl_colorname.Text = element.ColorName;
                     lbl_noofplies.Text = element.NoofPlies.ToString();
 
                     lbl_Markertype.Text = element.MarkerType.ToString();

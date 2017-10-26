@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ArtWebApp.BLL;
 using ArtWebApp.DataModels;
+using ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL;
+
 namespace ArtWebApp.Merchandiser
 {
     public partial class StockPO : System.Web.UI.Page
@@ -361,6 +363,14 @@ namespace ArtWebApp.Merchandiser
 
         protected void Button4_Click(object sender, EventArgs e)
         {
+        }
+
+        protected void drp_supplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcurementMasterData procurementMasterData = new ProcurementMasterData();
+
+            drp_paymentterm.SelectedValue = procurementMasterData.GetSupplierPaymentFixed(int.Parse(drp_supplier.SelectedItem.Value.ToString())).ToString();
+            upd_paymentterm.Update();
         }
     }
 }

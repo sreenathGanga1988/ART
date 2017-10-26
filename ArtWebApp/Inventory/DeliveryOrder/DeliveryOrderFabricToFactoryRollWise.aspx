@@ -57,7 +57,13 @@
             totalyardfooter.value = sum;
         }
 
-
+       var submit = 0;
+       function CheckDouble() {
+           if (++submit > 1) {
+               alert('This sometimes takes a few seconds - please be patient.');
+               return false;
+           }
+       }
     
 
 
@@ -446,7 +452,7 @@
                     <td class="NormalTD">
                         &nbsp;</td>
                     <td class="NormalTD">
-                        <asp:Button ID="btn_saveDO" runat="server" OnClick="btn_saveDO_Click" Text="Save DO" style="height: 26px" />
+                        <asp:Button ID="btn_saveDO" runat="server" OnClick="btn_saveDO_Click" OnClientClick="return CheckDouble();"  Text="Save DO" style="height: 26px" />
                     </td>
                     <td class="NormalTD">
                         &nbsp;</td>

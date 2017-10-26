@@ -27,13 +27,7 @@
             height: 30px;
             width: 200px;
         }
-        .auto-style5 {
-            width: 100%;
-        }
-        .auto-style6 {
-            height: 25px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -66,8 +60,10 @@
                         </td>
                         <td class="NormalTD">
                                &nbsp;</td>
-                        <td class="NormalTD"></td>
-                        <td class="NormalTD"></td>
+                        <td class="NormalTD">Garment Color</td>
+                        <td class="NormalTD">
+                            <asp:Label ID="lbl_color" runat="server" Text="0"></asp:Label>
+                        </td>
                         <td class="NormalTD"></td>
                     </tr>
               
@@ -436,7 +432,7 @@
                                             <asp:GridView ID="tbl_markertype" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
                                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                                                 <Columns>
-                                                    <asp:BoundField DataField="CutPlanmarkerType" HeaderText="Marker Direction" />
+                                                    <asp:BoundField DataField="CutPlanmarkerTypeName" HeaderText="Marker Direction" />
                                                 </Columns>
                                                 <EditRowStyle BackColor="#999999" />
                                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -536,7 +532,7 @@ WHERE        (CutPlanRollDetails.CutPlan_PK = @Param1)">
                                             <asp:SessionParameter DefaultValue="" Name="CutPlan_PK" SessionField="cutpkrpt" Type="Decimal" />
                                         </SelectParameters>
                                     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerType] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
+    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerTypeName] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
         <SelectParameters>
             <asp:SessionParameter Name="CutPlan_PK" SessionField="cutpkrpt" Type="Decimal" />
         </SelectParameters>

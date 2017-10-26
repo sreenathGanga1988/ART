@@ -112,7 +112,7 @@ namespace ArtWebApp.Production.CutOrder
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.CutPlanMasters
-                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsPatternAdded=="Y" && ponmbr.IsDeleted=="N"
+                        where ponmbr.OurStyleID == ourstyleid && ponmbr.IsPatternAdded=="Y" && ponmbr.IsDeleted=="N" && ponmbr.IsCutorderGiven=="N"
                         select new
                         {
                             name = ponmbr.CutPlanNUM,
@@ -186,7 +186,7 @@ namespace ArtWebApp.Production.CutOrder
                         join ourstyledet in entty.AtcDetails on ponmbr.OurStyleID equals ourstyledet.OurStyleID
                         join atcmstr in entty.AtcMasters on ourstyledet.AtcId equals atcmstr.AtcId
                         where ponmbr.CutPlan_PK == cutplanpk
-                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle , ponmbr.CutplanConsumption,ponmbr.CutPlanFabReq,ponmbr.RollYard};
+                        select new {ponmbr.BOMConsumption, ponmbr.CutPlanNUM , ponmbr.FabDescription,ponmbr.ShrinkageGroup,ponmbr.WidthGroup,ponmbr.MarkerType,atcmstr.AtcNum ,ourstyledet.OurStyle , ponmbr.CutplanConsumption,ponmbr.CutPlanFabReq,ponmbr.RollYard,ponmbr.NewPatternName};
 
                foreach(var element in q)
                 {
@@ -199,11 +199,20 @@ namespace ArtWebApp.Production.CutOrder
                     lbl_fabric.Text = element.FabDescription.ToString();
                     lbl_coconsumption.Text = element.CutplanConsumption.ToString();
                     lbl_fabreq.Text = element.CutPlanFabReq.ToString();
+
+                    int fabreq = decimal.ToInt32(decimal.Parse(element.CutPlanFabReq.ToString()));
+                    txt_markername.Text = element.NewPatternName.ToString().Trim();
+                    txt_fabAllocation.Text = fabreq.ToString();
                     lbl_rollyard.Text = element.RollYard.ToString();
                 }
 
-
+                upd_fabAllocation.Update();
                 Upd_cutplandetails.Update();
+                upd_markername.Update();
+
+                lbl_newConsumption.Text = (float.Parse(txt_fabAllocation.Text) / float.Parse(lbl_cutQty.Text)).ToString();
+
+                upd_consumption.Update();
             }
         }
 
@@ -697,8 +706,7 @@ namespace ArtWebApp.Production.CutOrder
             {
                 BLL.CutOrderBLL.FinalCutOrderEntry cdata = new BLL.CutOrderBLL.FinalCutOrderEntry();
 
-                if (!cdata.IsCutOrdernumPresent(txt_cutno.Text.ToString()))
-                {
+              
                     cdata.Atcid = int.Parse(drp_atc.SelectedValue.ToString());
                     cdata.Ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
                     //cdata.FabDescription = ddl_color.SelectedItem.Text.Trim();
@@ -724,15 +732,20 @@ namespace ArtWebApp.Production.CutOrder
                     }
                     cdata.CutOrderQty = Decimal.Parse ( lbl_cutQty.Text);
                    cdata.ApprovedConsumption = Decimal.Parse(lbl_newConsumption.Text); ;
-                    String cutno = lbl_msg.Text = cdata.InsertNewCutOrder();
+                    if (!cdata.IsCutOrdernumPresent(txt_cutno.Text.ToString()))
+                    {
+                        String cutno = lbl_msg.Text = cdata.InsertNewCutOrder();
                     String msg = "Cutorder # : " + cutno + " is Generated Sucessfully";
                     MessgeboxUpdate("sucess", msg);
+                    }
+                    else
+                    {
+                    String cutno = lbl_msg.Text = cdata.UpdateCutOrder();
+                    String msg = "Cutorder # : " + cutno + " is Updated  Sucessfully";
+                    MessgeboxUpdate("sucess", msg);
+                }
 
-                }
-                else
-                {
-                    MessgeboxUpdate("fail", "CutOrder NO# Already Present");
-                }
+               
             }
         }
 

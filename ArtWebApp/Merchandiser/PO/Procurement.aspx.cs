@@ -10,6 +10,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
 using ArtWebApp.Controls;
+using ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL;
 
 namespace ArtWebApp.Merchandiser
 {
@@ -546,6 +547,31 @@ namespace ArtWebApp.Merchandiser
             checkallRowsforRateAndQty();
 
             ViewState["convfact"] = convfact.Value = (convdatagenerator(int.Parse(drp_currency.SelectedItem.Value.ToString()))).ToString();
+        }
+        protected void drp_supplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcurementMasterData procurementMasterData = new ProcurementMasterData();
+
+
+            int selectedindex = procurementMasterData.GetSupplierPaymentFixed(int.Parse(drp_supplier.SelectedItem.Value.ToString()));
+             if (selectedindex != 0)
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = false;
+            }
+            else
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = true;
+            }
+
+
+
+
+            upd_paymentterm.Update();
+
+            
+
         }
     }
 }

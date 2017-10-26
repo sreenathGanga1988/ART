@@ -1113,7 +1113,7 @@ namespace ArtWebApp.Production.CutOrder
                 String markertype = item.Value.ToString();
 
                 BLL.CutOrderBLL.CutPlanMarkerTypeData cutdet = new BLL.CutOrderBLL.CutPlanMarkerTypeData();
-                cutdet.MarkerType = markertype.Trim();
+                cutdet.MarkerTypeName = markertype.Trim();
 
 
 

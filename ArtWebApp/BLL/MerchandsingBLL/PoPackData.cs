@@ -883,6 +883,35 @@ FROM            PoPackMaster INNER JOIN
 
         }
 
+        public void MarkASQShufflable(Boolean ispackable)
+        {
+
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from ppc in enty.POPackDetails
+                        where ppc.OurStyleID == this.Ourstyleid && ppc.POPackId == this.PoPackId
+                        select ppc;
+                foreach (var element in q)
+                {
+                    if (ispackable)
+                    {
+                        element.IsInterChangable = "Y";
+                    }
+                    else
+                    {
+                        element.IsInterChangable = "N";
+                    }
+
+                }
+                enty.SaveChanges();
+            }
+
+
+
+        }
 
 
         public void MarkASQDeleted(Boolean isdeleted)

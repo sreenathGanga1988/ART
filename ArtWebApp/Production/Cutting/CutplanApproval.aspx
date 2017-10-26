@@ -134,7 +134,7 @@
                                 <ContentTemplate>
                             <asp:GridView ID="tbl_markertype" runat="server" AutoGenerateColumns="False">
                                 <Columns>
-                                    <asp:BoundField DataField="CutPlanmarkerType" HeaderText="Marker Direction" />
+                                    <asp:BoundField DataField="CutPlanmarkerTypeName" HeaderText="Marker Direction" />
                                 </Columns>
                             </asp:GridView>
                                     </ContentTemplate>
@@ -441,7 +441,7 @@ WHERE        (CutPlan_PK = @CutPlan_PK) ">
             <asp:Parameter DefaultValue="true" Name="IsActive" Type="Boolean" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerType] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
+    <asp:SqlDataSource ID="cutplanmarkertypedata" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [CutPlanMarkerTypes_PK], [CutPlanmarkerTypeName] FROM [CutPlanMarkerType] WHERE ([CutPlan_PK] = @CutPlan_PK)">
         <SelectParameters>
             <asp:ControlParameter ControlID="drp_cutplan" Name="CutPlan_PK" PropertyName="SelectedValue" Type="Decimal" />
         </SelectParameters>

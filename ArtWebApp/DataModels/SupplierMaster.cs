@@ -25,6 +25,7 @@ namespace ArtWebApp.DataModels
             this.SupplierInvoiceMasters = new HashSet<SupplierInvoiceMaster>();
             this.SupplierStockInvoiceMasters = new HashSet<SupplierStockInvoiceMaster>();
             this.DocMasters = new HashSet<DocMaster>();
+            this.LabRequestMasters = new HashSet<LabRequestMaster>();
         }
     
         public decimal Supplier_PK { get; set; }
@@ -45,6 +46,7 @@ namespace ArtWebApp.DataModels
         public string IsPogiven { get; set; }
         public string AddedBY { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<bool> IsFixedPaymentTermID { get; set; }
     
         public virtual CountryMaster CountryMaster { get; set; }
         public virtual CurrencyMaster CurrencyMaster { get; set; }
@@ -59,5 +61,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DocMaster> DocMasters { get; set; }
         public virtual PaymentModeMaster PaymentModeMaster { get; set; }
         public virtual PaymentTermMaster PaymentTermMaster { get; set; }
+        public virtual ICollection<LabRequestMaster> LabRequestMasters { get; set; }
     }
 }

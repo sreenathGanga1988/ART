@@ -239,12 +239,14 @@ namespace ArtWebApp.Inventory
                     if (chkBx != null && chkBx.Checked)
                     {
 
-
                         
+
+
 
                         int item_pk = int.Parse(((di.FindControl("lblInventoryItem_PK") as Label).Text.ToString()));
                         decimal recptqty = decimal.Parse(((di.FindControl("txt_receiptQty") as TextBox).Text.ToString()));
                         int dodet_pk = int.Parse(((di.FindControl("lbl_dodetpk") as Label).Text.ToString()));
+                        int do_pk = int.Parse(((di.FindControl("lbl_DO_PK") as Label).Text.ToString()));
                         int mrndet_pk=0;
                         int podet_pk=0;
                         int skudetPK=0;
@@ -275,7 +277,7 @@ namespace ArtWebApp.Inventory
                         }
 
                         var q1 = from godsintran in enty.GoodsInTransits
-                                 where godsintran.DO_PK.ToString().Trim() == cmb_do.SelectedValue.ToString().Trim() && godsintran.InventoryItem_PK.ToString().Trim() == item_pk.ToString().Trim ()
+                                 where godsintran.DO_PK == do_pk && godsintran.InventoryItem_PK.ToString().Trim() == item_pk.ToString().Trim ()
                                  select godsintran;
 
                         foreach (var trans in q1)

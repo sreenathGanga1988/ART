@@ -238,6 +238,15 @@ namespace ArtWebApp.Reports.Production.LaySheet {
         protected global::System.Web.UI.WebControls.Label lbl_manualcutnum;
         
         /// <summary>
+        /// lbl_colorname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_colorname;
+        
+        /// <summary>
         /// upd_mastertable control.
         /// </summary>
         /// <remarks>

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.StockMrnMaster>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Mark Complete", "GMRNDocumentUpload", "GMRNDocumentUpload", null,null)
+</p>
+<table class="table table-responsive table-bordered" >
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SMrnNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockPOMaster.SPONum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedBY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockPOMaster.SupplierMaster.SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarkedCompletedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MarkCompletedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.StockRecieptMaster.StockRecieptNum)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SMrnNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockPOMaster.SPONum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedBY)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockPOMaster.SupplierMaster.SupplierName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarkedCompletedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MarkCompletedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockRecieptMaster.StockRecieptNum)
+                </td>
+               
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>

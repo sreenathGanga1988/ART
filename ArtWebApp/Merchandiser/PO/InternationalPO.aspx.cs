@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ArtWebApp.BLL;
 using ArtWebApp.DataModels;
+using System.Web.Services;
+using ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL;
 
 namespace ArtWebApp.Merchandiser.PO
 {
@@ -345,6 +347,38 @@ namespace ArtWebApp.Merchandiser.PO
         {
             BLL.ProcurementBLL.StockPODetailsdata spdetdata = new BLL.ProcurementBLL.StockPODetailsdata();
             lbl_balaqty.Text = spdetdata.GetBalanceofIR(int.Parse(drp_OODO.SelectedValue.ToString()), int.Parse(drp_oodoitem.SelectedValue.ToString()));
+        }
+
+
+
+        
+
+
+              [WebMethod]
+        public static string SupplierSelectedAsync(int Supplierid)
+        {
+            ProcurementMasterData procurementMasterData = new ProcurementMasterData();
+
+            return procurementMasterData.GetSupplierPaymentFixed(Supplierid).ToString();
+        }
+
+        protected void drp_supplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcurementMasterData procurementMasterData = new ProcurementMasterData();
+
+            int selectedindex = procurementMasterData.GetSupplierPaymentFixed(int.Parse(drp_supplier.SelectedItem.Value.ToString()));
+            if (selectedindex != 0)
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = false;
+            }
+            else
+            {
+                drp_paymentterm.SelectedValue = selectedindex.ToString();
+                drp_paymentterm.Enabled = true;
+            }
+
+            upd_paymentterm.Update();
         }
     }
 }

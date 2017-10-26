@@ -199,7 +199,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 romstrdb.IsDeleted = "N";
                 romstrdb.Iscompleted = "N";
                 romstrdb.AtcID = GetToAtcID(rmmstr.ToSkuDet_PK);
-
+                romstrdb.Location_PK = rmmstr.Location_Pk;
 
                 enty.RequestOrderStockMasters.Add(romstrdb);
 

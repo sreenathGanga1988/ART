@@ -48,10 +48,10 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
 
         // POST: ArtMVCMaster/SupplierMasters/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Supplier_PK,SupplierName,SupplierPrefix,SupplierAddress,SupplierType,Telephone,Email,Fax,ContactPerson,CurrencyID,CountryID,PaymentModeID,PaymentTermID,IsActive,partner_id,IsPogiven,AddedBY,AddedDate")] SupplierMaster supplierMaster)
+        public ActionResult Create([Bind(Include = "Supplier_PK,SupplierName,SupplierPrefix,SupplierAddress,SupplierType,Telephone,Email,Fax,ContactPerson,CurrencyID,CountryID,PaymentModeID,PaymentTermID,IsActive,partner_id,IsPogiven,AddedBY,AddedDate,IsFixedPaymentTermID")] SupplierMaster supplierMaster)
         {
             if (ModelState.IsValid)
             {
@@ -88,10 +88,10 @@ namespace ArtWebApp.Areas.ArtMVCMaster.Controllers
 
         // POST: ArtMVCMaster/SupplierMasters/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Supplier_PK,SupplierName,SupplierPrefix,SupplierAddress,SupplierType,Telephone,Email,Fax,ContactPerson,CurrencyID,CountryID,PaymentModeID,PaymentTermID,IsActive,partner_id,IsPogiven,AddedBY,AddedDate")] SupplierMaster supplierMaster)
+        public ActionResult Edit([Bind(Include = "Supplier_PK,SupplierName,SupplierPrefix,SupplierAddress,SupplierType,Telephone,Email,Fax,ContactPerson,CurrencyID,CountryID,PaymentModeID,PaymentTermID,IsActive,partner_id,IsPogiven,AddedBY,AddedDate,IsFixedPaymentTermID")] SupplierMaster supplierMaster)
         {
             if (ModelState.IsValid)
             {

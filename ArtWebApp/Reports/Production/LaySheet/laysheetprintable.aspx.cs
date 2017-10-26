@@ -54,6 +54,8 @@ namespace ArtWebApp.Reports.Production.LaySheet
 
                             ctplnmst.CutPlanNUM,
                             cutordrmstr.Cut_NO,
+                            cutordrmstr.ColorName,
+                            cutordrmstr.ColorCode,
 
                             cutplanmarkerdet.PaternMarkerName,
                             cutplanmarkerdet.MarkerLength,
@@ -86,10 +88,10 @@ namespace ArtWebApp.Reports.Production.LaySheet
                     lbl_patternname.Text = element.PaternMarkerName.ToString().Trim();
                     lbl_markerlength.Text = (Decimal.Parse(element.Tolerancelength.ToString()) * Decimal.Parse("0.0278") + Decimal.Parse(element.MarkerLength.ToString())).ToString();
 
-                    lbl_fabric.Text = element.Color.ToString();
+                    lbl_fabric.Text = element.Color.ToString() ;
                     lbl_loc.Text = element.LocationName;
 
-
+                    lbl_colorname.Text = element.ColorName.ToString().Trim();
 
                     lbl_Markertype.Text = element.MarkerType.ToString();
                     lbl_shrink.Text = element.ShrinkageGroup.ToString();

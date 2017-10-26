@@ -66,8 +66,13 @@
                             <tr>
                                 <td >Supplier</td>
                                 <td >
-                                     <ucc:DropDownListChosen ID="drp_supplier" runat="server" DataSourceID="supplierdata" DataTextField="SupplierName" DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px">
-                                    </ucc:DropDownListChosen>
+                                       <asp:UpdatePanel ID="upd_supplier" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                  <ucc:DropDownListChosen ID="drp_supplier" runat="server" AutoPostBack="true" DataSourceID="supplierdata" DataTextField="SupplierName"
+                                                      DataValueField="Supplier_PK" DisableSearchThreshold="10" Width="200px"  OnSelectedIndexChanged="drp_supplier_SelectedIndexChanged" >
+                            </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                                             </asp:UpdatePanel>
                                 </td>
                                 <td class="auto-style1" ></td>
                                 <td aria-invalid="grammar" class="auto-style20">Delivery Date :</td>
@@ -108,8 +113,12 @@
                             <tr>
                                 <td >Payment Term :</td>
                                 <td >
-                                     <ucc:DropDownListChosen ID="drp_paymentterm" runat="server" DataSourceID="Paymenttermdata" DataTextField="PaymentTermCode" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px">
-                                    </ucc:DropDownListChosen>
+                                      <asp:UpdatePanel ID="upd_paymentterm" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                <ucc:DropDownListChosen  ID="drp_paymentterm" runat="server" Enabled="false" DataSourceID="Paymenttermdata" DataTextField="PaymentTermCode" DataValueField="PaymentTermID" DisableSearchThreshold="10" Width="200px" >
+                            </ucc:DropDownListChosen>
+                                      </ContentTemplate>
+                            </asp:UpdatePanel>
                                 </td>
                                 <td class="auto-style1" >&nbsp;</td>
                                 <td >po tYPE :</td>

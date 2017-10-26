@@ -1,0 +1,147 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.LabChargeMasterViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+<h2>Create</h2>
+<script src="~/Areas/ArtMVCMerchandiser/Js/LabChargescript.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Lab Charge Request Form</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupplierPK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.SupplierPK, (SelectList)ViewBag.SupplierPK, htmlAttributes: new { @class = "chosen-select  form-control" })
+                @*@Html.DropDownListFor(model => model.SupplierPK, (SelectList)ViewBag.Fabrication, htmlAttributes: new { @class = "chosen-select  form-control" })*@
+                <span class="error">Supplier required</span>
+                @Html.ValidationMessageFor(model => model.SupplierPK, "", new { @class = "text-danger" })
+            </div>
+           
+            <div class="col-md-6">
+               
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="error"> required</span>
+                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Merchandiser, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="error"> required</span>
+                @Html.ValidationMessageFor(model => model.Merchandiser, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ApproximateCharges, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="error"> required</span>
+                @Html.ValidationMessageFor(model => model.ApproximateCharges, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="error"> required</span>
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+
+
+
+
+
+
+    </div>
+        <div class="details">
+            <h2>
+                Atc Wise Details
+            </h2>
+            <table class="table table-responsive">
+                <tr>
+                    <td>ATC#</td>
+                    <td>AllowedValue</td>
+                    <td>New  Charge</td>
+                    <td>Remark</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="mycontainer" id="mainrow">
+                    <td>
+                        <select id="AtcID" class="AtcID form-control" onchange="loadValues(this)">
+                            <option>Select</option>
+                        </select>
+                        <span class="error">Select Atc</span>
+                    </td>
+                    <td>
+
+
+                        <input type="text" id="AllowedValue" class="AllowedValue form-control" />
+                        <span class="error"> Allowed Value required</span>
+
+
+
+                    </td>
+                    <td>
+                        <input type="text" id="NewValue" class="NewValue form-control" onchange="CheckValue(this)" />
+                        <span class="error">Valid Value required</span>
+                    </td>
+                    <td>
+                        <input type="text" id="Remark" class="rate form-control" />
+                        <span class="error">Valid Remark required</span>
+                    </td>
+                    <td>
+                        <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+            <div id="orderItems">
+                <table class="table table-responsive" id="orderdetailsItems"><tbody></tbody></table>
+                <span id="orderItemError" style="color:red"></span>
+            </div>
+            <div style="padding:10px 0; text-align:right">
+                @*<input id="submit" type="button" value="Save Order" class="btn btn-warning" style="padding:10px 20px" />*@
+
+                <input id="submit" type="button" value="Save Order" class="btn btn-warning" style="padding:10px 20px" />
+
+            </div>
+
+        </div>
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

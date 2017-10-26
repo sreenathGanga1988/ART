@@ -16,7 +16,7 @@ namespace ArtWebApp.DataModelAtcWorld
     public partial class AtcWorldEntities : DbContext
     {
         public AtcWorldEntities()
-             : base("name=AtcWorldEntities")
+           : base("name=AtcWorldEntities")
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
@@ -32,7 +32,6 @@ namespace ArtWebApp.DataModelAtcWorld
     
         public virtual DbSet<LocationMaster_tbl> LocationMaster_tbl { get; set; }
         public virtual DbSet<PackingListDetailsAtc> PackingListDetailsAtcs { get; set; }
-        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
         public virtual DbSet<PackingListMasterAtcPro> PackingListMasterAtcProes { get; set; }
         public virtual DbSet<StyleSizeMaster> StyleSizeMasters { get; set; }
         public virtual DbSet<ASQShuffleDetailsAtc> ASQShuffleDetailsAtcs { get; set; }
@@ -44,5 +43,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public virtual DbSet<ArtLaySheetDetail> ArtLaySheetDetails { get; set; }
         public virtual DbSet<ArtLaySheetMasterData> ArtLaySheetMasterDatas { get; set; }
         public virtual DbSet<Fabricreqforpart> Fabricreqforparts { get; set; }
+        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
     }
 }

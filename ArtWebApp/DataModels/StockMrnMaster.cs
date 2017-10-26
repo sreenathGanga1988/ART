@@ -32,5 +32,6 @@ namespace ArtWebApp.DataModels
         public virtual StockMrnMaster StockMrnMaster1 { get; set; }
         public virtual StockMrnMaster StockMrnMaster2 { get; set; }
         public virtual StockRecieptMaster StockRecieptMaster { get; set; }
+        public virtual StockPOMaster StockPOMaster { get; set; }
     }
 }

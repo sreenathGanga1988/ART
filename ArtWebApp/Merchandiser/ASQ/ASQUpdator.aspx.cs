@@ -218,8 +218,8 @@ namespace ArtWebApp.Merchandiser.ASQ
 
 
 
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = tbl_podata.Rows[index];
+            int index = Convert.ToInt32(e.CommandArgument); 
+             GridViewRow row = tbl_podata.Rows[index];
             if (e.CommandName == "CutableUpdate")
             {
 
@@ -274,6 +274,34 @@ namespace ArtWebApp.Merchandiser.ASQ
                     else
                     {
                         pdata.MarkASQPackable(false);
+                    }
+
+
+                }
+            }
+            else if (e.CommandName == "MarkAsqable")
+            {
+
+                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+
+
+                    int lbl_popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                    int lbl_ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+
+                    ArtWebApp.BLL.POPackDetailData pdata = new POPackDetailData();
+
+                    pdata.PoPackId = lbl_popackid;
+                    pdata.Ourstyleid = lbl_ourstyleid;
+                    CheckBox chK_isAsqable = (CheckBox)row.FindControl("chK_isAsqable");
+                    if (chK_isAsqable.Checked == true)
+                    {
+                        pdata.MarkASQShufflable(true);
+                    }
+                    else
+                    {
+                        pdata.MarkASQShufflable(false);
                     }
 
 

@@ -130,7 +130,7 @@ namespace ArtWebApp.Merchandiser
 
             rmstr.RoDetailsDataCollection = rk;
             rmstr.ToSkuDet_PK = toskudetpk;
-            //rmstr.Location_Pk
+            rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
             String ro = rmstr.insertStockRowmaterial(rmstr);
             string msg = "Ro# '" + ro + "' Generated Successfully";
             MessgeboxUpdate("sucess", msg);

@@ -908,5 +908,15 @@ namespace ArtWebApp.Production.Cutting
             string msg = " CutPlan Patter  changed . Please Inform Samping dept";
             ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
         }
+
+        protected void btn_repoen_Click(object sender, EventArgs e)
+        {
+            BLL.CutOrderBLL.CutPlanMasterData cmstrdata = new BLL.CutOrderBLL.CutPlanMasterData();
+            string msg = " CutPlan Opened  . Please Inform Samping dept ";
+            cmstrdata.ReopenCutplan(int.Parse(drp_cutplan.SelectedValue.ToString()));
+            
+            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+
+        }
     }
 }

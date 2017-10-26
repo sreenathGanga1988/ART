@@ -79,6 +79,15 @@
                                     <asp:Label ID="lbl_dodetpk" runat="server" Text='<%# Bind("DODet_PK") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+
+                             <asp:TemplateField HeaderText="DO_PK">
+                                
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_DO_PK" runat="server" Text='<%# Bind("DO_PK") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            
                             <asp:BoundField DataField="RMNum" HeaderText="RMNum" />
                             <asp:BoundField DataField="Description" HeaderText="Description" />
                             <asp:BoundField DataField="ItemColor" HeaderText="ItemColor" />

@@ -630,6 +630,9 @@ HAVING        (CutID = @Param1)";
         public String Cutablewidth { get; set; }
 
         public String Shrinkage { get; set; }
+
+        public String ColorCode { get; set; }
+        public String ColorName { get; set; }
         public Decimal CofabAllocation { get; set; }
         public Decimal BalToCutQty { get; set; }
         public Decimal DeliveredQty { get; set; }
@@ -661,6 +664,8 @@ HAVING        (CutID = @Param1)";
                     this.MarkerType = element.MarkerType;
                     this.Tofactid = int.Parse ( element.Location_PK.ToString ());
                     this.Skudet_pk = int.Parse(element.SkuDet_PK.ToString());
+                    this.ColorCode = element.ColorCode.ToString();
+                    this.ColorName = element.ColorName.ToString();
                     element.IsCutorderGiven = "Y";
                     element.CutOrderConsumption= this.ApprovedConsumption;
 
@@ -682,7 +687,8 @@ HAVING        (CutID = @Param1)";
                 ctmstr.CutQty = this.CutOrderQty;
                 ctmstr.FabQty = this.CofabAllocation;
                 ctmstr.IsDeleted = "N";
-
+                ctmstr.ColorCode = this.ColorCode;
+                ctmstr.ColorName = this.ColorName;
                 ctmstr.BalanceQty = 0;
                 ctmstr.DelivedQty = 0;
                 ctmstr.AddedBy = HttpContext.Current.Session["Username"].ToString();
@@ -770,7 +776,170 @@ HAVING        (CutID = @Param1)";
 
         }
 
+        public String UpdateCutOrder()
+        {
+            string Cutn = "";
+            decimal cutid = 0;
 
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from CutPlnmstr in enty.CutPlanMasters
+                        where CutPlnmstr.CutPlan_PK == this.cutplanpk
+                        select CutPlnmstr;
+
+
+                foreach (var element in q)
+                {
+                    this.FabDescription = element.FabDescription.ToString();
+                    this.Cutablewidth = element.WidthGroup;
+                    this.Shrinkage = element.ShrinkageGroup;
+                    this.MarkerType = element.MarkerType;
+                    this.Tofactid = int.Parse(element.Location_PK.ToString());
+                    this.Skudet_pk = int.Parse(element.SkuDet_PK.ToString());
+                    this.ColorCode = element.ColorCode.ToString();
+                    this.ColorName = element.ColorName.ToString();
+                    element.IsCutorderGiven = "Y";
+                    element.CutOrderConsumption = this.ApprovedConsumption;
+
+                }
+
+
+                //Cutorder details
+
+                var alreadyexistingCutorder = from cutorderordr in enty.CutOrderMasters
+                                              where cutorderordr.CutPlan_Pk == this.cutplanpk
+                                              select cutorderordr;
+                foreach (var ctmstr in alreadyexistingCutorder)
+                {
+                    ctmstr.Color = this.FabDescription.ToString();
+                    ctmstr.CutWidth = this.Cutablewidth;
+                    ctmstr.Shrinkage = this.Shrinkage;
+                    ctmstr.MarkerType = this.MarkerType;
+                    ctmstr.ToLoc = this.Tofactid;
+                    ctmstr.SkuDet_pk = this.Skudet_pk;
+                    ctmstr.CutPlan_Pk = this.cutplanpk;
+                    ctmstr.AtcID = this.Atcid;
+                    ctmstr.OurStyleID = this.Ourstyleid;
+                    ctmstr.Cut_NO = this.CutNum;
+                    ctmstr.PaternName = this.patername;
+                    ctmstr.CutOrderType = this.CutorderType;
+                    ctmstr.CutQty = this.CutOrderQty;
+                    ctmstr.FabQty = this.CofabAllocation;
+                    ctmstr.IsDeleted = "N";
+                    ctmstr.ColorCode = this.ColorCode;
+                    ctmstr.ColorName = this.ColorName;
+                    ctmstr.BalanceQty = 0;
+                    ctmstr.DelivedQty = 0;
+                    ctmstr.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                    ctmstr.CutOrderDate = DateTime.Now;
+
+                    ctmstr.ExtraReason_Pk = this.ExtraReason_Pk;
+                    ctmstr.ConsumptionQty = this.ApprovedConsumption;
+                    ctmstr.ActualConsumption = this.ApprovedConsumption;
+
+                    cutid = ctmstr.CutID;
+                }
+
+                var q1 = from CutPlnmstr in enty.CutPlanMarkerDetails
+                         where CutPlnmstr.CutPlan_PK == this.cutplanpk
+                         select CutPlnmstr;
+
+
+                foreach (var element123 in q1)
+                {
+                    if (!enty.CutOrderDetails.Any(f => f.CutPlanMarkerDetails_PK == element123.CutPlanMarkerDetails_PK))
+                    {
+
+                        CutOrderDetail cddetail = new CutOrderDetail();
+                        cddetail.MarkerNo = element123.MarkerNo;
+                        cddetail.NoOfPc = element123.NoOfPc;
+                        cddetail.Qty = element123.Qty;
+                        cddetail.CutID = cutid;
+                        cddetail.CutPlanMarkerDetails_PK = element123.CutPlanMarkerDetails_PK;
+                        enty.CutOrderDetails.Add(cddetail);
+
+                     
+
+                    }
+                    else
+                    {
+                        var existingcutorderdertailq = from cutorderdetails in enty.CutOrderDetails
+                                                       where cutorderdetails.CutPlanMarkerDetails_PK == element123.CutPlanMarkerDetails_PK
+                                                       select cutorderdetails;
+                        foreach (var cddetail in existingcutorderdertailq)
+                        {
+                            cddetail.MarkerNo = element123.MarkerNo;
+                            cddetail.NoOfPc = element123.NoOfPc;
+                            cddetail.Qty = element123.Qty;
+                            cddetail.CutID = cutid;
+                            cddetail.CutPlanMarkerDetails_PK = element123.CutPlanMarkerDetails_PK;
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+                }
+                enty.SaveChanges();
+
+
+
+
+                var Q12 = from cutorderdet in enty.CutOrderDetails
+                          where cutorderdet.CutID == cutid
+                          select cutorderdet;
+                foreach (var element1234 in Q12)
+                {
+                    int cutdetpk = int.Parse(element1234.CutOrderDet_PK.ToString());
+
+                    int CutPlanMarkerDetails_PK = int.Parse(element1234.CutPlanMarkerDetails_PK.ToString());
+
+                    var q1234 = from CutPlanSizeDetailsData in enty.CutPlanMarkerSizeDetails
+                                where CutPlanSizeDetailsData.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK
+                                select CutPlanSizeDetailsData;
+                    foreach (var sizedata in q1234)
+                    {
+                        if (!enty.CutOrderSizeDetails.Any(f => f.CutOrderDet_PK == cutdetpk && f.Size.Trim() == sizedata.Size.Trim() && f.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK))
+                        {
+                            CutOrderSizeDetail cddetail = new CutOrderSizeDetail();
+                            cddetail.CutOrderDet_PK = cutdetpk;
+                            cddetail.Size = sizedata.Size;
+                            cddetail.Qty = sizedata.Qty;
+                            cddetail.Ratio = sizedata.Ratio;
+                            cddetail.CutPlanMarkerDetails_PK = CutPlanMarkerDetails_PK;
+                            cddetail.CutPlanSize_PK = sizedata.CutPlanSize_PK;
+                            enty.CutOrderSizeDetails.Add(cddetail);
+                        }
+                        else
+                        {
+                            var Qr = from cutsizedet in enty.CutOrderSizeDetails
+                                     where cutsizedet.CutOrderDet_PK == cutdetpk && cutsizedet.Size.Trim() == sizedata.Size && cutsizedet.CutPlanMarkerDetails_PK == CutPlanMarkerDetails_PK
+                                     select cutsizedet;
+                            foreach (var element in Qr)
+                            {
+                                element.Qty = sizedata.Qty;
+                                element.Ratio = sizedata.Ratio;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+                enty.SaveChanges();
+            }
+
+            return Cutn;
+        }
+        
 
 
     }

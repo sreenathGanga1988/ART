@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.SubConExtraRequest>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AtcMaster.AtcNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CutOrderMaster.Cut_NO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtraRequestReasonMaster.ExtraReason)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CutOrderMaster.Cut_NO)
+        </td>
+        <td>
+    @Html.DisplayFor(modelItem => item.ExtraRequestReasonMaster.ExtraReason)
+</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExtraRequestID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExtraRequestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExtraRequestID })
+        </td>
+    </tr>
+}
+
+</table>
