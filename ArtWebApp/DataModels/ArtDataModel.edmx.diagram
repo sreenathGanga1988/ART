@@ -460,6 +460,11 @@
         <AssociationConnector Association="ArtModel.FK_LabChargeDetail_LabRequestMaster" />
         <AssociationConnector Association="ArtModel.FK_LabRequestMaster_SupplierMaster" />
         <AssociationConnector Association="ArtModel.FK_LabChargeDetail_AtcMaster" />
+        <EntityTypeShape EntityType="ArtModel.ProductionTNA" Width="1.5" PointX="15" PointY="51.375" />
+        <AssociationConnector Association="ArtModel.FK_ProductionTNA_AtcDetails" />
+        <AssociationConnector Association="ArtModel.FK_ProductionTNA_LocationMaster" />
+        <EntityTypeShape EntityType="ArtModel.ProductionTNAComponent" Width="1.5" PointX="26.375" PointY="27.75" />
+        <AssociationConnector Association="ArtModel.FK_ProductionTNAComponent_ProductionTNAComponent1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

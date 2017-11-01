@@ -114,6 +114,8 @@
           <Property Name="CategoryID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
+          <Property Name="MinutesperGarment" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="MerchantPCD" Type="datetime" />
         </EntityType>
         <EntityType Name="AtcMaster">
           <Key>
@@ -542,6 +544,7 @@
           <Property Name="RejectionDate" Type="datetime" />
           <Property Name="RejectedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CutOrderConsumption" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="IsASQEditable" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CutplanRefPattern">
           <Key>
@@ -1937,6 +1940,43 @@
           <Property Name="ProducedLctn_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SDODate" Type="datetime" />
           <Property Name="SDONum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ProductionTNA">
+          <Key>
+            <PropertyRef Name="ProductionTNID" />
+          </Key>
+          <Property Name="ProductionTNID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PPSumbissionDate" Type="datetime" />
+          <Property Name="PPApprovalDate" Type="datetime" />
+          <Property Name="SampleYardagesDate" Type="datetime" />
+          <Property Name="GradedPatternDate" Type="datetime" />
+          <Property Name="BulkFabricDate" Type="datetime" />
+          <Property Name="SewingTrimDate" Type="datetime" />
+          <Property Name="SizeSetDate" Type="datetime" />
+          <Property Name="PPMeetingDate" Type="datetime" />
+          <Property Name="FC1Date" Type="datetime" />
+          <Property Name="FinalMarkerDate" Type="datetime" />
+          <Property Name="FactoryPlannedPCDDate" Type="datetime" />
+          <Property Name="MerchandisingPCDDate" Type="datetime" />
+          <Property Name="InputDate" Type="datetime" />
+          <Property Name="PackingTrimDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductionTNAComponent">
+          <Key>
+            <PropertyRef Name="ProductionTNACompID" />
+          </Key>
+          <Property Name="ProductionTNACompID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DaystoAdjust" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ParentICompID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Alertdays" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsWorkDays" Type="bit" />
         </EntityType>
         <EntityType Name="RecieptMaster">
           <Key>
@@ -4934,6 +4974,42 @@ warning 6035: The relationship 'FK_POPackDetails_SizeMaster' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductionTNA_AtcDetails">
+          <End Role="AtcDetails" Type="Self.AtcDetails" Multiplicity="0..1" />
+          <End Role="ProductionTNA" Type="Self.ProductionTNA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetails">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="ProductionTNA">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionTNA_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="ProductionTNA" Type="Self.ProductionTNA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ProductionTNA">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionTNAComponent_ProductionTNAComponent1">
+          <End Role="ProductionTNAComponent" Type="Self.ProductionTNAComponent" Multiplicity="1" />
+          <End Role="ProductionTNAComponent1" Type="Self.ProductionTNAComponent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionTNAComponent">
+              <PropertyRef Name="ProductionTNACompID" />
+            </Principal>
+            <Dependent Role="ProductionTNAComponent1">
+              <PropertyRef Name="ProductionTNACompID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RecieptMaster_LocationMaster">
           <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
           <End Role="RecieptMaster" Type="Self.RecieptMaster" Multiplicity="*" />
@@ -6339,6 +6415,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="ProcurementMaster" EntityType="Self.ProcurementMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcurmentPlanDetails" EntityType="Self.ProcurmentPlanDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductionReportDetails" EntityType="Self.ProductionReportDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionTNA" EntityType="Self.ProductionTNA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionTNAComponent" EntityType="Self.ProductionTNAComponent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecieptMaster" EntityType="Self.RecieptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectionAdjustDetails" EntityType="Self.RejectionAdjustDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectionExtraFabbReq" EntityType="Self.RejectionExtraFabbReq" Schema="dbo" store:Type="Tables" />
@@ -7028,6 +7106,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_ProductionReportDetails_JobContractDetail" Association="Self.FK_ProductionReportDetails_JobContractDetail">
             <End Role="JobContractDetail" EntitySet="JobContractDetail" />
             <End Role="ProductionReportDetails" EntitySet="ProductionReportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionTNA_AtcDetails" Association="Self.FK_ProductionTNA_AtcDetails">
+            <End Role="AtcDetails" EntitySet="AtcDetails" />
+            <End Role="ProductionTNA" EntitySet="ProductionTNA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionTNA_LocationMaster" Association="Self.FK_ProductionTNA_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="ProductionTNA" EntitySet="ProductionTNA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionTNAComponent_ProductionTNAComponent1" Association="Self.FK_ProductionTNAComponent_ProductionTNAComponent1">
+            <End Role="ProductionTNAComponent" EntitySet="ProductionTNAComponent" />
+            <End Role="ProductionTNAComponent1" EntitySet="ProductionTNAComponent" />
           </AssociationSet>
           <AssociationSet Name="FK_RecieptMaster_LocationMaster" Association="Self.FK_RecieptMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
@@ -8734,6 +8824,20 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="AtcMaster" EntitySet="AtcMasters" />
             <End Role="LabChargeDetail" EntitySet="LabChargeDetails" />
           </AssociationSet>
+          <EntitySet Name="ProductionTNAs" EntityType="ArtModel.ProductionTNA" />
+          <AssociationSet Name="FK_ProductionTNA_AtcDetails" Association="ArtModel.FK_ProductionTNA_AtcDetails">
+            <End Role="AtcDetail" EntitySet="AtcDetails" />
+            <End Role="ProductionTNA" EntitySet="ProductionTNAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionTNA_LocationMaster" Association="ArtModel.FK_ProductionTNA_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="ProductionTNA" EntitySet="ProductionTNAs" />
+          </AssociationSet>
+          <EntitySet Name="ProductionTNAComponents" EntityType="ArtModel.ProductionTNAComponent" />
+          <AssociationSet Name="FK_ProductionTNAComponent_ProductionTNAComponent1" Association="ArtModel.FK_ProductionTNAComponent_ProductionTNAComponent1">
+            <End Role="ProductionTNAComponent" EntitySet="ProductionTNAComponents" />
+            <End Role="ProductionTNAComponent1" EntitySet="ProductionTNAComponents" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -9223,6 +9327,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcDetails" FromRole="AtcDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="PatternNameBanks" Relationship="ArtModel.FK_PatternNameBank_AtcDetails" FromRole="AtcDetail" ToRole="PatternNameBank" />
           <NavigationProperty Name="LaySheetMasters" Relationship="ArtModel.FK_LaySheetMaster_AtcDetails" FromRole="AtcDetail" ToRole="LaySheetMaster" />
+          <Property Name="MinutesperGarment" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="MerchantPCD" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductionTNAs" Relationship="ArtModel.FK_ProductionTNA_AtcDetails" FromRole="AtcDetail" ToRole="ProductionTNA" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -10109,6 +10216,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="RejectionPanelExtraFabbReqs" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster" FromRole="LocationMaster" ToRole="RejectionPanelExtraFabbReq" />
           <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster" FromRole="LocationMaster" ToRole="ExtDeliveryToken" />
           <NavigationProperty Name="ExtDeliveryTokens1" Relationship="ArtModel.FK_ExtDeliveryToken_LocationMaster1" FromRole="LocationMaster" ToRole="ExtDeliveryToken" />
+          <NavigationProperty Name="ProductionTNAs" Relationship="ArtModel.FK_ProductionTNA_LocationMaster" FromRole="LocationMaster" ToRole="ProductionTNA" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -10313,6 +10421,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ProducedLctn_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SDODate" Type="DateTime" Precision="3" />
           <Property Name="SDONum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="RecieptMaster">
           <Key>
@@ -13173,6 +13282,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutPlanRejectHistories" Relationship="ArtModel.FK_CutPlanRejectHistory_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanRejectHistory" />
           <Property Name="CutOrderConsumption" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="CutPlanMarkerTypes" Relationship="ArtModel.FK_CutPlanMarkerType_CutPlanMaster" FromRole="CutPlanMaster" ToRole="CutPlanMarkerType" />
+          <Property Name="IsASQEditable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_CutPlanMaster_AtcDetails">
           <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
@@ -15747,6 +15857,82 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductionTNA">
+          <Key>
+            <PropertyRef Name="ProductionTNID" />
+          </Key>
+          <Property Name="ProductionTNID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PPSumbissionDate" Type="DateTime" Precision="3" />
+          <Property Name="PPApprovalDate" Type="DateTime" Precision="3" />
+          <Property Name="SampleYardagesDate" Type="DateTime" Precision="3" />
+          <Property Name="GradedPatternDate" Type="DateTime" Precision="3" />
+          <Property Name="BulkFabricDate" Type="DateTime" Precision="3" />
+          <Property Name="SewingTrimDate" Type="DateTime" Precision="3" />
+          <Property Name="SizeSetDate" Type="DateTime" Precision="3" />
+          <Property Name="PPMeetingDate" Type="DateTime" Precision="3" />
+          <Property Name="FC1Date" Type="DateTime" Precision="3" />
+          <Property Name="FinalMarkerDate" Type="DateTime" Precision="3" />
+          <Property Name="FactoryPlannedPCDDate" Type="DateTime" Precision="3" />
+          <Property Name="MerchandisingPCDDate" Type="DateTime" Precision="3" />
+          <Property Name="InputDate" Type="DateTime" Precision="3" />
+          <Property Name="PackingTrimDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_ProductionTNA_AtcDetails" FromRole="ProductionTNA" ToRole="AtcDetail" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_ProductionTNA_LocationMaster" FromRole="ProductionTNA" ToRole="LocationMaster" />
+        </EntityType>
+        <Association Name="FK_ProductionTNA_AtcDetails">
+          <End Type="ArtModel.AtcDetail" Role="AtcDetail" Multiplicity="0..1" />
+          <End Type="ArtModel.ProductionTNA" Role="ProductionTNA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcDetail">
+              <PropertyRef Name="OurStyleID" />
+            </Principal>
+            <Dependent Role="ProductionTNA">
+              <PropertyRef Name="OurStyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionTNA_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.ProductionTNA" Role="ProductionTNA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="ProductionTNA">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductionTNAComponent">
+          <Key>
+            <PropertyRef Name="ProductionTNACompID" />
+          </Key>
+          <Property Name="ProductionTNACompID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DaystoAdjust" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ParentICompID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Alertdays" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsWorkDays" Type="Boolean" />
+          <NavigationProperty Name="ProductionTNAComponent1" Relationship="ArtModel.FK_ProductionTNAComponent_ProductionTNAComponent1" FromRole="ProductionTNAComponent" ToRole="ProductionTNAComponent1" />
+          <NavigationProperty Name="ProductionTNAComponent2" Relationship="ArtModel.FK_ProductionTNAComponent_ProductionTNAComponent1" FromRole="ProductionTNAComponent1" ToRole="ProductionTNAComponent" />
+        </EntityType>
+        <Association Name="FK_ProductionTNAComponent_ProductionTNAComponent1">
+          <End Type="ArtModel.ProductionTNAComponent" Role="ProductionTNAComponent" Multiplicity="1" />
+          <End Type="ArtModel.ProductionTNAComponent" Role="ProductionTNAComponent1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionTNAComponent">
+              <PropertyRef Name="ProductionTNACompID" />
+            </Principal>
+            <Dependent Role="ProductionTNAComponent1">
+              <PropertyRef Name="ProductionTNACompID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16262,6 +16448,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="AtcDetails">
             <EntityTypeMapping TypeName="ArtModel.AtcDetail">
               <MappingFragment StoreEntitySet="AtcDetails">
+                <ScalarProperty Name="MerchantPCD" ColumnName="MerchantPCD" />
+                <ScalarProperty Name="MinutesperGarment" ColumnName="MinutesperGarment" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
@@ -17233,6 +17421,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ProductionReportDetails">
             <EntityTypeMapping TypeName="ArtModel.ProductionReportDetail">
               <MappingFragment StoreEntitySet="ProductionReportDetails">
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="SDONum" ColumnName="SDONum" />
                 <ScalarProperty Name="SDODate" ColumnName="SDODate" />
                 <ScalarProperty Name="ProducedLctn_PK" ColumnName="ProducedLctn_PK" />
@@ -18300,6 +18489,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutPlanMasters">
             <EntityTypeMapping TypeName="ArtModel.CutPlanMaster">
               <MappingFragment StoreEntitySet="CutPlanMaster">
+                <ScalarProperty Name="IsASQEditable" ColumnName="IsASQEditable" />
                 <ScalarProperty Name="CutOrderConsumption" ColumnName="CutOrderConsumption" />
                 <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
                 <ScalarProperty Name="RejectionDate" ColumnName="RejectionDate" />
@@ -19532,6 +19722,44 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="LabRequestNum" ColumnName="LabRequestNum" />
                 <ScalarProperty Name="LabRequestID" ColumnName="LabRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionTNAs">
+            <EntityTypeMapping TypeName="ArtModel.ProductionTNA">
+              <MappingFragment StoreEntitySet="ProductionTNA">
+                <ScalarProperty Name="PackingTrimDate" ColumnName="PackingTrimDate" />
+                <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+                <ScalarProperty Name="MerchandisingPCDDate" ColumnName="MerchandisingPCDDate" />
+                <ScalarProperty Name="FactoryPlannedPCDDate" ColumnName="FactoryPlannedPCDDate" />
+                <ScalarProperty Name="FinalMarkerDate" ColumnName="FinalMarkerDate" />
+                <ScalarProperty Name="FC1Date" ColumnName="FC1Date" />
+                <ScalarProperty Name="PPMeetingDate" ColumnName="PPMeetingDate" />
+                <ScalarProperty Name="SizeSetDate" ColumnName="SizeSetDate" />
+                <ScalarProperty Name="SewingTrimDate" ColumnName="SewingTrimDate" />
+                <ScalarProperty Name="BulkFabricDate" ColumnName="BulkFabricDate" />
+                <ScalarProperty Name="GradedPatternDate" ColumnName="GradedPatternDate" />
+                <ScalarProperty Name="SampleYardagesDate" ColumnName="SampleYardagesDate" />
+                <ScalarProperty Name="PPApprovalDate" ColumnName="PPApprovalDate" />
+                <ScalarProperty Name="PPSumbissionDate" ColumnName="PPSumbissionDate" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="ProductionTNID" ColumnName="ProductionTNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionTNAComponents">
+            <EntityTypeMapping TypeName="ArtModel.ProductionTNAComponent">
+              <MappingFragment StoreEntitySet="ProductionTNAComponent">
+                <ScalarProperty Name="IsWorkDays" ColumnName="IsWorkDays" />
+                <ScalarProperty Name="Alertdays" ColumnName="Alertdays" />
+                <ScalarProperty Name="ParentICompID" ColumnName="ParentICompID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="DaystoAdjust" ColumnName="DaystoAdjust" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="ProductionTNACompID" ColumnName="ProductionTNACompID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

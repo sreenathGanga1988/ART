@@ -54,6 +54,7 @@ namespace ArtWebApp.DataModels
             this.RejectionPanelExtraFabbReqs = new HashSet<RejectionPanelExtraFabbReq>();
             this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
             this.ExtDeliveryTokens1 = new HashSet<ExtDeliveryToken>();
+            this.ProductionTNAs = new HashSet<ProductionTNA>();
         }
     
         public decimal Location_PK { get; set; }
@@ -112,5 +113,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
         public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
         public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens1 { get; set; }
+        public virtual ICollection<ProductionTNA> ProductionTNAs { get; set; }
     }
 }

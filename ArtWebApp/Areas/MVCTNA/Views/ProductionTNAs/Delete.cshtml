@@ -1,0 +1,153 @@
+﻿@model ArtWebApp.DataModels.ProductionTNA
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProductionTNA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PPSumbissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPSumbissionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPApprovalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPApprovalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SampleYardagesDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SampleYardagesDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GradedPatternDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GradedPatternDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BulkFabricDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BulkFabricDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SewingTrimDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SewingTrimDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SizeSetDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SizeSetDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPMeetingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPMeetingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FC1Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FC1Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalMarkerDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalMarkerDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactoryPlannedPCDDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactoryPlannedPCDDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MerchandisingPCDDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MerchandisingPCDDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InputDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InputDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PackingTrimDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PackingTrimDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtcDetail.OurStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

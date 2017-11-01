@@ -26,6 +26,7 @@ namespace ArtWebApp.DataModels
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.PatternNameBanks = new HashSet<PatternNameBank>();
             this.LaySheetMasters = new HashSet<LaySheetMaster>();
+            this.ProductionTNAs = new HashSet<ProductionTNA>();
         }
     
         public decimal OurStyleID { get; set; }
@@ -37,6 +38,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CategoryID { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<decimal> MinutesperGarment { get; set; }
+        public Nullable<System.DateTime> MerchantPCD { get; set; }
     
         public virtual ICollection<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
@@ -48,5 +51,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<PatternNameBank> PatternNameBanks { get; set; }
         public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
+        public virtual ICollection<ProductionTNA> ProductionTNAs { get; set; }
     }
 }

@@ -147,6 +147,18 @@
                                         </asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="MinutesPerGarment" SortExpression="MinutesPerGarment">
+                      <ItemTemplate>
+                         <asp:TextBox ID="txtMinutesPerGarment" Text='<%# Bind("MinutesPerGarment") %>' runat="server" Font-Names="Calibri" Font-Size="X-Small" Height="15px"></asp:TextBox>
+                     </ItemTemplate>
+                 </asp:TemplateField>
+
+
+                   <asp:TemplateField HeaderText="PCD" SortExpression="PCD">
+                      <ItemTemplate>
+                           <ig:WebDatePicker ID="wdp_PCD"  Font-Size="Smaller" runat="server" >
+                                                    </ig:WebDatePicker>                     </ItemTemplate>
+                 </asp:TemplateField>
                                 <asp:ButtonField ButtonType="Button" CommandName="Update" HeaderText="Update" Text="Update" />
                             </Columns>
                             <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />

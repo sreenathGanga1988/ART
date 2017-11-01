@@ -60,7 +60,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
                 if (GridView1.Rows.Count < 1)
                 {
 
-                    DataTable dt = createdatatable(int.Parse(txt_stylenum.Text), atcnum, atcid);
+                    DataTable dt = createdatatable(int.Parse(txt_stylenum.Text), atcnum, atcid, dtp_shipStartdate.Date);
 
                    atctran. insertourstyle(dt);
 
@@ -108,7 +108,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
 
 
 
-    public DataTable  createdatatable(int totalstylenum,String AtcNum,int atcid)
+    public DataTable  createdatatable(int totalstylenum,String AtcNum,int atcid,DateTime shipstartdate)
     { 
         String ourstyle="";
         DataTable table = new DataTable();
@@ -120,7 +120,9 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
         table.Columns.Add("Qty", typeof(float ));
         table.Columns.Add("Fob", typeof(float));
         table.Columns.Add("Catid", typeof(float));
-        for(int i=1;i<totalstylenum+1 ;i++)
+        table.Columns.Add("MinutesperGarment", typeof(float));
+        table.Columns.Add("MerchantPCD", typeof(DateTime));
+        for (int i=1;i<totalstylenum+1 ;i++)
         {
             if(i<9)
             {
@@ -130,7 +132,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
             {
                 ourstyle = i.ToString() + AtcNum;
             }
-            table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0,0.0);
+            table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0,0.0,0.0, shipstartdate);
         }
         return table;
     }

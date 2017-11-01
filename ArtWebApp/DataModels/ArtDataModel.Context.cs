@@ -241,6 +241,8 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<SubConExtraRequest> SubConExtraRequests { get; set; }
         public virtual DbSet<LabChargeDetail> LabChargeDetails { get; set; }
         public virtual DbSet<LabRequestMaster> LabRequestMasters { get; set; }
+        public virtual DbSet<ProductionTNA> ProductionTNAs { get; set; }
+        public virtual DbSet<ProductionTNAComponent> ProductionTNAComponents { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

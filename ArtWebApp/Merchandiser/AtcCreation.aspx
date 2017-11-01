@@ -128,7 +128,7 @@
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT [Description], [CountryID] FROM [CountryMaster]"></asp:SqlDataSource>
             </td>
         <td >
-            <asp:Button ID="Button1" runat="server" Text="Add " OnClick="Button1_Click" style="margin-bottom: 0px;" />
+            <asp:Button ID="Button1" runat="server" Text="Add " OnClick="Button1_Click" style="margin-bottom: 0px; height: 26px;" />
         </td>
         <td rowspan="2" >
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" Height="52px" Font-Italic="True" Font-Size="X-Small" Font-Names="Calibri" />
@@ -226,6 +226,24 @@
                          </asp:DropDownList>
                      </ItemTemplate>
                  </asp:TemplateField>
+                 <asp:TemplateField HeaderText="MinutesPerGarment" SortExpression="MinutesPerGarment">
+                      <ItemTemplate>
+                         <asp:TextBox ID="txtMinutesPerGarment" Text='<%# Bind("MinutesPerGarment") %>' runat="server" Font-Names="Calibri" Font-Size="X-Small" Height="15px"></asp:TextBox>
+                     </ItemTemplate>
+                 </asp:TemplateField>
+
+
+                   <asp:TemplateField HeaderText="PCD" SortExpression="PCD">
+                      <ItemTemplate>
+                           <ig:WebDatePicker ID="wdp_PCD"  Font-Size="Smaller" runat="server" >
+                                                    </ig:WebDatePicker>                     </ItemTemplate>
+                 </asp:TemplateField>
+
+
+
+
+
+             
              </Columns>
              <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
              <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

@@ -118,8 +118,8 @@ namespace ArtWebApp.Merchandiser
                                                        .FindControl("ddl_catid");
                 TextBox txtqty = (TextBox)row.Cells[0].FindControl("txtQty");
                 TextBox fobtxt = (TextBox)row.Cells[0].FindControl("txtfob");
-
-
+                TextBox txtMinutesPerGarment = (TextBox)row.Cells[0].FindControl("txtMinutesPerGarment");
+                
                 ourstyledata.BuyerStyle1 = buyerstyledrp.SelectedItem.Text;
 
                 String Garmentcategory = garmentcategory.SelectedItem.Text; ;

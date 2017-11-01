@@ -759,7 +759,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
-
+                        rejectionExtraFabbReq.IsApproved = false;
                         entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }
@@ -801,7 +801,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.DepartmentName = element.DepartmentName;
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
-
+                        rejectionExtraFabbReq.IsApproved = false;
                         entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }

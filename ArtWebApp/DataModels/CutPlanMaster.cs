@@ -66,6 +66,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> RejectionDate { get; set; }
         public string RejectedBy { get; set; }
         public Nullable<decimal> CutOrderConsumption { get; set; }
+        public string IsASQEditable { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }

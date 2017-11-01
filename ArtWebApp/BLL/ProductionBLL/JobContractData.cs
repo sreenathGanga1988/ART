@@ -702,6 +702,8 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
                     prrdetdet.OurStyleID = int.Parse(di.OurStyleId.ToString());
                     prrdetdet.ProducedLctn_PK = int.Parse(di.ProducedLctn_PK.ToString());
                     prrdetdet.SDODate = di.ShipmentDate;
+                    prrdetdet.SDONum = di.SDO;
+                    prrdetdet.Location_PK= shpmstrdata.LocationPK_pk;
                     enty.ProductionReportDetails.Add(prrdetdet);
 
 

@@ -2136,6 +2136,56 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="WIPReportTableAdapter" GeneratorDataComponentClassName="WIPReportTableAdapter" Name="WIPReport" UserDataComponentName="WIPReportTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        AtcId, AtcNum, 0.0 as WFValue,0.0 as WFFabricvalue,
+0.0 as WFTrimsValue,0.0 as PackedQty,0.0 as PackedQtyValue,0.0 as PackedQtyFabricvalue,
+0.0 as PackedQtyTrimsValue,0.0 as PackedQtyProcessValue,0.0 as InvoicedQty,0.0 as InvoicedQtyValue,0.0 as InvoicedQtyFabricvalue,
+0.0 as InvoicedQtyTrimsValue,0.0 as InvoicedQtyProcessValue ,0.0 as WIPWFValue,0.0 as WIPFGValue,0.0 as WIPInvoicedValue ,ISNULL((SELECT        SUM(InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Expr1
+FROM            InventoryMaster INNER JOIN
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+WHERE        (LocationMaster.LocType = N'W')
+GROUP BY SkuRawMaterialMaster.Atc_id
+HAVING        (SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId)),0) AS WWValue ,isnull((SELECT        SUM(POPackDetails.PoQty)
+FROM            POPackDetails INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId
+WHERE        (PoPackMaster.AtcId =  AtcMaster.AtcId)
+),0) as orderQty
+FROM            AtcMaster </CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AtcId" DataSetColumn="AtcId" />
+              <Mapping SourceColumn="AtcNum" DataSetColumn="AtcNum" />
+              <Mapping SourceColumn="WFValue" DataSetColumn="WFValue" />
+              <Mapping SourceColumn="WFFabricvalue" DataSetColumn="WFFabricvalue" />
+              <Mapping SourceColumn="WFTrimsValue" DataSetColumn="WFTrimsValue" />
+              <Mapping SourceColumn="PackedQty" DataSetColumn="PackedQty" />
+              <Mapping SourceColumn="PackedQtyValue" DataSetColumn="PackedQtyValue" />
+              <Mapping SourceColumn="PackedQtyFabricvalue" DataSetColumn="PackedQtyFabricvalue" />
+              <Mapping SourceColumn="PackedQtyTrimsValue" DataSetColumn="PackedQtyTrimsValue" />
+              <Mapping SourceColumn="PackedQtyProcessValue" DataSetColumn="PackedQtyProcessValue" />
+              <Mapping SourceColumn="InvoicedQty" DataSetColumn="InvoicedQty" />
+              <Mapping SourceColumn="InvoicedQtyValue" DataSetColumn="InvoicedQtyValue" />
+              <Mapping SourceColumn="InvoicedQtyFabricvalue" DataSetColumn="InvoicedQtyFabricvalue" />
+              <Mapping SourceColumn="InvoicedQtyTrimsValue" DataSetColumn="InvoicedQtyTrimsValue" />
+              <Mapping SourceColumn="InvoicedQtyProcessValue" DataSetColumn="InvoicedQtyProcessValue" />
+              <Mapping SourceColumn="WIPWFValue" DataSetColumn="WIPWFValue" />
+              <Mapping SourceColumn="WIPFGValue" DataSetColumn="WIPFGValue" />
+              <Mapping SourceColumn="WIPInvoicedValue" DataSetColumn="WIPInvoicedValue" />
+              <Mapping SourceColumn="WWValue" DataSetColumn="WWValue" />
+              <Mapping SourceColumn="orderQty" DataSetColumn="orderQty" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -6028,6 +6078,38 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="WIPReport" msprop:Generator_TableClassName="WIPReportDataTable" msprop:Generator_TableVarName="tableWIPReport" msprop:Generator_RowChangedName="WIPReportRowChanged" msprop:Generator_TablePropName="WIPReport" msprop:Generator_RowDeletingName="WIPReportRowDeleting" msprop:Generator_RowChangingName="WIPReportRowChanging" msprop:Generator_RowEvHandlerName="WIPReportRowChangeEventHandler" msprop:Generator_RowDeletedName="WIPReportRowDeleted" msprop:Generator_RowClassName="WIPReportRow" msprop:Generator_UserTableName="WIPReport" msprop:Generator_RowEvArgName="WIPReportRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AtcId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnAtcId" msprop:Generator_ColumnPropNameInRow="AtcId" msprop:Generator_ColumnPropNameInTable="AtcIdColumn" msprop:Generator_UserColumnName="AtcId" type="xs:decimal" />
+              <xs:element name="AtcNum" msprop:Generator_ColumnVarNameInTable="columnAtcNum" msprop:Generator_ColumnPropNameInRow="AtcNum" msprop:Generator_ColumnPropNameInTable="AtcNumColumn" msprop:Generator_UserColumnName="AtcNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WFValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWFValue" msprop:Generator_ColumnPropNameInRow="WFValue" msprop:Generator_ColumnPropNameInTable="WFValueColumn" msprop:Generator_UserColumnName="WFValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WFFabricvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWFFabricvalue" msprop:Generator_ColumnPropNameInRow="WFFabricvalue" msprop:Generator_ColumnPropNameInTable="WFFabricvalueColumn" msprop:Generator_UserColumnName="WFFabricvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WFTrimsValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWFTrimsValue" msprop:Generator_ColumnPropNameInRow="WFTrimsValue" msprop:Generator_ColumnPropNameInTable="WFTrimsValueColumn" msprop:Generator_UserColumnName="WFTrimsValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PackedQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPackedQty" msprop:Generator_ColumnPropNameInRow="PackedQty" msprop:Generator_ColumnPropNameInTable="PackedQtyColumn" msprop:Generator_UserColumnName="PackedQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PackedQtyValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPackedQtyValue" msprop:Generator_ColumnPropNameInRow="PackedQtyValue" msprop:Generator_ColumnPropNameInTable="PackedQtyValueColumn" msprop:Generator_UserColumnName="PackedQtyValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PackedQtyFabricvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPackedQtyFabricvalue" msprop:Generator_ColumnPropNameInRow="PackedQtyFabricvalue" msprop:Generator_ColumnPropNameInTable="PackedQtyFabricvalueColumn" msprop:Generator_UserColumnName="PackedQtyFabricvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PackedQtyTrimsValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPackedQtyTrimsValue" msprop:Generator_ColumnPropNameInRow="PackedQtyTrimsValue" msprop:Generator_ColumnPropNameInTable="PackedQtyTrimsValueColumn" msprop:Generator_UserColumnName="PackedQtyTrimsValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PackedQtyProcessValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPackedQtyProcessValue" msprop:Generator_ColumnPropNameInRow="PackedQtyProcessValue" msprop:Generator_ColumnPropNameInTable="PackedQtyProcessValueColumn" msprop:Generator_UserColumnName="PackedQtyProcessValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="InvoicedQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnInvoicedQty" msprop:Generator_ColumnPropNameInRow="InvoicedQty" msprop:Generator_ColumnPropNameInTable="InvoicedQtyColumn" msprop:Generator_UserColumnName="InvoicedQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="InvoicedQtyValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnInvoicedQtyValue" msprop:Generator_ColumnPropNameInRow="InvoicedQtyValue" msprop:Generator_ColumnPropNameInTable="InvoicedQtyValueColumn" msprop:Generator_UserColumnName="InvoicedQtyValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="InvoicedQtyFabricvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnInvoicedQtyFabricvalue" msprop:Generator_ColumnPropNameInRow="InvoicedQtyFabricvalue" msprop:Generator_ColumnPropNameInTable="InvoicedQtyFabricvalueColumn" msprop:Generator_UserColumnName="InvoicedQtyFabricvalue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="InvoicedQtyTrimsValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnInvoicedQtyTrimsValue" msprop:Generator_ColumnPropNameInRow="InvoicedQtyTrimsValue" msprop:Generator_ColumnPropNameInTable="InvoicedQtyTrimsValueColumn" msprop:Generator_UserColumnName="InvoicedQtyTrimsValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="InvoicedQtyProcessValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnInvoicedQtyProcessValue" msprop:Generator_ColumnPropNameInRow="InvoicedQtyProcessValue" msprop:Generator_ColumnPropNameInTable="InvoicedQtyProcessValueColumn" msprop:Generator_UserColumnName="InvoicedQtyProcessValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WIPWFValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWIPWFValue" msprop:Generator_ColumnPropNameInRow="WIPWFValue" msprop:Generator_ColumnPropNameInTable="WIPWFValueColumn" msprop:Generator_UserColumnName="WIPWFValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WIPFGValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWIPFGValue" msprop:Generator_ColumnPropNameInRow="WIPFGValue" msprop:Generator_ColumnPropNameInTable="WIPFGValueColumn" msprop:Generator_UserColumnName="WIPFGValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WIPInvoicedValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWIPInvoicedValue" msprop:Generator_ColumnPropNameInRow="WIPInvoicedValue" msprop:Generator_ColumnPropNameInTable="WIPInvoicedValueColumn" msprop:Generator_UserColumnName="WIPInvoicedValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WWValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWWValue" msprop:Generator_ColumnPropNameInRow="WWValue" msprop:Generator_ColumnPropNameInTable="WWValueColumn" msprop:Generator_UserColumnName="WWValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="orderQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnorderQty" msprop:Generator_ColumnPropNameInRow="orderQty" msprop:Generator_ColumnPropNameInTable="orderQtyColumn" msprop:Generator_UserColumnName="orderQty" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -6113,6 +6195,10 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
     <xs:unique name="LaySheetSummary_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:LaySheetSummary_SP" />
       <xs:field xpath="mstns:CutOrderDet_PK" />
+    </xs:unique>
+    <xs:unique name="WIPReport_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:WIPReport" />
+      <xs:field xpath="mstns:AtcId" />
     </xs:unique>
   </xs:element>
 </xs:schema>

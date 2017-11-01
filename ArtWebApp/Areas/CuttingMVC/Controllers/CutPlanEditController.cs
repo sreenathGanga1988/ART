@@ -17,6 +17,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+           
+            ViewBag.AtcID = new SelectList(db.AtcMasters, "AtcId", "AtcNum");
+
             return View();
         }
         // GET: CuttingMVC/Edit/5
@@ -86,7 +89,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "Save")]
-        public ActionResult ShowMRN(CutplanViewModel cutplanViewModel=null)
+        public ActionResult UpdateMaster(CutplanViewModel cutplanViewModel=null)
         {
             TempData["Error"] = null;
 
@@ -113,6 +116,18 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
           
         }
 
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "EditCut")]
+        public ActionResult EditCut(FormCollection formCollection)
+        {
+
+
+            int cutplanpk = int.Parse(Request.Form["CutPlanPK"].ToString());
+
+            return RedirectToAction("Edit", new { id = cutplanpk });
+
+
+        }
 
 
         [HttpPost]
@@ -120,10 +135,10 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
         {
             bool status = false;
-
+            int CutPlan_PK = 0;
             foreach (AsqCollection asqCollection in things)
             {
-                int CutPlan_PK = int.Parse(asqCollection.CutPlan_PK.ToString());
+                CutPlan_PK = int.Parse(asqCollection.CutPlan_PK.ToString());
                 int OurStyleId = int.Parse(asqCollection.OurStyleID.ToString());
                 int PoPackId = int.Parse(asqCollection.CutPlan_PK.ToString());
                 Decimal Qty = Decimal.Parse(asqCollection.Qty.ToString());
@@ -163,10 +178,34 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                    
                 }
 
-                db.SaveChanges();
             }
 
 
+            var q1 = from cutplnmstr in db.CutPlanMasters
+                     where cutplnmstr.CutPlan_PK == CutPlan_PK
+                     select cutplnmstr;
+
+
+                     foreach(var element in q1)
+            {
+                element.IsApproved = "N";
+                element.IsRatioAdded = "N";
+                element.IsRollAdded = "N";
+                element.IsPatternAdded = "N";
+                element.IsCutorderGiven = "N";
+            }
+            var q2 = from cutordermaster in db.CutOrderMasters
+                     where cutordermaster.CutPlan_Pk == CutPlan_PK
+                     select cutordermaster;
+            foreach (var element in q2)
+            {
+                element.IsDeleted = "Y";
+                
+            }
+
+
+
+            db.SaveChanges();
 
 
             status = true;
@@ -175,9 +214,20 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+      
 
+        [HttpGet]
+        public JsonResult PopulateCutPlan(int Id = 0)
+        {
+            List<decimal?> list = Session["ApprovedLocationlist"] as List<decimal?>;
 
+            SelectList ourstyleitem = new SelectList(db.CutPlanMasters.Where(o => o.OurStyleID==Id && list.Contains(o.Location_PK)), "CutPlan_PK", "CutPlanNUM");
 
+            JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
 
     }
 }

@@ -116,6 +116,8 @@ namespace ArtWebApp.Reports.Dataset {
         
         private LaySheetSummary_SPDataTable tableLaySheetSummary_SP;
         
+        private WIPReportDataTable tableWIPReport;
+        
         private DataTable2DataTable tableDataTable2;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -283,6 +285,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["LaySheetSummary_SP"] != null)) {
                     base.Tables.Add(new LaySheetSummary_SPDataTable(ds.Tables["LaySheetSummary_SP"]));
+                }
+                if ((ds.Tables["WIPReport"] != null)) {
+                    base.Tables.Add(new WIPReportDataTable(ds.Tables["WIPReport"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -769,6 +774,16 @@ namespace ArtWebApp.Reports.Dataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public WIPReportDataTable WIPReport {
+            get {
+                return this.tableWIPReport;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable2DataTable DataTable2 {
             get {
                 return this.tableDataTable2;
@@ -979,6 +994,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["LaySheetSummary_SP"] != null)) {
                     base.Tables.Add(new LaySheetSummary_SPDataTable(ds.Tables["LaySheetSummary_SP"]));
+                }
+                if ((ds.Tables["WIPReport"] != null)) {
+                    base.Tables.Add(new WIPReportDataTable(ds.Tables["WIPReport"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -1292,6 +1310,12 @@ namespace ArtWebApp.Reports.Dataset {
                     this.tableLaySheetSummary_SP.InitVars();
                 }
             }
+            this.tableWIPReport = ((WIPReportDataTable)(base.Tables["WIPReport"]));
+            if ((initTable == true)) {
+                if ((this.tableWIPReport != null)) {
+                    this.tableWIPReport.InitVars();
+                }
+            }
             this.tableDataTable2 = ((DataTable2DataTable)(base.Tables["DataTable2"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable2 != null)) {
@@ -1400,6 +1424,8 @@ namespace ArtWebApp.Reports.Dataset {
             base.Tables.Add(this.tableCriticalpath_SP);
             this.tableLaySheetSummary_SP = new LaySheetSummary_SPDataTable();
             base.Tables.Add(this.tableLaySheetSummary_SP);
+            this.tableWIPReport = new WIPReportDataTable();
+            base.Tables.Add(this.tableWIPReport);
             this.tableDataTable2 = new DataTable2DataTable();
             base.Tables.Add(this.tableDataTable2);
         }
@@ -1682,6 +1708,12 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeWIPReport() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeDataTable2() {
             return false;
         }
@@ -1878,6 +1910,9 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void LaySheetSummary_SPRowChangeEventHandler(object sender, LaySheetSummary_SPRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void WIPReportRowChangeEventHandler(object sender, WIPReportRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void DataTable2RowChangeEventHandler(object sender, DataTable2RowChangeEvent e);
@@ -25552,6 +25587,572 @@ namespace ArtWebApp.Reports.Dataset {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class WIPReportDataTable : global::System.Data.TypedTableBase<WIPReportRow> {
+            
+            private global::System.Data.DataColumn columnAtcId;
+            
+            private global::System.Data.DataColumn columnAtcNum;
+            
+            private global::System.Data.DataColumn columnWFValue;
+            
+            private global::System.Data.DataColumn columnWFFabricvalue;
+            
+            private global::System.Data.DataColumn columnWFTrimsValue;
+            
+            private global::System.Data.DataColumn columnPackedQty;
+            
+            private global::System.Data.DataColumn columnPackedQtyValue;
+            
+            private global::System.Data.DataColumn columnPackedQtyFabricvalue;
+            
+            private global::System.Data.DataColumn columnPackedQtyTrimsValue;
+            
+            private global::System.Data.DataColumn columnPackedQtyProcessValue;
+            
+            private global::System.Data.DataColumn columnInvoicedQty;
+            
+            private global::System.Data.DataColumn columnInvoicedQtyValue;
+            
+            private global::System.Data.DataColumn columnInvoicedQtyFabricvalue;
+            
+            private global::System.Data.DataColumn columnInvoicedQtyTrimsValue;
+            
+            private global::System.Data.DataColumn columnInvoicedQtyProcessValue;
+            
+            private global::System.Data.DataColumn columnWIPWFValue;
+            
+            private global::System.Data.DataColumn columnWIPFGValue;
+            
+            private global::System.Data.DataColumn columnWIPInvoicedValue;
+            
+            private global::System.Data.DataColumn columnWWValue;
+            
+            private global::System.Data.DataColumn columnorderQty;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportDataTable() {
+                this.TableName = "WIPReport";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal WIPReportDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected WIPReportDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AtcIdColumn {
+                get {
+                    return this.columnAtcId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AtcNumColumn {
+                get {
+                    return this.columnAtcNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WFValueColumn {
+                get {
+                    return this.columnWFValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WFFabricvalueColumn {
+                get {
+                    return this.columnWFFabricvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WFTrimsValueColumn {
+                get {
+                    return this.columnWFTrimsValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PackedQtyColumn {
+                get {
+                    return this.columnPackedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PackedQtyValueColumn {
+                get {
+                    return this.columnPackedQtyValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PackedQtyFabricvalueColumn {
+                get {
+                    return this.columnPackedQtyFabricvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PackedQtyTrimsValueColumn {
+                get {
+                    return this.columnPackedQtyTrimsValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PackedQtyProcessValueColumn {
+                get {
+                    return this.columnPackedQtyProcessValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn InvoicedQtyColumn {
+                get {
+                    return this.columnInvoicedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn InvoicedQtyValueColumn {
+                get {
+                    return this.columnInvoicedQtyValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn InvoicedQtyFabricvalueColumn {
+                get {
+                    return this.columnInvoicedQtyFabricvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn InvoicedQtyTrimsValueColumn {
+                get {
+                    return this.columnInvoicedQtyTrimsValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn InvoicedQtyProcessValueColumn {
+                get {
+                    return this.columnInvoicedQtyProcessValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WIPWFValueColumn {
+                get {
+                    return this.columnWIPWFValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WIPFGValueColumn {
+                get {
+                    return this.columnWIPFGValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WIPInvoicedValueColumn {
+                get {
+                    return this.columnWIPInvoicedValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WWValueColumn {
+                get {
+                    return this.columnWWValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn orderQtyColumn {
+                get {
+                    return this.columnorderQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRow this[int index] {
+                get {
+                    return ((WIPReportRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event WIPReportRowChangeEventHandler WIPReportRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event WIPReportRowChangeEventHandler WIPReportRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event WIPReportRowChangeEventHandler WIPReportRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event WIPReportRowChangeEventHandler WIPReportRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddWIPReportRow(WIPReportRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRow AddWIPReportRow(
+                        string AtcNum, 
+                        decimal WFValue, 
+                        decimal WFFabricvalue, 
+                        decimal WFTrimsValue, 
+                        decimal PackedQty, 
+                        decimal PackedQtyValue, 
+                        decimal PackedQtyFabricvalue, 
+                        decimal PackedQtyTrimsValue, 
+                        decimal PackedQtyProcessValue, 
+                        decimal InvoicedQty, 
+                        decimal InvoicedQtyValue, 
+                        decimal InvoicedQtyFabricvalue, 
+                        decimal InvoicedQtyTrimsValue, 
+                        decimal InvoicedQtyProcessValue, 
+                        decimal WIPWFValue, 
+                        decimal WIPFGValue, 
+                        decimal WIPInvoicedValue, 
+                        decimal WWValue, 
+                        decimal orderQty) {
+                WIPReportRow rowWIPReportRow = ((WIPReportRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        AtcNum,
+                        WFValue,
+                        WFFabricvalue,
+                        WFTrimsValue,
+                        PackedQty,
+                        PackedQtyValue,
+                        PackedQtyFabricvalue,
+                        PackedQtyTrimsValue,
+                        PackedQtyProcessValue,
+                        InvoicedQty,
+                        InvoicedQtyValue,
+                        InvoicedQtyFabricvalue,
+                        InvoicedQtyTrimsValue,
+                        InvoicedQtyProcessValue,
+                        WIPWFValue,
+                        WIPFGValue,
+                        WIPInvoicedValue,
+                        WWValue,
+                        orderQty};
+                rowWIPReportRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowWIPReportRow);
+                return rowWIPReportRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRow FindByAtcId(decimal AtcId) {
+                return ((WIPReportRow)(this.Rows.Find(new object[] {
+                            AtcId})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                WIPReportDataTable cln = ((WIPReportDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new WIPReportDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnAtcId = base.Columns["AtcId"];
+                this.columnAtcNum = base.Columns["AtcNum"];
+                this.columnWFValue = base.Columns["WFValue"];
+                this.columnWFFabricvalue = base.Columns["WFFabricvalue"];
+                this.columnWFTrimsValue = base.Columns["WFTrimsValue"];
+                this.columnPackedQty = base.Columns["PackedQty"];
+                this.columnPackedQtyValue = base.Columns["PackedQtyValue"];
+                this.columnPackedQtyFabricvalue = base.Columns["PackedQtyFabricvalue"];
+                this.columnPackedQtyTrimsValue = base.Columns["PackedQtyTrimsValue"];
+                this.columnPackedQtyProcessValue = base.Columns["PackedQtyProcessValue"];
+                this.columnInvoicedQty = base.Columns["InvoicedQty"];
+                this.columnInvoicedQtyValue = base.Columns["InvoicedQtyValue"];
+                this.columnInvoicedQtyFabricvalue = base.Columns["InvoicedQtyFabricvalue"];
+                this.columnInvoicedQtyTrimsValue = base.Columns["InvoicedQtyTrimsValue"];
+                this.columnInvoicedQtyProcessValue = base.Columns["InvoicedQtyProcessValue"];
+                this.columnWIPWFValue = base.Columns["WIPWFValue"];
+                this.columnWIPFGValue = base.Columns["WIPFGValue"];
+                this.columnWIPInvoicedValue = base.Columns["WIPInvoicedValue"];
+                this.columnWWValue = base.Columns["WWValue"];
+                this.columnorderQty = base.Columns["orderQty"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnAtcId = new global::System.Data.DataColumn("AtcId", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcId);
+                this.columnAtcNum = new global::System.Data.DataColumn("AtcNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcNum);
+                this.columnWFValue = new global::System.Data.DataColumn("WFValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWFValue);
+                this.columnWFFabricvalue = new global::System.Data.DataColumn("WFFabricvalue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWFFabricvalue);
+                this.columnWFTrimsValue = new global::System.Data.DataColumn("WFTrimsValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWFTrimsValue);
+                this.columnPackedQty = new global::System.Data.DataColumn("PackedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPackedQty);
+                this.columnPackedQtyValue = new global::System.Data.DataColumn("PackedQtyValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPackedQtyValue);
+                this.columnPackedQtyFabricvalue = new global::System.Data.DataColumn("PackedQtyFabricvalue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPackedQtyFabricvalue);
+                this.columnPackedQtyTrimsValue = new global::System.Data.DataColumn("PackedQtyTrimsValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPackedQtyTrimsValue);
+                this.columnPackedQtyProcessValue = new global::System.Data.DataColumn("PackedQtyProcessValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPackedQtyProcessValue);
+                this.columnInvoicedQty = new global::System.Data.DataColumn("InvoicedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoicedQty);
+                this.columnInvoicedQtyValue = new global::System.Data.DataColumn("InvoicedQtyValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoicedQtyValue);
+                this.columnInvoicedQtyFabricvalue = new global::System.Data.DataColumn("InvoicedQtyFabricvalue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoicedQtyFabricvalue);
+                this.columnInvoicedQtyTrimsValue = new global::System.Data.DataColumn("InvoicedQtyTrimsValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoicedQtyTrimsValue);
+                this.columnInvoicedQtyProcessValue = new global::System.Data.DataColumn("InvoicedQtyProcessValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoicedQtyProcessValue);
+                this.columnWIPWFValue = new global::System.Data.DataColumn("WIPWFValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWIPWFValue);
+                this.columnWIPFGValue = new global::System.Data.DataColumn("WIPFGValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWIPFGValue);
+                this.columnWIPInvoicedValue = new global::System.Data.DataColumn("WIPInvoicedValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWIPInvoicedValue);
+                this.columnWWValue = new global::System.Data.DataColumn("WWValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWWValue);
+                this.columnorderQty = new global::System.Data.DataColumn("orderQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnorderQty);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnAtcId}, true));
+                this.columnAtcId.AutoIncrement = true;
+                this.columnAtcId.AutoIncrementSeed = -1;
+                this.columnAtcId.AutoIncrementStep = -1;
+                this.columnAtcId.AllowDBNull = false;
+                this.columnAtcId.ReadOnly = true;
+                this.columnAtcId.Unique = true;
+                this.columnAtcNum.MaxLength = 10;
+                this.columnWFValue.ReadOnly = true;
+                this.columnWFFabricvalue.ReadOnly = true;
+                this.columnWFTrimsValue.ReadOnly = true;
+                this.columnPackedQty.ReadOnly = true;
+                this.columnPackedQtyValue.ReadOnly = true;
+                this.columnPackedQtyFabricvalue.ReadOnly = true;
+                this.columnPackedQtyTrimsValue.ReadOnly = true;
+                this.columnPackedQtyProcessValue.ReadOnly = true;
+                this.columnInvoicedQty.ReadOnly = true;
+                this.columnInvoicedQtyValue.ReadOnly = true;
+                this.columnInvoicedQtyFabricvalue.ReadOnly = true;
+                this.columnInvoicedQtyTrimsValue.ReadOnly = true;
+                this.columnInvoicedQtyProcessValue.ReadOnly = true;
+                this.columnWIPWFValue.ReadOnly = true;
+                this.columnWIPFGValue.ReadOnly = true;
+                this.columnWIPInvoicedValue.ReadOnly = true;
+                this.columnWWValue.ReadOnly = true;
+                this.columnorderQty.ReadOnly = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRow NewWIPReportRow() {
+                return ((WIPReportRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new WIPReportRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(WIPReportRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.WIPReportRowChanged != null)) {
+                    this.WIPReportRowChanged(this, new WIPReportRowChangeEvent(((WIPReportRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.WIPReportRowChanging != null)) {
+                    this.WIPReportRowChanging(this, new WIPReportRowChangeEvent(((WIPReportRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.WIPReportRowDeleted != null)) {
+                    this.WIPReportRowDeleted(this, new WIPReportRowChangeEvent(((WIPReportRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.WIPReportRowDeleting != null)) {
+                    this.WIPReportRowDeleting(this, new WIPReportRowChangeEvent(((WIPReportRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveWIPReportRow(WIPReportRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ReportDataSet ds = new ReportDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "WIPReportDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable2DataTable : global::System.Data.TypedTableBase<DataTable2Row> {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -48012,6 +48613,564 @@ namespace ArtWebApp.Reports.Dataset {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class WIPReportRow : global::System.Data.DataRow {
+            
+            private WIPReportDataTable tableWIPReport;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal WIPReportRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableWIPReport = ((WIPReportDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal AtcId {
+                get {
+                    return ((decimal)(this[this.tableWIPReport.AtcIdColumn]));
+                }
+                set {
+                    this[this.tableWIPReport.AtcIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string AtcNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableWIPReport.AtcNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AtcNum\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.AtcNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WFValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WFValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WFValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WFValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WFFabricvalue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WFFabricvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WFFabricvalue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WFFabricvalueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WFTrimsValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WFTrimsValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WFTrimsValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WFTrimsValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PackedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.PackedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PackedQty\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.PackedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PackedQtyValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.PackedQtyValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PackedQtyValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.PackedQtyValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PackedQtyFabricvalue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.PackedQtyFabricvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PackedQtyFabricvalue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.PackedQtyFabricvalueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PackedQtyTrimsValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.PackedQtyTrimsValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PackedQtyTrimsValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.PackedQtyTrimsValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PackedQtyProcessValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.PackedQtyProcessValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PackedQtyProcessValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.PackedQtyProcessValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal InvoicedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.InvoicedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoicedQty\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.InvoicedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal InvoicedQtyValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.InvoicedQtyValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoicedQtyValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.InvoicedQtyValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal InvoicedQtyFabricvalue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.InvoicedQtyFabricvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoicedQtyFabricvalue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.InvoicedQtyFabricvalueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal InvoicedQtyTrimsValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.InvoicedQtyTrimsValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoicedQtyTrimsValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.InvoicedQtyTrimsValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal InvoicedQtyProcessValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.InvoicedQtyProcessValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvoicedQtyProcessValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.InvoicedQtyProcessValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WIPWFValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WIPWFValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WIPWFValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WIPWFValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WIPFGValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WIPFGValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WIPFGValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WIPFGValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WIPInvoicedValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WIPInvoicedValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WIPInvoicedValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WIPInvoicedValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WWValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.WWValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WWValue\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.WWValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal orderQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableWIPReport.orderQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'orderQty\' in table \'WIPReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableWIPReport.orderQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAtcNumNull() {
+                return this.IsNull(this.tableWIPReport.AtcNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAtcNumNull() {
+                this[this.tableWIPReport.AtcNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWFValueNull() {
+                return this.IsNull(this.tableWIPReport.WFValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWFValueNull() {
+                this[this.tableWIPReport.WFValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWFFabricvalueNull() {
+                return this.IsNull(this.tableWIPReport.WFFabricvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWFFabricvalueNull() {
+                this[this.tableWIPReport.WFFabricvalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWFTrimsValueNull() {
+                return this.IsNull(this.tableWIPReport.WFTrimsValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWFTrimsValueNull() {
+                this[this.tableWIPReport.WFTrimsValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPackedQtyNull() {
+                return this.IsNull(this.tableWIPReport.PackedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPackedQtyNull() {
+                this[this.tableWIPReport.PackedQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPackedQtyValueNull() {
+                return this.IsNull(this.tableWIPReport.PackedQtyValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPackedQtyValueNull() {
+                this[this.tableWIPReport.PackedQtyValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPackedQtyFabricvalueNull() {
+                return this.IsNull(this.tableWIPReport.PackedQtyFabricvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPackedQtyFabricvalueNull() {
+                this[this.tableWIPReport.PackedQtyFabricvalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPackedQtyTrimsValueNull() {
+                return this.IsNull(this.tableWIPReport.PackedQtyTrimsValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPackedQtyTrimsValueNull() {
+                this[this.tableWIPReport.PackedQtyTrimsValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPackedQtyProcessValueNull() {
+                return this.IsNull(this.tableWIPReport.PackedQtyProcessValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPackedQtyProcessValueNull() {
+                this[this.tableWIPReport.PackedQtyProcessValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsInvoicedQtyNull() {
+                return this.IsNull(this.tableWIPReport.InvoicedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetInvoicedQtyNull() {
+                this[this.tableWIPReport.InvoicedQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsInvoicedQtyValueNull() {
+                return this.IsNull(this.tableWIPReport.InvoicedQtyValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetInvoicedQtyValueNull() {
+                this[this.tableWIPReport.InvoicedQtyValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsInvoicedQtyFabricvalueNull() {
+                return this.IsNull(this.tableWIPReport.InvoicedQtyFabricvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetInvoicedQtyFabricvalueNull() {
+                this[this.tableWIPReport.InvoicedQtyFabricvalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsInvoicedQtyTrimsValueNull() {
+                return this.IsNull(this.tableWIPReport.InvoicedQtyTrimsValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetInvoicedQtyTrimsValueNull() {
+                this[this.tableWIPReport.InvoicedQtyTrimsValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsInvoicedQtyProcessValueNull() {
+                return this.IsNull(this.tableWIPReport.InvoicedQtyProcessValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetInvoicedQtyProcessValueNull() {
+                this[this.tableWIPReport.InvoicedQtyProcessValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWIPWFValueNull() {
+                return this.IsNull(this.tableWIPReport.WIPWFValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWIPWFValueNull() {
+                this[this.tableWIPReport.WIPWFValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWIPFGValueNull() {
+                return this.IsNull(this.tableWIPReport.WIPFGValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWIPFGValueNull() {
+                this[this.tableWIPReport.WIPFGValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWIPInvoicedValueNull() {
+                return this.IsNull(this.tableWIPReport.WIPInvoicedValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWIPInvoicedValueNull() {
+                this[this.tableWIPReport.WIPInvoicedValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWWValueNull() {
+                return this.IsNull(this.tableWIPReport.WWValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWWValueNull() {
+                this[this.tableWIPReport.WWValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsorderQtyNull() {
+                return this.IsNull(this.tableWIPReport.orderQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetorderQtyNull() {
+                this[this.tableWIPReport.orderQtyColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class DataTable2Row : global::System.Data.DataRow {
             
             private DataTable2DataTable tableDataTable2;
@@ -49574,6 +50733,40 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public LaySheetSummary_SPRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class WIPReportRowChangeEvent : global::System.EventArgs {
+            
+            private WIPReportRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRowChangeEvent(WIPReportRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public WIPReportRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -59524,6 +60717,207 @@ WHERE        (CutOrderDO.CutID = @Param1)";
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             ReportDataSet.LaySheetSummary_SPDataTable dataTable = new ReportDataSet.LaySheetSummary_SPDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class WIPReportTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public WIPReportTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "WIPReport";
+            tableMapping.ColumnMappings.Add("AtcId", "AtcId");
+            tableMapping.ColumnMappings.Add("AtcNum", "AtcNum");
+            tableMapping.ColumnMappings.Add("WFValue", "WFValue");
+            tableMapping.ColumnMappings.Add("WFFabricvalue", "WFFabricvalue");
+            tableMapping.ColumnMappings.Add("WFTrimsValue", "WFTrimsValue");
+            tableMapping.ColumnMappings.Add("PackedQty", "PackedQty");
+            tableMapping.ColumnMappings.Add("PackedQtyValue", "PackedQtyValue");
+            tableMapping.ColumnMappings.Add("PackedQtyFabricvalue", "PackedQtyFabricvalue");
+            tableMapping.ColumnMappings.Add("PackedQtyTrimsValue", "PackedQtyTrimsValue");
+            tableMapping.ColumnMappings.Add("PackedQtyProcessValue", "PackedQtyProcessValue");
+            tableMapping.ColumnMappings.Add("InvoicedQty", "InvoicedQty");
+            tableMapping.ColumnMappings.Add("InvoicedQtyValue", "InvoicedQtyValue");
+            tableMapping.ColumnMappings.Add("InvoicedQtyFabricvalue", "InvoicedQtyFabricvalue");
+            tableMapping.ColumnMappings.Add("InvoicedQtyTrimsValue", "InvoicedQtyTrimsValue");
+            tableMapping.ColumnMappings.Add("InvoicedQtyProcessValue", "InvoicedQtyProcessValue");
+            tableMapping.ColumnMappings.Add("WIPWFValue", "WIPWFValue");
+            tableMapping.ColumnMappings.Add("WIPFGValue", "WIPFGValue");
+            tableMapping.ColumnMappings.Add("WIPInvoicedValue", "WIPInvoicedValue");
+            tableMapping.ColumnMappings.Add("WWValue", "WWValue");
+            tableMapping.ColumnMappings.Add("orderQty", "orderQty");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT        AtcId, AtcNum, 0.0 as WFValue,0.0 as WFFabricvalue,
+0.0 as WFTrimsValue,0.0 as PackedQty,0.0 as PackedQtyValue,0.0 as PackedQtyFabricvalue,
+0.0 as PackedQtyTrimsValue,0.0 as PackedQtyProcessValue,0.0 as InvoicedQty,0.0 as InvoicedQtyValue,0.0 as InvoicedQtyFabricvalue,
+0.0 as InvoicedQtyTrimsValue,0.0 as InvoicedQtyProcessValue ,0.0 as WIPWFValue,0.0 as WIPFGValue,0.0 as WIPInvoicedValue ,ISNULL((SELECT        SUM(InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Expr1
+FROM            InventoryMaster INNER JOIN
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+WHERE        (LocationMaster.LocType = N'W')
+GROUP BY SkuRawMaterialMaster.Atc_id
+HAVING        (SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId)),0) AS WWValue ,isnull((SELECT        SUM(POPackDetails.PoQty)
+FROM            POPackDetails INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId
+WHERE        (PoPackMaster.AtcId =  AtcMaster.AtcId)
+),0) as orderQty
+FROM            AtcMaster ";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ReportDataSet.WIPReportDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ReportDataSet.WIPReportDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            ReportDataSet.WIPReportDataTable dataTable = new ReportDataSet.WIPReportDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

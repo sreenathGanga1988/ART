@@ -29,6 +29,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ProducedLctn_PK { get; set; }
         public Nullable<System.DateTime> SDODate { get; set; }
         public string SDONum { get; set; }
+        public Nullable<decimal> Location_PK { get; set; }
     
         public virtual JobContractDetail JobContractDetail { get; set; }
     }

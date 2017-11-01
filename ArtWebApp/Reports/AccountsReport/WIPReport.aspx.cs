@@ -797,8 +797,19 @@ WHERE        (Uom_PK = @baseuom) AND (AltUom_PK = @altuom)", con);
                 string Query1 = @"SELECT        AtcId, AtcNum, 0.0 as WFValue,0.0 as WFFabricvalue,
 0.0 as WFTrimsValue,0.0 as PackedQty,0.0 as PackedQtyValue,0.0 as PackedQtyFabricvalue,
 0.0 as PackedQtyTrimsValue,0.0 as PackedQtyProcessValue,0.0 as InvoicedQty,0.0 as InvoicedQtyValue,0.0 as InvoicedQtyFabricvalue,
-0.0 as InvoicedQtyTrimsValue,0.0 as InvoicedQtyProcessValue ,0.0 as WIPWFValue,0.0 as WIPFGValue,0.0 as WIPInvoicedValue
-FROM            AtcMaster "+condition ;
+0.0 as InvoicedQtyTrimsValue,0.0 as InvoicedQtyProcessValue ,0.0 as WIPWFValue,0.0 as WIPFGValue,0.0 as WIPInvoicedValue,ISNULL((SELECT        SUM(InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Expr1
+FROM            InventoryMaster INNER JOIN
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk
+WHERE        (LocationMaster.LocType = N'W')
+GROUP BY SkuRawMaterialMaster.Atc_id
+HAVING        (SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId)),0) AS WWValue  ,isnull((SELECT        SUM(POPackDetails.PoQty)
+FROM            POPackDetails INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId
+WHERE        (PoPackMaster.AtcId =  AtcMaster.AtcId)
+),0) as orderQty
+FROM            AtcMaster " + condition ;
 
 
                 cmd.CommandText = Query1;
@@ -887,15 +898,30 @@ HAVING        (AtcDetails.AtcId = @atcid)";
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
-                string Query1 = @"   SELECT SUM(PackedQty) AS PackedQty, AtcID, SUM(PACKEDVALUE)AS PackedQtyvalue
- FROM(SELECT        ProductionReportDetails.PackedQty, JobContractMaster.AtcID, JobContractMaster.CM, JobContractMaster.CM * ProductionReportDetails.PackedQty AS PACKEDVALUE
+ //               string Query1 = @"   SELECT SUM(PackedQty) AS PackedQty, AtcID, SUM(PACKEDVALUE)AS PackedQtyvalue
+ //FROM(SELECT        ProductionReportDetails.PackedQty, JobContractMaster.AtcID, JobContractMaster.CM, JobContractMaster.CM * ProductionReportDetails.PackedQty AS PACKEDVALUE
  
-                           FROM            ProductionReportDetails INNER JOIN
+ //                          FROM            ProductionReportDetails INNER JOIN
  
-                                                     JobContractMaster ON ProductionReportDetails.OurStyleID = JobContractMaster.OurStyleID AND ProductionReportDetails.ProducedLctn_PK = JobContractMaster.Location_Pk  AND ProductionReportDetails.JobContractDetail_pk is null ) AS derivedtbl_1
- GROUP BY AtcID
- HAVING(AtcID = @atcid)";
+ //                                                    JobContractMaster ON ProductionReportDetails.OurStyleID = JobContractMaster.OurStyleID AND ProductionReportDetails.ProducedLctn_PK = JobContractMaster.Location_Pk  AND ProductionReportDetails.JobContractDetail_pk is null ) AS derivedtbl_1
+ //GROUP BY AtcID
+ //HAVING(AtcID = @atcid)";
 
+
+
+
+
+                string Query1 = @"  SELECT SUM(PackedQty) AS PackedQty, AtcId, SUM(PackedQtyvalue) AS PackedQtyvalue
+FROM(SELECT        PackedQty, PackedQty * CM AS PackedQtyvalue, AtcId
+                          FROM(SELECT        SUM(ProductionReportDetails.PackedQty) AS PackedQty, ProductionReportDetails.OurStyleID, ProductionReportDetails.location_pk, AtcDetails.AtcId, ISNULL
+                                                                                  ((SELECT        MAX(CM) AS Expr1
+                                                                                      FROM            JobContractMaster
+                                                                                      WHERE(Location_Pk = ProductionReportDetails.location_pk) AND(OurStyleID = ProductionReportDetails.OurStyleID)), 0) AS CM
+                                                    FROM            ProductionReportDetails INNER JOIN
+                                                                              AtcDetails ON ProductionReportDetails.OurStyleID = AtcDetails.OurStyleID
+                                                    GROUP BY ProductionReportDetails.OurStyleID, ProductionReportDetails.location_pk, AtcDetails.AtcId, ProductionReportDetails.JobContractDetail_pk
+                                                    HAVING(AtcDetails.AtcId = @atcid) AND(ProductionReportDetails.JobContractDetail_pk IS NULL)) AS tt) AS derivedtbl_1
+GROUP BY AtcId";
 
                 cmd.CommandText = Query1;
                 cmd.Parameters.AddWithValue("@atcid", atcid);

@@ -246,7 +246,7 @@ namespace ArtWebApp.BLL
             set { Qty = value; }
         }
 
-
+        float txtMinutesPerGarment =0;
 
 
 
@@ -256,8 +256,8 @@ namespace ArtWebApp.BLL
 
 
         public Decimal ProjectionQty { get; set; }
-
-
+      
+        public float TxtMinutesPerGarment1 { get => txtMinutesPerGarment; set => txtMinutesPerGarment = value; }
 
         public void OurStyleForpproval()
         {
