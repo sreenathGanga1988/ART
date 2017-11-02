@@ -437,14 +437,16 @@ WHERE        (MrnDetails.PODet_PK = @podetpk)", con);
                 cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
-                         InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate,(InventoryMaster.CURate* InventoryMaster.OnhandQty) as Value
+                         InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
-                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK
+                         LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
 ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode";
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -472,7 +474,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName, Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -507,7 +509,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -563,7 +565,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -654,7 +656,7 @@ WHERE        (SamplingFab_PK = @code)";
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName, Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -929,7 +931,7 @@ FROM            StockInventoryMaster INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -948,7 +950,7 @@ FROM            Template_Master INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -968,7 +970,7 @@ FROM            Template_Master INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -1049,7 +1051,7 @@ FROM            Template_Master INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            Template_Master INNER JOIN
                          AtcMaster INNER JOIN
                          SkuRawMaterialMaster INNER JOIN
@@ -1106,7 +1108,7 @@ FROM            Template_Master INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                        ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName
+                        ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -1163,7 +1165,7 @@ FROM            InventoryMaster INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                        ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName
+                        ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -1218,7 +1220,7 @@ FROM            InventoryMaster INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -1349,7 +1351,7 @@ FROM            InventoryMaster INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         (InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName
+                         (InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -1404,7 +1406,7 @@ FROM            InventoryMaster INNER JOIN
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
                          InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName
+                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN

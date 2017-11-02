@@ -54,5 +54,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<System.DateTime> HandOverDate { get; set; }
         public string IsShortClosed { get; set; }
         public string IsInterChangable { get; set; }
+        public string IsAtcWord { get; set; }
     }
 }

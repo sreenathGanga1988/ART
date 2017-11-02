@@ -4739,6 +4739,10 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnValue;
             
+            private global::System.Data.DataColumn columnTemplateCode;
+            
+            private global::System.Data.DataColumn columnTemplatename;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public InventoryDataDataTable() {
@@ -4910,6 +4914,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TemplateCodeColumn {
+                get {
+                    return this.columnTemplateCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TemplatenameColumn {
+                get {
+                    return this.columnTemplatename;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4961,7 +4981,9 @@ namespace ArtWebApp.Reports.Dataset {
                         string ReceivedVia, 
                         string Refnum, 
                         decimal CURate, 
-                        decimal Value) {
+                        decimal Value, 
+                        string TemplateCode, 
+                        string Templatename) {
                 InventoryDataRow rowInventoryDataRow = ((InventoryDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -4980,7 +5002,9 @@ namespace ArtWebApp.Reports.Dataset {
                         ReceivedVia,
                         Refnum,
                         CURate,
-                        Value};
+                        Value,
+                        TemplateCode,
+                        Templatename};
                 rowInventoryDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInventoryDataRow);
                 return rowInventoryDataRow;
@@ -5027,6 +5051,8 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnRefnum = base.Columns["Refnum"];
                 this.columnCURate = base.Columns["CURate"];
                 this.columnValue = base.Columns["Value"];
+                this.columnTemplateCode = base.Columns["TemplateCode"];
+                this.columnTemplatename = base.Columns["Templatename"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5066,6 +5092,10 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnCURate);
                 this.columnValue = new global::System.Data.DataColumn("Value", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnValue);
+                this.columnTemplateCode = new global::System.Data.DataColumn("TemplateCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTemplateCode);
+                this.columnTemplatename = new global::System.Data.DataColumn("Templatename", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTemplatename);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnInventoryItem_PK}, true));
                 this.columnInventoryItem_PK.AutoIncrement = true;
@@ -5087,6 +5117,10 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnReceivedVia.MaxLength = 20;
                 this.columnRefnum.MaxLength = 20;
                 this.columnValue.ReadOnly = true;
+                this.columnTemplateCode.AllowDBNull = false;
+                this.columnTemplateCode.MaxLength = 10;
+                this.columnTemplatename.AllowDBNull = false;
+                this.columnTemplatename.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -29815,6 +29849,28 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string TemplateCode {
+                get {
+                    return ((string)(this[this.tableInventoryData.TemplateCodeColumn]));
+                }
+                set {
+                    this[this.tableInventoryData.TemplateCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Templatename {
+                get {
+                    return ((string)(this[this.tableInventoryData.TemplatenameColumn]));
+                }
+                set {
+                    this[this.tableInventoryData.TemplatenameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsRMNumNull() {
                 return this.IsNull(this.tableInventoryData.RMNumColumn);
             }
@@ -52063,6 +52119,8 @@ FROM            CutOrderMaster INNER JOIN
             tableMapping.ColumnMappings.Add("Refnum", "Refnum");
             tableMapping.ColumnMappings.Add("CURate", "CURate");
             tableMapping.ColumnMappings.Add("Value", "Value");
+            tableMapping.ColumnMappings.Add("TemplateCode", "TemplateCode");
+            tableMapping.ColumnMappings.Add("Templatename", "Templatename");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -52070,7 +52128,7 @@ FROM            CutOrderMaster INNER JOIN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -52087,19 +52145,22 @@ FROM            CutOrderMaster INNER JOIN
                 "tails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMa" +
                 "ster.DeliveredQty, \r\n                         InventoryMaster.OnhandQty, AtcMast" +
                 "er.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMa" +
-                "ster.Refnum, InventoryMaster.CURate,(InventoryMaster.CURate* InventoryMaster.Onh" +
-                "andQty) as Value\r\nFROM            InventoryMaster INNER JOIN\r\n                  " +
-                "       ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet" +
-                "_PK INNER JOIN\r\n                         SkuRawmaterialDetail ON ProcurementDeta" +
-                "ils.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n                     " +
-                "    SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.S" +
-                "ku_Pk INNER JOIN\r\n                         UOMMaster ON ProcurementDetails.Uom_P" +
-                "K = UOMMaster.Uom_PK INNER JOIN\r\n                         AtcMaster ON SkuRawMat" +
-                "erialMaster.Atc_id = AtcMaster.AtcId INNER JOIN\r\n                         Locati" +
-                "onMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK\r\nORDER BY S" +
-                "kuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawma" +
-                "terialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.Suppl" +
-                "ierColor, UOMMaster.UomCode";
+                "ster.Refnum, InventoryMaster.CURate, \r\n                         InventoryMaster." +
+                "CURate * InventoryMaster.OnhandQty AS Value, Template_Master.TemplateCode, Templ" +
+                "ate_Master.Description AS Templatename\r\nFROM            InventoryMaster INNER JO" +
+                "IN\r\n                         ProcurementDetails ON InventoryMaster.PoDet_PK = Pr" +
+                "ocurementDetails.PODet_PK INNER JOIN\r\n                         SkuRawmaterialDet" +
+                "ail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r" +
+                "\n                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = " +
+                "SkuRawMaterialMaster.Sku_Pk INNER JOIN\r\n                         UOMMaster ON Pr" +
+                "ocurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN\r\n                         " +
+                "AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN\r\n         " +
+                "                LocationMaster ON InventoryMaster.Location_PK = LocationMaster.L" +
+                "ocation_PK INNER JOIN\r\n                         Template_Master ON SkuRawMateria" +
+                "lMaster.Template_pk = Template_Master.Template_PK\r\nORDER BY SkuRawMaterialMaster" +
+                ".RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSi" +
+                "ze, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster" +
+                ".UomCode";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

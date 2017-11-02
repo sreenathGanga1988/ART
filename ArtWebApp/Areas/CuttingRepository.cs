@@ -25,7 +25,21 @@ namespace ArtWebApp.Areas
                     ctmstr.MarkerMade = cutplanViewModel.cutPlanMaster.MarkerMade;
                     ctmstr.Fabrication = cutplanViewModel.cutPlanMaster.Fabrication;
                 }
+                var q1 = from ctpolnmarker in enty.CutPlanMarkerTypes
+                         where ctpolnmarker.CutPlan_PK == cutplanViewModel.cutPlanMaster.CutPlan_PK
+                         select ctpolnmarker;
+                foreach (var ctmstr in q1)
+                {
 
+                    if (cutplanViewModel.CutPlanMarkerTypes.Contains(ctmstr.CutPlanmarkerTypeName))
+                    {
+
+                    }
+                    else
+                    {
+                        enty.CutPlanMarkerTypes.Remove(ctmstr);
+                    }
+                }
                 foreach (var element in cutplanViewModel.CutPlanMarkerTypes)
                 {
                     if (!enty.CutPlanMarkerTypes.Any(f => f.CutPlan_PK == cutplanViewModel.cutPlanMaster.CutPlan_PK && f.CutPlanmarkerTypeName == element))
@@ -37,7 +51,10 @@ namespace ArtWebApp.Areas
                     }
 
                  }
-                enty.SaveChanges();
+
+                
+
+                    enty.SaveChanges();
 
             }
 

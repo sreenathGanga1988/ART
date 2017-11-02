@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="ReportDataSet">
@@ -85,18 +85,10 @@
           <DataField>Value</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="TemplateCode">
-          <DataField>TemplateCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Templatename">
-          <DataField>Templatename</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2015\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2013\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>InventoryData</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -221,39 +213,6 @@
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox1</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Color>LightGrey</Color>
-                            <Style>Solid</Style>
-                          </Border>
-                          <PaddingLeft>2pt</PaddingLeft>
-                          <PaddingRight>2pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixCornerCell>
-                  <TablixCornerCell>
-                    <CellContents>
-                      <Textbox Name="Textbox55">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value />
-                                <Style>
-                                  <FontSize>8pt</FontSize>
-                                  <FontWeight>Bold</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style />
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox55</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -2130,45 +2089,7 @@
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>0.73505in</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox58">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>Templatename</Value>
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                          <FontWeight>Bold</FontWeight>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox58</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                        </TablixMember>
+                        <TablixMember />
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
@@ -2265,54 +2186,7 @@
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="Templatename">
-                            <GroupExpressions>
-                              <GroupExpression>=Fields!Templatename.Value</GroupExpression>
-                            </GroupExpressions>
-                          </Group>
-                          <SortExpressions>
-                            <SortExpression>
-                              <Value>=Fields!Templatename.Value</Value>
-                            </SortExpression>
-                          </SortExpressions>
-                          <TablixHeader>
-                            <Size>0.73505in</Size>
-                            <CellContents>
-                              <Textbox Name="Templatename">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value>=Fields!Templatename.Value</Value>
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Templatename</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember>
-                              <Group Name="Details" />
-                            </TablixMember>
-                          </TablixMembers>
+                          <Group Name="Details" />
                         </TablixMember>
                       </TablixMembers>
                     </TablixMember>
@@ -2350,43 +2224,6 @@
                           </Textbox>
                         </CellContents>
                       </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>0.73505in</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox60">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value />
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox60</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                        </TablixMember>
-                      </TablixMembers>
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
@@ -2460,43 +2297,6 @@
                           </Textbox>
                         </CellContents>
                       </TablixHeader>
-                      <TablixMembers>
-                        <TablixMember>
-                          <TablixHeader>
-                            <Size>0.73505in</Size>
-                            <CellContents>
-                              <Textbox Name="Textbox61">
-                                <CanGrow>true</CanGrow>
-                                <KeepTogether>true</KeepTogether>
-                                <Paragraphs>
-                                  <Paragraph>
-                                    <TextRuns>
-                                      <TextRun>
-                                        <Value />
-                                        <Style>
-                                          <FontSize>8pt</FontSize>
-                                        </Style>
-                                      </TextRun>
-                                    </TextRuns>
-                                    <Style />
-                                  </Paragraph>
-                                </Paragraphs>
-                                <rd:DefaultName>Textbox61</rd:DefaultName>
-                                <Style>
-                                  <Border>
-                                    <Color>LightGrey</Color>
-                                    <Style>Solid</Style>
-                                  </Border>
-                                  <PaddingLeft>2pt</PaddingLeft>
-                                  <PaddingRight>2pt</PaddingRight>
-                                  <PaddingTop>2pt</PaddingTop>
-                                  <PaddingBottom>2pt</PaddingBottom>
-                                </Style>
-                              </Textbox>
-                            </CellContents>
-                          </TablixHeader>
-                        </TablixMember>
-                      </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -2506,7 +2306,7 @@
             <DataSetName>DataSet1</DataSetName>
             <Top>1.32167in</Top>
             <Height>1.37499in</Height>
-            <Width>8.80455in</Width>
+            <Width>8.0695in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -2597,7 +2397,7 @@
         <Height>2.83208in</Height>
         <Style />
       </Body>
-      <Width>9.0695in</Width>
+      <Width>8.1191in</Width>
       <Page>
         <PageFooter>
           <Height>0.35416in</Height>
@@ -2667,24 +2467,6 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>2</NumberOfColumns>
-      <NumberOfRows>1</NumberOfRows>
-      <CellDefinitions>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>Dateofprint</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>Heading</ParameterName>
-        </CellDefinition>
-      </CellDefinitions>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <EmbeddedImages>
     <EmbeddedImage Name="atraco">
       <MIMEType>image/jpeg</MIMEType>

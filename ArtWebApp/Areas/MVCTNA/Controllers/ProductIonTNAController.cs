@@ -18,7 +18,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
             ProductionTNARepo productionTNARepo = new ProductionTNARepo();
 
             model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0);
-            return View();
+            return View(model);
         }
 
 

@@ -123,6 +123,7 @@
           <Property Name="HandOverDate" Type="datetime" />
           <Property Name="IsShortClosed" Type="nvarchar" MaxLength="50" />
           <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
+          <Property Name="IsAtcWord" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ASQShuffleDetailsAtc">
           <Key>
@@ -628,6 +629,7 @@
           <Property Name="HandOverDate" Type="DateTime" Precision="3" />
           <Property Name="IsShortClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -866,6 +868,7 @@
           <EntitySetMapping Name="ASQAllocationMaster_tbl">
             <EntityTypeMapping TypeName="AtcModelModel.ASQAllocationMaster_tbl">
               <MappingFragment StoreEntitySet="ASQAllocationMaster_tbl">
+                <ScalarProperty Name="IsAtcWord" ColumnName="IsAtcWord" />
                 <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
                 <ScalarProperty Name="IsShortClosed" ColumnName="IsShortClosed" />
                 <ScalarProperty Name="HandOverDate" ColumnName="HandOverDate" />

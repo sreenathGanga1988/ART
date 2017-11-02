@@ -9,6 +9,12 @@
 
 <div class="form-horizontal">
 
+
+    <table class="table">
+
+        <tr>
+            <td><div class="row">
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     @Html.HiddenFor(model => model.FreightRequestID)
@@ -22,164 +28,183 @@
             @Html.DisplayFor(modelItem => Model.FromParty)
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ToParty)
 
+</div></td>
+        </tr>
+        <tr></tr>
+    </table>
+
+    
+
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ToParty)
+
+            </div>
+            @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Shipper)
+            </div>
         </div>
-        @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.Shipper)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Weight)
+
+            </div>
+            @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ContentofPackage)
+
+
+            </div>
         </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.DebitTo)
+            </div>
+            @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Reason)
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Merchandiser)
+            </div>
+            @Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ForwarderDetails)
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ApproximateCharges)
+            </div>
+            @Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+                @Html.DisplayFor(modelItem => Model.Remark)
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ApprovedBy)
+            </div>
+            @Html.LabelFor(model => model.ApprovedDate, "ApprovedDate", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ApprovedDate)
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.IsApproved)
+            </div>
+            @Html.LabelFor(model => model.IsPosted, "IsPosted", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+                @Html.DisplayFor(modelItem => Model.IsPosted)
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.AddedBy)
+            </div>
+            @Html.LabelFor(model => model.AddedDate, "AddedDate", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+
+                @Html.DisplayFor(modelItem => Model.AddedDate)
+
+
+            </div>
+       
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.Weight)
+  <div class="row">
+      <div class="form-group">
+          <table class="table table-responsive table-bordered">
+              <tr>
+                  <th>
+                      Atc
+                  </th>
+                  <th>
+                      FreightCharge
+                  </th>
+                  <th>
+                      Remark
+                  </th>
+                  <th></th>
+              </tr>
+              @{  Decimal total = 0;
+                  foreach (var item in Model.FreightChargeDetails)
+                  {
 
-        </div>
-        @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ContentofPackage)
+                      total = total + Decimal.Parse(item.FreightCharge.ToString());
+                      <tr>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.FreightCharge)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.Remark)
+                          </td>
+                          <td></td>
+                      </tr>
+                  }
+                  <tr>
+                      <td></td>
+                      <td>
+                          Total :  @total
+                      </td>
+                      <td></td>
+                      <td></td>
+                  </tr>
 
-
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.DebitTo)
-        </div>
-        @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.Reason)
-
-
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.Merchandiser)
-        </div>
-        @Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ForwarderDetails)
-
-
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ApproximateCharges)
-        </div>
-        @Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-
-            @Html.DisplayFor(modelItem => Model.Remark)
+              }
 
 
-        </div>
-    </div>
+          </table>
+      </div>
 
+  </div>
 
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ApprovedBy)
-        </div>
-        @Html.LabelFor(model => model.ApprovedDate, "ApprovedDate", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.ApprovedDate)
-
-
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.IsApproved)
-        </div>
-        @Html.LabelFor(model => model.IsPosted, "IsPosted", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-
-            @Html.DisplayFor(modelItem => Model.IsPosted)
-
-
-        </div>
-    </div>
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => Model.AddedBy)
-        </div>
-        @Html.LabelFor(model => model.AddedDate, "AddedDate", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-
-            @Html.DisplayFor(modelItem => Model.AddedDate)
-
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <table class="table table-responsive table-bordered">
-            <tr>
-                <th>
-                    Atc
-                </th>
-                <th>
-                    FreightCharge
-                </th>
-                <th>
-                    Remark
-                </th>
-                <th></th>
-            </tr>
-            @{  Decimal total = 0;
-                foreach (var item in Model.FreightChargeDetails)
-                {
-
-                    total = total + Decimal.Parse(item.FreightCharge.ToString());
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FreightCharge)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Remark)
-                        </td>
-                        <td></td>
-                    </tr>
-                }
-                <tr>
-                    <td></td>
-                    <td>
-                        Total :  @total
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-            }
-
-
-        </table>
-    </div>
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.FreightRequestID }) |

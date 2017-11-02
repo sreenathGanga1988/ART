@@ -139,6 +139,7 @@
           <Property Name="IsProjectionApproved" Type="nchar" MaxLength="10" />
           <Property Name="ProductionCountryID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsCuttingCompleted" Type="nchar" MaxLength="10" />
+          <Property Name="IsAtcWord" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -13497,6 +13498,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="FreightChargeDetails" Relationship="ArtModel.FK_FreightChargeDetail_AtcMaster" FromRole="AtcMaster" ToRole="FreightChargeDetail" />
           <NavigationProperty Name="SubConExtraRequests" Relationship="ArtModel.FK_SubConExtraRequest_AtcMaster" FromRole="AtcMaster" ToRole="SubConExtraRequest" />
           <NavigationProperty Name="LabChargeDetails" Relationship="ArtModel.FK_LabChargeDetail_AtcMaster" FromRole="AtcMaster" ToRole="LabChargeDetail" />
+          <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_AtcMaster_CountryMaster">
           <End Type="ArtModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
@@ -18653,6 +18655,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="AtcMasters">
             <EntityTypeMapping TypeName="ArtModel.AtcMaster">
               <MappingFragment StoreEntitySet="AtcMaster">
+                <ScalarProperty Name="IsAtcWord" ColumnName="IsAtcWord" />
                 <ScalarProperty Name="IsCuttingCompleted" ColumnName="IsCuttingCompleted" />
                 <ScalarProperty Name="ProductionCountryID" ColumnName="ProductionCountryID" />
                 <ScalarProperty Name="IsProjectionApproved" ColumnName="IsProjectionApproved" />
