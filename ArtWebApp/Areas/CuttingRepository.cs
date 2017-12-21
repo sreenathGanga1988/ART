@@ -2,6 +2,8 @@
 using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -62,5 +64,32 @@ namespace ArtWebApp.Areas
 
           }
 
+
+        public DataTable CutplanASQNotPresent(int cutplanpk)
+        {
+            DataTable dt = new DataTable();
+
+
+
+
+            SqlCommand cmd = new SqlCommand(@" SELECT        PoPackMaster.PoPacknum, PoPackMaster.PoPackId
+FROM            POPackDetails INNER JOIN
+                         CutPlanMaster ON POPackDetails.ColorCode = CutPlanMaster.ColorName AND POPackDetails.OurStyleID = CutPlanMaster.OurStyleID INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId AND CutPlanMaster.Location_PK = PoPackMaster.ExpectedLocation_PK
+WHERE        (CutPlanMaster.CutPlan_PK = @cutplanpk)
+GROUP BY PoPackMaster.PoPacknum, PoPackMaster.PoPackId ");
+
+
+            cmd.Parameters.AddWithValue("@cutplanpk", cutplanpk);
+
+
+
+
+
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
+        }
+
+       
     }
 }

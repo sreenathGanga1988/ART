@@ -57,6 +57,23 @@
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
+                    <tr>
+                        <td class="NormalTD" colspan="5"><table class="auto-style9">
+                                <tr>
+                                    <td class="NormalTD">Po Status</td>
+                                    <td  class="NormalTD">
+                                        <asp:UpdatePanel ID="upd_postatus" runat="server">
+                                            <ContentTemplate>
+                                                <asp:Label ID="lbl_postatus" runat="server" Text="lbl_postatus" Font-Bold="True" Font-Italic="True" ForeColor="#FF3300"></asp:Label>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                    <td  class="NormalTD">&nbsp;</td>
+                                    <td  class="NormalTD">&nbsp;</td>
+                                    <td class="NormalTD">&nbsp;</td>
+                                </tr>
+                            </table></td>
+                    </tr>
                 </table>
             </td>
         </tr>

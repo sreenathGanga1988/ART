@@ -97,6 +97,7 @@
                                     <ucc:DropDownListChosen ID="drp_cutorderType"   runat="server" Width="200px" >
                                         <asp:ListItem>QAD</asp:ListItem>
    <asp:ListItem>SAMPLING</asp:ListItem>
+                                           <asp:ListItem>Maintenance</asp:ListItem>
                                     </ucc:DropDownListChosen>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="drp_cutorderType" EnableTheming="True" ErrorMessage="Enter Cut Order Type" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
                                 </td>

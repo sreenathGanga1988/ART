@@ -16,10 +16,12 @@ namespace ArtWebApp.DataModels
     {
         public BuyerMaster()
         {
+            this.AtcMasters = new HashSet<AtcMaster>();
             this.BuyerDestinationMasters = new HashSet<BuyerDestinationMaster>();
             this.BuyerPOMasters = new HashSet<BuyerPOMaster>();
             this.BuyerStyleMasters = new HashSet<BuyerStyleMaster>();
-            this.AtcMasters = new HashSet<AtcMaster>();
+            this.SampCutReqMasters = new HashSet<SampCutReqMaster>();
+            this.SampCutTicketMasters = new HashSet<SampCutTicketMaster>();
         }
     
         public decimal BuyerID { get; set; }
@@ -42,9 +44,11 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> partner_id { get; set; }
         public string IsActive { get; set; }
     
+        public virtual ICollection<AtcMaster> AtcMasters { get; set; }
         public virtual ICollection<BuyerDestinationMaster> BuyerDestinationMasters { get; set; }
         public virtual ICollection<BuyerPOMaster> BuyerPOMasters { get; set; }
         public virtual ICollection<BuyerStyleMaster> BuyerStyleMasters { get; set; }
-        public virtual ICollection<AtcMaster> AtcMasters { get; set; }
+        public virtual ICollection<SampCutReqMaster> SampCutReqMasters { get; set; }
+        public virtual ICollection<SampCutTicketMaster> SampCutTicketMasters { get; set; }
     }
 }

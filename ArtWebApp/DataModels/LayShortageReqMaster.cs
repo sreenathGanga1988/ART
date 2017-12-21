@@ -16,8 +16,8 @@ namespace ArtWebApp.DataModels
     {
         public LayShortageReqMaster()
         {
-            this.LayShortageDetails = new HashSet<LayShortageDetail>();
             this.LayShortageCutorderAdjustments = new HashSet<LayShortageCutorderAdjustment>();
+            this.LayShortageDetails = new HashSet<LayShortageDetail>();
         }
     
         public decimal LayShortageMasterID { get; set; }
@@ -34,7 +34,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public Nullable<decimal> SkuDet_PK { get; set; }
     
-        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
         public virtual ICollection<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
+        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
     }
 }

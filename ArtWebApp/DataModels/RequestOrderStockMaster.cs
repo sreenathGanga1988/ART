@@ -37,8 +37,8 @@ namespace ArtWebApp.DataModels
         public string ForwardedBY { get; set; }
         public string Iscompleted { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual ICollection<RequestOrderStockDetail> RequestOrderStockDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

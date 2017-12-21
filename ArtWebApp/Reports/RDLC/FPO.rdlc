@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="OriART">
@@ -8,7 +8,6 @@
         <ConnectString>Data Source=192.168.1.4;Initial Catalog=Art</ConnectString>
         <Prompt>Specify a user name and password for data source OriART:</Prompt>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>c873b8fd-c3f6-4f36-8ce2-7e7df8afb498</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -47,72 +46,36 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="DeliveryMethod">
-          <DataField>DeliveryMethod</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CurrencyCode">
-          <DataField>CurrencyCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LocationName">
-          <DataField>LocationName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="PONum">
           <DataField>PONum</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AddedDate">
-          <DataField>AddedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="SupplierName">
-          <DataField>SupplierName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="POQty">
           <DataField>POQty</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="POUnitRate">
-          <DataField>POUnitRate</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="SupplierSize">
-          <DataField>SupplierSize</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SupplierColor">
-          <DataField>SupplierColor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ItemColor">
-          <DataField>ItemColor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ItemSize">
-          <DataField>ItemSize</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="RMNum">
-          <DataField>RMNum</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Composition">
-          <DataField>Composition</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Construction">
-          <DataField>Construction</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="AtcNum">
           <DataField>AtcNum</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CurrencyCode">
+          <DataField>CurrencyCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DeliveryMethod">
+          <DataField>DeliveryMethod</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LocationName">
+          <DataField>LocationName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="LocationAddress">
           <DataField>LocationAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SupplierName">
+          <DataField>SupplierName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SupplierAddress">
@@ -127,8 +90,24 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
           <DataField>PaymentCodeDescription</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="RMNum">
+          <DataField>RMNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="POUnitRate">
+          <DataField>POUnitRate</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
         <Field Name="UomCode">
           <DataField>UomCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Construction">
+          <DataField>Construction</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Composition">
+          <DataField>Composition</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Width">
@@ -138,6 +117,10 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
         <Field Name="Weight">
           <DataField>Weight</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AddedDate">
+          <DataField>AddedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="POvalue">
           <DataField>POvalue</DataField>
@@ -159,6 +142,22 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
           <DataField>PO_Pk</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="SupplierColor">
+          <DataField>SupplierColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SupplierSize">
+          <DataField>SupplierSize</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ItemSize">
+          <DataField>ItemSize</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ItemColor">
+          <DataField>ItemColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="DeliveryDate">
           <DataField>DeliveryDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -167,8 +166,28 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
           <DataField>ItemName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="POType">
+          <DataField>POType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Remark">
           <DataField>Remark</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="POUnitRate1">
+          <DataField>POUnitRate</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="FreightType">
+          <DataField>FreightType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FreightCharge">
+          <DataField>FreightCharge</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="IsFreightChargeApproved">
+          <DataField>IsFreightChargeApproved</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="IsApproved">
@@ -179,6 +198,18 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
           <DataField>ApprovedBy</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DeletedBy">
+          <DataField>DeletedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IsDeleted">
+          <DataField>IsDeleted</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DeletedDate">
+          <DataField>DeletedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="Approveddate">
           <DataField>Approveddate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -186,9 +217,9 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2013\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Sreenath\Documents\Visual Studio 2015\Projects\ArtWebApp\ArtWebApp\Reports\Dataset\ReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>ProcurementData</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>ProcurementDataTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
@@ -1981,9 +2012,8 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox47</rd:DefaultName>
-            <Top>3.2418in</Top>
-            <Left>0.00843in</Left>
-            <Height>0.15625in</Height>
+            <Top>3.42582in</Top>
+            <Height>0.19445in</Height>
             <Width>4.36681in</Width>
             <ZIndex>20</ZIndex>
             <Style>
@@ -2014,9 +2044,9 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Remark</rd:DefaultName>
-            <Top>8.23418cm</Top>
+            <Top>8.70158cm</Top>
             <Left>11.42648cm</Left>
-            <Height>0.39687cm</Height>
+            <Height>0.56447cm</Height>
             <Width>5.04882cm</Width>
             <ZIndex>21</ZIndex>
             <Style>
@@ -2131,7 +2161,8 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox28</rd:DefaultName>
-            <Top>3.41194in</Top>
+            <Top>3.66194in</Top>
+            <Left>0.00843in</Left>
             <Height>2.54166in</Height>
             <Width>6.48634in</Width>
             <ZIndex>22</ZIndex>
@@ -2318,7 +2349,7 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.73371cm</Top>
+            <Top>16.05121cm</Top>
             <Left>9.55479cm</Left>
             <Height>1.38875cm</Height>
             <Width>6.35853cm</Width>
@@ -2468,6 +2499,73 @@ WHERE        (ProcurementMaster.PONum = N'PO050611')</CommandText>
                 <Style>Solid</Style>
                 <Width>1pt</Width>
               </RightBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox16">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!FreightCharge.Value, "DataSet1")</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox16</rd:DefaultName>
+            <Top>8.05778cm</Top>
+            <Left>2.96076cm</Left>
+            <Height>0.46741cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>27</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox49">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Freight Charge($)</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox47</rd:DefaultName>
+            <Top>3.18624in</Top>
+            <Left>0.13343in</Left>
+            <Height>0.18402in</Height>
+            <Width>0.99056in</Width>
+            <ZIndex>28</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>

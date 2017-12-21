@@ -1,0 +1,387 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.ViewModel.FCRViewModel
+@using System.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="text-center">
+    <h3> FCR Report</h3>
+
+    @Html.HiddenFor(model => model.fcrMasterData.LocPK);
+    @Html.HiddenFor(model => model.fcrMasterData.SkuDetPK);
+    @Html.HiddenFor(model => model.fcrMasterData.OurStyleID);
+
+</div>
+<div>
+
+    <table class="table table-bordered">
+        <tr>
+            <td>FTY</td>
+            <td>@Model.fcrMasterData.Factory</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Color</td>
+            <td>@Model.fcrMasterData.Color</td>
+        </tr>
+        <tr>
+            <td>Season</td>
+            <td>@Model.fcrMasterData.Season</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>BOM YY</td>
+            <td>@Model.fcrMasterData.Consumption</td>
+        </tr>
+        <tr>
+            <td>ATC</td>
+            <td>@Model.fcrMasterData.Atc</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Approved YY</td>
+            <td>@Model.fcrMasterData.ApprovedConsumption</td>
+        </tr>
+        <tr>
+            <td>Style</td>
+            <td>@Model.fcrMasterData.Style</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Order</td>
+            <td>@Model.fcrMasterData.Order</td>
+        </tr>
+        <tr>
+            <td>Fabric</td>
+            <td>@Model.fcrMasterData.Color</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+</div>
+
+
+<div>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <td>OurStyle</td>
+            <td>@Model.fcrMasterData.Style</td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td>@Model.fcrMasterData.Fabdescription</td>
+        </tr>
+        <tr>
+            <td>OrderQty (ASQ)</td>
+            <td>@Model.fcrMasterData.Order</td>
+        </tr>
+        <tr>
+            <td>Cutorder Qty</td>
+            <td>@Model.TotaCutorderQty</td>
+        </tr>
+        <tr>
+            <td>Cut Qty</td>
+            <td>@Model.TotalLayedQty</td>
+        </tr>
+        <tr>
+            <td>Total Fabric Consumed</td>
+            <td>@Model.TotalFabricLayed</td>
+        </tr>
+        <tr>
+            <td>Bom Consumption</td>
+            <td>@Model.fcrMasterData.Consumption</td>
+        </tr>
+        <tr>
+            <td>Marker Consumption</td>
+            <td>@Model.fcrMasterData.ApprovedConsumption</td>
+        </tr>
+        <tr>
+            <td>Actual(FCR) Consumption</td>
+            <td>@Model.ActualFCRConsumtion</td>
+        </tr>
+        <tr>
+            <td>Over Consumed (%)</td>
+            <td>@Model.OverConsumed</td>
+        </tr>
+        <tr>
+            <td>Balance to Cut</td>
+            <td>@(Decimal.Parse(Model.TotaCutorderQty.ToString()) - Decimal.Parse(Model.TotalLayedQty.ToString()))</td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+</div>
+
+<div>
+
+    <div>
+        <h3> CutOrder Details</h3>
+    </div>
+    <div>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>CutOrder#</td>
+                <td>Marker#</td>
+                <td>Marker Name</td>
+                <td>Fab Qty</td>
+                <td>Laysheet</td>
+                <td>No of Plies</td>
+                <td>Lay Length </td>
+                <td>No of Pc in Marker</td>
+                <td>&nbsp;Fabric Layed&nbsp;</td>
+                <td>CutQty</td>
+                <td>Excess Or Short;</td>
+                <td>Usable EndBit;</td>
+                <td> Non Reusable Endbit</td>
+
+            </tr>
+            @foreach (DataRow drow in Model.CutData.Rows)
+            {
+                <tr>
+                    <td>@drow["Cut_NO"]</td>
+                    <td>@drow["MarkerNo"]</td>
+                    <td>@drow["PaternMarkerName"]</td>
+                    <td>@drow["TotalfabReq"]</td>
+                    <td>@drow["LaysheetNUM"]</td>
+
+                    <td>@drow["NoOfPlies"]</td>
+                    <td>@drow["MarkerLength"]</td>
+                    <td>@drow["Qty"]</td>
+                    <td>@drow["layedFabric"]</td>
+                    <td>@drow["CutQty"]</td>
+                    <td>@drow["ExcessOrShort"]</td>
+                    <td>@drow["ActualEndbit"]</td>
+                    <td>@drow["NonReusableEndbit"]</td>
+
+                </tr>
+            }
+            <tfoot>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> Total FabReq :@Model.CutData.Compute("Sum(TotalfabReq)", "")</td>
+                    <td>Total No of Plies :@Model.CutData.Compute("Sum(NoOfPlies)", "")</td>
+                    <td></td>
+                    <td></td>
+                    <td>Total :@Model.TotaCutorderQty</td>
+                    <td>Total :@Model.TotalFabricLayed</td>
+                    <td>Total :@Model.TotalLayedQty</td>
+                    <td>Total :@Model.CutData.Compute("Sum(ExcessOrShort)", "")</td>
+                    <td>Total :@Model.CutData.Compute("Sum(ActualEndbit)", "")</td>
+                    <td>Total :@Model.CutData.Compute("Sum(NonReusableEndbit)", "")</td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+    <div>
+        <div>
+            <h3>Extra request</h3>
+        </div>
+        <div>
+            <div>
+                <h4>Against LayShortage</h4>
+            </div>
+            <div>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>Req#</td>
+                        <td>CutOrder#</td>
+
+                        <td>Fab Qty</td>
+
+                    </tr>
+                    @foreach (DataRow drow in Model.LayshortagereqData.Rows)
+                    {
+                        <tr>
+                            <td>@drow["LayShortageReqCode"]</td>
+                            <td>@drow["Cut_NO"]</td>
+                            <td>@drow["Qty"]</td>
+
+                        </tr>
+                    }
+                    <tfoot>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+
+                            <td> Total FabReq :@Model.LayshortagereqData.Compute("Sum(Qty)", "")</td>
+
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <h3>Extra request</h3>
+        </div>
+        <div>
+            <div>
+                <h4>Against Rejection</h4>
+            </div>
+            <div>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>Req#</td>
+                        <td>CutOrder#</td>
+                        <td>Type</td>
+                        <td>Fab Qty</td>
+
+                    </tr>
+                    @foreach (DataRow drow in Model.RejectionReqData.Rows)
+                    {
+                        <tr>
+                            <td>@drow["Reqnum"]</td>
+                            <td>@drow["Cut_NO"]</td>
+                            <td>@drow["RejectionType"]</td>
+                            <td>@drow["Qty"]</td>
+
+                        </tr>
+                    }
+                    <tfoot>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+
+                            <td> Total FabReq :@Model.RejectionReqData.Compute("Sum(Qty)", "")</td>
+
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Total Roll Yard </th>
+                <th>Total Roll Yard Given to Factory</th>
+                <th> Total Roll Yard Returned to Warehouse </th>
+                <th>Total Roll Yard TO be on factory</th>
+                <th>Total Utilized Fabric</th>
+                <th>Missing Fabric</th>
+                <th>Balance Fabric</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+
+                @{var locpk = Model.fcrMasterData.LocPK;}
+                @{var SkuDetPK = Model.fcrMasterData.SkuDetPK;}
+                @{var OurStyleID = Model.fcrMasterData.OurStyleID;}
+
+                <td>@Model.fcrMasterData.TotalGiven</td>
+                <td>@Model.fcrMasterData.GiventoFactory</td>
+                <td>@Model.fcrMasterData.GivenBackToStore</td>
+                <td>@Model.fcrMasterData.ToBeonLocation</td>
+                <td>@Model.TotalFabricLayed</td>
+                <td>@Model.fcrMasterData.MarkMissedQty</td>
+                <td>
+                    @{var bal = (Decimal.Parse(Model.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(Model.TotalFabricLayed.ToString()) - Decimal.Parse(Model.fcrMasterData.MarkMissedQty.ToString())); }
+
+                    <div id="balance">
+                        @bal
+                    </div>
+                    @if (locpk > 0 && SkuDetPK > 0 && OurStyleID > 0)
+                    {
+                        if (bal > 0)
+                        {
+                            @Html.HiddenFor(model => model.fcrMasterData.MissingQty, bal);
+
+                            <input id="markasmissing" type="button" value="Mark as Missing" class="btn btn-default show" />
+                        }
+                    }
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    @if (bal == 0)
+    {
+        <input id="closefcr" type="button" value="Close FCR" class="btn btn-default show" />
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#markasmissing").click(function (e, params) {
+            debugger;
+
+
+
+            if (confirm('Are you sure you want to Mark as Missing?')) {
+                var loc_pk = $('#fcrMasterData_LocPK').val();
+                var ourstyleid = document.getElementById("fcrMasterData_OurStyleID").value;
+                var skudetpk = document.getElementById("fcrMasterData_SkuDetPK").value;
+                var missing_qty = document.getElementById("balance").innerHTML;
+                $.ajax({
+                    url: "@Url.Action("MarkMissing", "FCR")",
+                    traditional: true,
+                    data: { 'skudetpk': skudetpk, 'ourStyleid': ourstyleid, 'locationpk': loc_pk, 'Missingqty': missing_qty },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert("Sucessfully Updated");
+                        $.ajax({
+                            type: "Get",
+                            url: "@Url.Action("Index", "FCR")",
+                            dataType: 'json',
+                            data: { 'id': skudetpk, 'ourStyleid': ourstyleid, 'locationpk': loc_pk },
+                            crossDomain: true,
+                            success: function (data) {
+                                window.location.href = data;
+                            }
+                        });
+                    },
+
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+    }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>

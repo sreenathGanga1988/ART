@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -127,11 +128,25 @@ namespace ArtWebApp.Merchandiser
                 ourstyledata.Catid = int.Parse(garmentcategory.SelectedValue.ToString());
                
                 ourstyledata.Fob = decimal.Parse(fobtxt.Text);
+                ourstyledata.TxtMinutesPerGarment1 = float.Parse(txtMinutesPerGarment.Text);
+                try
+                {
+                    TextBox dtp_deliverydate = (row.FindControl("dtp_deliverydate") as TextBox);
+                    string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
 
-               Boolean isfobchanged= ourstyledata.UpdateOurStyle(ourstyledata);
+                    ourstyledata.MerchantPCD = DateTime.Parse(s);
+                }
+                catch (Exception)
+                {
+                    Label lbl_pcd = (row.FindControl("lbl_pcd") as Label);
+                    ourstyledata.MerchantPCD = DateTime.Parse(lbl_pcd.Text);
 
-              
-               
+                }
+
+                Boolean isfobchanged = ourstyledata.UpdateOurStyle(ourstyledata);
+
+
+                
             }
             ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", "Our Style Details are updated Please revise the costings to avoid Wrong BOM");
             MessageBoxShow("Our Style Details Updated");

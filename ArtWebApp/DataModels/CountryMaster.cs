@@ -16,9 +16,11 @@ namespace ArtWebApp.DataModels
     {
         public CountryMaster()
         {
-            this.SupplierMasters = new HashSet<SupplierMaster>();
             this.AtcMasters = new HashSet<AtcMaster>();
+            this.AtcMasters1 = new HashSet<AtcMaster>();
             this.CityMasters = new HashSet<CityMaster>();
+            this.SupplierMasters = new HashSet<SupplierMaster>();
+            this.SupplierMasters1 = new HashSet<SupplierMaster>();
         }
     
         public decimal CountryID { get; set; }
@@ -27,8 +29,10 @@ namespace ArtWebApp.DataModels
         public string FactoryStores { get; set; }
         public string Isthere { get; set; }
     
-        public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
         public virtual ICollection<AtcMaster> AtcMasters { get; set; }
+        public virtual ICollection<AtcMaster> AtcMasters1 { get; set; }
         public virtual ICollection<CityMaster> CityMasters { get; set; }
+        public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
+        public virtual ICollection<SupplierMaster> SupplierMasters1 { get; set; }
     }
 }

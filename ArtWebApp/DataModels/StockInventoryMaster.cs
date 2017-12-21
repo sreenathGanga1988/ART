@@ -42,6 +42,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> CuRate { get; set; }
         public string ParentRef { get; set; }
+        public Nullable<decimal> FreightCuRate { get; set; }
     
         public virtual ICollection<DeliveryOrderStockDetail> DeliveryOrderStockDetails { get; set; }
         public virtual ICollection<DeliveryReceiptStockDetail> DeliveryReceiptStockDetails { get; set; }

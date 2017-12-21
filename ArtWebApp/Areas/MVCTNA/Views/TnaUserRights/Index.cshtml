@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.TnaUserRight>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPPSumbissionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPPApprovalDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSampleYardagesDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsGradedPatternDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsBulkFabricDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSewingTrimDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSizeSetDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPPMeetingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsFC1Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsFinalMarkerDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsFactoryPlannedPCDDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsMerchandisingPCDDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsInputDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPackingTrimDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserMaster.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPPSumbissionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPPApprovalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSampleYardagesDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsGradedPatternDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsBulkFabricDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSewingTrimDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSizeSetDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPPMeetingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsFC1Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsFinalMarkerDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsFactoryPlannedPCDDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMerchandisingPCDDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsInputDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPackingTrimDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserMaster.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TNAUserRightID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TNAUserRightID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TNAUserRightID })
+        </td>
+    </tr>
+}
+
+</table>

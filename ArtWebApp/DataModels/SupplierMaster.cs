@@ -16,6 +16,8 @@ namespace ArtWebApp.DataModels
     {
         public SupplierMaster()
         {
+            this.DocMasters = new HashSet<DocMaster>();
+            this.LabRequestMasters = new HashSet<LabRequestMaster>();
             this.LCMasters = new HashSet<LCMaster>();
             this.RecieptMasters = new HashSet<RecieptMaster>();
             this.SDocMasters = new HashSet<SDocMaster>();
@@ -24,8 +26,6 @@ namespace ArtWebApp.DataModels
             this.StockSDocMasters = new HashSet<StockSDocMaster>();
             this.SupplierInvoiceMasters = new HashSet<SupplierInvoiceMaster>();
             this.SupplierStockInvoiceMasters = new HashSet<SupplierStockInvoiceMaster>();
-            this.DocMasters = new HashSet<DocMaster>();
-            this.LabRequestMasters = new HashSet<LabRequestMaster>();
         }
     
         public decimal Supplier_PK { get; set; }
@@ -49,8 +49,14 @@ namespace ArtWebApp.DataModels
         public Nullable<bool> IsFixedPaymentTermID { get; set; }
     
         public virtual CountryMaster CountryMaster { get; set; }
+        public virtual CountryMaster CountryMaster1 { get; set; }
         public virtual CurrencyMaster CurrencyMaster { get; set; }
+        public virtual CurrencyMaster CurrencyMaster1 { get; set; }
+        public virtual ICollection<DocMaster> DocMasters { get; set; }
+        public virtual ICollection<LabRequestMaster> LabRequestMasters { get; set; }
         public virtual ICollection<LCMaster> LCMasters { get; set; }
+        public virtual PaymentModeMaster PaymentModeMaster { get; set; }
+        public virtual PaymentTermMaster PaymentTermMaster { get; set; }
         public virtual ICollection<RecieptMaster> RecieptMasters { get; set; }
         public virtual ICollection<SDocMaster> SDocMasters { get; set; }
         public virtual ICollection<StockPOMaster> StockPOMasters { get; set; }
@@ -58,9 +64,5 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<StockSDocMaster> StockSDocMasters { get; set; }
         public virtual ICollection<SupplierInvoiceMaster> SupplierInvoiceMasters { get; set; }
         public virtual ICollection<SupplierStockInvoiceMaster> SupplierStockInvoiceMasters { get; set; }
-        public virtual ICollection<DocMaster> DocMasters { get; set; }
-        public virtual PaymentModeMaster PaymentModeMaster { get; set; }
-        public virtual PaymentTermMaster PaymentTermMaster { get; set; }
-        public virtual ICollection<LabRequestMaster> LabRequestMasters { get; set; }
     }
 }

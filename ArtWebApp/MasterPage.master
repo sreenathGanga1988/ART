@@ -95,7 +95,22 @@
 } 
 
     
+      
 
+.myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
      
     
 
@@ -109,32 +124,64 @@
  
 
 
-       <script type="text/javascript">
-        //$(function () {
-        //    try {
-        //        var connection = $.hubConnection()
-        //        var hub = connection.createHubProxy('artHub');
-        //        hub.on('SayMessage', function () {
-
-        //            alert('Dear user WebArt will be restarted for Updation in 5 Minutes.Please save your Data');
-        //        });
+       
+     
 
 
-        //        connection.start().done();
-        //    }
-        //    catch (err) {  
-               
-        //    }
-        //   // debugger;
-          
-        //    //connection.start(function () {
 
-        //    //    hub.invoke('SayMessage');
-        //    //});
-        //});
 
-    </script>
-     <script type="text/javascript">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+  
+</head>
+<body class="bodybackground">
+    
+            
+         <%: System.Web.Optimization.Scripts.Render("~/bundles/modernizr") %>
+         <%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+         <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+     <%: System.Web.Optimization.Scripts.Render("~/bundles/bootstrap") %>
+ 
+          <%: System.Web.Optimization.Scripts.Render("~/bundle/Cutomjs") %>
+         <%: System.Web.Optimization.Styles.Render("~/bundle/css") %>
+     
+    <%--<script type="text/javascript">
+         $(function () {
+             try {
+                 var connection = $.hubConnection()
+                 var hub = connection.createHubProxy('artHub');
+                 hub.on('SayMessage', function () {
+
+                     alert('Dear user WebArt will be restarted for Updation in 5 Minutes.Please save your Data');
+                 });
+
+
+                 connection.start().done();
+             }
+             catch (err) {
+
+             }
+             // debugger;
+
+             //connection.start(function () {
+
+             //    hub.invoke('SayMessage');
+             //});
+         });
+
+    </script>--%>
+    <script type="text/javascript">
+
+        var myName;
+        var myVar = setInterval(GetUserCount, 100000);
+        function GetUserCount() {
+            myName = '<%=Application["OnlineUsers"]%>'
+
+             //    alert(myName);
+         }
+
+
          function openNav() {
              document.getElementById("mySidenav").style.width = "15%";
              document.getElementById("main").style.width = "85%";
@@ -153,22 +200,6 @@
              window.location.href = '/ArtMVCMaster/UserMasters';
          }
 </script>
-
-
-
-
-
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-  
-</head>
-<body class="bodybackground">
-
-      <%: System.Web.Optimization.Scripts.Render("~/bundle/js") %>
-          <%: System.Web.Optimization.Scripts.Render("~/bundle/Cutomjs") %>
-         <%: System.Web.Optimization.Styles.Render("~/bundle/css") %>
-     
-    
   
     <form id="form1" runat="server">
 
@@ -230,6 +261,7 @@
 
 
              <div id="mySidenav" class="menuclass">
+                        <p id="Online users"></p>
               <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="left-logo-set">
                 <img src="/image/atrako-black-logo.png"></div>
@@ -287,6 +319,9 @@ WHERE        (UserProfileRights.UserProfile_Pk = @Param1) and (SubMenuMaster.IsA
           <div id="main" class="content" >
              
    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+      
+
                 <div class="bodybackground">
                          </div>
 
@@ -306,7 +341,7 @@ WHERE        (UserProfileRights.UserProfile_Pk = @Param1) and (SubMenuMaster.IsA
        
 
 
-  
+  <button onclick="topFunction()" id="myBtn" class="myBtn" title="Go to top">Top</button>
        
 
     </form>

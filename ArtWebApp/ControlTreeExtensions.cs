@@ -152,9 +152,12 @@ namespace ArtWebApp
                    cmd.Connection = con;
                    con.Open();
 
-                   SqlDataReader rdr = cmd.ExecuteReader();
+                using (SqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    dt.Load(rdr);
+                }
 
-                   dt.Load(rdr);
+                   
                }
 
                return dt;
@@ -172,9 +175,10 @@ namespace ArtWebApp
                     cmd.Connection = con;
                     con.Open();
 
-                    SqlDataReader rdr = cmd.ExecuteReader();
-
-                    dt.Load(rdr);
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        dt.Load(rdr);
+                    }
                 }
             }
 

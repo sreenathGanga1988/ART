@@ -28,7 +28,7 @@ namespace ArtWebApp.DataModels
         public string LocationSequencenum { get; set; }
         public Nullable<decimal> Location_Pk { get; set; }
     
-        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
         public virtual CutOrderMaster CutOrderMaster { get; set; }
+        public virtual ICollection<LaySheetRollDetail> LaySheetRollDetails { get; set; }
     }
 }

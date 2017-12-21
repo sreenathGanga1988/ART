@@ -15,6 +15,7 @@ namespace ArtWebApp.DataModels
     public partial class ExtDeliveryToken
     {
         public decimal ExtDeliveryTokenID { get; set; }
+        public Nullable<decimal> AtcID { get; set; }
         public Nullable<decimal> SkuDet_PK { get; set; }
         public string ItemName { get; set; }
         public Nullable<decimal> Fromlocation { get; set; }
@@ -30,14 +31,13 @@ namespace ArtWebApp.DataModels
         public string Isdeleted { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public string DeletedBy { get; set; }
-        public Nullable<decimal> AtcID { get; set; }
         public Nullable<decimal> Itemgroup { get; set; }
         public Nullable<decimal> SKU { get; set; }
     
         public virtual AtcMaster AtcMaster { get; set; }
+        public virtual ItemGroupMaster ItemGroupMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual LocationMaster LocationMaster1 { get; set; }
         public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
-        public virtual ItemGroupMaster ItemGroupMaster { get; set; }
     }
 }

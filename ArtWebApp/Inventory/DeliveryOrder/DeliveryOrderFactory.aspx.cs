@@ -35,7 +35,15 @@ namespace ArtWebApp.Inventory
         protected void btn_confirmAtc_Click(object sender, EventArgs e)
         {
             DeliveryOrdertransaction dotran = new DeliveryOrdertransaction();
-            DataTable dt = dotran.GetStockItemDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()), "Trims");
+            DataTable dt = new DataTable();
+            if (int.Parse(Session["UserLoc_pk"].ToString())==6) {
+                dt = dotran.GetStockDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()));
+            }
+            else
+            {
+                dt = dotran.GetStockItemDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()), "Trims");
+            }
+         
             tbl_InverntoryDetails.DataSource = dt;
             tbl_InverntoryDetails.DataBind();
             upd_grid.Update();

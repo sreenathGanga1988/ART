@@ -322,8 +322,8 @@ body
                                                      <asp:TextBox ID="dtp_deliverydate" CssClass="dtpdeliverydate" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
 
 
-                                    <asp:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
-                                    </asp:CalendarExtender>
+                                    <ajaxToolkit:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
+                                    </ajaxToolkit:CalendarExtender>
 
                                                  </td>
                                                  <td>

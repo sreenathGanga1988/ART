@@ -39,7 +39,7 @@ namespace ArtWebApp.DataModels
         public string WeightUOM { get; set; }
         public string CtnUOM { get; set; }
     
-        public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
+        public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
     }
 }

@@ -129,6 +129,9 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 POmstr.Remark = "Po against RO";
                 POmstr.PONum = romstrdb.RONum;
                 POmstr.IsNormal = "N";
+                POmstr.FreightCharge = 0;
+                POmstr.FreightType = "No Charges";
+                POmstr.IsFreightChargeApproved = "N";
                 enty.ProcurementMasters.Add(POmstr);
 
 
@@ -223,6 +226,9 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 POmstr.DeliveryDate = DateTime.Now;
                 POmstr.Remark = "Po against Stock RO";
                 POmstr.PONum = romstrdb.RONum;
+                POmstr.FreightCharge = 0;
+                POmstr.FreightType = "No Charges";
+                POmstr.IsFreightChargeApproved = "N";
                 enty.ProcurementMasters.Add(POmstr);
 
 
@@ -381,6 +387,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 foreach (var element1 in q1)
                 {
                     element1.IsApproved = "Y";
+                    element1.IsFreightChargeApproved = "Y";
                     element1.ApprovedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                     element1.Approveddate = DateTime.Now;
 

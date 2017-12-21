@@ -353,7 +353,7 @@
 
             @foreach (var asqmstr in Model.ASQMAsters)
                 {
-                <tr>
+                <tr class="AsqTableRow">
                     <td class=" Selector"></td>
 
                     <td>
@@ -762,14 +762,15 @@
 
         $('#Submit').click(function () {
 
-            var asqtablemaster = document.getElementsByClassName("AsqTable");
+            var asqtablemaster = document.getElementsByClassName("AsqTable")[0];
             var list = [];
-            for (var i = 0; i < asqtablemaster.length; i++) {
+            alert(asqtablemaster.rows.length);
+            for (var i = 0; i < asqtablemaster.rows.length-1; i++) {
 
-
-
-
-                var currenttable = asqtablemaster[i];
+                
+                var currenttable = asqtablemaster.getElementsByClassName("AsqTableRow")[i]
+               
+                //var currenttable = asqtablemaster[i];
 
                 var Popackid = currenttable.getElementsByClassName("Popackid")[0].innerHTML;;
 
@@ -793,11 +794,11 @@
 
                     var htmlrow = sizewisetable.rows[0];
 
-                   // alert(currentqty.value);
+                 
                     var Sizename = htmlrow.cells[cellindex].getElementsByClassName("SizeName")[0].innerHTML;;
 
                     var ASQMAster = { PoPackId: Popackid, OurStyleID: Oursytlieid, CutPlan_PK: cutplanpk, ColorName: colorname, SizeName: Sizename, Qty: currentqty.value };
-
+                 
                     list.push(ASQMAster);
 
                 }
@@ -805,7 +806,7 @@
             }
            
             var things = JSON.stringify({ 'things': list });
-           
+          
             $.ajax({
                 type: 'POST',
                 url: "@Url.Action("Create", "CutPlanEdit")",

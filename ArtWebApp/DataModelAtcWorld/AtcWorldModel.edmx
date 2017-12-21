@@ -78,6 +78,7 @@
           <Property Name="CutPlan_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MarkerNUM" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQAllocationMaster_tbl">
           <Key>
@@ -564,6 +565,7 @@
           <Property Name="CutPlan_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MarkerNUM" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Fabricreqforpart">
           <Key>
@@ -822,6 +824,7 @@
           <EntitySetMapping Name="ArtLaySheetMasterDatas">
             <EntityTypeMapping TypeName="AtcModelModel.ArtLaySheetMasterData">
               <MappingFragment StoreEntitySet="ArtLaySheetMasterData">
+                <ScalarProperty Name="MarkerNUM" ColumnName="MarkerNUM" />
                 <ScalarProperty Name="CutPlanMarkerDetails_PK" ColumnName="CutPlanMarkerDetails_PK" />
                 <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
                 <ScalarProperty Name="CutPlan_PK" ColumnName="CutPlan_PK" />

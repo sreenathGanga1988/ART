@@ -16,8 +16,8 @@ namespace ArtWebApp.DataModels
     {
         public UserProfileMaster()
         {
-            this.UserProfileRights = new HashSet<UserProfileRight>();
             this.UserMasters = new HashSet<UserMaster>();
+            this.UserProfileRights = new HashSet<UserProfileRight>();
         }
     
         public decimal UserProfile_Pk { get; set; }
@@ -27,7 +27,7 @@ namespace ArtWebApp.DataModels
         public string IsActive { get; set; }
         public bool isActiveProfile { get; set; }
     
-        public virtual ICollection<UserProfileRight> UserProfileRights { get; set; }
         public virtual ICollection<UserMaster> UserMasters { get; set; }
+        public virtual ICollection<UserProfileRight> UserProfileRights { get; set; }
     }
 }

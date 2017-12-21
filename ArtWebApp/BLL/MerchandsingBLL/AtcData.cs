@@ -121,12 +121,12 @@ namespace ArtWebApp.BLL
 
         public void createOurStyle(AtcData atcdata)
         {
-            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum, atcdata.atcid);
+            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum, atcdata.atcid,atcdata.ShipDate1);
 
           atran. insertourstyle(dt);
         }
 
-        public DataTable CreateOurStyleDataTable(int totalstylenum, String AtcNum, int atcid)
+        public DataTable CreateOurStyleDataTable(int totalstylenum, String AtcNum, int atcid,DateTime shipmentdate)
         {
             String ourstyle = "";
             DataTable table = new DataTable();
@@ -138,6 +138,8 @@ namespace ArtWebApp.BLL
             table.Columns.Add("Qty", typeof(float));
             table.Columns.Add("Fob", typeof(float));
             table.Columns.Add("Catid", typeof(float));
+            table.Columns.Add("MinutesperGarment", typeof(float));
+            table.Columns.Add("MerchantPCD", typeof(DateTime));
             for (int i = 1; i < totalstylenum + 1; i++)
             {
                 if (i < 9)
@@ -148,7 +150,8 @@ namespace ArtWebApp.BLL
                 {
                     ourstyle = i.ToString() + AtcNum;
                 }
-                table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0);
+               // table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0);
+                table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0, 0.0,shipmentdate);
             }
             return table;
         }
@@ -257,6 +260,7 @@ namespace ArtWebApp.BLL
 
         public Decimal ProjectionQty { get; set; }
       
+        public DateTime MerchantPCD { get; set; }
         public float TxtMinutesPerGarment1 { get => txtMinutesPerGarment; set => txtMinutesPerGarment = value; }
 
         public void OurStyleForpproval()
@@ -335,6 +339,10 @@ namespace ArtWebApp.BLL
                     element.FOB = ourstl.Fob;
                     element.CategoryID = decimal.Parse(ourstl.Catid.ToString());
                     element.BuyerStyle = ourstl.BuyerStyle1.Trim ();
+                    element.MerchantPCD = ourstl.MerchantPCD;
+                    element.MinutesperGarment =Decimal.Parse( ourstl.txtMinutesPerGarment.ToString());
+                    
+
 
                     if(oldfob== ourstl.Fob)
                     {

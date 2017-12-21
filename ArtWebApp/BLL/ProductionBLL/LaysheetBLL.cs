@@ -271,7 +271,7 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
                             lymstrdata.CutPlan_PK = int.Parse(dr["CutPlan_PK"].ToString());
                             lymstrdata.LaySheet_PK = int.Parse(dr["LaySheet_PK"].ToString());
                             lymstrdata.CutPlanMarkerDetails_PK= CutPlanMarkerDetails_PK;
-
+                            lymstrdata.MarkerNUM = int.Parse(dr["MarkerNo"].ToString());
                             lymstrdata.IsApproved = dr["IsApproved"].ToString();
 
 
@@ -321,7 +321,7 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
 
                         if (!atcenty.ArtCutPlanMarkerSizeDetails.Any(f => f.CutPlanSize_PK == CutPlanSize_PK))
                         {
-                            ArtCutPlanMarkerSizeDetail asqdet = new DataModelAtcWorld.ArtCutPlanMarkerSizeDetail();
+                            DataModelAtcWorld.ArtCutPlanMarkerSizeDetail asqdet = new DataModelAtcWorld.ArtCutPlanMarkerSizeDetail();
 
 
 
@@ -461,7 +461,7 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
                             lymstrdata.CutPlan_PK = int.Parse(dr["CutPlan_PK"].ToString());
                             lymstrdata.LaySheet_PK = int.Parse(dr["LaySheet_PK"].ToString());
                             lymstrdata.CutPlanMarkerDetails_PK = CutPlanMarkerDetails_PK;
-
+                            
                             lymstrdata.IsApproved = dr["IsApproved"].ToString();
 
 
@@ -511,7 +511,7 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
 
                         if (!atcenty.ArtCutPlanMarkerSizeDetails.Any(f => f.CutPlanSize_PK == CutPlanSize_PK))
                         {
-                            ArtCutPlanMarkerSizeDetail asqdet = new DataModelAtcWorld.ArtCutPlanMarkerSizeDetail();
+                            DataModelAtcWorld.ArtCutPlanMarkerSizeDetail asqdet = new DataModelAtcWorld.ArtCutPlanMarkerSizeDetail();
 
 
 
@@ -582,7 +582,7 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
 
                 cmd.CommandText = @"SELECT        CutPlanMaster.CutPlanNUM, CutPlanMaster.ColorName, LaySheetMaster.LaySheetNum, LocationMaster.LocationName, LocationMaster.Location_PK, CutOrderDetails.CutOrderDet_PK, 
 CutOrderDetails.CutID, CutOrderMaster.Cut_NO, CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.CutWidth, CutOrderMaster.AtcID, CutOrderMaster.OurStyleID, CutPlanMaster.CutPlan_PK, 
-                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded
+                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded,CutOrderDetails.MarkerNo
 FROM            CutOrderDetails INNER JOIN
                          LaySheetMaster ON CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK INNER JOIN
                          CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID INNER JOIN
@@ -590,7 +590,7 @@ FROM            CutOrderDetails INNER JOIN
                          LocationMaster ON LaySheetMaster.Location_PK = LocationMaster.Location_PK
 GROUP BY CutPlanMaster.CutPlanNUM, CutPlanMaster.ColorName, LaySheetMaster.LaySheetNum, LocationMaster.LocationName, LocationMaster.Location_PK, CutOrderDetails.CutOrderDet_PK, CutOrderDetails.CutID, 
                          CutOrderMaster.Cut_NO, CutOrderMaster.Shrinkage, CutOrderMaster.MarkerType, CutOrderMaster.CutWidth, CutOrderMaster.AtcID, CutOrderMaster.OurStyleID, CutPlanMaster.CutPlan_PK, 
-                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded
+                         LaySheetMaster.LaySheet_PK, LaySheetMaster.IsEdited, CutOrderMaster.CutQty, LaySheetMaster.IsApproved, LaySheetMaster.IsUploaded, LaySheetMaster.IsDetailUploaded, CutOrderDetails.MarkerNo
 HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
                 cmd.Parameters.AddWithValue("@laysheetpk", laysheetpk);

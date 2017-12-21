@@ -1,0 +1,466 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcChartMasterViewModal
+@using System.Data;
+<script src="~/Scripts/jquery.table2excel.js"></script>
+<script src="~/JQuery/ExporttoExcel.js"></script>
+<link href="~/css/LinedDatatTable.css" rel="stylesheet" />
+<style>
+</style>
+
+@using (Html.BeginForm("Export", null, FormMethod.Post, new { id = "export" }))
+{
+    @Html.HiddenFor(x => x.Csv)
+    <button type="submit">Export to Excel</button>
+}
+
+<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js"></script>
+<script type="text/javascript">
+    $('#export').submit(function () {
+        $('#Csv').val($('#myTable').table2CSV({ delivery: 'value' }));
+    });
+</script>
+<div class="container">
+    <table class="table table-bordered table-striped table-responsive MyDataTable mydatagrid">
+
+        <thead>
+
+            <tr>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>Color Name</th>
+                <th>Size Name</th>
+                <th>Item Color</th>
+                <th>Item Size</th>
+                <th>Unit Rate</th>
+                <th>Garment Qty</th>
+                <th>Consumption</th>
+                <th>Wastage %</th>
+                <th>RqdQty</th>
+                <th>Uom</th>
+                <th>Planned Qty</th>
+                <th>Planned Details</th>
+                <th>Balance To Plan</th>
+                <th>Po Issued Qty</th>
+                <th>PO Details</th>
+                <th>Balance Qty</th>
+                <th>ADN Details</th>
+                <th>Shipping Details</th>
+                <th>Onhand Details</th>
+                <th>Pending to Recieve</th>
+                <th>Transist Details</th>
+                <th>Cutorder Details</th>
+                <th>Receipt Details</th>
+                <th>Remark</th>
+                <th>Styles</th>
+                <th>SkuDet_PK</th>
+            </tr>
+
+
+        </thead>
+
+        <tbody>
+
+            @if (Model != null)
+            {
+
+                if (Model.atcChartmaster != null)
+                {
+
+
+
+                    foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.BomData bomData in Model.atcChartmaster.BomDataList)
+                    {
+                        <tr>
+
+                            <td>@bomData.RMNum</td>
+                            <td>@bomData.Description</td>
+                            <td>@bomData.ColorName</td>
+                            <td>@bomData.SizeName</td>
+                            <td>@bomData.ItemColor</td>
+                            <td>@bomData.ItemSize</td>
+                            <td>@bomData.UnitRate</td>
+                            <td>@bomData.GarmentQty Qty</td>
+                            <td>@bomData.Consumption</td>
+                            <td>@bomData.WastagePercentage</td>
+                            <td>@bomData.RqdQty</td>
+                            <td>@bomData.UomCode</td>
+                            <td>@bomData.PlannedQty</td>
+                            <td>
+                                @if (bomData.PlannedDetailsList != null)
+                                {
+                                    if (bomData.PlannedDetailsList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>ETA</th>
+                                                    <th>Qty</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.PlannedDetails plandetails in bomData.PlannedDetailsList)
+                                                {
+
+                                                    <tr>
+
+                                                        <td>@plandetails.ETADate</td>
+                                                        <td>@plandetails.Qty</td>
+
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+                            </td>
+                            <td>@bomData.balanceToPlan</td>
+                            <td>@bomData.PoIssuedQty</td>
+                            <td>
+                                @if (bomData.PODetailsList != null)
+                                {
+                                    if (bomData.PODetailsList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>PO #</th>
+                                                    <th>POQty</th>
+                                                    <th>Uom</th>
+                                                    <th>Supplier</th>
+                                                    <th>Base UOM Qty</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.PODetails podetails in bomData.PODetailsList)
+                                                {
+
+                                                    <tr>
+
+                                                        <td>@podetails.PONum</td>
+                                                        <td>@podetails.POQty</td>
+                                                        <td>@podetails.UomCode</td>
+                                                        <td>@podetails.SupplierName</td>
+                                                        <td>@podetails.BaseUOMQty</td>
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+
+
+
+                            </td>
+                            <td>@bomData.BalanceQty</td>
+                            <td>
+                                @if (bomData.ADNDetailsList != null)
+                                {
+                                    if (bomData.ADNDetailsList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>Doc #</th>
+                                                    <th>Container #</th>
+                                                    <th>BOENum</th>
+                                                    <th>PONum</th>
+                                                    <th>Qty</th>
+                                                    <th>Uom</th>
+                                                    <th>ExtraQty</th>
+                                                    <th>ADNType</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.ADNDetails aDNDetails in bomData.ADNDetailsList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@aDNDetails.DocNum</td>
+                                                        <td>@aDNDetails.ContainerNum</td>
+                                                        <td>@aDNDetails.BOENum</td>
+                                                        <td>@aDNDetails.PONum</td>
+                                                        <td>@aDNDetails.Qty</td>
+                                                        <td>@aDNDetails.ExtraQty</td>
+                                                        <td>@aDNDetails.ADNType</td>
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (bomData.InBoundDetailsList != null)
+                                {
+                                    if (bomData.InBoundDetailsList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>ShipperInv</th>
+                                                    <th>ETA </th>
+                                                    <th>Conatianer</th>
+                                                    <th>Qty</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.InBoundDetails inBoundDetails in bomData.InBoundDetailsList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@inBoundDetails.ShipperInv</td>
+                                                        <td>@inBoundDetails.ETA</td>
+                                                        <td>@inBoundDetails.Conatianer</td>
+                                                        <td>@inBoundDetails.Qty</td>
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+
+                                }
+
+                            </td>
+                            <td>
+                                @if (bomData.OrderOnHandList != null)
+                                {
+                                    if (bomData.OrderOnHandList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>LocationPrefix</th>
+                                                    <th>OnhandQty </th>
+                                                    <th>BaseUOMQty</th>
+                                                    <th>LocType</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.OrderOnHand orderOnHand in bomData.OrderOnHandList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@orderOnHand.LocationPrefix</td>
+                                                        <td>@orderOnHand.OnhandQty</td>
+                                                        <td>@orderOnHand.BaseUOMQty</td>
+                                                        <td>@orderOnHand.LocType</td>
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+
+
+                                }
+                            </td>
+                            <td>@bomData.PendingtoRecieve</td>
+                            <td>@bomData.TransistDetails</td>
+                            <td>@bomData.CutorderDetails</td>
+                            <td>
+                                @if (bomData.ReceiptDetailsList != null)
+                                {
+                                    if (bomData.ReceiptDetailsList.Count != 0)
+                                    {
+
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>MrnNum</th>
+                                                    <th>Qty </th>
+                                                    <th>UomCode</th>
+                                                    <th>PONum</th>
+                                                    <th>LocationPrefix </th>
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.ReceiptDetails receiptDetails in bomData.ReceiptDetailsList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@receiptDetails.MrnNum</td>
+                                                        <td>@receiptDetails.Qty</td>
+                                                        <td>@receiptDetails.UomCode</td>
+                                                        <td>@receiptDetails.PONum</td>
+                                                        <td>@receiptDetails.LocationPrefix</td>
+
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (bomData.RemarkDetailsList != null)
+                                {
+                                    if (bomData.RemarkDetailsList.Count != 0)
+                                    {
+
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>Remark</th>
+                                                    <th>AddedDate </th>
+                                                    <th>AddedBy</th>
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.RemarkDetails remarkDetails in bomData.RemarkDetailsList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@remarkDetails.Remark</td>
+                                                        <td>@remarkDetails.AddedDate</td>
+                                                        <td>@remarkDetails.AddedBy</td>
+
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (bomData.OurStyleDetailsList != null)
+                                {
+                                    if (bomData.OurStyleDetailsList.Count != 0)
+                                    {
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>OurStyle</th>
+                                                    <th>Consumption </th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.OurStyleDetails ourstyledetials in bomData.OurStyleDetailsList)
+                                                {
+
+                                                    <tr>
+
+
+                                                        <td>@ourstyledetials.OurStyle</td>
+                                                        <td>@ourstyledetials.Consumption</td>
+
+
+
+                                                    </tr>
+
+                                                }
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    }
+                                }
+                            </td>
+                            <td>@bomData.SkuDet_PK</td>
+
+                        </tr>
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+            }
+
+
+        </tbody>
+
+
+
+
+
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Submit" type="submit" value="Submit Fabric request" class="btn btn-default show" />
+        </div>
+    </div>
+</div>
+

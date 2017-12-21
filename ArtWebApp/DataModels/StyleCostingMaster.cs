@@ -39,6 +39,7 @@ namespace ArtWebApp.DataModels
         public string IsFowarded { get; set; }
         public string ForwardedBy { get; set; }
         public string IsLocalApproval { get; set; }
+        public Nullable<decimal> AtcID { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual ICollection<StyleCostingComponentDetail> StyleCostingComponentDetails { get; set; }

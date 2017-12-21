@@ -73,8 +73,9 @@ namespace ArtWebApp.DBTransaction
                         int catid = int.Parse(dt.Rows[i]["Catid"].ToString());
                         int qty = 0;
                         decimal fob = int.Parse (dt.Rows[i]["Fob"].ToString());
-
-                       if (!enty.AtcDetails.Any(f => f.OurStyle.Trim() == Ourstyle.Trim() && f.AtcId == atcid))
+                        
+                        DateTime pcd= DateTime.Parse(dt.Rows[i]["MerchantPCD"].ToString());
+                        if (!enty.AtcDetails.Any(f => f.OurStyle.Trim() == Ourstyle.Trim() && f.AtcId == atcid))
                         {
                             AtcDetail atcdet = new AtcDetail();
                             atcdet.AtcId = atcid;
@@ -83,6 +84,7 @@ namespace ArtWebApp.DBTransaction
                             atcdet.Quantity = qty;
                             atcdet.FOB = fob;
                             atcdet.CategoryID = 0;
+                            atcdet.MerchantPCD = pcd;
                             enty.AtcDetails.Add(atcdet);
                         }
                         else

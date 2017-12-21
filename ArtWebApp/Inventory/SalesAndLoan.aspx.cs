@@ -167,5 +167,10 @@ namespace ArtWebApp.Inventory
                 InsertLoan();
             }
         }
+
+        protected void btn_maintenance_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -666,6 +666,8 @@ HAVING        (CutID = @Param1)";
                     this.Skudet_pk = int.Parse(element.SkuDet_PK.ToString());
                     this.ColorCode = element.ColorCode.ToString();
                     this.ColorName = element.ColorName.ToString();
+                    this.Ourstyleid= int.Parse(element.OurStyleID.ToString());
+                    this.Atcid = int.Parse(element.AtcDetail.AtcId.ToString());
                     element.IsCutorderGiven = "Y";
                     element.CutOrderConsumption= this.ApprovedConsumption;
 
@@ -827,6 +829,7 @@ HAVING        (CutID = @Param1)";
                     ctmstr.CutQty = this.CutOrderQty;
                     ctmstr.FabQty = this.CofabAllocation;
                     ctmstr.IsDeleted = "N";
+                    ctmstr.IsClosed = "N";
                     ctmstr.ColorCode = this.ColorCode;
                     ctmstr.ColorName = this.ColorName;
                     ctmstr.BalanceQty = 0;

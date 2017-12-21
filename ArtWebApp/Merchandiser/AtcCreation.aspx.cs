@@ -42,6 +42,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
             mstr.ProjectionQty = int.Parse(txt_projqty.Text);
             mstr.IsProjectionApproved = "N";
             mstr.ProductionCountryID= int.Parse(cmb_prodcountry.SelectedValue.ToString());
+            mstr.IsAtcWord = "Y";
             enty.AtcMasters.Add(mstr);     
                      
            

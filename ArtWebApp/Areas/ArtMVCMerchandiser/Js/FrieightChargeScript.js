@@ -160,7 +160,7 @@ $(document).ready(function () {
             } else {
                 var orderItem = {
                     AtcID: $('select.AtcID', this).val(),
-                    FreightCharge: parseInt($('.NewValue', this).val())
+                    FreightCharge: parseFloat($('.NewValue', this).val())
                 }
                 list.push(orderItem);
             }
@@ -278,8 +278,9 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 success: function (data) {
                     if (data.status) {
-                        alert('Successfully saved');
+                        alert('Successfully saved ' + data.Reqnum);
                         //here we will clear the form
+                        
                         list = [];
                         $('#orderNo,#orderDate,#description').val('');
                         $('#orderdetailsItems').empty();

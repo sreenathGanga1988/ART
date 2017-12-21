@@ -37,6 +37,7 @@ namespace ArtWebApp.DataModels
         public string DoType { get; set; }
         public string ExportContainer { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual DeliveryMethodMaster DeliveryMethodMaster { get; set; }
         public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
         public virtual DeliveryOrderMaster DeliveryOrderMaster1 { get; set; }
@@ -46,6 +47,5 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DeliveryReceiptMaster> DeliveryReceiptMasters { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
         public virtual ICollection<GoodsInTransit> GoodsInTransits { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

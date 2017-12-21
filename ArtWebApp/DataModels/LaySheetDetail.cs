@@ -33,9 +33,9 @@ namespace ArtWebApp.DataModels
         public string DeletedBy { get; set; }
         public Nullable<System.DateTime> Deleteddate { get; set; }
     
-        public virtual LaySheetMaster LaySheetMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
-        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
+        public virtual LaySheetMaster LaySheetMaster { get; set; }
         public virtual LaySheetRollDetail LaySheetRollDetail { get; set; }
+        public virtual ICollection<LayShortageDetail> LayShortageDetails { get; set; }
     }
 }

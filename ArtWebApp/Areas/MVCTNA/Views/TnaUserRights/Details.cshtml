@@ -1,0 +1,139 @@
+﻿@model ArtWebApp.DataModels.TnaUserRight
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TnaUserRight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPPSumbissionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPPSumbissionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPPApprovalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPPApprovalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSampleYardagesDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSampleYardagesDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGradedPatternDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsGradedPatternDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsBulkFabricDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsBulkFabricDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSewingTrimDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSewingTrimDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSizeSetDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSizeSetDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPPMeetingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPPMeetingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFC1Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFC1Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFinalMarkerDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFinalMarkerDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFactoryPlannedPCDDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFactoryPlannedPCDDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMerchandisingPCDDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMerchandisingPCDDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsInputDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsInputDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPackingTrimDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPackingTrimDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserMaster.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserMaster.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TNAUserRightID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

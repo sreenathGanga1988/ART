@@ -1,0 +1,469 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.Models.CutplanViewModel
+@using System.Data;
+@{
+    ViewBag.Title = "CutplanAsqShuffle";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cutplan Asq Shuffle</h2>
+
+@if (TempData["Error"] != null)
+{
+    <text>
+        <script>
+            $(document).ready(function () {
+               alert('@TempData["Error"]');
+            });
+        </script>
+    </text>
+}
+<table class="table table-bordered table-responsive" id="HeaderTableData">
+    <thead>
+        <tr>
+            @foreach (DataColumn col in Model.HeaderTableData.Columns)
+            {
+                <th>
+                    @if (col.ColumnName == "Color")
+                    { @col.ColumnName
+                        @*@Html.Label(col.ColumnName, col.ColumnName, new { @class = "YourClass" })*@
+                    }
+                    else
+                    {
+                        @col.ColumnName
+                        @*@Html.Label(col.ColumnName, col.ColumnName, new { @class = "SizeNameHeader" })*@
+                    }
+
+
+
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+
+            int CurentRowofTable = 0;
+
+            foreach (DataRow row in Model.HeaderTableData.Rows)
+            {
+
+                int PlannedRow = 0;
+                int RatioRow = 1;
+                int NewQtyRow = 2;
+                int columncount = Model.HeaderTableData.Columns.Count - 1;
+
+
+
+                DataColumn startincolumn = Model.HeaderTableData.Columns[0];
+                DataColumn TotalColumn = Model.HeaderTableData.Columns[columncount];
+
+                if (CurentRowofTable < 3)
+                {
+                    if (CurentRowofTable == PlannedRow)
+                    {
+                        <tr class="PlannedRow">
+
+                            @foreach (DataColumn col in Model.HeaderTableData.Columns)
+                            {
+                                <td>
+
+                                   
+                                            <div class="PlannedQty">
+                                                @row[col.ColumnName]
+                                            </div>
+                                        
+                                </td>
+                               
+                            }
+                            </tr>
+                    }
+                    else if (CurentRowofTable == RatioRow)
+                    {
+                        <tr class="RatioRow">
+
+
+                            @foreach (DataColumn col in Model.HeaderTableData.Columns)
+                            {
+                                <td>
+
+                                   
+                                            @row[col.ColumnName]
+                                       
+                                </td>
+
+                                        }
+
+
+                        </tr>
+
+
+                    }
+                    else if (CurentRowofTable == NewQtyRow)
+                    {
+                        <tr class="NewQtyRow">
+
+
+                            @foreach (DataColumn col in Model.HeaderTableData.Columns)
+                            {
+
+
+
+                                
+
+
+                                    if (col.ColumnName.Trim()== "Column1")
+                                    {
+                                      <td>
+                                            Total
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+                                        <td>
+                                           0
+                                        </td >
+
+                                    }
+
+
+
+
+
+
+                            }
+
+
+                        </tr>
+
+
+                    }
+
+
+
+
+
+
+                   
+
+                                        CurentRowofTable++;
+                }
+
+
+
+
+
+
+
+
+                                }
+
+
+
+
+
+        }
+
+    </tbody>
+
+</table>
+
+
+
+<div class="row">
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<h2> ASQ Details</h2>
+
+
+<table class="table table-bordered table-responsive AsqTable">
+
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th> PO Details</th>
+            <th> SizeColorDetails</th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+        @foreach (var asqmstr in Model.ASQMAsters)
+        {
+            <tr class="AsqTableRow">
+                <td class=" Selector"></td>
+
+                <td>
+                    <table class="tittlebar">
+                        <tbody>
+                            <tr>
+                                <td class="NormalTD">ASQ</td>
+                                <td class="NormalTD">
+                                    <span> @asqmstr.ASQ</span>
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">BuyerPO</td>
+                                <td class="NormalTD">
+                                    <span>@asqmstr.BuyerPO</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">BuyerStyle</td>
+                                <td class="NormalTD">
+                                    <span>@asqmstr.BuyerStyle</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">OurStyle</td>
+                                <td class="NormalTD">
+                                    <span>@asqmstr.OurStyle</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">SeasonName</td>
+                                <td class="NormalTD">
+                                    <span>@asqmstr.SeasonName</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="NormalTD">HD</td>
+                                <td class="NormalTD">
+                                    <span>@asqmstr.HandoverDate</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+
+
+                    <table class="table table-bordered Sizewisedetails">
+                        <thead>
+                            <tr>
+
+                                <th>PoPackDetid</th>
+                                <th>PoPackID</th>
+                                <th>OurStyleID</th>
+                                <th>CutPlanPK</th>
+                                <th>ColorName</th>
+                                <th>SizeName</th>
+                                <th>Qty</th>
+                                <th>New Qty</th>
+                                <th>Reduced Qty</th>
+                                <th>Adjusted Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in asqmstr.SizewiseDetailsWithDetPK.Rows)
+                            {
+                                <tr>
+                                    <td class="PoPack_Detail_PK">@row["PoPack_Detail_PK"]</td>
+                                    <td>@row["PoPackID"]</td>
+                                    <td>@row["OurStyleID"]</td>
+                                    <td  class="CutPlan_PK">@row["CutPlan_PK"]</td>
+                                    <td>@row["ColorName"]</td>
+                                    <td>
+                                        <span class="SizeName">
+                                            @row["SizeName"]
+                                        </span>
+                                    </td>
+
+
+                                    <td>@row["CutQty"]</td>
+                                    <td >
+                                        @Html.TextBox(row["PoPack_Detail_PK"].ToString(), @row["CutQty"], new { @class = "NewQtyclass", style = "width:60px" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("0", new { @class = "ReducedQty", style = "width:60px" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("0", new { @class = "AdjustedQty", style = "width:60px" })
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="Submit" type="button" value="Submit" class="btn btn-default show" />
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('body').on('keypress', '.NewQtyclass', function () {
+
+
+            //$("#Submit").attr("disabled", true);
+
+
+
+        });
+
+
+        $('body').on('change', '.NewQtyclass', function () {
+
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            var $sizename = $tr.find("td span[class='SizeName']").first();
+
+            var currentchangedsize = $sizename.text();
+
+            $(".NewQtyclass").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var Currentsizename = $currentrow.find("td span[class='SizeName']").first().text();
+
+                if (Currentsizename == currentchangedsize) {
+                    var $currentvalueofcurrentrowQty = $currentrow.find("td input[class='NewQtyclass']").first();
+
+                    totalvalue = parseFloat(totalvalue.toString()) + parseFloat($currentvalueofcurrentrowQty.val());
+                    //alert(totalvalue);
+                    $currentrow.css("background-color", "LightCoral ");
+                    $currentvalueofcurrentrowQty.css("background-color", "Red ");
+                }
+                else {
+                    $currentrow.css("background-color", "White ");
+                }
+
+            });
+
+
+
+
+            //section for summary
+
+
+
+
+            $('#HeaderTableData thead tr th').each(function () {
+
+                if ($(this).html().trim() == currentchangedsize.trim()) {
+
+                    //var td = $(this).cellIndex;
+                  
+
+                    var td = $(this).index();
+                   
+
+                    //Get AlreadyLayedvalue of column
+                    var $row = $('#HeaderTableData').find('tr').eq(3);
+
+                    var $Alreadylayed = $row.find("td:eq(" + td + ")");
+                    $Alreadylayed.css("background-color", "cyan");
+                    $Alreadylayed.text(totalvalue);
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+        $("#Submit").click(function (e, params) {
+
+            var list = [];
+            var Id = $('#CutPlanPK').find('option:selected').val();
+            $(".PoPack_Detail_PK").each(function () {
+
+                var $tr = $(this).closest("tr");
+                var $CutPlan_PK = $tr.find("td.CutPlan_PK");
+               
+
+                var PoPack_Detail_PK = $(this).text();              
+                var CutPlan_PK = $CutPlan_PK.text();
+                var Qty = $tr.find("td input[class='NewQtyclass']").first().val();
+
+               
+                var ASQMAster = { PoPackdetID: PoPack_Detail_PK, CutPlan_PK: CutPlan_PK, Qty: Qty, ActualCutPlan_PK:Id };
+
+                list.push(ASQMAster);
+
+
+
+
+            });
+
+
+
+            var things = JSON.stringify({ 'things': list });
+          
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Create", "CutPlanASQShuffle")",
+               data: things,
+               
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+
+
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+
+        });
+
+    });
+
+
+
+
+
+
+
+
+
+</script>

@@ -27,29 +27,58 @@ namespace ArtWebApp.DataModels
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<SupplierDocumentMaster> SupplierDocumentMasters { get; set; }
+        public virtual DbSet<LaySheetRollDetail> LaySheetRollDetails { get; set; }
         public virtual DbSet<AltUOMMaster> AltUOMMasters { get; set; }
         public virtual DbSet<ApprovalTable> ApprovalTables { get; set; }
+        public virtual DbSet<ASQAllocationMaster> ASQAllocationMasters { get; set; }
+        public virtual DbSet<ASQShuffleDetail> ASQShuffleDetails { get; set; }
+        public virtual DbSet<ASQShuffleMaster> ASQShuffleMasters { get; set; }
+        public virtual DbSet<AtcApproval> AtcApprovals { get; set; }
         public virtual DbSet<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual DbSet<AtcDetail> AtcDetails { get; set; }
+        public virtual DbSet<AtcExpenseMaster> AtcExpenseMasters { get; set; }
+        public virtual DbSet<AtcMaster> AtcMasters { get; set; }
         public virtual DbSet<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
+        public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
+        public virtual DbSet<ATCWorldToArtShipDataDummy> ATCWorldToArtShipDataDummies { get; set; }
+        public virtual DbSet<AtcWorldToArtSubConWTW> AtcWorldToArtSubConWTWs { get; set; }
         public virtual DbSet<BankMaster> BankMasters { get; set; }
+        public virtual DbSet<BodyPartMaster> BodyPartMasters { get; set; }
         public virtual DbSet<BuyerDestinationMaster> BuyerDestinationMasters { get; set; }
         public virtual DbSet<BuyerMaster> BuyerMasters { get; set; }
         public virtual DbSet<BuyerPOMaster> BuyerPOMasters { get; set; }
         public virtual DbSet<BuyerStyleMaster> BuyerStyleMasters { get; set; }
         public virtual DbSet<CalculationModeMaster> CalculationModeMasters { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ChannelMaster> ChannelMasters { get; set; }
+        public virtual DbSet<CityMaster> CityMasters { get; set; }
         public virtual DbSet<ColorMaster> ColorMasters { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<ContainerMaster> ContainerMasters { get; set; }
+        public virtual DbSet<ControlDiemension> ControlDiemensions { get; set; }
         public virtual DbSet<CostingComponentMaster> CostingComponentMasters { get; set; }
         public virtual DbSet<CountryMaster> CountryMasters { get; set; }
         public virtual DbSet<CourierTable> CourierTables { get; set; }
+        public virtual DbSet<CreditNoteMaster> CreditNoteMasters { get; set; }
         public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
+        public virtual DbSet<CutInAtcWorld> CutInAtcWorlds { get; set; }
+        public virtual DbSet<CutOrderDetail> CutOrderDetails { get; set; }
         public virtual DbSet<CutOrderDO> CutOrderDOes { get; set; }
+        public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual DbSet<CutOrderSizeDetail> CutOrderSizeDetails { get; set; }
         public virtual DbSet<CutPlanASQDetail> CutPlanASQDetails { get; set; }
+        public virtual DbSet<CutPlanMarkerDetail> CutPlanMarkerDetails { get; set; }
         public virtual DbSet<CutPlanMarkerSizeDetail> CutPlanMarkerSizeDetails { get; set; }
+        public virtual DbSet<CutPlanMarkerType> CutPlanMarkerTypes { get; set; }
+        public virtual DbSet<CutPlanMaster> CutPlanMasters { get; set; }
+        public virtual DbSet<CutplanRefPattern> CutplanRefPatterns { get; set; }
+        public virtual DbSet<CutPlanRejectHistory> CutPlanRejectHistories { get; set; }
+        public virtual DbSet<CutPlanRejectionMaster> CutPlanRejectionMasters { get; set; }
+        public virtual DbSet<CutPlanRollDetail> CutPlanRollDetails { get; set; }
         public virtual DbSet<CuttingDetail> CuttingDetails { get; set; }
+        public virtual DbSet<CutTypeMaster> CutTypeMasters { get; set; }
+        public virtual DbSet<DeletedCutPlan> DeletedCutPlans { get; set; }
         public virtual DbSet<DeliveryMethodMaster> DeliveryMethodMasters { get; set; }
         public virtual DbSet<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
         public virtual DbSet<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
@@ -60,21 +89,38 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<DeliveryReceiptStockDetail> DeliveryReceiptStockDetails { get; set; }
         public virtual DbSet<DeliveryStockReceiptMaster> DeliveryStockReceiptMasters { get; set; }
         public virtual DbSet<DeliveryTermMaster> DeliveryTermMasters { get; set; }
+        public virtual DbSet<DepartmentMaster> DepartmentMasters { get; set; }
+        public virtual DbSet<DeviceMaster> DeviceMasters { get; set; }
+        public virtual DbSet<DeviceType> DeviceTypes { get; set; }
         public virtual DbSet<DocDetail> DocDetails { get; set; }
+        public virtual DbSet<DocMaster> DocMasters { get; set; }
         public virtual DbSet<DORollDetail> DORollDetails { get; set; }
         public virtual DbSet<ELMAH_Error> ELMAH_Error { get; set; }
+        public virtual DbSet<EmployeeDetail> EmployeeDetails { get; set; }
         public virtual DbSet<EtaDate> EtaDates { get; set; }
+        public virtual DbSet<EthiopiaToARTShip_Tbl> EthiopiaToARTShip_Tbl { get; set; }
+        public virtual DbSet<ExceptionAtcList> ExceptionAtcLists { get; set; }
+        public virtual DbSet<ExpenseTypeMaster> ExpenseTypeMasters { get; set; }
+        public virtual DbSet<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
         public virtual DbSet<ExtraBOMRequestDetail> ExtraBOMRequestDetails { get; set; }
         public virtual DbSet<ExtraBOMRequestMaster> ExtraBOMRequestMasters { get; set; }
+        public virtual DbSet<ExtraRequestReason> ExtraRequestReasons { get; set; }
         public virtual DbSet<ExtraRequestReasonMaster> ExtraRequestReasonMasters { get; set; }
+        public virtual DbSet<FabricRollmaster> FabricRollmasters { get; set; }
         public virtual DbSet<FactoryType> FactoryTypes { get; set; }
         public virtual DbSet<FactWareLinkMaster> FactWareLinkMasters { get; set; }
+        public virtual DbSet<FreightChargeDetail> FreightChargeDetails { get; set; }
+        public virtual DbSet<FreightRequestMaster> FreightRequestMasters { get; set; }
         public virtual DbSet<GarmentCategory> GarmentCategories { get; set; }
+        public virtual DbSet<GeneralFreightRequestMaster> GeneralFreightRequestMasters { get; set; }
+        public virtual DbSet<Geogrpahy> Geogrpahies { get; set; }
         public virtual DbSet<GoodsInTransit> GoodsInTransits { get; set; }
         public virtual DbSet<GroupDependantItem> GroupDependantItems { get; set; }
         public virtual DbSet<InventoryLoanMaster> InventoryLoanMasters { get; set; }
         public virtual DbSet<InventoryMaster> InventoryMasters { get; set; }
         public virtual DbSet<InventoryMissingDetail> InventoryMissingDetails { get; set; }
+        public virtual DbSet<InventoryMissingRequest> InventoryMissingRequests { get; set; }
+        public virtual DbSet<InventorySalesDetail> InventorySalesDetails { get; set; }
         public virtual DbSet<InventorySalesMaster> InventorySalesMasters { get; set; }
         public virtual DbSet<InventoryStockTransferDetail> InventoryStockTransferDetails { get; set; }
         public virtual DbSet<InventoryStockTransferMaster> InventoryStockTransferMasters { get; set; }
@@ -82,26 +128,71 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<InvoiceMaster> InvoiceMasters { get; set; }
         public virtual DbSet<ItemGroupMaster> ItemGroupMasters { get; set; }
         public virtual DbSet<JobContractDetail> JobContractDetails { get; set; }
+        public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
+        public virtual DbSet<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
         public virtual DbSet<JobContractOptionalMaster> JobContractOptionalMasters { get; set; }
+        public virtual DbSet<LabChargeDetail> LabChargeDetails { get; set; }
+        public virtual DbSet<LabRequestMaster> LabRequestMasters { get; set; }
+        public virtual DbSet<LayAdjustDetail> LayAdjustDetails { get; set; }
+        public virtual DbSet<LaySheetDetail> LaySheetDetails { get; set; }
+        public virtual DbSet<LaySheetMaster> LaySheetMasters { get; set; }
+        public virtual DbSet<LaySheetRollMaster> LaySheetRollMasters { get; set; }
+        public virtual DbSet<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
+        public virtual DbSet<LayShortageDetail> LayShortageDetails { get; set; }
+        public virtual DbSet<LayShortageReqMaster> LayShortageReqMasters { get; set; }
         public virtual DbSet<LCBankAdviceDetail> LCBankAdviceDetails { get; set; }
         public virtual DbSet<LCDetail> LCDetails { get; set; }
         public virtual DbSet<LCMaster> LCMasters { get; set; }
+        public virtual DbSet<LocalBuyerMaster> LocalBuyerMasters { get; set; }
+        public virtual DbSet<LocationGroupDetail> LocationGroupDetails { get; set; }
+        public virtual DbSet<LocationGroupMaster> LocationGroupMasters { get; set; }
         public virtual DbSet<LocationMaster> LocationMasters { get; set; }
         public virtual DbSet<LocationType> LocationTypes { get; set; }
+        public virtual DbSet<LockedASQDetail> LockedASQDetails { get; set; }
+        public virtual DbSet<LoginLog> LoginLogs { get; set; }
+        public virtual DbSet<MailerList> MailerLists { get; set; }
+        public virtual DbSet<MainMenuMaster> MainMenuMasters { get; set; }
+        public virtual DbSet<MarkerDirectionMaster> MarkerDirectionMasters { get; set; }
+        public virtual DbSet<MarkerMadeMaster> MarkerMadeMasters { get; set; }
         public virtual DbSet<MarqueeMaster> MarqueeMasters { get; set; }
         public virtual DbSet<MerchandiserMaster> MerchandiserMasters { get; set; }
         public virtual DbSet<MrnDetail> MrnDetails { get; set; }
+        public virtual DbSet<MrnFileUpload> MrnFileUploads { get; set; }
         public virtual DbSet<MrnMaster> MrnMasters { get; set; }
         public virtual DbSet<ODOOGPOMaster> ODOOGPOMasters { get; set; }
         public virtual DbSet<OrginUpdatedTable> OrginUpdatedTables { get; set; }
+        public virtual DbSet<PackingListDetail> PackingListDetails { get; set; }
+        public virtual DbSet<PackingListMaster> PackingListMasters { get; set; }
+        public virtual DbSet<PatternMaster> PatternMasters { get; set; }
+        public virtual DbSet<PatternNameBank> PatternNameBanks { get; set; }
+        public virtual DbSet<PatternStyle> PatternStyles { get; set; }
+        public virtual DbSet<PatterRefMaster> PatterRefMasters { get; set; }
         public virtual DbSet<PaymentModeMaster> PaymentModeMasters { get; set; }
         public virtual DbSet<PaymentTermMaster> PaymentTermMasters { get; set; }
+        public virtual DbSet<PlaningRemarkMaster> PlaningRemarkMasters { get; set; }
         public virtual DbSet<POApproval> POApprovals { get; set; }
         public virtual DbSet<POCurrExRate> POCurrExRates { get; set; }
+        public virtual DbSet<POPackDetail> POPackDetails { get; set; }
+        public virtual DbSet<PopackDetailsHistory> PopackDetailsHistories { get; set; }
+        public virtual DbSet<PoPackMaster> PoPackMasters { get; set; }
+        public virtual DbSet<PoPackMasterHistory> PoPackMasterHistories { get; set; }
+        public virtual DbSet<PrinterDetail> PrinterDetails { get; set; }
         public virtual DbSet<ProcurementDetail> ProcurementDetails { get; set; }
         public virtual DbSet<ProcurementMaster> ProcurementMasters { get; set; }
+        public virtual DbSet<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
         public virtual DbSet<ProductionReportDetail> ProductionReportDetails { get; set; }
+        public virtual DbSet<ProductionStatusAtcWorld_Tbl> ProductionStatusAtcWorld_Tbl { get; set; }
+        public virtual DbSet<ProductionStatusEthiopia_Tbl> ProductionStatusEthiopia_Tbl { get; set; }
+        public virtual DbSet<ProductionTNA> ProductionTNAs { get; set; }
+        public virtual DbSet<ProductionTNAComponent> ProductionTNAComponents { get; set; }
+        public virtual DbSet<ProductionTNALocationMaster> ProductionTNALocationMasters { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<RecieptMaster> RecieptMasters { get; set; }
+        public virtual DbSet<RejectionAdjustDetail> RejectionAdjustDetails { get; set; }
+        public virtual DbSet<RejectionExtraFabbReq> RejectionExtraFabbReqs { get; set; }
+        public virtual DbSet<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
+        public virtual DbSet<RejectReqDetail> RejectReqDetails { get; set; }
+        public virtual DbSet<RejectReqMaster> RejectReqMasters { get; set; }
         public virtual DbSet<RequestOrderDetail> RequestOrderDetails { get; set; }
         public virtual DbSet<RequestOrderMaster> RequestOrderMasters { get; set; }
         public virtual DbSet<RequestOrderStockDetail> RequestOrderStockDetails { get; set; }
@@ -110,33 +201,71 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<ROINMaster> ROINMasters { get; set; }
         public virtual DbSet<RoInStockDetail> RoInStockDetails { get; set; }
         public virtual DbSet<RoInStockMaster> RoInStockMasters { get; set; }
+        public virtual DbSet<RollInventoryMaster> RollInventoryMasters { get; set; }
+        public virtual DbSet<SalesDebitNoteDetail> SalesDebitNoteDetails { get; set; }
+        public virtual DbSet<SalesDebitNoteMaster> SalesDebitNoteMasters { get; set; }
+        public virtual DbSet<SamCutAssignmentMaster> SamCutAssignmentMasters { get; set; }
+        public virtual DbSet<SamCutPlanPriority> SamCutPlanPriorities { get; set; }
+        public virtual DbSet<SamDailyCutStatu> SamDailyCutStatus { get; set; }
+        public virtual DbSet<SamDailyDeliveryStatu> SamDailyDeliveryStatus { get; set; }
+        public virtual DbSet<SamDailySewStatu> SamDailySewStatus { get; set; }
+        public virtual DbSet<SampCutReqMaster> SampCutReqMasters { get; set; }
+        public virtual DbSet<SampCutTicketMaster> SampCutTicketMasters { get; set; }
+        public virtual DbSet<SampleAprrovalAuthority> SampleAprrovalAuthorities { get; set; }
+        public virtual DbSet<SampleDispatchDetail> SampleDispatchDetails { get; set; }
+        public virtual DbSet<SampleFabricEntryMaster> SampleFabricEntryMasters { get; set; }
+        public virtual DbSet<SampleType> SampleTypes { get; set; }
+        public virtual DbSet<SampleTypeMasterDummy> SampleTypeMasterDummies { get; set; }
+        public virtual DbSet<SamplingFabricMaster> SamplingFabricMasters { get; set; }
+        public virtual DbSet<SamplingStatu> SamplingStatus { get; set; }
+        public virtual DbSet<SamSewingPriority> SamSewingPriorities { get; set; }
+        public virtual DbSet<SamSupplierMaster> SamSupplierMasters { get; set; }
         public virtual DbSet<SDocDetail> SDocDetails { get; set; }
         public virtual DbSet<SDocMaster> SDocMasters { get; set; }
         public virtual DbSet<SeasonMaster> SeasonMasters { get; set; }
         public virtual DbSet<SeasonType> SeasonTypes { get; set; }
+        public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
         public virtual DbSet<ServiceTypeMaster> ServiceTypeMasters { get; set; }
+        public virtual DbSet<ShipmentHandoverColorSizeDetail> ShipmentHandoverColorSizeDetails { get; set; }
+        public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
         public virtual DbSet<ShipmentHandOverMaster> ShipmentHandOverMasters { get; set; }
         public virtual DbSet<ShippingDocumentDetail> ShippingDocumentDetails { get; set; }
         public virtual DbSet<ShippingDocumentDODetail> ShippingDocumentDODetails { get; set; }
-        public virtual DbSet<ShippingDocumentMaster> ShippingDocumentMasters { get; set; }
+        public virtual DbSet<ShippingDocumentStockDetail> ShippingDocumentStockDetails { get; set; }
+        public virtual DbSet<ShippingDocumentStockDODetail> ShippingDocumentStockDODetails { get; set; }
         public virtual DbSet<SizeMaster> SizeMasters { get; set; }
         public virtual DbSet<SkuRawmaterialDetail> SkuRawmaterialDetails { get; set; }
+        public virtual DbSet<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
+        public virtual DbSet<StockFreightChargeDetail> StockFreightChargeDetails { get; set; }
+        public virtual DbSet<StockFreightRequestMaster> StockFreightRequestMasters { get; set; }
         public virtual DbSet<StockGoodsInTransit> StockGoodsInTransits { get; set; }
+        public virtual DbSet<StockInventoryMaster> StockInventoryMasters { get; set; }
         public virtual DbSet<StockMRNDetail> StockMRNDetails { get; set; }
         public virtual DbSet<StockMrnMaster> StockMrnMasters { get; set; }
         public virtual DbSet<StockPODetail> StockPODetails { get; set; }
         public virtual DbSet<StockPOMaster> StockPOMasters { get; set; }
         public virtual DbSet<StockRecieptMaster> StockRecieptMasters { get; set; }
         public virtual DbSet<StockSDocMaster> StockSDocMasters { get; set; }
+        public virtual DbSet<StocPOForODOO> StocPOForODOOs { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<StyleColor> StyleColors { get; set; }
         public virtual DbSet<StyleCostingComponentDetail> StyleCostingComponentDetails { get; set; }
         public virtual DbSet<StyleCostingDetail> StyleCostingDetails { get; set; }
         public virtual DbSet<StyleCostingMaster> StyleCostingMasters { get; set; }
-        public virtual DbSet<SupplierDocumentMaster> SupplierDocumentMasters { get; set; }
+        public virtual DbSet<StyleSize> StyleSizes { get; set; }
+        public virtual DbSet<SubConAdjustDetail> SubConAdjustDetails { get; set; }
+        public virtual DbSet<SubConExtraRequest> SubConExtraRequests { get; set; }
+        public virtual DbSet<SubMenuMaster> SubMenuMasters { get; set; }
+        public virtual DbSet<SuplierASNDebitDetail> SuplierASNDebitDetails { get; set; }
+        public virtual DbSet<SupplierDebitAsnMaster> SupplierDebitAsnMasters { get; set; }
         public virtual DbSet<SupplierInvoiceDetail> SupplierInvoiceDetails { get; set; }
+        public virtual DbSet<SupplierInvoiceMaster> SupplierInvoiceMasters { get; set; }
         public virtual DbSet<SupplierMaster> SupplierMasters { get; set; }
         public virtual DbSet<SupplierStockInvoiceDetail> SupplierStockInvoiceDetails { get; set; }
+        public virtual DbSet<SupplierStockInvoiceMaster> SupplierStockInvoiceMasters { get; set; }
+        public virtual DbSet<SupplierTypemaster> SupplierTypemasters { get; set; }
         public virtual DbSet<SupplierUserMaster> SupplierUserMasters { get; set; }
+        public virtual DbSet<SupportTicket> SupportTickets { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Template_Master> Template_Master { get; set; }
         public virtual DbSet<TemplateColor> TemplateColors { get; set; }
@@ -145,104 +274,22 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<TemplateSize> TemplateSizes { get; set; }
         public virtual DbSet<TemplateWeight> TemplateWeights { get; set; }
         public virtual DbSet<TemplateWidth> TemplateWidths { get; set; }
+        public virtual DbSet<TempProductionData> TempProductionDatas { get; set; }
+        public virtual DbSet<TnaUserRight> TnaUserRights { get; set; }
         public virtual DbSet<TransferToGstockDetail> TransferToGstockDetails { get; set; }
         public virtual DbSet<TransferToGstockMaster> TransferToGstockMasters { get; set; }
         public virtual DbSet<UOMMaster> UOMMasters { get; set; }
+        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<UserProfileMaster> UserProfileMasters { get; set; }
+        public virtual DbSet<UserProfileRight> UserProfileRights { get; set; }
         public virtual DbSet<WrongInventoryDocument> WrongInventoryDocuments { get; set; }
         public virtual DbSet<WrongPODetail> WrongPODetails { get; set; }
         public virtual DbSet<WrongPOMaster> WrongPOMasters { get; set; }
-        public virtual DbSet<PackingListDetail> PackingListDetails { get; set; }
-        public virtual DbSet<SubMenuMaster> SubMenuMasters { get; set; }
-        public virtual DbSet<UserProfileMaster> UserProfileMasters { get; set; }
-        public virtual DbSet<UserProfileRight> UserProfileRights { get; set; }
-        public virtual DbSet<ShippingDocumentStockDetail> ShippingDocumentStockDetails { get; set; }
-        public virtual DbSet<ShippingDocumentStockDODetail> ShippingDocumentStockDODetails { get; set; }
-        public virtual DbSet<CutPlanMarkerDetail> CutPlanMarkerDetails { get; set; }
-        public virtual DbSet<AtcApproval> AtcApprovals { get; set; }
-        public virtual DbSet<SupportTicket> SupportTickets { get; set; }
-        public virtual DbSet<StyleSize> StyleSizes { get; set; }
-        public virtual DbSet<StocPOForODOO> StocPOForODOOs { get; set; }
-        public virtual DbSet<InventoryMissingRequest> InventoryMissingRequests { get; set; }
-        public virtual DbSet<ASQAllocationMaster> ASQAllocationMasters { get; set; }
-        public virtual DbSet<SupplierInvoiceMaster> SupplierInvoiceMasters { get; set; }
-        public virtual DbSet<SupplierStockInvoiceMaster> SupplierStockInvoiceMasters { get; set; }
-        public virtual DbSet<DeletedCutPlan> DeletedCutPlans { get; set; }
-        public virtual DbSet<PoPackMaster> PoPackMasters { get; set; }
-        public virtual DbSet<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
-        public virtual DbSet<CutPlanMaster> CutPlanMasters { get; set; }
-        public virtual DbSet<CutplanRefPattern> CutplanRefPatterns { get; set; }
-        public virtual DbSet<BodyPartMaster> BodyPartMasters { get; set; }
-        public virtual DbSet<LocalBuyerMaster> LocalBuyerMasters { get; set; }
-        public virtual DbSet<PackingListMaster> PackingListMasters { get; set; }
-        public virtual DbSet<SampleFabricEntryMaster> SampleFabricEntryMasters { get; set; }
-        public virtual DbSet<LaySheetMaster> LaySheetMasters { get; set; }
-        public virtual DbSet<RollInventoryMaster> RollInventoryMasters { get; set; }
-        public virtual DbSet<AtcMaster> AtcMasters { get; set; }
         public virtual DbSet<YearMonthMaster> YearMonthMasters { get; set; }
-        public virtual DbSet<SamSupplierMaster> SamSupplierMasters { get; set; }
-        public virtual DbSet<LaySheetRollDetail> LaySheetRollDetails { get; set; }
-        public virtual DbSet<LaySheetDetail> LaySheetDetails { get; set; }
-        public virtual DbSet<DocMaster> DocMasters { get; set; }
-        public virtual DbSet<SalesDebitNoteDetail> SalesDebitNoteDetails { get; set; }
-        public virtual DbSet<SalesDebitNoteMaster> SalesDebitNoteMasters { get; set; }
-        public virtual DbSet<CutPlanRollDetail> CutPlanRollDetails { get; set; }
-        public virtual DbSet<PlaningRemarkMaster> PlaningRemarkMasters { get; set; }
-        public virtual DbSet<ProcurmentPlanDetail> ProcurmentPlanDetails { get; set; }
-        public virtual DbSet<JobContractMaster> JobContractMasters { get; set; }
-        public virtual DbSet<ATCWorldToArtShipData> ATCWorldToArtShipDatas { get; set; }
-        public virtual DbSet<ServicePOMaster> ServicePOMasters { get; set; }
-        public virtual DbSet<StockInventoryMaster> StockInventoryMasters { get; set; }
-        public virtual DbSet<FabricRollmaster> FabricRollmasters { get; set; }
-        public virtual DbSet<EthiopiaToARTShip_Tbl> EthiopiaToARTShip_Tbl { get; set; }
-        public virtual DbSet<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
-        public virtual DbSet<ASQShuffleDetail> ASQShuffleDetails { get; set; }
-        public virtual DbSet<ASQShuffleMaster> ASQShuffleMasters { get; set; }
-        public virtual DbSet<LockedASQDetail> LockedASQDetails { get; set; }
-        public virtual DbSet<POPackDetail> POPackDetails { get; set; }
-        public virtual DbSet<ShipmentHandOverDetail> ShipmentHandOverDetails { get; set; }
-        public virtual DbSet<LaySheetRollMaster> LaySheetRollMasters { get; set; }
-        public virtual DbSet<ShipmentHandoverColorSizeDetail> ShipmentHandoverColorSizeDetails { get; set; }
-        public virtual DbSet<TempProductionData> TempProductionDatas { get; set; }
-        public virtual DbSet<CreditNoteMaster> CreditNoteMasters { get; set; }
-        public virtual DbSet<SuplierASNDebitDetail> SuplierASNDebitDetails { get; set; }
-        public virtual DbSet<SupplierDebitAsnMaster> SupplierDebitAsnMasters { get; set; }
-        public virtual DbSet<SupplierTypemaster> SupplierTypemasters { get; set; }
-        public virtual DbSet<CutTypeMaster> CutTypeMasters { get; set; }
-        public virtual DbSet<MarkerDirectionMaster> MarkerDirectionMasters { get; set; }
-        public virtual DbSet<MarkerMadeMaster> MarkerMadeMasters { get; set; }
-        public virtual DbSet<LayShortageDetail> LayShortageDetails { get; set; }
-        public virtual DbSet<LayShortageReqMaster> LayShortageReqMasters { get; set; }
-        public virtual DbSet<DeviceType> DeviceTypes { get; set; }
-        public virtual DbSet<DepartmentMaster> DepartmentMasters { get; set; }
-        public virtual DbSet<UserMaster> UserMasters { get; set; }
-        public virtual DbSet<DeviceMaster> DeviceMasters { get; set; }
-        public virtual DbSet<CutOrderDetail> CutOrderDetails { get; set; }
-        public virtual DbSet<CutOrderMaster> CutOrderMasters { get; set; }
-        public virtual DbSet<LayShortageCutorderAdjustment> LayShortageCutorderAdjustments { get; set; }
-        public virtual DbSet<LayAdjustDetail> LayAdjustDetails { get; set; }
-        public virtual DbSet<InventorySalesDetail> InventorySalesDetails { get; set; }
-        public virtual DbSet<RejectionExtraFabbReq> RejectionExtraFabbReqs { get; set; }
-        public virtual DbSet<RejectReqDetail> RejectReqDetails { get; set; }
-        public virtual DbSet<RejectReqMaster> RejectReqMasters { get; set; }
-        public virtual DbSet<RejectionAdjustDetail> RejectionAdjustDetails { get; set; }
-        public virtual DbSet<CityMaster> CityMasters { get; set; }
-        public virtual DbSet<LocationGroupDetail> LocationGroupDetails { get; set; }
-        public virtual DbSet<LocationGroupMaster> LocationGroupMasters { get; set; }
-        public virtual DbSet<CutPlanRejectionMaster> CutPlanRejectionMasters { get; set; }
-        public virtual DbSet<PatternNameBank> PatternNameBanks { get; set; }
-        public virtual DbSet<CutPlanRejectHistory> CutPlanRejectHistories { get; set; }
-        public virtual DbSet<MrnFileUpload> MrnFileUploads { get; set; }
-        public virtual DbSet<FreightRequestMaster> FreightRequestMasters { get; set; }
-        public virtual DbSet<ExceptionAtcList> ExceptionAtcLists { get; set; }
-        public virtual DbSet<RejectionPanelExtraFabbReq> RejectionPanelExtraFabbReqs { get; set; }
-        public virtual DbSet<FreightChargeDetail> FreightChargeDetails { get; set; }
-        public virtual DbSet<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
-        public virtual DbSet<CutPlanMarkerType> CutPlanMarkerTypes { get; set; }
-        public virtual DbSet<SubConExtraRequest> SubConExtraRequests { get; set; }
-        public virtual DbSet<LabChargeDetail> LabChargeDetails { get; set; }
-        public virtual DbSet<LabRequestMaster> LabRequestMasters { get; set; }
-        public virtual DbSet<ProductionTNA> ProductionTNAs { get; set; }
-        public virtual DbSet<ProductionTNAComponent> ProductionTNAComponents { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<ShippingDocumentMaster> ShippingDocumentMasters { get; set; }
+        public virtual DbSet<ProductionTNADetail> ProductionTNADetails { get; set; }
+        public virtual DbSet<FabricMissing> FabricMissings { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

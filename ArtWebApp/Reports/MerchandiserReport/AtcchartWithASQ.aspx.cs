@@ -110,15 +110,24 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
         public void ShowBOM(String type,int ourstyleid)
         {
-
-            string onhandtype = "A";
-            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),type, ourstyleid);
-            DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
-            DataTable Inbounddata = BLL.FactoryAtcChart.GetInboundData(int.Parse(cmb_atc.SelectedValue.ToString()));
            
-
+            string onhandtype = "A";
+        
 
             
+            DataTable BomData = BLL.FactoryAtcChart.ShowBOM(int.Parse(cmb_atc.SelectedValue.ToString()),type, ourstyleid);
+
+
+
+            DataTable procurementplandata = BLL.FactoryAtcChart.GetProcurementPlan(int.Parse(cmb_atc.SelectedValue.ToString()));
+         
+
+            DataTable Inbounddata = BLL.FactoryAtcChart.GetInboundData(int.Parse(cmb_atc.SelectedValue.ToString()));
+
+           
+            
+
+
 
 
 

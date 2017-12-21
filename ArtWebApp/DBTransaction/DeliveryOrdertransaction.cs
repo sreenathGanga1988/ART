@@ -42,7 +42,7 @@ namespace ArtWebApp.DBTransaction
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryItem_PK, RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode, ReceivedQty, DeliveredQty, OnhandQty as TotalOnhand, BlockedQty,(OnhandQty-BlockedQty) as OnhandQty
+                SqlCommand cmd = new SqlCommand(@"SELECT        InventoryItem_PK, RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, UomCode, ReceivedQty, DeliveredQty, OnhandQty as TotalOnhand, BlockedQty,(OnhandQty-BlockedQty) as OnhandQty,Refnum
 FROM            (SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
                                                     SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, 
                                                     SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, 
@@ -54,7 +54,7 @@ FROM            (SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialM
                                                     + ISNULL
                                                         ((SELECT        SUM(LoanQty) AS Expr1
                                                             FROM            InventoryLoanMaster
-                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0) AS BlockedQty
+                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0) AS BlockedQty,InventoryMaster.Refnum
                           FROM            UOMMaster INNER JOIN
                                                     InventoryMaster INNER JOIN
                                                     ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK INNER JOIN

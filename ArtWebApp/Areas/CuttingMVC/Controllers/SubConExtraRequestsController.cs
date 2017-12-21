@@ -17,7 +17,15 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         // GET: CuttingMVC/SubConExtraRequests
         public ActionResult Index()
         {
-           
+            try
+            {
+                ViewBag.SuccessMessage = TempData["shortMessage"].ToString();
+            }
+            catch (Exception)
+            {
+
+
+            }
             var subConExtraRequests = db.SubConExtraRequests.Include(s => s.AtcMaster).Include(s => s.CutOrderMaster).Include(s => s.ExtraRequestReasonMaster);
 
             return View(subConExtraRequests.ToList());
@@ -158,5 +166,20 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        // GET: CuttingMVC/SubConExtraRequests/Delete/5
+        public ActionResult Approve(decimal id)
+        {
+            
+            SubConExtraRequest subConExtraRequest = db.SubConExtraRequests.Find(id);
+            SubConfabricrepository lyipores = new SubConfabricrepository();
+            String code = lyipores.InsertSubConShortage(int.Parse( id.ToString()));
+            TempData["shortMessage"] = "Approved";
+            return RedirectToAction("Index");
+        }
+
+       
+
     }
 }

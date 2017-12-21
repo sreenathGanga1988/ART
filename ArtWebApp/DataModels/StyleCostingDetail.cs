@@ -24,7 +24,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Priceperpc { get; set; }
         public string IsGD { get; set; }
     
-        public virtual StyleCostingMaster StyleCostingMaster { get; set; }
         public virtual SkuRawMaterialMaster SkuRawMaterialMaster { get; set; }
+        public virtual StyleCostingMaster StyleCostingMaster { get; set; }
     }
 }

@@ -1,0 +1,145 @@
+﻿@model ArtWebApp.DataModels.GeneralFreightRequestMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GeneralFreightRequestMaster</h4>
+    <hr />
+    <table class="table-bordered table-striped ">
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.GeneralFreightRequestNum, "Freight Request#", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.GeneralFreightRequestNum)</td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.FromParty, "From Party", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.FromParty)</td>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.GeneralFreightRequestID)
+
+
+
+
+        </tr>
+
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ToParty)
+
+            </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            </td>
+            <td class="col-md-4"> @Html.DisplayFor(modelItem => Model.Shipper)  </td>
+
+
+
+
+
+
+        </tr>
+
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })  </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Weight)  </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ContentofPackage)
+            </td>
+
+
+
+
+
+
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.DebitTo)
+            </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Reason)
+            </td>
+
+
+
+
+
+
+        </tr>
+
+
+
+
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Merchandiser)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ForwarderDetails)
+            </td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">
+
+                @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApproximateCharges)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Remark)</td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApprovedBy)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.ApprovedDate, "ApprovedDate", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApprovedDate)</td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.IsApproved)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.IsPosted, "IsPosted", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.IsPosted)</td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.AddedBy)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.AddedDate, "AddedDate", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.AddedDate)</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GeneralFreightRequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1111,7 +1111,7 @@ FROM            Template_Master INNER JOIN
                         ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
@@ -1168,7 +1168,7 @@ FROM            InventoryMaster INNER JOIN
                         ( InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
@@ -1223,7 +1223,7 @@ FROM            InventoryMaster INNER JOIN
                          InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
@@ -1281,7 +1281,7 @@ FROM            (SELECT        TOP (100) PERCENT GoodsInTransit.Gt_PK, AtcMaster
                          InventoryMaster.CURate * GoodsInTransit.TransitQty AS Value, ItemGroupMaster.ItemGroupName, DeliveryOrderMaster.DONum, LocationMaster.LocationName
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
@@ -1354,7 +1354,7 @@ FROM            InventoryMaster INNER JOIN
                          (InventoryMaster.CURate * InventoryMaster.OnhandQty) AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
@@ -1409,7 +1409,7 @@ FROM            InventoryMaster INNER JOIN
                          InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, ItemGroupMaster.ItemGroupName,Template_Master.TemplateCode, Template_Master.Description AS Templatename
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
-                         SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawmaterialDetail ON InventoryMaster.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
                          SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN

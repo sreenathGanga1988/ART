@@ -1,0 +1,210 @@
+﻿@model ArtWebApp.DataModels.StockFreightRequestMaster
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="form-horizontal">
+
+
+    <table class="table-bordered table-striped ">
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.StockFreightRequestNum, "Freight Request#", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.StockFreightRequestNum)</td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.FromParty, "From Party", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.FromParty)</td>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.StockFreightRequestID)
+
+
+
+
+        </tr>
+
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ToParty)
+
+            </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            </td>
+            <td class="col-md-4"> @Html.DisplayFor(modelItem => Model.Shipper)  </td>
+
+
+
+
+
+
+        </tr>
+
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })  </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Weight)  </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ContentofPackage)
+            </td>
+
+
+
+
+
+
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.DebitTo)
+            </td>
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Reason)
+            </td>
+
+
+
+
+
+
+        </tr>
+
+
+
+
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Merchandiser)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.ForwarderDetails)
+            </td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">
+
+                @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApproximateCharges)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.Remark)</td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApprovedBy)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.ApprovedDate, "ApprovedDate", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ApprovedDate)</td>
+        </tr>
+
+        <tr class="row">
+            <td class="col-md-2">@Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.IsApproved)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.IsPosted, "IsPosted", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.IsPosted)</td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.AddedBy)</td>
+            <td class="col-md-2">@Html.LabelFor(model => model.AddedDate, "AddedDate", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.AddedDate)</td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-2">
+                @Html.LabelFor(model => model.ShipementType, htmlAttributes: new { @class = "control-label col-md-2" })
+            </td>
+            <td class="col-md-4">@Html.DisplayFor(modelItem => Model.ShipementType)</td>
+            
+        </tr>
+    </table>
+
+    <div class="row">
+        <div class="form-group">
+            <table class="table table-responsive table-bordered">
+                <tr>
+                    <th>
+                        SPO
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Freight Charge
+                    </th>
+                    <th>
+                       Remark
+                    </th>
+                    <th></th>
+                </tr>
+                @{  Decimal total = 0;
+                    foreach (var item in Model.StockFreightChargeDetails)
+                    {
+
+                        total = total + Decimal.Parse(item.StockFreightCharge.ToString());
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StockPOMaster.SPONum)
+                            </td>
+                            <td>
+                              @Html.DisplayFor(modelItem => item.StockPODetail.Template_Master.Description )
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StockFreightCharge)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            Total :  @total
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                }
+
+
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StockFreightRequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

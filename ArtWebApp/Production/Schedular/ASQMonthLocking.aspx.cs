@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -37,12 +38,12 @@ namespace ArtWebApp.Production.Schedular
             getPOData();
             getPendingASQData();
             showstatus(year.ToString(), month);
-            
+
 
         }
 
 
-        public void showstatus(String year,int month)
+        public void showstatus(String year, int month)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
@@ -50,7 +51,7 @@ namespace ArtWebApp.Production.Schedular
                 var q = from yrmstr in enty.YearMonthMasters
                         where yrmstr.YearName == year && yrmstr.MonthNum == month
                         select yrmstr;
-                foreach(var element in q)
+                foreach (var element in q)
                 {
                     lbl_Targetlocked.Text = element.IsTargetLocked.ToString();
                     lbl_shipmentclosed.Text = element.IsShipmentClose.ToString();
@@ -62,9 +63,9 @@ namespace ArtWebApp.Production.Schedular
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-          
 
-                if (lbl_Targetlocked.Text=="N")
+
+            if (lbl_Targetlocked.Text == "N")
             {
 
                 int year = int.Parse(cmb_year.SelectedItem.ToString());
@@ -74,7 +75,7 @@ namespace ArtWebApp.Production.Schedular
 
 
 
-                 
+
                     int lbl_ourstyleid = int.Parse(((di.FindControl("lbl_ourstyleid") as Label).Text.ToString()));
                     int lbl_qty = int.Parse(((di.FindControl("lbl_Balance") as Label).Text.ToString()));
                     int lbl_popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
@@ -111,7 +112,7 @@ namespace ArtWebApp.Production.Schedular
             }
 
 
-          
+
         }
 
 
@@ -121,19 +122,20 @@ namespace ArtWebApp.Production.Schedular
         public void getPOData()
         {
 
-            using (SqlCommand cmd= new SqlCommand ())
+            using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = @"SELECT        PoPackId, AtcNum, BuyerPO, PoPacknum, DeliveryDate, PoQty, OurStyleID, LocationPK, Expr1, ShipedQty,(PoQty-ShipedQty) as BalanceQty
+                cmd.CommandText = @"SELECT        PoPackId, AtcNum, BuyerPO, PoPacknum, DeliveryDate, PoQty, OurStyleID, LocationPK, Expr1, ShipedQty, PoQty - ShipedQty AS BalanceQty, SalesHandoverDate
 FROM            (SELECT        PoPackMaster.PoPackId, AtcMaster.AtcNum, PoPackMaster.BuyerPO, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, SUM(POPackDetails.PoQty) AS PoQty, POPackDetails.OurStyleID, 
                                                     ISNULL(PoPackMaster.ExpectedLocation_PK, 0) AS LocationPK, MAX(POPackDetails.IsShortClosed) AS Expr1, ISNULL
                                                         ((SELECT        SUM(ShippedQty) AS Expr1
                                                             FROM            ShipmentHandOverDetails
                                                             GROUP BY POPackId, OurStyleID
-                                                            HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty
+                                                            HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, PoPackMaster.SalesHandoverDate
                           FROM            AtcMaster INNER JOIN
                                                     PoPackMaster ON AtcMaster.AtcId = PoPackMaster.AtcId INNER JOIN
                                                     POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId
-                          GROUP BY AtcMaster.AtcNum, PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.DeliveryDate, POPackDetails.OurStyleID, PoPackMaster.ExpectedLocation_PK
+                          GROUP BY AtcMaster.AtcNum, PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.DeliveryDate, POPackDetails.OurStyleID, PoPackMaster.ExpectedLocation_PK, 
+                                                    PoPackMaster.SalesHandoverDate
                           HAVING         (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(POPackDetails.IsShortClosed) = N'N')) AS tt";
 
                 cmd.Parameters.AddWithValue("@param1", DateTime.Parse(lbl_fromdate.Text.ToString()));
@@ -168,9 +170,9 @@ WHERE(POQty - ShipedQty > 0)
 )tt";
 
                 cmd.Parameters.AddWithValue("@param1", DateTime.Parse(lbl_fromdate.Text.ToString()));
-                
 
-               var count= QueryFunctions.ReturnQueryValue(cmd);
+
+                var count = QueryFunctions.ReturnQueryValue(cmd);
 
                 int pending = 0;
 
@@ -182,7 +184,7 @@ WHERE(POQty - ShipedQty > 0)
                 catch (Exception)
                 {
 
-                   
+
                 }
 
                 lbl_pendingASQ.Text = pending.ToString();
@@ -192,7 +194,7 @@ WHERE(POQty - ShipedQty > 0)
         int totalvalue = 0;
         int totalvalueship = 0;
 
-       
+
         protected void tbl_podata_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             //Check if the current row is datarow or not
@@ -201,6 +203,11 @@ WHERE(POQty - ShipedQty > 0)
                 //Add the value of column
                 totalvalue += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "PoQty"));
                 totalvalueship += Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ShipedQty"));
+
+                AjaxControlToolkit.CalendarExtender txtcalender = (e.Row.FindControl("dtp_deliverydate_CalendarExtender") as AjaxControlToolkit.CalendarExtender);
+                Label lbl_handoverdate = (e.Row.FindControl("lbl_handoverdate") as Label);
+
+                txtcalender.SelectedDate = DateTime.Parse(lbl_handoverdate.Text);
 
             }
             if (e.Row.RowType == DataControlRowType.Footer)
@@ -212,6 +219,31 @@ WHERE(POQty - ShipedQty > 0)
                 Label lblTotalValueship = (Label)e.Row.FindControl("lblTotalValueship");
                 //Assign the total value to footer label control
                 lblTotalValueship.Text = "Total ShippedQty is : " + totalvalueship.ToString();
+            }
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow di in tbl_podata.Rows)
+            {
+
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+                TextBox dtp_deliverydate = (TextBox)di.FindControl("dtp_deliverydate");
+                if (chkBx != null && chkBx.Checked)
+                {
+
+                    string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
+
+                    DateTime deliverydate = DateTime.Parse(((Label)di.FindControl("lbl_deliveryDate")).Text);
+                    int popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
+                    BLL.PoPackMasterData pomstrdata = new BLL.PoPackMasterData();
+
+                    pomstrdata.PoPackId = popackid;
+
+                    pomstrdata.HandoverDate = DateTime.Parse(s);
+
+                    pomstrdata.updatePOpAckSHD(pomstrdata);
+                }
             }
         }
     }

@@ -1390,12 +1390,12 @@ HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
         public static System.Data.DataTable GetSKUData(int ATCID)
         {
-            DataTable dt = new DataTable();
+          
 
             using (SqlCommand cmd = new SqlCommand())
             {
+                DataTable dt = new DataTable();
 
-               
 
 
                 cmd.CommandText = @" SELECT        SkuRawMaterialMaster.WastagePercentage, SkuRawMaterialMaster.Sku_Pk, SkuRawmaterialDetail.SkuDet_PK, StyleCostingDetails.Consumption, StyleCostingMaster.OurStyleID, POPackDetails.ColorCode, 
@@ -1413,10 +1413,10 @@ HAVING        (SkuRawmaterialDetail.SkuDet_PK = @Param1)";
 
                 dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
 
-
+                return dt;
 
             }
-            return dt;
+           
         }
 
         public static System.Data.DataTable GetEBOMData(int ATCID)

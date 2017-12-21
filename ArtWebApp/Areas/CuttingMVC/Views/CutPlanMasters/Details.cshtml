@@ -1,0 +1,371 @@
+﻿@model ArtWebApp.DataModels.CutPlanMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CutPlanMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CutPlanNUM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutPlanNUM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColorCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShrinkageGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShrinkageGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WidthGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WidthGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FabDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FabDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarkerType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarkerType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BOMConsumption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BOMConsumption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maxmarkerlength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maxmarkerlength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarkerMade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarkerMade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fabrication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fabrication)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefPattern)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefPattern)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutPlanFabReq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutPlanFabReq)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutplanEfficency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutplanEfficency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutplanConsumption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutplanConsumption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRatioAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRatioAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatioAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatioAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatioAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatioAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPatternAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPatternAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatternAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatternAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCutorderGiven)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCutorderGiven)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewPatternName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewPatternName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsumptionUOM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConsumptionUOM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRollAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRollAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RollYard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RollYard)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRejected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRejected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RejectionReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RejectionReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RejectionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RejectionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RejectedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RejectedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutOrderConsumption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutOrderConsumption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsASQEditable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsASQEditable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtcDetail.OurStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkuRawmaterialDetail.ColorCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CutPlan_PK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

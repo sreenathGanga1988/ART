@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -427,6 +428,27 @@ namespace ArtWebApp.Reports
             this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\CriticalReport.rdlc";
             ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp1 });
         }
-      
+
+        protected void Button10_Click(object sender, EventArgs e)
+        {
+
+            int atcid = int.Parse(drp_Atc.SelectedValue.ToString());
+            UrlHelper urlHelp = new UrlHelper(HttpContext.Current.Request.RequestContext);
+
+            Response.Redirect(urlHelp.Action("Index", "AtcPerformance", new { area = "CuttingMVC", id = atcid }));
+        
+        }
+
+        protected void Button11_Click(object sender, EventArgs e)
+        {
+            int ourStyleid = 0;
+            int locationpk = 0;
+            int skudetpk = int.Parse(ddl_color.SelectedValue.ToString());
+
+            locationpk = int.Parse(drp_fact.SelectedValue.ToString());
+             ourStyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
+            UrlHelper urlHelp = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            Response.Redirect(urlHelp.Action( "Index", "FCR",new { area = "CuttingMVC", id = skudetpk,  ourStyleid= ourStyleid, locationpk= locationpk }));
+        }
     }
 }

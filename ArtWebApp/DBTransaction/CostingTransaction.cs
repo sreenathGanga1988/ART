@@ -276,8 +276,10 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
                                 select stycm;
                         foreach (var element in q)
                         {
-
-                            element.CompValue = Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString());
+                            if (element.CostComp_PK!=1 && element.CostComp_PK != 2) {
+                                element.CompValue = Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString());
+                            }
+                            
 
                         }
 
@@ -468,23 +470,26 @@ FROM            StyleCostingMaster WHERE        (IsLast = N'Y') AND (OurStyleID 
         public Decimal GetAllowedFreightCharges(int atcid)
         {
             Decimal costingpk = 0;
-
-
+            Decimal alreadyUsed = 0;
+            
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand(@"SELECT       Sum( Perpc * PoQty) AS Allowedvalue
-FROM            (SELECT        SUM(POPackDetails.PoQty) AS PoQty, AtcDetails.OurStyleID, AtcDetails.OurStyle, ISNULL
-                                                        ((SELECT        MAX(StyleCostingDetails.Rate) AS Expr1
-                                                            FROM            StyleCostingDetails INNER JOIN
-                                                                                     StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
-                                                            WHERE        (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)), 0) AS Perpc
-                          FROM            AtcDetails INNER JOIN
-                                                    POPackDetails ON AtcDetails.OurStyleID = POPackDetails.OurStyleID
-                          GROUP BY AtcDetails.AtcId, AtcDetails.OurStyleID, AtcDetails.OurStyle
-                          HAVING         (AtcDetails.AtcId =@atcid)) AS tt", con);
+                SqlCommand cmd = new SqlCommand(@"SELECT      sum(  Allowedvalue) As AllowedValue
+FROM            (SELECT        OurStyleID, Qty * Compvalue AS Allowedvalue, AtcId
+                          FROM            (SELECT        OurStyleID, ISNULL
+                             ((SELECT        SUM(PoQty) AS Expr1
+                                 FROM            POPackDetails
+                                 WHERE        (OurStyleID = AtcDetails.OurStyleID)), 0) AS Qty, ISNULL
+                             ((SELECT        MAX(StyleCostingComponentDetails.CompValue) AS Expr1
+                                 FROM            StyleCostingComponentDetails INNER JOIN
+                                                          StyleCostingMaster ON StyleCostingComponentDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                                 WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingComponentDetails.CostComp_PK = 8) AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)), 0) AS Compvalue, AtcId
+FROM            AtcDetails
+WHERE        (AtcId = @atcid)) AS tt) AS ttt
+GROUP BY  AtcId", con);
 
                 cmd.Parameters.AddWithValue("@atcid", atcid);
                 try
@@ -496,9 +501,44 @@ FROM            (SELECT        SUM(POPackDetails.PoQty) AS PoQty, AtcDetails.Our
 
                     costingpk = 0;
                 }
-            }
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+
+                    var q = (from freightChargeDetail in enty.FreightChargeDetails
+                            where freightChargeDetail.AtcID == atcid
+                            select new { freightChargeDetail.FreightCharge }).ToList();
+                    
+                    foreach(var element in q)
+                    {
+
+                        try
+                        {
+                            if (decimal.Parse(element.FreightCharge.ToString()) > 0)
+                            {
+                                alreadyUsed = alreadyUsed + decimal.Parse(element.FreightCharge.ToString());
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+
+                           
+                        }
+                    }
 
 
+                    
+
+                }
+
+
+
+
+
+                }
+
+            costingpk = costingpk - alreadyUsed;
 
 
             return costingpk;

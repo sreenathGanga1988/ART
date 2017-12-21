@@ -442,6 +442,13 @@ namespace ArtWebApp.Merchandiser.ASQ
         {
 
             int k = 0;
+            int atcid = int.Parse(cmb_atc.SelectedItem.Value.ToString());
+
+
+            ArtWebApp.BLL.MerchandsingBLL.AllocationBLL apll = new ArtWebApp.BLL.MerchandsingBLL.AllocationBLL();
+
+            String isatcworld = apll.IsAtcWorldAtc(atcid);
+
             foreach (GridViewRow row in tbl_podata.Rows)
             {
 
@@ -485,7 +492,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
                     pdata.HandoverDate = DateTime.Parse((row.FindControl("lbl_HandoverDate") as Label).Text);
                     pdata.FirstDeliveryDate = DateTime.Parse((row.FindControl("lbl_FirstDeliveryDate") as Label).Text);
-
+                    pdata.IsAcdWorld = isatcworld;
 
 
 
@@ -495,6 +502,8 @@ namespace ArtWebApp.Merchandiser.ASQ
                     pdata.Season_PK = int.Parse((row.FindControl("lbl_Season_PK") as Label).Text);
                     pdata.atcid = int.Parse((row.FindControl("lbl_atcid") as Label).Text);
 
+
+                   
                    // pdata.AllocatePO(popackid, ourstyleid, factid);
                  pdata.AllocatePONew(popackid, ourstyleid, factid);
                 //    pdata.AllocatePOinDubaionly(popackid, ourstyleid, factid);
@@ -525,6 +534,12 @@ namespace ArtWebApp.Merchandiser.ASQ
         protected void Button2_Click(object sender, EventArgs e)
         {
             int k = 0;
+            int atcid = int.Parse(cmb_atc.SelectedItem.Value.ToString());
+
+
+            ArtWebApp.BLL.MerchandsingBLL.AllocationBLL apll = new ArtWebApp.BLL.MerchandsingBLL.AllocationBLL();
+
+            String isatcworld = apll.IsAtcWorldAtc(atcid);
             foreach (GridViewRow row in tbl_podata.Rows)
             {
 
@@ -565,7 +580,7 @@ namespace ArtWebApp.Merchandiser.ASQ
                     pdata.BuyerID = int.Parse((row.FindControl("lbl_BuyerID") as Label).Text);
 
                     pdata.DeliveryDate = DateTime.Parse((row.FindControl("lbl_deliverydate") as Label).Text);
-
+                    pdata.IsAcdWorld = isatcworld;
 
 
                     pdata.CategoryID = int.Parse((row.FindControl("lbl_CategoryID") as Label).Text);

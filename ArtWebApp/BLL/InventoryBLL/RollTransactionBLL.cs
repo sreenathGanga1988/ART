@@ -1106,33 +1106,39 @@ ORDER BY tt.RollNum ";
                 foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
                 {
 
-
-
-                    //creates a roll on the new location with is present as N
-
-                    RollInventoryMaster rvinvmstr = new RollInventoryMaster();
-
-                    rvinvmstr.Addeddate = DateTime.Now;
-                    rvinvmstr.DocumentNum = this.Docnum;
-                    rvinvmstr.AddedVia = "WW";
-                    rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
-                    rvinvmstr.Location_Pk = locationpk;
-                    rvinvmstr.Roll_PK = rolldata.roll_PK;
-                    rvinvmstr.IsPresent = "W";
-                    entry.RollInventoryMasters.Add(rvinvmstr);
-                    entry.SaveChanges();
-
-                    var q = from rllinvdata in entry.RollInventoryMasters
-                            where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "Y"
-                            select rllinvdata;
-                    foreach (var element in q)
+                    if (!entry.RollInventoryMasters.Any(f => f.DocumentNum == this.Docnum.ToString() && f.Location_Pk == locationpk && f.Roll_PK == rolldata.roll_PK))
                     {
-                        element.IsPresent = "N";
-                        element.DeliveredVia = this.Docnum;
-                        element.NewRollInventory_PK = rvinvmstr.RollInventory_PK;
+
+
+                        //creates a roll on the new location with is present as N
+
+                        RollInventoryMaster rvinvmstr = new RollInventoryMaster();
+
+                        rvinvmstr.Addeddate = DateTime.Now;
+                        rvinvmstr.DocumentNum = this.Docnum;
+                        rvinvmstr.AddedVia = "WW";
+                        rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        rvinvmstr.Location_Pk = locationpk;
+                        rvinvmstr.Roll_PK = rolldata.roll_PK;
+                        rvinvmstr.IsPresent = "W";
+                        entry.RollInventoryMasters.Add(rvinvmstr);
+                        entry.SaveChanges();
+
+                        var q = from rllinvdata in entry.RollInventoryMasters
+                                where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "Y"
+                                select rllinvdata;
+                        foreach (var element in q)
+                        {
+                            element.IsPresent = "N";
+                            element.DeliveredVia = this.Docnum;
+                            element.NewRollInventory_PK = rvinvmstr.RollInventory_PK;
+
+                        }
+                        entry.SaveChanges();
 
                     }
-                    entry.SaveChanges();
+
+                      
                 }
 
 

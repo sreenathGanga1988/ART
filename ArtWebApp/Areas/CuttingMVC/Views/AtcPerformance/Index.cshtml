@@ -1,0 +1,224 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.ViewModel.AtcPerformanceMasterVM
+@using System.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Atc Performance</h2>
+
+<div style="text-align: center; font-weight: 700; text-decoration: underline">
+    Final Atc Performance Chart
+</div>
+
+<div class="container">
+    <table class="table-bordered table table-responsive table-striped">
+        <tr>
+            <td>STYLE NAME</td>
+            <td>@Model.atcmasterData.OurStyle</td>
+            <td>&nbsp;</td>
+            <td>STYLE</td>
+            <td>@Model.atcmasterData.Stylename</td>
+        </tr>
+        <tr>
+            <td>ATC</td>
+            <td>@Model.atcmasterData.AtcNum</td>
+            <td>&nbsp;</td>
+            <td>DATE</td>
+            <td>@Model.atcmasterData.PCD</td>
+        </tr>
+        <tr>
+            <td>FACTORY</td>
+            <td>@Model.atcmasterData.AtcNum</td>
+            <td>&nbsp;</td>
+            <td>BUYER</td>
+            <td>@Model.atcmasterData.Buyer</td>
+        </tr>
+        <tr>
+            <td>ORIGIN</td>
+            <td>@Model.atcmasterData.Country</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>QTY</td>
+            <td>@Model.atcmasterData.OrderQty</td>
+            <td>&nbsp;</td>
+            <td>DATE OF PRODUCTION</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+</div>
+<div style="text-align: center; font-weight: 700; text-decoration: underline">
+    GARMENT
+</div>
+<div>
+
+    <table class="table-bordered table table-responsive table-striped ">
+        <tr>
+            <td>OurStyle</td>
+            <td>COLOR</td>
+            <td>FOB$</td>
+            <td>GMT ORDER QTY</td>
+            <td>GMT VALUE</td>
+            <td>GMT SHIPPED</td>
+            <td>GMT VALUE</td>
+            <td>&nbsp;</td>
+        </tr>
+
+
+        @foreach (var item in Model.atcStyleShipDetails)
+            {
+            <tr>
+                <td>@item.OurStyle</td>
+                <td>@item.Color</td>
+                <td>@item.Fob</td>
+                <td>@item.OrderQty</td>
+                <td>@item.OrderValue</td>
+                <td>@item.ShippedQty</td>
+                <td>@item.ShippedValue</td>
+                <td>&nbsp;</td>
+            </tr>
+        }
+
+
+    </table>
+</div>
+<div style="text-align: center; font-weight: 700; text-decoration: underline">
+    FABRIC DETAILS
+</div>
+<div>
+    <table class="table-bordered table table-responsive table-striped ">
+        <tr>
+            <td>FABRIC DESCRIPTION</td>
+            <td>COLOUR</td>
+            <td>FAB.PRICE $</td>
+            <td>QTY PURCHASED</td>
+            <td>UOM</td>
+            <td>VALUE IN $</td>
+
+        </tr>
+
+
+        @foreach (DataRow drow in Model.FabData.Rows)
+            {
+            <tr>
+
+                <td>@drow["FabricName"]</td>
+                <td>@drow["ColorCode"]</td>
+                <td>@drow["CURate"]</td>
+                <td>@drow["Qty"]</td>
+                <td>@drow["UomCode"]</td>
+                <td>@drow["PurchaseValue"]</td>
+            </tr>
+        }
+
+        <tfoot>
+            <tr>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>Total :@Model.FabData.Compute("Sum(PurchaseValue)", "")</td>
+            </tr>
+
+        </tfoot>
+    </table>
+</div>
+<div style="text-align: center; font-weight: 700; text-decoration: underline">
+    TRIMS DETAILS
+</div>
+<div>
+
+    <table class="table-bordered table table-responsive table-striped ">
+        <tr>
+            <td>TRIM DETAIL(Trim,Package, Lable, etc.,)</td>
+            <td>COL/TYPE</td>
+            <td>UOM</td>
+            <td>QTY PURCHASED</td>
+            <td>UNIT PRICE $</td>
+            <td>COST</td>
+        </tr>
+        @foreach (DataRow drow in Model.TrimData.Rows)
+            {
+            <tr>
+
+                <td>@drow["FabricName"]</td>
+                <td>@drow["ColorCode"]</td>
+                <td>@drow["UomCode"]</td>
+                <td>@drow["Qty"]</td>
+                <td>@drow["CURate"]</td>
+
+                <td>@drow["PurchaseValue"]</td>
+            </tr>
+        }
+
+        <tfoot>
+            <tr>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>Total :@Model.TrimData.Compute("Sum(PurchaseValue)", "")</td>
+            </tr>
+
+        </tfoot>
+    </table>
+
+</div>
+<div>
+
+</div>
+<div>
+
+    <table class="table-bordered table table-responsive table-striped ">
+        <tr>
+            <td>OTHER COST (CM,Quota, etc.)</td>
+            <td>&nbsp;</td>
+            <td>COST/PC</td>
+            <td>TOTAL COST</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</div>
+<div>
+
+</div>
+<div>
+
+    <table class="table-bordered table table-responsive table-striped ">
+        <tr>
+            <td>FINAL COST</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>FOR BASED ON SHIPPED QTYS</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>NET AMOUNT</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>MARGIN %</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+</div>
+

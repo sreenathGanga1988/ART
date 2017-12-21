@@ -429,7 +429,11 @@ namespace ArtWebApp.BLL.ProcurementBLL
             DBTransaction.ProcurementTransaction pktrans = new DBTransaction.ProcurementTransaction();
             return pktrans.GetSpoDetails(spopk);
         }
-
+        public DataTable GetSpoItemList(int spopk)
+        {
+            DBTransaction.ProcurementTransaction pktrans = new DBTransaction.ProcurementTransaction();
+            return pktrans.GetSpoItemList(spopk);
+        }
 
         public String InsertSpoDetails(StockPODetailsdata detdata)
         {

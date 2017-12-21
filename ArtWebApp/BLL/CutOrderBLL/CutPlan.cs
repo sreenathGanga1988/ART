@@ -1003,6 +1003,21 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
         }
 
+        public static DataTable GetASQSizeData(int popackid, int ourstyleid,String Colorname)
+        {
+            DataTable dt = new DataTable();
+
+            dt = DBTransaction.Productiontransaction.CutPlanTransaction.GetPopackDetailsdforAddingtoCutplan(popackid, ourstyleid,Colorname);
+
+
+
+            return dt;
+
+
+
+
+        }
+
     }
 
 
@@ -1189,6 +1204,9 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                             cddetail.Skudet_PK = di.skudet_PK;
                             cddetail.OurStyleId = this.OurStyleID;
                             cddetail.IsDeleted = "N";
+                            cddetail.AddedVia = "Add";
+                            cddetail.AddedDate = DateTime.Now;
+                            cddetail.AddedBy = this.AddedBy;
                             enty.CutPlanASQDetails.Add(cddetail);
                         }
                         enty.SaveChanges();
@@ -1467,8 +1485,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
                 foreach (var element in q6)
                 {
-                    //element.IsDeleted=""
-                  //  enty.CutPlanRollDetails.Remove(element);
+                    //element.IsDeleted = "Y";
+                    //element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
 
                 }
 
@@ -1506,6 +1524,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                     element.IsDeleted = "Y";
                     element.DeletedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                     element.DeletedDate = DateTime.Now;
+                    element.RollYard = 0;
                     //    enty.CutPlanMasters.Remove(element);
 
 

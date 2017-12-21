@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     $(".mydatagrid").dblclick(function () {
 
-        debugger
+     
 
         var retVal = confirm("Do you want to Export  the Table you clicked to Excel ?");
         if (retVal == true) {

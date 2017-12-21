@@ -17,20 +17,20 @@ namespace ArtWebApp.DataModels
         public AtcMaster()
         {
             this.AtcRawMaterialMasters = new HashSet<AtcRawMaterialMaster>();
+            this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
+            this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
+            this.FreightChargeDetails = new HashSet<FreightChargeDetail>();
+            this.JobContractMasters = new HashSet<JobContractMaster>();
             this.JobContractOptionalMasters = new HashSet<JobContractOptionalMaster>();
+            this.LabChargeDetails = new HashSet<LabChargeDetail>();
+            this.LaySheetMasters = new HashSet<LaySheetMaster>();
             this.PackingListMasters = new HashSet<PackingListMaster>();
             this.PoPackMasters = new HashSet<PoPackMaster>();
             this.RequestOrderMasters = new HashSet<RequestOrderMaster>();
             this.RequestOrderStockMasters = new HashSet<RequestOrderStockMaster>();
             this.SkuRawMaterialMasters = new HashSet<SkuRawMaterialMaster>();
-            this.JobContractMasters = new HashSet<JobContractMaster>();
-            this.CutOrderMasters = new HashSet<CutOrderMaster>();
-            this.LaySheetMasters = new HashSet<LaySheetMaster>();
-            this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
-            this.FreightChargeDetails = new HashSet<FreightChargeDetail>();
             this.SubConExtraRequests = new HashSet<SubConExtraRequest>();
-            this.LabChargeDetails = new HashSet<LabChargeDetail>();
         }
     
         public decimal AtcId { get; set; }
@@ -53,22 +53,23 @@ namespace ArtWebApp.DataModels
         public string IsCuttingCompleted { get; set; }
         public string IsAtcWord { get; set; }
     
+        public virtual BuyerMaster BuyerMaster { get; set; }
         public virtual CountryMaster CountryMaster { get; set; }
+        public virtual CountryMaster CountryMaster1 { get; set; }
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
+        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
+        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
+        public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
+        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
         public virtual ICollection<JobContractOptionalMaster> JobContractOptionalMasters { get; set; }
+        public virtual ICollection<LabChargeDetail> LabChargeDetails { get; set; }
+        public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
         public virtual ICollection<PackingListMaster> PackingListMasters { get; set; }
         public virtual ICollection<PoPackMaster> PoPackMasters { get; set; }
         public virtual ICollection<RequestOrderMaster> RequestOrderMasters { get; set; }
         public virtual ICollection<RequestOrderStockMaster> RequestOrderStockMasters { get; set; }
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
-        public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
-        public virtual BuyerMaster BuyerMaster { get; set; }
-        public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
-        public virtual ICollection<LaySheetMaster> LaySheetMasters { get; set; }
-        public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
-        public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
         public virtual ICollection<SubConExtraRequest> SubConExtraRequests { get; set; }
-        public virtual ICollection<LabChargeDetail> LabChargeDetails { get; set; }
     }
 }

@@ -160,7 +160,7 @@ $(document).ready(function () {
             } else {
                 var orderItem = {
                     AtcID: $('select.AtcID', this).val(),
-                    FreightCharge: parseInt($('.NewValue', this).val())
+                    FreightCharge: parseFloat($('.NewValue', this).val())
                 }
                 list.push(orderItem);
             }

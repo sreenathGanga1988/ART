@@ -45,11 +45,11 @@ namespace ArtWebApp.DataModels
         public string IsPD { get; set; }
         public string BodyPartName { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual AtcRawMaterialMaster AtcRawMaterialMaster { get; set; }
         public virtual ICollection<GroupDependantItem> GroupDependantItems { get; set; }
         public virtual ICollection<SkuRawmaterialDetail> SkuRawmaterialDetails { get; set; }
         public virtual UOMMaster UOMMaster { get; set; }
         public virtual ICollection<StyleCostingDetail> StyleCostingDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

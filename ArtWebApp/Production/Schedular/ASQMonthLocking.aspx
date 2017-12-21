@@ -5,7 +5,7 @@
  
 
   
-    
+     <link href="../../css/style.css" rel="stylesheet" />
  
   
 
@@ -224,7 +224,7 @@
 
                         
 
-                        
+                    
 
                         
 
@@ -283,7 +283,7 @@
     </table>
     </div>
 
-<div>
+<div class="FullTable">
         <table class="DataEntryTable">
                     <tr>
                       
@@ -306,7 +306,15 @@
                                            
                                       
                                             <AlternatingRowStyle BackColor="White" />
-                                            <Columns>         
+                                            <Columns>     
+                                                  <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>    
                                                 <asp:TemplateField HeaderText="PoPackId" InsertVisible="False" SortExpression="PoPackId">
                                                 
                                                     <ItemTemplate>
@@ -360,6 +368,25 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField DataField="Expr1" HeaderText="SC" SortExpression="Expr1" ReadOnly="True" />
+                                               
+                                                <asp:TemplateField HeaderText="Sales Handover Date" SortExpression="SalesHandoverDate">
+                                                  
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbl_handoverdate" runat="server" Text='<%# Bind("SalesHandoverDate") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                
+                                                  <asp:TemplateField HeaderText="Revised SHD">
+                                                 
+                                                    <ItemTemplate>
+                                                          <asp:TextBox ID="dtp_deliverydate" runat="server" Font-Size="Smaller" Width="120px"></asp:TextBox>
+
+
+                                    <ajaxToolkit:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
+                                    </ajaxToolkit:CalendarExtender>
+
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                             </Columns>
                                         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
@@ -401,7 +428,7 @@ HAVING        (PoPackMaster.DeliveryDate BETWEEN @param1 AND @param2) AND (MAX(P
                                         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Lock ASQ" />
                                     </td>
                                     <td>
-                                        &nbsp;</td>
+                                      <asp:Button ID="Button2" runat="server"  Text="Change SHD(Sales Handover Date)" OnClick="Button2_Click" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">

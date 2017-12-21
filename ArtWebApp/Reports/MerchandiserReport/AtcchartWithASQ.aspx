@@ -443,12 +443,12 @@ body
                         <asp:GridView ID="tbl_bom" runat="server" AutoGenerateColumns="False"
                              BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" 
                             CellPadding="4" style="font-size: x-small; font-family: Calibri" Width="1033px" 
-                            Font-Size="Large" DataKeyNames="SkuDet_PK" OnDataBound="tbl_bom_DataBound1" OnRowDataBound="tbl_bom_RowDataBound" >
+                            Font-Size="Large" DataKeyNames="SkuDet_PK" OnDataBound="tbl_bom_DataBound1" OnRowDataBound="tbl_bom_RowDataBound"  >
                             <Columns>                               
                                
                                 <asp:BoundField DataField="RMNum" HeaderText="RMNum" SortExpression="RMNum" />
                                 <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
-                               
+                            
                                 <asp:BoundField DataField="ColorName" HeaderText="Color Name" SortExpression="ColorName" />
                                   <asp:BoundField DataField="SizeName" HeaderText="Size Name" SortExpression="SizeName" />
                                 <asp:BoundField DataField="ItemColor" HeaderText="Item Color" SortExpression="ItemColor" />
@@ -563,9 +563,7 @@ body
                                  
 
 
-                                 
-                          
-
+                           
                                  <asp:TemplateField HeaderText="Shipping Details" >
                                      <ItemTemplate>
                                          <asp:GridView ID="tbl_shipping" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" Font-Size="Smaller">

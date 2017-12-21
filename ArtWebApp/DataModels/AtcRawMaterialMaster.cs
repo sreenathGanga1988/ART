@@ -27,8 +27,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> TemplateCount { get; set; }
         public string IsGD { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual Template_Master Template_Master { get; set; }
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

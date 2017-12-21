@@ -1,0 +1,109 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcChartMasterViewModal
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{
+<div class="form-horizontal">
+
+
+   
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
+                </div>
+                <div class="col-md-6">
+
+                    @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
+
+
+
+
+                </div>
+                <div class="col-md-2">
+                   
+                    <input type="submit" value="Index" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+   
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Season#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-6">
+
+                @Html.DropDownList("Season", new SelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", })
+            </div>
+
+
+        </div>
+    </div>
+    
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
+                    </div>
+                    <div class="col-md-10">
+                        
+                           @Html.DropDownListFor(m => m.OurStyleID, Model.OurStyleList, "Please select Fabric", new { @class = "chosen-select form-control" })
+
+
+                    </div>
+                </div>
+            </div>
+   
+
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.Label("RMNUM#", new { @class = "control-label col-md-2" });
+                    </div>
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(m => m.SkuID, Model.SkuList, "Please select Fabric", new { @class = "chosen-select form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("ASQ#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SkuID, Model.SkuList, "Please select Fabric", new { @class = "chosen-select form-control" })
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+}
+
+<div>
+
+
+    @Html.Partial("AtcChartView",Model)
+
+
+</div>

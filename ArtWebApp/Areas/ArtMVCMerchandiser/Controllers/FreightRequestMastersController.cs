@@ -19,7 +19,10 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/FreightRequestMasters
         public ActionResult Index()
         {
-            return View(db.FreightRequestMasters.ToList());
+            List<FreightRequestMaster> freightRequestMasterlist = db.FreightRequestMasters.Where(u => u.ShipementType == "Air").ToList();
+
+            return View(CalculateAllowedvalue(freightRequestMasterlist));
+           
         }
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Details/5
@@ -34,7 +37,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             {
                 return HttpNotFound();
             }
-            return View(freightRequestMaster);
+            return View(calculateAllowedValuesofFreight(freightRequestMaster));
         }
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Create
@@ -53,11 +56,12 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
            
             bool status = false;
             FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+            order.ShipmentType = "Air";
             string reqnum = freightChargeRepo.InsertFreightCharges(order);
             status = true;
 
 
-            return new JsonResult { Data = new { status = status } };
+            return new JsonResult { Data = new { status = status , Reqnum = reqnum } };
         }
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
@@ -85,6 +89,9 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(freightRequestMaster).State = EntityState.Modified;
+                db.Entry(freightRequestMaster).Property(x => x.ShipementType).IsModified = false;
+      
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -112,7 +119,15 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         public ActionResult DeleteConfirmed(decimal id)
         {
             FreightRequestMaster freightRequestMaster = db.FreightRequestMasters.Find(id);
-            db.FreightRequestMasters.Remove(freightRequestMaster);
+            if (freightRequestMaster.IsApproved == "N")
+            {
+                freightRequestMaster.IsDeleted = "Y";
+                freightRequestMaster.DeletedDate = DateTime.Now;
+                freightRequestMaster.DeletedBy = HttpContext.Session["Username"].ToString();
+                db.Entry(freightRequestMaster).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+         
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -163,21 +178,52 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         }
 
 
-
-        //[HttpPost]
-        //public JsonResult Save(FreightRequestMasterViewModel order)
-        //{
+        public ActionResult Print(decimal id)
+        {
+            var report = new Rotativa.MVC.ActionAsPdf("Details", new { id = id });
+            return report;
            
+        }
+
+        public List<FreightRequestMaster> CalculateAllowedvalue(List<FreightRequestMaster> freightRequestMasterlist)
+        {
+            foreach (FreightRequestMaster freightRequestMaster in freightRequestMasterlist)
+            {
+                FreightRequestMaster freightRequestMasternew = calculateAllowedValuesofFreight(freightRequestMaster);
+                freightRequestMaster.AllowedValue = freightRequestMasternew.AllowedValue;
+                freightRequestMaster.UsedValue = freightRequestMasternew.UsedValue;
+                freightRequestMaster.BalanceValue = freightRequestMasternew.BalanceValue;
+
+            }
+
+            return freightRequestMasterlist;
+        }
 
 
+        public FreightRequestMaster calculateAllowedValuesofFreight(FreightRequestMaster freightRequestMaster)
+        {
+            Decimal allowedvalue = 0;
+            Decimal alreadyused = 0;
+            decimal balance = 0;
 
-        
-        //    return new JsonResult { Data = new { status = status } };
-        //}
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+            foreach (FreightChargeDetail freightChargeDetail in freightRequestMaster.FreightChargeDetails)
+            {
+                FreightChargeDetail freightChargeDetailnew = freightChargeRepo.GetAllowedFreightCharges(freightChargeDetail);
+                freightChargeDetail.AllowedValue = freightChargeDetailnew.AllowedValue;
+                freightChargeDetail.UsedValue = freightChargeDetailnew.UsedValue;
+                freightChargeDetail.BalanceValue = freightChargeDetailnew.BalanceValue;
 
+                allowedvalue += Decimal.Parse(freightChargeDetailnew.AllowedValue.ToString());
+                alreadyused += Decimal.Parse(freightChargeDetailnew.UsedValue.ToString());
+                balance += Decimal.Parse(freightChargeDetailnew.BalanceValue.ToString());
+            }
+            freightRequestMaster.AllowedValue = allowedvalue.ToString();
+            freightRequestMaster.UsedValue = alreadyused.ToString();
+            freightRequestMaster.BalanceValue = balance.ToString();
 
-
-
+            return freightRequestMaster;
+        }
 
     }
 }

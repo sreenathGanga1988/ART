@@ -130,6 +130,15 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.WebControls.Button btn_showApprovedcutplan0;
         
         /// <summary>
+        /// Button10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button10;
+        
+        /// <summary>
         /// Upd_ourstyle control.
         /// </summary>
         /// <remarks>
@@ -209,6 +218,15 @@ namespace ArtWebApp.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button7;
+        
+        /// <summary>
+        /// Button11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button11;
         
         /// <summary>
         /// upd_shrinkage control.

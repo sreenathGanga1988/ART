@@ -31,10 +31,10 @@ public partial class Default2 : System.Web.UI.Page
         //}
 
 
-     if(   Session["IsVerified"].ToString().Trim()=="N")
-       {
-            messagediv.Visible = true;
-       }
+     //if(   Session["IsVerified"].ToString().Trim()=="N")
+     //  {
+     //       messagediv.Visible = true;
+     //  }
 
     }
 

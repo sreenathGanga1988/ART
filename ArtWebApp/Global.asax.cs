@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Security;
 using System.Web.SessionState;
 
@@ -21,7 +22,10 @@ namespace ArtWebApp
             table.Columns.Add("Username", typeof(string));
             table.Columns.Add("SessionID", typeof(string));
             table.Columns.Add("Location", typeof(string));
-            Application["SessionData"] = table;
+            Application["SessionData"] = table;     
+
+
+
 
 
             Application["OnlineUsers"] = 0;
@@ -30,14 +34,16 @@ namespace ArtWebApp
             Application["OnlineUsersname"] = User;
             ////when factories do mrn
 
-            System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.ScriptBundle("~/bundle/js")
-             .Include("~/Scripts/*.js"));
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
+            
 
             System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.ScriptBundle("~/bundle/Cutomjs")
             .Include("~/JQuery/*.js"));
 
             System.Web.Optimization.BundleTable.Bundles.Add(new System.Web.Optimization.StyleBundle("~/bundle/css")
-                            .Include("~/css/MasterPage.css", "~/css/style.css"));
+                            .Include("~/css/MasterPage.css", "~/css/style.css", "~/Content/bootstrap.css"));
 
             AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);

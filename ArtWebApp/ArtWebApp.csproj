@@ -37,6 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
@@ -76,10 +78,22 @@
     <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="HiQPdf.Free, Version=10.15.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
+      <HintPath>..\packages\hiqpdf.free.10.15\lib\net40\HiQPdf.Free.dll</HintPath>
+    </Reference>
     <Reference Include="Infragistics35.Web.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Infragistics35.WebUI.Documents.Excel.v12.1, Version=12.1.20121.2236, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,6 +135,15 @@
     </Reference>
     <Reference Include="NumericTextBox">
       <HintPath>..\..\..\..\..\Downloads\MyCustomControls\MyCustomControls\bin\Debug\NumericTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
     </Reference>
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
@@ -299,6 +322,8 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Areas\ArtMVCMerchandiser\Js\FrieightChargeScript.js" />
     <Content Include="Areas\ArtMVCMerchandiser\Js\LabChargescript.js" />
+    <Content Include="Areas\ArtMVCMerchandiser\Js\SeaFrieightChargeScript.js" />
+    <Content Include="Areas\ArtMVCMerchandiser\Js\StockFrieightChargeScript.js" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite%402x.png" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen-sprite.png" />
     <Content Include="Areas\Controls\chosen_v1.7.0\chosen.css" />
@@ -374,6 +399,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\landing-page.css" />
+    <Content Include="css\LinedDatatTable.css" />
     <Content Include="css\MasterPage.css" />
     <Content Include="css\style.css" />
     <Content Include="css\UpdateProgress.css" />
@@ -393,6 +419,7 @@
     <Content Include="Image\password.jpg" />
     <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
@@ -402,6 +429,7 @@
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
     <Content Include="Plugin\MyDataTable.js" />
+    <Content Include="Production\CutOrder\CutOrderClose.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
@@ -1290,6 +1318,10 @@
     <Content Include="Reports\View.aspx">
       <BrowseToURL>~/Reports/Form.aspx</BrowseToURL>
     </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Sampling\CutPlanPatternDetails.aspx" />
     <Content Include="Sampling\CuttingTicket%28Sampling%29.aspx" />
     <Content Include="Sampling\CuttingTicketEdit.aspx" />
@@ -1495,6 +1527,39 @@
     <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Edit.cshtml" />
     <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Index.cshtml" />
     <Content Include="Areas\MVCTNA\Views\ProductIonTNA\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Index.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\MVCTNA\Views\TnaUserRights\Create.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\TnaUserRights\Delete.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\TnaUserRights\Details.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\TnaUserRights\Edit.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\TnaUserRights\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\AtcPerformance\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\StockPOFreightCharge\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\StockPOFreightCharge\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\StockPOFreightCharge\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanMasters\Create.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanMasters\Delete.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanMasters\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanMasters\Edit.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanMasters\Index.cshtml" />
+    <Content Include="Areas\Shipping\Views\web.config" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\Create.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\Delete.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\Details.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\Edit.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanASQShuffle\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\CutPlanASQShuffle\CutplanAsqShuffle.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcChart\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcChart\AtcChartView.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1518,6 +1583,7 @@
     <Content Include="Shipping\Documentreceipt.aspx" />
     <Content Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx" />
     <Content Include="Shipping\InboundEdit.aspx" />
+    <Content Include="Shipping\InboundReceipt.aspx" />
     <Content Include="Shipping\Invoicing.aspx" />
     <Content Include="Shipping\LC\BankAdvice.aspx" />
     <Content Include="Shipping\LC\LCMaster.aspx" />
@@ -1527,7 +1593,6 @@
     <Content Include="Shipping\ShiipingDashBoard.aspx" />
     <Content Include="Shipping\ShipmentClosing.aspx" />
     <Content Include="Shipping\ShippingTracker.aspx" />
-    <Content Include="Shipping\WebForm1.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1854,6 +1919,7 @@
     <Compile Include="Approvals\ServicePoApproval.aspx.designer.cs">
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\ArtAdministrator\ArtAdministratorAreaRegistration.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
@@ -1889,13 +1955,23 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\UserProfileMastersController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserRepo.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\AtcChartRepo.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcChartController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightChargeDetailsController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightRequestMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\GeneralFreightRequestMastersController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\LabChargeRequestController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\SeaFreightRequestController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\AtcChartMasterViewModal.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\MerchandiserviewModels.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\StockPOFreightChargeController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\AtcPerformanceController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\CutOrderEditController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\CutPlanASQShuffleController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\CutPlanEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\FCRController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaySheetEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageadjustController.cs" />
@@ -1905,10 +1981,13 @@
     <Compile Include="Areas\CuttingMVC\Controllers\RejectpanelAdjustController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\SubConExtraRequests1Controller.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\SubConExtraRequestsController.cs" />
+    <Compile Include="Areas\CuttingMVC\CutPlanMastersController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
     <Compile Include="Areas\CuttingMVC\Models\CutplanViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\RejectionPanelViewModal.cs" />
+    <Compile Include="Areas\CuttingMVC\ViewModel\CuttingViewModal.cs" />
+    <Compile Include="Areas\CuttingMVC\ViewModel\FCRViewModel.cs" />
     <Compile Include="Areas\CuttingRepository.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
@@ -1916,10 +1995,15 @@
     <Compile Include="Areas\MVCTNA\Controllers\ProductionTNAsController.cs" />
     <Compile Include="Areas\MVCTNA\MVCTNAAreaRegistration.cs" />
     <Compile Include="Areas\MVCTNA\TNAREpo\ProductionTNARepo.cs" />
+    <Compile Include="Areas\MVCTNA\TnaUserRightsController.cs" />
     <Compile Include="Areas\MVCTNA\ViewModel\ProductionTNAVModel.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
     <Compile Include="Areas\Repository\AdministratorRepo.cs" />
+    <Compile Include="Areas\Repository\AtcPerformanceRepo.cs" />
+    <Compile Include="Areas\Repository\FcrRepo.cs" />
     <Compile Include="Areas\Repository\MerchandiserRepo.cs" />
+    <Compile Include="Areas\Shipping\Controllers\ShippingDocumentMastersController.cs" />
+    <Compile Include="Areas\Shipping\ShippingAreaRegistration.cs" />
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
     <Compile Include="DataModelAtcWorld\Fabricreqforpart.cs">
@@ -1928,13 +2012,139 @@
     <Compile Include="DataModelAtcWorld\FabricRequest_tbl.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\AltUOMMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ApprovalTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQAllocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQShuffleDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ASQShuffleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcApproval.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcDetailApproval.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcExpenseMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcRawMaterialMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ATCWorldToArtShipData.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ATCWorldToArtShipDataDummy.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcWorldToArtSubConWTW.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BankMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BodyPartMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerDestinationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BuyerStyleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CalculationModeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Category.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ChannelMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CityMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ColorMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Company.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ContainerMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ControlDiemension.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CostingComponentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Country.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CountryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CourierTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CreditNoteMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CurrencyMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutInAtcWorld.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CutOrderDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\CutOrderDO.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CutOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutOrderSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanASQDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMarkerDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMarkerSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMarkerType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutPlanMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CutplanRefPattern.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CutPlanRejectHistory.cs">
@@ -1943,7 +2153,46 @@
     <Compile Include="DataModels\CutPlanRejectionMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\CutPlanRollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CuttingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CutTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeletedCutPlan.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryMethodMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryOrderStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryReceiptStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryStockReceiptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DeliveryTermMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\DepartmentMaster.cs">
@@ -1955,16 +2204,172 @@
     <Compile Include="DataModels\DeviceType.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\DocDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\DORollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ELMAH_Error.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EmployeeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EtaDate.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EthiopiaToARTShip_Tbl.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\ExceptionAtcList.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\ExpenseTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\ExtDeliveryToken.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraBOMRequestDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraBOMRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraRequestReason.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ExtraRequestReasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricMissing.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricRollmaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FactoryType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FactWareLinkMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FreightChargeDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FreightRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GarmentCategory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GeneralFreightRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Geogrpahy.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetAPO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP1_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetASNReport_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetAtcChart_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetCostingData_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetCuttingTicket_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetDailyDeliveryReciept_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetDateforCosting_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetImportDocument_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetJobContractCMData_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetPurchasesfromSupplier_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetRecieptofDay_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetSalesDO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetSPO_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GetStockMRN_SP_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GoodsInTransit.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\GroupDependantItem.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryLoanMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMissingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryMissingRequest.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventorySalesDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventorySalesMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryStockTransferDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InventoryStockTransferMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\InvoiceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ItemGroupMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractOptionalDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\JobContractOptionalMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LabChargeDetail.cs">
@@ -1976,6 +2381,18 @@
     <Compile Include="DataModels\LayAdjustDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\LaySheetDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetRollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetRollMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\LayShortageCutorderAdjustment.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -1985,10 +2402,40 @@
     <Compile Include="DataModels\LayShortageReqMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\LCBankAdviceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LCDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LCMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocalBuyerMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\LocationGroupDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LocationGroupMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LocationType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LockedASQDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LoginLog.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MailerList.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MainMenuMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\MarkerDirectionMaster.cs">
@@ -1997,17 +2444,110 @@
     <Compile Include="DataModels\MarkerMadeMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\MarqueeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MerchandiserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MrnDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\MrnFileUpload.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\MrnMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ODOOGPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\OrginUpdatedTable.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PackingListDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PackingListMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\PartialClasses.cs" />
+    <Compile Include="DataModels\PatternMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\PatternNameBank.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PatternStyle.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PatterRefMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PaymentModeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PaymentTermMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PlaningRemarkMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POApproval.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POCurrExRate.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\POPackDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PopackDetailsHistory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PoPackMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PoPackMasterHistory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PrinterDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurementDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurementMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProcurmentPlanDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Product.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionReportDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionStatusAtcWorld_Tbl.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionStatusEthiopia_Tbl.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ProductionTNA.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ProductionTNAComponent.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionTNADetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionTNALocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RecieptMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RejectionAdjustDetail.cs">
@@ -2025,11 +2565,303 @@
     <Compile Include="DataModels\RejectReqMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\RequestOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ROINMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RoInStockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RollInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SalesDebitNoteDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SalesDebitNoteMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamCutAssignmentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamCutPlanPriority.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamDailyCutStatu.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamDailyDeliveryStatu.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamDailySewStatu.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampCutReqMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampCutTicketMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampleAprrovalAuthority.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampleDispatchDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampleFabricEntryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampleType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SampleTypeMasterDummy.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamplingFabricMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamplingStatu.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamSewingPriority.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SamSupplierMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SDocDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SDocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SeasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SeasonType.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ServicePOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ServiceTypeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShipmentHandoverColorSizeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShipmentHandOverDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShipmentHandOverMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentDODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentStockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentStockDODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SizeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SkuRawmaterialDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SkuRawMaterialMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockFreightChargeDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockFreightRequestMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockGoodsInTransit.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockMRNDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockMrnMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockPODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockRecieptMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StockSDocMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StocPOForODOO.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Store.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleColor.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingComponentDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleCostingMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\StyleSize.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SubConAdjustDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\SubConExtraRequest.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SubMenuMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SuplierASNDebitDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierDebitAsnMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierDocumentMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierInvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierInvoiceMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierStockInvoiceDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierStockInvoiceMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\SupplierTypemaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupplierUserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\SupportTicket.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\sysdiagram.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateColor.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateComposition.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateConstruction.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateSize.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateWeight.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TemplateWidth.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\Template_Master.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TempProductionData.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TnaUserRight.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TransferToGstockDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\TransferToGstockMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UOMMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UserMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UserProfileMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\UserProfileRight.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongInventoryDocument.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongPODetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\WrongPOMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\YearMonthMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.cs">
+      <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.designer.cs">
+      <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
     </Compile>
     <Compile Include="Merchandiser\PO\GPODashBoard.aspx.cs">
       <DependentUpon>GPODashBoard.aspx</DependentUpon>
@@ -2037,6 +2869,13 @@
     </Compile>
     <Compile Include="Merchandiser\PO\GPODashBoard.aspx.designer.cs">
       <DependentUpon>GPODashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderClose.aspx.cs">
+      <DependentUpon>CutOrderClose.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderClose.aspx.designer.cs">
+      <DependentUpon>CutOrderClose.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\Cutting\ApprovedLaysheet.aspx.cs">
       <DependentUpon>ApprovedLaysheet.aspx</DependentUpon>
@@ -2076,14 +2915,15 @@
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.designer.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Shipping\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Shipping\InboundReceipt.aspx.cs">
+      <DependentUpon>InboundReceipt.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Shipping\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Shipping\InboundReceipt.aspx.designer.cs">
+      <DependentUpon>InboundReceipt.aspx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Testtindivfrm.aspx.cs">
       <DependentUpon>Testtindivfrm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2237,12 +3077,6 @@
     <Compile Include="DataModelAtcWorld\StyleSizeMaster.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModels\AltUOMMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ApprovalTable.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModels\ArtDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2257,600 +3091,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ASQAllocationMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ASQShuffleDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ASQShuffleMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\AtcApproval.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\AtcDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\AtcDetailApproval.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\AtcMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\AtcRawMaterialMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ATCWorldToArtShipData.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BankMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BodyPartMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BuyerDestinationMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BuyerMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BuyerPOMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\BuyerStyleMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CalculationModeMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ChannelMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ColorMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ContainerMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CostingComponentMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CountryMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CourierTable.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CreditNoteMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CurrencyMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutOrderDO.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutOrderSizeDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanASQDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanMarkerDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanMarkerSizeDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanMarkerType.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutplanRefPattern.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CutPlanRollDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\CuttingDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeletedCutPlan.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryMethodMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryOrderDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryOrderMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryOrderStockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryOrderStockMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryReceiptDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryReceiptMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryReceiptStockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryStockReceiptMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DeliveryTermMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DocDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DocMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\DORollDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ELMAH_Error.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\EtaDate.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\EthiopiaToARTShip_Tbl.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ExtraBOMRequestDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ExtraBOMRequestMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ExtraRequestReasonMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\FabricRollmaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\FactoryType.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\FactWareLinkMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GarmentCategory.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetAPO_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP1_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetApprovedCostingDetailsofOurstyle_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetASNReport_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetAtcChart_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetCostingData_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetCuttingTicket_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetDailyDeliveryReciept_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetDateforCosting_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetImportDocument_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetJobContractCMData_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetPurchasesfromSupplier_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetRecieptofDay_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetSalesDO_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetSPO_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GetStockMRN_SP_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GoodsInTransit.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\GroupDependantItem.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryLoanMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryMissingDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryMissingRequest.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventorySalesDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventorySalesMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryStockTransferDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InventoryStockTransferMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InvoiceDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\InvoiceMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ItemGroupMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\JobContractDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\JobContractMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\JobContractOptionalDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\JobContractOptionalMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LaySheetDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LaySheetMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LaySheetRollDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LaySheetRollMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LCBankAdviceDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LCDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LCMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LocalBuyerMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LocationMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LocationType.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\LockedASQDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\MarqueeMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\MerchandiserMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\MrnDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\MrnMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ODOOGPOMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\OrginUpdatedTable.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PackingListDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PackingListMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PaymentModeMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PaymentTermMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PlaningRemarkMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\POApproval.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\POCurrExRate.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\POPackDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\PoPackMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ProcurementDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ProcurementMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ProcurmentPlanDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ProductionReportDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RecieptMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RequestOrderDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RequestOrderMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RequestOrderStockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RequestOrderStockMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RoInDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ROINMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RoInStockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RoInStockMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\RollInventoryMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SalesDebitNoteDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SalesDebitNoteMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SampleFabricEntryMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SamSupplierMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SDocDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SDocMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SeasonMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SeasonType.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ServicePOMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ServiceTypeMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShipmentHandoverColorSizeDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShipmentHandOverDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShipmentHandOverMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShippingDocumentDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShippingDocumentDODetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShippingDocumentMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShippingDocumentStockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\ShippingDocumentStockDODetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SizeMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SkuRawmaterialDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SkuRawMaterialMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockGoodsInTransit.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockInventoryMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockMRNDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockMrnMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockPODetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockPOMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockRecieptMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StockSDocMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StocPOForODOO.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StyleColor.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StyleCostingComponentDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StyleCostingDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StyleCostingMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\StyleSize.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SubMenuMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SuplierASNDebitDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierDebitAsnMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierDocumentMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierInvoiceDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierInvoiceMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierStockInvoiceDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierStockInvoiceMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupplierUserMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SupportTicket.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\sysdiagram.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateColor.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateComposition.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateConstruction.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateSize.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateWeight.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TemplateWidth.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Template_Master.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TempProductionData.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TransferToGstockDetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\TransferToGstockMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UOMMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UserMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UserProfileMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UserProfileRight.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\WrongInventoryDocument.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\WrongPODetail.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\WrongPOMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\YearMonthMaster.cs">
-      <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBTransaction\AccountsTrranscation\AccountsTransaction.cs" />
     <Compile Include="DBTransaction\AtcTransaction.cs" />
@@ -4656,6 +4896,7 @@
     <Folder Include="Areas\ArtMVCMerchandiser\Models\" />
     <Folder Include="Areas\ArtMVCMerchandiser\Views\Shared\" />
     <Folder Include="Areas\ArtMVC\Views\LaysheetToKenya\" />
+    <Folder Include="Areas\CuttingMVC\Views\CutOrderEdit\" />
     <Folder Include="Areas\CuttingMVC\Views\Laysheet\" />
     <Folder Include="Areas\CuttingMVC\Views\lay\" />
     <Folder Include="Areas\CuttingMVC\Views\RejectPanel\" />
@@ -4664,6 +4905,8 @@
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="Areas\MVCTNA\Models\" />
     <Folder Include="Areas\MVCTNA\Views\Shared\" />
+    <Folder Include="Areas\Shipping\Models\" />
+    <Folder Include="Areas\Shipping\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />
     <Folder Include="Repository\" />
     <Folder Include="Uploads\Gmrn\" />

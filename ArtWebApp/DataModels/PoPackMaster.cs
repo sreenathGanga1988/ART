@@ -20,7 +20,6 @@ namespace ArtWebApp.DataModels
             this.GroupDependantItems = new HashSet<GroupDependantItem>();
             this.JobContractDetails = new HashSet<JobContractDetail>();
             this.PackingListDetails = new HashSet<PackingListDetail>();
-            this.JobContractOptionalDetails = new HashSet<JobContractOptionalDetail>();
             this.POPackDetails = new HashSet<POPackDetail>();
         }
     
@@ -44,15 +43,15 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ExpectedLocation_PK { get; set; }
         public string IsDeleted { get; set; }
         public string IsShuffulable { get; set; }
+        public Nullable<System.DateTime> SalesHandoverDate { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual BuyerDestinationMaster BuyerDestinationMaster { get; set; }
         public virtual ChannelMaster ChannelMaster { get; set; }
         public virtual ICollection<CutPlanASQDetail> CutPlanASQDetails { get; set; }
         public virtual ICollection<GroupDependantItem> GroupDependantItems { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }
         public virtual ICollection<PackingListDetail> PackingListDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
-        public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
         public virtual ICollection<POPackDetail> POPackDetails { get; set; }
     }
 }

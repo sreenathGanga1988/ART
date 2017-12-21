@@ -19,6 +19,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
 
         public List<ProductionTNAVModel> ProductionTNAVModelList { get; set; }
         public ProductionTNAVModel productionTNAVModel { get; set; }
+        public TnaUserRight tnaUserRight { get; set; }
+        
     }
 
 
@@ -53,11 +55,38 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String PACKINGTRIMS { get; set; }
         public String FACTORYPLANNEDPCD { get; set; }
 
+       
+        public int IdFINALMARKER { get; set; }
+        public int IdFC1 { get; set; }
+        public int IdPPMEETING { get; set; }
+        public int IdSIZESET { get; set; }
+        public int IdSEWINGTRIM { get; set; }
+        public int IdBULKFABRIC { get; set; }
+        public int IdRECEIPTOFORGINALDOCUMENT { get; set; }
+        public int IdGRADDEDPATTERN { get; set; }
+        public int IdSAMPLEYARDAGES { get; set; }
+        public int IdPPAPPROVAL { get; set; }
+        public int IdPPSUBMISSIONDATEMERCHANT { get; set; }
+        public int IdINPUT { get; set; }
+        public int IdPACKINGTRIMS { get; set; }
+        public int IdFACTORYPLANNEDPCD { get; set; }
 
 
 
-
-
+        public String ActualFINALMARKER { get; set; }
+        public String ActualFC1 { get; set; }
+        public String ActualPPMEETING { get; set; }
+        public String ActualSIZESET { get; set; }
+        public String ActualSEWINGTRIM { get; set; }
+        public String ActualBULKFABRIC { get; set; }
+        public String ActualRECEIPTOFORGINALDOCUMENT { get; set; }
+        public String ActualGRADDEDPATTERN { get; set; }
+        public String ActualSAMPLEYARDAGES { get; set; }
+        public String ActualPPAPPROVAL { get; set; }
+        public String ActualPPSUBMISSIONDATEMERCHANT { get; set; }
+        public String ActualINPUT { get; set; }
+        public String ActualPACKINGTRIMS { get; set; }
+        public String ActualFACTORYPLANNEDPCD { get; set; }
 
 
         public String OurStyle { get; set; }

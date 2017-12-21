@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -126,6 +127,12 @@ namespace ArtWebApp.DataModels
     [MetadataType(typeof(FreightRequestMasterMD))]
     public partial class FreightRequestMaster
     {
+        [NotMapped]
+        public string AllowedValue { get; set; }
+        [NotMapped]
+        public string UsedValue { get; set; }
+        [NotMapped]
+        public string BalanceValue { get; set; }
         public class FreightRequestMasterMD
         {
             public decimal FreightRequestID { get; set; }
@@ -162,6 +169,27 @@ namespace ArtWebApp.DataModels
             public Nullable<System.DateTime> ApprovedDate { get; set; }
             public string IsApproved { get; set; }
             public string IsPosted { get; set; }
+           
         }
+    }
+
+
+   
+    
+    [MetadataType(typeof(FreightRequestDetailMD))]
+    public partial class FreightChargeDetail
+    {
+        [NotMapped]
+        public string AllowedValue { get; set; }
+        [NotMapped]
+        public string UsedValue { get; set; }
+        [NotMapped]
+        public string BalanceValue { get; set; }
+    }
+    public class FreightRequestDetailMD
+    {
+
+
+        // and other properties you want...
     }
 }

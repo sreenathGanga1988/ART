@@ -1,0 +1,142 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.GeneralFreightRequestMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GeneralFreightRequestNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromParty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToParty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shipper)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContentofPackage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DebitTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Merchandiser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ForwarderDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApproximateCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPosted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipementType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeneralFreightRequestNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromParty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToParty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shipper)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContentofPackage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DebitTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Merchandiser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ForwarderDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApproximateCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipementType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GeneralFreightRequestID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GeneralFreightRequestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GeneralFreightRequestID })
+        </td>
+    </tr>
+}
+
+</table>

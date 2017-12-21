@@ -26,7 +26,8 @@ namespace ArtWebApp.BLL
         public DateTime Inhousedate { get; set; }
         public DateTime AddedDate { get; set; }
         public String AddedBy { get; set; }
-
+        public String Status { get; set; }
+        
         public String CombinationCode { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
@@ -60,6 +61,7 @@ namespace ArtWebApp.BLL
                 pomstr.DeliveryDate = pomdata.DeliveryDate;
                 pomstr.FirstDeliveryDate = pomdata.firstDeliverydate;
                 pomstr.HandoverDate = pomdata.HandoverDate;
+                pomstr.SalesHandoverDate = pomdata.HandoverDate;
                 pomstr.Inhousedate = pomdata.Inhousedate;
                 pomstr.PoPacknum = CreatePoPacknum(pomdata.AtcId, pomdata.Atcnum);
                 ponum=pomstr.PoPacknum ;
@@ -300,7 +302,38 @@ namespace ArtWebApp.BLL
                     foreach (var pomstr in queryselecct)
                     {
 
-                         ponum = pomstr.PoPacknum;
+                        PoPackMasterHistory poPackMasterHistory = new PoPackMasterHistory();
+
+                        poPackMasterHistory.PoPacknum = pomstr.PoPacknum;
+                        poPackMasterHistory.BuyerPO = pomstr.BuyerPO.Trim();
+                        poPackMasterHistory.DeliveryDate = pomstr.DeliveryDate;
+                        poPackMasterHistory.Inhousedate = pomstr.Inhousedate;
+                        poPackMasterHistory.ChannelID = pomstr.ChannelID;
+                        poPackMasterHistory.BuyerDestination_PK = pomstr.BuyerDestination_PK;
+                        poPackMasterHistory.AddedBy = pomstr.AddedBy;
+                        poPackMasterHistory.AddedDate = pomstr.AddedDate;
+                        poPackMasterHistory.PackingInstruction = pomstr.PackingInstruction;
+
+
+                        
+
+                       
+                        poPackMasterHistory.PoGroup = pomstr.PoGroup;
+                        poPackMasterHistory.TagGroup = pomstr.TagGroup;
+                        poPackMasterHistory.HandoverDate = pomstr.HandoverDate;
+                        poPackMasterHistory.SalesHandoverDate = pomstr.HandoverDate;
+
+
+                        poPackMasterHistory.SeasonName = pomstr.SeasonName;
+
+                        enty.PoPackMasterHistories.Add(poPackMasterHistory);
+
+
+
+
+
+
+                        ponum = pomstr.PoPacknum;
                         pomstr.BuyerPO = pomdata.BuyerPO.Trim();
                         pomstr.DeliveryDate = pomdata.DeliveryDate;
                         pomstr.Inhousedate = pomdata.Inhousedate;
@@ -309,11 +342,19 @@ namespace ArtWebApp.BLL
                         pomstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                         pomstr.AddedDate = DateTime.Now;
                         pomstr.PackingInstruction = pomdata.PackingInstruction;
-                        pomstr.ExpectedLocation_PK = pomdata.location_PK;
+                       
                         pomstr.PoGroup = pomdata.POGroup;
                         pomstr.TagGroup = pomdata.POTag;
                         pomstr.HandoverDate = pomdata.HandoverDate;
+                        pomstr.SalesHandoverDate = pomdata.HandoverDate;
                         pomstr.SeasonName = pomdata.seasonName;
+
+                        if (pomdata.Status == "Open")
+                        {
+                            poPackMasterHistory.ExpectedLocation_PK = pomstr.ExpectedLocation_PK;
+                            pomstr.ExpectedLocation_PK = pomdata.location_PK;
+
+                        }
                     }
 
 
@@ -345,11 +386,15 @@ namespace ArtWebApp.BLL
                             atcwordelement.ChannelName = channelname.ToString();
                             atcwordelement.Season = pomdata.seasonName;
 
-                            atcwordelement.ArtLocaion_PK = pomdata.location_PK;
-                          
-                            atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+                            
 
+                            if (pomdata.Status == "Open")
+                            {
+                                atcwordelement.ArtLocaion_PK = pomdata.location_PK;
 
+                                atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+
+                            }
 
                         }
                         atcenty.SaveChanges();
@@ -396,9 +441,10 @@ namespace ArtWebApp.BLL
                     {
 
 
-                      
                         pomstr.HandoverDate = pomdata.HandoverDate;
-                      
+                        pomstr.SalesHandoverDate = pomdata.HandoverDate;
+                        pomstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        pomstr.AddedDate = DateTime.Now;
                     }
 
 
@@ -443,6 +489,47 @@ namespace ArtWebApp.BLL
 
         }
 
+
+        public void updatePOpAckSHD(PoPackMasterData pomdata)
+        {
+
+           
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+
+
+
+
+                    var queryselecct = from pkmstr in enty.PoPackMasters
+                                       where pkmstr.PoPackId == pomdata.PoPackId
+                                       select pkmstr;
+
+
+
+
+                    foreach (var pomstr in queryselecct)
+                    {
+
+
+                        pomstr.SalesHandoverDate = pomdata.HandoverDate;
+                      
+                        pomstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        pomstr.AddedDate = DateTime.Now;
+                    }
+
+
+
+                
+                    enty.SaveChanges();
+
+
+                }
+
+          
+
+
+        }
 
 
 
@@ -675,7 +762,7 @@ FROM            PoPackMaster INNER JOIN
 
         public String Colorcode { get; set; }
         public String Sizecode { get; set; }
-
+        public String Status { get; set; }
         public String getColorcode(string Colorname)
         {
 
@@ -798,8 +885,18 @@ FROM            PoPackMaster INNER JOIN
 
                             foreach (var element in q)
                             {
+                                PopackDetailsHistory popackDetailsHistory = new PopackDetailsHistory();
+                                popackDetailsHistory.PopackDet_Pk = element.PoPack_Detail_PK;
+                                popackDetailsHistory.AddedBy = element.AddedBy;
+                                popackDetailsHistory.AddedDate = element.AddedDate;
+                                popackDetailsHistory.Qty = element.PoQty;
+                                enty.PopackDetailsHistories.Add(popackDetailsHistory);
+
+
                                 element.PoQty = newpopackdetdata.Poqty;
-                                
+                                element.AddedDate = DateTime.Now;
+                                element.AddedBy= HttpContext.Current.Session["Username"].ToString().Trim();
+
                             }
 
 
@@ -1252,6 +1349,33 @@ FROM            PoPackMaster INNER JOIN
             return icut;
         }
 
+        public static String IsASQCutable(int popackid)
+        {
+            DataTable dt = new DataTable();
+            string icut = "";
+            dt.Columns.Add("Color", typeof(String));
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                var iscutable = enty.POPackDetails.Where(u => u.POPackId == popackid ).Select(u => u.IsCutable).Max();
+
+                if (iscutable == null || iscutable.ToString().Trim() == "")
+                {
+                    icut = "N";
+                }
+                else
+                {
+                    icut = iscutable.ToString().Trim();
+                }
+
+            }
+
+
+
+
+            return icut;
+        }
 
         public static String IsAllocated(int ourstyleid, int popackid)
         {

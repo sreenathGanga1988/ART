@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.Areas.MVCTNA.TNAREpo;
 using ArtWebApp.Areas.MVCTNA.ViewModel;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,9 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
         {
             int atcid = 0;
 
+            int userid = int.Parse(HttpContext.Session["User_PK"].ToString());
+            TnaUserRight tnaUserRight = db.TnaUserRights.Where(u=>u.User_PK==userid).FirstOrDefault();
+            model.tnaUserRight = tnaUserRight;
             model.AtcList = new SelectList(db.AtcMasters.Where(o => o.IsClosed == "N"), "AtcId", "AtcNum");
             if (model.AtcID.HasValue)
             {
@@ -50,5 +54,56 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
 
         }
 
+
+
+      
+
+
+        [HttpGet]
+        public JsonResult Mark(int? CompId, int? Ourstyleid , int? location_Pk, String Id)
+
+        {
+            bool status = false;
+            int CutPlan_PK = 0;
+
+
+
+            if (!db.ProductionTNADetails.Any(f => f.ProductionTNACompID == CompId && f.OurStyleID == Ourstyleid && f.Location_PK == location_Pk))
+            {
+
+
+                ProductionTNADetail productionTNADetail = new ProductionTNADetail();
+                productionTNADetail.Location_PK = location_Pk;
+                productionTNADetail.OurStyleID = Ourstyleid;
+                productionTNADetail.ProductionTNACompID = CompId;
+                productionTNADetail.Actionname = Id;
+                productionTNADetail.MarkedBy = HttpContext.Session["Username"].ToString();
+                productionTNADetail.MarkedDate= DateTime.Now;
+                db.ProductionTNADetails.Add(productionTNADetail);
+
+            }
+
+
+
+
+            db.SaveChanges();
+
+
+            status = true;
+
+
+           
+
+            JsonResult jsd = Json(new { status = status }, JsonRequestBehavior.AllowGet);
+            return jsd;
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

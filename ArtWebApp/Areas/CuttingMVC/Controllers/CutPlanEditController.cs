@@ -140,9 +140,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 CutPlan_PK = int.Parse(asqCollection.CutPlan_PK.ToString());
                 int OurStyleId = int.Parse(asqCollection.OurStyleID.ToString());
-                int PoPackId = int.Parse(asqCollection.CutPlan_PK.ToString());
+                int PoPackId = int.Parse(asqCollection.PoPackId.ToString());
                 Decimal Qty = Decimal.Parse(asqCollection.Qty.ToString());
-                if (db.CutPlanASQDetails.Any(f => f.CutPlan_PK == CutPlan_PK && f.OurStyleId == OurStyleId && f.PoPackId == PoPackId && f.SizeName == asqCollection.SizeName
+                if (!db.CutPlanASQDetails.Any(f => f.CutPlan_PK == CutPlan_PK && f.OurStyleId == OurStyleId && f.PoPackId == PoPackId && f.SizeName == asqCollection.SizeName
                         && f.ColorName == asqCollection.ColorName))
                 {
 
@@ -158,6 +158,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                     cddetail.Skudet_PK = int.Parse(skudetpk.ToString());
                     cddetail.OurStyleId = OurStyleId;
                     cddetail.IsDeleted = "N";
+                    cddetail.AddedVia = "Edit";
+                    cddetail.AddedDate = DateTime.Now;
+                    cddetail.AddedBy= HttpContext.Session["Username"].ToString();
                     db.CutPlanASQDetails.Add(cddetail);
 
                 }
@@ -228,6 +231,13 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             return jsd;
 
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

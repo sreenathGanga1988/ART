@@ -25,6 +25,7 @@ namespace ArtWebApp.DataModels
             this.TemplateWeights = new HashSet<TemplateWeight>();
             this.TemplateWidths = new HashSet<TemplateWidth>();
             this.TransferToGstockDetails = new HashSet<TransferToGstockDetail>();
+            this.StockPODetails = new HashSet<StockPODetail>();
         }
     
         public decimal Template_PK { get; set; }
@@ -52,5 +53,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<TemplateWeight> TemplateWeights { get; set; }
         public virtual ICollection<TemplateWidth> TemplateWidths { get; set; }
         public virtual ICollection<TransferToGstockDetail> TransferToGstockDetails { get; set; }
+        public virtual ICollection<StockPODetail> StockPODetails { get; set; }
     }
 }

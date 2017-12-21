@@ -33,25 +33,30 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         public String MarkerMade { get; set; }
 
 
-
+        public decimal[] SelectedPopackID{ get; set; }
 
         private List<ASQMAster> aSQMAsters;
 
         public List<ASQMAster> ASQMAsters { get => GetASQMAstersList(); set => aSQMAsters = value; }
         public DataTable HeaderTableData { get => GetHeaderData(); set => HeaderTableData = value; }
 
-
-
-
+        
 
         public List<ASQMAster> GetASQMAstersList()
         {
-
+            cutplantransactionedit cutplantransactionedit = new cutplantransactionedit();
             List<ASQMAster> asqlist = new List<ASQMAster>();
             DataTable podetaildata = BLL.CutOrderBLL.CutPlan.GetCutPlanASQSizeData(this.cutplanPk);
             DataView view = new DataView(podetaildata);
             DataTable distinctcolorValues = view.ToTable(true, "ASQ", "BuyerPO", "PoPackId", "OurStyleID", "OurStyle", "BuyerStyle", "CutPlan_PK", "SeasonName", "HandoverDate", "ColorName");
 
+
+            String ourstyleid = "0";
+            String colorname = "";
+            String ourstylename = "";
+            String BuyerStyle = "";
+            String Handoverdate = "";
+            String CutplanPk = "";
             foreach (DataRow row in distinctcolorValues.Rows)
             {
                 ASQMAster asq = new ASQMAster();
@@ -73,15 +78,61 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
 
                 asq.HandoverDate = row["HandoverDate"].ToString();
 
+                ourstyleid = asq.OurStyleID;
+                colorname = asq.ColorName;
+                ourstylename = asq.OurStyle; ;
+                BuyerStyle = asq.BuyerStyle;
+               Handoverdate = asq.HandoverDate;
+                CutplanPk = asq.CutPlan_PK;
 
-
-                cutplantransactionedit cutplantransactionedit = new cutplantransactionedit();
+            
                 asq.SizewiseDetails = cutplantransactionedit.getSizewisedetails(podetaildata, int.Parse(asq.Popackid), int.Parse(asq.OurStyleID));
+                asq.SizewiseDetailsWithDetPK= podetaildata.Select("PoPackId = " + asq.Popackid + " AND OurStyleID=" + asq.OurStyleID + "").CopyToDataTable();
 
                 asqlist.Add(asq);
 
 
             }
+
+
+
+
+            if (this.SelectedPopackID != null)
+            {
+                foreach (Decimal Popackidtemp in this.SelectedPopackID)
+                {
+
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                    {
+
+                        ASQMAster q = (from popackmastr in enty.PoPackMasters
+                                      where popackmastr.PoPackId == Popackidtemp
+                                      select new ASQMAster
+                                      {
+                                          ASQ = popackmastr.PoPacknum,
+                                          BuyerPO = popackmastr.BuyerPO,
+                                          Popackid = popackmastr.PoPackId.ToString(),
+                                          OurStyleID = ourstyleid,
+                                          OurStyle = ourstylename,
+                                          CutPlan_PK = CutplanPk,
+                                    ColorName = colorname,
+                                    BuyerStyle = BuyerStyle,
+                                    SeasonName = popackmastr.SeasonName,
+                                    HandoverDate = Handoverdate
+                                }).FirstOrDefault();
+
+
+                        q.SizewiseDetailsWithDetPK = BLL.CutOrderBLL.CutPlan.GetASQSizeData(int.Parse(Popackidtemp.ToString()), int.Parse(q.OurStyleID.ToString()),colorname);
+                                                
+                        asqlist.Add(q);
+                    }
+                }
+            }
+
+
+
+
+
             return asqlist;
 
 
@@ -136,10 +187,20 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
        
     }
 
-  
+
+    public class AsqDetCollection
+    {
 
 
-   
+        public String PoPackdetID { get; set; }
+        public String CutPlan_PK { get; set; }
+        public String ActualCutPlan_PK { get; set; }
+        public String Qty { get; set; }
+
+
+    }
+
+
 
     public class ASQMAster
     {
@@ -163,6 +224,8 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         public String HandoverDate { get; set; }
         
         public DataTable SizewiseDetails { get; set; }
+
+        public DataTable SizewiseDetailsWithDetPK { get; set; }
 
     }
 

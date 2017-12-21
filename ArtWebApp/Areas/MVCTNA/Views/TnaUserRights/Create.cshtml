@@ -1,0 +1,207 @@
+﻿@model ArtWebApp.DataModels.TnaUserRight
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TnaUserRight</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+           
+            @Html.LabelFor(model => model.IsPPSumbissionDate, "PP Submission", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    
+                    @Html.EditorFor(x => x.IsPPSumbissionDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsPPSumbissionDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPPApprovalDate, "PP Approval", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                 
+                    @Html.EditorFor(x => x.IsPPApprovalDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsPPApprovalDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsSampleYardagesDate, "Sampling yardage", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(x => x.IsSampleYardagesDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                
+                    @Html.ValidationMessageFor(model => model.IsSampleYardagesDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsGradedPatternDate,"Gradded Pattern" ,htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                  
+                    @Html.EditorFor(x => x.IsGradedPatternDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsGradedPatternDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsBulkFabricDate, "Bulk Fabric", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                 
+                    @Html.EditorFor(x => x.IsBulkFabricDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsGradedPatternDate, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.IsBulkFabricDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsSewingTrimDate,"Sewing Trim" ,htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                  
+                    @Html.EditorFor(x => x.IsSewingTrimDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsSewingTrimDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsSizeSetDate, "Size Set", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                  
+                    @Html.EditorFor(x => x.IsSizeSetDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsSizeSetDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPPMeetingDate,"PP Meeting" ,htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                 
+                    @Html.EditorFor(x => x.IsPPMeetingDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsSizeSetDate, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.IsPPMeetingDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFC1Date, "FC1   Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                   
+                    @Html.EditorFor(x => x.IsFC1Date,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsFC1Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFinalMarkerDate, "Final   Marker", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                  
+                    @Html.EditorFor(x => x.IsFinalMarkerDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsFinalMarkerDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFactoryPlannedPCDDate, "Factory  PCD", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                 
+                    @Html.EditorFor(x => x.IsFactoryPlannedPCDDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsFactoryPlannedPCDDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsMerchandisingPCDDate, "Merchandising PCD", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                   
+                    @Html.EditorFor(x => x.IsMerchandisingPCDDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsMerchandisingPCDDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsInputDate, "InPut Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                   
+                    @Html.EditorFor(x => x.IsInputDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsInputDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPackingTrimDate, "Packing Trim", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                   
+                    @Html.EditorFor(x => x.IsPackingTrimDate,
+new { htmlAttributes = new { @class = "chosen-select form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsPackingTrimDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User_PK, "User", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("User_PK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.User_PK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

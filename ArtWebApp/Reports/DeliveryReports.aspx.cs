@@ -84,12 +84,30 @@ namespace ArtWebApp.Reports
 
             }
         }
+        public void FillDORComboofAtc(int atcid)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from dlvordr in entty.DeliveryReceiptMasters
+                        where dlvordr.DeliveryOrderMaster.AtcID == atcid
+                        select new
+                        {
+                            name = dlvordr.DORNum,
+                            pk = dlvordr.DOR_PK
+                        };
 
+                // Create a table from the query.
+                drp_rcpt.DataSource = q.ToList();
+                drp_rcpt.DataBind();
+
+            }
+        }
         protected void Btn_show_Click(object sender, EventArgs e)
         {
             try
             {
                 FillDOCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
+                FillDORComboofAtc(int.Parse(drp_Atc.SelectedValue.ToString()));
             }
             catch (Exception)
             {

@@ -25,10 +25,13 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> OurStyleId { get; set; }
         public string IsDeleted { get; set; }
         public Nullable<decimal> OldQty { get; set; }
+        public string AddedVia { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public string AddedBy { get; set; }
     
-        public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
-        public virtual PoPackMaster PoPackMaster { get; set; }
         public virtual CutPlanMaster CutPlanMaster { get; set; }
         public virtual POPackDetail POPackDetail { get; set; }
+        public virtual PoPackMaster PoPackMaster { get; set; }
+        public virtual SkuRawmaterialDetail SkuRawmaterialDetail { get; set; }
     }
 }

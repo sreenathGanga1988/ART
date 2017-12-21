@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public UserMaster()
         {
             this.ApprovalTables = new HashSet<ApprovalTable>();
+            this.TnaUserRights = new HashSet<TnaUserRight>();
         }
     
         public decimal User_PK { get; set; }
@@ -44,6 +45,7 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<ApprovalTable> ApprovalTables { get; set; }
         public virtual DepartmentMaster DepartmentMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
+        public virtual ICollection<TnaUserRight> TnaUserRights { get; set; }
         public virtual UserProfileMaster UserProfileMaster { get; set; }
     }
 }

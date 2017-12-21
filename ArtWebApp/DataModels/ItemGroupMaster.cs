@@ -16,15 +16,15 @@ namespace ArtWebApp.DataModels
     {
         public ItemGroupMaster()
         {
-            this.Template_Master = new HashSet<Template_Master>();
             this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
+            this.Template_Master = new HashSet<Template_Master>();
         }
     
         public decimal ItemGroupID { get; set; }
         public string ItemGroupName { get; set; }
         public string ItemGroupDescription { get; set; }
     
-        public virtual ICollection<Template_Master> Template_Master { get; set; }
         public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
+        public virtual ICollection<Template_Master> Template_Master { get; set; }
     }
 }

@@ -637,6 +637,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.BL = this.BL;
                 shpdocmstr.Mode = this.Mode;
                 shpdocmstr.DocType = this.DocType;
+                shpdocmstr.IsReceived = "N";
                 try
                 {
                     shpdocmstr.ETA = this.ETA;
@@ -747,7 +748,23 @@ WHERE        (InventorySalesMaster.SalesDate > CONVERT(DATETIME, '2016-12-20 00:
 
 
 
+        public void ReceiveShippingDocument(int shipping_pk, DateTime frmdate)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from bnk in enty.ShippingDocumentMasters
+                        where bnk.ShipingDoc_PK == shipping_pk
+                        select bnk;
+                foreach (var element in q)
+                {
+                    element.TentativeETA = frmdate;
+                    element.IsReceived = "Y";
+                    element.ReceivedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                    element.ReceivedTime = DateTime.Now;
+                }
+            }
 
+          }
 
 
 

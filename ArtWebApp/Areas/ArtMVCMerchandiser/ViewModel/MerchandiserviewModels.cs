@@ -28,12 +28,14 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
         public string ForwarderDetails { get; set; }
         public string ApproximateCharges { get; set; }
         public string Remark { get; set; }
+        public string ShipmentType { get; set; }
         public string ApprovedBy { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string IsApproved { get; set; }
         public string IsPosted { get; set; }
 
         public virtual ICollection<FreightChargeDetailViewMoodel> FreightChargeDetails { get; set; }
+        public virtual ICollection<StockFreightChargeDetailViewMoodel> stockFreightChargeDetails { get; set; }
     }
     public partial class FreightChargeDetailViewMoodel
     {
@@ -42,6 +44,16 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
         public Nullable<decimal> FreightCharge { get; set; }
         public Nullable<decimal> FreightRequestID { get; set; }
 
+        public virtual FreightRequestMasterViewModel FreightRequestMasterViewModel { get; set; }
+    }
+    public partial class StockFreightChargeDetailViewMoodel
+    {
+        public decimal FreightReqDetID { get; set; }
+        public Nullable<decimal> SpoPK { get; set; }
+        public Nullable<decimal> SPODetails_PK { get; set; }
+        public Nullable<decimal> FreightCharge { get; set; }
+        public Nullable<decimal> FreightRequestID { get; set; }
+        public String  Remark { get; set; }
         public virtual FreightRequestMasterViewModel FreightRequestMasterViewModel { get; set; }
     }
 

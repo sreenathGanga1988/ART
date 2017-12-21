@@ -142,7 +142,7 @@
                                                 <asp:Label ID="lbl_OnhandQty" runat="server" Text='<%# Bind("OnhandQty") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CutOrder">
+                                   <asp:TemplateField HeaderText="CutOrder">
                                         
                                         <ItemTemplate>
                                            

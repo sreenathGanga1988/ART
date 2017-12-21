@@ -846,6 +846,33 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
             return dt;
         }
 
+        public DataTable GetSpoItemList(int spo_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        Template_Master.Description + ISNULL(StockPODetails.Composition, '') + ISNULL(StockPODetails.Construct, '') + ISNULL(StockPODetails.TemplateColor, '') AS Item, StockPODetails.SPODetails_PK
+FROM            StockPODetails INNER JOIN
+                         Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK
+WHERE        (StockPODetails.SPO_PK = @spo_pk)", con);
+
+
+                cmd.Parameters.AddWithValue("@spo_pk", spo_pk);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
         public DataTable GetSpoiNVOICEDetails(int spo_pk)
         {
             DataTable dt = new DataTable();

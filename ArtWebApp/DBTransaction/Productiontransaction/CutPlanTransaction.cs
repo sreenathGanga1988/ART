@@ -222,7 +222,7 @@ WHERE        (CutPlanMarkerDetails_PK = @CutPlan_PK)";
 
                 string query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
                          AtcDetails.BuyerStyle, CutPlanASQDetails.ColorName, CutPlanASQDetails.SizeName, CutPlanASQDetails.CutQty, CutPlanASQDetails.CutPlan_PK, CutPlanASQDetails.CutPlanASQDetails_PK, 
-                         StyleSize.Orderof , PoPackMaster.SeasonName, PoPackMaster.HandoverDate
+                         StyleSize.Orderof , PoPackMaster.SeasonName, PoPackMaster.HandoverDate, POPackDetails.PoPack_Detail_PK
 FROM            CutPlanASQDetails INNER JOIN
                          POPackDetails ON CutPlanASQDetails.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
@@ -244,6 +244,45 @@ WHERE        (CutPlanASQDetails.CutPlan_PK = @cutplanpk)";
             }
             return dt;
         }
+
+
+        public static DataTable GetPopackDetailsdforAddingtoCutplan(int popackid,int Ourstyeid,String Colorname)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                string query = @"SELECT        PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO AS ASQ, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, PoPackMaster.PoPackId, POPackDetails.OurStyleID, AtcDetails.OurStyle, 
+                         AtcDetails.BuyerStyle, POPackDetails.ColorCode, POPackDetails.ColorName, 0 AS CutQty, 0 AS CutPlan_PK, 0 AS CutPlanASQDetails_PK, StyleSize.Orderof, PoPackMaster.SeasonName, 
+                         PoPackMaster.HandoverDate, POPackDetails.PoPack_Detail_PK, POPackDetails.SizeName
+FROM            POPackDetails INNER JOIN
+                         AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
+                         StyleSize ON POPackDetails.OurStyleID = StyleSize.OurStyleID AND POPackDetails.SizeName = StyleSize.SizeName INNER JOIN
+                         PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId
+WHERE        (PoPackMaster.PoPackId = @popackid) AND (POPackDetails.OurStyleID = @Ourstyeid) AND (POPackDetails.ColorName = @ColorName)";
+
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@popackid", popackid);
+                cmd.Parameters.AddWithValue("@Ourstyeid", Ourstyeid);
+                cmd.Parameters.AddWithValue("@ColorName", Colorname);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
+
 
 
         public static DataTable GetAlreadyCutQtyofColor(int ourstyleid, string colorcode)

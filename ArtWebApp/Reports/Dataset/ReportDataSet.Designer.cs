@@ -2728,6 +2728,26 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnRemark;
             
+            private global::System.Data.DataColumn columnPOUnitRate1;
+            
+            private global::System.Data.DataColumn columnFreightType;
+            
+            private global::System.Data.DataColumn columnFreightCharge;
+            
+            private global::System.Data.DataColumn columnIsFreightChargeApproved;
+            
+            private global::System.Data.DataColumn columnIsApproved;
+            
+            private global::System.Data.DataColumn columnApprovedBy;
+            
+            private global::System.Data.DataColumn columnDeletedBy;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnDeletedDate;
+            
+            private global::System.Data.DataColumn columnApproveddate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ProcurementDataDataTable() {
@@ -3019,6 +3039,86 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn POUnitRate1Column {
+                get {
+                    return this.columnPOUnitRate1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FreightTypeColumn {
+                get {
+                    return this.columnFreightType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FreightChargeColumn {
+                get {
+                    return this.columnFreightCharge;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsFreightChargeApprovedColumn {
+                get {
+                    return this.columnIsFreightChargeApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsApprovedColumn {
+                get {
+                    return this.columnIsApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ApprovedByColumn {
+                get {
+                    return this.columnApprovedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DeletedByColumn {
+                get {
+                    return this.columnDeletedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DeletedDateColumn {
+                get {
+                    return this.columnDeletedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ApproveddateColumn {
+                get {
+                    return this.columnApproveddate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3085,7 +3185,17 @@ namespace ArtWebApp.Reports.Dataset {
                         System.DateTime DeliveryDate, 
                         string ItemName, 
                         string POType, 
-                        string Remark) {
+                        string Remark, 
+                        decimal POUnitRate1, 
+                        string FreightType, 
+                        decimal FreightCharge, 
+                        string IsFreightChargeApproved, 
+                        string IsApproved, 
+                        string ApprovedBy, 
+                        string DeletedBy, 
+                        string IsDeleted, 
+                        System.DateTime DeletedDate, 
+                        System.DateTime Approveddate) {
                 ProcurementDataRow rowProcurementDataRow = ((ProcurementDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PONum,
@@ -3119,7 +3229,17 @@ namespace ArtWebApp.Reports.Dataset {
                         DeliveryDate,
                         ItemName,
                         POType,
-                        Remark};
+                        Remark,
+                        POUnitRate1,
+                        FreightType,
+                        FreightCharge,
+                        IsFreightChargeApproved,
+                        IsApproved,
+                        ApprovedBy,
+                        DeletedBy,
+                        IsDeleted,
+                        DeletedDate,
+                        Approveddate};
                 rowProcurementDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProcurementDataRow);
                 return rowProcurementDataRow;
@@ -3181,6 +3301,16 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnItemName = base.Columns["ItemName"];
                 this.columnPOType = base.Columns["POType"];
                 this.columnRemark = base.Columns["Remark"];
+                this.columnPOUnitRate1 = base.Columns["POUnitRate1"];
+                this.columnFreightType = base.Columns["FreightType"];
+                this.columnFreightCharge = base.Columns["FreightCharge"];
+                this.columnIsFreightChargeApproved = base.Columns["IsFreightChargeApproved"];
+                this.columnIsApproved = base.Columns["IsApproved"];
+                this.columnApprovedBy = base.Columns["ApprovedBy"];
+                this.columnDeletedBy = base.Columns["DeletedBy"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnDeletedDate = base.Columns["DeletedDate"];
+                this.columnApproveddate = base.Columns["Approveddate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3250,6 +3380,26 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnPOType);
                 this.columnRemark = new global::System.Data.DataColumn("Remark", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRemark);
+                this.columnPOUnitRate1 = new global::System.Data.DataColumn("POUnitRate1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPOUnitRate1);
+                this.columnFreightType = new global::System.Data.DataColumn("FreightType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFreightType);
+                this.columnFreightCharge = new global::System.Data.DataColumn("FreightCharge", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFreightCharge);
+                this.columnIsFreightChargeApproved = new global::System.Data.DataColumn("IsFreightChargeApproved", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsFreightChargeApproved);
+                this.columnIsApproved = new global::System.Data.DataColumn("IsApproved", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApproved);
+                this.columnApprovedBy = new global::System.Data.DataColumn("ApprovedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedBy);
+                this.columnDeletedBy = new global::System.Data.DataColumn("DeletedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeletedBy);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnDeletedDate = new global::System.Data.DataColumn("DeletedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeletedDate);
+                this.columnApproveddate = new global::System.Data.DataColumn("Approveddate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApproveddate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPO_Pk}, true));
                 this.columnPONum.MaxLength = 10;
@@ -3290,6 +3440,13 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnItemName.MaxLength = 50;
                 this.columnPOType.MaxLength = 4;
                 this.columnRemark.MaxLength = 2147483647;
+                this.columnPOUnitRate1.Caption = "POUnitRate";
+                this.columnFreightType.MaxLength = 50;
+                this.columnIsFreightChargeApproved.MaxLength = 10;
+                this.columnIsApproved.MaxLength = 1;
+                this.columnApprovedBy.MaxLength = 20;
+                this.columnDeletedBy.MaxLength = 20;
+                this.columnIsDeleted.MaxLength = 1;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17146,6 +17303,10 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnIsShortClosed;
             
+            private global::System.Data.DataColumn columnFOB;
+            
+            private global::System.Data.DataColumn columnSalesHandoverDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ASQDataOfMonth_SPDataTable() {
@@ -17309,6 +17470,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FOBColumn {
+                get {
+                    return this.columnFOB;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SalesHandoverDateColumn {
+                get {
+                    return this.columnSalesHandoverDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -17360,7 +17537,9 @@ namespace ArtWebApp.Reports.Dataset {
                         int YearofPO, 
                         decimal ShippedQty, 
                         decimal BalanceQty, 
-                        string IsShortClosed) {
+                        string IsShortClosed, 
+                        decimal FOB, 
+                        System.DateTime SalesHandoverDate) {
                 ASQDataOfMonth_SPRow rowASQDataOfMonth_SPRow = ((ASQDataOfMonth_SPRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LocationName,
@@ -17378,7 +17557,9 @@ namespace ArtWebApp.Reports.Dataset {
                         YearofPO,
                         ShippedQty,
                         BalanceQty,
-                        IsShortClosed};
+                        IsShortClosed,
+                        FOB,
+                        SalesHandoverDate};
                 rowASQDataOfMonth_SPRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowASQDataOfMonth_SPRow);
                 return rowASQDataOfMonth_SPRow;
@@ -17417,6 +17598,8 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnShippedQty = base.Columns["ShippedQty"];
                 this.columnBalanceQty = base.Columns["BalanceQty"];
                 this.columnIsShortClosed = base.Columns["IsShortClosed"];
+                this.columnFOB = base.Columns["FOB"];
+                this.columnSalesHandoverDate = base.Columns["SalesHandoverDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17454,6 +17637,10 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnBalanceQty);
                 this.columnIsShortClosed = new global::System.Data.DataColumn("IsShortClosed", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsShortClosed);
+                this.columnFOB = new global::System.Data.DataColumn("FOB", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFOB);
+                this.columnSalesHandoverDate = new global::System.Data.DataColumn("SalesHandoverDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesHandoverDate);
                 this.columnLocationName.MaxLength = 50;
                 this.columnAtcNum.MaxLength = 10;
                 this.columnOurStyle.AllowDBNull = false;
@@ -27845,6 +28032,167 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal POUnitRate1 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableProcurementData.POUnitRate1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'POUnitRate1\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.POUnitRate1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string FreightType {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.FreightTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FreightType\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.FreightTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal FreightCharge {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableProcurementData.FreightChargeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FreightCharge\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.FreightChargeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsFreightChargeApproved {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.IsFreightChargeApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsFreightChargeApproved\' in table \'ProcurementData\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.IsFreightChargeApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsApproved {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.IsApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsApproved\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.IsApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ApprovedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.ApprovedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedBy\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.ApprovedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string DeletedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.DeletedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DeletedBy\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.DeletedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsDeleted {
+                get {
+                    try {
+                        return ((string)(this[this.tableProcurementData.IsDeletedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsDeleted\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime DeletedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableProcurementData.DeletedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DeletedDate\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.DeletedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime Approveddate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableProcurementData.ApproveddateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Approveddate\' in table \'ProcurementData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProcurementData.ApproveddateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsPONumNull() {
                 return this.IsNull(this.tableProcurementData.PONumColumn);
             }
@@ -28201,6 +28549,126 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetRemarkNull() {
                 this[this.tableProcurementData.RemarkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPOUnitRate1Null() {
+                return this.IsNull(this.tableProcurementData.POUnitRate1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPOUnitRate1Null() {
+                this[this.tableProcurementData.POUnitRate1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFreightTypeNull() {
+                return this.IsNull(this.tableProcurementData.FreightTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFreightTypeNull() {
+                this[this.tableProcurementData.FreightTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFreightChargeNull() {
+                return this.IsNull(this.tableProcurementData.FreightChargeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFreightChargeNull() {
+                this[this.tableProcurementData.FreightChargeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsFreightChargeApprovedNull() {
+                return this.IsNull(this.tableProcurementData.IsFreightChargeApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsFreightChargeApprovedNull() {
+                this[this.tableProcurementData.IsFreightChargeApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsApprovedNull() {
+                return this.IsNull(this.tableProcurementData.IsApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsApprovedNull() {
+                this[this.tableProcurementData.IsApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsApprovedByNull() {
+                return this.IsNull(this.tableProcurementData.ApprovedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetApprovedByNull() {
+                this[this.tableProcurementData.ApprovedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDeletedByNull() {
+                return this.IsNull(this.tableProcurementData.DeletedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDeletedByNull() {
+                this[this.tableProcurementData.DeletedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsDeletedNull() {
+                return this.IsNull(this.tableProcurementData.IsDeletedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsDeletedNull() {
+                this[this.tableProcurementData.IsDeletedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDeletedDateNull() {
+                return this.IsNull(this.tableProcurementData.DeletedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDeletedDateNull() {
+                this[this.tableProcurementData.DeletedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsApproveddateNull() {
+                return this.IsNull(this.tableProcurementData.ApproveddateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetApproveddateNull() {
+                this[this.tableProcurementData.ApproveddateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -41073,6 +41541,38 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal FOB {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableASQDataOfMonth_SP.FOBColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FOB\' in table \'ASQDataOfMonth_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASQDataOfMonth_SP.FOBColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime SalesHandoverDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableASQDataOfMonth_SP.SalesHandoverDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SalesHandoverDate\' in table \'ASQDataOfMonth_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableASQDataOfMonth_SP.SalesHandoverDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsLocationNameNull() {
                 return this.IsNull(this.tableASQDataOfMonth_SP.LocationNameColumn);
             }
@@ -41249,6 +41749,30 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetIsShortClosedNull() {
                 this[this.tableASQDataOfMonth_SP.IsShortClosedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFOBNull() {
+                return this.IsNull(this.tableASQDataOfMonth_SP.FOBColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFOBNull() {
+                this[this.tableASQDataOfMonth_SP.FOBColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSalesHandoverDateNull() {
+                return this.IsNull(this.tableASQDataOfMonth_SP.SalesHandoverDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSalesHandoverDateNull() {
+                this[this.tableASQDataOfMonth_SP.SalesHandoverDateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -51385,7 +51909,6 @@ namespace ArtWebApp.Reports.Dataset.ReportDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Telephone", "Telephone");
             tableMapping.ColumnMappings.Add("PaymentCodeDescription", "PaymentCodeDescription");
             tableMapping.ColumnMappings.Add("RMNum", "RMNum");
-            tableMapping.ColumnMappings.Add("POUnitRate", "POUnitRate");
             tableMapping.ColumnMappings.Add("UomCode", "UomCode");
             tableMapping.ColumnMappings.Add("Construction", "Construction");
             tableMapping.ColumnMappings.Add("Composition", "Composition");
@@ -51405,6 +51928,16 @@ namespace ArtWebApp.Reports.Dataset.ReportDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("ItemName", "ItemName");
             tableMapping.ColumnMappings.Add("POType", "POType");
             tableMapping.ColumnMappings.Add("Remark", "Remark");
+            tableMapping.ColumnMappings.Add("POUnitRate", "POUnitRate1");
+            tableMapping.ColumnMappings.Add("FreightType", "FreightType");
+            tableMapping.ColumnMappings.Add("FreightCharge", "FreightCharge");
+            tableMapping.ColumnMappings.Add("IsFreightChargeApproved", "IsFreightChargeApproved");
+            tableMapping.ColumnMappings.Add("IsApproved", "IsApproved");
+            tableMapping.ColumnMappings.Add("ApprovedBy", "ApprovedBy");
+            tableMapping.ColumnMappings.Add("DeletedBy", "DeletedBy");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("DeletedDate", "DeletedDate");
+            tableMapping.ColumnMappings.Add("Approveddate", "Approveddate");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -51412,7 +51945,7 @@ namespace ArtWebApp.Reports.Dataset.ReportDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -51441,30 +51974,34 @@ namespace ArtWebApp.Reports.Dataset.ReportDataSetTableAdapters {
                 "   (CASE SkuRawmaterialDetail.ItemColor WHEN \'NA\' THEN \'\' WHEN \'N/A\' THEN \'\' ELS" +
                 "E SkuRawmaterialDetail.ItemColor END) AS ItemColor, ProcurementMaster.DeliveryDa" +
                 "te, \r\n                         Template_Master.Description AS ItemName, Procurem" +
-                "entMaster.POType, ProcurementMaster.Remark\r\nFROM            ProcurementMaster IN" +
-                "NER JOIN\r\n                         ProcurementDetails ON ProcurementMaster.PO_Pk" +
-                " = ProcurementDetails.PO_Pk INNER JOIN\r\n                         AtcMaster ON Pr" +
-                "ocurementMaster.AtcId = AtcMaster.AtcId INNER JOIN\r\n                         Cur" +
-                "rencyMaster ON ProcurementMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JO" +
-                "IN\r\n                         DeliveryMethodMaster ON ProcurementMaster.DeliveryM" +
-                "ethod_Pk = DeliveryMethodMaster.Deliverymethod_Pk INNER JOIN\r\n                  " +
-                "       LocationMaster ON ProcurementMaster.Location_PK = LocationMaster.Location" +
-                "_PK INNER JOIN\r\n                         SupplierMaster ON ProcurementMaster.Sup" +
-                "plier_Pk = SupplierMaster.Supplier_PK INNER JOIN\r\n                         Payme" +
-                "ntTermMaster ON ProcurementMaster.PaymentTermID = PaymentTermMaster.PaymentTermI" +
-                "D INNER JOIN\r\n                         SkuRawmaterialDetail ON ProcurementDetail" +
-                "s.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n                       " +
-                "  SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku" +
-                "_Pk AND ProcurementMaster.AtcId = SkuRawMaterialMaster.Atc_id INNER JOIN\r\n      " +
-                "                   UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INN" +
-                "ER JOIN\r\n                         DeliveryTermMaster ON ProcurementMaster.Delive" +
-                "ryTerms_Pk = DeliveryTermMaster.DeliveryTerms_Pk INNER JOIN\r\n                   " +
-                "      CountryMaster ON SupplierMaster.CountryID = CountryMaster.CountryID INNER " +
-                "JOIN\r\n                         Template_Master ON SkuRawMaterialMaster.Template_" +
-                "pk = Template_Master.Template_PK";
+                "entMaster.POType, ProcurementMaster.Remark, ProcurementMaster.FreightType, Procu" +
+                "rementMaster.FreightCharge, \r\n                         ProcurementMaster.IsFreig" +
+                "htChargeApproved, ProcurementMaster.IsApproved, ProcurementMaster.ApprovedBy, Pr" +
+                "ocurementMaster.DeletedBy, ProcurementMaster.IsDeleted, ProcurementMaster.Delete" +
+                "dDate, \r\n                         ProcurementMaster.Approveddate\r\nFROM          " +
+                "  ProcurementMaster INNER JOIN\r\n                         ProcurementDetails ON P" +
+                "rocurementMaster.PO_Pk = ProcurementDetails.PO_Pk INNER JOIN\r\n                  " +
+                "       AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN\r\n      " +
+                "                   CurrencyMaster ON ProcurementMaster.CurrencyID = CurrencyMast" +
+                "er.CurrencyID INNER JOIN\r\n                         DeliveryMethodMaster ON Procu" +
+                "rementMaster.DeliveryMethod_Pk = DeliveryMethodMaster.Deliverymethod_Pk INNER JO" +
+                "IN\r\n                         LocationMaster ON ProcurementMaster.Location_PK = L" +
+                "ocationMaster.Location_PK INNER JOIN\r\n                         SupplierMaster ON" +
+                " ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN\r\n        " +
+                "                 PaymentTermMaster ON ProcurementMaster.PaymentTermID = PaymentT" +
+                "ermMaster.PaymentTermID INNER JOIN\r\n                         SkuRawmaterialDetai" +
+                "l ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n " +
+                "                        SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = Sk" +
+                "uRawMaterialMaster.Sku_Pk AND ProcurementMaster.AtcId = SkuRawMaterialMaster.Atc" +
+                "_id INNER JOIN\r\n                         UOMMaster ON ProcurementDetails.Uom_PK " +
+                "= UOMMaster.Uom_PK INNER JOIN\r\n                         DeliveryTermMaster ON Pr" +
+                "ocurementMaster.DeliveryTerms_Pk = DeliveryTermMaster.DeliveryTerms_Pk INNER JOI" +
+                "N\r\n                         CountryMaster ON SupplierMaster.CountryID = CountryM" +
+                "aster.CountryID INNER JOIN\r\n                         Template_Master ON SkuRawMa" +
+                "terialMaster.Template_pk = Template_Master.Template_PK";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString);
             this._commandCollection[1].CommandText = "SELECT        ProcurementMaster.PONum, ProcurementDetails.POQty, AtcMaster.AtcNum" +
                 ", CurrencyMaster.CurrencyCode, DeliveryMethodMaster.DeliveryMethod, LocationMast" +
                 "er.LocationName, \r\n                         LocationMaster.LocationAddress, Supp" +
@@ -51488,27 +52025,29 @@ namespace ArtWebApp.Reports.Dataset.ReportDataSetTableAdapters {
                 "entMaster.POType, ProcurementMaster.Remark, ProcurementMaster.IsApproved, Procur" +
                 "ementMaster.IsDeleted, ProcurementMaster.DeletedBy, \r\n                         P" +
                 "rocurementMaster.ApprovedBy, ProcurementMaster.DeletedDate, ProcurementMaster.Ap" +
-                "proveddate\r\nFROM            ProcurementMaster INNER JOIN\r\n                      " +
-                "   ProcurementDetails ON ProcurementMaster.PO_Pk = ProcurementDetails.PO_Pk INNE" +
-                "R JOIN\r\n                         AtcMaster ON ProcurementMaster.AtcId = AtcMaste" +
-                "r.AtcId INNER JOIN\r\n                         CurrencyMaster ON ProcurementMaster" +
-                ".CurrencyID = CurrencyMaster.CurrencyID INNER JOIN\r\n                         Del" +
-                "iveryMethodMaster ON ProcurementMaster.DeliveryMethod_Pk = DeliveryMethodMaster." +
-                "Deliverymethod_Pk INNER JOIN\r\n                         LocationMaster ON Procure" +
-                "mentMaster.Location_PK = LocationMaster.Location_PK INNER JOIN\r\n                " +
-                "         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Suppli" +
-                "er_PK INNER JOIN\r\n                         PaymentTermMaster ON ProcurementMaste" +
-                "r.PaymentTermID = PaymentTermMaster.PaymentTermID INNER JOIN\r\n                  " +
-                "       SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDeta" +
-                "il.SkuDet_PK INNER JOIN\r\n                         SkuRawMaterialMaster ON SkuRaw" +
-                "materialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk AND ProcurementMaster.AtcId " +
-                "= SkuRawMaterialMaster.Atc_id INNER JOIN\r\n                         UOMMaster ON " +
-                "ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN\r\n                       " +
-                "  DeliveryTermMaster ON ProcurementMaster.DeliveryTerms_Pk = DeliveryTermMaster." +
-                "DeliveryTerms_Pk INNER JOIN\r\n                         CountryMaster ON SupplierM" +
-                "aster.CountryID = CountryMaster.CountryID INNER JOIN\r\n                         T" +
-                "emplate_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK" +
-                "\r\nWHERE        (ProcurementMaster.PONum = @param1)";
+                "proveddate, ProcurementMaster.FreightCharge, ProcurementMaster.FreightType, \r\n  " +
+                "                       ProcurementMaster.IsFreightChargeApproved\r\nFROM          " +
+                "  ProcurementMaster INNER JOIN\r\n                         ProcurementDetails ON P" +
+                "rocurementMaster.PO_Pk = ProcurementDetails.PO_Pk INNER JOIN\r\n                  " +
+                "       AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN\r\n      " +
+                "                   CurrencyMaster ON ProcurementMaster.CurrencyID = CurrencyMast" +
+                "er.CurrencyID INNER JOIN\r\n                         DeliveryMethodMaster ON Procu" +
+                "rementMaster.DeliveryMethod_Pk = DeliveryMethodMaster.Deliverymethod_Pk INNER JO" +
+                "IN\r\n                         LocationMaster ON ProcurementMaster.Location_PK = L" +
+                "ocationMaster.Location_PK INNER JOIN\r\n                         SupplierMaster ON" +
+                " ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN\r\n        " +
+                "                 PaymentTermMaster ON ProcurementMaster.PaymentTermID = PaymentT" +
+                "ermMaster.PaymentTermID INNER JOIN\r\n                         SkuRawmaterialDetai" +
+                "l ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r\n " +
+                "                        SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = Sk" +
+                "uRawMaterialMaster.Sku_Pk AND ProcurementMaster.AtcId = SkuRawMaterialMaster.Atc" +
+                "_id INNER JOIN\r\n                         UOMMaster ON ProcurementDetails.Uom_PK " +
+                "= UOMMaster.Uom_PK INNER JOIN\r\n                         DeliveryTermMaster ON Pr" +
+                "ocurementMaster.DeliveryTerms_Pk = DeliveryTermMaster.DeliveryTerms_Pk INNER JOI" +
+                "N\r\n                         CountryMaster ON SupplierMaster.CountryID = CountryM" +
+                "aster.CountryID INNER JOIN\r\n                         Template_Master ON SkuRawMa" +
+                "terialMaster.Template_pk = Template_Master.Template_PK\r\nWHERE        (Procuremen" +
+                "tMaster.PONum = @param1)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@param1", global::System.Data.SqlDbType.NVarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "PONum", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -57414,6 +57953,8 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("ShippedQty", "ShippedQty");
             tableMapping.ColumnMappings.Add("BalanceQty", "BalanceQty");
             tableMapping.ColumnMappings.Add("IsShortClosed", "IsShortClosed");
+            tableMapping.ColumnMappings.Add("FOB", "FOB");
+            tableMapping.ColumnMappings.Add("SalesHandoverDate", "SalesHandoverDate");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -57421,7 +57962,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -156,8 +156,13 @@
 
                    <asp:TemplateField HeaderText="PCD" SortExpression="PCD">
                       <ItemTemplate>
-                           <ig:WebDatePicker ID="wdp_PCD"  Font-Size="Smaller" runat="server" >
-                                                    </ig:WebDatePicker>                     </ItemTemplate>
+                           <asp:Label ID="lbl_pcd" runat="server" Text='<%# Bind("MerchantPCD") %>'></asp:Label>
+                           <asp:TextBox ID="dtp_deliverydate" CssClass="dtpdeliverydate" runat="server" PlaceHolder="New PCD" Font-Size="Smaller" Width="120px"></asp:TextBox>
+                             
+                                   
+                                    <ajaxToolkit:CalendarExtender ID="dtp_deliverydate_CalendarExtender" runat="server" Enabled="True" Format="dd/MMM/yyyy" TargetControlID="dtp_deliverydate" >
+                                    </ajaxToolkit:CalendarExtender>
+                   </ItemTemplate>
                  </asp:TemplateField>
                                 <asp:ButtonField ButtonType="Button" CommandName="Update" HeaderText="Update" Text="Update" />
                             </Columns>

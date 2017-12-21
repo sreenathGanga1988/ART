@@ -105,6 +105,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
                             POmstr.IsNormal = "Y";
                             POmstr.FreightCharge = Pmmstr.freightcharge;
                             POmstr.FreightType = Pmmstr.FreightType;
+                            POmstr.IsFreightChargeApproved = "N";
                             POmstr.PONum = CreatePOnum();
                             entty.ProcurementMasters.Add(POmstr);
 

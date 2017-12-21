@@ -43,7 +43,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             String code = lyipores.InsertLaysheetShortageRoll(Model);
             TempData["shortMessage"] = "Extra Fabric Request Added Sucessfull Ref#" + code.ToString();
 
-            return RedirectToAction("LaysheetShortage");
+            return RedirectToAction("RejectionPanelAccept");
         }
         private void ConfigureViewModel(RejectionPanelViewModal model)
         {
@@ -74,6 +74,14 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             Rejectionfabricrepository lyipores = new Rejectionfabricrepository();
             model.FabreqDetails = lyipores.GetRejectionpanelrequestdata(ourstyleid, locationid);
             return PartialView("GetRequestDetailView", model);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace ArtWebApp.DataModels
     {
         public SubMenuMaster()
         {
-            this.UserProfileRights = new HashSet<UserProfileRight>();
             this.SubMenuMaster1 = new HashSet<SubMenuMaster>();
+            this.UserProfileRights = new HashSet<UserProfileRight>();
         }
     
         public decimal Menu_PK { get; set; }
@@ -30,8 +30,8 @@ namespace ArtWebApp.DataModels
         public string MVCURL { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual ICollection<UserProfileRight> UserProfileRights { get; set; }
         public virtual ICollection<SubMenuMaster> SubMenuMaster1 { get; set; }
         public virtual SubMenuMaster SubMenuMaster2 { get; set; }
+        public virtual ICollection<UserProfileRight> UserProfileRights { get; set; }
     }
 }

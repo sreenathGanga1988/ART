@@ -37,8 +37,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> PO_PK { get; set; }
         public string IsCompleted { get; set; }
     
+        public virtual AtcMaster AtcMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual ICollection<RequestOrderDetail> RequestOrderDetails { get; set; }
-        public virtual AtcMaster AtcMaster { get; set; }
     }
 }

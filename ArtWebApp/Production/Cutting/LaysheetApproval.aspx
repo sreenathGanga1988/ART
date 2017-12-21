@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="LaysheetApproval.aspx.cs" Inherits="ArtWebApp.Production.Cutting.LaysheetApproval" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../../css/style.css" rel="stylesheet" />
     <style type="text/css">
         .auto-style1 {
             width: 600px;
@@ -40,7 +41,7 @@
         .auto-style10 {
             width: 698px;
         }
-        .auto-style11 {
+        .NormalTD {
             height: 30px;
             width: 698px;
         }
@@ -251,19 +252,19 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="auto-style11">Buyer</td>
+                                                <td class="NormalTD">Buyer</td>
                                                 <td class="auto-style4">
                                                     <asp:Label ID="lbl_buyer" runat="server" Text="0"></asp:Label>
                                                 </td>
                                                 <td class="auto-style7">Cut Order</td>
-                                                <td class="auto-style4"><asp:Label ID="lbl_cutordernum" runat="server" Text="0"></asp:Label></td>
+                                                <td class="NormalTD"><asp:Label ID="lbl_cutordernum" runat="server" Text="0"></asp:Label></td>
                                                 <td class="auto-style4">CP#</td>
                                                 <td class="auto-style4"><asp:Label ID="lbl_cutplannum" runat="server" Text="0"></asp:Label></td>
                                                 <td class="auto-style4">Markername</td>
                                                 <td class="auto-style4"> <asp:Label ID="lbl_patternname" runat="server" Text="0"></asp:Label></td>
                                             </tr>
                                             <tr>
-                                                <td class="auto-style11">Marker Length</td>
+                                                <td class="NormalTD">Marker Length</td>
                                            <td class="auto-style4">
                                                      <asp:Label ID="lbl_markerlength" runat="server" Text="0"></asp:Label> </td>
                                                 <td class="auto-style7">Tolerance</td>
@@ -277,7 +278,7 @@
                                                     &nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td class="auto-style11">Cutable Width</td>
+                                                <td class="NormalTD">Cutable Width</td>
                                                 <td class="auto-style4">
                                                     <asp:Label ID="lbl_with" runat="server" Text="0"></asp:Label>
                                                 </td>

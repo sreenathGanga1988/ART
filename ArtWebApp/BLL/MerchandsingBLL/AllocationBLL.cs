@@ -38,7 +38,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
         public DateTime FirstDeliveryDate { get; set; }
         public DateTime Inhousedate { get; set; }
-
+        public String IsAcdWorld { get; set; }
 
         public String Destination { get; set; }
         public String Garmentcatagory { get; set; }
@@ -82,6 +82,18 @@ namespace ArtWebApp.BLL.MerchandsingBLL
         }
 
 
+        public String IsAtcWorldAtc(int  atcID)
+        {
+
+            var IsAtcWord = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                IsAtcWord = enty.AtcMasters.Where(u => u.AtcId == atcID).Select(u => u.IsAtcWord).FirstOrDefault();
+            }
+            return IsAtcWord.ToString();
+
+
+        }
 
 
         public int getColorID(string Colorname)
@@ -310,6 +322,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             select ppc;
                     foreach (var element in q.ToList())
                     {
+                       
+                 
 
                         if (!enty.ASQAllocationMaster_tbl.Any(f => f.OurStyleId == ourstyleid && f.POPackID == popackid && f.PoPack_Detail_PK==element.PoPack_Detail_PK))
                         {
@@ -323,7 +337,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             mstr.MarkedUnCut = "N";
                             mstr.AddedDate = DateTime.Now;
                             artentty.ASQAllocationMasters.Add(mstr);
-                            artentty.SaveChanges();
+                           artentty.SaveChanges();
 
                             ASQAllocationMaster_tbl asqmstr = new ASQAllocationMaster_tbl();
                             asqmstr.OurStyleId = element.OurStyleID;
@@ -362,9 +376,10 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             asqmstr.AllocatedQty = element.PoQty;
                             asqmstr.ArtAllocation_PK = mstr.ASQAllocation_PK;
                             asqmstr.POType = this.Potype;
-
+                            asqmstr.IsAtcWord = this.IsAcdWorld;
+                            asqmstr.IsInterChangable = element.PoPackMaster.IsShuffulable;
                             enty.ASQAllocationMaster_tbl.Add(asqmstr);
-                            enty.SaveChanges();
+                           enty.SaveChanges();
 
                         }
                         else
@@ -486,7 +501,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             asqmstr.AllocatedQty = element.PoQty;
                             asqmstr.ArtAllocation_PK = mstr.ASQAllocation_PK;
                             asqmstr.POType = this.Potype;
-
+                            asqmstr.IsAtcWord = this.IsAcdWorld;
+                            asqmstr.IsInterChangable = element.PoPackMaster.IsShuffulable;
                             enty.ASQAllocationMaster_tbl.Add(asqmstr);
                             enty.SaveChanges();
 

@@ -73,7 +73,9 @@
             <td class="NormalTD">
                 <asp:Button ID="btn_showApprovedcutplan0" runat="server" Font-Size="Smaller" Text="Show Cutplan History" ToolTip="Show All Cut Plan  and Cutorder Details of Atc" Width="190px" OnClick="btn_showApprovedcutplan0_Click" />
             </td>
-            <td class="NormalTD"></td>
+            <td class="NormalTD">
+                <asp:Button ID="Button10" runat="server" Font-Size="Smaller" OnClick="Button10_Click" Text="Performance Report" ToolTip="Show Performance Report of  Atc" />
+            </td>
             <td class="NormalTD"></td>
         </tr>
         <tr>
@@ -131,7 +133,8 @@
             <td >
                <asp:Button ID="Button7" runat="server" Font-Size="Smaller" OnClick="Button7_Click" Text="CutOrder summary of a Fabric of a style" ToolTip="Show the CutOrder Summary of Selected fabric against the selected oursstyle" /></td>
             <td>
-                &nbsp;</td>
+                <asp:Button ID="Button11" runat="server" Font-Size="Smaller" OnClick="Button11_Click" Text="Fcr" ToolTip="Show FCR Report of  Selected Atc" />
+            </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

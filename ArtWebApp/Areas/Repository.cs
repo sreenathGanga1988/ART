@@ -165,7 +165,7 @@ namespace ArtWebApp.Areas
 
 
             var q = (from laydet in db.LaySheetDetails
-                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && laydet.IsRecuttable=="N" && !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
+                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
                      select new ApprovelaysheetModel
                      {
 
@@ -306,8 +306,8 @@ namespace ArtWebApp.Areas
         public string InsertRejectionCutOrderAdjust(RejectionCutorderAdjustmentViewModal model)
         {
             String msg = "";
-
-
+            int cutplanpk = 0;
+            decimal newconsumption = 0;
             RejectionAdjustDetail layadjstdet = new DataModels.RejectionAdjustDetail();
             layadjstdet.CutID = model.CutID;
             layadjstdet.RejReqMasterIDID = model.LayShortageMasterID;
@@ -324,8 +324,18 @@ namespace ArtWebApp.Areas
             foreach (var element in q)
             {
                 element.FabQty = element.FabQty + model.ToAddQty;
+                element.ActualConsumption = element.FabQty / element.CutQty;
+                cutplanpk = int.Parse(element.CutPlan_Pk.ToString());
+                newconsumption = decimal.Parse(element.ActualConsumption.ToString());
             }
+            var q1 = from cutplnmstr in db.CutPlanMasters
+                     where cutplnmstr.CutPlan_PK == cutplanpk
+                     select cutplnmstr;
+            foreach (var element in q1)
+            {
+                element.CutOrderConsumption = newconsumption;
 
+            }
             db.SaveChanges();
 
 
@@ -561,6 +571,64 @@ namespace ArtWebApp.Areas
 
     }
 
+    public class SubConfabricrepository
+    {
+        ArtEntitiesnew db = new ArtEntitiesnew();
+
+        public String InsertSubConShortage(int  id)
+        {
+            String msg = "";
+            int cutplanpk = 0;
+            decimal newconsumption = 0;
+            SubConExtraRequest subConExtraRequest = db.SubConExtraRequests.Find(id);
+            subConExtraRequest.IsApproved = "Y";
+            subConExtraRequest.ApprovedDate= DateTime.Now;
+            subConExtraRequest.ApprovedBy = HttpContext.Current.Session["Username"].ToString();
+
+            SubConAdjustDetail lsmstr = new SubConAdjustDetail();
+            lsmstr.CutID = subConExtraRequest.CutOrderID;
+            lsmstr.Qty = subConExtraRequest.RequestQty;
+            lsmstr.AddedBy = HttpContext.Current.Session["Username"].ToString();
+            lsmstr.AddedDate = DateTime.Now;
+            db.SubConAdjustDetails.Add(lsmstr);
+            db.SaveChanges();
+            var q = from cutord in db.CutOrderMasters
+                    where cutord.CutID == subConExtraRequest.CutOrderID
+                    select cutord;
+            foreach (var element in q)
+            {
+                element.FabQty = element.FabQty + lsmstr.Qty;
+                element.ActualConsumption = element.FabQty / element.CutQty;
+                cutplanpk = int.Parse(element.CutPlan_Pk.ToString());
+                newconsumption = decimal.Parse(element.ActualConsumption.ToString());
+            }
+            var q1 = from cutplnmstr in db.CutPlanMasters
+                     where cutplnmstr.CutPlan_PK == cutplanpk
+                     select cutplnmstr;
+            foreach (var element in q1)
+            {
+                element.CutOrderConsumption = newconsumption;
+
+            }
+
+
+            db.SaveChanges();
+
+
+
+
+
+
+
+
+
+
+
+            return msg;
+        }
+
+
+    }
 
     public static class  ComboRepository
     {

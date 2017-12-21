@@ -1,0 +1,494 @@
+﻿@model ArtWebApp.DataModels.ShippingDocumentMaster
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ShippingDocumentMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ShipingDoc_PK)
+
+      
+
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <th>ShipDocNum</th>
+                <th>BL</th>
+                <th>Conatianer</th>
+                <th>ContsainerType</th>
+                <th>Mode</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.ShipDocNum)</td>
+                <td>@Html.DisplayFor(model => model.BL)</td>
+                <td>@Html.DisplayFor(model => model.Conatianer)</td>
+                <td>@Html.DisplayFor(model => model.ContsainerType)</td>
+                <td>@Html.DisplayFor(model => model.Mode)</td>
+            </tr>
+            <tr>
+                <th>  DocType</th>
+                <th>Vessel</th>
+                <th>ShipperName</th>
+                <th>ExporterName</th>
+                <th>ShipperInv</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.DocType)</td>
+                <td>@Html.DisplayFor(model => model.Vessel)</td>
+                <td>@Html.DisplayFor(model => model.ShipperName)</td>
+                <td>@Html.DisplayFor(model => model.ExporterName)</td>
+                <td>@Html.DisplayFor(model => model.ShipperInv)</td>
+
+
+            </tr>
+
+            <tr>
+                <th>  Description</th>
+                <th>NOofctnRoll</th>
+                <th>Packagetype</th>
+                <th>Weight</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Description)</td>
+                <td>@Html.DisplayFor(model => model.NOofctnRoll)</td>
+                <td>@Html.DisplayFor(model => model.Packagetype)</td>
+                <td>@Html.DisplayFor(model => model.Weight)</td>
+                <td>@Html.DisplayFor(model => model.Type)</td>
+
+
+            </tr>
+           
+            <tr>
+                <th>  InvoiceValue</th>
+                <th>ETA</th>
+                <th>AddedDate</th>
+                <th>AddedBY</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.InvoiceValue)</td>
+                <td>@Html.DisplayFor(model => model.ETA)</td>
+                <td>@Html.DisplayFor(model => model.AddedDate)</td>
+                <td>@Html.DisplayFor(model => model.AddedBY)</td>
+                <td>@Html.DisplayFor(model => model.Type)</td>
+
+
+            </tr>
+           
+
+        </table>
+
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <th>Gate Receipt </th>
+                <th>Berth</th>
+                <th>ManifestNoDate</th>
+                
+            </tr>
+            <tr>
+                <td>
+                @if(@Model.GateReceiptDate==null){
+                    @Html.EditorFor(model => model.GateReceiptDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                }
+                else
+                {
+                    
+                <p>@Html.DisplayFor(model => model.GateReceiptDate) </p>
+                 <p>Added By : @Html.DisplayFor(model => model.GateReceivedBy)</p>
+                 
+                }
+                
+             </td>
+
+                <td>
+                    @if (@Model.Berth == null)
+                    {
+                        @Html.EditorFor(model => model.Berth, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    { <p>@Html.DisplayFor(model => model.Berth) </p>
+                     
+                       
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.ManifestNO == null)
+                    {
+                     <p> Manifest # : @Html.EditorFor(model => model.ManifestNO, new { htmlAttributes = new { @class = "form-control" } })
+</p>
+                    <p>
+                        Manifest Date : @Html.EditorFor(model => model.ManifestNoDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    </p>
+                    }
+                    else
+                    {
+                        <p>Manifest # : @Html.DisplayFor(model => model.ManifestNO)</p>
+                        <p>Manifest date: @Html.DisplayFor(model => model.ManifestNoDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.ManifestNoAddedBy)</p>
+                        <p>Added Date : @Html.DisplayFor(model => model.ManifestNoAddedDate)</p>
+
+                    }
+
+                </td>
+
+
+                
+            </tr>
+    
+            <tr>
+                <th>Copy Documents Rcvd</th>
+                <th>Orginal Documents Rcvd</th>
+                <th>PortEntry</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.CopyDocumentsReceivedDate == null)
+                    {
+                        @Html.EditorFor(model => model.CopyDocumentsReceivedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.CopyDocumentsReceivedDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedBy)</p>
+
+                    }
+
+                </td>
+
+                <td>
+                    @if (@Model.OrginalDocumentsReceivedDate == null)
+                    {
+                        @Html.EditorFor(model => model.OrginalDocumentsReceivedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.OrginalDocumentsReceivedDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.PortEntry == null)
+                    {
+                        @Html.EditorFor(model => model.PortEntry, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.PortEntry) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.PortEntryAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.PortEntrydAddedBy)</p>
+
+
+                    }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+                <th>Lodge Date</th>
+                <th>PassedDate</th>
+                <th>Doc Lodge Date</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.LodgeDate == null)
+                    {
+                        @Html.EditorFor(model => model.LodgeDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.LodgeDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.LodgeAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.LodgeAddedBy)</p>
+
+                    }
+
+                </td>
+
+                <td>
+                    @if (@Model.PassedDate == null)
+                    {
+                        @Html.EditorFor(model => model.PassedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.PassedDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.PassedDateAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.PassedDateAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.DocLodgeDate == null)
+                    {
+                        @Html.EditorFor(model => model.DocLodgeDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.DocLodgeDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.DocLodgeAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.DocLodgeAddedBy)</p>
+
+
+                    }
+
+                </td>
+
+
+
+            </tr>
+
+
+            <tr>
+                <th>DocRcvdDate</th>
+                <th>LodgePortDate</th>
+                <th>InhouseDate</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.DocRcvdDate == null)
+                    {
+                        @Html.EditorFor(model => model.DocRcvdDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.DocRcvdDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.DocRcvdAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.DocRcvdAddedBy)</p>
+
+                    }
+
+                </td>
+
+                <td>
+                    @if (@Model.LodgePortDate == null)
+                    {
+                        @Html.EditorFor(model => model.LodgePortDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.LodgePortDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.LodgePortAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.LodgePortAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.InhouseDate == null)
+                    {
+                        @Html.EditorFor(model => model.InhouseDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.InhouseDate) </p>
+                        <p> Added on: @Html.DisplayFor(model => model.InhouseAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.InhouseAddedBy)</p>
+
+
+                    }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+                <th>KPACFSCHGS</th>
+                <th>HCharges</th>
+                <th>StockCharges</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.KPACFSCHGS == null)
+                    {
+                        @Html.EditorFor(model => model.KPACFSCHGS, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>KPACFSCHGS : @Html.DisplayFor(model => model.KPACFSCHGS)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.KPACFSCHGSAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.KPACFSCHGSAddedBy)</p>
+
+                    }
+
+                </td>
+
+                <td>
+                    @if (@Model.HCharges == null)
+                    {
+                        @Html.EditorFor(model => model.HCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>HCharges : @Html.DisplayFor(model => model.HCharges)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.HChargesAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.HChargesAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.StockCharges == null)
+                    {
+                        @Html.EditorFor(model => model.StockCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>StockCharges : @Html.DisplayFor(model => model.StockCharges)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
+
+
+                    }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+                <th>TransportCharges</th>
+                <th>TruckHaltingCharges</th>
+                <th>EsealCharges</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.TransportCharges == null)
+                    {
+                        @Html.EditorFor(model => model.TransportCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>TransportCharges : @Html.DisplayFor(model => model.TransportCharges)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.TransportChargesAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.TransportChargesAddedBy)</p>
+
+                    }
+
+                </td>
+
+                <td>
+                    @if (@Model.TruckHaltingCharges == null)
+                    {
+                        @Html.EditorFor(model => model.TruckHaltingCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>TruckHaltingCharges : @Html.DisplayFor(model => model.TruckHaltingCharges)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.TruckHaltingAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.TruckHaltingAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.EsealCharges == null)
+                    {
+                        @Html.EditorFor(model => model.EsealCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>Eseal Charge : @Html.DisplayFor(model => model.EsealCharges)</p>
+                        <p> Added on: @Html.DisplayFor(model => model.EsealAddedDate)</p>
+                        <p>Added By : @Html.DisplayFor(model => model.EsealAddedBy)</p>
+
+
+
+                    }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+                
+                <th>EntrylevyCharges</th>
+                <th>BondCancelledDate</th>
+                <th>Transporter</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.EntrylevyCharges == null)
+                    {
+                        @Html.EditorFor(model => model.EntrylevyCharges, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>EntrylevyCharges : @Html.DisplayFor(model => model.EntrylevyCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.EntrylevyChargesAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.EntrylevyChargesAddedBy)</p>
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.BondCancelledDate == null)
+                    {
+                        @Html.EditorFor(model => model.BondCancelledDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>Bond Cancelled Date : @Html.DisplayFor(model => model.BondCancelledDate)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.BondCancelledDateAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.BondCancelledDateAddedBy)</p>
+
+
+
+                    }
+
+                </td>
+                <td>
+                    @if (@Model.Transporter == null)
+                    {
+                        @Html.EditorFor(model => model.Transporter, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {<p>Transporter : @Html.DisplayFor(model => model.Transporter)</p>
+                    
+
+                    }
+
+                </td>
+
+             
+
+
+
+            </tr>
+
+        </table>
+
+     
+
+     
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -20,7 +20,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> FreightRequestID { get; set; }
         public string Remark { get; set; }
     
-        public virtual FreightRequestMaster FreightRequestMaster { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
+        public virtual FreightRequestMaster FreightRequestMaster { get; set; }
     }
 }

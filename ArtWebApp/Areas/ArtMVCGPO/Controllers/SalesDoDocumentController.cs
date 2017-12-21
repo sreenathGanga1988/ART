@@ -65,7 +65,7 @@ on stockmrndetails.SMRN_Pk equals mrnfileupload.Mrn_PK
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "Show")]
-        public ActionResult ShowMRN(GMRNViewModal model)
+        public ActionResult ShowMRN(SalesDoModel model)
         {
 
 
@@ -74,7 +74,14 @@ on stockmrndetails.SMRN_Pk equals mrnfileupload.Mrn_PK
         }
 
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
     }
 }

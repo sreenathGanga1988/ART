@@ -14,6 +14,11 @@ namespace ArtWebApp.DataModels
     
     public partial class ProductionTNAComponent
     {
+        public ProductionTNAComponent()
+        {
+            this.ProductionTNALocationMasters = new HashSet<ProductionTNALocationMaster>();
+        }
+    
         public decimal ProductionTNACompID { get; set; }
         public string CompName { get; set; }
         public Nullable<decimal> DaystoAdjust { get; set; }
@@ -26,5 +31,6 @@ namespace ArtWebApp.DataModels
     
         public virtual ProductionTNAComponent ProductionTNAComponent1 { get; set; }
         public virtual ProductionTNAComponent ProductionTNAComponent2 { get; set; }
+        public virtual ICollection<ProductionTNALocationMaster> ProductionTNALocationMasters { get; set; }
     }
 }

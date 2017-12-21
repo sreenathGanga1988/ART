@@ -15,8 +15,20 @@
             <tr>
 
                 <th>
-                    Atc Details
+                    Atc 
                 </th>
+                <th>
+                    OurStyle
+                </th>
+                <th>
+                   BuyerStyle
+                </th>
+                <th>
+                   Factory
+                </th>
+               <th>
+                   Details
+               </th>
                
                 <th>  PCD                           </th>
 <th>  FINAL MARKER                  </th>
@@ -42,20 +54,15 @@
             {
                 <tr>
                     <td>
-                        <div class="well-sm"> Atc# :</div>
-                        <div class="well-sm">  @Html.DisplayFor(modelItem => item.AtcNum)</div>
-                        <div class="well-sm">OurStyle# :</div>
-                        <div class="well-sm">@Html.DisplayFor(modelItem => item.OurStyle)</div>
-
-                        <div class="well-sm">BuyerStyle# </div>
-
-
-
-                        <div class="well-sm"> @Html.DisplayFor(modelItem => item.BuyerStyle)</div>
-                        <div class="well-sm"> Factory</div>
-                        <div class="well-sm"> @Html.DisplayFor(modelItem => item.LocationName)</div>
-
-
+                        
+                         @Html.DisplayFor(modelItem => item.AtcNum) </td>
+                        
+                        
+                         <td>@Html.DisplayFor(modelItem => item.OurStyle)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyerStyle)</td>
+                    <td><div class="well-sm">@Html.DisplayFor(modelItem => item.LocationName)</div></td>
+                    <td>
                         <div class=" ourstyleid">
                             @Html.HiddenFor(modelItem => item.OurStyleID)
 
@@ -64,153 +71,105 @@
                             @Html.HiddenFor(modelItem => item.Location_PK)
                         </div>
                     </td>
+                                         
+
+
+
+                       
+                      
+
+
+                        
+                   
 
                     <td>
                         <p>
                           
-                            <div class="panel panel-success">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">PCD</h3>
-                                </div>
-                                <div class="panel-body">
+                         
                                     <div>Plan : @item.PCD </div><div>Actual  : </div>
 
-                                </div>
-                            </div> 
+                              
                         </p>
 
 
 
                     </td>
 
-                    <td><div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title">FINALMARKER</h3>
-    </div>
-    <div class="panel-body">
+                    <td>
         <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
 
-    </div>
-</div> </td>
+   </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">FC1</h3>
-                            </div>
-                            <div class="panel-body">
+                        
+                            
+                           
                                 <div>Plan : @item.FC1 </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                            
+                       
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">PP Meeting</h3>
-                            </div>
-                            <div class="panel-body">
+                       
                                 <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                            
+                        
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Size Set</h3>
-                            </div>
-                            <div class="panel-body">
+                       
                                 <div>Plan : @item.SIZESET </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                           
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Sewingtrim</h3>
-                            </div>
-                            <div class="panel-body">
+                      
                                 <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                          
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Bull fabric</h3>
-                            </div>
-                            <div class="panel-body">
+                       
                                 <div>Plan : @item.BULKFABRIC </div><div>Actual  : </div>
-
-                            </div>
-                        </div>
+                        
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">RECEIPT OF ORGINAL DOCUMENT </h3>
-                            </div>
-                            <div class="panel-body">
+                        
                                 <div>Plan : @item.RECEIPTOFORGINALDOCUMENT </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                          
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Gradded Pattern</h3>
-                            </div>
-                            <div class="panel-body">
+                        
                                 <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                          
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Sample Yard</h3>
-                            </div>
-                            <div class="panel-body">
+                     
                                 <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
-
-                            </div>
-                        </div>
+                        
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">PP APPROVAL</h3>
-                            </div>
-                            <div class="panel-body">
+                        
                                 <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                           
                     </td>
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">PP Submission</h3>
-                            </div>
-                            <div class="panel-body">
+                       
                                 <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                         
                     </td>
 
                     
@@ -218,26 +177,16 @@
                     
 
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Input</h3>
-                            </div>
-                            <div class="panel-body">
+                       
                                 <div>Plan : @item.INPUT </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                          
                     </td>
                     <td>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Packing trim</h3>
-                            </div>
-                            <div class="panel-body">
+                      
                                 <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
 
-                            </div>
-                        </div>
+                            
                     </td>
                     @*<td>
 

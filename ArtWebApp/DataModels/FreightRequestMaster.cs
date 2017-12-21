@@ -38,6 +38,10 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string IsApproved { get; set; }
         public string IsPosted { get; set; }
+        public string ShipementType { get; set; }
+        public string IsDeleted { get; set; }
+        public string DeletedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     
         public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
     }

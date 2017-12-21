@@ -27,8 +27,8 @@ namespace ArtWebApp.DataModels
         public string AddedBy { get; set; }
         public Nullable<decimal> OurStyleID { get; set; }
     
-        public virtual LocationMaster LocationMaster { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }
+        public virtual LocationMaster LocationMaster { get; set; }
     }
 }

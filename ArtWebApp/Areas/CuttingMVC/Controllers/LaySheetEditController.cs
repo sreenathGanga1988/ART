@@ -45,5 +45,13 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             lymstrdata.DeletelaysheetdetailRoll(rollid);
             return View();
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace ArtWebApp.DataModels
     
         public virtual CutOrderDO CutOrderDO1 { get; set; }
         public virtual CutOrderDO CutOrderDO2 { get; set; }
-        public virtual DeliveryOrderDetail DeliveryOrderDetail { get; set; }
         public virtual CutOrderMaster CutOrderMaster { get; set; }
+        public virtual DeliveryOrderDetail DeliveryOrderDetail { get; set; }
     }
 }

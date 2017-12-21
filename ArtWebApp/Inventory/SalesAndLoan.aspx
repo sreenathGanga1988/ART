@@ -54,7 +54,7 @@
                         <td >
                             <asp:Button ID="btn_gstock" runat="server" Text="Transfer To  GStock" OnClick="btn_gstock_Click" />
                         </td>
-                        <td ></td>
+                        <td >&nbsp;</td>
                         <td ></td>
                     </tr>
                 </table>

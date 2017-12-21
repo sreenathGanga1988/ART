@@ -1,0 +1,126 @@
+﻿@model ArtWebApp.DataModels.GeneralFreightRequestMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Freight Charge Request For General Item</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromParty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.FromParty, new { htmlAttributes = new { @class = "form-control" } })
+              
+                @Html.ValidationMessageFor(model => model.FromParty, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ToParty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ToParty, new { htmlAttributes = new { @class = "form-control" } })
+             
+                @Html.ValidationMessageFor(model => model.ToParty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Shipper, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Shipper, new { htmlAttributes = new { @class = "form-control" } })
+              
+                @Html.ValidationMessageFor(model => model.Shipper, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+              
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContentofPackage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ContentofPackage, new { htmlAttributes = new { @class = "form-control" } })
+                
+                @Html.ValidationMessageFor(model => model.ContentofPackage, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DebitTo, new { htmlAttributes = new { @class = "form-control" } })
+               
+                @Html.ValidationMessageFor(model => model.DebitTo, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+               
+                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Merchandiser, new { htmlAttributes = new { @class = "form-control" } })
+               
+                @Html.ValidationMessageFor(model => model.Merchandiser, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ApproximateCharges, new { htmlAttributes = new { @class = "form-control" } })
+                
+                @Html.ValidationMessageFor(model => model.ApproximateCharges, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ForwarderDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ForwarderDetails, new { htmlAttributes = new { @class = "form-control" } })
+               
+                @Html.ValidationMessageFor(model => model.ForwarderDetails, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+              
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ShipementType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+               
+                @Html.DropDownListFor(model => model.ShipementType, new SelectList(ViewBag.ShipementType, "Text", "Value"))
+                @Html.ValidationMessageFor(model => model.ShipementType, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+
+
+    </div>
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

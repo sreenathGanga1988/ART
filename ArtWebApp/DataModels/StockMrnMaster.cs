@@ -29,9 +29,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> MarkCompletedDate { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
-        public virtual StockMrnMaster StockMrnMaster1 { get; set; }
-        public virtual StockMrnMaster StockMrnMaster2 { get; set; }
-        public virtual StockRecieptMaster StockRecieptMaster { get; set; }
         public virtual StockPOMaster StockPOMaster { get; set; }
+        public virtual StockRecieptMaster StockRecieptMaster { get; set; }
     }
 }

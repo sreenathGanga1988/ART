@@ -163,10 +163,10 @@ namespace ArtWebApp.Merchandiser.ASQ
             {
 
           //      int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
-                TextBox txtcalender = (e.Row.FindControl("dtp_deliverydate") as TextBox);
+                AjaxControlToolkit.CalendarExtender txtcalender = (e.Row.FindControl("dtp_deliverydate_CalendarExtender") as AjaxControlToolkit.CalendarExtender);
                 Label lbl_handoverdate = (e.Row.FindControl("lbl_handoverdate") as Label);
                 CheckBox chkBx = (CheckBox)e.Row.FindControl("chk_select");
-                txtcalender.Text = lbl_handoverdate.Text;
+              txtcalender.SelectedDate = DateTime.Parse( lbl_handoverdate.Text);
               //if(DateTime.Parse(lbl_handoverdate.Text)> DateTime.Parse("15 March 2017"))
               //  {
               //      chkBx.Enabled = false;

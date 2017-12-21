@@ -17,7 +17,16 @@ namespace ArtWebApp.Merchandiser
 
         protected void btn_save_Click(object sender, EventArgs e)
         {
-            updatePOPackmaster(int.Parse(cmb_po.SelectedItem.Value.ToString()));
+            //if (lbl_postatus.Text == "Open")
+            //{
+                updatePOPackmaster(int.Parse(cmb_po.SelectedItem.Value.ToString()));
+            //}
+            //else
+            //{
+            //    String Msg = " Cannot Update ASQ Marked As Cutable";
+
+            //    ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('" + Msg + "');", true);
+            //}
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -138,8 +147,8 @@ namespace ArtWebApp.Merchandiser
             pomstrdata.POTag = drp_taggroup.SelectedItem.Text;
             pomstrdata.seasonName = drp_season.SelectedItem.Text;
             pomstrdata.location_PK = int.Parse(drp_loc.SelectedValue.ToString());
-
-            if(pomstrdata.DeliveryDate< pomstrdata.HandoverDate)
+            pomstrdata.Status = lbl_postatus.Text.Trim();
+            if (pomstrdata.DeliveryDate< pomstrdata.HandoverDate)
             {
                 //if handoverdate is greater than deliverydate keep it same
             }
@@ -214,7 +223,20 @@ namespace ArtWebApp.Merchandiser
 
         protected void Button2_Click(object sender, EventArgs e)
         {
+            string lbl_iscutable = ArtWebApp.BLL.popackupdater.IsASQCutable(int.Parse(cmb_po.SelectedItem.Value.ToString()));
+
+
+            if (lbl_iscutable.Trim() == "Y")
+            {
+                lbl_postatus.Text = "Cuttable";
+            }
+            else
+            {
+                lbl_postatus.Text = "Open";
+            }
             filldetails(int.Parse(cmb_po.SelectedItem.Value.ToString()));
+
+
         }
     }
 }

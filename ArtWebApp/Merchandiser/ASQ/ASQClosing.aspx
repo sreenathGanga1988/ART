@@ -17,7 +17,7 @@
         $(document).ready(function () {
 
             $(".btn_excel").click(function (e) {
-                alert('hi');
+            
                 $( "[id$=tbl_podata]").table2excel({
                     exclude: ".noExl",
                     name: "Excel Document Name",
