@@ -328,7 +328,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
             BLL.CutOrderBLL.CutDetailsData cddetdataclass = new BLL.CutOrderBLL.CutDetailsData();
             int cutorderpk = cutplanpk;
             DataTable cutdetdata = new DataTable();
-            cutdetdata = cddetdataclass.GetCutOrderMasterSizeDataofCutorder(cutorderpk);
+           cutdetdata = cddetdataclass.GetCutOrderMasterSizeDataofCutorder(cutorderpk);
+
+          //  cutdetdata = BLL.CutOrderBLL.CutPlan.fillCutplanqty(cutorderpk);
             for (int i = 1; i < dt.Columns.Count; i++)
             {
                 dt.Columns[i].ReadOnly = false;
@@ -392,7 +394,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
                 catch (Exception ex)
                 {
 
-                    dt.Rows[1][i] = "0";
+                    dt.Rows[2][i] = "0";
                 }
 
 

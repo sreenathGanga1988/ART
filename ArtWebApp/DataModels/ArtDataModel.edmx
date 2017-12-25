@@ -68,6 +68,18 @@
           <Property Name="ASQShuffleGroup" Type="nvarchar" MaxLength="50" />
           <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="AtcAction">
+          <Key>
+            <PropertyRef Name="AtcApprovalID" />
+          </Key>
+          <Property Name="AtcApprovalID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ActionDoneBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="ActionDoneDate" Type="datetime" />
+          <Property Name="ActionType" Type="nvarchar" MaxLength="20" />
+          <Property Name="Month" Type="nvarchar" MaxLength="20" />
+          <Property Name="Year" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="AtcApproval">
           <Key>
             <PropertyRef Name="AtcApproval_PK" />
@@ -1384,6 +1396,9 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="L1ApprovedDate" Type="datetime" />
           <Property Name="ApprovedDate" Type="datetime" />
           <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoqValue" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Freightvalue" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="OtherValues" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="InventorySalesDetail">
           <Key>
@@ -2346,6 +2361,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Actionname" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ProductionTNALocationMaster">
           <Key>
@@ -7428,6 +7444,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="ASQAllocationMaster" EntityType="Self.ASQAllocationMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleDetails" EntityType="Self.ASQShuffleDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleMaster" EntityType="Self.ASQShuffleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtcAction" EntityType="Self.AtcAction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtcApproval" EntityType="Self.AtcApproval" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtcDetailApproval" EntityType="Self.AtcDetailApproval" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtcDetails" EntityType="Self.AtcDetails" Schema="dbo" store:Type="Tables" />
@@ -10326,6 +10343,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="SkuRawmaterialDetail" EntitySet="SkuRawmaterialDetails" />
             <End Role="FabricMissing" EntitySet="FabricMissings" />
           </AssociationSet>
+          <EntitySet Name="AtcActions" EntityType="ArtModel.AtcAction" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -12335,6 +12353,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="InventoryMissingDetails" Relationship="ArtModel.FK_InventoryMissingDetails_InventoryMissingRequest" FromRole="InventoryMissingRequest" ToRole="InventoryMissingDetail" />
+          <Property Name="MoqValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Freightvalue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OtherValues" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="InventorySalesDetail">
           <Key>
@@ -18562,6 +18583,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Actionname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="FabricMissing">
           <Key>
@@ -18621,6 +18643,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AtcAction">
+          <Key>
+            <PropertyRef Name="AtcApprovalID" />
+          </Key>
+          <Property Name="AtcApprovalID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ActionDoneBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ActionDoneDate" Type="DateTime" Precision="3" />
+          <Property Name="ActionType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20554,6 +20588,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="InventoryMissingRequests">
             <EntityTypeMapping TypeName="ArtModel.InventoryMissingRequest">
               <MappingFragment StoreEntitySet="InventoryMissingRequest">
+                <ScalarProperty Name="OtherValues" ColumnName="OtherValues" />
+                <ScalarProperty Name="Freightvalue" ColumnName="Freightvalue" />
+                <ScalarProperty Name="MoqValue" ColumnName="MoqValue" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="L1ApprovedDate" ColumnName="L1ApprovedDate" />
@@ -23233,6 +23270,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ProductionTNADetails">
             <EntityTypeMapping TypeName="ArtModel.ProductionTNADetail">
               <MappingFragment StoreEntitySet="ProductionTNADetail">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Actionname" ColumnName="Actionname" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
@@ -23260,6 +23298,19 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
                 <ScalarProperty Name="SkuDetPK" ColumnName="SkuDetPK" />
                 <ScalarProperty Name="FabricMissingID" ColumnName="FabricMissingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtcActions">
+            <EntityTypeMapping TypeName="ArtModel.AtcAction">
+              <MappingFragment StoreEntitySet="AtcAction">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+                <ScalarProperty Name="ActionDoneDate" ColumnName="ActionDoneDate" />
+                <ScalarProperty Name="ActionDoneBy" ColumnName="ActionDoneBy" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="AtcApprovalID" ColumnName="AtcApprovalID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -132,11 +132,38 @@
 
                                 <td>
                                     <p>
-                                        @Html.EditorFor(model => item.PCD, new { htmlAttributes = new { @Value = item.PCD.ToString("yyyy-MM-dd"), @class = "datepicker" } })
+
+
 
                                     </p>
-                                
-                                  
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"> Merchant PCD</h3>
+                                        </div>
+                                        <div class="panel-body"> <div>Plan : <div class="merchantPCD"> @item.PCD</div> </div></div>
+
+    
+
+
+                                    </div>
+
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"> FACTORY PCD</h3>
+                                        </div>
+                                        <div class="panel-body"> <div>Plan : <div class="factoryplannedpcd">@item.FACTORYPLANNEDPCD</div>></div></div>
+
+                                        @if (Model.tnaUserRight.IsFactoryPlannedPCDDate == true)
+        {
+                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                    @Html.EditorFor(model => item.FACTORYPLANNEDPCD, new { htmlAttributes = new { @Value = item.PCD.ToString("yyyy-MM-dd"), @class = "datepicker" } })
+                                    <p class="hidden idfeild">@item.IdFACTORYPLANNEDPCD</p>
+                                </div>
+}
+
+
+                                    </div>
 
                                 </td>
 
@@ -441,6 +468,57 @@
 
 
         $(document).ready(function () {
+
+
+
+
+
+            $('body').on('change', '.datepicker', function () {
+
+
+                var newDate = $(this).datepicker('getDate');
+
+                var oldDate = new Date( $(this).parent().siblings(".panel-body").find('.factoryplannedpcd').text());
+
+               
+                var merchantPCD = new Date( $(this).closest('tr').find('.merchantPCD').text());
+
+                var datetoday = new Date($.now())
+
+
+                var diff = new Date(newDate - oldDate);               
+                var days = diff / 1000 / 60 / 60 / 24;
+
+
+
+            
+                if (newDate < merchantPCD) {
+
+                    alert("Cannot Plan Prior to merchant PCD");
+
+
+                }
+                else if (days < 3) {
+                    alert("You Can Change Factory PlanDate atleast 3 days prior only");
+                }
+                else {
+
+                }
+               
+
+            });
+
+           
+
+
+
+
+
+
+
+
+
+
             $('body').on('click', '.checkbox', function () {
 
 
@@ -454,7 +532,8 @@
 
                     if (confirm('Are you sure you want to Mark Selected Action Completed?')) {
 
-                           var panel_body = $(this).siblings(".panel-body");
+                        var panel_body = $(this).siblings(".panel-body");
+                        var chckbx = $(this).find(":checkbox")[0];
                     var id = $(this).find(":checkbox")[0].id;
                     var item_OurStyleID = document.getElementById("item_OurStyleID").value;
                     var item_Location_PK = document.getElementById("item_Location_PK").value;
@@ -472,7 +551,8 @@
                         panel_body.children("div.Actual").css({ "color": "red" });
                         alert('Successfully Updated');
 
-                        $(this).find(":checkbox")[0].hide();  
+                      
+                   
 
                     }
                     else {

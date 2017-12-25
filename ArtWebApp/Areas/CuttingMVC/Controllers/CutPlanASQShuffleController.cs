@@ -147,7 +147,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                         cddetail.Skudet_PK = actualskudetpk;
                         cddetail.OurStyleId = pddetpk.OurStyleID;
                         cddetail.IsDeleted = "N";
-                        cddetail.AddedVia = "Edit";
+                        cddetail.AddedVia = "Shuffle";
                         cddetail.AddedDate = DateTime.Now;
                         cddetail.AddedBy = HttpContext.Session["Username"].ToString();
                         db.CutPlanASQDetails.Add(cddetail);
@@ -204,7 +204,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
 
 
-                        var q1 = from cutplanasqdert in kenyadb.ArtCutPlanASQDets
+                        var q1= from cutplanasqdert in kenyadb.ArtCutPlanASQDets
                                  where cutplanasqdert.CutPlan_PK == CutPlan_PK && cutplanasqdert.PoPack_Detail_PK == PoPack_Detail_PK
                                 select cutplanasqdert;
 
@@ -216,6 +216,17 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
 
                     }
+                }
+
+
+
+
+                var q14 = from cutplanmaster in db.CutPlanMasters
+                         where cutplanmaster.CutPlan_PK == ActualCutPlan_PK
+                         select cutplanmaster;
+                foreach(var element in q14)
+                {
+
                 }
 
                 kenyadb.SaveChanges();

@@ -12,15 +12,14 @@ namespace ArtWebApp.DataModels
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductionTNADetail
+    public partial class AtcAction
     {
-        public decimal ProductionTNADetailID { get; set; }
-        public Nullable<decimal> ProductionTNACompID { get; set; }
-        public Nullable<System.DateTime> MarkedDate { get; set; }
-        public string MarkedBy { get; set; }
-        public Nullable<decimal> OurStyleID { get; set; }
-        public Nullable<decimal> Location_PK { get; set; }
-        public string Actionname { get; set; }
-        public string IsDeleted { get; set; }
+        public decimal AtcApprovalID { get; set; }
+        public Nullable<decimal> AtcID { get; set; }
+        public string ActionDoneBy { get; set; }
+        public Nullable<System.DateTime> ActionDoneDate { get; set; }
+        public string ActionType { get; set; }
+        public string Month { get; set; }
+        public Nullable<decimal> Year { get; set; }
     }
 }

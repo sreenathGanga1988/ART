@@ -20,6 +20,14 @@ namespace ArtWebApp.Areas.Shipping.Controllers
             return View(db.ShippingDocumentMasters.ToList());
         }
 
+
+
+        public ActionResult GateRecieptIndex()
+        {
+            return View(db.ShippingDocumentMasters.Where (u=>u.IsGateReceived==null).ToList());
+        }
+
+
         // GET: Shipping/ShippingDocumentMasters/Details/5
         public ActionResult Details(decimal id)
         {
@@ -33,6 +41,40 @@ namespace ArtWebApp.Areas.Shipping.Controllers
                 return HttpNotFound();
             }
             return View(shippingDocumentMaster);
+        }
+
+
+        // GET: Shipping/ShippingDocumentMasters/Details/5
+        public ActionResult GatereceiptDetails(decimal id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ShippingDocumentMaster shippingDocumentMaster = db.ShippingDocumentMasters.Find(id);
+            if (shippingDocumentMaster == null)
+            {
+                return HttpNotFound();
+            }
+            return View(shippingDocumentMaster);
+        }
+
+        public ActionResult Receive(decimal id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ShippingDocumentMaster shippingDocumentMaster = db.ShippingDocumentMasters.Find(id);
+
+            shippingDocumentMaster.GateReceivedBy= HttpContext.Session["Username"].ToString();
+            shippingDocumentMaster.IsGateReceived = true;
+            shippingDocumentMaster.GateReceiptDate = DateTime.Now.Date;
+            if (shippingDocumentMaster == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("GateRecieptIndex");
         }
 
         // GET: Shipping/ShippingDocumentMasters/Create

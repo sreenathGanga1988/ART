@@ -56,7 +56,35 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
 
 
 
-      
+
+        [HttpGet]
+        public JsonResult ChangeFactoryDate(String MerchantPCD ,String FactoryPCD ,String CurrentFactoryPCD,int ourstyleid ,int locationpk)
+
+        {
+            bool status = false;
+            
+
+
+            
+
+
+
+
+
+
+            db.SaveChanges();
+
+
+            status = true;
+
+
+
+
+            JsonResult jsd = Json(new { status = status }, JsonRequestBehavior.AllowGet);
+            return jsd;
+        }
+
+
 
 
         [HttpGet]
@@ -68,7 +96,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
 
 
 
-            if (!db.ProductionTNADetails.Any(f => f.ProductionTNACompID == CompId && f.OurStyleID == Ourstyleid && f.Location_PK == location_Pk))
+            if (!db.ProductionTNADetails.Any(f => f.ProductionTNACompID == CompId && f.OurStyleID == Ourstyleid && f.Location_PK == location_Pk && f.IsDeleted=="N"))
             {
 
 
@@ -79,6 +107,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 productionTNADetail.Actionname = Id;
                 productionTNADetail.MarkedBy = HttpContext.Session["Username"].ToString();
                 productionTNADetail.MarkedDate= DateTime.Now;
+                productionTNADetail.IsDeleted = "N";
                 db.ProductionTNADetails.Add(productionTNADetail);
 
             }

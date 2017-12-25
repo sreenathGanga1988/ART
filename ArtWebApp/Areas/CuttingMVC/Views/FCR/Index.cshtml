@@ -300,7 +300,7 @@
                 <td>@Model.TotalFabricLayed</td>
                 <td>@Model.fcrMasterData.MarkMissedQty</td>
                 <td>
-                    @{var bal = (Decimal.Parse(Model.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(Model.TotalFabricLayed.ToString()) - Decimal.Parse(Model.fcrMasterData.MarkMissedQty.ToString())); }
+                    @{var bal =  float.Parse( Model.TotalBalanceQty); }
 
                     <div id="balance">
                         @bal

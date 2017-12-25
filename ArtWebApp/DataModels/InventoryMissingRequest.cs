@@ -34,6 +34,9 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> L1ApprovedDate { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
         public string Reason { get; set; }
+        public Nullable<decimal> MoqValue { get; set; }
+        public Nullable<decimal> Freightvalue { get; set; }
+        public Nullable<decimal> OtherValues { get; set; }
     
         public virtual ICollection<InventoryMissingDetail> InventoryMissingDetails { get; set; }
     }

@@ -1560,6 +1560,12 @@
     <Content Include="Areas\CuttingMVC\Views\CutPlanASQShuffle\CutplanAsqShuffle.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\AtcChart\Index.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\AtcChart\AtcChartView.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FabricMissings\Details.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FabricMissings\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcClosing\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcClosing\AtcOfmonth.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\GateRecieptIndex.cshtml" />
+    <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\GatereceiptDetails.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1957,6 +1963,7 @@
     <Compile Include="Areas\ArtMVCMerchandiser\ArtMVCMerchandiserRepo.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\AtcChartRepo.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcChartController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcClosingController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightChargeDetailsController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightRequestMastersController.cs" />
@@ -1964,6 +1971,7 @@
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\LabChargeRequestController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\SeaFreightRequestController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\AtcChartMasterViewModal.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\AtcClosingModel.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\ViewModel\MerchandiserviewModels.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\StockPOFreightChargeController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\AtcPerformanceController.cs" />
@@ -1971,6 +1979,7 @@
     <Compile Include="Areas\CuttingMVC\Controllers\CutPlanASQShuffleController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\CutPlanEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\FabricMissingsController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\FCRController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaySheetEditController.cs" />
@@ -2025,6 +2034,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ASQShuffleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\AtcAction.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\AtcApproval.cs">

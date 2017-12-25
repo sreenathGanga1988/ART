@@ -1,0 +1,729 @@
+﻿@model ArtWebApp.DataModels.ShippingDocumentMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ShippingDocumentMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShipperName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShipperName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExporterName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExporterName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShipperInv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShipperInv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOofctnRoll)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOofctnRoll)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Packagetype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Packagetype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vessel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vessel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conatianer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conatianer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContsainerType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContsainerType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShipDocNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShipDocNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsReceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TentativeETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TentativeETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivedTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GateReceiptDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GateReceiptDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GateReceivedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GateReceivedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGateReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsGateReceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Berth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Berth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManifestNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManifestNO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManifestNoDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManifestNoDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManifestNoAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManifestNoAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManifestNoAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManifestNoAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CopyDocumentsReceivedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CopyDocumentsReceivedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CopyDocumentsReceivedAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CopyDocumentsReceivedAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrginalDocumentsReceivedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PortEntry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortEntry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PortEntryAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortEntryAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PortEntrydAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortEntrydAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgeDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgeAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgeAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgeAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgeAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassedDateAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassedDateAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassedDateAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassedDateAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocLodgeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocLodgeDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocLodgeAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocLodgeAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocLodgeAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocLodgeAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocRcvdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocRcvdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocRcvdAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocRcvdAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocRcvdAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocRcvdAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgePortDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgePortDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgePortAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgePortAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LodgePortAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LodgePortAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KPACFSCHGS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KPACFSCHGS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KPACFSCHGSAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KPACFSCHGSAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KPACFSCHGSAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KPACFSCHGSAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HChargesAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HChargesAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HChargesAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HChargesAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockChargesAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockChargesAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockChargesAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockChargesAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransportCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransportCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransportChargesAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransportChargesAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransportChargesAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransportChargesAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruckHaltingCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruckHaltingCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruckHaltingAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruckHaltingAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TruckHaltingAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TruckHaltingAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsealCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsealCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsealAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsealAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsealAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsealAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transporter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transporter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransporterAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransporterAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransporterAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransporterAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntrylevyCharges)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntrylevyCharges)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntrylevyChargesAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntrylevyChargesAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntrylevyChargesAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntrylevyChargesAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BondCancelledDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BondCancelledDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BondCancelledDateAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BondCancelledDateAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BondCancelledDateAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BondCancelledDateAddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseFTY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseFTY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseFTYAddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseFTYAddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InhouseFTYAddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InhouseFTYAddedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 btn-default">
+            @Html.ActionLink("Receive", "Receive", new { id = Model.ShipingDoc_PK })
+        </div>
+    </div>
+          |
+
+</p>
+

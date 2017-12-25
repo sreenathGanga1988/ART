@@ -543,6 +543,7 @@
         <AssociationConnector Association="ArtModel.FK_FabricMissing_AtcDetails" />
         <AssociationConnector Association="ArtModel.FK_FabricMissing_LocationMaster" />
         <AssociationConnector Association="ArtModel.FK_FabricMissing_SkuRawmaterialDetail" />
+        <EntityTypeShape EntityType="ArtModel.AtcAction" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

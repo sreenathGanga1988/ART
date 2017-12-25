@@ -1,0 +1,123 @@
+﻿@model ArtWebApp.DataModels.FabricMissing
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FabricMissing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Item Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkuRawmaterialDetail.SkuRawMaterialMaster.RMNum)
+        </dd>
+
+        <dt>
+            Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MissingQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MissingQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level1ApprovedBY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level1ApprovedBY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level1ApprovedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level1ApprovedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OurStyleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsLevel1Approved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsLevel1Approved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.FabricMissingID }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

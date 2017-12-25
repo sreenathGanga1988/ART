@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.FabricMissing>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-hover table-striped" >
+    <tr>
+        <th>
+         Item Description
+        </th>
+        <th>
+           Location
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissingQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level1ApprovedBY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level1ApprovedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OurStyleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLevel1Approved)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SkuRawmaterialDetail.SkuRawMaterialMaster.RMNum )
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MissingQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level1ApprovedBY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level1ApprovedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AtcDetail.OurStyle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsLevel1Approved)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Approve", "Approve", new { id=item.FabricMissingID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.FabricMissingID }) |
+        </td>
+    </tr>
+}
+
+</table>

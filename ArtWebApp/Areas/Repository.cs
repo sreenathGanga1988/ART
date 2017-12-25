@@ -420,7 +420,7 @@ namespace ArtWebApp.Areas
 
             var q = (from laydet in db.RejectionPanelExtraFabbReqs
                      where laydet.POPackDetail.OurStyleID ==ourstyleid && laydet.Location_PK == locationid
-                     //&& !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
+                     && !(from layshortdet in db.RejectReqDetails select layshortdet.RejFabReqID).Contains(laydet.RejFabPanelReqID)
                      select new FabreqDetails
                      {
                                                 

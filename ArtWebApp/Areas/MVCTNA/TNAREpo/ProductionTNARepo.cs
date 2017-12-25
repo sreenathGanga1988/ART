@@ -111,7 +111,24 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
         }
 
 
+        public String CalculateFactoryPCD( int ourstyleid ,int locationpk,String merchantpcd)
+        {
+            String FactoryPCD = merchantpcd;
 
+            try
+            {
+                var FactoryPCDdata = db.ProductionTNADetails.Where(u => u.OurStyleID == ourstyleid && u.Location_PK == locationpk && u.ProductionTNACompID == 15).First();
+                FactoryPCD = DateTime.Parse( FactoryPCDdata.MarkedDate.ToString()).ToString("MMMM dd,yyyy");
+            }
+            catch (Exception)
+            {
+
+                FactoryPCD = merchantpcd;
+            }
+
+            return FactoryPCD;
+
+        }
 
         public ProductionTNAVModel  SelectproductionTNABasedonMaster(ProductionTNAVModel productionTNAVModel)
         {
@@ -121,6 +138,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
             int alloweddays = 0;
             int alertdays = 0;
 
+            productionTNAVModel.FACTORYPLANNEDPCD = CalculateFactoryPCD(int.Parse( productionTNAVModel.OurStyleID.ToString()), int.Parse(productionTNAVModel.Location_PK.ToString()), productionTNAVModel.PCD.ToString());
 
             var ActualDates = db.ProductionTNADetails.Where(u => u.OurStyleID == productionTNAVModel.OurStyleID).ToList();
             var q = (from productiontnacomp in db.ProductionTNAComponents
@@ -141,7 +159,10 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 }
 
-
+                if (actualdate == null)
+                {
+                    actualdate = "";
+                }
 
 
                 if (element.CompName.Trim() == "PCD")

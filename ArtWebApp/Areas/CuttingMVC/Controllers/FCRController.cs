@@ -28,8 +28,18 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
             fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
             fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
-            fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
+            try
+            {
 
+                fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
+
+            }
+            catch (Exception)
+            {
+                fCRViewModel.ActualFCRConsumtion = "0";
+
+
+            }
             fCRViewModel.OverConsumed= (Decimal.Parse(fCRViewModel.ActualFCRConsumtion.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString())).ToString();
             if (ourStyleid != 0)
             {
@@ -95,6 +105,11 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                 }
 
             }
+
+
+            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
+
+
             return View(fCRViewModel);
            
 
@@ -133,6 +148,27 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             }
 
 
+            try
+            {
+
+                var missingqty = enty.FabricMissings.Where(u => u.OurStyleID == ourstyleid &&
+                 u.SkuDetPK == skudetpk && u.Location_Pk == location_pk).Select(u => u.MissingQty).Sum();
+
+                if (missingqty == null)
+                {
+                    fcrMasterData.MarkMissedQty = "0";
+                }
+                else
+                {
+                    fcrMasterData.MarkMissedQty = missingqty.ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                fcrMasterData.MarkMissedQty = "0";
+
+            }
 
             if (ourstyleid != 0) {
                 var q1 = from atcDetail in enty.AtcDetails
@@ -270,6 +306,19 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             fcrMasterData.TotalGiven = totalgiven.ToString();
 
             fcrMasterData.ToBeonLocation = (totalgiven - givenback).ToString();
+
+
+
+
+
+            
+
+
+
+
+
+
+
             return fcrMasterData;
         }
 

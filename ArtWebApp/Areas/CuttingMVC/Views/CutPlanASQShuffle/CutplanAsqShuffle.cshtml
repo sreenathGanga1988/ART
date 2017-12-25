@@ -318,6 +318,10 @@
 <script>
 
     $(document).ready(function () {
+
+
+
+
         $('body').on('keypress', '.NewQtyclass', function () {
 
 
@@ -329,7 +333,7 @@
 
 
         $('body').on('change', '.NewQtyclass', function () {
-
+            //validateAllSize();
             var totalvalue = 0;
 
             var isok = true;
@@ -366,24 +370,47 @@
 
 
 
-
             $('#HeaderTableData thead tr th').each(function () {
+
+
 
                 if ($(this).html().trim() == currentchangedsize.trim()) {
 
                     //var td = $(this).cellIndex;
-                  
+
 
                     var td = $(this).index();
-                   
+
 
                     //Get AlreadyLayedvalue of column
                     var $row = $('#HeaderTableData').find('tr').eq(3);
-
                     var $Alreadylayed = $row.find("td:eq(" + td + ")");
                     $Alreadylayed.css("background-color", "cyan");
                     $Alreadylayed.text(totalvalue);
 
+
+
+                    var $rowplanned = $('#HeaderTableData').find('tr').eq(1);
+
+                    var $Alreadyplannedtd = $rowplanned.find("td:eq(" + td + ")");
+
+                    var Alreadyplannedqty = $Alreadyplannedtd.find(".PlannedQty").first().text();
+
+                    if (parseFloat(Alreadyplannedqty.toString()) != parseFloat(totalvalue.toString())) {
+
+
+                        isok = false;
+
+                        $("#Submit").attr('disabled', 'disabled');
+                    }
+
+                    if (isok == true) {
+
+                        $("#Submit").removeAttr('disabled');
+                    }
+                    else {
+
+                    }
                 }
             });
 
@@ -402,20 +429,23 @@
 
 
         $("#Submit").click(function (e, params) {
+          
 
-            var list = [];
+            if (validateAllSize()) {
+
+                   var list = [];
             var Id = $('#CutPlanPK').find('option:selected').val();
             $(".PoPack_Detail_PK").each(function () {
 
                 var $tr = $(this).closest("tr");
                 var $CutPlan_PK = $tr.find("td.CutPlan_PK");
-               
 
-                var PoPack_Detail_PK = $(this).text();              
+
+                var PoPack_Detail_PK = $(this).text();
                 var CutPlan_PK = $CutPlan_PK.text();
                 var Qty = $tr.find("td input[class='NewQtyclass']").first().val();
 
-               
+
                 var ASQMAster = { PoPackdetID: PoPack_Detail_PK, CutPlan_PK: CutPlan_PK, Qty: Qty, ActualCutPlan_PK:Id };
 
                 list.push(ASQMAster);
@@ -428,12 +458,12 @@
 
 
             var things = JSON.stringify({ 'things': list });
-          
+
             $.ajax({
                 type: 'POST',
                 url: "@Url.Action("Create", "CutPlanASQShuffle")",
                data: things,
-               
+
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
@@ -454,16 +484,54 @@
                 }
             });
 
+            } else {
+
+                alert('Quantity Not Match')
+            }
+
+
         });
 
     });
 
 
 
+    function validateAllSize()
+    {
+        //$("#HeaderTableData td.PlannedQty ").each(function () {
+
+        //   var tr =this.cl
+        //});
+        debugger;
+        var isok = true;
+
+        var table = document.getElementById("HeaderTableData");
+
+        var plannedrow = table.rows[1];
+
+        var TotalQtyrow = table.rows[3];
+
+        var plannedqty = plannedrow.getElementsByClassName('PlannedQty');
+        for (var i = 1; i < plannedqty.length; i++) {
+
+            var plannedQtytemp = parseFloat(plannedqty[i].innerHTML);
+
+            var cellindex = plannedqty[i].parentNode.cellIndex;
+            var totalQty = parseFloat(TotalQtyrow.cells[cellindex].innerHTML);
+        
+
+            if (plannedQtytemp != totalQty && totalQty>0) {
+                isok = false;
+               
+
+            }
+
+        }
 
 
+      
 
-
-
+        return isok;
+    }
 
 </script>

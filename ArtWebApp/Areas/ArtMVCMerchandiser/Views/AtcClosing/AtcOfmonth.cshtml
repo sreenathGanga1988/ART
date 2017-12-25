@@ -1,0 +1,82 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcClosingModelList
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-condensed table-bordered MyDataTable ">
+    <tr>
+       
+        <th>
+            AtcId
+        </th>
+        <th>
+            AtcNum
+        </th>
+        <th>
+            BuyerName
+        </th>
+        <th>
+            NoofStyles
+        </th>
+        <th>
+            IsCompleted
+        </th>
+        <th>
+            IsClosed
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            projectionQty
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        //AtcNum  BuyerName ShortName   ActionDoneBy ActionDoneDate  ActionType Month   Year
+
+
+
+       for (int i = 0; i < Model.ClosedAtc.Rows.Count; i++)
+        {
+
+            <tr>
+               
+                <td> @Model.ClosedAtc.Rows[i]["AtcId"].ToString();</td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["AtcNum"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["BuyerName"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ShortName"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionDoneBy"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionDoneDate"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionType"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["Month"].ToString();
+                </td>
+
+            </tr>
+
+
+
+
+
+
+
+        }
+    }
+
+
+
+</table>
