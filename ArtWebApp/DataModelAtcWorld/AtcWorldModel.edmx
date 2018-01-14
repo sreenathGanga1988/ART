@@ -125,6 +125,7 @@
           <Property Name="IsShortClosed" Type="nvarchar" MaxLength="50" />
           <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
           <Property Name="IsAtcWord" Type="nchar" MaxLength="10" />
+          <Property Name="PackLocation_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQShuffleDetailsAtc">
           <Key>
@@ -632,6 +633,7 @@
           <Property Name="IsShortClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -871,6 +873,7 @@
           <EntitySetMapping Name="ASQAllocationMaster_tbl">
             <EntityTypeMapping TypeName="AtcModelModel.ASQAllocationMaster_tbl">
               <MappingFragment StoreEntitySet="ASQAllocationMaster_tbl">
+                <ScalarProperty Name="PackLocation_PK" ColumnName="PackLocation_PK" />
                 <ScalarProperty Name="IsAtcWord" ColumnName="IsAtcWord" />
                 <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
                 <ScalarProperty Name="IsShortClosed" ColumnName="IsShortClosed" />

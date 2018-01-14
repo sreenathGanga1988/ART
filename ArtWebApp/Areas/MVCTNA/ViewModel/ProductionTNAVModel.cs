@@ -54,8 +54,10 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String INPUT { get; set; }
         public String PACKINGTRIMS { get; set; }
         public String FACTORYPLANNEDPCD { get; set; }
+        public String SYSTEMFILES { get; set; }
+        public String SHRINKAGE { get; set; }
+        
 
-       
         public int IdFINALMARKER { get; set; }
         public int IdFC1 { get; set; }
         public int IdPPMEETING { get; set; }
@@ -70,7 +72,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int IdINPUT { get; set; }
         public int IdPACKINGTRIMS { get; set; }
         public int IdFACTORYPLANNEDPCD { get; set; }
-
+        public int IdSYSTEMFILES { get; set; }
+        public int IdSHRINKAGE { get; set; }
 
 
         public String ActualFINALMARKER { get; set; }
@@ -87,7 +90,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String ActualINPUT { get; set; }
         public String ActualPACKINGTRIMS { get; set; }
         public String ActualFACTORYPLANNEDPCD { get; set; }
-
+        public String ActualSYSTEMFILES { get; set; }
+        public String ActualSHRINKAGE { get; set; }
 
         public String OurStyle { get; set; }
         public String BuyerStyle { get; set; }

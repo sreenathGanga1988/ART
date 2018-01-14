@@ -380,9 +380,9 @@ FROM            CutOrderMaster INNER JOIN
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
-                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, 
-                         InventoryMaster.OnhandQty, AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, 
-                         InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, Template_Master.TemplateCode, Template_Master.Description AS Templatename
+                         SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, 
+                         AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value, 
+                         Template_Master.TemplateCode, Template_Master.Description AS Templatename, MrnMaster.MrnNum, MrnMaster.AddedDate
 FROM            InventoryMaster INNER JOIN
                          ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                          SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
@@ -390,7 +390,9 @@ FROM            InventoryMaster INNER JOIN
                          UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
                          AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN
                          LocationMaster ON InventoryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
+                         MrnDetails ON InventoryMaster.MrnDet_PK = MrnDetails.MrnDet_PK INNER JOIN
+                         MrnMaster ON MrnDetails.Mrn_PK = MrnMaster.Mrn_PK
 ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode</CommandText>
                     <Parameters />
                   </DbCommand>
@@ -417,6 +419,8 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
               <Mapping SourceColumn="Value" DataSetColumn="Value" />
               <Mapping SourceColumn="TemplateCode" DataSetColumn="TemplateCode" />
               <Mapping SourceColumn="Templatename" DataSetColumn="Templatename" />
+              <Mapping SourceColumn="MrnNum" DataSetColumn="MrnNum" />
+              <Mapping SourceColumn="AddedDate" DataSetColumn="AddedDate" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2118,6 +2122,14 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
               <Mapping SourceColumn="Rollyard" DataSetColumn="Rollyard" />
               <Mapping SourceColumn="CutPlanFabReq" DataSetColumn="CutPlanFabReq" />
               <Mapping SourceColumn="cutQty" DataSetColumn="cutQty" />
+              <Mapping SourceColumn="DOQty" DataSetColumn="DOQty" />
+              <Mapping SourceColumn="ActualRollYardDelivered" DataSetColumn="ActualRollYardDelivered" />
+              <Mapping SourceColumn="Layedfabric" DataSetColumn="Layedfabric" />
+              <Mapping SourceColumn="EndBit" DataSetColumn="EndBit" />
+              <Mapping SourceColumn="CutPlan_PK" DataSetColumn="CutPlan_PK" />
+              <Mapping SourceColumn="WFRoll" DataSetColumn="WFRoll" />
+              <Mapping SourceColumn="FWROLL" DataSetColumn="FWROLL" />
+              <Mapping SourceColumn="LayedQty" DataSetColumn="LayedQty" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -3030,6 +3042,14 @@ FROM            AtcMaster </CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="MrnNum" msprop:Generator_ColumnVarNameInTable="columnMrnNum" msprop:Generator_ColumnPropNameInRow="MrnNum" msprop:Generator_ColumnPropNameInTable="MrnNumColumn" msprop:Generator_UserColumnName="MrnNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AddedDate" msprop:Generator_ColumnVarNameInTable="columnAddedDate" msprop:Generator_ColumnPropNameInRow="AddedDate" msprop:Generator_ColumnPropNameInTable="AddedDateColumn" msprop:Generator_UserColumnName="AddedDate" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -6068,6 +6088,14 @@ FROM            AtcMaster </CommandText>
               <xs:element name="Rollyard" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRollyard" msprop:Generator_ColumnPropNameInRow="Rollyard" msprop:Generator_ColumnPropNameInTable="RollyardColumn" msprop:Generator_UserColumnName="Rollyard" type="xs:decimal" minOccurs="0" />
               <xs:element name="CutPlanFabReq" msprop:Generator_ColumnVarNameInTable="columnCutPlanFabReq" msprop:Generator_ColumnPropNameInRow="CutPlanFabReq" msprop:Generator_ColumnPropNameInTable="CutPlanFabReqColumn" msprop:Generator_UserColumnName="CutPlanFabReq" type="xs:decimal" minOccurs="0" />
               <xs:element name="cutQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columncutQty" msprop:Generator_ColumnPropNameInRow="cutQty" msprop:Generator_ColumnPropNameInTable="cutQtyColumn" msprop:Generator_UserColumnName="cutQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDOQty" msprop:Generator_ColumnPropNameInRow="DOQty" msprop:Generator_ColumnPropNameInTable="DOQtyColumn" msprop:Generator_UserColumnName="DOQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ActualRollYardDelivered" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnActualRollYardDelivered" msprop:Generator_ColumnPropNameInRow="ActualRollYardDelivered" msprop:Generator_ColumnPropNameInTable="ActualRollYardDeliveredColumn" msprop:Generator_UserColumnName="ActualRollYardDelivered" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Layedfabric" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLayedfabric" msprop:Generator_ColumnPropNameInRow="Layedfabric" msprop:Generator_ColumnPropNameInTable="LayedfabricColumn" msprop:Generator_UserColumnName="Layedfabric" type="xs:decimal" minOccurs="0" />
+              <xs:element name="EndBit" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEndBit" msprop:Generator_ColumnPropNameInRow="EndBit" msprop:Generator_ColumnPropNameInTable="EndBitColumn" msprop:Generator_UserColumnName="EndBit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CutPlan_PK" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCutPlan_PK" msprop:Generator_ColumnPropNameInRow="CutPlan_PK" msprop:Generator_ColumnPropNameInTable="CutPlan_PKColumn" msprop:Generator_UserColumnName="CutPlan_PK" type="xs:decimal" />
+              <xs:element name="WFRoll" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnWFRoll" msprop:Generator_ColumnPropNameInRow="WFRoll" msprop:Generator_ColumnPropNameInTable="WFRollColumn" msprop:Generator_UserColumnName="WFRoll" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FWROLL" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFWROLL" msprop:Generator_ColumnPropNameInRow="FWROLL" msprop:Generator_ColumnPropNameInTable="FWROLLColumn" msprop:Generator_UserColumnName="FWROLL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LayedQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnLayedQty" msprop:Generator_ColumnPropNameInRow="LayedQty" msprop:Generator_ColumnPropNameInTable="LayedQtyColumn" msprop:Generator_UserColumnName="LayedQty" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -6271,6 +6299,10 @@ FROM            AtcMaster </CommandText>
     <xs:unique name="LayShortageRequest_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:LayShortageRequest_SP" />
       <xs:field xpath="mstns:LayShortageMasterID" />
+    </xs:unique>
+    <xs:unique name="Criticalpath_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Criticalpath_SP" />
+      <xs:field xpath="mstns:CutPlan_PK" />
     </xs:unique>
     <xs:unique name="LaySheetSummary_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:LaySheetSummary_SP" />

@@ -48,7 +48,7 @@ namespace ArtWebApp.Areas.MVCTNA
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK")] TnaUserRight tnaUserRight)
+        public ActionResult Create([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile,IsShrinkage,IsSystemFile")] TnaUserRight tnaUserRight)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace ArtWebApp.Areas.MVCTNA
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK")] TnaUserRight tnaUserRight)
+        public ActionResult Edit([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile")] TnaUserRight tnaUserRight)
         {
             if (ModelState.IsValid)
             {

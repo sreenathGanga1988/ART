@@ -312,7 +312,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
 
-
+               
                 foreach (DeliveryOrderDetailsData di in Dodata.DeliveryOrderDetailsDataCollection)
                 {
                     //Add the delivery details
@@ -391,7 +391,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                      dt = dt.Select("InventoryItem_PK="+di.InventoryItem_PK.ToString ()).CopyToDataTable();
 
-
+                    decimal rollsum = 0;
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         DORollDetail dorolldet = new DataModels.DORollDetail();
@@ -400,9 +400,10 @@ namespace ArtWebApp.BLL.InventoryBLL
                         dorolldet.Roll_PK = int.Parse(dt.Rows[i]["roll_Pk"].ToString());
                         dorolldet.DODet_PK = dlvrdet.DODet_PK;
                         dorolldet.DO_PK = domstr.DO_PK;
+                        dorolldet.AYard = Decimal.Parse(dt.Rows[i]["ayard"].ToString());
                         enty.DORollDetails.Add(dorolldet);
 
-
+                        rollsum = rollsum+ Decimal.Parse( dorolldet.AYard.ToString());
                         var m = from invitem in enty.FabricRollmasters
                                 where invitem.Roll_PK == dorolldet.Roll_PK
                                 select invitem;
@@ -450,6 +451,10 @@ namespace ArtWebApp.BLL.InventoryBLL
 
 
                     }
+
+
+
+                    ctordrdo.RollYard = rollsum;
 
                     enty.SaveChanges();
 

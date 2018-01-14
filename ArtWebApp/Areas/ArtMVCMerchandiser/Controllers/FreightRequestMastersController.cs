@@ -76,7 +76,25 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             {
                 return HttpNotFound();
             }
-            return View(freightRequestMaster);
+            return View(calculateAllowedValuesofFreight(freightRequestMaster));
+        }
+
+        // POST: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public JsonResult Edit(FreightRequestMasterViewModel order)
+        {
+
+            bool status = false;
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+
+            string reqnum = freightChargeRepo.UpdateFreightCharges(order);
+            order.ShipmentType = "Air";
+            status = true;
+
+
+            return new JsonResult { Data = new { status = status, Reqnum = reqnum } };
         }
 
         // POST: ArtMVCMerchandiser/FreightRequestMasters/Edit/5

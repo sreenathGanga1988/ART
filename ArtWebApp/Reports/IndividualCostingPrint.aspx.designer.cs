@@ -211,6 +211,33 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.WebControls.Label lblsummary_Embroidarypercent;
         
         /// <summary>
+        /// lblsummary_printing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsummary_printing;
+        
+        /// <summary>
+        /// lblsummary_printingdzn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsummary_printingdzn;
+        
+        /// <summary>
+        /// lblsummary_printingpercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsummary_printingpercent;
+        
+        /// <summary>
         /// lblsummary_comision control.
         /// </summary>
         /// <remarks>

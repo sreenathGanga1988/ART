@@ -1219,7 +1219,7 @@ ORDER BY tt.RollNum ";
 
                 foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
                 {  //creates a roll on the new location with is present as N
-
+                    Decimal ROLLyard = 0;
                     RollInventoryMaster rvinvmstr = new RollInventoryMaster();
 
                     rvinvmstr.Addeddate = DateTime.Now;
@@ -1251,7 +1251,7 @@ ORDER BY tt.RollNum ";
                     {
                         rolldet.IsDelivered = "N";
                         skudetpk = int.Parse(rolldet.SkuDet_PK.ToString());
-
+                        ROLLyard=Decimal.Parse(ayard.ToString());
                         ayard += Decimal.Parse(ayard.ToString());
 
                     }
@@ -1274,6 +1274,7 @@ ORDER BY tt.RollNum ";
                     dorolldet.Roll_PK = int.Parse(rolldata.roll_PK.ToString());
                     dorolldet.DODet_PK = dodetpk;
                     dorolldet.DO_PK = do_pk;
+                    dorolldet.AYard = ROLLyard;
                     entry.DORollDetails.Add(dorolldet);
 
 
@@ -1287,6 +1288,7 @@ ORDER BY tt.RollNum ";
                 ctordrdo.DoDet_Pk = dodetpk;
                 ctordrdo.DeliveryQty = (0 - ayard);
                 entry.CutOrderDOes.Add(ctordrdo);
+                ctordrdo.RollYard = (0 - ayard);
                 entry.SaveChanges();
 
             }

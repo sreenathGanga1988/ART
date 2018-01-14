@@ -35,6 +35,7 @@ namespace ArtWebApp.DataModels
         public string IsDetailUploaded { get; set; }
         public string IsDeleted { get; set; }
         public Nullable<decimal> NoOfPlies { get; set; }
+        public Nullable<decimal> ExxcessOrShort { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual AtcMaster AtcMaster { get; set; }

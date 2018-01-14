@@ -177,13 +177,13 @@
                                                     <h3 class="panel-title"> PP SUBMISSION DATE</h3>
                                                 </div>
                                                 <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div class="Actual">Actual  : @item.ActualPPSUBMISSIONDATEMERCHANT </div></div>
-                                               
-                                                @if (Model.tnaUserRight.IsPPSumbissionDate == true && item.ActualPPSUBMISSIONDATEMERCHANT.Trim()=="")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsPPSumbissionDate" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdPPSUBMISSIONDATEMERCHANT</p>
-                                                </div>
+
+                                                @if (Model.tnaUserRight.IsPPSumbissionDate == true && item.ActualPPSUBMISSIONDATEMERCHANT.Trim() == "")
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsPPSumbissionDate" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdPPSUBMISSIONDATEMERCHANT</p>
+                                        </div>
 }
 
 
@@ -194,15 +194,15 @@
                                                 </div>
                                                 <div class="panel-body">
                                                     <div>Plan : @item.PPAPPROVAL </div><div class="Actual">Actual  : @item.ActualPPAPPROVAL </div>
-                                                
+
                                                 </div>
                                                 @if (Model.tnaUserRight.IsPPApprovalDate == true && item.ActualPPAPPROVAL.Trim() == "")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsPPApprovalDate" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdPPAPPROVAL</p>
-                                                </div>
-                                                }
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsPPApprovalDate" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdPPAPPROVAL</p>
+                                        </div>
+}
                                             </div>
                                             <div class="panel panel-info">
                                                 <div class="panel-heading">
@@ -213,15 +213,30 @@
 
                                                 </div>
                                                 @if (Model.tnaUserRight.IsSampleYardagesDate == true & item.ActualSAMPLEYARDAGES.Trim() == "")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsSampleYardagesDate" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdSAMPLEYARDAGES</p>
-                                                </div>
-                                                }
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IdSAMPLEYARDAGES" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdSAMPLEYARDAGES</p>
+                                        </div>
+}
                                             </div>
 
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">SYSTEM FILES</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.SYSTEMFILES </div><div class="Actual">Actual  : @item.ActualSYSTEMFILES </div>
 
+                                                </div>
+                                                @if (Model.tnaUserRight.IsSystemFile == true & item.ActualSYSTEMFILES.Trim() == "")
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsSampleYardagesDate" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdSYSTEMFILES</p>
+                                        </div>
+}
+                                            </div>
 
                                         </div>
 
@@ -236,12 +251,12 @@
 
                                                 </div>
                                                 @if (Model.tnaUserRight.IsGradedPatternDate == true & item.ActualGRADDEDPATTERN.Trim() == "")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsGradedPatternDate" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdGRADDEDPATTERN</p>
-                                                </div>
-                                                }
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsGradedPatternDate" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdGRADDEDPATTERN</p>
+                                        </div>
+}
                                             </div>
                                             <div class="panel panel-danger">
                                                 <div class="panel-heading">
@@ -252,12 +267,12 @@
 
                                                 </div>
                                                 @if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsSewingTrimDate" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
-                                                </div>
-                                                }
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsSewingTrimDate" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
+                                        </div>
+}
                                             </div>
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading">
@@ -268,12 +283,29 @@
 
                                                 </div>
                                                 @if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
-                                                {
-                                                <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                    <label><input type="checkbox" id="IsSewingTrimDate2" value="">Mark Today</label>
-                                                    <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IsSewingTrimDate2" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
+                                        </div>
+}
+                                            </div>
+
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Shrinkage</h3>
                                                 </div>
-                                                }
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.SHRINKAGE </div><div class="Actual">Actual  : @item.ActualSHRINKAGE </div>
+
+                                                </div>
+                                                @if (Model.tnaUserRight.IsShrinkage == true & item.ActualSHRINKAGE.Trim() == "")
+        {
+                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                            <label><input type="checkbox" id="IdSHRINKAGE" value="">Mark Today</label>
+                                            <p class="hidden idfeild">@item.IdSHRINKAGE</p>
+                                        </div>
+}
                                             </div>
                                         </div>
 

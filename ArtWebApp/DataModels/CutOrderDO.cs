@@ -19,6 +19,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CutID { get; set; }
         public Nullable<decimal> DeliveryQty { get; set; }
         public Nullable<decimal> Skudet_PK { get; set; }
+        public Nullable<decimal> RollYard { get; set; }
     
         public virtual CutOrderDO CutOrderDO1 { get; set; }
         public virtual CutOrderDO CutOrderDO2 { get; set; }

@@ -2,6 +2,7 @@
 using ArtWebApp.Areas.Repository;
 using ArtWebApp.DataModels;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/SeaFreightRequests
         public ActionResult Index()
         {
-            return View(db.FreightRequestMasters.Where(u=>u.ShipementType=="Sea").ToList());
+            return View(db.FreightRequestMasters.Where(u => u.ShipementType == "Sea").ToList());
         }
 
         // GET: ArtMVCMerchandiser/SeaFreightRequests/Details/5
@@ -34,7 +35,37 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             }
             return View(freightRequestMaster);
         }
+        // GET: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
+        public ActionResult Edit(decimal id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            FreightRequestMaster freightRequestMaster = db.FreightRequestMasters.Find(id);
+            if (freightRequestMaster == null)
+            {
+                return HttpNotFound();
+            }
+            return View(calculateAllowedValuesofFreight(freightRequestMaster));
+        }
 
+        // POST: ArtMVCMerchandiser/FreightChargeDetails/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "FreightReqDetID,AtcID,FreightCharge,FreightRequestID")] FreightChargeDetail freightChargeDetail)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(freightChargeDetail).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.FreightRequestID = new SelectList(db.FreightRequestMasters, "FreightRequestID", "FreightRequestNum", freightChargeDetail.FreightRequestID);
+            return View(freightChargeDetail);
+        }
         // GET: ArtMVCMerchandiser/SeaFreightRequests/Create
         [HttpGet]
         public ActionResult Create()
@@ -96,6 +127,30 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public FreightRequestMaster calculateAllowedValuesofFreight(FreightRequestMaster freightRequestMaster)
+        {
+            Decimal allowedvalue = 0;
+            Decimal alreadyused = 0;
+            decimal balance = 0;
+
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+            foreach (FreightChargeDetail freightChargeDetail in freightRequestMaster.FreightChargeDetails)
+            {
+                FreightChargeDetail freightChargeDetailnew = freightChargeRepo.GetAllowedFreightCharges(freightChargeDetail);
+                freightChargeDetail.AllowedValue = freightChargeDetailnew.AllowedValue;
+                freightChargeDetail.UsedValue = freightChargeDetailnew.UsedValue;
+                freightChargeDetail.BalanceValue = freightChargeDetailnew.BalanceValue;
+
+                allowedvalue += Decimal.Parse(freightChargeDetailnew.AllowedValue.ToString());
+                alreadyused += Decimal.Parse(freightChargeDetailnew.UsedValue.ToString());
+                balance += Decimal.Parse(freightChargeDetailnew.BalanceValue.ToString());
+            }
+            freightRequestMaster.AllowedValue = allowedvalue.ToString();
+            freightRequestMaster.UsedValue = alreadyused.ToString();
+            freightRequestMaster.BalanceValue = balance.ToString();
+
+            return freightRequestMaster;
         }
     }
 }

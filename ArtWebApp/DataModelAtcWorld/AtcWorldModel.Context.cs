@@ -20,10 +20,9 @@ namespace ArtWebApp.DataModelAtcWorld
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
-            : base("name=AtcWorldEthiopiaEntities")
+           : base("name=AtcWorldEthiopiaEntities")
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

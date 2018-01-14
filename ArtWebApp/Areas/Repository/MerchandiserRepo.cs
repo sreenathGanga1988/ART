@@ -168,6 +168,79 @@ namespace ArtWebApp.Areas.Repository
             return reqnum;
         }
 
+        public String UpdateFreightCharges(FreightRequestMasterViewModel order)
+        {
+
+            String reqnum = "";
+            using (ArtEntitiesnew db = new ArtEntitiesnew())
+            {
+
+
+                var q = from frgtmstr in db.FreightRequestMasters
+                        where frgtmstr.FreightRequestID == order.FreightRequestID
+                        select frgtmstr;
+
+                foreach (var element in q)
+                {
+                    element.FromParty = order.FromParty;
+                    element.ToParty = order.ToParty;
+                    element.Shipper = order.Shipper;
+                    element.Weight = order.Weight;
+                    element.ContentofPackage = order.ContentofPackage;
+                    element.DebitTo = order.DebitTo;
+                    element.Reason = order.Reason;
+                    element.Merchandiser = order.Merchandiser;
+                    element.ForwarderDetails = order.ForwarderDetails;
+                    element.ApproximateCharges = order.ApproximateCharges;
+                    element.Remark = order.Remark;
+
+                    try
+                    {
+                        var tot = order.FreightChargeDetails.Sum(u => u.FreightCharge);
+                        element.ApproximateCharges = tot.ToString();
+                    }
+                    catch (Exception)
+                    {
+                        element.ApproximateCharges = order.ApproximateCharges;
+
+                    }
+
+                    element.IsApproved = "N";
+                    element.IsDeleted = "N";
+                    element.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                    element.AddedDate = DateTime.Now;
+
+                }
+
+
+
+
+
+
+
+                foreach (FreightChargeDetailViewMoodel element in order.FreightChargeDetails)
+                {
+
+                    var q1 = from frgtdet in db.FreightChargeDetails
+                             where frgtdet.FreightReqDetID == element.FreightReqDetID
+                             select frgtdet;
+
+                    foreach (var frightchargedetail in q1)
+                    {
+                        frightchargedetail.FreightCharge = element.FreightCharge;
+                        frightchargedetail.Remark = element.Remark;
+                    }
+
+
+
+                }
+
+                db.SaveChanges();
+            }
+
+            return reqnum;
+        }
+
         /// <summary>
         /// get the last costing
         /// </summary>

@@ -12,9 +12,10 @@
         orderCellsTop: true,
         dom: 'Blfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print','colvis'
+            'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
         ],
-
+        
+        
     });
    
     // Apply the filter

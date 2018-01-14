@@ -17,5 +17,6 @@ namespace ArtWebApp.DataModels
         public decimal ShippingDocumentDO_PK { get; set; }
         public Nullable<decimal> ShipingDoc_PK { get; set; }
         public Nullable<decimal> DO_PK { get; set; }
+        public Nullable<decimal> Location_PK { get; set; }
     }
 }

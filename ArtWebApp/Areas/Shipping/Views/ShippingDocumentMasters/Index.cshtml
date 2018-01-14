@@ -10,67 +10,32 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-responsive table-bordered table-striped" >
+<table class="table table-responsive table-bordered table-striped MyDataTable" >
 
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AddedBY)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipperName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExporterName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShipperInv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NOofctnRoll)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Packagetype)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Weight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceValue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vessel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Conatianer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContsainerType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ETA)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ShipDocNum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BL)
+               Shipper
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mode)
+               Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DocType)
+               Details
             </th>
+            <th>
+                Conatianer
+            </th>
+            <th>
+               BL
+            </th>
+            <th>
+               AddedBY
+            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.IsReceived)
             </th>
@@ -80,204 +45,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TentativeETA)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReceivedTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GateReceiptDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GateReceivedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsGateReceived)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Berth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManifestNO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManifestNoDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManifestNoAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManifestNoAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CopyDocumentsReceivedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CopyDocumentsReceivedAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CopyDocumentsReceivedAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrginalDocumentsReceivedAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PortEntry)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PortEntryAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PortEntrydAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgeDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgeAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgeAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassedDateAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassedDateAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocLodgeDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocLodgeAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocLodgeAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocRcvdDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocRcvdAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocRcvdAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgePortDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgePortAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LodgePortAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KPACFSCHGS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KPACFSCHGSAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KPACFSCHGSAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HChargesAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HChargesAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockChargesAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockChargesAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransportCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransportChargesAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransportChargesAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TruckHaltingCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TruckHaltingAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TruckHaltingAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EsealCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EsealAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EsealAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Transporter)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransporterAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransporterAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntrylevyCharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntrylevyChargesAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntrylevyChargesAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BondCancelledDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BondCancelledDateAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BondCancelledDateAddedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseFTY)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseFTYAddedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InhouseFTYAddedBy)
-            </th>
+
             <th></th>
         </tr>
 
@@ -287,277 +55,143 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddedBY)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipperName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExporterName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipperInv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NOofctnRoll)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Packagetype)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vessel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conatianer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContsainerType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ETA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShipDocNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsReceived)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceivedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TentativeETA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceivedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GateReceiptDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GateReceivedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsGateReceived)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Berth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManifestNO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManifestNoDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManifestNoAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManifestNoAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopyDocumentsReceivedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopyDocumentsReceivedAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopyDocumentsReceivedAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrginalDocumentsReceivedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrginalDocumentsReceivedAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrginalDocumentsReceivedAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PortEntry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PortEntryAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PortEntrydAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgeDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgeAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgeAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PassedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PassedDateAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PassedDateAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocLodgeDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocLodgeAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocLodgeAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocRcvdDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocRcvdAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocRcvdAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgePortDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgePortAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LodgePortAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KPACFSCHGS)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KPACFSCHGSAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KPACFSCHGSAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HChargesAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HChargesAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockChargesAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockChargesAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransportCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransportChargesAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransportChargesAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TruckHaltingCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TruckHaltingAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TruckHaltingAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EsealCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EsealAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EsealAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Transporter)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransporterAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransporterAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntrylevyCharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntrylevyChargesAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntrylevyChargesAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BondCancelledDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BondCancelledDateAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BondCancelledDateAddedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseFTY)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseFTYAddedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InhouseFTYAddedBy)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ShipingDoc_PK }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ShipingDoc_PK }) |
-               
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipDocNum)
+        </td>
+        <td>
+
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>ShipperName</td>
+                        <td>  @Html.DisplayFor(modelItem => item.ShipperName)</td>
+                    </tr>
+                    <tr>
+                        <td>ExporterName</td>
+                        <td>@Html.DisplayFor(modelItem => item.ExporterName)</td>
+                    </tr>
+                    <tr>
+                        <td>ShipperInv</td>
+                        <td> @Html.DisplayFor(modelItem => item.ShipperInv)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+          
+        </td>
+        <td>
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>Description</td>
+                        <td> @Html.DisplayFor(modelItem => item.Description)</td>
+                    </tr>
+                    <tr>
+                        <td>No of Ctn</td>
+                        <td>@Html.DisplayFor(modelItem => item.NOofctnRoll)</td>
+                    </tr>
+                    <tr>
+                        <td>Package Type</td>
+                        <td>@Html.DisplayFor(modelItem => item.Packagetype)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>Weight</td>
+                        <td>  @Html.DisplayFor(modelItem => item.Weight)</td>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td> @Html.DisplayFor(modelItem => item.Type)</td>
+                    </tr>
+                    <tr>
+                        <td>InvoiceValue</td>
+                        <td> @Html.DisplayFor(modelItem => item.InvoiceValue)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>Container</td>
+                        <td>@Html.DisplayFor(modelItem => item.Conatianer)</td>
+                    </tr>
+                    <tr>
+                        <td>Container Type</td>
+                        <td> @Html.DisplayFor(modelItem => item.ContsainerType)</td>
+                    </tr>
+                    <tr>
+                        <td>ETA</td>
+                        <td>@Html.DisplayFor(modelItem => item.ETA)</td>
+                    </tr>
+                    <tr>
+                        <td>Vessel</td>
+                        <td>@Html.DisplayFor(modelItem => item.Vessel)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>BL</td>
+                        <td> @Html.DisplayFor(modelItem => item.BL)</td>
+                    </tr>
+                    <tr>
+                        <td>Mode</td>
+                        <td>@Html.DisplayFor(modelItem => item.Mode)</td>
+                    </tr>
+                    <tr>
+                        <td>DocType</td>
+                        <td>@Html.DisplayFor(modelItem => item.DocType)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <td>AddedDate</td>
+                        <td> @Html.DisplayFor(modelItem => item.AddedDate)</td>
+                    </tr>
+                    <tr>
+                        <td>AddedBY</td>
+                        <td> @Html.DisplayFor(modelItem => item.AddedBY)</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </td>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.IsReceived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TentativeETA)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ShipingDoc_PK }) |
+            @Html.ActionLink("GateReceipt", "GateReceipt", "GateReceipt", new { id = item.ShipingDoc_PK }, null) |
+            @Html.ActionLink("PendingGateReceipt", "PendingGateReceipt", "GateReceipt", new { id = item.ShipingDoc_PK }, null) |
+            @Html.ActionLink("AssignOffLoadLocation", "AssignOffLoadLocation", "ImportDocumentLocation", new { id = item.ShipingDoc_PK }, null) |
+
+
+        </td>
+    </tr>
     }
 
 </tbody>

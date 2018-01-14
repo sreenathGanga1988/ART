@@ -24,10 +24,6 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             fCRViewModel.RejectionReqData = fcrRepo.GetRejectionData(id);
 
 
-            fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
-
-            fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
-            fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
             try
             {
 
@@ -107,6 +103,10 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             }
 
 
+            fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
+
+            fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
+            fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
             fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
 
 

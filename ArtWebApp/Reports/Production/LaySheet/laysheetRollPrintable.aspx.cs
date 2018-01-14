@@ -297,18 +297,18 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         TableCell cell = new TableCell();
                         cell.Width = 70;
 
-                        TextBox tb = new TextBox();
+                        Label tb = new Label();
 
                         if (j == 0)
                         {
                             tb.CssClass = "colorname";
-                            tb.Enabled = false;
+                          
                             tb.Width = 80;
                         }
                         else if (dt.Columns[j].ColumnName == "ColorTotal")
                         {
 
-                            tb.Enabled = false;
+                           
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                             if (i == dt.Rows.Count - 1)
@@ -323,7 +323,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         else if (i == dt.Rows.Count - 1)
                         {
                             tb.CssClass = "BalQty";
-                            tb.Enabled = true;
+                         
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                         }
@@ -331,7 +331,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         else if (i == dt.Rows.Count - 2)
                         {
                             tb.CssClass = "NewQty";
-                            tb.Enabled = false;
+                           
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                             tb.Attributes.Add("onchange", "Calculatebalance()");
@@ -339,7 +339,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         else if (i == dt.Rows.Count - 3)
                         {
                             tb.CssClass = "AvailQty";
-                            tb.Enabled = false;
+                            
                             tb.Width = 70;
                             dt.Rows[i][j] = dt.Rows[i][j].ToString();
                             tb.Attributes.Add("onchange", "Calculatebalance()");

@@ -55,5 +55,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public string IsShortClosed { get; set; }
         public string IsInterChangable { get; set; }
         public string IsAtcWord { get; set; }
+        public Nullable<decimal> PackLocation_PK { get; set; }
     }
 }

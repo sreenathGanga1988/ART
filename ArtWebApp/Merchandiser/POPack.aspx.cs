@@ -186,7 +186,7 @@ public partial class Merchandiser_POPack : System.Web.UI.Page
             ArtWebApp.BLL.POPackDetailData pdata = new POPackDetailData();
             pdata.POPackdetcollection = LoadDatatable();
             pdata.PoPackId = int.Parse(cmb_po.SelectedValue.ToString());
-            pdata.Ourstyleid = int.Parse(Session["OurStyleid"].ToString());
+            pdata.Ourstyleid = int.Parse(cmb_ourstyle.SelectedValue.ToString());
             pdata.Status = lbl_postatus.Text.Trim();
             int lastrow = pdata.POPackdetcollection.Rows.Count - 1;
             int lastcolcount = pdata.POPackdetcollection.Columns.Count-1;

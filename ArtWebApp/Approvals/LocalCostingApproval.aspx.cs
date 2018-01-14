@@ -224,9 +224,61 @@ HAVING        (RequestOrderMaster.IsApproved = N'N') AND (AtcMaster.Merchandiser
             }
         }
 
+        protected void CheckBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            selectall();
+        }
+
+        public void selectall()
+        {
+            if (chk_Costaproval.Checked == true)
+            {
+                foreach (GridViewRow di in GridView1.Rows)
+                {
+                    CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+                    chkBx.Checked = true;
+
+                }
+            }
+            else
+            {
+                foreach (GridViewRow di in GridView1.Rows)
+                {
+                    CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+                    chkBx.Checked = false;
+
+                }
+            }
+          ;
+        }
 
 
+        public void selectallRO()
+        {
+            if (chk_ro.Checked == true)
+            {
+                foreach (GridViewRow di in tbl_ro.Rows)
+                {
+                    CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+                    chkBx.Checked = true;
 
+                }
+            }
+            else
+            {
+                foreach (GridViewRow di in tbl_ro.Rows)
+                {
+                    CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+                    chkBx.Checked = false;
 
+                }
+            }
+        ;
+        }
+
+        protected void chk_ro_CheckedChanged(object sender, EventArgs e)
+        {
+            selectallRO();
+        }
     }
 }

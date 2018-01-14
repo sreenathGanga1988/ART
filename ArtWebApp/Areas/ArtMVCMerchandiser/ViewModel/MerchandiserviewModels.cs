@@ -43,7 +43,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
         public Nullable<decimal> AtcID { get; set; }
         public Nullable<decimal> FreightCharge { get; set; }
         public Nullable<decimal> FreightRequestID { get; set; }
-
+        public String Remark { get; set; }
         public virtual FreightRequestMasterViewModel FreightRequestMasterViewModel { get; set; }
     }
     public partial class StockFreightChargeDetailViewMoodel

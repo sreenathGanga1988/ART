@@ -291,6 +291,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<ProductionTNADetail> ProductionTNADetails { get; set; }
         public virtual DbSet<FabricMissing> FabricMissings { get; set; }
         public virtual DbSet<AtcAction> AtcActions { get; set; }
+        public virtual DbSet<ShippingDocumentDetailLocation> ShippingDocumentDetailLocations { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

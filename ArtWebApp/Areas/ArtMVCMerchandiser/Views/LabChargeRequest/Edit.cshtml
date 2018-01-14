@@ -1,0 +1,220 @@
+﻿@model ArtWebApp.DataModels.LabRequestMaster
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<h2>Lab Reqest Details</h2>
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.LabRequestID)
+    <div class="form-group">
+        @Html.LabelFor(model => model.LabRequestNum, "Freight Request#", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => Model.LabRequestNum)
+        </div>
+        @Html.LabelFor(model => model.Supplier_pk, "From Party", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.SupplierMaster.Supplier_PK, (SelectList)ViewBag.SupplierPK, htmlAttributes: new { @class = "chosen-select  form-control" })
+            @Html.HiddenFor(modelItem => Model.SupplierMaster.Supplier_PK)
+        </div>
+        
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(modelItem => Model.Merchandiser)
+        </div>
+        @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(modelItem => Model.Reason)
+
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => Model.ApproximateCharges)
+        </div>
+        @Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+
+            @Html.EditorFor(modelItem => Model.Remark)
+
+
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <table class="table table-responsive table-bordered">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Atc
+                </th>
+                <th>
+                    FreightCharge
+                </th>
+                <th>
+                    Remark
+                </th>
+                <th></th>
+            </tr>
+            @{  Decimal total = 0;
+                foreach (var item in Model.LabChargeDetails)
+                {
+
+                    total = total + Decimal.Parse(item.LabCharge.ToString());
+                    <tr>
+                        <td class="LabReqestDetId">
+                            @item.LabRequestID
+
+                        </td>
+                        <td class="AtcNum">
+                            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+                        </td>
+                        <td class="Labcharge">
+                            @Html.EditorFor(modelItem => item.LabCharge)
+                            <div id="OldLabCharge" class="OldLabCharge">
+                                @Html.HiddenFor(modelItem => item.LabCharge)
+                            </div>
+                        </td>
+                        <td class="Remark">
+                            @Html.EditorFor(modelItem => item.Remark)
+                        </td>
+                       
+                        <td></td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td>
+                        Total :  @total
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            }
+
+
+        </table>
+    </div>
+</div>
+<div>
+    <input id="EditLabRequest" type="button" value="Save" class="btn btn-default show" />
+</div>
+<p>
+    @Html.ActionLink("Print", "Print", new { id = Model.LabRequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#EditLabRequest").click(function (e, params) {
+            debugger;
+
+            var list = [];
+            var Isok = true;
+            $('.LabReqestDetId').each(function () {
+
+                var LabReqestDetId = this.innerHTML;
+                var newvalue = $(this).siblings('td.Labcharge').children(':first').val();
+                var chenge_remark = $(this).siblings('td.Remark').children(':first').val();
+
+
+
+                var orderItem = {
+                    LabRequestDetId: LabReqestDetId,
+
+                    FreightCharge: parseFloat(newvalue),
+                    Remark: chenge_remark
+
+                }
+                list.push(orderItem);
+
+            });
+
+            var data = {
+
+                FreightChargeDetails: list,
+                FreightRequestID: $('#FreightRequestID').val(),
+                FromParty: $('#FromParty').val(),
+                ToParty: $('#ToParty').val(),
+                Shipper: $('#Shipper').val(),
+                Weight: $('#Weight').val(),
+                ContentofPackage: $('#ContentofPackage').val(),
+                DebitTo: $('#DebitTo').val(),
+                Reason: $('#Reason').val(),
+                Merchandiser: $('#Merchandiser').val(),
+                ForwarderDetails: $('#ForwarderDetails').val(),
+                ApproximateCharges: $('#ApproximateCharges').val(),
+                Remark: $('#Remark').val().trim(),
+
+
+            }
+
+
+
+
+            if (Isok == true) {
+                $(this).val('Please wait...');
+                $.ajax({
+                    type: 'POST',
+                    url: '/ArtMVCMerchandiser/FreightRequestMasters/Edit',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.status) {
+                            alert('Successfully saved ' + data.Reqnum);
+                            //here we will clear the form
+
+                            list = [];
+                            $('#orderNo,#orderDate,#description').val('');
+                            $('#orderdetailsItems').empty();
+                        }
+                        else {
+                            alert('Error');
+                        }
+                        $('#submit').val('Save');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submit').val('Save');
+                    }
+                });
+
+
+                $(this).val('Save');
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>

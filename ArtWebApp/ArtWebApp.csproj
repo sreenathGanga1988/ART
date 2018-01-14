@@ -1566,6 +1566,10 @@
     <Content Include="Areas\ArtMVCMerchandiser\Views\AtcClosing\AtcOfmonth.cshtml" />
     <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\GateRecieptIndex.cshtml" />
     <Content Include="Areas\Shipping\Views\ShippingDocumentMasters\GatereceiptDetails.cshtml" />
+    <Content Include="Areas\Shipping\Views\ImportDocumentLocation\AssignOffLoadLocation.cshtml" />
+    <Content Include="Areas\Shipping\Views\ImportDocumentLocation\Index.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\GateReceipt.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\PendingGateReceipt.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -2004,15 +2008,19 @@
     <Compile Include="Areas\MVCTNA\Controllers\ProductionTNAsController.cs" />
     <Compile Include="Areas\MVCTNA\MVCTNAAreaRegistration.cs" />
     <Compile Include="Areas\MVCTNA\TNAREpo\ProductionTNARepo.cs" />
-    <Compile Include="Areas\MVCTNA\TnaUserRightsController.cs" />
+    <Compile Include="Areas\MVCTNA\Controllers\TnaUserRightsController.cs" />
     <Compile Include="Areas\MVCTNA\ViewModel\ProductionTNAVModel.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
     <Compile Include="Areas\Repository\AdministratorRepo.cs" />
     <Compile Include="Areas\Repository\AtcPerformanceRepo.cs" />
     <Compile Include="Areas\Repository\FcrRepo.cs" />
     <Compile Include="Areas\Repository\MerchandiserRepo.cs" />
+    <Compile Include="Areas\Shipping\Controllers\GateReceiptController.cs" />
+    <Compile Include="Areas\Shipping\Controllers\ImportDocumentLocationController.cs" />
     <Compile Include="Areas\Shipping\Controllers\ShippingDocumentMastersController.cs" />
     <Compile Include="Areas\Shipping\ShippingAreaRegistration.cs" />
+    <Compile Include="Areas\Shipping\ShippingRepo.cs" />
+    <Compile Include="Areas\Shipping\ViewModel\ImportViewModel.cs" />
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
     <Compile Include="DataModelAtcWorld\Fabricreqforpart.cs">
@@ -2686,6 +2694,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ShippingDocumentDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentDetailLocation.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ShippingDocumentDODetail.cs">
@@ -4819,6 +4830,7 @@
     <EmbeddedResource Include="Reports\RDLC\InventoryMissedReplaced.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\InventorySummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\InventorySummaryWithAging.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\InventoryWithMRN.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\InvoiceReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\jc-cm.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\JC-OTHER - Backup %2810%29.RDLC" />

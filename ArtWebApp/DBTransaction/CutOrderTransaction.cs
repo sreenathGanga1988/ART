@@ -612,65 +612,8 @@ WHERE        (CutOrderDet_PK = @CutOrderDet_PK)", con);
 
 
 
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty  from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
-                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
-            FROM (SELECT        CutPlanmarkerTypeName
-FROM            CutPlanMarkerType
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
-            FOR XML PATH('')) ,1,1,'') AS Txt
-) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
-HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
-FROM            CutPlanRejectHistory
-GROUP BY Cutplan_PK
-HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
-SELECT STUFF((SELECT ',' + CutplanRejection 
-            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
-FROM            CutPlanRejectHistory INNER JOIN
-                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
-WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
-GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
-            FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,(CASE 
-WHEN IsDeleted = 'Y' THEN 'Deleted'
-WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
- WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
- 
- WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
- WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
-  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
-  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
-
-       END) as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
-FROM            CutPlanRollDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
-GROUP BY IsDeleted
-HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
-FROM            CutPlanRollDetails INNER JOIN
-                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
-WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard,CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
-FROM            CutPlanASQDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
-FROM            CutPlanMaster INNER JOIN
-                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)
-						)tt
-
- ");
-
-
-                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
-                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
-                return QueryFunctions.ReturnQueryResultDatatable(cmd);
-
-            }
-
-             else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid == 0)
-            {
-
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
             FROM (SELECT        CutPlanmarkerTypeName
@@ -708,91 +651,66 @@ FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
 WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
 FROM            CutPlanASQDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)  and (CutPlanMaster.Location_PK=@locationid)
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)
 						)tt
-
 
  ");
 
 
                 cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
                 cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
-                cmd.Parameters.AddWithValue("@shrinkagegroup", ShrinkageGroup);
-                cmd.Parameters.AddWithValue("@locationid", locationid);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
 
             }
 
-            else if (ShrinkageGroup == "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
+             else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid == 0)
             {
 
-
-
-
-
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
-                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
-SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
-            FROM (SELECT        CutPlanmarkerTypeName
-FROM            CutPlanMarkerType
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
-            FOR XML PATH('')) ,1,1,'') AS Txt
-) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
-HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
-FROM            CutPlanRejectHistory
-GROUP BY Cutplan_PK
-HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
-SELECT STUFF((SELECT ',' + CutplanRejection 
-            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
-FROM            CutPlanRejectHistory INNER JOIN
-                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
-WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
-GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
-            FOR XML PATH('')) ,1,1,'') AS Txt
-) as Reason ,(CASE 
-WHEN IsDeleted = 'Y' THEN 'Deleted'
-WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
- WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
- 
- WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
- WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
-  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
-  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
-
-       END) as MarkerStatus ,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
-FROM            CutPlanRollDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
-GROUP BY IsDeleted
-HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
-FROM            CutPlanRollDetails INNER JOIN
-                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
-WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard,CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
-FROM            CutPlanASQDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
-FROM            CutPlanMaster INNER JOIN
-                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  and (CutPlanMaster.Location_PK=@locationid)
-						)tt
-
- ");
-
-
-                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
-                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
-                cmd.Parameters.AddWithValue("@locationid", locationid);
-                return QueryFunctions.ReturnQueryResultDatatable(cmd);
-
-            } 
-
-            else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
-            {
-
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
             FROM (SELECT        CutPlanmarkerTypeName
@@ -828,10 +746,52 @@ GROUP BY IsDeleted
 HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
 FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
-WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)  and (CutPlanMaster.Location_PK=@locationid)
 						)tt
 
 
@@ -841,17 +801,20 @@ FROM            CutPlanMaster INNER JOIN
                 cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
                 cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
                 cmd.Parameters.AddWithValue("@shrinkagegroup", ShrinkageGroup);
+                cmd.Parameters.AddWithValue("@locationid", locationid);
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
 
             }
 
-
-            else
+            else if (ShrinkageGroup == "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
             {
 
 
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+
+
+
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
             FROM (SELECT        CutPlanmarkerTypeName
@@ -880,14 +843,255 @@ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted
   WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
   WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
 
-       END) as MarkerStatus,CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
 FROM            CutPlanRollDetails
 WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
 GROUP BY IsDeleted
 HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
 FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
-WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
+FROM            CutPlanMaster INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  and (CutPlanMaster.Location_PK=@locationid)
+						)tt
+
+ ");
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                cmd.Parameters.AddWithValue("@locationid", locationid);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            } 
+
+            else if (ShrinkageGroup != "NA" && ourstyleid != 0 && skudetpk != 0 && locationid != 0)
+            {
+
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
+FROM            CutPlanMarkerType
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
+HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
+FROM            CutPlanRejectHistory
+GROUP BY Cutplan_PK
+HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
+SELECT STUFF((SELECT ',' + CutplanRejection 
+            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
+FROM            CutPlanRejectHistory INNER JOIN
+                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
+WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
+FROM            CutPlanMaster INNER JOIN
+                         LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                         AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)  AND (CutPlanMaster.ShrinkageGroup = @shrinkagegroup)
+						)tt
+
+
+ ");
+
+
+                cmd.Parameters.AddWithValue("@ourstyleid", ourstyleid);
+                cmd.Parameters.AddWithValue("@skudetpk", skudetpk);
+                cmd.Parameters.AddWithValue("@shrinkagegroup", ShrinkageGroup);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            }
+
+
+            else
+            {
+
+
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                         CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
+SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
+            FROM (SELECT        CutPlanmarkerTypeName
+FROM            CutPlanMarkerType
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK))tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as MarkerDirection ,(SELECT        MAX(CutOrderDate) FROM            CutOrderMaster group by CutPlan_Pk
+HAVING        (CutPlan_Pk = CutPlanMaster.CutPlan_PK)) as CutOrderDate ,(SELECT  COUNT(CutplanRejectionDetailID)
+FROM            CutPlanRejectHistory
+GROUP BY Cutplan_PK
+HAVING        (Cutplan_PK =  CutPlanMaster.CutPlan_PK)) as Revisions ,(
+SELECT STUFF((SELECT ',' + CutplanRejection 
+            FROM (SELECT        CutPlanRejectionMaster.CutplanRejection
+FROM            CutPlanRejectHistory INNER JOIN
+                         CutPlanRejectionMaster ON CutPlanRejectHistory.CutPlanRejectionID = CutPlanRejectionMaster.CutPlanRejectionID
+WHERE        (CutPlanRejectHistory.Cutplan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY CutPlanRejectionMaster.CutplanRejection)tt
+            FOR XML PATH('')) ,1,1,'') AS Txt
+) as Reason ,(CASE 
+WHEN IsDeleted = 'Y' THEN 'Deleted'
+WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND  IsRejected = 'N'  AND IsDeleted = 'N'  THEN 'Cutplan Submited' 
+ WHEN IsRollAdded = 'N' AND IsApproved = 'N' AND IsRejected = 'N' AND IsDeleted = 'N'  THEN 'Not Submitted/Rolls pending' 
+ 
+ WHEN IsRollAdded = 'Y' AND IsApproved = 'N' AND IsRejected = 'Y'   AND IsDeleted = 'N' THEN 'Cutplan Rejected' 
+ WHEN IsApproved = 'Y' AND IsRejected = 'N' AND IsPatternAdded = 'N' AND IsDeleted = 'N'  THEN 'Cutplan Approved'
+  WHEN IsPatternAdded = 'Y' AND IsRejected = 'N' AND IsCutorderGiven = 'N' AND IsDeleted = 'N'  THEN 'CutOrder Pending/marker  ready' 
+  WHEN IsCutorderGiven = 'Y' AND  IsRejected = 'N' THEN 'CutOrder Completed' 
+
+       END) as MarkerStatus, CutPlanMaster.IsDeleted,(SELECT        COUNT(Roll_PK) 
+FROM            CutPlanRollDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK)
+GROUP BY IsDeleted
+HAVING        (IsDeleted = N'N') ) as RollCount ,(SELECT        SUM(FabricRollmaster.AYard) 
+FROM            CutPlanRollDetails INNER JOIN
+                         FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
+WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
+FROM            CutPlanASQDetails
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (CutPlanMaster.OurStyleID = @ourstyleid) AND (CutPlanMaster.SkuDet_PK = @skudetpk)
@@ -920,8 +1124,8 @@ FROM            CutPlanMaster INNER JOIN
 
 
 
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
             FROM (SELECT        CutPlanmarkerTypeName
@@ -959,7 +1163,47 @@ FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
 WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
 FROM            CutPlanASQDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (AtcDetails.AtcId  = @atcid) 
@@ -978,8 +1222,8 @@ FROM            CutPlanMaster INNER JOIN
             else 
             {
 
-                SqlCommand cmd = new SqlCommand(@"Select   LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
-                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty from (SELECT        LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
+                SqlCommand cmd = new SqlCommand(@"Select   CutPlan_PK, LocationName, OurStyle, ColorName, ColorCode, CutPlanNUM, FabDescription, ShrinkageGroup, WidthGroup, MarkerType, BOMConsumption, CutplanConsumption, NewPatternName, CutOrderConsumption, 
+                         MarkerDirection, CutOrderDate, Revisions, Reason ,MarkerStatus ,IsDeleted,RollCount,Rollyard,CutPlanFabReq,cutQty,DOQty,ActualRollYardDelivered,WFRoll ,FWROLL,LayedQty,  Layedfabric,EndBit from (SELECT   CutPlanMaster.CutPlan_PK,      LocationMaster.LocationName, AtcDetails.OurStyle, CutPlanMaster.ColorName, CutPlanMaster.ColorCode, CutPlanMaster.CutPlanNUM, CutPlanMaster.FabDescription, CutPlanMaster.ShrinkageGroup, 
                          CutPlanMaster.WidthGroup, CutPlanMaster.MarkerType, CutPlanMaster.BOMConsumption, CutPlanMaster.CutplanConsumption, CutPlanMaster.NewPatternName, CutPlanMaster.CutOrderConsumption,(
 SELECT STUFF((SELECT ',' + CutPlanmarkerTypeName 
             FROM (SELECT        CutPlanmarkerTypeName
@@ -1017,7 +1261,47 @@ FROM            CutPlanRollDetails INNER JOIN
                          FabricRollmaster ON CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK
 WHERE        (CutPlanRollDetails.CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (CutPlanRollDetails.IsDeleted = N'N')) as Rollyard, CutPlanMaster.CutPlanFabReq ,(SELECT        SUM(CutQty) 
 FROM            CutPlanASQDetails
-WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty
+WHERE        (CutPlan_PK = CutPlanMaster.CutPlan_PK) AND (IsDeleted = N'N')) as cutQty ,isnull((SELECT        SUM(CutOrderDO.DeliveryQty) 
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)),0) as DOQty ,ISNULL((SELECT        SUM(LaySheetDetails.FabUtilized)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as Layedfabric ,isnull((SELECT        SUM(LaySheetDetails.EndBit)
+FROM            LaySheetDetails INNER JOIN
+                         LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK INNER JOIN
+                         CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                         CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as EndBit ,ISNULL((SELECT        SUM(FabricRollmaster.AYard) 
+FROM            DORollDetails INNER JOIN
+                         FabricRollmaster ON DORollDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID
+GROUP BY CutOrderMaster.CutPlan_Pk
+HAVING        (CutOrderMaster.CutPlan_Pk = CutPlanMaster.CutPlan_PK)),0) as ActualRollYardDelivered ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty > 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as WFROLL ,isnull((SELECT        SUM(ISNULL(CutOrderDO.RollYard, CutOrderDO.DeliveryQty)) AS Expr1
+FROM            CutOrderDO INNER JOIN
+                         CutOrderMaster ON CutOrderDO.CutID = CutOrderMaster.CutID
+						 where         (CutOrderDO.DeliveryQty < 0) AND (CutOrderMaster.CutPlan_Pk =  CutPlanMaster.CutPlan_PK)
+GROUP BY CutOrderMaster.CutPlan_Pk),0) as FWROLL ,(						  
+						Select  isnull(Sum(LayedQty),0) from (  SELECT        CutOrderDetails.CutOrderDet_PK, CutOrderMaster.CutPlan_Pk ,isnull(( SELECT      Sum(  Noofplies * RatioSum) 
+FROM            (SELECT        SUM(LaySheetDetails.NoOfPlies) AS Noofplies, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutPlanMarkerSizeDetails INNER JOIN
+                                                                                     CutOrderDetails as  CutOrderDetails1 ON CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK = CutOrderDetails1.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails1.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS RatioSum
+                          FROM            LaySheetDetails INNER JOIN
+                                                    LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
+                          GROUP BY LaySheetMaster.CutOrderDet_PK
+                          HAVING         (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK))as tt),0) as LayedQty
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+WHERE        (CutOrderMaster.CutPlan_Pk =CutPlanMaster.CutPlan_PK ))tt) as layedQty
 FROM            CutPlanMaster INNER JOIN
                          LocationMaster ON CutPlanMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
                          AtcDetails ON CutPlanMaster.OurStyleID = AtcDetails.OurStyleID where (AtcDetails.AtcId  = @atcid) AND  (CutPlanMaster.Location_PK=@locationid)

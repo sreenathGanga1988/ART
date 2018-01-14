@@ -126,9 +126,14 @@
 
     
            function sumofQty(objText) {     
-                       
+               try {
+                   enter(objText);
+               }
+               catch (err) {
+                   
+               }
           
-           enter(objText);
+         
 
             if (document.getElementById('<%= txt_Laylength.ClientID %>').value=="")
            {

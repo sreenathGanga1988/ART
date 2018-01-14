@@ -167,6 +167,78 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row">
+        <div class="form-group">
+            <table class="table table-responsive table-bordered">
+                <tr>
+                    <th>
+                        Atc
+                    </th>
+                    <th>
+                        FreightCharge
+                    </th>
+                    <th>
+                        Remark
+                    </th>
+                    <th>Allowed value</th>
+                    <th>Used Value</th>
+                    <th>Balance</th>
+                    <th></th>
+                </tr>
+                @{ Decimal total = 0;
+                Decimal Allowed = 0;
+                Decimal Used = 0;
+                Decimal Balance = 0;
+                foreach (var item in Model.FreightChargeDetails)
+                {
+
+                    total = total + Decimal.Parse(item.FreightCharge.ToString());
+                    Allowed = Allowed + Decimal.Parse(item.AllowedValue.ToString());
+                    Used = Used + Decimal.Parse(item.UsedValue.ToString());
+                    Balance = Balance + Decimal.Parse(item.BalanceValue.ToString());
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FreightCharge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AllowedValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsedValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BalanceValue)
+                        </td>
+                        <td></td>
+                    </tr>
+            }
+            <tr>
+                <td></td>
+                <td>
+                    Total :  @total
+                </td>
+                <td></td>
+                <td>Allowed: @Allowed</td>
+                <td>Used : @Used</td>
+                <td>Balance : @Balance</td>
+                <td></td>
+            </tr>
+
+                }
+
+
+            </table>
+        </div>
+
+    </div>
 }
 
 <div>

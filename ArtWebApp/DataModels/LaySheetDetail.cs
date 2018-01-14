@@ -32,6 +32,7 @@ namespace ArtWebApp.DataModels
         public string IsDeleted { get; set; }
         public string DeletedBy { get; set; }
         public Nullable<System.DateTime> Deleteddate { get; set; }
+        public Nullable<decimal> AYard { get; set; }
     
         public virtual FabricRollmaster FabricRollmaster { get; set; }
         public virtual LaySheetMaster LaySheetMaster { get; set; }

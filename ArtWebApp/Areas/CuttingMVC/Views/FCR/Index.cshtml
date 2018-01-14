@@ -5,10 +5,9 @@
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
 <div class="text-center">
-    <h3> FCR Report</h3>
+    <h2> FCR Report</h2>
 
     @Html.HiddenFor(model => model.fcrMasterData.LocPK);
     @Html.HiddenFor(model => model.fcrMasterData.SkuDetPK);
@@ -126,42 +125,52 @@
         <h3> CutOrder Details</h3>
     </div>
     <div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive" >
             <tr>
-                <td>CutOrder#</td>
-                <td>Marker#</td>
-                <td>Marker Name</td>
-                <td>Fab Qty</td>
-                <td>Laysheet</td>
-                <td>No of Plies</td>
-                <td>Lay Length </td>
-                <td>No of Pc in Marker</td>
-                <td>&nbsp;Fabric Layed&nbsp;</td>
-                <td>CutQty</td>
-                <td>Excess Or Short;</td>
-                <td>Usable EndBit;</td>
-                <td> Non Reusable Endbit</td>
+                <th>CutOrder#</th>
+                <th>Marker#</th>
+                <th>Marker Name</th>
+                <th>Lay Length </th>
+                <th>Fab Qty</th>
+                <th>Ratio</th>
+                <th>No of Plies In Marker</th>
+                <th> PCs In Marker</th>
+                <th>Laysheet</th>
+                <th> Plies  Layed</th>
+                <th>Total Laysheet Yard</th>
+
+                <th> Fabric Consumed in Lay</th>
+                <th> Garment Layed </th>
+                <th>Excess(-) Or Short(+)</th>
+                <th>Usable EndBit;</th>
+                <th> Non Reusable Endbit</th>
 
             </tr>
             @foreach (DataRow drow in Model.CutData.Rows)
             {
-                <tr>
-                    <td>@drow["Cut_NO"]</td>
-                    <td>@drow["MarkerNo"]</td>
-                    <td>@drow["PaternMarkerName"]</td>
-                    <td>@drow["TotalfabReq"]</td>
-                    <td>@drow["LaysheetNUM"]</td>
+            <tr>
+                <td>@drow["Cut_NO"]</td>
+                <td>@drow["MarkerNo"]</td>
+                <td>@drow["PaternMarkerName"]</td>
+                <td>@drow["MarkerLength"]</td>
+                <td>@drow["TotalfabReq"]</td>
+                <td>@drow["Ratio"]</td>
+                <td>@drow["NoOfPlies"]</td>
+                <td>@drow["Qty"]</td>
 
-                    <td>@drow["NoOfPlies"]</td>
-                    <td>@drow["MarkerLength"]</td>
-                    <td>@drow["Qty"]</td>
-                    <td>@drow["layedFabric"]</td>
-                    <td>@drow["CutQty"]</td>
-                    <td>@drow["ExcessOrShort"]</td>
-                    <td>@drow["ActualEndbit"]</td>
-                    <td>@drow["NonReusableEndbit"]</td>
+                <td>@drow["LaysheetNUM"]</td>
 
-                </tr>
+
+
+                <td>@drow["LayedPlies"]</td>
+                <td>@drow["LaysheetAyard"]</td>
+                <td>@drow["layedFabric"]</td>
+                <td>@drow["CutQty"]</td>
+                <td>@drow["ExcessOrShort"]</td>
+                <td>@drow["ActualEndbit"]</td>
+                <td>@drow["NonReusableEndbit"]</td>
+
+            </tr>
             }
             <tfoot>
 
@@ -169,13 +178,18 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td> Total FabReq :@Model.CutData.Compute("Sum(TotalfabReq)", "")</td>
-                    <td>Total No of Plies :@Model.CutData.Compute("Sum(NoOfPlies)", "")</td>
                     <td></td>
+                    <td> Total Marker FabReq :@Model.CutData.Compute("Sum(TotalfabReq)", "")</td>
                     <td></td>
-                    <td>Total :@Model.TotaCutorderQty</td>
-                    <td>Total :@Model.TotalFabricLayed</td>
-                    <td>Total :@Model.TotalLayedQty</td>
+                    <td>Total Marker Plies :@Model.CutData.Compute("Sum(NoOfPlies)", "")</td>
+                    <td>Total Marker PCS :@Model.CutData.Compute("Sum(Qty)", "")</td>
+                    <td>
+                        Total No of laySheet  :@Model.CutData.Compute("Count(Qty)", "")
+                    </td>
+                    <td>Total Plies layed  :@Model.CutData.Compute("Sum(LayedPlies)", "")</td>
+                    <td>Total fabric Consumed  :@Model.CutData.Compute("Sum(layedFabric)", "")</td>
+                    <td>Total Garment Layed  :@Model.CutData.Compute("Sum(CutQty)", "")</td>
+                 
                     <td>Total :@Model.CutData.Compute("Sum(ExcessOrShort)", "")</td>
                     <td>Total :@Model.CutData.Compute("Sum(ActualEndbit)", "")</td>
                     <td>Total :@Model.CutData.Compute("Sum(NonReusableEndbit)", "")</td>
@@ -195,10 +209,10 @@
             <div>
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <td>Req#</td>
-                        <td>CutOrder#</td>
+                        <th>Req#</th>
+                        <th>CutOrder#</th>
 
-                        <td>Fab Qty</td>
+                        <th>Fab Qty</th>
 
                     </tr>
                     @foreach (DataRow drow in Model.LayshortagereqData.Rows)
@@ -237,10 +251,10 @@
             <div>
                 <table class="table table-bordered table-striped">
                     <tr>
-                        <td>Req#</td>
-                        <td>CutOrder#</td>
-                        <td>Type</td>
-                        <td>Fab Qty</td>
+                        <th>Req#</th>
+                        <th>CutOrder#</th>
+                        <th>Type</th>
+                        <th>Fab Qty</th>
 
                     </tr>
                     @foreach (DataRow drow in Model.RejectionReqData.Rows)

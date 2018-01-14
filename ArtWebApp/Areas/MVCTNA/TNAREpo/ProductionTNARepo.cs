@@ -117,7 +117,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
             try
             {
-                var FactoryPCDdata = db.ProductionTNADetails.Where(u => u.OurStyleID == ourstyleid && u.Location_PK == locationpk && u.ProductionTNACompID == 15).First();
+                var FactoryPCDdata = db.ProductionTNADetails.Where(u => u.OurStyleID == ourstyleid && u.Location_PK == locationpk && u.ProductionTNACompID == 15 && u.IsDeleted=="N").First();
                 FactoryPCD = DateTime.Parse( FactoryPCDdata.MarkedDate.ToString()).ToString("MMMM dd,yyyy");
             }
             catch (Exception)
@@ -140,7 +140,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
             productionTNAVModel.FACTORYPLANNEDPCD = CalculateFactoryPCD(int.Parse( productionTNAVModel.OurStyleID.ToString()), int.Parse(productionTNAVModel.Location_PK.ToString()), productionTNAVModel.PCD.ToString());
 
-            var ActualDates = db.ProductionTNADetails.Where(u => u.OurStyleID == productionTNAVModel.OurStyleID).ToList();
+            var ActualDates = db.ProductionTNADetails.Where(u => u.OurStyleID == productionTNAVModel.OurStyleID && u.IsDeleted == "N").ToList();
             var q = (from productiontnacomp in db.ProductionTNAComponents
                     select productiontnacomp).ToList();
 
@@ -281,6 +281,22 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     productionTNAVModel.PACKINGTRIMS = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPACKINGTRIMS = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPACKINGTRIMS = actualdate;
+                }
+                else if (element.CompName.Trim() == "SYSTEM FILES")
+                {
+                    alloweddays = int.Parse(element.DaystoAdjust.ToString());
+                    alertdays = int.Parse(element.Alertdays.ToString());
+                    productionTNAVModel.SYSTEMFILES = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.IdSYSTEMFILES = int.Parse(element.ProductionTNACompID.ToString());
+                    productionTNAVModel.ActualSYSTEMFILES = actualdate;
+                }
+                else if (element.CompName.Trim() == "SHRINKAGE")
+                {
+                    alloweddays = int.Parse(element.DaystoAdjust.ToString());
+                    alertdays = int.Parse(element.Alertdays.ToString());
+                    productionTNAVModel.SHRINKAGE = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.IdSHRINKAGE = int.Parse(element.ProductionTNACompID.ToString());
+                    productionTNAVModel.ActualSHRINKAGE = actualdate;
                 }
                 else if (element.CompName.Trim() == " FACTORY PLANNED PCD")
                 {

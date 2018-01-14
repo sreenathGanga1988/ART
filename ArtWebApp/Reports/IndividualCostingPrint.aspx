@@ -200,6 +200,9 @@
             text-align: left;
             background-color: #996633;
         }
+        .auto-style58 {
+            height: 22px;
+        }
     </style>
 </head>
 <body>
@@ -329,27 +332,39 @@
                                                 </td>
                                 </tr>
                                 <tr>
-                                    <td>Washing</td>
-                                    <td>
+                                    <td class="auto-style58">Washing</td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_washcost" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                    <td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_washdzn" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                    <td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_washpercent" runat="server" Text="0"></asp:Label>
                                                 </td>
                                 </tr>
                                 <tr>
-                                    <td>Embroidary Charges</td>
-                                    <td>
+                                    <td class="auto-style58">Embroidary Charges</td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_Embroidary" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                    <td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_Embroidary0" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                    <td>
+                                    <td class="auto-style58">
                                                     <asp:Label ID="lblsummary_Embroidarypercent" runat="server" Text="0"></asp:Label>
+                                                </td>
+                                </tr>
+                                <tr>
+                                    <td>Printing Charges</td>
+                                    <td>
+                                                    <asp:Label ID="lblsummary_printing" runat="server" Text="0"></asp:Label>
+                                                </td>
+                                    <td>
+                                                    <asp:Label ID="lblsummary_printingdzn" runat="server" Text="0"></asp:Label>
+                                                </td>
+                                    <td>
+                                                    <asp:Label ID="lblsummary_printingpercent" runat="server" Text="0"></asp:Label>
                                                 </td>
                                 </tr>
                                 <tr>

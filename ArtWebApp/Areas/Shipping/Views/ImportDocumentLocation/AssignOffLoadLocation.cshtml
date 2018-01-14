@@ -1,0 +1,258 @@
+﻿@model ArtWebApp.Areas.Shipping.ViewModel.ImportViewModelMaster
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+   
+    $(document).ready(function () {
+
+
+
+
+        $('#SelectAll').change(function () {
+            // this will contain a reference to the checkbox   
+            if (this.checked) {
+                // the checkbox is now checked 
+
+                var parenttable = $('#DetailTable');
+                parenttable.children('tbody,tr,td, th').css('background-color', '#8AE1E9');
+                $("[id$=IsSelected]").prop('checked', true);
+                getshortagesum();
+
+            } else {
+
+                var parenttable = $('#DetailTable');
+                parenttable.children('tbody,tr,td, th').css('background-color', '#F5F5F7');
+                if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+
+                    $("[id$=IsSelected]").prop('checked', false);
+                }
+                // the checkbox is now no longer checked
+
+            }
+            getshortagesum();
+        });
+
+
+        $("[id$=IsSelected]").change(function () {
+
+            if (this.checked) {
+
+                $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+            }
+            else {
+                $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+
+            }
+
+            getshortagesum();
+
+        });
+
+    });
+
+
+</script>
+<div class="container">
+    @using (Html.BeginForm("AssignOffLoadLocation", "ImportDocumentLocation", FormMethod.Post))
+    {
+        <table class="table">
+
+            <tr>
+
+                <td class="col-md-2">Shipper :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.ShipperName)</td>
+                <td class="col-md-2">Exporter : </td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.ExporterName)</td>
+                <td class="col-md-2"></td>
+                <td class="col-md-2"></td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Shipper Inv :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.ShipperInv)</td>
+                <td class="col-md-2"> Description :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Description)</td>
+                <td class="col-md-2">No Of Ctn :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.NOofctnRoll)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Package Type :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Packagetype)</td>
+                <td class="col-md-2">Weight : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Weight)</td>
+                <td class="col-md-2">Weight :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Weight)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Type :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Type)</td>
+                <td class="col-md-2"> Invoice value</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.InvoiceValue)</td>
+                <td class="col-md-2"> Vessel :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Vessel)</td>
+            </tr>
+
+            <tr>
+                <td class="col-md-2">Container :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Conatianer) </td>
+                <td class="col-md-2">Container Type</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.ContsainerType)</td>
+                <td class="col-md-2">Eta : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.ETA)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">BL :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.BL)</td>
+                <td class="col-md-2">Mode: </td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Mode)</td>
+                <td class="col-md-2">DocType :</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.DocType)</td>
+            </tr>
+
+
+        </table>
+        <div class="panel panel-primary">
+            <table class="table">
+                <tr>
+                    <td class="col-md-2">  @Html.CheckBox("SelectAll")  Select All</td>
+                    <td class="col-md-2">Select Location</td>
+                    <td class="col-md-6"> @Html.DropDownListFor(model => Model.Location_PK, (SelectList)ViewBag.Location_PK, htmlAttributes: new { @class = "chosen-select  form-control" })</td>
+                    <td class="col-md-2">
+
+                        <input id="Submit" type="Submit" value="Apply" class="btn btn-primary show" />
+
+
+
+                </tr>
+
+            </table>
+
+
+        </div>
+        <div>
+
+
+        </div>
+        <div>
+
+        </div>
+        <table id="DetailTable" class="table table-bordered MyDataTable">
+
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>ShippingDet_PK </th>
+
+                    <th>AtcNum </th>
+                    <th>DocNum </th>
+                    <th> Description</th>
+                    <th>Qty </th>
+
+                    <th>Uom </th>
+                    <th>PONum </th>
+                    <th>Do number </th>
+                    <th>Added By </th>
+                    <th>Added Date </th>
+                    <th>Doc Added By </th>
+                    <th> Supplier Name</th>
+
+                    <th> GateentryLocation </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < Model.ImportViewModels.Count; i++)
+                {
+
+
+                    <tr>
+                        <td>
+                            @Html.EditorFor(modelItem => Model.ImportViewModels[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].ShippingDet_PK)
+                            @Html.HiddenFor(model => Model.ImportViewModels[i].ShippingDet_PK, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.HiddenFor(model => Model.ImportViewModels[i].DocDet_Pk, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </td>
+
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].AtcNum)
+                        </td>
+
+
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].DocNum)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].Description)
+
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].Qty)
+
+
+                        </td>
+
+                        <td>
+
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].UomCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].PONum)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].Donumber)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].AddedBy)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].AddedDate)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].DocAddedBy)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model.ImportViewModels[i].SupplierName)
+                        </td>
+
+
+                        <td>
+                            @if (@Model.ImportViewModels[i].Locationname == null || @Model.ImportViewModels[i].Locationname == "")
+                            {
+                              
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => Model.ImportViewModels[i].Locationname)
+                            }
+                        </td>
+
+                    </tr>
+
+                }
+
+
+
+
+            </tbody>
+
+        </table>
+    }
+</div>

@@ -4900,6 +4900,10 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnTemplatename;
             
+            private global::System.Data.DataColumn columnMrnNum;
+            
+            private global::System.Data.DataColumn columnAddedDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public InventoryDataDataTable() {
@@ -5087,6 +5091,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MrnNumColumn {
+                get {
+                    return this.columnMrnNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AddedDateColumn {
+                get {
+                    return this.columnAddedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -5140,7 +5160,9 @@ namespace ArtWebApp.Reports.Dataset {
                         decimal CURate, 
                         decimal Value, 
                         string TemplateCode, 
-                        string Templatename) {
+                        string Templatename, 
+                        string MrnNum, 
+                        System.DateTime AddedDate) {
                 InventoryDataRow rowInventoryDataRow = ((InventoryDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -5161,7 +5183,9 @@ namespace ArtWebApp.Reports.Dataset {
                         CURate,
                         Value,
                         TemplateCode,
-                        Templatename};
+                        Templatename,
+                        MrnNum,
+                        AddedDate};
                 rowInventoryDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInventoryDataRow);
                 return rowInventoryDataRow;
@@ -5210,6 +5234,8 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnValue = base.Columns["Value"];
                 this.columnTemplateCode = base.Columns["TemplateCode"];
                 this.columnTemplatename = base.Columns["Templatename"];
+                this.columnMrnNum = base.Columns["MrnNum"];
+                this.columnAddedDate = base.Columns["AddedDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5253,6 +5279,10 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnTemplateCode);
                 this.columnTemplatename = new global::System.Data.DataColumn("Templatename", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTemplatename);
+                this.columnMrnNum = new global::System.Data.DataColumn("MrnNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMrnNum);
+                this.columnAddedDate = new global::System.Data.DataColumn("AddedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddedDate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnInventoryItem_PK}, true));
                 this.columnInventoryItem_PK.AutoIncrement = true;
@@ -5278,6 +5308,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnTemplateCode.MaxLength = 10;
                 this.columnTemplatename.AllowDBNull = false;
                 this.columnTemplatename.MaxLength = 50;
+                this.columnMrnNum.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -24784,6 +24815,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columncutQty;
             
+            private global::System.Data.DataColumn columnDOQty;
+            
+            private global::System.Data.DataColumn columnActualRollYardDelivered;
+            
+            private global::System.Data.DataColumn columnLayedfabric;
+            
+            private global::System.Data.DataColumn columnEndBit;
+            
+            private global::System.Data.DataColumn columnCutPlan_PK;
+            
+            private global::System.Data.DataColumn columnWFRoll;
+            
+            private global::System.Data.DataColumn columnFWROLL;
+            
+            private global::System.Data.DataColumn columnLayedQty;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Criticalpath_SPDataTable() {
@@ -25003,6 +25050,70 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DOQtyColumn {
+                get {
+                    return this.columnDOQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ActualRollYardDeliveredColumn {
+                get {
+                    return this.columnActualRollYardDelivered;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LayedfabricColumn {
+                get {
+                    return this.columnLayedfabric;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn EndBitColumn {
+                get {
+                    return this.columnEndBit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CutPlan_PKColumn {
+                get {
+                    return this.columnCutPlan_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn WFRollColumn {
+                get {
+                    return this.columnWFRoll;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FWROLLColumn {
+                get {
+                    return this.columnFWROLL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LayedQtyColumn {
+                get {
+                    return this.columnLayedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -25061,7 +25172,14 @@ namespace ArtWebApp.Reports.Dataset {
                         int RollCount, 
                         decimal Rollyard, 
                         decimal CutPlanFabReq, 
-                        decimal cutQty) {
+                        decimal cutQty, 
+                        decimal DOQty, 
+                        decimal ActualRollYardDelivered, 
+                        decimal Layedfabric, 
+                        decimal EndBit, 
+                        decimal WFRoll, 
+                        decimal FWROLL, 
+                        decimal LayedQty) {
                 Criticalpath_SPRow rowCriticalpath_SPRow = ((Criticalpath_SPRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LocationName,
@@ -25086,10 +25204,25 @@ namespace ArtWebApp.Reports.Dataset {
                         RollCount,
                         Rollyard,
                         CutPlanFabReq,
-                        cutQty};
+                        cutQty,
+                        DOQty,
+                        ActualRollYardDelivered,
+                        Layedfabric,
+                        EndBit,
+                        null,
+                        WFRoll,
+                        FWROLL,
+                        LayedQty};
                 rowCriticalpath_SPRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCriticalpath_SPRow);
                 return rowCriticalpath_SPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Criticalpath_SPRow FindByCutPlan_PK(decimal CutPlan_PK) {
+                return ((Criticalpath_SPRow)(this.Rows.Find(new object[] {
+                            CutPlan_PK})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -25132,6 +25265,14 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnRollyard = base.Columns["Rollyard"];
                 this.columnCutPlanFabReq = base.Columns["CutPlanFabReq"];
                 this.columncutQty = base.Columns["cutQty"];
+                this.columnDOQty = base.Columns["DOQty"];
+                this.columnActualRollYardDelivered = base.Columns["ActualRollYardDelivered"];
+                this.columnLayedfabric = base.Columns["Layedfabric"];
+                this.columnEndBit = base.Columns["EndBit"];
+                this.columnCutPlan_PK = base.Columns["CutPlan_PK"];
+                this.columnWFRoll = base.Columns["WFRoll"];
+                this.columnFWROLL = base.Columns["FWROLL"];
+                this.columnLayedQty = base.Columns["LayedQty"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -25183,6 +25324,24 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnCutPlanFabReq);
                 this.columncutQty = new global::System.Data.DataColumn("cutQty", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncutQty);
+                this.columnDOQty = new global::System.Data.DataColumn("DOQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDOQty);
+                this.columnActualRollYardDelivered = new global::System.Data.DataColumn("ActualRollYardDelivered", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActualRollYardDelivered);
+                this.columnLayedfabric = new global::System.Data.DataColumn("Layedfabric", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLayedfabric);
+                this.columnEndBit = new global::System.Data.DataColumn("EndBit", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndBit);
+                this.columnCutPlan_PK = new global::System.Data.DataColumn("CutPlan_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCutPlan_PK);
+                this.columnWFRoll = new global::System.Data.DataColumn("WFRoll", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWFRoll);
+                this.columnFWROLL = new global::System.Data.DataColumn("FWROLL", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFWROLL);
+                this.columnLayedQty = new global::System.Data.DataColumn("LayedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLayedQty);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnCutPlan_PK}, true));
                 this.columnLocationName.MaxLength = 50;
                 this.columnOurStyle.AllowDBNull = false;
                 this.columnOurStyle.MaxLength = 50;
@@ -25206,6 +25365,19 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnRollCount.ReadOnly = true;
                 this.columnRollyard.ReadOnly = true;
                 this.columncutQty.ReadOnly = true;
+                this.columnDOQty.ReadOnly = true;
+                this.columnActualRollYardDelivered.ReadOnly = true;
+                this.columnLayedfabric.ReadOnly = true;
+                this.columnEndBit.ReadOnly = true;
+                this.columnCutPlan_PK.AutoIncrement = true;
+                this.columnCutPlan_PK.AutoIncrementSeed = -1;
+                this.columnCutPlan_PK.AutoIncrementStep = -1;
+                this.columnCutPlan_PK.AllowDBNull = false;
+                this.columnCutPlan_PK.ReadOnly = true;
+                this.columnCutPlan_PK.Unique = true;
+                this.columnWFRoll.ReadOnly = true;
+                this.columnFWROLL.ReadOnly = true;
+                this.columnLayedQty.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30339,6 +30511,38 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string MrnNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableInventoryData.MrnNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MrnNum\' in table \'InventoryData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInventoryData.MrnNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime AddedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableInventoryData.AddedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddedDate\' in table \'InventoryData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInventoryData.AddedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsRMNumNull() {
                 return this.IsNull(this.tableInventoryData.RMNumColumn);
             }
@@ -30527,6 +30731,30 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetValueNull() {
                 this[this.tableInventoryData.ValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMrnNumNull() {
+                return this.IsNull(this.tableInventoryData.MrnNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMrnNumNull() {
+                this[this.tableInventoryData.MrnNumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAddedDateNull() {
+                return this.IsNull(this.tableInventoryData.AddedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAddedDateNull() {
+                this[this.tableInventoryData.AddedDateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -48543,6 +48771,130 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal DOQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.DOQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DOQty\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.DOQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal ActualRollYardDelivered {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.ActualRollYardDeliveredColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ActualRollYardDelivered\' in table \'Criticalpath_SP\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.ActualRollYardDeliveredColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Layedfabric {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.LayedfabricColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Layedfabric\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.LayedfabricColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal EndBit {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.EndBitColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndBit\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.EndBitColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal CutPlan_PK {
+                get {
+                    return ((decimal)(this[this.tableCriticalpath_SP.CutPlan_PKColumn]));
+                }
+                set {
+                    this[this.tableCriticalpath_SP.CutPlan_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal WFRoll {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.WFRollColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WFRoll\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.WFRollColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal FWROLL {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.FWROLLColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FWROLL\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.FWROLLColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal LayedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableCriticalpath_SP.LayedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LayedQty\' in table \'Criticalpath_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCriticalpath_SP.LayedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsLocationNameNull() {
                 return this.IsNull(this.tableCriticalpath_SP.LocationNameColumn);
             }
@@ -48803,6 +49155,90 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetcutQtyNull() {
                 this[this.tableCriticalpath_SP.cutQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDOQtyNull() {
+                return this.IsNull(this.tableCriticalpath_SP.DOQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDOQtyNull() {
+                this[this.tableCriticalpath_SP.DOQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsActualRollYardDeliveredNull() {
+                return this.IsNull(this.tableCriticalpath_SP.ActualRollYardDeliveredColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetActualRollYardDeliveredNull() {
+                this[this.tableCriticalpath_SP.ActualRollYardDeliveredColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLayedfabricNull() {
+                return this.IsNull(this.tableCriticalpath_SP.LayedfabricColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLayedfabricNull() {
+                this[this.tableCriticalpath_SP.LayedfabricColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsEndBitNull() {
+                return this.IsNull(this.tableCriticalpath_SP.EndBitColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetEndBitNull() {
+                this[this.tableCriticalpath_SP.EndBitColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsWFRollNull() {
+                return this.IsNull(this.tableCriticalpath_SP.WFRollColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetWFRollNull() {
+                this[this.tableCriticalpath_SP.WFRollColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFWROLLNull() {
+                return this.IsNull(this.tableCriticalpath_SP.FWROLLColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFWROLLNull() {
+                this[this.tableCriticalpath_SP.FWROLLColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLayedQtyNull() {
+                return this.IsNull(this.tableCriticalpath_SP.LayedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLayedQtyNull() {
+                this[this.tableCriticalpath_SP.LayedQtyColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -52660,6 +53096,8 @@ FROM            CutOrderMaster INNER JOIN
             tableMapping.ColumnMappings.Add("Value", "Value");
             tableMapping.ColumnMappings.Add("TemplateCode", "TemplateCode");
             tableMapping.ColumnMappings.Add("Templatename", "Templatename");
+            tableMapping.ColumnMappings.Add("MrnNum", "MrnNum");
+            tableMapping.ColumnMappings.Add("AddedDate", "AddedDate");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -52682,24 +53120,26 @@ FROM            CutOrderMaster INNER JOIN
                 "r.Width AS Description, SkuRawmaterialDetail.ItemColor, \r\n                      " +
                 "   SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDe" +
                 "tails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMa" +
-                "ster.DeliveredQty, \r\n                         InventoryMaster.OnhandQty, AtcMast" +
+                "ster.DeliveredQty, InventoryMaster.OnhandQty, \r\n                         AtcMast" +
                 "er.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMa" +
-                "ster.Refnum, InventoryMaster.CURate, \r\n                         InventoryMaster." +
-                "CURate * InventoryMaster.OnhandQty AS Value, Template_Master.TemplateCode, Templ" +
-                "ate_Master.Description AS Templatename\r\nFROM            InventoryMaster INNER JO" +
-                "IN\r\n                         ProcurementDetails ON InventoryMaster.PoDet_PK = Pr" +
-                "ocurementDetails.PODet_PK INNER JOIN\r\n                         SkuRawmaterialDet" +
-                "ail ON ProcurementDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN\r" +
-                "\n                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = " +
-                "SkuRawMaterialMaster.Sku_Pk INNER JOIN\r\n                         UOMMaster ON Pr" +
-                "ocurementDetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN\r\n                         " +
-                "AtcMaster ON SkuRawMaterialMaster.Atc_id = AtcMaster.AtcId INNER JOIN\r\n         " +
-                "                LocationMaster ON InventoryMaster.Location_PK = LocationMaster.L" +
-                "ocation_PK INNER JOIN\r\n                         Template_Master ON SkuRawMateria" +
-                "lMaster.Template_pk = Template_Master.Template_PK\r\nORDER BY SkuRawMaterialMaster" +
-                ".RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSi" +
-                "ze, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster" +
-                ".UomCode";
+                "ster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.On" +
+                "handQty AS Value, \r\n                         Template_Master.TemplateCode, Templ" +
+                "ate_Master.Description AS Templatename, MrnMaster.MrnNum, MrnMaster.AddedDate\r\nF" +
+                "ROM            InventoryMaster INNER JOIN\r\n                         ProcurementD" +
+                "etails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN\r\n   " +
+                "                      SkuRawmaterialDetail ON ProcurementDetails.SkuDet_PK = Sku" +
+                "RawmaterialDetail.SkuDet_PK INNER JOIN\r\n                         SkuRawMaterialM" +
+                "aster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN\r\n " +
+                "                        UOMMaster ON ProcurementDetails.Uom_PK = UOMMaster.Uom_P" +
+                "K INNER JOIN\r\n                         AtcMaster ON SkuRawMaterialMaster.Atc_id " +
+                "= AtcMaster.AtcId INNER JOIN\r\n                         LocationMaster ON Invento" +
+                "ryMaster.Location_PK = LocationMaster.Location_PK INNER JOIN\r\n                  " +
+                "       Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Tem" +
+                "plate_PK INNER JOIN\r\n                         MrnDetails ON InventoryMaster.MrnD" +
+                "et_PK = MrnDetails.MrnDet_PK INNER JOIN\r\n                         MrnMaster ON M" +
+                "rnDetails.Mrn_PK = MrnMaster.Mrn_PK\r\nORDER BY SkuRawMaterialMaster.RMNum, Descri" +
+                "ption, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, Procuremen" +
+                "tDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -61031,6 +61471,14 @@ WHERE        (CutOrderDO.CutID = @Param1)";
             tableMapping.ColumnMappings.Add("Rollyard", "Rollyard");
             tableMapping.ColumnMappings.Add("CutPlanFabReq", "CutPlanFabReq");
             tableMapping.ColumnMappings.Add("cutQty", "cutQty");
+            tableMapping.ColumnMappings.Add("DOQty", "DOQty");
+            tableMapping.ColumnMappings.Add("ActualRollYardDelivered", "ActualRollYardDelivered");
+            tableMapping.ColumnMappings.Add("Layedfabric", "Layedfabric");
+            tableMapping.ColumnMappings.Add("EndBit", "EndBit");
+            tableMapping.ColumnMappings.Add("CutPlan_PK", "CutPlan_PK");
+            tableMapping.ColumnMappings.Add("WFRoll", "WFRoll");
+            tableMapping.ColumnMappings.Add("FWROLL", "FWROLL");
+            tableMapping.ColumnMappings.Add("LayedQty", "LayedQty");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

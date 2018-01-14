@@ -649,6 +649,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
         {
             string Cutn = "";
             decimal? noofplu = 0;
+            decimal? excessorshort = 0;
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 LaySheetMaster lsmstr = new LaySheetMaster();
@@ -689,11 +690,12 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                     lcdet.FabUtilized = di.fabqty;
                     lcdet.BalToCut = di.Balance;
                     lcdet.IsDeleted = "N";
+                    lcdet.AYard = di.RollAyard;
                     lcdet.ExcessOrShort = di.ExceSShortage;
                     lcdet.LaySheetRoll_Pk = di.LaySheetRoll_Pk;
                     enty.LaySheetDetails.Add(lcdet);
                     noofplu = noofplu + lcdet.NoOfPlies;
-
+                    excessorshort= excessorshort+ di.ExceSShortage;
 
                     var qlayroll = from rlldata in enty.LaySheetRollDetails
                                    where rlldata.Roll_PK == di.Roll_PK && rlldata.LaySheetRoll_Pk == di.LaySheetRoll_Pk
@@ -729,6 +731,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
 
                 lsmstr.NoOfPlies = noofplu;
+                lsmstr.ExxcessOrShort = excessorshort;
                 enty.SaveChanges();
 
 

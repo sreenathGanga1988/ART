@@ -19,7 +19,20 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             return View(db.LabRequestMasters.ToList());
            
         }
-
+        public ActionResult Edit(decimal id)
+        {
+            ViewBag.SupplierPK = new SelectList(db.SupplierMasters, "Supplier_PK", "SupplierName");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            LabRequestMaster labRequestMaster = db.LabRequestMasters.Find(id);
+            if (labRequestMaster == null)
+            {
+                return HttpNotFound();
+            }
+            return View((labRequestMaster));
+        }
         public ActionResult Create()
         {
             ViewBag.SupplierPK = new SelectList(db.SupplierMasters, "Supplier_PK", "SupplierName");

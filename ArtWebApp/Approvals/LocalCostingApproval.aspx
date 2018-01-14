@@ -11,7 +11,13 @@
         <tr>
             <td class="RedHeaddingdIV">Departmental Costing Approval</td>
         </tr>
-        
+        <tr>
+            <td>
+
+                <asp:CheckBox ID="chk_Costaproval" runat="server" AutoPostBack="true"  OnCheckedChanged="CheckBox2_CheckedChanged" Text="Select All" />
+
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Costing_PK" DataSourceID="SqlDataSource1" OnRowCommand="GridView1_RowCommand" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" OnRowDataBound="GridView1_RowDataBound">
@@ -96,6 +102,11 @@ ORDER BY StyleCostingMaster.Costing_PK DESC"></asp:SqlDataSource>
           <asp:View ID="ROView" runat="server">
               <div class="RedHeaddingdIV">
                   Departmental RO Approval
+              </div>
+              <div>
+                  
+                  <asp:CheckBox ID="chk_ro" runat="server" AutoPostBack="true" OnCheckedChanged="chk_ro_CheckedChanged" Text="Select All" />
+                  
               </div>
               <div>
                   <asp:GridView ID="tbl_ro" runat="server" AutoGenerateColumns="False"  BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" DataKeyNames="RO_Pk" DataSourceID="SqlDataSource3">

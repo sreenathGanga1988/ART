@@ -512,6 +512,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="CutID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="DeliveryQty" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Skudet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RollYard" Type="numeric" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="CutOrderMaster">
           <Key>
@@ -995,6 +996,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="DODet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsRollReturned" Type="nchar" MaxLength="10" />
+          <Property Name="AYard" Type="numeric" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -1606,6 +1608,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Roll_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="AYard" Type="numeric" Precision="18" Scale="3" />
           <Property Name="FabUtilized" Type="numeric" Precision="18" Scale="3" />
           <Property Name="EndBit" Type="numeric" Precision="18" Scale="3" />
           <Property Name="BalToCut" Type="numeric" Precision="18" Scale="3" />
@@ -1636,6 +1639,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsDetailUploaded" Type="nchar" MaxLength="10" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
           <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ExxcessOrShort" Type="numeric" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="LaySheetRollDetails">
           <Key>
@@ -2987,6 +2991,22 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsCompleted" Type="nchar" MaxLength="10" />
           <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="ShippingDocumentDetailLocation">
+          <Key>
+            <PropertyRef Name="ShippinfDetailLCtn_PK" />
+          </Key>
+          <Property Name="ShippinfDetailLCtn_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShippingDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DocDet_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Type" Type="nchar" MaxLength="10" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="1" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="1" />
+          <Property Name="ReceivedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReceivedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ShippingDocumentDetails">
           <Key>
             <PropertyRef Name="ShippingDet_PK" />
@@ -2995,6 +3015,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ShipingDoc_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Doc_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="DocType" Type="nchar" MaxLength="10" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ShippingDocumentDODetails">
           <Key>
@@ -3003,6 +3024,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ShippingDocumentDO_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShipingDoc_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="DO_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ShippingDocumentMaster">
           <Key>
@@ -3780,6 +3802,8 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsPackingTrimDate" Type="bit" />
           <Property Name="User_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsSewingSet" Type="bit" />
+          <Property Name="IsSystemFile" Type="bit" />
+          <Property Name="IsShrinkage" Type="bit" />
         </EntityType>
         <EntityType Name="TransferToGstockDetails">
           <Key>
@@ -7643,6 +7667,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="ShipmentHandoverColorSizeDetails" EntityType="Self.ShipmentHandoverColorSizeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipmentHandOverDetails" EntityType="Self.ShipmentHandOverDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipmentHandOverMaster" EntityType="Self.ShipmentHandOverMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShippingDocumentDetailLocation" EntityType="Self.ShippingDocumentDetailLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingDocumentDetails" EntityType="Self.ShippingDocumentDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingDocumentDODetails" EntityType="Self.ShippingDocumentDODetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingDocumentMaster" EntityType="Self.ShippingDocumentMaster" Schema="dbo" store:Type="Tables" />
@@ -10344,6 +10369,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="FabricMissing" EntitySet="FabricMissings" />
           </AssociationSet>
           <EntitySet Name="AtcActions" EntityType="ArtModel.AtcAction" />
+          <EntitySet Name="ShippingDocumentDetailLocations" EntityType="ArtModel.ShippingDocumentDetailLocation" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -11368,6 +11394,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutOrderDO2" Relationship="ArtModel.FK_CutOrderDO_CutOrderDO" FromRole="CutOrderDO1" ToRole="CutOrderDO" />
           <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_CutOrderDO_CutOrderMaster" FromRole="CutOrderDO" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderDetail" Relationship="ArtModel.FK_CutOrderDO_DeliveryOrderDetails" FromRole="CutOrderDO" ToRole="DeliveryOrderDetail" />
+          <Property Name="RollYard" Type="Decimal" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="CutOrderMaster">
           <Key>
@@ -11933,6 +11960,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="DeliveryOrderDetail" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderDetails" FromRole="DORollDetail" ToRole="DeliveryOrderDetail" />
           <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DORollDetail" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_DORollDetails_FabricRollmaster" FromRole="DORollDetail" ToRole="FabricRollmaster" />
+          <Property Name="AYard" Type="Decimal" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -12603,6 +12631,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LaySheetMaster" Relationship="ArtModel.FK_LaySheetDetails_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LaySheetMaster" />
           <NavigationProperty Name="LaySheetRollDetail" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetDetail" ToRole="LaySheetRollDetail" />
           <NavigationProperty Name="LayShortageDetails" Relationship="ArtModel.FK_LayShortageDetail_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LayShortageDetail" />
+          <Property Name="AYard" Type="Decimal" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="LaySheetMaster">
           <Key>
@@ -12629,6 +12658,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CutOrderDetail" Relationship="ArtModel.FK_LaySheetMaster_CutOrderDetails" FromRole="LaySheetMaster" ToRole="CutOrderDetail" />
           <NavigationProperty Name="LaySheetDetails" Relationship="ArtModel.FK_LaySheetDetails_LaySheetDetails" FromRole="LaySheetMaster" ToRole="LaySheetDetail" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_LaySheetMaster_LocationMaster" FromRole="LaySheetMaster" ToRole="LocationMaster" />
+          <Property Name="ExxcessOrShort" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="LaySheetRollMaster">
           <Key>
@@ -14146,6 +14176,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="DocType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="DocMaster" Relationship="ArtModel.FK_ShippingDocumentDetails_DocMaster" FromRole="ShippingDocumentDetail" ToRole="DocMaster" />
           <NavigationProperty Name="ShippingDocumentMaster" Relationship="ArtModel.FK_ShippingDocumentDetails_ShippingDocumentDetails" FromRole="ShippingDocumentDetail" ToRole="ShippingDocumentMaster" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ShippingDocumentDODetail">
           <Key>
@@ -14154,6 +14185,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ShippingDocumentDO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShipingDoc_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DO_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ShippingDocumentStockDetail">
           <Key>
@@ -14934,6 +14966,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="User_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="IsSewingSet" Type="Boolean" />
           <NavigationProperty Name="UserMaster" Relationship="ArtModel.FK_TnaUserRight_UserMaster" FromRole="TnaUserRight" ToRole="UserMaster" />
+          <Property Name="IsSystemFile" Type="Boolean" />
+          <Property Name="IsShrinkage" Type="Boolean" />
         </EntityType>
         <EntityType Name="TransferToGstockDetail">
           <Key>
@@ -18655,6 +18689,22 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Month" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Year" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="ShippingDocumentDetailLocation">
+          <Key>
+            <PropertyRef Name="ShippinfDetailLCtn_PK" />
+          </Key>
+          <Property Name="ShippinfDetailLCtn_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShippingDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DocDet_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsReceived" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="ReceivedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -19678,6 +19728,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CutOrderDOes">
             <EntityTypeMapping TypeName="ArtModel.CutOrderDO">
               <MappingFragment StoreEntitySet="CutOrderDO">
+                <ScalarProperty Name="RollYard" ColumnName="RollYard" />
                 <ScalarProperty Name="Skudet_PK" ColumnName="Skudet_PK" />
                 <ScalarProperty Name="DeliveryQty" ColumnName="DeliveryQty" />
                 <ScalarProperty Name="CutID" ColumnName="CutID" />
@@ -20190,6 +20241,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="DORollDetails">
             <EntityTypeMapping TypeName="ArtModel.DORollDetail">
               <MappingFragment StoreEntitySet="DORollDetails">
+                <ScalarProperty Name="AYard" ColumnName="AYard" />
                 <ScalarProperty Name="IsRollReturned" ColumnName="IsRollReturned" />
                 <ScalarProperty Name="CutID" ColumnName="CutID" />
                 <ScalarProperty Name="DODet_PK" ColumnName="DODet_PK" />
@@ -20824,6 +20876,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetDetails">
             <EntityTypeMapping TypeName="ArtModel.LaySheetDetail">
               <MappingFragment StoreEntitySet="LaySheetDetails">
+                <ScalarProperty Name="AYard" ColumnName="AYard" />
                 <ScalarProperty Name="Deleteddate" ColumnName="Deleteddate" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -20843,6 +20896,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetMasters">
             <EntityTypeMapping TypeName="ArtModel.LaySheetMaster">
               <MappingFragment StoreEntitySet="LaySheetMaster">
+                <ScalarProperty Name="ExxcessOrShort" ColumnName="ExxcessOrShort" />
                 <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsDetailUploaded" ColumnName="IsDetailUploaded" />
@@ -22278,6 +22332,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ShippingDocumentDetails">
             <EntityTypeMapping TypeName="ArtModel.ShippingDocumentDetail">
               <MappingFragment StoreEntitySet="ShippingDocumentDetails">
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="DocType" ColumnName="DocType" />
                 <ScalarProperty Name="Doc_Pk" ColumnName="Doc_Pk" />
                 <ScalarProperty Name="ShipingDoc_PK" ColumnName="ShipingDoc_PK" />
@@ -22288,6 +22343,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ShippingDocumentDODetails">
             <EntityTypeMapping TypeName="ArtModel.ShippingDocumentDODetail">
               <MappingFragment StoreEntitySet="ShippingDocumentDODetails">
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="DO_PK" ColumnName="DO_PK" />
                 <ScalarProperty Name="ShipingDoc_PK" ColumnName="ShipingDoc_PK" />
                 <ScalarProperty Name="ShippingDocumentDO_PK" ColumnName="ShippingDocumentDO_PK" />
@@ -22986,6 +23042,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="TnaUserRights">
             <EntityTypeMapping TypeName="ArtModel.TnaUserRight">
               <MappingFragment StoreEntitySet="TnaUserRight">
+                <ScalarProperty Name="IsShrinkage" ColumnName="IsShrinkage" />
+                <ScalarProperty Name="IsSystemFile" ColumnName="IsSystemFile" />
                 <ScalarProperty Name="IsSewingSet" ColumnName="IsSewingSet" />
                 <ScalarProperty Name="User_PK" ColumnName="User_PK" />
                 <ScalarProperty Name="IsPackingTrimDate" ColumnName="IsPackingTrimDate" />
@@ -23311,6 +23369,23 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="ActionDoneBy" ColumnName="ActionDoneBy" />
                 <ScalarProperty Name="AtcID" ColumnName="AtcID" />
                 <ScalarProperty Name="AtcApprovalID" ColumnName="AtcApprovalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingDocumentDetailLocations">
+            <EntityTypeMapping TypeName="ArtModel.ShippingDocumentDetailLocation">
+              <MappingFragment StoreEntitySet="ShippingDocumentDetailLocation">
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="DocDet_Pk" ColumnName="DocDet_Pk" />
+                <ScalarProperty Name="ShippingDet_PK" ColumnName="ShippingDet_PK" />
+                <ScalarProperty Name="ShippinfDetailLCtn_PK" ColumnName="ShippinfDetailLCtn_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

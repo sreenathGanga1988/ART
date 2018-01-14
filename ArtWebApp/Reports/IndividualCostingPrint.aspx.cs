@@ -191,6 +191,13 @@ namespace ArtWebApp.Reports
                         lbl_factorylogistic.Text = element.CompValue.ToString();
                         others = others + float.Parse(element.CompValue.ToString());
                     }
+                    else if (element.ComponentName.Trim() == "PRINTING")
+                    {
+                        lblsummary_printing.Text = element.CompValue.ToString();
+                        others = others + float.Parse(element.CompValue.ToString());
+                    }
+
+                    
                     else if (element.ComponentName.Trim() == "OTHERS")
                     {
                         lbl_others.Text = element.CompValue.ToString();
@@ -308,6 +315,8 @@ namespace ArtWebApp.Reports
             float trimperdzn = float.Parse(lblsummary_trimcost.Text) * 12;
             float cmdzn = float.Parse(lblsummary_cmcost.Text) * 12;
             float washperdzn = float.Parse(lblsummary_washcost.Text ) * 12;
+
+            float printperdzn = float.Parse(lblsummary_printing.Text) * 12;
             float otherperdozen = float.Parse(lblsummary_otherscost.Text) * 12;
 
             float commisionperdozen = float.Parse( lblsummary_comision.Text) * 12;
@@ -324,7 +333,7 @@ namespace ArtWebApp.Reports
             lblsummary_washdzn.Text = washperdzn.ToString();
             lblsummary_othersdzn.Text = otherperdozen.ToString();
             lblsummary_comisiondzn.Text=commisionperdozen.ToString ();
-
+            lblsummary_printingdzn.Text = printperdzn.ToString();
 
 
 
@@ -337,6 +346,7 @@ namespace ArtWebApp.Reports
             float otherpercent = (otherperdozen / fobindzn) * 100;
             float totalpercent = (totalcostindzn / fobindzn) * 100;
 
+            float totalprint = (printperdzn / fobindzn) * 100;
 
 
 
@@ -347,8 +357,9 @@ namespace ArtWebApp.Reports
             lblsummary_washpercent.Text = washpercent.ToString();
             lblsummary_otherspercent.Text = otherpercent.ToString();
             lblsummary_totalcostpercent.Text = totalpercent.ToString();
+            lblsummary_printingpercent.Text = totalprint.ToString();
 
-           
+
 
 
 

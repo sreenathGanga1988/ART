@@ -1,54 +1,332 @@
-﻿@model ArtWebApp.DataModels.FreightChargeDetail
+﻿@model ArtWebApp.DataModels.FreightRequestMaster
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Details";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Freight Request Details</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>FreightChargeDetail</h4>
-        <hr />
+
+
+
+<table class="table-bordered table-striped ">
+
+    <tr class="row">
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.FreightRequestNum, "Freight Request#", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">@Html.EditorFor(model => model.FreightRequestNum, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.FromParty, "From Party", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">@Html.EditorFor(model => model.FromParty, new { htmlAttributes = new { @class = "form-control" } })</td>
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.FreightReqDetID)
+        @Html.HiddenFor(model => model.FreightRequestID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AtcID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AtcID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AtcID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FreightCharge, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FreightCharge, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FreightCharge, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FreightRequestID, "FreightRequestID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("FreightRequestID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FreightRequestID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+    </tr>
+
+
+    <tr class="row">
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ToParty)
+
+        </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        </td>
+        <td class="col-md-4"> @Html.EditorFor(modelItem => Model.Shipper)  </td>
+
+
+
+
+
+
+    </tr>
+
+
+    <tr class="row">
+        <td class="col-md-2">@Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })  </td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Weight)  </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ContentofPackage)
+        </td>
+
+
+
+
+
+
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.DebitTo)
+        </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.Reason)
+        </td>
+
+
+
+
+
+
+    </tr>
+
+
+
+
+
+    <tr class="row">
+        <td class="col-md-2">@Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Merchandiser)</td>
+        <td class="col-md-2">@Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ForwarderDetails)
+        </td>
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-2">
+
+            @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.ApproximateCharges)</td>
+        <td class="col-md-2">@Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Remark)</td>
+    </tr>
+    
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="form-group">
+        <table class="table table-responsive table-bordered">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Atc
+                </th>
+                <th>
+                    FreightCharge
+                </th>
+                <th>
+                    Remark
+                </th>
+                <th>Allowed value</th>
+                <th>Used Value</th>
+                <th>Balance</th>
+                <th></th>
+            </tr>
+            @{  Decimal total = 0;
+                Decimal Allowed = 0;
+                Decimal Used = 0;
+                Decimal Balance = 0;
+                foreach (var item in Model.FreightChargeDetails)
+                {
+
+                    total = total + Decimal.Parse(item.FreightCharge.ToString());
+                    Allowed = Allowed + Decimal.Parse(item.AllowedValue.ToString());
+                    Used = Used + Decimal.Parse(item.UsedValue.ToString());
+                    Balance = Balance + Decimal.Parse(item.BalanceValue.ToString());
+                    <tr>
+                        <td class="freight_det_id">
+                            @item.FreightReqDetID
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
+                        </td>
+                        <td class="change_freight">
+                            @Html.EditorFor(modelItem => item.FreightCharge )
+                            <div id="OldFreightCharge" class="OldFreightCharge">
+                                @Html.HiddenFor(modelItem => item.FreightCharge)
+                            </div>
+                        </td>
+                        <td class="chenge_remark">
+                            @Html.EditorFor(modelItem => item.Remark)
+                        </td>
+                        <td class="AllowedValue">
+                            @Html.DisplayFor(modelItem => item.AllowedValue)
+                        </td>
+                        <td class="UsedValue">
+                            @Html.DisplayFor(modelItem => item.UsedValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BalanceValue)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Total :  @total
+                    </td>
+                    <td></td>
+                    <td>Allowed: @Allowed</td>
+                    <td>Used : @Used</td>
+                    <td>Balance : @Balance</td>
+                    <td></td>
+                </tr>
+
+            }
+
+
+        </table>
     </div>
-}
+
+</div>
+
+
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+        <input id="edit_freight" type="button" value="Save" class="btn btn-default show" />   
 </div>
+<p>
+    @Html.ActionLink("Print", "Print", new { id = Model.FreightRequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#edit_freight").click(function (e, params) {
+            debugger;
+
+            var list = [];
+            var Isok = true;
+            $('.freight_det_id').each(function () {
+
+                var freight_det_id = this.innerHTML;
+                var newvalue = $(this).siblings('td.change_freight').children(':first').val();
+                var chenge_remark = $(this).siblings('td.chenge_remark').children(':first').val();
+                var AllowedValue = $(this).siblings('td.AllowedValue')[0].innerHTML;
+                var UsedValue = $(this).siblings('td.UsedValue')[0].innerHTML;
+
+
+                var OldFreightCharge = $(this).siblings('td.change_freight').children('.OldFreightCharge').find('input').val();
+                var ActualUsed = parseFloat(UsedValue) - parseFloat(OldFreightCharge);
+                var ActualAllowedValue = parseFloat(AllowedValue) - parseFloat(ActualUsed);
+                alert(ActualAllowedValue);
+                if (parseFloat(newvalue) > parseFloat(ActualAllowedValue)) {
+                    alert('The Value is greator that Allowed value');
+                    Isok = false;
+                }
+
+
+                var orderItem = {
+                    FreightReqDetID: freight_det_id,
+
+                    FreightCharge: parseFloat(newvalue),
+                    Remark: chenge_remark
+
+                }
+                list.push(orderItem);
+
+            });
+
+            var data = {
+
+                FreightChargeDetails: list,
+                FreightRequestID: $('#FreightRequestID').val(),
+                FromParty: $('#FromParty').val(),
+                ToParty: $('#ToParty').val(),
+                Shipper: $('#Shipper').val(),
+                Weight: $('#Weight').val(),
+                ContentofPackage: $('#ContentofPackage').val(),
+                DebitTo: $('#DebitTo').val(),
+                Reason: $('#Reason').val(),
+                Merchandiser: $('#Merchandiser').val(),
+                ForwarderDetails: $('#ForwarderDetails').val(),
+                ApproximateCharges: $('#ApproximateCharges').val(),
+                Remark: $('#Remark').val().trim(),
+
+
+            }
+
+
+
+
+            if (Isok == true) {
+                $(this).val('Please wait...');
+                $.ajax({
+                    type: 'POST',
+                    url: '/ArtMVCMerchandiser/FreightRequestMasters/Edit',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.status) {
+                            alert('Successfully saved ' + data.Reqnum);
+                            //here we will clear the form
+
+                            list = [];
+                            $('#orderNo,#orderDate,#description').val('');
+                            $('#orderdetailsItems').empty();
+                        }
+                        else {
+                            alert('Error');
+                        }
+                        $('#submit').val('Save');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submit').val('Save');
+                    }
+                });
+
+
+                $(this).val('Save');
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>

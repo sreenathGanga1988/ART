@@ -31,6 +31,8 @@ namespace ArtWebApp.DataModels
         public Nullable<bool> IsPackingTrimDate { get; set; }
         public Nullable<decimal> User_PK { get; set; }
         public Nullable<bool> IsSewingSet { get; set; }
+        public Nullable<bool> IsSystemFile { get; set; }
+        public Nullable<bool> IsShrinkage { get; set; }
     
         public virtual UserMaster UserMaster { get; set; }
     }

@@ -1,0 +1,254 @@
+﻿@model ArtWebApp.Areas.Shipping.ViewModel.ImportViewModelMaster
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <table class="table">
+
+            <tr>
+
+                <td class="col-md-2">Shipper :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.ShipperName)</td>
+                <td class="col-md-2">Exporter : </td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.ExporterName)</td>
+                <td class="col-md-2"></td>
+                <td class="col-md-2"></td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Shipper Inv :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.ShipperInv)</td>
+                <td class="col-md-2"> Description :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Description)</td>
+                <td class="col-md-2">No Of Ctn :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.NOofctnRoll)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Package Type :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Packagetype)</td>
+                <td class="col-md-2">Weight : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Weight)</td>
+                <td class="col-md-2">Weight :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Weight)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Type :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Type)</td>
+                <td class="col-md-2"> Invoice value</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.InvoiceValue)</td>
+                <td class="col-md-2"> Vessel :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Vessel)</td>
+            </tr>
+
+            <tr>
+                <td class="col-md-2">Container :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.Conatianer) </td>
+                <td class="col-md-2">Container Type</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.ContsainerType)</td>
+                <td class="col-md-2">Eta : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.shippingDocument.ETA)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">BL :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.BL)</td>
+                <td class="col-md-2">Mode: </td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.shippingDocument.Mode)</td>
+                <td class="col-md-2">DocType :</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.shippingDocument.DocType)</td>
+            </tr>
+
+
+        </table>
+
+        <div>
+
+
+        </div>
+        <div>
+
+        </div>
+
+        foreach (string elemtn in ViewBag.Location_PKs)
+        {
+
+            <div>
+
+            </div>
+            <table id="DetailTable" class="table table-bordered MyDataTable">
+
+                <thead>
+                    <tr>
+
+                        <th>ShippingDet_PK </th>
+
+                        <th>AtcNum </th>
+                        <th>DocNum </th>
+                        <th> Description</th>
+                        <th>Qty </th>
+
+                        <th>Uom </th>
+                        <th>PONum </th>
+                        <th>Do number </th>
+                        <th>Added By </th>
+                        <th>Added Date </th>
+                        <th>Doc Added By </th>
+                        <th> Supplier Name</th>
+
+                        <th> GateentryLocation </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+
+
+                    @if (Model.ImportViewModels != null)
+                    {
+
+                        if (Model.ImportViewModels.Count > 0)
+                        {
+
+                            foreach (var imp in Model.ImportViewModels.Where(u => u.Location_PK == elemtn).ToList())
+                            {
+
+                                <tr>
+
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.ShippingDet_PK)
+
+
+                                    </td>
+
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.AtcNum)
+                                    </td>
+
+
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.DocNum)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.Description)
+
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.Qty)
+
+
+                                    </td>
+
+                                    <td>
+
+
+                                        @Html.DisplayFor(modelItem => imp.UomCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => imp.PONum)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.Donumber)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.AddedBy)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.AddedDate)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.DocAddedBy)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => imp.SupplierName)
+                                    </td>
+
+
+                                    <td>
+                                        @if (imp.Locationname == null || imp.Locationname == "")
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => imp.Locationname)
+                                        }
+                                    </td>
+
+                                </tr>
+
+                            }
+                        }
+
+
+
+                    }
+
+
+
+
+                </tbody>
+
+            </table>
+        }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RemainingCtn,"CTNs :" , htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.RemainingCtn)
+                        @Html.ValidationMessageFor(model => model.RemainingCtn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        <div class="panel panel-primary">
+            <table class="table">
+                <tr>
+
+                    <td class="col-md-12">
+
+                      
+
+                        <input type="submit" value=" Accept" name="action:Accept" class="btn-block" />
+
+</tr>
+
+            </table>
+
+
+        </div>
+
+        <div class="panel panel-primary">
+            <table class="table">
+                <tr>
+
+                    <td class="col-md-12">
+
+                        @Html.ActionLink("Print", "Print", new { id = Model.ID })
+
+
+
+                </tr>
+
+            </table>
+
+
+        </div>
+    }
+    <p>
+        |
+
+    </p>
+</div>
+

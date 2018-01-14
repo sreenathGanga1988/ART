@@ -121,7 +121,7 @@ namespace ArtWebApp.BLL
 
         public void createOurStyle(AtcData atcdata)
         {
-            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum, atcdata.atcid,atcdata.ShipDate1);
+            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum1, atcdata.atcid,atcdata.ShipDate1);
 
           atran. insertourstyle(dt);
         }
@@ -324,7 +324,7 @@ namespace ArtWebApp.BLL
         public Boolean UpdateOurStyle(ourstyleData ourstl)
         {
             Boolean ischanged = false;
-
+            Boolean ispcdchanged = false;
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
 
@@ -336,6 +336,8 @@ namespace ArtWebApp.BLL
                 {
                     decimal oldfob = decimal.Parse(element.FOB.ToString());
 
+
+                    DateTime oldpcd = DateTime.Parse(element.MerchantPCD.ToString());
                     element.FOB = ourstl.Fob;
                     element.CategoryID = decimal.Parse(ourstl.Catid.ToString());
                     element.BuyerStyle = ourstl.BuyerStyle1.Trim ();
@@ -343,8 +345,17 @@ namespace ArtWebApp.BLL
                     element.MinutesperGarment =Decimal.Parse( ourstl.txtMinutesPerGarment.ToString());
                     
 
+                    if(oldpcd!= DateTime.Parse(element.MerchantPCD.ToString()))
+                    {
 
-                    if(oldfob== ourstl.Fob)
+                        ispcdchanged = true;
+
+                       
+
+                    }
+
+
+                        if (oldfob== ourstl.Fob)
                     {
                         ischanged = false;
                     }else
@@ -356,11 +367,37 @@ namespace ArtWebApp.BLL
 
 
             }
+
+
+            if (ispcdchanged == true)
+            {
+
+                TNAChanged(ourstyleid);
+
+
+            }
+
             return ischanged;
         }
 
 
+        public void TNAChanged(int ourstyleid)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from tnadet in enty.ProductionTNADetails
+                        where tnadet.OurStyleID == ourstyleid && tnadet.ProductionTNACompID == 15 && tnadet.IsDeleted=="N"
+                        select tnadet;
 
+                foreach (var element in q)
+                {
+                    element.IsDeleted = "Y";
+
+                }
+
+                enty.SaveChanges();
+            }
+        }
 
         public void markcostigObsolute()
         {

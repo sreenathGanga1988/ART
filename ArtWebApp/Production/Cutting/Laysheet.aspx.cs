@@ -153,9 +153,10 @@ namespace ArtWebApp.Production.Cutting
                     int lbl_rollpk = int.Parse(((di.FindControl("lbl_rollpk") as Label).Text.ToString()));
 
                     int lbl_LaySheetRoll_Pk = int.Parse(((di.FindControl("lbl_LaySheetRoll_Pk") as Label).Text.ToString()));
-
+                    
                     int txt_plies = int.Parse(((di.FindControl("txt_plies") as TextBox).Text.ToString()));
                     Decimal txt_fab = Decimal.Parse(((di.FindControl("txt_fab") as TextBox).Text.ToString()));
+                    Decimal lbl_ayard = Decimal.Parse(((di.FindControl("lbl_ayard") as Label).Text.ToString()));
                     decimal txt_balance = decimal.Parse(((di.FindControl("txt_txtBalance") as TextBox).Text.ToString()));
                     decimal txt_excessshortage = decimal.Parse(((di.FindControl("txt_excessshort") as TextBox).Text.ToString()));
 
@@ -165,7 +166,7 @@ namespace ArtWebApp.Production.Cutting
 
                     BLL.ProductionBLL.LaysheetDetaolsData lsdetdata = new BLL.ProductionBLL.LaysheetDetaolsData();
 
-
+                    lsdetdata.RollAyard = lbl_ayard;
                     lsdetdata.Roll_PK = lbl_rollpk;
                     lsdetdata.NoOfPlies = txt_plies;
                     lsdetdata.fabqty = txt_fab;
