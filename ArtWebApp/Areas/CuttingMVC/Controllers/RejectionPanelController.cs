@@ -68,11 +68,32 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult GetRequestDetailView(int ourstyleid,int locationid)
+        public JsonResult PopulateRequest(int ourstyleid, int locationid)
+        {
+
+
+            List<String> list = db.RejectionPanelExtraFabbReqs.
+                Where(u => u.POPackDetail.OurStyleID == ourstyleid && u.Location_PK == locationid).Select(U => U.Fabreqno).Distinct().ToList();
+
+            //SelectList Cutorderlist = new SelectList(db.RejectionPanelExtraFabbReqs.
+            //    Where(u => u.POPackDetail.OurStyleID == ourstyleid && u.Location_PK == locationid).Select(U=>U.Fabreqno).Distinct().ToList(), "Fabreqno", "Fabreqno");
+
+
+            var Cutorderlist = list.Select(x => new SelectListItem() { Value = x, Text = x }).ToList();
+            //&& !(from layshortdet in db.RejectReqDetails where layshortdet.RejectionType == "P" && layshortdet.Location_PK == locationid select layshortdet.RejFabReqID).Contains(laydet.RejFabPanelReqID)
+
+            JsonResult jsd = Json(Cutorderlist, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
+
+        [HttpGet]
+        public PartialViewResult GetRequestDetailView(int ourstyleid,int locationid,String ReqID)
         {
             RejectionPanelViewModal model = new RejectionPanelViewModal();
             Rejectionfabricrepository lyipores = new Rejectionfabricrepository();
-            model.FabreqDetails = lyipores.GetRejectionpanelrequestdata(ourstyleid, locationid);
+            model.FabreqDetails = lyipores.GetRejectionpanelrequestdata(ourstyleid, locationid, ReqID);
             return PartialView("GetRequestDetailView", model);
         }
         protected override void Dispose(bool disposing)

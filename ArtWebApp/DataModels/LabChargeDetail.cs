@@ -19,6 +19,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> LabCharge { get; set; }
         public Nullable<decimal> LabRequestID { get; set; }
         public string Remark { get; set; }
+        public Nullable<decimal> FirstLabCharge { get; set; }
     
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual LabRequestMaster LabRequestMaster { get; set; }

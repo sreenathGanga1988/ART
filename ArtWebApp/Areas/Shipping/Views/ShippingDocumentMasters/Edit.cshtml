@@ -10,14 +10,14 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ShippingDocumentMaster</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ShipingDoc_PK)
 
-      
+
 
         <table class="table table-bordered table-responsive">
             <tr>
@@ -67,7 +67,7 @@
 
 
             </tr>
-           
+
             <tr>
                 <th>  InvoiceValue</th>
                 <th>ETA</th>
@@ -77,60 +77,50 @@
             </tr>
             <tr>
                 <td>@Html.DisplayFor(model => model.InvoiceValue)</td>
-                <td>@Html.DisplayFor(model => model.ETA)</td>
+                <td class="ETA">@Html.DisplayFor(model => model.ETA)</td>
                 <td>@Html.DisplayFor(model => model.AddedDate)</td>
                 <td>@Html.DisplayFor(model => model.AddedBY)</td>
                 <td>@Html.DisplayFor(model => model.Type)</td>
 
 
             </tr>
-           
+
 
         </table>
 
         <table class="table table-bordered table-responsive">
             <tr>
                 <th>Gate Receipt </th>
-                <th>Berth</th>
+                <th>Copy Documents Rcvd</th>
                 <th>ManifestNoDate</th>
-                
+
             </tr>
             <tr>
                 <td>
-                @if(@Model.GateReceiptDate==null){
-                    @Html.EditorFor(model => model.GateReceiptDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                }
-                else
-                {
-                    
-                <p>@Html.DisplayFor(model => model.GateReceiptDate) </p>
-                 <p>Added By : @Html.DisplayFor(model => model.GateReceivedBy)</p>
-                 
-                }
-                
-             </td>
-
+                    @Html.LabelFor(model => model.IsGateReceived, (string)@ViewBag.IsReceived, new { id = "IsGateReceived", name = "IsGateReceived" })
+                </td>
                 <td>
-                    @if (@Model.Berth == null)
+                    @if (@Model.CopyDocumentsReceivedDate == null)
                     {
-                        @Html.EditorFor(model => model.Berth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.CopyDocumentsReceivedDate, new { htmlAttributes = new { id = "CopyDocumentsReceivedDate", name = "CopyDocumentsReceivedDate", @class = "form-control datepicker" } })
                     }
                     else
-                    { <p>@Html.DisplayFor(model => model.Berth) </p>
-                     
-                       
-
-                    }
+                    {<p>@Html.DisplayFor(model => model.CopyDocumentsReceivedDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedBy)</p>
+                }
 
                 </td>
+
                 <td>
                     @if (@Model.ManifestNO == null)
                     {
-                     <p> Manifest # : @Html.EditorFor(model => model.ManifestNO, new { htmlAttributes = new { @class = "form-control" } })
-</p>
-                    <p>
-                        Manifest Date : @Html.EditorFor(model => model.ManifestNoDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    </p>
+                        <p>
+                            Manifest # : @Html.EditorFor(model => model.ManifestNO, new { htmlAttributes = new { id = "ManifestNO", name = "ManifestNO", @class = "form-control" } })
+                        </p>
+                        <p>
+                            Manifest Date : @Html.EditorFor(model => model.ManifestNoDate, new { htmlAttributes = new { id = "ManifestNoDate", name = "ManifestNoDate", @class = "form-control datepicker" } })
+                        </p>
                     }
                     else
                     {
@@ -144,293 +134,46 @@
                 </td>
 
 
-                
-            </tr>
-    
-            <tr>
-                <th>Copy Documents Rcvd</th>
-                <th>Orginal Documents Rcvd</th>
-                <th>PortEntry</th>
 
             </tr>
+
             <tr>
-                <td>
-                    @if (@Model.CopyDocumentsReceivedDate == null)
-                    {
-                        @Html.EditorFor(model => model.CopyDocumentsReceivedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.CopyDocumentsReceivedDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.CopyDocumentsReceivedAddedBy)</p>
+                <th>Customs Entry</th>
+                <th>Lodge Date</th>
+                <th>Entry Levy Charges</th>
 
-                    }
-
-                </td>
-
-                <td>
-                    @if (@Model.OrginalDocumentsReceivedDate == null)
-                    {
-                        @Html.EditorFor(model => model.OrginalDocumentsReceivedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.OrginalDocumentsReceivedDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedBy)</p>
-
-
-                    }
-
-                </td>
+            </tr>
+            <tr>
                 <td>
                     @if (@Model.PortEntry == null)
                     {
-                        @Html.EditorFor(model => model.PortEntry, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.EditorFor(model => model.PortEntry,  new { htmlAttributes = new { id = "PortEntry", name = "PortEntry", @class = "form-control datepicker" } })
                     }
                     else
                     {<p>@Html.DisplayFor(model => model.PortEntry) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.PortEntryAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.PortEntrydAddedBy)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.PortEntryAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.PortEntrydAddedBy)</p>
 
-
-                    }
+                }
 
                 </td>
-
-
-
-            </tr>
-
-            <tr>
-                <th>Lodge Date</th>
-                <th>PassedDate</th>
-                <th>Doc Lodge Date</th>
-
-            </tr>
-            <tr>
                 <td>
                     @if (@Model.LodgeDate == null)
                     {
-                        @Html.EditorFor(model => model.LodgeDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.EditorFor(model => model.LodgeDate, new { htmlAttributes = new { id = "LodgeDate", name = "LodgeDate", @class = "form-control datepicker" } })
                     }
                     else
                     {<p>@Html.DisplayFor(model => model.LodgeDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.LodgeAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.LodgeAddedBy)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.LodgeAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.LodgeAddedBy)</p>
 
-                    }
-
-                </td>
-
-                <td>
-                    @if (@Model.PassedDate == null)
-                    {
-                        @Html.EditorFor(model => model.PassedDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.PassedDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.PassedDateAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.PassedDateAddedBy)</p>
-
-
-                    }
+                }
 
                 </td>
-                <td>
-                    @if (@Model.DocLodgeDate == null)
-                    {
-                        @Html.EditorFor(model => model.DocLodgeDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.DocLodgeDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.DocLodgeAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.DocLodgeAddedBy)</p>
-
-
-                    }
-
-                </td>
-
-
-
-            </tr>
-
-
-            <tr>
-                <th>DocRcvdDate</th>
-                <th>LodgePortDate</th>
-                <th>InhouseDate</th>
-
-            </tr>
-            <tr>
-                <td>
-                    @if (@Model.DocRcvdDate == null)
-                    {
-                        @Html.EditorFor(model => model.DocRcvdDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.DocRcvdDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.DocRcvdAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.DocRcvdAddedBy)</p>
-
-                    }
-
-                </td>
-
-                <td>
-                    @if (@Model.LodgePortDate == null)
-                    {
-                        @Html.EditorFor(model => model.LodgePortDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.LodgePortDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.LodgePortAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.LodgePortAddedBy)</p>
-
-
-                    }
-
-                </td>
-                <td>
-                    @if (@Model.InhouseDate == null)
-                    {
-                        @Html.EditorFor(model => model.InhouseDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                    }
-                    else
-                    {<p>@Html.DisplayFor(model => model.InhouseDate) </p>
-                        <p> Added on: @Html.DisplayFor(model => model.InhouseAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.InhouseAddedBy)</p>
-
-
-                    }
-
-                </td>
-
-
-
-            </tr>
-
-            <tr>
-                <th>KPACFSCHGS</th>
-                <th>HCharges</th>
-                <th>StockCharges</th>
-
-            </tr>
-            <tr>
-                <td>
-                    @if (@Model.KPACFSCHGS == null)
-                    {
-                        @Html.EditorFor(model => model.KPACFSCHGS, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>KPACFSCHGS : @Html.DisplayFor(model => model.KPACFSCHGS)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.KPACFSCHGSAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.KPACFSCHGSAddedBy)</p>
-
-                    }
-
-                </td>
-
-                <td>
-                    @if (@Model.HCharges == null)
-                    {
-                        @Html.EditorFor(model => model.HCharges, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>HCharges : @Html.DisplayFor(model => model.HCharges)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.HChargesAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.HChargesAddedBy)</p>
-
-
-                    }
-
-                </td>
-                <td>
-                    @if (@Model.StockCharges == null)
-                    {
-                        @Html.EditorFor(model => model.StockCharges, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>StockCharges : @Html.DisplayFor(model => model.StockCharges)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
-
-
-                    }
-
-                </td>
-
-
-
-            </tr>
-
-            <tr>
-                <th>TransportCharges</th>
-                <th>TruckHaltingCharges</th>
-                <th>EsealCharges</th>
-
-            </tr>
-            <tr>
-                <td>
-                    @if (@Model.TransportCharges == null)
-                    {
-                        @Html.EditorFor(model => model.TransportCharges, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>TransportCharges : @Html.DisplayFor(model => model.TransportCharges)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.TransportChargesAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.TransportChargesAddedBy)</p>
-
-                    }
-
-                </td>
-
-                <td>
-                    @if (@Model.TruckHaltingCharges == null)
-                    {
-                        @Html.EditorFor(model => model.TruckHaltingCharges, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>TruckHaltingCharges : @Html.DisplayFor(model => model.TruckHaltingCharges)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.TruckHaltingAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.TruckHaltingAddedBy)</p>
-
-
-                    }
-
-                </td>
-                <td>
-                    @if (@Model.EsealCharges == null)
-                    {
-                        @Html.EditorFor(model => model.EsealCharges, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>Eseal Charge : @Html.DisplayFor(model => model.EsealCharges)</p>
-                        <p> Added on: @Html.DisplayFor(model => model.EsealAddedDate)</p>
-                        <p>Added By : @Html.DisplayFor(model => model.EsealAddedBy)</p>
-
-
-
-                    }
-
-                </td>
-
-
-
-            </tr>
-
-            <tr>
-                
-                <th>EntrylevyCharges</th>
-                <th>BondCancelledDate</th>
-                <th>Transporter</th>
-
-            </tr>
-            <tr>
                 <td>
                     @if (@Model.EntrylevyCharges == null)
                     {
-                        @Html.EditorFor(model => model.EntrylevyCharges, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EntrylevyCharges, new { htmlAttributes = new { id = "EntrylevyCharges", name = "EntrylevyCharges", @class = "form-control" } })
                     }
                     else
                     {<p>EntrylevyCharges : @Html.DisplayFor(model => model.EntrylevyCharges)</p>
@@ -438,13 +181,270 @@
                     <p>Added By : @Html.DisplayFor(model => model.EntrylevyChargesAddedBy)</p>
 
 
+                }
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th>Passed Date</th>
+                <th>Doc Lodge Date</th>
+                <th>Berth</th>
+
+            </tr>
+            <tr>
+
+
+                <td>
+                    @if (@Model.PassedDate == null)
+                    {
+                        @Html.EditorFor(model => model.PassedDate, new { htmlAttributes = new { id = "PassedDate", name = "PassedDate", @class = "form-control datepicker" } })
                     }
+                    else
+                    {<p>@Html.DisplayFor(model => model.PassedDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.PassedDateAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.PassedDateAddedBy)</p>
+
+
+                }
+
+                </td>
+                <td>
+                    @if (@Model.DocLodgeDate == null)
+                    {
+                        @Html.EditorFor(model => model.DocLodgeDate, new { htmlAttributes = new { id = "DocLodgeDate", name = "DocLodgeDate", @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.DocLodgeDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.DocLodgeAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.DocLodgeAddedBy)</p>
+
+
+                }
+
+                </td>
+
+                <td>
+                    @if (@Model.Berth == null)
+                    {
+                        @Html.EditorFor(model => model.Berth, new { htmlAttributes = new { id = "Berth", name = "Berth", @class = "form-control" } })
+                    }
+                    else
+                    { <p>@Html.DisplayFor(model => model.Berth) </p>
+
+
+
+                }
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <th>Original Documents Rcvd</th>
+                <th>DocRcvd Date</th>
+                <th>LodgePortDate</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.OrginalDocumentsReceivedDate == null)
+                    {
+                        @Html.EditorFor(model => model.OrginalDocumentsReceivedDate, new { htmlAttributes = new { id = "OrginalDocumentsReceivedDate", name = "OrginalDocumentsReceivedDate", @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.OrginalDocumentsReceivedDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.OrginalDocumentsReceivedAddedBy)</p>
+
+
+                }
+
+                </td>
+                <td>
+                    @if (@Model.DocRcvdDate == null)
+                    {
+                        @Html.EditorFor(model => model.DocRcvdDate, new { htmlAttributes = new { id = "DocRcvdDate", name = "DocRcvdDate", @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.DocRcvdDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.DocRcvdAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.DocRcvdAddedBy)</p>
+
+                }
+
+                </td>
+
+                <td>
+                    @if (@Model.LodgePortDate == null)
+                    {
+                        @Html.EditorFor(model => model.LodgePortDate, new { htmlAttributes = new { id = "LodgePortDate", name = "LodgePortDate", @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.LodgePortDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.LodgePortAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.LodgePortAddedBy)</p>
+
+
+                }
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <th>KPA/CFS Charges</th>
+                <th>Handling Charges</th>
+                <th>Storage Charges</th>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (@Model.KPACFSCHGS == null)
+                    {
+                        @Html.EditorFor(model => model.KPACFSCHGS, new { htmlAttributes = new { id = "KPACFSCHGS", name = "KPACFSCHGS", @class = "form-control" } })
+                    }
+                    else
+                    {<p>KPACFSCHGS : @Html.DisplayFor(model => model.KPACFSCHGS)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.KPACFSCHGSAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.KPACFSCHGSAddedBy)</p>
+
+                }
+
+                </td>
+
+                <td>
+                    @if (@Model.HCharges == null)
+                    {
+                        @Html.EditorFor(model => model.HCharges, new { htmlAttributes = new { id = "HCharges", name = "HCharges", @class = "form-control" } })
+                    }
+                    else
+                    {<p>HCharges : @Html.DisplayFor(model => model.HCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.HChargesAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.HChargesAddedBy)</p>
+
+
+                }
+
+                </td>
+                <td>
+                    @if (@Model.StockCharges == null)
+                    {
+                        @Html.EditorFor(model => model.StockCharges, new { htmlAttributes = new { id = "StockCharges", name = "StockCharges", @class = "form-control" } })
+                    }
+                    else
+                    {<p>StockCharges : @Html.DisplayFor(model => model.StockCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.StockChargesAddedDate)</p>
+
+
+                }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+                <th>InhouseDate</th>
+                <th>Transporter</th>
+                <th>Transport Charges</th>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @if (@Model.InhouseDate == null)
+                    {
+                        @Html.EditorFor(model => model.InhouseDate, new { htmlAttributes = new { id = "InhouseDate", name = "InhouseDate", @class = "form-control datepicker" } })
+                    }
+                    else
+                    {<p>@Html.DisplayFor(model => model.InhouseDate) </p>
+                    <p> Added on: @Html.DisplayFor(model => model.InhouseAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.InhouseAddedBy)</p>
+
+                }
+
+                </td>
+
+                <td>
+                    @if (@Model.Transporter == null)
+                    {
+                        @Html.EditorFor(model => model.Transporter, new { htmlAttributes = new { id = "Transporter", name = "Transporter", @class = "form-control" } })
+                    }
+                    else
+                    {<p>Transporter : @Html.DisplayFor(model => model.Transporter)</p>
+
+
+                }
+
+                </td>
+                <td>
+                    @if (@Model.TransportCharges == null)
+                    {
+                        @Html.EditorFor(model => model.TransportCharges, new { htmlAttributes = new { id = "TransportCharges", name = "TransportCharges", @class = "form-control" } })
+                    }
+                    else
+                    {<p>TransportCharges : @Html.DisplayFor(model => model.TransportCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.TransportChargesAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.TransportChargesAddedBy)</p>
+
+                }
+
+                </td>
+
+
+
+            </tr>
+
+            <tr>
+
+                <th>TruckHaltingCharges</th>
+                <th>E-Seal Charges</th>
+                <th>BondCancelled Date</th>
+
+            </tr>
+            <tr>
+
+
+                <td>
+                    @if (@Model.TruckHaltingCharges == null)
+                    {
+                        @Html.EditorFor(model => model.TruckHaltingCharges, new { htmlAttributes = new { id = "TruckHaltingCharges", name = "TruckHaltingCharges", @class = "form-control" } })
+                    }
+                    else
+                    {<p>TruckHaltingCharges : @Html.DisplayFor(model => model.TruckHaltingCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.TruckHaltingAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.TruckHaltingAddedBy)</p>
+
+
+                }
+
+                </td>
+
+                <td>
+                    @if (@Model.EsealCharges == null)
+                    {
+                        @Html.EditorFor(model => model.EsealCharges, new { htmlAttributes = new { id = "EsealCharges", name = "EsealCharges", @class = "form-control" } })
+                    }
+                    else
+                    {<p>Eseal Charge : @Html.DisplayFor(model => model.EsealCharges)</p>
+                    <p> Added on: @Html.DisplayFor(model => model.EsealAddedDate)</p>
+                    <p>Added By : @Html.DisplayFor(model => model.EsealAddedBy)</p>
+
+
+
+                }
 
                 </td>
                 <td>
                     @if (@Model.BondCancelledDate == null)
                     {
-                        @Html.EditorFor(model => model.BondCancelledDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.EditorFor(model => model.BondCancelledDate, new { htmlAttributes = new { id = "BondCancelledDate", name = "BondCancelledDate", @class = "form-control datepicker" } })
                     }
                     else
                     {<p>Bond Cancelled Date : @Html.DisplayFor(model => model.BondCancelledDate)</p>
@@ -453,23 +453,11 @@
 
 
 
-                    }
-
-                </td>
-                <td>
-                    @if (@Model.Transporter == null)
-                    {
-                        @Html.EditorFor(model => model.Transporter, new { htmlAttributes = new { @class = "form-control" } })
-                    }
-                    else
-                    {<p>Transporter : @Html.DisplayFor(model => model.Transporter)</p>
-                    
-
-                    }
+                }
 
                 </td>
 
-             
+
 
 
 
@@ -477,13 +465,13 @@
 
         </table>
 
-     
 
-     
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input id="Submit" type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -492,3 +480,423 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<style>
+    .input-disabled {
+        background-color: #EBEBE4;
+        border: 1px solid #ABADB3;
+        padding: 2px 1px;
+    }
+</style>
+<script>
+
+
+
+    $(document).ready(function () {
+        var IsGateReceived = document.getElementById("IsGateReceived").innerHTML;
+
+        if (IsGateReceived.trim() == "Y") {
+
+            alert("GatepassNot Done");
+            $('#CopyDocumentsReceivedDate').attr('disabled', 'disabled');
+            $('#CopyDocumentsReceivedDate').addClass('input-disabled');
+
+            $('#Berth').attr('disabled', 'disabled');
+            $('#Berth').addClass('input-disabled');
+
+            $('#ManifestNO').attr('disabled', 'disabled');
+            $('#ManifestNO').addClass('input-disabled');
+
+            $('#ManifestNoDate').attr('disabled', 'disabled');
+            $('#ManifestNoDate').addClass('input-disabled');
+
+            $('#OrginalDocumentsReceivedDate').attr('disabled', 'disabled');
+            $('#OrginalDocumentsReceivedDate').addClass('input-disabled');
+
+            $('#LodgeDate').attr('disabled', 'disabled');
+            $('#LodgeDate').addClass('input-disabled');
+
+            $('#PassedDate').attr('disabled', 'disabled');
+            $('#PassedDate').addClass('input-disabled');
+
+            $('#DocLodgeDate').attr('disabled', 'disabled');
+            $('#DocLodgeDate').addClass('input-disabled');
+
+            $('#PortEntry').attr('disabled', 'disabled');
+            $('#PortEntry').addClass('input-disabled');
+
+            $('#DocRcvdDate').attr('disabled', 'disabled');
+            $('#DocRcvdDate').addClass('input-disabled');
+
+            $('#LodgePortDate').attr('disabled', 'disabled');
+            $('#LodgePortDate').addClass('input-disabled');
+
+            $('#InhouseDate').attr('disabled', 'disabled');
+            $('#InhouseDate').addClass('input-disabled');
+
+            $('#KPACFSCHGS').attr('disabled', 'disabled');
+            $('#KPACFSCHGS').addClass('input-disabled');
+
+            $('#HCharges').attr('disabled', 'disabled');
+            $('#HCharges').addClass('input-disabled');
+
+            $('#StockCharges').attr('disabled', 'disabled');
+            $('#StockCharges').addClass('input-disabled');
+
+            $('#EntrylevyCharges').attr('disabled', 'disabled');
+            $('#EntrylevyCharges').addClass('input-disabled');
+
+
+        }
+
+        else if (IsGateReceived.trim() == "N") {
+
+            $('#TransportCharges').attr('disabled', 'disabled');
+            $('#TransportCharges').addClass('input-disabled');
+
+            $('#TruckHaltingCharges').attr('disabled', 'disabled');
+            $('#TruckHaltingCharges').addClass('input-disabled');
+
+            $('#EsealCharges').attr('disabled', 'disabled');
+            $('#EsealCharges').addClass('input-disabled');
+
+            $('#BondCancelledDate').attr('disabled', 'disabled');
+            $('#BondCancelledDate').addClass('input-disabled');
+
+            $('#Transporter').attr('disabled', 'disabled');
+            $('#Transporter').addClass('input-disabled');
+
+
+
+
+        }
+
+
+
+
+
+
+    });
+    var isok = true;
+    $(document).ready(function () {
+
+        $("#CopyDocumentsReceivedDate").click(function () {
+
+            var ETA = document.getElementsByClassName("ETA")[0].innerHTML;
+
+            if (ETA.length == 0) {
+                alert("Enter ETA First");
+                $('#CopyDocumentsReceivedDate').attr('disabled', 'disabled');
+                $('#CopyDocumentsReceivedDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+
+            Doit();
+        });
+
+        $("#ManifestNoDate").click(function () {
+            var CopyDocumentsReceivedDate = document.getElementById("CopyDocumentsReceivedDate").innerHTML;
+            if (CopyDocumentsReceivedDate.length == 0) {
+                alert("Enter  Copy Documents received First");
+                $('#ManifestNoDate').attr('disabled', 'disabled');
+                $('#ManifestNoDate').addClass('input-disabled');
+                $('#ManifestNO').attr('disabled', 'disabled');
+                $('#ManifestNO').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+        });
+
+        $("#PortEntry").click(function () {
+            var ManifestNO = document.getElementById("ManifestNO").innerHTML;
+            var ManifestNoDate = document.getElementById("ManifestNoDate").innerHTML;
+            if (ManifestNO.length == 0 && ManifestNoDate.length == 0) {
+                alert("Enter Manifest No/Date First");
+                $('#PortEntry').attr('disabled', 'disabled');
+                $('#PortEntry').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#LodgeDate").click(function () {
+            var PortEntry = document.getElementById("PortEntry").innerHTML;
+            if (PortEntry.length == 0) {
+                alert("Enter Port Entry First");
+                $('#LodgeDate').attr('disabled', 'disabled');
+                $('#LodgeDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#EntrylevyCharges").click(function () {
+            var LodgeDate = document.getElementById("LodgeDate").innerHTML;
+            if (LodgeDate.length == 0) {
+                alert("Enter Lodge Date First");
+                $('#EntrylevyCharges').attr('disabled', 'disabled');
+                $('#EntrylevyCharges').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#PassedDate").click(function () {
+            var EntrylevyCharges = document.getElementById("EntrylevyCharges").innerHTML;
+            if (EntrylevyCharges.length == 0) {
+                alert("Enter Entry Levy Charges First");
+                $('#PassedDate').attr('disabled', 'disabled');
+                $('#PassedDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#DocLodgeDate").click(function () {
+            var PassedDate = document.getElementById("PassedDate").innerHTML;
+            if (PassedDate.length == 0) {
+                alert("Enter Entry Passed Date First");
+                $('#DocLodgeDate').attr('disabled', 'disabled');
+                $('#DocLodgeDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#Berth").click(function () {
+            var DocLodgeDate = document.getElementById("DocLodgeDate").innerHTML;
+            if (DocLodgeDate.length == 0) {
+                alert("Enter DocLodgeDate First");
+                $('#Berth').attr('disabled', 'disabled');
+                $('#Berth').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#OrginalDocumentsReceivedDate").click(function () {
+            var Berth = document.getElementById("Berth").innerHTML;
+            if (Berth.length == 0) {
+                alert("Enter Berth First");
+                $('#OrginalDocumentsReceivedDate').attr('disabled', 'disabled');
+                $('#OrginalDocumentsReceivedDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#DocRcvdDate").click(function () {
+            var OrginalDocumentsReceivedDate = document.getElementById("OrginalDocumentsReceivedDate").innerHTML;
+            if (OrginalDocumentsReceivedDate.length == 0) {
+                alert("Enter OrginalDocumentsReceivedDate First");
+                $('#DocRcvdDate').attr('disabled', 'disabled');
+                $('#DocRcvdDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+
+        $("#LodgePortDate").click(function () {
+            var DocRcvdDate = document.getElementById("DocRcvdDate").innerHTML;
+            if (DocRcvdDate.length == 0) {
+                alert("Enter DocRcvdDate First");
+                $('#LodgePortDate').attr('disabled', 'disabled');
+                $('#LodgePortDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#KPACFSCHGS").click(function () {
+            var LodgePortDate = document.getElementById("LodgePortDate").innerHTML;
+            if (LodgePortDate.length == 0) {
+                alert("Enter LodgePortDate First");
+                $('#KPACFSCHGS').attr('disabled', 'disabled');
+                $('#KPACFSCHGS').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#HCharges").click(function () {
+            var LodgePortDate = document.getElementById("LodgePortDate").innerHTML;
+            if (LodgePortDate.length == 0) {
+                alert("Enter LodgePortDate First");
+                $('#KPACFSCHGS').attr('disabled', 'disabled');
+                $('#KPACFSCHGS').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#StockCharges").click(function () {
+            var KPACFSCHGS = document.getElementById("KPACFSCHGS").innerHTML;
+            var HCharges = document.getElementById("HCharges").innerHTML;
+            if (KPACFSCHGS.length == 0 && HCharges.length == 0) {
+                alert("Enter LodgePortDate First");
+                $('#StockCharges').attr('disabled', 'disabled');
+                $('#StockCharges').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#InhouseDate").click(function () {
+            var StockCharges = document.getElementById("KPACFSCHGS").innerHTML;
+            if (StockCharges.length == 0) {
+                alert("Enter StockCharges First");
+                $('#InhouseDate').attr('disabled', 'disabled');
+                $('#InhouseDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#Transporter").click(function () {
+            var InhouseDate = document.getElementById("InhouseDate").innerHTML;
+            if (InhouseDate.length == 0) {
+                alert("Enter InhouseDate First");
+                $('#Transporter').attr('disabled', 'disabled');
+                $('#Transporter').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#TransportCharges").click(function () {
+            var Transporter = document.getElementById("Transporter").innerHTML;
+            if (Transporter.length == 0) {
+                alert("Enter Transporter First");
+                $('#TransportCharges').attr('disabled', 'disabled');
+                $('#TransportCharges').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#TruckHaltingCharges").click(function () {
+            var TransportCharges = document.getElementById("TransportCharges").innerHTML;
+            if (TransportCharges.length == 0) {
+                alert("Enter TransportCharges First");
+                $('#TruckHaltingCharges').attr('disabled', 'disabled');
+                $('#TruckHaltingCharges').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#EsealCharges").click(function () {
+            var TruckHaltingCharges = document.getElementById("TruckHaltingCharges").innerHTML;
+            if (TruckHaltingCharges.length == 0) {
+                alert("Enter TruckHaltingCharges First");
+                $('#EsealCharges').attr('disabled', 'disabled');
+                $('#EsealCharges').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+
+        $("#BondCancelledDate").click(function () {
+            var EsealCharges = document.getElementById("EsealCharges").innerHTML;
+            if (EsealCharges.length == 0) {
+                alert("Enter EsealCharges First");
+                $('#BondCancelledDate').attr('disabled', 'disabled');
+                $('#BondCancelledDate').addClass('input-disabled');
+                isok = false;
+            }
+            else {
+                isok = true;
+            }
+            Doit();
+
+        });
+    });
+
+    function Doit() {
+
+        if (isok == false) {
+
+            $("#Submit").attr("disabled", 'disabled');
+        }
+        else {
+            $("#Submit").removeAttr("disabled");
+        }
+
+    }
+
+</script>

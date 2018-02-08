@@ -38,7 +38,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
 
         public DataTable ClosedAtc { get; set; }
         public  List<SelectListItem> MonthList = new List<SelectListItem>()
-    {
+    {   new SelectListItem() {Text="TotalAlloc", Value="TotalAlloc"},
         new SelectListItem() {Text="January", Value="January"},
         new SelectListItem() { Text="February", Value="February"},
         new SelectListItem() { Text="March", Value="March"},

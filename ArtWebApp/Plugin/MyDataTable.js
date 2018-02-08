@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 
+    
 
     // Setup - add a text input to each footer cell
     $('.MyDataTable thead tr.filterrow th').each(function () {
@@ -9,6 +10,7 @@
     
     // DataTable
     var table = $('.MyDataTable').DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         orderCellsTop: true,
         dom: 'Blfrtip',
         buttons: [
@@ -33,6 +35,8 @@
             evt.cancelBubble = true;
         }
     }
+
+
 
 
 

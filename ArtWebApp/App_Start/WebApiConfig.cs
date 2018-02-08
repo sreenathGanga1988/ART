@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using WebApiContrib.Formatting.Jsonp;
 
 namespace ArtWebApp.App_Start
 {
@@ -16,9 +17,17 @@ namespace ArtWebApp.App_Start
             config.Routes.MapHttpRoute(
   name: "DefaultApi",
   routeTemplate: "api/{controller}/{action}/{id}",
-  defaults: new { id = RouteParameter.Optional
-    }
-  );
+  defaults: new
+  {
+      id = RouteParameter.Optional
   }
+  );
+            var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
+            config.Formatters.Insert(0, jsonpFormatter);
+        }
+
+
+
+
     }
 }

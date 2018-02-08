@@ -1,193 +1,155 @@
 ﻿@model ArtWebApp.DataModels.FreightRequestMaster
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Details";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Air Freight Request Details</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>FreightRequestMaster</h4>
-        <hr />
+
+
+<table class="table-bordered table-striped ">
+
+    <tr class="row">
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.FreightRequestNum, "Freight Request#", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">@Html.EditorFor(model => model.FreightRequestNum, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.FromParty, "From Party", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">@Html.EditorFor(model => model.FromParty, new { htmlAttributes = new { @class = "form-control" } })</td>
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.FreightRequestID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FreightRequestNum, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FreightRequestNum, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FreightRequestNum, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AddedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AddedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FromParty, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FromParty, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FromParty, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </tr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ToParty, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ToParty, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ToParty, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Shipper, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Shipper, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Shipper, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <tr class="row">
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.ToParty, "To Party", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ToParty)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.Shipper, "Shipper", htmlAttributes: new { @class = "control-label col-md-2" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContentofPackage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContentofPackage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContentofPackage, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </td>
+        <td class="col-md-4"> @Html.EditorFor(modelItem => Model.Shipper)  </td>
 
-        <div class="form-group">
+
+
+
+
+
+    </tr>
+
+
+    <tr class="row">
+        <td class="col-md-2">@Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })  </td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Weight)  </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.ContentofPackage, "Content of Package", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ContentofPackage)
+        </td>
+
+
+
+
+
+
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-2">
             @Html.LabelFor(model => model.DebitTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DebitTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DebitTo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.DebitTo)
+        </td>
+        <td class="col-md-2">
+            @Html.LabelFor(model => model.Reason, "Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.Reason)
+        </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Merchandiser, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Merchandiser, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ForwarderDetails, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ForwarderDetails, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ForwarderDetails, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
+
+
+    </tr>
+
+
+
+
+
+    <tr class="row">
+        <td class="col-md-2">@Html.LabelFor(model => model.Merchandiser, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Merchandiser)</td>
+        <td class="col-md-2">@Html.LabelFor(model => model.ForwarderDetails, "ForwarderDetails", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">
+            @Html.EditorFor(modelItem => Model.ForwarderDetails)
+        </td>
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-2">
+
             @Html.LabelFor(model => model.ApproximateCharges, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApproximateCharges, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApproximateCharges, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.ApproximateCharges)</td>
+        <td class="col-md-2">@Html.LabelFor(model => model.Remark, "Remark", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+        <td class="col-md-4">@Html.EditorFor(modelItem => Model.Remark)</td>
+    </tr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApprovedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApprovedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApprovedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApprovedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsApproved, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsPosted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsPosted, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsPosted, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+</table>
 
 
-    <div class="row">
-        <div class="form-group">
-            <table class="table table-responsive table-bordered">
-                <tr>
-                    <th>
-                        Atc
-                    </th>
-                    <th>
-                        FreightCharge
-                    </th>
-                    <th>
-                        Remark
-                    </th>
-                    <th>Allowed value</th>
-                    <th>Used Value</th>
-                    <th>Balance</th>
-                    <th></th>
-                </tr>
-                @{ Decimal total = 0;
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="form-group">
+        <table class="table table-responsive table-bordered">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Atc
+                </th>
+                <th>
+                    FreightCharge
+                </th>
+                <th>
+                    Remark
+                </th>
+                <th>Allowed value</th>
+                <th>Used Value</th>
+                <th>Balance</th>
+                <th>First Freight Charge</th>
+                <th></th>
+            </tr>
+            @{ Decimal total = 0;
                 Decimal Allowed = 0;
                 Decimal Used = 0;
                 Decimal Balance = 0;
@@ -199,48 +161,187 @@
                     Used = Used + Decimal.Parse(item.UsedValue.ToString());
                     Balance = Balance + Decimal.Parse(item.BalanceValue.ToString());
                     <tr>
+                        <td class="freight_det_id">
+                            @item.FreightReqDetID
+
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.AtcMaster.AtcNum)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FreightCharge)
+                        <td class="change_freight">
+                            @Html.EditorFor(modelItem => item.FreightCharge)
+                            <div id="OldFreightCharge" class="OldFreightCharge">
+                                @Html.HiddenFor(modelItem => item.FreightCharge)
+                            </div>
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Remark)
+                        <td class="chenge_remark">
+                            @Html.EditorFor(modelItem => item.Remark)
                         </td>
-                        <td>
+                        <td class="AllowedValue">
                             @Html.DisplayFor(modelItem => item.AllowedValue)
                         </td>
-                        <td>
+                        <td class="UsedValue">
                             @Html.DisplayFor(modelItem => item.UsedValue)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BalanceValue)
                         </td>
+                        <td class="FirstFreightCharge">
+                            @Html.DisplayFor(modelItem => item.FirstFreightCharge)
+                        </td>
                         <td></td>
                     </tr>
-            }
-            <tr>
-                <td></td>
-                <td>
-                    Total :  @total
-                </td>
-                <td></td>
-                <td>Allowed: @Allowed</td>
-                <td>Used : @Used</td>
-                <td>Balance : @Balance</td>
-                <td></td>
-            </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Total :  @total
+                    </td>
+                    <td></td>
+                    <td>Allowed: @Allowed</td>
+                    <td>Used : @Used</td>
+                    <td>Balance : @Balance</td>
+                    <td></td>
+                </tr>
 
+            }
+
+
+        </table>
+    </div>
+
+</div>
+
+
+</div>
+
+<div>
+    <input id="edit_freight" type="button" value="Save" class="btn btn-default show" />
+</div>
+<p>
+    @Html.ActionLink("Print", "Print", new { id = Model.FreightRequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#edit_freight").click(function (e, params) {
+            debugger;
+
+            var list = [];
+            var Isok = true;
+            var approved='Y'
+            $('.freight_det_id').each(function () {
+
+                var freight_det_id = this.innerHTML;
+                var newvalue = $(this).siblings('td.change_freight').children(':first').val();
+                var chenge_remark = $(this).siblings('td.chenge_remark').children(':first').val();
+                var AllowedValue = $(this).siblings('td.AllowedValue')[0].innerHTML;
+                var UsedValue = $(this).siblings('td.UsedValue')[0].innerHTML;
+                var FirstFreightCharge = $(this).siblings('td.FirstFreightCharge')[0].innerHTML;
+
+                var allowed10percent = parseFloat(FirstFreightCharge)+( parseFloat(FirstFreightCharge)*10/100)
+
+
+                var OldFreightCharge = $(this).siblings('td.change_freight').children('.OldFreightCharge').find('input').val();
+                var ActualUsed = parseFloat(UsedValue) - parseFloat(OldFreightCharge);
+                var ActualAllowedValue = parseFloat(AllowedValue) - parseFloat(ActualUsed);
+
+
+
+                if (parseFloat(newvalue) > parseFloat(ActualAllowedValue)) {
+                    alert('The Value is greator that Allowed value');
+                    Isok = false;
                 }
 
 
-            </table>
-        </div>
+                if (parseFloat(newvalue) > parseFloat(allowed10percent)) {
+                    approved = 'N'
 
-    </div>
-}
+                }
+                var orderItem = {
+                    FreightReqDetID: freight_det_id,
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                    FreightCharge: parseFloat(newvalue),
+                    Remark: chenge_remark
+
+
+                }
+                list.push(orderItem);
+
+            });
+
+            var data = {
+
+                FreightChargeDetails: list,
+                FreightRequestID: $('#FreightRequestID').val(),
+                FromParty: $('#FromParty').val(),
+                ToParty: $('#ToParty').val(),
+                Shipper: $('#Shipper').val(),
+                Weight: $('#Weight').val(),
+                ContentofPackage: $('#ContentofPackage').val(),
+                DebitTo: $('#DebitTo').val(),
+                Reason: $('#Reason').val(),
+                Merchandiser: $('#Merchandiser').val(),
+                ForwarderDetails: $('#ForwarderDetails').val(),
+                ApproximateCharges: $('#ApproximateCharges').val(),
+                Remark: $('#Remark').val().trim(),
+                IsApproved: approved,
+
+
+            }
+
+
+
+
+            if (Isok == true) {
+                $(this).val('Please wait...');
+                $.ajax({
+                    type: 'POST',
+                    url: '/ArtMVCMerchandiser/FreightRequestMasters/Edit',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.status) {
+                            alert('Successfully saved ' + data.Reqnum);
+                            //here we will clear the form
+
+                            list = [];
+                            $('#orderNo,#orderDate,#description').val('');
+                            $('#orderdetailsItems').empty();
+                        }
+                        else {
+                            alert('Error');
+                        }
+                        $('#submit').val('Save');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submit').val('Save');
+                    }
+                });
+
+
+                $(this).val('Save');
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>

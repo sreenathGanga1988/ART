@@ -41,6 +41,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> MinutesperGarment { get; set; }
         public Nullable<System.DateTime> MerchantPCD { get; set; }
+        public Nullable<decimal> TTLSam { get; set; }
     
         public virtual ICollection<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }

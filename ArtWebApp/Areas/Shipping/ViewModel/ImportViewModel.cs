@@ -47,5 +47,7 @@ namespace ArtWebApp.Areas.Shipping.ViewModel
 
         public Decimal  RemainingCtn { get; set; }
 
+        public int PendingCount { get; set; }
+
     }
 }

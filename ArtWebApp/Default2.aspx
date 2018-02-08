@@ -1,64 +1,84 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Default2" Codebehind="Default2.aspx.cs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" Inherits="Default2" CodeBehind="Default2.aspx.cs" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    
-     <style type="text/css">
-     
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+    <style type="text/css">
+     .badge-notify{
+   background:red;
+   position:relative;
+   top: -20px;
+   left: -35px;
+  }
    </style>
-<%--    <script src="Scripts/jquery-1.6.4.js"></script>
-    <script src="Scripts/jquery.signalR-2.2.1.js"></script>
 
 
-       <script type="text/javascript">
-        $(function () {
-            debugger;
-            var connection = $.hubConnection("")
-            var hub = connection.createHubProxy('artHub');
-            hub.on('SayMessage', function () {
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src=""
+</asp:Content>
 
-                alert('hi');
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script>
+
+        $(document).ready(function () {
+
+           
+         
+            $.ajax({
+                url: 'http://192.168.1.4:1938/api/Task/GetAllPendingTask',
+                type: 'GET',
+                dataType: 'jsonp',
+                ContentType: 'xml',
+                data: { id: 102534 },              
+                success: function (data) {
+
+                    $('#DashBoard').empty();
+                    $.each(data, function (index, val) {
+
+
+                        $('#DashBoard').append(' <div class="col-md-4"> <button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify"   style="font-size: 30px;background:red">' + val.Pending +'</span> </div>');
+
+                    });
+                },
+                error: function (error) {
+                  
+                    alert('Error');
+                }
             });
 
 
-            connection.start().done();
-            //connection.start(function () {
+            //$.ajax({
+                
+            //    url: '/api/ArtApi/GetAtcs',                
+            //    type: 'GET',
+            //    dataType: 'jsonp',
+            //    ContentType: 'json',              
+            //    success: function (data) {
+            //        alert("Hi");
+            //        $('#DashBoard').empty();
+            //        $.each(data, function (index, val) {
 
-            //    hub.invoke('SayMessage');
+
+            //            $('#DashBoard').append(' <div class="col-md-4"> <button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify"   style="font-size: 30px;background:red">' + val.AtcID + '</span> </div>');
+
+            //        });
+            //    },
+            //    error: function (error) {
+
+            //        alert('Error');
+            //    }
             //});
         });
 
-    </script>--%>
+    </script>
 
-    <link href="css/bootstrap.css" rel="stylesheet" />
-</asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-   
-    <div class="container ">
-        <div class="col-md-8">
-          <asp:HyperLink ID="hprlink" NavigateUrl="/ArtMVCMaster/UserMasters" runat="server">Dear Art user if you are viewing this message you User Profile or password is too weak or not updated correctly. Please Update it Either By clicking this Link or By clicking your  User Name in the Top right of this page </asp:HyperLink>
-         
+
+    <div id="DashBoard" class="container">
+
     </div>
-
-    <div class="col-md-2">
-                       
-             
-  
-
-       
-  
-        
-       
-       
-  
-      
-       
-  
-        
-</div>
-    </div>
-
     
-  
+    
+
+
 </asp:Content>
 

@@ -19,7 +19,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public String AddedBY { get; set; }
         public String reqnum { get; set; }
         public int AddedDate { get; set; }
-
+        
         public List<RejectReqDetailsData> RejectReqDetailsDataCollection { get; set; }
 
 
@@ -27,6 +27,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public String InsertFullgarmentRejectionExtraRequest()
         {
             string Cutn = "";
+            decimal garmentqty = 0;
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 RejectReqMaster lsmstr = new RejectReqMaster();
@@ -42,10 +43,10 @@ namespace ArtWebApp.BLL.ProductionBLL
                 enty.SaveChanges();
                 Cutn = "FGR" + lsmstr.RejReqMasterID;
                 lsmstr.Reqnum = Cutn;
+                lsmstr.GarmentQty = 0;
 
 
-  
-           
+
                 enty.SaveChanges();
 
         
@@ -57,10 +58,11 @@ namespace ArtWebApp.BLL.ProductionBLL
                     RejectReqDetail lcdet = new RejectReqDetail();
                     lcdet.RejFabReqID = di.RejFabReqID;
                     lcdet.AllowedQty = di.AllowedQty;
+                    lcdet.GarmentQty = di.GarmentQty;
                     lcdet.RejReqMasterID = lsmstr.RejReqMasterID;
                     enty.RejectReqDetails.Add(lcdet);
 
-
+                    garmentqty= garmentqty+ di.GarmentQty;
 
                     var qlayroll = from rlldata in enty.RejectionExtraFabbReqs
                                    where rlldata.RejFabReqID == di.RejFabReqID
@@ -69,14 +71,9 @@ namespace ArtWebApp.BLL.ProductionBLL
                     {
                         element1.IsApproved = true;
                     }
-
-
-
-
-
                 }
 
-
+                lsmstr.GarmentQty = 0;
 
 
 
@@ -105,6 +102,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                 lsmstr.AddedDate = DateTime.Now;
                 lsmstr.IsAdjusted = false;
                 lsmstr.RejectionType = "P";
+                lsmstr.GarmentQty = 0;
                 enty.RejectReqMasters.Add(lsmstr);
                 enty.SaveChanges();
                 Cutn = "PR" + lsmstr.RejReqMasterID;
@@ -124,6 +122,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                     RejectReqDetail lcdet = new RejectReqDetail();
                     lcdet.RejFabReqID = di.RejFabReqID;
                     lcdet.AllowedQty = di.AllowedQty;
+                    lsmstr.GarmentQty = 0;
                     lcdet.RejReqMasterID = lsmstr.RejReqMasterID;
                     enty.RejectReqDetails.Add(lcdet);
 
@@ -163,7 +162,9 @@ namespace ArtWebApp.BLL.ProductionBLL
         public int RejFabReqID { get; set; }
         public Decimal AllowedQty { get; set; }
         public int RejReqMasterID { get; set; }
-       
+        public Decimal GarmentQty { get; set; }
+        
+
     }
 
 

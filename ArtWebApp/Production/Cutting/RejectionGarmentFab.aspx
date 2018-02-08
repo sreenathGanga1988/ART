@@ -101,7 +101,12 @@
            
                 <asp:BoundField DataField="Reqdate" HeaderText="Reqdate" SortExpression="Reqdate" />
                 <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" SortExpression="DepartmentName" />
-                <asp:BoundField DataField="ReqQty" HeaderText="ReqQty" SortExpression="ReqQty" />
+                <asp:TemplateField HeaderText="ReqQty" SortExpression="ReqQty">
+                    
+                    <ItemTemplate>
+                        <asp:Label ID="lbl_reqQty" runat="server" Text='<%# Bind("ReqQty") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="ColorName" HeaderText="ColorName" SortExpression="ColorName" />
                 <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
                 <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />

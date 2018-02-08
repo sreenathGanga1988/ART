@@ -1,0 +1,120 @@
+﻿@model ArtWebApp.DataModels.ShippingDocumentMaster
+@{
+    ViewBag.Title = "GateIN";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GateIN</h2>
+
+<h2>@Html.DisplayFor(model => model.ShipDocNum)</h2>
+<div class="container">
+    @using (Html.BeginForm("GateIN", "GateReceipt", FormMethod.Post))
+    {
+        
+        @Html.HiddenFor(model => model.ShipingDoc_PK)
+    <table class="table">
+
+        <tr>
+
+            <td class="col-md-2">Shipper :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.ShipperName)</td>
+            <td class="col-md-2">Exporter : </td>
+            <td class="col-md-2">   @Html.DisplayFor(model => model.ExporterName)</td>
+            <td class="col-md-2"></td>
+            <td class="col-md-2"></td>
+        </tr>
+        <tr>
+            <td class="col-md-2">Shipper Inv :</td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.ShipperInv)</td>
+            <td class="col-md-2"> Description :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.Description)</td>
+            <td class="col-md-2">No Of Ctn :</td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.DeliveredPackage)</td>
+        </tr>
+        <tr>
+            <td class="col-md-2">Package Type :</td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.Packagetype)</td>
+            <td class="col-md-2">Weight : </td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.Weight)</td>
+            <td class="col-md-2">Weight :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.Weight)</td>
+        </tr>
+        <tr>
+            <td class="col-md-2">Type :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.Type)</td>
+            <td class="col-md-2"> Invoice value</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.InvoiceValue)</td>
+            <td class="col-md-2"> Vessel :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.Vessel)</td>
+        </tr>
+
+        <tr>
+            <td class="col-md-2">Container :</td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.Conatianer) </td>
+            <td class="col-md-2">Container Type</td>
+            <td class="col-md-2">   @Html.DisplayFor(model => model.ContsainerType)</td>
+            <td class="col-md-2">Eta : </td>
+            <td class="col-md-2">  @Html.DisplayFor(model => model.ETA)</td>
+        </tr>
+        <tr>
+            <td class="col-md-2">BL :</td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.BL)</td>
+            <td class="col-md-2">Mode: </td>
+            <td class="col-md-2"> @Html.DisplayFor(model => model.Mode)</td>
+            <td class="col-md-2">DocType :</td>
+            <td class="col-md-2">   @Html.DisplayFor(model => model.DocType)</td>
+        </tr>
+
+
+    </table>
+
+    <div>
+
+
+    </div>
+    <div>
+        <div class="row">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DeliveredPackage, "Received Package ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DeliveredPackage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DeliveredPackage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="panel panel-primary">
+            <table class="table">
+                <tr>
+
+                    <td class="col-md-12">
+
+                        <input id="Submit" type="Submit" value="Receive" class="btn btn-primary show" />
+
+
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+}
+
+
+
+
+</div>

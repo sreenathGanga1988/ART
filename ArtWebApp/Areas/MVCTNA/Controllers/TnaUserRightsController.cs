@@ -40,6 +40,7 @@ namespace ArtWebApp.Areas.MVCTNA
         public ActionResult Create()
         {
             ViewBag.User_PK = new SelectList(db.UserMasters, "User_PK", "UserName");
+            ViewBag.Location_PK = new SelectList(db.LocationMasters, "Location_PK", "LocationName");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace ArtWebApp.Areas.MVCTNA
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile,IsShrinkage,IsSystemFile")] TnaUserRight tnaUserRight)
+        public ActionResult Create([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile,IsShrinkage,IsSystemFile,IsShrinkage,Location_PK")] TnaUserRight tnaUserRight)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace ArtWebApp.Areas.MVCTNA
             }
 
             ViewBag.User_PK = new SelectList(db.UserMasters, "User_PK", "UserName", tnaUserRight.User_PK);
+            ViewBag.Location_PK = new SelectList(db.LocationMasters, "Location_PK", "LocationName");
             return View(tnaUserRight);
         }
 
@@ -74,6 +76,7 @@ namespace ArtWebApp.Areas.MVCTNA
                 return HttpNotFound();
             }
             ViewBag.User_PK = new SelectList(db.UserMasters, "User_PK", "UserName", tnaUserRight.User_PK);
+            ViewBag.Location_PK = new SelectList(db.LocationMasters, "Location_PK", "LocationName");
             return View(tnaUserRight);
         }
 
@@ -82,7 +85,7 @@ namespace ArtWebApp.Areas.MVCTNA
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile")] TnaUserRight tnaUserRight)
+        public ActionResult Edit([Bind(Include = "TNAUserRightID,IsPPSumbissionDate,IsPPApprovalDate,IsSampleYardagesDate,IsGradedPatternDate,IsBulkFabricDate,IsSewingTrimDate,IsSizeSetDate,IsPPMeetingDate,IsFC1Date,IsFinalMarkerDate,IsFactoryPlannedPCDDate,IsMerchandisingPCDDate,IsInputDate,IsPackingTrimDate,User_PK,IsSystemFile,IsShrinkage,Location_PK")] TnaUserRight tnaUserRight)
         {
             if (ModelState.IsValid)
             {

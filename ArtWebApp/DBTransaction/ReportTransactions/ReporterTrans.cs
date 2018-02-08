@@ -591,9 +591,35 @@ WHERE        (InvoiceMaster.Invoice_PK = @Param1)
             return dt;
         }
 
+        public DataTable GetPurchasesfromSupplier()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
 
 
 
+
+                SqlCommand cmd = new SqlCommand(@"GetPurchasesfromSupplier_SP", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+              
+
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+       
 
 
 

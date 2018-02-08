@@ -55,6 +55,7 @@
 
 
 </script>
+<h2> @Html.DisplayFor(model => model.shippingDocument.ShipDocNum)</h2>
 <div class="container">
     @using (Html.BeginForm("AssignOffLoadLocation", "ImportDocumentLocation", FormMethod.Post))
     {
@@ -113,21 +114,56 @@
 
 
         </table>
+
+
+        <div>
+
+       
+
+
+        </div>
+       
+
         <div class="panel panel-primary">
-            <table class="table">
-                <tr>
-                    <td class="col-md-2">  @Html.CheckBox("SelectAll")  Select All</td>
-                    <td class="col-md-2">Select Location</td>
-                    <td class="col-md-6"> @Html.DropDownListFor(model => Model.Location_PK, (SelectList)ViewBag.Location_PK, htmlAttributes: new { @class = "chosen-select  form-control" })</td>
-                    <td class="col-md-2">
 
-                        <input id="Submit" type="Submit" value="Apply" class="btn btn-primary show" />
+            @Html.HiddenFor(model => Model.PendingCount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => Model.shippingDocument.ShipingDoc_PK, new { htmlAttributes = new { @class = "form-control" } })
+            @if (Model.PendingCount > 0)
+    {
+        <h3>You have  @Model.PendingCount  Item peninf Location Assignement</h3>
+        <table class="table">
+            <tr>
+                <td class="col-md-2">  @Html.CheckBox("SelectAll")  Select All</td>
+                <td class="col-md-2">Select Location</td>
+                <td class="col-md-6"> @Html.DropDownListFor(model => Model.Location_PK, (SelectList)ViewBag.Location_PK, htmlAttributes: new { @class = "chosen-select  form-control" })</td>
+                <td class="col-md-2">
+
+                    <input id="Submit" type="Submit" value="Apply" class="btn btn-primary show" />
 
 
 
-                </tr>
+            </tr>
 
-            </table>
+        </table>
+}
+else
+{
+if (Model.shippingDocument.IsAssigned == "Y")
+{
+        <div style="background-color:lightgreen">
+
+            <h3> IMP Already Assigned Completely</h3>
+        </div>
+}
+else
+{
+        <input id="Submit" type="Submit" value="Mark Complete " class="btn btn-primary show" />
+}
+
+
+}
+
+
 
 
         </div>

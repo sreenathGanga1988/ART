@@ -1,4 +1,5 @@
 ﻿using ArtWebApp.Areas.Shipping.ViewModel;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,69 @@ namespace ArtWebApp.Areas.Shipping.Controllers
 {
     public class GateReceiptController : Controller
     {
+        ArtWebApp.DataModels.ArtEntitiesnew db = new DataModels.ArtEntitiesnew();
         // GET: Shipping/GateReceipt
         public ActionResult Index()
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult GateINIndex()
+        {
+            return View(db.ShippingDocumentMasters.Where(u =>u.IsReceived == "N" && u.IsDelivered == "Y" && u.IsAssigned == "Y").ToList().OrderByDescending(u => u.ShipingDoc_PK));
+
+
+        }
+
+        [HttpGet]
+        public ActionResult GateIN(int id)
+        {
+            ShippingDocumentMaster shippingDocument = db.ShippingDocumentMasters.Find(id);
+            return View(shippingDocument);
+        }
+        [HttpPost]
+        public ActionResult GateIN(ShippingDocumentMaster shippingDocument)
+        {
+            ShippingRepo shippingRepo = new ShippingRepo();
+           shippingRepo.gateIn(int.Parse( shippingDocument.ShipingDoc_PK.ToString()), Decimal.Parse(shippingDocument.DeliveredPackage.ToString()));         
+            return RedirectToAction("GateINIndex");
+        }
+
+
+        [HttpGet]
+        public ActionResult GateOutIndex()
+        {
+            String locid = HttpContext.Session["UserLoc_pk"].ToString();
+            return View(db.ShippingDocumentMasters.Where(u =>  u.LastReceivedLocationPK == locid && u.IsReceived == "Y" && u.IsDelivered == "N" && u.IsAssigned == "Y").ToList());
+
+        }
+
+        [HttpGet]
+        public ActionResult GateOut(int id)
+        {
+            String locid = HttpContext.Session["UserLoc_pk"].ToString();
+            ShippingDocumentMaster shippingDocument = db.ShippingDocumentMasters.Where(u=>u.ShipingDoc_PK==id && u.LastReceivedLocationPK== locid && u.IsDelivered=="N").FirstOrDefault();
+            return View(shippingDocument);
+        }
+        [HttpPost]
+        public ActionResult GateOut(ShippingDocumentMaster shippingDocument)
+        {
+            ShippingRepo shippingRepo = new ShippingRepo();
+            shippingRepo.gateOut(int.Parse(shippingDocument.ShipingDoc_PK.ToString()), decimal.Parse(shippingDocument.DeliveredPackage.ToString()));
+            return RedirectToAction("GateOutIndex");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public ActionResult GateReceipt(int id)
         {

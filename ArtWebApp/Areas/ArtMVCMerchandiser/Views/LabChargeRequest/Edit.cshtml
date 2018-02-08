@@ -20,7 +20,7 @@
             @Html.DropDownListFor(model => model.SupplierMaster.Supplier_PK, (SelectList)ViewBag.SupplierPK, htmlAttributes: new { @class = "chosen-select  form-control" })
             @Html.HiddenFor(modelItem => Model.SupplierMaster.Supplier_PK)
         </div>
-        
+
     </div>
 
 
@@ -69,16 +69,25 @@
                 <th>
                     Remark
                 </th>
+                <th>
+                    AllowedValue
+                </th>
+                <th>
+                    UsedValue
+                </th>
+                <th>
+                    FirstLabCharge
+                </th>
                 <th></th>
             </tr>
-            @{  Decimal total = 0;
+            @{ Decimal total = 0;
                 foreach (var item in Model.LabChargeDetails)
                 {
 
                     total = total + Decimal.Parse(item.LabCharge.ToString());
                     <tr>
                         <td class="LabReqestDetId">
-                            @item.LabRequestID
+                            @item.LabReqDetID
 
                         </td>
                         <td class="AtcNum">
@@ -93,7 +102,16 @@
                         <td class="Remark">
                             @Html.EditorFor(modelItem => item.Remark)
                         </td>
-                       
+                        <td class="AllowedValue">
+                            @Html.DisplayFor(modelItem => item.AllowedValue)
+                        </td>
+                        <td class="UsedValue">
+                            @Html.DisplayFor(modelItem => item.UsedValue)
+                        </td>
+                        <td class="FirstLabCharge">
+                            @Html.DisplayFor(modelItem => item.FirstLabCharge)
+                        </td>
+
                         <td></td>
                     </tr>
                 }
@@ -127,18 +145,36 @@
         $("#EditLabRequest").click(function (e, params) {
             debugger;
 
+            var sup_Id = $('#SupplierMaster_Supplier_PK').find('option:selected').val();
             var list = [];
             var Isok = true;
+            var approved = 'Y'
             $('.LabReqestDetId').each(function () {
 
                 var LabReqestDetId = this.innerHTML;
                 var newvalue = $(this).siblings('td.Labcharge').children(':first').val();
                 var chenge_remark = $(this).siblings('td.Remark').children(':first').val();
+                var AllowedValue = $(this).siblings('td.AllowedValue')[0].innerHTML;
+                var UsedValue = $(this).siblings('td.UsedValue')[0].innerHTML;
+                var FirstLabCharge = $(this).siblings('td.FirstLabCharge')[0].innerHTML;
+
+                var allowed10percent = parseFloat(FirstLabCharge) + (parseFloat(FirstLabCharge) * 10 / 100)
+                var OldFreightCharge = $(this).siblings('td.Labcharge').children('.OldLabCharge').find('input').val();
+                var ActualUsed = parseFloat(UsedValue) - parseFloat(OldFreightCharge);
+                var ActualAllowedValue = parseFloat(AllowedValue) - parseFloat(ActualUsed);
+
+                if (parseFloat(newvalue) > parseFloat(ActualAllowedValue)) {
+                    alert('The Value is greator that Allowed value');
+                    Isok = false;
+                }
 
 
+                if (parseFloat(newvalue) > parseFloat(allowed10percent)) {
+                    approved = 'N'
 
+                }
                 var orderItem = {
-                    LabRequestDetId: LabReqestDetId,
+                    FreightReqDetID: LabReqestDetId,
 
                     FreightCharge: parseFloat(newvalue),
                     Remark: chenge_remark
@@ -151,17 +187,11 @@
             var data = {
 
                 FreightChargeDetails: list,
-                FreightRequestID: $('#FreightRequestID').val(),
-                FromParty: $('#FromParty').val(),
-                ToParty: $('#ToParty').val(),
-                Shipper: $('#Shipper').val(),
-                Weight: $('#Weight').val(),
-                ContentofPackage: $('#ContentofPackage').val(),
-                DebitTo: $('#DebitTo').val(),
-                Reason: $('#Reason').val(),
+                LabRequestID: $('#LabRequestID').val(),
                 Merchandiser: $('#Merchandiser').val(),
-                ForwarderDetails: $('#ForwarderDetails').val(),
-                ApproximateCharges: $('#ApproximateCharges').val(),
+                Reason: $('#Reason').val(),
+                SupplierPK: parseInt(sup_Id),
+                IsApproved: approved,
                 Remark: $('#Remark').val().trim(),
 
 
@@ -169,12 +199,11 @@
 
 
 
-
             if (Isok == true) {
                 $(this).val('Please wait...');
                 $.ajax({
                     type: 'POST',
-                    url: '/ArtMVCMerchandiser/FreightRequestMasters/Edit',
+                    url: '/ArtMVCMerchandiser/LabChargeRequest/Edit',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     success: function (data) {

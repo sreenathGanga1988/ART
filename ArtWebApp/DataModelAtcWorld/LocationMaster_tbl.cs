@@ -18,6 +18,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public LocationMaster_tbl()
         {
             this.FabricRequest_tbl = new HashSet<FabricRequest_tbl>();
+            this.CmDozmasters = new HashSet<CmDozmaster>();
+            this.FactoryCostMasters = new HashSet<FactoryCostMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -42,5 +44,9 @@ namespace ArtWebApp.DataModelAtcWorld
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FabricRequest_tbl> FabricRequest_tbl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CmDozmaster> CmDozmasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FactoryCostMaster> FactoryCostMasters { get; set; }
     }
 }

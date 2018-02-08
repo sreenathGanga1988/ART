@@ -1,0 +1,142 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcClosingModelList
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    <h2>Monthly BE Report</h2>
+
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Month #", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-8">
+                @Html.DropDownList("Month", Model.MonthList, htmlAttributes: new { @class = "chosen-select form-control" })
+
+
+
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Show" name="action:ShowBE" />
+            </div>
+        </div>
+
+
+
+    </div>
+    <div>
+
+
+
+
+    </div>
+
+
+    <table class="table ">
+
+        <thead>
+
+
+
+            <tr>
+                <th>
+                    @Html.CheckBox("SelectAll")
+                </th>
+                <th>
+                    AtcID
+                </th>
+                <th>
+                    AtcNum
+                </th>
+                <th>
+                    BuyerName
+                </th>
+                <th>
+                    NoofStyles
+                </th>
+                <th>
+                    IsCompleted
+                </th>
+                <th>
+                    IsClosed
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    projectionQty
+                </th>
+                
+            </tr>
+
+            
+        </thead>
+        <tbody>
+
+
+            @if (Model != null)
+    {
+
+
+
+        for (int i = 0; i < Model.atcClosingModels.Count; i++)
+        {
+
+            <tr>
+
+
+                <td>
+                    @Html.EditorFor(modelItem => Model.atcClosingModels[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].AtcId)
+                    @Html.HiddenFor(model => Model.atcClosingModels[i].AtcId, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].AtcNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].BuyerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].NoofStyles)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].IsCompleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].IsClosed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.atcClosingModels[i].ProjectionQty)
+                </td>
+
+            </tr>
+}
+}
+
+        </tbody>
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+
+            <input type="submit" value="Save" name="action:AddToBEofMonth" />
+        </div>
+    </div>
+}

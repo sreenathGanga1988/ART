@@ -1,0 +1,75 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.RollTransfertoGstockModelMaster
+<table class="table table-responsive table-bordered table-striped MyDataTable">
+    <thead>
+        <tr>
+            <th>@Html.CheckBox("SelectAll")</th>
+            <th>Roll_PK</th>
+            <th>RollNum</th>
+            <th>itemDescription</th>
+            <th>UOM</th>
+            <th>Remark</th>
+            <th>AShrink</th>
+            <th>AShade</th>
+            <th>AWidth</th>
+            <th>AYard</th>
+            <th>SupplierDocnum</th>
+            <th>Atc_id</th>
+            <th>DocumentNum</th>
+            <th>Location_Pk</th>
+            <th>IsPresent</th>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            for (int i = 0; i < Model.RollTransfertoGstockModellist.Count; i++)
+            {
+                <tr>
+                    <td> @Html.EditorFor(modelItem => Model.RollTransfertoGstockModellist[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })</td>
+                    <td class=Roll_PK>
+                        @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].Roll_PK)
+                        @Html.HiddenFor(modelItem => Model.RollTransfertoGstockModellist[i].Roll_PK)
+                    </td>
+                    <td class=RollNum> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].RollNum)</td>
+                    <td class=itemDescription> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].itemDescription)</td>
+                    <td class=UOM> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].UOM)</td>
+                    <td class=Remark> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].Remark)</td>
+                    <td class=AShrink> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].AShrink)</td>
+                    <td class=AShade> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].AShade)</td>
+                    <td class=AWidth> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].AWidth)</td>
+                    <td class=AYard> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].AYard)</td>
+                    <td class=SupplierDocnum> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].SupplierDocnum)</td>
+                    <td class=Atc_id> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].Atc_id)</td>
+                    <td class=DocumentNum> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].DocumentNum)</td>
+                    <td class=Location_Pk> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].Location_Pk)</td>
+                    <td class=IsPresent> @Html.DisplayFor(modelItem => Model.RollTransfertoGstockModellist[i].IsPresent)</td>
+                </tr>}
+        }
+    </tbody>
+</table>
+
+
+<script>
+ $(document).ready(function() {
+ alert('@TempData["Error"]');
+});
+$('#SelectAll').change(function() {
+  if (this.checked) {
+     var parenttable = $(this).closest('table');
+      parenttable.children('tr,td, th').css('background-color', '#8AE1E9');
+  $("[id$=IsSelected]").prop('checked', true);
+     getshortagesum();
+   } else {
+    if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+ $("[id$=IsSelected]").prop('checked', false);
+       }
+     }
+   });
+  $("[id$=IsSelected]").change(function() {
+      if (this.checked) {
+    $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+    }
+ else {
+          $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+     }
+   });
+</script>

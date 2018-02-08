@@ -87,7 +87,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             status = true;
 
 
-            return new JsonResult { Data = new { status = status } };
+            return new JsonResult { Data = new { status = status, Reqnum= reqnum } };
         }
         [HttpGet]
         public JsonResult GetATcList()

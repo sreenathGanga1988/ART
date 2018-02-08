@@ -21,6 +21,7 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public String TotalFabricLayed { get; set; }
         public String TotalEndbit { get; set; }
         public String TotaCutorderQty { get; set; }
+        public String Rejectionrecut { get; set; }
         public String TotalBalanceQty { get; set; }
 
         public String ActualFCRConsumtion { get; set; }

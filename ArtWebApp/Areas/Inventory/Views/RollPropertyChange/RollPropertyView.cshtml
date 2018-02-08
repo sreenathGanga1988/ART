@@ -1,0 +1,110 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.RollPropertyViewModelMaster
+
+<h2>Roll Property </h2>
+<table class="table table-responsive table-bordered table-striped MyDataTable">
+    <thead>
+    <tr>
+        <th>Roll_PK</th>
+        <th>RollNum</th>
+        <th>LocationName</th>
+        <th>DocumentNum</th>
+        <th>AddedVia</th>
+        <th>DeliveredVia</th>
+        <th>AYard</th>
+       
+        <th>IsCut</th>
+        <th>IsPresent</th>
+        <th>Location_Pk</th>
+        <th>SkuDet_PK</th>
+        <th>IsDelivered</th>
+        <th>ASN</th>
+        <th>LaysheetNUM</th>
+        <th>CutPlanNUM</th>
+        <th>itemDescription</th>
+        </thead >
+        
+        
+        
+        <tbody >@foreach (var item in Model.RollPropertyViewModellist)
+        {
+            <tr>
+            <td id="Roll_PK"> @Html.DisplayFor(modelItem => item.Roll_PK)</td >
+            <td> @Html.DisplayFor(modelItem => item.RollNum)</td >
+            <td> @Html.DisplayFor(modelItem => item.LocationName)</td >
+            <td> @Html.DisplayFor(modelItem => item.DocumentNum)</td >
+            <td> @Html.DisplayFor(modelItem => item.AddedVia)</td >
+            <td> @Html.DisplayFor(modelItem => item.DeliveredVia)</td >
+            <td> @Html.DisplayFor(modelItem => item.AYard)</td >            
+            <td> @Html.DisplayFor(modelItem => item.IsCut)</td >
+            <td> @Html.DisplayFor(modelItem => item.IsPresent)</td >
+            <td> @Html.DisplayFor(modelItem => item.Location_Pk)</td >
+            <td> @Html.DisplayFor(modelItem => item.SkuDet_PK)</td >
+            <td> @Html.DisplayFor(modelItem => item.IsDelivered)</td >
+            <td> @Html.DisplayFor(modelItem => item.ASN)</td >
+            <td> @Html.DisplayFor(modelItem => item.LaysheetNUM)</td >
+            <td> @Html.DisplayFor(modelItem => item.CutPlanNUM)</td >
+            <td> @Html.DisplayFor(modelItem => item.itemDescription)</td >
+            </tr >  
+        }  
+    </tbody> 
+  </table>
+<table class="table table-responsive table-bordered table-striped MyDataTable">
+    <thead>
+        <tr>
+         
+            <th>MarkerType</th>
+            <th>WidthGroup</th>
+            <th>ShadeGroup</th>
+            <th>ShrinkageGroup</th>
+            
+    </thead>
+
+
+
+    <tbody>
+        @foreach (var item in Model.RollPropertyViewModellist)
+    {
+        <tr>
+
+            <td> @Html.DisplayFor(modelItem => item.MarkerType)</td>
+            <td> @Html.DisplayFor(modelItem => item.WidthGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.ShadeGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.ShrinkageGroup)</td>
+
+        </tr>
+
+
+        <tr>
+
+            <th> New MarkerType</th>
+            <th>New WidthGroup</th>
+            <th> New ShadeGroup</th>
+            <th> New ShrinkageGroup</th>
+
+        </tr>
+
+        <tr>
+
+            <td>@Html.TextBox("NewMarkerType", @item.MarkerType, new { @class = "form-control" })  </td>
+            <td>@Html.TextBox("NewWidthGroup", @item.WidthGroup, new { @class = "form-control" })  </td>
+            <td>@Html.TextBox("NewShadeGroup", @item.ShadeGroup, new { @class = "form-control" })  </td>
+            <td>@Html.TextBox("NewShrinkageGroup", @item.ShrinkageGroup, new { @class = "form-control" })  </td>
+
+        </tr>
+
+}
+        <tr>
+            <th colspan="3">Reason</th>
+
+        </tr>
+
+        <tr>
+            <td colspan="3">@Html.TextBox("Remark", "", new { @class = "form-control" })</td>
+
+        </tr>
+
+
+
+
+    </tbody>
+</table>

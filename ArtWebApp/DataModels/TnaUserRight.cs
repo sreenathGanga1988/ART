@@ -33,7 +33,9 @@ namespace ArtWebApp.DataModels
         public Nullable<bool> IsSewingSet { get; set; }
         public Nullable<bool> IsSystemFile { get; set; }
         public Nullable<bool> IsShrinkage { get; set; }
+        public Nullable<decimal> Location_PK { get; set; }
     
         public virtual UserMaster UserMaster { get; set; }
+        public virtual LocationMaster LocationMaster { get; set; }
     }
 }

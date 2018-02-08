@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+    
+
+</script>
+<h2>Roll property Changer </h2>
+<form class="navbar-form">
+    <div class="input-group add-on">
+        <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+        <div class="input-group-btn">
+            <button class="btn btn-default" id="Show" type="button"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+</form>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="Submit" type="submit" value="Submit Fabric request" class="btn btn-default show" />
+    </div>
+</div>
+<script>
+
+      $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+
+            debugger;
+            var id = $("#srch-term").val();
+
+            if (id != null)
+            {
+                alert(id);
+
+                $.ajax({
+                    url: "@Url.Action("GetRollView", "RollPropertyChange")",
+                    traditional: true,
+                    data: { 'id': id },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+
+
+
+         }
+
+
+        });
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $('#Submit').click(function () {
+
+
+        
+            var isAllValid = true;
+            if (isAllValid) {
+                var data = {
+
+                    Roll_PK: $('#Roll_PK').text(),
+                    MarkerType: $('#NewMarkerType').val(),
+                    WidthGroup: $('#NewWidthGroup').val(),
+                    ShadeGroup: $('#NewShadeGroup').val(),
+                    ShrinkageGroup: $('#NewShrinkageGroup').val(),
+                    Reason: $('#Remark').val(),
+
+                }
+
+                $(this).val('Please wait...');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Inventory/RollPropertyChange/RollPropertyChage',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.status) {
+                            alert('Successfully saved ' + data.Reqnum);
+                            //here we will clear the form
+
+
+                        }
+                        else {
+                            alert('Error');
+                        }
+                        $('#submit').val('Save');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submit').val('Save');
+                    }
+                });
+            }
+
+
+
+
+        });
+
+
+        $("#Submit").on("click", function () {
+            alert("The paragraph was clicked.");
+        });
+
+
+
+
+
+    });
+
+
+
+
+
+
+</script>

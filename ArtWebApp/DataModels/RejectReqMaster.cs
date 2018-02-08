@@ -27,6 +27,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Location_PK { get; set; }
         public string Reqnum { get; set; }
         public string RejectionType { get; set; }
+        public Nullable<decimal> GarmentQty { get; set; }
     
         public virtual ICollection<RejectReqDetail> RejectReqDetails { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.Areas.CuttingMVC.ViewModel;
 using ArtWebApp.Areas.Repository;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,8 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace ArtWebApp.Areas.CuttingMVC.Controllers
-{ 
-      public class FCRController : Controller
+{
+   
+    public class FCRController : Controller
     {
         ArtWebApp.DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew();
 
@@ -117,6 +119,61 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
 
 
+
+
+        public ActionResult FCRIndex()
+        {
+            ViewBag.AtcID = new SelectList(enty.AtcMasters, "AtcId", "AtcNum");
+            return View();
+
+
+        }
+
+
+        public ActionResult FCRLoader(int id)
+        {
+
+            FabricInLocation_tbl fabricInLocation_Tbl = enty.FabricInLocation_tbl.Find(id);
+
+
+            int SkuDet_PK = int.Parse(fabricInLocation_Tbl.SkuDet_PK.ToString());
+            int ourStyleid = int.Parse(fabricInLocation_Tbl.OurStyleId.ToString());
+            int locationpk = int.Parse(fabricInLocation_Tbl.Location_pk.ToString());
+
+            return RedirectToAction("Index", new
+            {
+                id = SkuDet_PK,
+                ourStyleid = ourStyleid,
+                locationpk = locationpk,              
+});
+
+
+        }
+
+
+
+        [HttpGet]
+        public PartialViewResult GetFCRStatus(int Id)
+        {
+            FCRStatusReportDataModel model = new FCRStatusReportDataModel();
+
+            FcrRepo fcrRepo = new FcrRepo();
+            DataTable dt = fcrRepo.GetFabriclocationGroup(Id);
+            model.FabricdataData = dt;
+
+            model.ReportName = "FCR Status";
+            return PartialView("FCRStatus", model);
+        }
+
+
+
+
+
+
+
+
+
+
         public FcrMasterData GetMasterData(int skudetpk = 0 ,int ourstyleid=0,int location_pk=0 )
         {
 
@@ -152,7 +209,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
 
                 var missingqty = enty.FabricMissings.Where(u => u.OurStyleID == ourstyleid &&
-                 u.SkuDetPK == skudetpk && u.Location_Pk == location_pk).Select(u => u.MissingQty).Sum();
+                 u.SkuDetPK == skudetpk && u.Location_Pk == location_pk && u.IsApproved == "Y").Select(u => u.MissingQty).Sum();
 
                 if (missingqty == null)
                 {
@@ -327,24 +384,24 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         {
             bool status = false;
 
-            //FabricMissing fabricMissing = new FabricMissing();
-            //fabricMissing.SkuDetPK = skudetpk;
-            //fabricMissing.OurStyleID = ourStyleid;
+            FabricMissing fabricMissing = new FabricMissing();
+            fabricMissing.SkuDetPK = skudetpk;
+            fabricMissing.OurStyleID = ourStyleid;
 
-            //fabricMissing.Location_Pk = locationpk;
+            fabricMissing.Location_Pk = locationpk;
 
-            //fabricMissing.MissingQty = Missingqty;
-            //fabricMissing.AddedBy = HttpContext.Session["Username"].ToString();
+            fabricMissing.MissingQty = Missingqty;
+            fabricMissing.AddedBy = HttpContext.Session["Username"].ToString();
 
-            //fabricMissing.AddedDate = DateTime.Now;
+            fabricMissing.AddedDate = DateTime.Now;
 
 
-            //fabricMissing.IsLevel1Approved = "N";
-            //fabricMissing.IsApproved = "N";
+            fabricMissing.IsLevel1Approved = "N";
+            fabricMissing.IsApproved = "N";
 
-            //enty.FabricMissings.Add(fabricMissing);
-            //enty.SaveChanges();
-            //status = true;
+            enty.FabricMissings.Add(fabricMissing);
+            enty.SaveChanges();
+            status = true;
 
 
             return RedirectToAction("index", new
@@ -355,6 +412,31 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             });
 
         }
+
+
+
+
+        [HttpGet]
+        public ActionResult CloseFCR(int skudetpk, int ourStyleid, int locationpk, Decimal Missingqty)
+        {
+            bool status = false;
+
+            FabricInLocation_tbl fabricInLocation_Tbl = enty.FabricInLocation_tbl.Where(u=>u.SkuDet_PK== skudetpk && u.OurStyleId == ourStyleid && u.Location_pk == locationpk).FirstOrDefault();
+
+            fabricInLocation_Tbl.IsClosed = "Y";
+            fabricInLocation_Tbl.ClosedBy = HttpContext.Session["Username"].ToString();
+            fabricInLocation_Tbl.ClosedDate = DateTime.Now;
+            return RedirectToAction("FCRIndex");
+
+        }
+
+
+
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,84 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.RollPropertApprovalModelMaster
+@{
+    ViewBag.Title = "ApproveRolltransfer";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ApproveRolltransfer</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h2>Index</h2>
+<table class="table table-responsive table-bordered table-striped MyDataTable">
+    <thead>
+        <tr>
+            <th>Roll_PK</th>
+            <th>RollNum</th>
+            <th>LocationName</th>
+            <th>DocumentNum</th>
+            <th>AddedVia</th>
+            <th>DeliveredVia</th>
+            <th>AYard</th>
+            <th>MarkerType</th>
+            <th>WidthGroup</th>
+            <th>ShadeGroup</th>
+            <th>ShrinkageGroup</th>
+            <th>IsCut</th>
+            <th>IsPresent</th>
+            <th>Location_Pk</th>
+            <th>SkuDet_PK</th>
+            <th>IsDelivered</th>
+            <th>ASN</th>
+            <th>itemDescription</th>
+            <th>NewMarkerType</th>
+            <th>NewShrinkageGroup</th>
+            <th>NewShadeGroup</th>
+            <th>NewWidthGroup</th>
+            <th>IsApproved</th>
+            <th>AddedBy</th>
+            <th>AddedDate</th>
+            <th>LaysheetNUM</th>
+            <th>CutPlanNUM</th>
+            <th>itemDescription1</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RollPropertApprovalModellist)
+        {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.Roll_PK)</td>
+            <td> @Html.DisplayFor(modelItem => item.RollNum)</td>
+            <td> @Html.DisplayFor(modelItem => item.LocationName)</td>
+            <td> @Html.DisplayFor(modelItem => item.DocumentNum)</td>
+            <td> @Html.DisplayFor(modelItem => item.AddedVia)</td>
+            <td> @Html.DisplayFor(modelItem => item.DeliveredVia)</td>
+            <td> @Html.DisplayFor(modelItem => item.AYard)</td>
+            <td> @Html.DisplayFor(modelItem => item.MarkerType)</td>
+            <td> @Html.DisplayFor(modelItem => item.WidthGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.ShadeGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.ShrinkageGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.IsCut)</td>
+            <td> @Html.DisplayFor(modelItem => item.IsPresent)</td>
+            <td> @Html.DisplayFor(modelItem => item.Location_Pk)</td>
+            <td> @Html.DisplayFor(modelItem => item.SkuDet_PK)</td>
+            <td> @Html.DisplayFor(modelItem => item.IsDelivered)</td>
+            <td> @Html.DisplayFor(modelItem => item.ASN)</td>
+            <td> @Html.DisplayFor(modelItem => item.itemDescription)</td>
+            <td> @Html.DisplayFor(modelItem => item.NewMarkerType)</td>
+            <td> @Html.DisplayFor(modelItem => item.NewShrinkageGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.NewShadeGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.NewWidthGroup)</td>
+            <td> @Html.DisplayFor(modelItem => item.IsApproved)</td>
+            <td> @Html.DisplayFor(modelItem => item.AddedBy)</td>
+            <td> @Html.DisplayFor(modelItem => item.AddedDate)</td>
+            <td> @Html.DisplayFor(modelItem => item.LaysheetNUM)</td>
+            <td> @Html.DisplayFor(modelItem => item.CutPlanNUM)</td>
+            <td> @Html.DisplayFor(modelItem => item.itemDescription1)</td>
+
+            <td>
+                @Html.ActionLink("Approve", "Approve", new { id = item.Roll_PK }) |
+                @Html.ActionLink("Cancel", "Cancel", new { id = item.Roll_PK })
+            </td>
+        </tr>}
+    </tbody>
+</table>

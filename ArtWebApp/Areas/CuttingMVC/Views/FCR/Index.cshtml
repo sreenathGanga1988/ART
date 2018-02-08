@@ -187,9 +187,10 @@
                         Total No of laySheet  :@Model.CutData.Compute("Count(Qty)", "")
                     </td>
                     <td>Total Plies layed  :@Model.CutData.Compute("Sum(LayedPlies)", "")</td>
+                    <td>Total laysheet yard  :@Model.CutData.Compute("Sum(LaysheetAyard)", "")</td>
                     <td>Total fabric Consumed  :@Model.CutData.Compute("Sum(layedFabric)", "")</td>
                     <td>Total Garment Layed  :@Model.CutData.Compute("Sum(CutQty)", "")</td>
-                 
+
                     <td>Total :@Model.CutData.Compute("Sum(ExcessOrShort)", "")</td>
                     <td>Total :@Model.CutData.Compute("Sum(ActualEndbit)", "")</td>
                     <td>Total :@Model.CutData.Compute("Sum(NonReusableEndbit)", "")</td>
@@ -272,7 +273,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-
+                            <td></td>
                             <td> Total FabReq :@Model.RejectionReqData.Compute("Sum(Qty)", "")</td>
 
                         </tr>
@@ -390,6 +391,44 @@
 
 
 
+        $("#closefcr").click(function (e, params) {
+            debugger;
+
+
+
+            if (confirm('Are you sure you want to Close this FCR?')) {
+                var loc_pk = $('#fcrMasterData_LocPK').val();
+                var ourstyleid = document.getElementById("fcrMasterData_OurStyleID").value;
+                var skudetpk = document.getElementById("fcrMasterData_SkuDetPK").value;
+                var missing_qty = document.getElementById("balance").innerHTML;
+                $.ajax({
+                    url: "@Url.Action("CloseFCR", "FCR")",
+                    traditional: true,
+                    data: { 'skudetpk': skudetpk, 'ourStyleid': ourstyleid, 'locationpk': loc_pk, 'Missingqty': missing_qty },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert("Sucessfully Updated");
+                        $.ajax({
+                            type: "Get",
+                            url: "@Url.Action("FCRIndex", "FCR")",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+                                window.location.href = data;
+                            }
+                        });
+                    },
+
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+    }
+
+
+        });
 
 
 

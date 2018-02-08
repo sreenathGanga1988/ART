@@ -17,7 +17,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         public ActionResult Index()
         {
             return View(db.LabRequestMasters.ToList());
-           
+
         }
         public ActionResult Edit(decimal id)
         {
@@ -31,8 +31,26 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             {
                 return HttpNotFound();
             }
-            return View((labRequestMaster));
+            //return View((labRequestMaster));
+            return View(calculateAllowedValuesofFreight(labRequestMaster));
         }
+
+
+        [HttpPost]
+        public JsonResult Edit(LabChargeMasterViewModel order)
+        {
+
+            bool status = false;
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+
+            string reqnum = freightChargeRepo.UpdateLabCharge(order);
+
+            status = true;
+
+
+            return new JsonResult { Data = new { status = status, Reqnum = reqnum } };
+        }
+
         public ActionResult Create()
         {
             ViewBag.SupplierPK = new SelectList(db.SupplierMasters, "Supplier_PK", "SupplierName");
@@ -66,6 +84,30 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
                 return HttpNotFound();
             }
             return View(freightRequestMaster);
+        }
+
+        public LabRequestMaster calculateAllowedValuesofFreight(LabRequestMaster labRequestMaster)
+        {
+            Decimal allowedvalue = 0;
+            Decimal alreadyused = 0;
+            decimal balance = 0;
+
+            FreightChargeRepo freightChargeRepo = new FreightChargeRepo();
+            foreach (LabChargeDetail freightChargeDetail in labRequestMaster.LabChargeDetails)
+            {
+                LabChargeDetail freightChargeDetailnew = freightChargeRepo.GetAllowedLabCharges(freightChargeDetail);
+                freightChargeDetail.AllowedValue = freightChargeDetailnew.AllowedValue;
+                freightChargeDetail.UsedValue = freightChargeDetailnew.UsedValue;
+                freightChargeDetail.BalanceValue = freightChargeDetailnew.BalanceValue;
+
+                allowedvalue += Decimal.Parse(freightChargeDetailnew.AllowedValue.ToString());
+                alreadyused += Decimal.Parse(freightChargeDetailnew.UsedValue.ToString());
+                balance += Decimal.Parse(freightChargeDetailnew.BalanceValue.ToString());
+            }
+
+
+
+            return labRequestMaster;
         }
 
         protected override void Dispose(bool disposing)

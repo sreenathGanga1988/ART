@@ -65,7 +65,7 @@ namespace ArtWebApp.Production.Schedular
 
 
 
-            if (lbl_Targetlocked.Text == "N")
+            if (lbl_Targetlocked.Text.Trim() == "N")
             {
 
                 int year = int.Parse(cmb_year.SelectedItem.ToString());
@@ -234,7 +234,7 @@ WHERE(POQty - ShipedQty > 0)
 
                     string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
 
-                    DateTime deliverydate = DateTime.Parse(((Label)di.FindControl("lbl_deliveryDate")).Text);
+                    DateTime deliverydate = DateTime.Parse(((Label)di.FindControl("lbl_handoverdate")).Text);
                     int popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
                     BLL.PoPackMasterData pomstrdata = new BLL.PoPackMasterData();
 

@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -59,15 +61,15 @@ namespace ArtWebApp.Merchandiser.ASQ
 
 
 
-    
-
-       
 
 
 
 
 
-      
+
+
+
+
 
         protected void tbl_podata_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -130,11 +132,11 @@ namespace ArtWebApp.Merchandiser.ASQ
                 {
                     int ourstyleid = int.Parse(((di.FindControl("lbl_OurStyleID") as Label).Text.ToString()));
                     int popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
-                 
+
                     BLL.POPackDetailData deldet = new BLL.POPackDetailData();
                     deldet.Ourstyleid = ourstyleid;
                     deldet.PoPackId = popackid;
-                
+
                     rk.Add(deldet);
                 }
             }
@@ -162,15 +164,15 @@ namespace ArtWebApp.Merchandiser.ASQ
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
 
-          //      int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
+                //      int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
                 AjaxControlToolkit.CalendarExtender txtcalender = (e.Row.FindControl("dtp_deliverydate_CalendarExtender") as AjaxControlToolkit.CalendarExtender);
                 Label lbl_handoverdate = (e.Row.FindControl("lbl_handoverdate") as Label);
                 CheckBox chkBx = (CheckBox)e.Row.FindControl("chk_select");
-              txtcalender.SelectedDate = DateTime.Parse( lbl_handoverdate.Text);
-              //if(DateTime.Parse(lbl_handoverdate.Text)> DateTime.Parse("15 March 2017"))
-              //  {
-              //      chkBx.Enabled = false;
-              //  }
+                txtcalender.SelectedDate = DateTime.Parse(lbl_handoverdate.Text);
+                //if(DateTime.Parse(lbl_handoverdate.Text)> DateTime.Parse("15 March 2017"))
+                //  {
+                //      chkBx.Enabled = false;
+                //  }
 
 
 
@@ -187,17 +189,17 @@ namespace ArtWebApp.Merchandiser.ASQ
         {
             foreach (GridViewRow di in tbl_podata.Rows)
             {
-                
-                   CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
                 TextBox dtp_deliverydate = (TextBox)di.FindControl("dtp_deliverydate");
                 if (chkBx != null && chkBx.Checked)
                 {
-                
+
                     string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
 
                     DateTime deliverydate = DateTime.Parse(((Label)di.FindControl("lbl_deliveryDate")).Text);
 
-                    if(deliverydate<= DateTime.Parse(s))
+                    if (deliverydate <= DateTime.Parse(s))
                     {
                         int popackid = int.Parse(((di.FindControl("lbl_popackid") as Label).Text.ToString()));
                         BLL.PoPackMasterData pomstrdata = new BLL.PoPackMasterData();
@@ -273,6 +275,35 @@ namespace ArtWebApp.Merchandiser.ASQ
             //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
             tbl_podata.DataBind();
 
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=summary.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            using (StringWriter sw = new StringWriter())
+            {
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+                //To Export all pages
+
+
+
+
+
+
+                //table1.RenderControl(hw);
+
+                //style to format numbers to string
+                string style = @"<style> .textmode { } </style>";
+                Response.Write(style);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
         }
     }
 }

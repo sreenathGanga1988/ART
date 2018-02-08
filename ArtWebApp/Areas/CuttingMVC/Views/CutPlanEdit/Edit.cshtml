@@ -8,6 +8,7 @@
 }
 
 <h2>Edit</h2>
+
 @if (TempData["Error"] != null)
 {
     <text>
@@ -191,7 +192,7 @@
     { <div class="top-buffer"></div>
 
 
-    <div class="alert alert-success">
+    <div class="alert alert-danger">
         <p><strong>@TempData["MasterSucess"].ToString()</strong></p>
 
     </div>

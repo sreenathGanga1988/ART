@@ -56,6 +56,7 @@ namespace ArtWebApp.DataModels
             this.TransferToGstockMasters = new HashSet<TransferToGstockMaster>();
             this.UserMasters = new HashSet<UserMaster>();
             this.FabricMissings = new HashSet<FabricMissing>();
+            this.TnaUserRights = new HashSet<TnaUserRight>();
         }
     
         public decimal Location_PK { get; set; }
@@ -75,6 +76,7 @@ namespace ArtWebApp.DataModels
         public string IsActive { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<decimal> CostPerMinute { get; set; }
     
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
@@ -116,5 +118,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<TransferToGstockMaster> TransferToGstockMasters { get; set; }
         public virtual ICollection<UserMaster> UserMasters { get; set; }
         public virtual ICollection<FabricMissing> FabricMissings { get; set; }
+        public virtual ICollection<TnaUserRight> TnaUserRights { get; set; }
     }
 }

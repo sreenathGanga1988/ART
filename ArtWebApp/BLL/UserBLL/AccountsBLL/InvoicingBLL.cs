@@ -61,11 +61,30 @@ GROUP BY AtcMaster.AtcId, AtcMaster.AtcNum";
 
             if (condition != "AND")
             {
-                String query = @"SELECT        PO_Pk, PONum
-FROM            ProcurementMaster AS ProcurementMaster_1
-WHERE       (Supplier_Pk = @Param3) AND(" + condition + ")";
-                //DBTransaction.PoPackTransaction pktrans = new DBTransaction.PoPackTransaction();
-                //dt = pktrans.getPodetails(query);
+//                String query = @"SELECT        PO_Pk, PONum
+//FROM            ProcurementMaster AS ProcurementMaster_1
+//WHERE       (Supplier_Pk = @Param3) AND(" + condition + ")";
+//                //DBTransaction.PoPackTransaction pktrans = new DBTransaction.PoPackTransaction();
+//                //dt = pktrans.getPodetails(query);
+
+
+                String query = @"SELECT PO_Pk, PONum
+FROM(SELECT    ProcurementMaster.Supplier_Pk, ProcurementMaster.PO_Pk, ProcurementMaster.PONum, SUM(ProcurementDetails_1.POQty) AS PoQty, ISNULL
+                                                        ((SELECT        SUM(SupplierInvoiceDetail.InvoiceQty) AS Expr1
+                                                            FROM            SupplierInvoiceDetail INNER JOIN
+                                                                                     ProcurementDetails ON SupplierInvoiceDetail.PODet_PK = ProcurementDetails.PODet_PK
+                                                            GROUP BY ProcurementDetails.PO_Pk
+                                                            HAVING(ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk)), 0) AS InvoicedQty
+                          FROM ProcurementMaster INNER JOIN
+                                                    ProcurementDetails AS ProcurementDetails_1 ON ProcurementMaster.PO_Pk = ProcurementDetails_1.PO_Pk
+
+                                                    WHERE       (Supplier_Pk = @Param3) AND(" + condition + ")"+
+                          @"GROUP BY ProcurementMaster.PO_Pk, ProcurementMaster.PONum, ProcurementMaster.Supplier_Pk, ProcurementMaster.AtcId,Supplier_Pk) AS tt
+
+                          where PoQty> InvoicedQty";
+
+                
+
 
 
                 using (SqlCommand cmd = new SqlCommand())

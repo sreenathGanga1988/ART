@@ -1,5 +1,4 @@
-﻿
-@model ArtWebApp.DataModels.FreightRequestMaster
+﻿@model ArtWebApp.DataModels.FreightRequestMaster
 
 @{
     ViewBag.Title = "Details";
@@ -148,9 +147,10 @@
                 <th>Allowed value</th>
                 <th>Used Value</th>
                 <th>Balance</th>
+                <th>First Freight Charge</th>
                 <th></th>
             </tr>
-            @{  Decimal total = 0;
+            @{ Decimal total = 0;
                 Decimal Allowed = 0;
                 Decimal Used = 0;
                 Decimal Balance = 0;
@@ -186,6 +186,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BalanceValue)
+                        </td>
+                        <td class="FirstFreightCharge">
+                            @Html.DisplayFor(modelItem => item.FirstFreightCharge)
                         </td>
                         <td></td>
                     </tr>
@@ -231,6 +234,7 @@
 
             var list = [];
             var Isok = true;
+            var approved = 'Y'
             $('.freight_det_id').each(function () {
 
                 var freight_det_id = this.innerHTML;
@@ -238,18 +242,25 @@
                 var chenge_remark = $(this).siblings('td.chenge_remark').children(':first').val();
                 var AllowedValue = $(this).siblings('td.AllowedValue')[0].innerHTML;
                 var UsedValue = $(this).siblings('td.UsedValue')[0].innerHTML;
+                var FirstFreightCharge = $(this).siblings('td.FirstFreightCharge')[0].innerHTML;
 
-               
+                var allowed10percent = parseFloat(FirstFreightCharge) + (parseFloat(FirstFreightCharge) * 10 / 100)
+
+
+
                 var OldFreightCharge = $(this).siblings('td.change_freight').children('.OldFreightCharge').find('input').val();
                 var ActualUsed = parseFloat(UsedValue) - parseFloat(OldFreightCharge);
                 var ActualAllowedValue = parseFloat(AllowedValue) - parseFloat(ActualUsed);
-               
+
                 if (parseFloat(newvalue) > parseFloat(ActualAllowedValue)) {
                     alert('The Value is greator that Allowed value');
                     Isok = false;
                 }
+                if (parseFloat(newvalue) > parseFloat(allowed10percent)) {
+                    approved = 'N'
 
-               
+                }
+
                 var orderItem = {
                     FreightReqDetID: freight_det_id,
 
@@ -276,13 +287,14 @@
                 ForwarderDetails: $('#ForwarderDetails').val(),
                 ApproximateCharges: $('#ApproximateCharges').val(),
                 Remark: $('#Remark').val().trim(),
-                
+                IsApproved: approved,
+
 
             }
-            
-            
-           
-            
+
+
+
+
             if (Isok == true) {
                 $(this).val('Please wait...');
                 $.ajax({
@@ -309,7 +321,7 @@
                         $('#submit').val('Save');
                     }
                 });
-           
+
 
                 $(this).val('Save');
             }

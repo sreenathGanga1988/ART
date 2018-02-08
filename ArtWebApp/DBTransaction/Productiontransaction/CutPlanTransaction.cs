@@ -23,7 +23,7 @@ namespace ArtWebApp.DBTransaction.Productiontransaction
                 if(colorcode=="")
                 {
                     query = @"SELECT        SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') + '( ' + ISNULL(SkuRawmaterialDetail.ColorCode, '') + ')' AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
@@ -32,13 +32,13 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
 WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric')  AND (StyleCostingMaster.IsApproved='A')
 GROUP BY SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ''), SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ''), SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID,SkuRawmaterialDetail.ColorCode
 HAVING        (StyleCostingMaster.OurStyleID = @ourstyleid)";
                 }
                 else
                 {
                     query = @"SELECT        SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, '') + '( ' + ISNULL(SkuRawmaterialDetail.ColorCode, '') + ')' AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
@@ -47,7 +47,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
 WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (SkuRawmaterialDetail.ColorCode=@colorcode)
 GROUP BY SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') + ISNULL(SkuRawMaterialMaster.Width, '') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ''), SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ''), SkuRawmaterialDetail.SkuDet_PK, StyleCostingMaster.OurStyleID ,SkuRawmaterialDetail.ColorCode
 HAVING        (StyleCostingMaster.OurStyleID = @ourstyleid)";
                 }
                 SqlCommand cmd = new SqlCommand(query, con);

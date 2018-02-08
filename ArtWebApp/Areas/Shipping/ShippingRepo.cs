@@ -21,6 +21,10 @@ namespace ArtWebApp.Areas.Shipping
             DataTable dt = prdtran.GetIMP(Importid);
 
 
+
+
+
+
             foreach(DataRow drow in dt.Rows)
             {
                 ImportViewModel importViewModel = new ImportViewModel();
@@ -71,6 +75,19 @@ namespace ArtWebApp.Areas.Shipping
 
             importViewModelMaster.ImportViewModels = list;
 
+
+            try
+            {
+                var pendingcount = importViewModelMaster.ImportViewModels.Where(u => u.Location_PK == "0").Count();
+                importViewModelMaster.PendingCount = int.Parse(pendingcount.ToString());
+            }
+            catch (Exception)
+            {
+
+                importViewModelMaster.PendingCount = 0;
+            }
+
+
             return importViewModelMaster;
         } 
 
@@ -111,6 +128,23 @@ namespace ArtWebApp.Areas.Shipping
                 }
                 
             }
+
+
+            if(importViewModelMaster.PendingCount==0)
+            {
+                var q = from shippingDocumentMaster in db.ShippingDocumentMasters
+                        where shippingDocumentMaster.ShipingDoc_PK == importViewModelMaster.ID
+                        select shippingDocumentMaster;
+
+
+                foreach (var element in q)
+                {
+
+                    element.IsAssigned = "Y";
+                  
+
+                }
+            }
             db.SaveChanges();
         }
 
@@ -149,6 +183,114 @@ namespace ArtWebApp.Areas.Shipping
 
             }
             db.SaveChanges();
+        }
+
+
+
+
+        public void gateIn(int id,Decimal NoPackages)
+        {
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                var q = from shippingDocumentMaster in enty.ShippingDocumentMasters
+                        where shippingDocumentMaster.ShipingDoc_PK == id
+                        select shippingDocumentMaster;
+
+
+                foreach(var element in q)
+                {
+
+
+                    element.IsReceived = "Y"; 
+                    element.LastReceivedLocationPK = HttpContext.Current.Session["UserLoc_pk"].ToString();
+                    element.IsDelivered = "N";
+
+                }
+
+
+                ShippingDocumentActionDetail shippingDocumentActionDetail = new ShippingDocumentActionDetail();
+                shippingDocumentActionDetail.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                shippingDocumentActionDetail.AddedDate = DateTime.Now;
+                shippingDocumentActionDetail.ActionType = "Receipt";
+                shippingDocumentActionDetail.ShipingDoc_PK = id;
+                
+                shippingDocumentActionDetail.NoPackages = NoPackages.ToString();
+                enty.ShippingDocumentActionDetails.Add(shippingDocumentActionDetail);
+
+                enty.SaveChanges();
+
+
+            }
+
+        }
+
+
+
+        public void gateOut(int id,Decimal qty)
+        {
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                var q = from shippingDocumentMaster in enty.ShippingDocumentMasters
+                        where shippingDocumentMaster.ShipingDoc_PK == id
+                        select shippingDocumentMaster;
+
+
+                foreach (var element in q)
+                {
+
+
+                    element.IsReceived = "N";
+                    element.LastReceivedLocationPK = HttpContext.Current.Session["UserLoc_pk"].ToString();
+                    element.IsDelivered = "Y";
+                    element.DeliveredPackage = qty;
+
+                }
+
+
+                ShippingDocumentActionDetail shippingDocumentActionDetail = new ShippingDocumentActionDetail();
+                shippingDocumentActionDetail.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                shippingDocumentActionDetail.AddedDate = DateTime.Now;
+                shippingDocumentActionDetail.ActionType = "Delivery";
+                shippingDocumentActionDetail.NoPackages = qty.ToString();
+                shippingDocumentActionDetail.ShipingDoc_PK = id;
+                enty.ShippingDocumentActionDetails.Add(shippingDocumentActionDetail);
+
+                enty.SaveChanges();
+
+
+            }
+
+        }
+
+
+        public Boolean IsGateReceived(int id)
+        {
+            Boolean IsgateReceipt = false;
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                if (!enty.ShippingDocumentActionDetails.Any(f => f.ShipingDoc_PK == id))
+                {
+
+                    IsgateReceipt = false;
+
+
+                }
+                else
+                {
+                    IsgateReceipt = true;
+                }
+
+            }
+            return IsgateReceipt;
         }
 
     }

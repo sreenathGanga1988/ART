@@ -326,6 +326,7 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
                 
 
             }
+            dt = dt.Select("RqdQty > 0 or  GarmentQty> 0 or PoIssuedQty>0 ").CopyToDataTable();
             return dt;
         }
 

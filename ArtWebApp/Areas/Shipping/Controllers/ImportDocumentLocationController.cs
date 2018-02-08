@@ -10,6 +10,7 @@ namespace ArtWebApp.Areas.Shipping.Controllers
 {
     public class ImportDocumentLocationController : Controller
     {
+
         ArtWebApp.DataModels.ArtEntitiesnew db = new DataModels.ArtEntitiesnew();
         // GET: Shipping/ImportDocumentLocation
         public ActionResult Index()

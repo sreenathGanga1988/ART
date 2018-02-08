@@ -499,7 +499,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 try
                 {
 
-
+                   
 
                     for (int i = 0; i < ourstyles.Rows.Count; i++)
                     {

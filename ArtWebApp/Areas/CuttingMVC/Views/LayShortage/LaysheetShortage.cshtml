@@ -34,6 +34,9 @@
                 data: { 'Id': Id },
                 success: function (data) {
                     $('#OurStyleID').empty();
+                    $('#SkuID').empty();
+                    $('#Cutid').empty();
+                    $('#LaySheetID').empty();
                     $.each(data, function () {
 
 
@@ -110,7 +113,8 @@
                 traditional: true,
                 data: { 'SelectedOurStyle': SelectedOurStyle, 'Id': Id },
                 success: function (data) {
-                    $('#Cutid').empty()
+                    $('#Cutid').empty();
+                    $('#LaySheetID').empty();
                     $.each(data, function () {
 
 

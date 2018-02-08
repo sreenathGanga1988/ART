@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+
+           
+            $('#loadingmessage').show();
+            $.ajax({
+                url: "@Url.Action("UpdateData", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+                    $('#loadingmessage').hide();
+                    document.title = "BE report  for " + Month;
+                    $("#output").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $('#loadingmessage').hide();
+                }
+            });
+
+        });
+    });
+    </script>
+<h2>Index</h2>
+
+<button id="Show" type="button" class="btn btn-primary">Sync DB</button>
+
+<div id="Message">
+
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>

@@ -97,24 +97,24 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             return new JsonResult { Data = new { status = status, Reqnum = reqnum } };
         }
 
-        // POST: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FreightRequestID,FreightRequestNum,AddedBy,AddedDate,FromParty,ToParty,Shipper,Weight,ContentofPackage,DebitTo,Reason,Merchandiser,ForwarderDetails,ApproximateCharges,Remark,ApprovedBy,ApprovedDate,IsApproved,IsPosted")] FreightRequestMaster freightRequestMaster)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(freightRequestMaster).State = EntityState.Modified;
-                db.Entry(freightRequestMaster).Property(x => x.ShipementType).IsModified = false;
+        //// POST: ArtMVCMerchandiser/FreightRequestMasters/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "FreightRequestID,FreightRequestNum,AddedBy,AddedDate,FromParty,ToParty,Shipper,Weight,ContentofPackage,DebitTo,Reason,Merchandiser,ForwarderDetails,ApproximateCharges,Remark,ApprovedBy,ApprovedDate,IsApproved,IsPosted")] FreightRequestMaster freightRequestMaster)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(freightRequestMaster).State = EntityState.Modified;
+        //        db.Entry(freightRequestMaster).Property(x => x.ShipementType).IsModified = false;
       
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(freightRequestMaster);
-        }
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(freightRequestMaster);
+        //}
 
         // GET: ArtMVCMerchandiser/FreightRequestMasters/Delete/5
         public ActionResult Delete(decimal id)

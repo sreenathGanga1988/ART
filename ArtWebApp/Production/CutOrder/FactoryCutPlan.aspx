@@ -6,6 +6,9 @@
 
 <script type="text/javascript">
 
+    
+
+
        //calculate the sum of qty on keypress
        function sumofQty(objText) {
            debugger
@@ -233,6 +236,8 @@
 
 
 </script>
+
+    
 
     <link href="../../css/style.css" rel="stylesheet" />
     <style type="text/css">
@@ -488,8 +493,16 @@
                                     <asp:TextBox ID="txt_maximumMarkerlength" runat="server">0</asp:TextBox>
                                 </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
-                                 <td class="NormalTD">&nbsp;</td>
-                                <td class="NormalTD">&nbsp;</td>
+                                  <td class="NormalTD">Allowed Excess:</td>
+                                <td class="NormalTD">  <asp:UpdatePanel ID="upd_allowedExcess" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                    <ucc:DropDownListChosen ID="drp_allowedExcess" runat="server" DataTextField="name" DataValueField="pk" Width="180px">
+                                        <asp:ListItem Selected="True">1</asp:ListItem>
+                                        <asp:ListItem>2</asp:ListItem>
+                                    </ucc:DropDownListChosen>
+                                             </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </td>
                                 <td class="SearchButtonTD">&nbsp;</td>
                             </tr>
                             <tr>

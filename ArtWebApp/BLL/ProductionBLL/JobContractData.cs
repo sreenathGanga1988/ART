@@ -141,15 +141,15 @@ namespace ArtWebApp.BLL.ProductionBLL
                             jcmstr.Remark = this.JCmstrdata.remark;
                             jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                             jcmstr.CM = this.JCmstrdata.CMCost;
+                            jcmstr.IsApproved = "N";
                             enty.JobContractMasters.Add(jcmstr);
 
 
                             enty.SaveChanges();
 
                             Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-
-
-                            ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
+                        
+                                ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
 
                             ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
                             ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
@@ -196,10 +196,29 @@ namespace ArtWebApp.BLL.ProductionBLL
 
 
                             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             atcenty.SaveChanges();
                             enty.SaveChanges();
 
                         }
+
+                        updateJcInAtcWorld(atcenty);
+
+
                     }
 
 
@@ -231,17 +250,14 @@ namespace ArtWebApp.BLL.ProductionBLL
                             enty.SaveChanges();
 
                             Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-
+                
 
                             ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
-
                             ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
                             ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                             ajcmstr.CM = this.JCmstrdata.CMCost;
                             ajcmstr.JobContractNum = Donum;
                             atcenty.ArtJobContractMasters.Add(ajcmstr);
-
-
                             atcenty.SaveChanges();
                             enty.SaveChanges();
                         }
@@ -280,10 +296,20 @@ namespace ArtWebApp.BLL.ProductionBLL
 
 
                             }
+
+
+
+                          
+
                             atcenty.SaveChanges();
                             enty.SaveChanges();
 
                         }
+
+
+                        updateJcInAtcWorld(atcenty);
+
+
                     }
 
 
@@ -302,6 +328,43 @@ namespace ArtWebApp.BLL.ProductionBLL
         }
 
 
+
+
+        public void updateJcInAtcWorld(AtcWorldEntities atcenty)
+        {
+            var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == this.JCmstrdata.Location_Pk).Select(u => u.Location_PK).FirstOrDefault();
+            int atcworldlctn = int.Parse(atclocation_pk.ToString());
+
+
+
+            if (!atcenty.CmDozmasters.Any(f => f.OurStyleId == this.JCmstrdata.Ourstyleid && f.Location_pk == atcworldlctn))
+            {
+                CmDozmaster cmDozmaster = new CmDozmaster();
+                cmDozmaster.CmDoz = this.JCmstrdata.CMCost * 12;
+                cmDozmaster.OurStyleId = this.JCmstrdata.Ourstyleid;
+                cmDozmaster.Location_pk = atcworldlctn;
+                cmDozmaster.User_PK = 0;
+                cmDozmaster.AddedDate = DateTime.Now;
+                cmDozmaster.HostName = this.JCmstrdata.JOBContractNUM;
+                atcenty.CmDozmasters.Add(cmDozmaster);
+            }
+            else
+            {
+                var q = from comdoc in atcenty.CmDozmasters
+                        where comdoc.OurStyleId == this.JCmstrdata.Ourstyleid && comdoc.Location_pk == atcworldlctn
+                        select comdoc;
+                foreach (var element in q)
+                {
+
+                    element.CmDoz = this.JCmstrdata.CMCost * 12;
+                    element.User_PK = 0;
+                    element.AddedDate = DateTime.Now;
+                    element.HostName = this.JCmstrdata.JOBContractNUM;
+                }
+
+
+            }
+        }
 
 
 

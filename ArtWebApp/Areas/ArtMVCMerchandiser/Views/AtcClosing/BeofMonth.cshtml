@@ -1,0 +1,115 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcClosingModelList
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+     $(document).ready(function () {
+         $("#RemoveBE").click(function (e, params) {
+           
+             var Month = $("#Month").val();
+             alert(Month);
+                $.ajax({
+                    url: "@Url.Action("RemoveAtcBE", "AtcClosing")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Month': Month },
+                    success: function (fooBarHTML) {
+
+                      
+                    },
+                    error: function (xhr, status, errorThrown) {
+                    $('#loadingmessage').hide();
+                    }
+                    });
+
+                    });
+                    
+         });
+</script>
+@Html.HiddenFor(model => model.Month)
+<div id="Monthly">
+    @Model.Month
+</div>
+
+<input id="RemoveBE" type="button" value="Clear" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of Selected  Atc" class="btn btn-default show" />
+
+<table class="table table-condensed table-bordered MyDataTable ">
+    <tr>
+      
+        <th>
+            AtcId
+        </th>
+        <th>
+            AtcNum
+        </th>
+        <th>
+            BuyerName
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            Added By
+        </th>
+        <th>
+            Added date
+        </th>
+        <th>
+            Type
+        </th>
+
+        <th>
+            Month
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        //AtcNum  BuyerName ShortName   ActionDoneBy ActionDoneDate  ActionType Month   Year
+
+
+
+        for (int i = 0; i < Model.ClosedAtc.Rows.Count; i++)
+        {
+
+            <tr>
+
+                <td> @Model.ClosedAtc.Rows[i]["AtcId"].ToString();</td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["AtcNum"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["BuyerName"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ShortName"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionDoneBy"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionDoneDate"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["ActionType"].ToString();
+                </td>
+                <td>
+                    @Model.ClosedAtc.Rows[i]["Month"].ToString();
+                </td>
+
+            </tr>
+
+
+
+
+
+
+
+        }
+    }
+
+
+
+</table>

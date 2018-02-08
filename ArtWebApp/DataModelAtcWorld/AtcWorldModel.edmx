@@ -158,6 +158,21 @@
           <Property Name="ArtAsqShuffle_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="CmDozmaster">
+          <Key>
+            <PropertyRef Name="CmDozId" />
+          </Key>
+          <Property Name="CmDozId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Atc_Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OurStyleId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ValidFrom" Type="datetime" Nullable="false" />
+          <Property Name="CmDoz" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="User_PK" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+          <Property Name="HostName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="MachineIP" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
         <EntityType Name="Fabricreqforparts">
           <Key>
             <PropertyRef Name="FabpartreqID" />
@@ -194,6 +209,20 @@
           <Property Name="HostName" Type="varchar" MaxLength="150" />
           <Property Name="MachineIP" Type="varchar" MaxLength="150" />
           <Property Name="IsUploaded" Type="bit" />
+        </EntityType>
+        <EntityType Name="FactoryCostMaster">
+          <Key>
+            <PropertyRef Name="FacCostMasterID" />
+          </Key>
+          <Property Name="FacCostMasterID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CostMinute" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="OTCostMinute" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ValidFrom" Type="datetime" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="User_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="HostName" Type="varchar" MaxLength="150" />
+          <Property Name="MachineIP" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -268,6 +297,18 @@
           <Property Name="SizeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Orderof" Type="numeric" Precision="3" Scale="0" />
         </EntityType>
+        <Association Name="FK_CmDozmaster_LocationMaster_tbl">
+          <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
+          <End Role="CmDozmaster" Type="Self.CmDozmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="CmDozmaster">
+              <PropertyRef Name="Location_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FabricRequest_tbl_LocationMaster_tbl">
           <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
           <End Role="FabricRequest_tbl" Type="Self.FabricRequest_tbl" Multiplicity="*" />
@@ -292,6 +333,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RevenueMaster_LocationMaster_tbl">
+          <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
+          <End Role="FactoryCostMaster" Type="Self.FactoryCostMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="FactoryCostMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AtcModelModelStoreContainer">
           <EntitySet Name="ArtCutPlanASQDet" EntityType="Self.ArtCutPlanASQDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="Self.ArtCutPlanMarkerSizeDetails" Schema="dbo" store:Type="Tables" />
@@ -301,12 +354,18 @@
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="Self.ASQAllocationMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleDetailsAtc" EntityType="Self.ASQShuffleDetailsAtc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQShuffleMasterAtc" EntityType="Self.ASQShuffleMasterAtc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CmDozmaster" EntityType="Self.CmDozmaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fabricreqforparts" EntityType="Self.Fabricreqforparts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricRequest_tbl" EntityType="Self.FabricRequest_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryCostMaster" EntityType="Self.FactoryCostMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationMaster_tbl" EntityType="Self.LocationMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingListDetailsAtc" EntityType="Self.PackingListDetailsAtc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackingListMasterAtcPro" EntityType="Self.PackingListMasterAtcPro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StyleSizeMaster" EntityType="Self.StyleSizeMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CmDozmaster_LocationMaster_tbl" Association="Self.FK_CmDozmaster_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="CmDozmaster" EntitySet="CmDozmaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_FabricRequest_tbl_LocationMaster_tbl" Association="Self.FK_FabricRequest_tbl_LocationMaster_tbl">
             <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
             <End Role="FabricRequest_tbl" EntitySet="FabricRequest_tbl" />
@@ -314,6 +373,10 @@
           <AssociationSet Name="FK_PackingListDetailsAtc_PackingListMasterAtcPro" Association="Self.FK_PackingListDetailsAtc_PackingListMasterAtcPro">
             <End Role="PackingListMasterAtcPro" EntitySet="PackingListMasterAtcPro" />
             <End Role="PackingListDetailsAtc" EntitySet="PackingListDetailsAtc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueMaster_LocationMaster_tbl" Association="Self.FK_RevenueMaster_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="FactoryCostMaster" EntitySet="FactoryCostMaster" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -343,6 +406,16 @@
           <EntitySet Name="ArtLaySheetMasterDatas" EntityType="AtcModelModel.ArtLaySheetMasterData" />
           <EntitySet Name="Fabricreqforparts" EntityType="AtcModelModel.Fabricreqforpart" />
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
+          <EntitySet Name="CmDozmasters" EntityType="AtcModelModel.CmDozmaster" />
+          <EntitySet Name="FactoryCostMasters" EntityType="AtcModelModel.FactoryCostMaster" />
+          <AssociationSet Name="FK_CmDozmaster_LocationMaster_tbl" Association="AtcModelModel.FK_CmDozmaster_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="CmDozmaster" EntitySet="CmDozmasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevenueMaster_LocationMaster_tbl" Association="AtcModelModel.FK_RevenueMaster_LocationMaster_tbl">
+            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
+            <End Role="FactoryCostMaster" EntitySet="FactoryCostMasters" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -368,6 +441,8 @@
           <Property Name="ArtLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="HRLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="FabricRequest_tbl" Relationship="AtcModelModel.FK_FabricRequest_tbl_LocationMaster_tbl" FromRole="LocationMaster_tbl" ToRole="FabricRequest_tbl" />
+          <NavigationProperty Name="CmDozmasters" Relationship="AtcModelModel.FK_CmDozmaster_LocationMaster_tbl" FromRole="LocationMaster_tbl" ToRole="CmDozmaster" />
+          <NavigationProperty Name="FactoryCostMasters" Relationship="AtcModelModel.FK_RevenueMaster_LocationMaster_tbl" FromRole="LocationMaster_tbl" ToRole="FactoryCostMaster" />
         </EntityType>
         <EntityType Name="PackingListDetailsAtc">
           <Key>
@@ -635,6 +710,61 @@
           <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="CmDozmaster">
+          <Key>
+            <PropertyRef Name="CmDozId" />
+          </Key>
+          <Property Name="CmDozId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Atc_Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ValidFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CmDoz" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Location_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="User_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HostName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MachineIP" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LocationMaster_tbl" Relationship="AtcModelModel.FK_CmDozmaster_LocationMaster_tbl" FromRole="CmDozmaster" ToRole="LocationMaster_tbl" />
+        </EntityType>
+        <EntityType Name="FactoryCostMaster">
+          <Key>
+            <PropertyRef Name="FacCostMasterID" />
+          </Key>
+          <Property Name="FacCostMasterID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CostMinute" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OTCostMinute" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ValidFrom" Type="DateTime" Precision="3" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="User_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HostName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MachineIP" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LocationMaster_tbl" Relationship="AtcModelModel.FK_RevenueMaster_LocationMaster_tbl" FromRole="FactoryCostMaster" ToRole="LocationMaster_tbl" />
+        </EntityType>
+        <Association Name="FK_CmDozmaster_LocationMaster_tbl">
+          <End Type="AtcModelModel.LocationMaster_tbl" Role="LocationMaster_tbl" Multiplicity="0..1" />
+          <End Type="AtcModelModel.CmDozmaster" Role="CmDozmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="CmDozmaster">
+              <PropertyRef Name="Location_pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevenueMaster_LocationMaster_tbl">
+          <End Type="AtcModelModel.LocationMaster_tbl" Role="LocationMaster_tbl" Multiplicity="0..1" />
+          <End Type="AtcModelModel.FactoryCostMaster" Role="FactoryCostMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster_tbl">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="FactoryCostMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -915,6 +1045,37 @@
                 <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
                 <ScalarProperty Name="POPackID" ColumnName="POPackID" />
                 <ScalarProperty Name="ASQAllocation_PK" ColumnName="ASQAllocation_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CmDozmasters">
+            <EntityTypeMapping TypeName="AtcModelModel.CmDozmaster">
+              <MappingFragment StoreEntitySet="CmDozmaster">
+                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
+                <ScalarProperty Name="CmDoz" ColumnName="CmDoz" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
+                <ScalarProperty Name="Atc_Id" ColumnName="Atc_Id" />
+                <ScalarProperty Name="CmDozId" ColumnName="CmDozId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FactoryCostMasters">
+            <EntityTypeMapping TypeName="AtcModelModel.FactoryCostMaster">
+              <MappingFragment StoreEntitySet="FactoryCostMaster">
+                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="OTCostMinute" ColumnName="OTCostMinute" />
+                <ScalarProperty Name="CostMinute" ColumnName="CostMinute" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="FacCostMasterID" ColumnName="FacCostMasterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

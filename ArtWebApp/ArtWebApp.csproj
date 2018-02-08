@@ -285,6 +285,9 @@
     <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
     </Reference>
+    <Reference Include="WebApiContrib.Formatting.Jsonp, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebApiContrib.Formatting.Jsonp.3.0.2\lib\net45\WebApiContrib.Formatting.Jsonp.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -416,6 +419,7 @@
     <Content Include="DynamicMenuBar.ascx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Image\ajax-loader.gif" />
     <Content Include="Image\password.jpg" />
     <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
@@ -423,12 +427,15 @@
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
+    <Content Include="Inventory\Fabric Transaction\SROINRollEntry.aspx" />
     <Content Include="JQuery\ExporttoExcel.js" />
     <Content Include="loader.gif" />
     <Content Include="Merchandiser\PO\GPODashBoard.aspx" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
     <Content Include="Plugin\MyDataTable.js" />
+    <Content Include="Plugin\MyDataTableReporter.js" />
+    <Content Include="Plugin\MyDataTableSummary.js" />
     <Content Include="Production\CutOrder\CutOrderClose.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
@@ -1570,6 +1577,34 @@
     <Content Include="Areas\Shipping\Views\ImportDocumentLocation\Index.cshtml" />
     <Content Include="Areas\Shipping\Views\GateReceipt\GateReceipt.cshtml" />
     <Content Include="Areas\Shipping\Views\GateReceipt\PendingGateReceipt.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\GateIN.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\GateOut.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\GateINIndex.cshtml" />
+    <Content Include="Areas\Shipping\Views\GateReceipt\GateOutIndex.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Edit.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\web.config" />
+    <Content Include="Areas\ProductionMVC\Views\ASQTracker\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\LabChargeRequest\Edit.cshtml" />
+    <Content Include="Areas\Inventory\Views\web.config" />
+    <Content Include="Areas\Inventory\Views\RollPropertyChange\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollPropertyChange\RollPropertyView.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollPropertyChange\ApproveRolltransfer.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\ProductionReport\Index.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\ProductionReport\ProductionReportViewer.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcClosing\AddToBEofMonth.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\ProductionReport\BEProductionReportViewer.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\AtcClosing\BeofMonth.cshtml" />
+    <Content Include="Areas\ArtAdministrator\Views\SyncData\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollTransferToGstock\RollTransferToGstock.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollTransferToGstock\ToGstockRollview.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\ProductIonTNA\TnaView.cshtml" />
+    <Content Include="Areas\Accounts\Views\web.config" />
+    <Content Include="Areas\Accounts\Views\AccountReport\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountReport\AccontDashboardview.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FCRIndex.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FCRStatus.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1930,9 +1965,15 @@
       <DependentUpon>ServicePoApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\Accounts\AccountRepo.cs" />
+    <Compile Include="Areas\Accounts\AccountsAreaRegistration.cs" />
+    <Compile Include="Areas\Accounts\Controllers\AccountReportController.cs" />
+    <Compile Include="Areas\Accounts\ViewModel\AccountdashBoard.cs" />
     <Compile Include="Areas\ArtAdministrator\ArtAdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\ArtAdministrator\ArtAdministratorRepo.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\ArtAdministrator\Controllers\SQLAdministratorController.cs" />
+    <Compile Include="Areas\ArtAdministrator\Controllers\SyncDataController.cs" />
     <Compile Include="Areas\ArtMVCGPO\ArtMVCGPOAreaRegistration.cs" />
     <Compile Include="Areas\ArtMVCGPO\Controllers\GMRNDocumentUploadController.cs" />
     <Compile Include="Areas\ArtMVCGPO\Controllers\MrnFileUploadsController.cs" />
@@ -2002,6 +2043,11 @@
     <Compile Include="Areas\CuttingMVC\ViewModel\CuttingViewModal.cs" />
     <Compile Include="Areas\CuttingMVC\ViewModel\FCRViewModel.cs" />
     <Compile Include="Areas\CuttingRepository.cs" />
+    <Compile Include="Areas\Inventory\Controllers\RollPropertyChangeController.cs" />
+    <Compile Include="Areas\Inventory\Controllers\RollTransferToGstockController.cs" />
+    <Compile Include="Areas\Inventory\InventoryAreaRegistration.cs" />
+    <Compile Include="Areas\Inventory\InventoryRepo.cs" />
+    <Compile Include="Areas\Inventory\ViewModel\RollPropertyViewmodel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MVCTNA\Controllers\ProductIonTNAController.cs" />
@@ -2011,6 +2057,11 @@
     <Compile Include="Areas\MVCTNA\Controllers\TnaUserRightsController.cs" />
     <Compile Include="Areas\MVCTNA\ViewModel\ProductionTNAVModel.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
+    <Compile Include="Areas\ProductionMVC\Controllers\ASQTrackerController.cs" />
+    <Compile Include="Areas\ProductionMVC\Controllers\ProductionReportController.cs" />
+    <Compile Include="Areas\ProductionMVC\ProductionMVCAreaRegistration.cs" />
+    <Compile Include="Areas\ProductionMVC\ProductionRepo.cs" />
+    <Compile Include="Areas\ProductionMVC\Viewmodel\AsqTracker.cs" />
     <Compile Include="Areas\Repository\AdministratorRepo.cs" />
     <Compile Include="Areas\Repository\AtcPerformanceRepo.cs" />
     <Compile Include="Areas\Repository\FcrRepo.cs" />
@@ -2023,10 +2074,16 @@
     <Compile Include="Areas\Shipping\ViewModel\ImportViewModel.cs" />
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
+    <Compile Include="DataModelAtcWorld\CmDozmaster.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelAtcWorld\Fabricreqforpart.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModelAtcWorld\FabricRequest_tbl.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModelAtcWorld\FactoryCostMaster.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\AltUOMMaster.cs">
@@ -2075,6 +2132,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\BankMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\BEOfMonth.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\BodyPartMaster.cs">
@@ -2264,6 +2324,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ExtraRequestReasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricInLocation_tbl.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FabricMissing.cs">
@@ -2612,6 +2675,9 @@
     <Compile Include="DataModels\RollInventoryMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\RollPropertyChangeMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\SalesDebitNoteDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2691,6 +2757,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ShipmentHandOverMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ShippingDocumentActionDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ShippingDocumentDetail.cs">
@@ -2885,6 +2954,13 @@
     </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.designer.cs">
       <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\SROINRollEntry.aspx.cs">
+      <DependentUpon>SROINRollEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Fabric Transaction\SROINRollEntry.aspx.designer.cs">
+      <DependentUpon>SROINRollEntry.aspx</DependentUpon>
     </Compile>
     <Compile Include="Merchandiser\PO\GPODashBoard.aspx.cs">
       <DependentUpon>GPODashBoard.aspx</DependentUpon>
@@ -4905,6 +4981,8 @@
     <EmbeddedResource Include="Reports\RDLC\YearlyShippedNew.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Accounts\Models\" />
+    <Folder Include="Areas\Accounts\Views\Shared\" />
     <Folder Include="Areas\ArtAdministrator\Models\" />
     <Folder Include="Areas\ArtAdministrator\Views\Home\" />
     <Folder Include="Areas\ArtAdministrator\Views\Shared\" />
@@ -4925,10 +5003,14 @@
     <Folder Include="Areas\CuttingMVC\Views\lay\" />
     <Folder Include="Areas\CuttingMVC\Views\RejectPanel\" />
     <Folder Include="Areas\CuttingMVC\Views\Shared\" />
+    <Folder Include="Areas\Inventory\Models\" />
+    <Folder Include="Areas\Inventory\Views\Shared\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="Areas\MVCTNA\Models\" />
     <Folder Include="Areas\MVCTNA\Views\Shared\" />
+    <Folder Include="Areas\ProductionMVC\Models\" />
+    <Folder Include="Areas\ProductionMVC\Views\Shared\" />
     <Folder Include="Areas\Shipping\Models\" />
     <Folder Include="Areas\Shipping\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />

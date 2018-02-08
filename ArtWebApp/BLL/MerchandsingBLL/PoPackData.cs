@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 using System.Configuration;
 using ArtWebApp.DataModelAtcWorld;
+using ArtWebApp.Controls;
 
 namespace ArtWebApp.BLL
 {
@@ -885,17 +886,27 @@ FROM            PoPackMaster INNER JOIN
 
                             foreach (var element in q)
                             {
-                                PopackDetailsHistory popackDetailsHistory = new PopackDetailsHistory();
-                                popackDetailsHistory.PopackDet_Pk = element.PoPack_Detail_PK;
-                                popackDetailsHistory.AddedBy = element.AddedBy;
-                                popackDetailsHistory.AddedDate = element.AddedDate;
-                                popackDetailsHistory.Qty = element.PoQty;
-                                enty.PopackDetailsHistories.Add(popackDetailsHistory);
+                                if (IsNewQtyGreaterthanCut(int.Parse(element.PoPack_Detail_PK.ToString()), newpopackdetdata.Poqty))
+                                {
+                                    PopackDetailsHistory popackDetailsHistory = new PopackDetailsHistory();
+                                    popackDetailsHistory.PopackDet_Pk = element.PoPack_Detail_PK;
+                                    popackDetailsHistory.AddedBy = element.AddedBy;
+                                    popackDetailsHistory.AddedDate = element.AddedDate;
+                                    popackDetailsHistory.Qty = element.PoQty;
+                                    enty.PopackDetailsHistories.Add(popackDetailsHistory);
 
 
-                                element.PoQty = newpopackdetdata.Poqty;
-                                element.AddedDate = DateTime.Now;
-                                element.AddedBy= HttpContext.Current.Session["Username"].ToString().Trim();
+                                    element.PoQty = newpopackdetdata.Poqty;
+                                    element.AddedDate = DateTime.Now;
+                                    element.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                                }
+                                else
+                                {
+                                    WebMsgBox.Show("Cannot Reduce Po Qty Below CutQty ");
+                                }
+                                
+
+                                
 
                             }
 
@@ -916,6 +927,46 @@ FROM            PoPackMaster INNER JOIN
             }
 
         }
+
+
+
+
+
+
+        public Boolean IsNewQtyGreaterthanCut(int popackdetil_pk,Decimal newQty)
+        {
+            Boolean isok = false;
+            Decimal AlreadyCutQty = 0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                try
+                {
+                    var q = enty.CutPlanASQDetails.Where(u => u.PoPack_Detail_PK == popackdetil_pk && u.IsDeleted == "N").Sum(u => u.CutQty);
+                    AlreadyCutQty = Decimal.Parse(q.ToString());
+                }
+                catch (Exception)
+                {
+
+                    AlreadyCutQty = 0;
+                }
+            }
+            if(newQty>= AlreadyCutQty)
+            {
+                isok = true;
+            }
+            else
+            {
+                isok = false;
+            }
+
+            return isok;
+        }
+
+
+
+
+
+
 
 
         public void MarkASQCutable(Boolean iscutable)

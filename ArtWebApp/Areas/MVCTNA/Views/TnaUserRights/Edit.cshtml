@@ -17,6 +17,26 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.TNAUserRightID)
 
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.User_PK, "User_PK", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("User_PK", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.User_PK, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Location_PK, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Location_PK", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Location_PK, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
     <div class="form-group">
         @Html.LabelFor(model => model.IsPPSumbissionDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -178,18 +198,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.User_PK, "User_PK", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("User_PK", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.User_PK, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
 
 
 

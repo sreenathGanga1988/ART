@@ -414,18 +414,18 @@ namespace ArtWebApp.Areas
     {
         ArtEntitiesnew db = new ArtEntitiesnew();
 
-        public List<FabreqDetails> GetRejectionpanelrequestdata(int  ourstyleid, int locationid)
+        public List<FabreqDetails> GetRejectionpanelrequestdata(int  ourstyleid, int locationid,String ReqID)
         {
 
 
             var q = (from laydet in db.RejectionPanelExtraFabbReqs
-                     where laydet.POPackDetail.OurStyleID ==ourstyleid && laydet.Location_PK == locationid
-                     && !(from layshortdet in db.RejectReqDetails select layshortdet.RejFabReqID).Contains(laydet.RejFabPanelReqID)
+                     where laydet.POPackDetail.OurStyleID ==ourstyleid && laydet.Location_PK == locationid && laydet.Fabreqno == ReqID
+                     && !(from layshortdet in db.RejectReqDetails where layshortdet.RejectionType=="P"  && layshortdet.Location_PK== locationid select layshortdet.RejFabReqID).Contains(laydet.RejFabPanelReqID)
                      select new FabreqDetails
                      {
-                                                
 
-                         Fabreqid = laydet.RejFabPanelReqID,
+
+                         RejFabPanelReqID = laydet.RejFabPanelReqID,
                          IsSelected = false,
                          Fabreqno = laydet.Fabreqno ,
                          Reqdate = laydet.Reqdate,
@@ -537,15 +537,18 @@ namespace ArtWebApp.Areas
             foreach (FabreqDetails di in model.FabreqDetails)
             {
                 RejectReqDetail lcdet = new RejectReqDetail();
-                lcdet.RejFabReqID = di.Fabreqid;
+                lcdet.RejFabReqID = di.RejFabPanelReqID;
                 lcdet.AllowedQty = di.Allowedfabric;
                 lcdet.RejReqMasterID = lsmstr.RejReqMasterID;
+                lcdet.RejectionType = "P";
+                lcdet.Location_PK = model.LocationID;
+                lcdet.FabreqNum = di.Fabreqno;
                 db.RejectReqDetails.Add(lcdet);
 
 
 
                 var qlayroll = from rlldata in db.RejectionPanelExtraFabbReqs
-                               where rlldata.RejFabPanelReqID == di.Fabreqid
+                               where rlldata.RejFabPanelReqID == di.RejFabPanelReqID
                                select rlldata;
                 foreach (var element1 in qlayroll)
                 {

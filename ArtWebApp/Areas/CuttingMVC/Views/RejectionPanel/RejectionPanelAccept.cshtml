@@ -53,7 +53,7 @@
                 }
             });
 
-            $.ajax({
+            @*$.ajax({
                 url: "@Url.Action("PopulateOFabric", "LayShortage")",
                 type: 'Get',
             contentType: "application/json; charset=utf-8",
@@ -78,13 +78,76 @@
             error: function (data) {
 
             }
-        });
+        });*@
 
 
 
         });
 
 
+        $("#OurStyleID").change(function () {
+
+            debugger
+            var ourstyleid = $(this).find('option:selected').val();
+            //var ourstyleid = $("#OurStyleID").find('option:selected').val();
+            var Id = $("#LocationID").find('option:selected').val();
+
+            $.ajax({
+                url: "@Url.Action("PopulateRequest", "RejectionPanel")",
+                type: 'Get',
+                data: { 'ourstyleid': ourstyleid, 'locationid': Id },
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                    $('#ReqID').empty();
+                    $.each(data, function () {
+
+
+                        $('#ReqID').append('<option value=' +
+                            this.Value + '>' + this.Value + '</option>');
+                    });
+                    $("#ReqID").trigger("chosen:updated");
+
+
+                    $("#ReqID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+            @*$.ajax({
+                url: "@Url.Action("PopulateOFabric", "LayShortage")",
+                type: 'Get',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            //  data: JSON.stringify(123),
+            data: { 'Id': Id },
+            success: function (data) {
+                $('#SkuID').empty();
+                $.each(data, function () {
+
+
+                    $('#SkuID').append('<option value=' +
+                      this.Value + '>' + this.Text + '</option>');
+                });
+                $("#SkuID").trigger("chosen:updated");
+
+
+                $("#SkuID").trigger("change");
+
+
+            },
+            error: function (data) {
+
+            }
+        });*@
+
+
+
+        });
 
 
     });
@@ -97,18 +160,19 @@
         $("#Show").click(function (e, params) {
 
             debugger;
-            
-           
+
+
             var ourstyleid = $("#OurStyleID").find('option:selected').val();
             var Id = $("#LocationID").find('option:selected').val();
+            var ReqID = $("#ReqID").find('option:selected').val();
             if (Id != null)
             {
-               
+
 
                 $.ajax({
                     url: "@Url.Action("GetRequestDetailView", "RejectionPanel")",
                     traditional: true,
-                    data: { 'ourstyleid': ourstyleid, 'locationid': Id },
+                    data: { 'ourstyleid': ourstyleid, 'locationid': Id, 'ReqID': ReqID },
                     type: "GET",
                     success: function (fooBarHTML) {
                         $("#output").html(fooBarHTML);
@@ -130,10 +194,8 @@
         });
 
 
-
-
-
-
+        
+      
 
 
 
@@ -147,109 +209,130 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>SampCutReqMaster</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4>SampCutReqMaster</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
+    <div class="form-group">
 
 
-            <div class="row">
-                <div class="col-md-2">
-                    @Html.Label("Location#", new { @class = "control-label col-md-2" });
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.LocationID, Model.LocaionList, "Please select Location", htmlAttributes: new { @class = "chosen-select form-control" })
-                    @Html.ValidationMessageFor(m => m.LocationID)
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Location#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.LocationID, Model.LocaionList, "Please select Location", htmlAttributes: new { @class = "chosen-select form-control" })
+                @Html.ValidationMessageFor(m => m.LocationID)
 
-
-                </div>
 
             </div>
 
-
-
         </div>
 
-        <div class="form-group">
-
-
-            <div class="row">
-                <div class="col-md-2">
-                    @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
-                    @Html.ValidationMessageFor(m => m.AtcID)
-
-
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-        
-
-
-
-
-
-
-
-
-
-        <div class="form-group">
-
-
-            <div class="row">
-                <div class="col-md-2">
-                    @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownList("OurStyleID", new SelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control" })
-               
-                    @*@Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })*@
-
-
-                </div>
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-        
-
-
-
-
-
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="Show" type="button" value="Show" class="btn btn-default show" />
-            </div>
-        </div>
-
-        
-
-        <div id='output' class="">
-            <!-- Output goes here -->
-        </div>
 
 
     </div>
+
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Atcc#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownList("AtcID", Model.AtcList, htmlAttributes: new { @class = "chosen-select form-control" })
+                @Html.ValidationMessageFor(m => m.AtcID)
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownList("OurStyleID", new SelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control" })
+
+                @*@Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })*@
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <div class="form-group">
+
+
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Req#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownList("ReqID", new SelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control" })
+
+                @*@Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })*@
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Show" type="button" value="Show" class="btn btn-default show" />
+        </div>
+    </div>
+
+
+
+    <div id='output'>
+        <!-- Output goes here -->
+    </div>
+
+
+</div>
 }
 
 

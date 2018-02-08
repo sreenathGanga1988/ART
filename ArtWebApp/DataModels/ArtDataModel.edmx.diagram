@@ -545,6 +545,13 @@
         <AssociationConnector Association="ArtModel.FK_FabricMissing_SkuRawmaterialDetail" />
         <EntityTypeShape EntityType="ArtModel.AtcAction" Width="1.5" PointX="3.375" PointY="4.75" />
         <EntityTypeShape EntityType="ArtModel.ShippingDocumentDetailLocation" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArtModel.ShippingDocumentActionDetail" Width="1.5" PointX="3" PointY="10" />
+        <AssociationConnector Association="ArtModel.FK_ShippingDocumentActionDetails_ShippingDocumentMaster" />
+        <EntityTypeShape EntityType="ArtModel.RollPropertyChangeMaster" Width="1.5" PointX="29.75" PointY="74.25" />
+        <AssociationConnector Association="ArtModel.FK_RollPropertyChangeMaster_FabricRollmaster" />
+        <EntityTypeShape EntityType="ArtModel.BEOfMonth" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="ArtModel.FK_TnaUserRight_LocationMaster" />
+        <EntityTypeShape EntityType="ArtModel.FabricInLocation_tbl" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

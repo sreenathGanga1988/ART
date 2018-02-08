@@ -1,0 +1,61 @@
+﻿@model ArtWebApp.Areas.ProductionMVC.Viewmodel.ReportDataModel
+@using System.Data;
+<h2>@Model.ReportName</h2>
+<script src="~/Plugin/MyDataTable.js"></script>
+<table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+    <thead>
+
+
+
+        <tr>
+
+            @foreach (DataColumn col in Model.AsqData.Columns)
+            {
+                <th>
+                    @col.ColumnName
+                </th>
+            }
+
+        </tr>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.AsqData.Columns)
+            {
+                <th>
+
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (DataRow row in Model.AsqData.Rows)
+        {
+            <tr>
+
+                @foreach (DataColumn col in Model.AsqData.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+                       
+                    </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+    <tfoot>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.AsqData.Columns)
+        {
+            <th>
+
+            </th>
+    }
+        </tr>
+
+    </tfoot>
+
+</table>
+
+
+

@@ -3,389 +3,193 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
+<script>
+    $(document).ready(function () {
+
+
+
+            @*$("#DeliveryOrderWF").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = $("#FromDate").val();
+            var todate = $("#Todate").val();
+
+            alert(fromdate);
+            alert(todate);
+                $.ajax({
+                    url: "@Url.Action("BetweenDateTNA", "ProductIonTNA")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });*@
+
+
+         $("#DeliveryOrderWF").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = $("#FromDate").val();
+            var todate = $("#FromDate").val();
+
+          
+                $.ajax({
+                    url: "@Url.Action("BetweenDateTNA", "ProductIonTNA")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+
+
+    });
+
+</script>
 
 <h2>Index</h2>
-
-@if (Model.ProductionTNAVModelList != null)
-{
-
-
-    <table class="table table-responsive table-bordered mydatagrid">
-        <thead>
-            <tr>
-
-                <th>
-                    Atc 
-                </th>
-                <th>
-                    OurStyle
-                </th>
-                <th>
-                   BuyerStyle
-                </th>
-                <th>
-                   Factory
-                </th>
-               <th>
-                   Details
-               </th>
-               
-                <th>  PCD                           </th>
-<th>  FINAL MARKER                  </th>
-<th>  FC1                           </th>
-<th>  PP MEETING                    </th>
-<th>  SIZE SET                      </th>
-<th>  SEWING TRIM                   </th>
-<th>  BULK FABRIC                   </th>
-<th>  RECEIPT OF ORGINAL DOCUMENT   </th>
-<th>  GRADDED PATTERN               </th>
-<th>  SAMPLE YARDAGES               </th>
-<th>  PP APPROVAL                   </th>
-<th>  PP SUBMISSION DATE MERCHANT   </th>
-<th>  INPUT                         </th>
-<th>  PACKING TRIMS                 </th>
-<th>  FACTORY PLANNED PCD           </th>
-                                                    
-</tr>
-
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ProductionTNAVModelList)
-            {
-                <tr>
-                    <td>
-                        
-                         @Html.DisplayFor(modelItem => item.AtcNum) </td>
-                        
-                        
-                         <td>@Html.DisplayFor(modelItem => item.OurStyle)</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BuyerStyle)</td>
-                    <td><div class="well-sm">@Html.DisplayFor(modelItem => item.LocationName)</div></td>
-                    <td>
-                        <div class=" ourstyleid">
-                            @Html.HiddenFor(modelItem => item.OurStyleID)
-
-                        </div>
-                        <div class="locationpk">
-                            @Html.HiddenFor(modelItem => item.Location_PK)
-                        </div>
-                    </td>
-                                         
-
-
-
-                       
-                      
-
-
-                        
-                   
-
-                    <td>
-                        <p>
-                          
-                         
-                                    <div>Plan : @item.PCD </div><div>Actual  : </div>
-
-                              
-                        </p>
-
-
-
-                    </td>
-
-                    <td>
-        <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
-
-   </td>
-
-                    <td>
-                        
-                            
-                           
-                                <div>Plan : @item.FC1 </div><div>Actual  : </div>
-
-                            
-                       
-                    </td>
-
-                    <td>
-                       
-                                <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
-
-                            
-                        
-                    </td>
-
-                    <td>
-                       
-                                <div>Plan : @item.SIZESET </div><div>Actual  : </div>
-
-                           
-                    </td>
-
-                    <td>
-                      
-                                <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
-
-                          
-                    </td>
-
-                    <td>
-                       
-                                <div>Plan : @item.BULKFABRIC </div><div>Actual  : </div>
-                        
-                    </td>
-
-                    <td>
-                        
-                                <div>Plan : @item.RECEIPTOFORGINALDOCUMENT </div><div>Actual  : </div>
-
-                          
-                    </td>
-
-                    <td>
-                        
-                                <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
-
-                          
-                    </td>
-
-                    <td>
-                     
-                                <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
-                        
-                    </td>
-
-                    <td>
-                        
-                                <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
-
-                           
-                    </td>
-
-                    <td>
-                       
-                                <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div>
-
-                         
-                    </td>
-
-                    
-
-                    
-
-                    <td>
-                       
-                                <div>Plan : @item.INPUT </div><div>Actual  : </div>
-
-                          
-                    </td>
-                    <td>
-                      
-                                <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
-
-                            
-                    </td>
-                    @*<td>
-
-                        <div class="container">
-
-                            <div class="col-md-3">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"> PP SUBMISSION DATE</h3>
-                                    </div>
-                                    <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div></div>
-                                </div>
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">PP APPROVAL</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">SAMPLE YARDAGES</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-
-                            <div class="col-md-3">
-
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">GRADDED PATTERN</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">SEWING TRIM</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">SEWING SET</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.SIZESET </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-3">
-
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">SIZE SET</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.SIZESET </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">PP MEETING</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">FC1</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.FC1 </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Final Marker</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Input</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.INPUT </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                                <div class="panel panel-warning">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Packing trim</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                    </td>*@
-                    @*<td>
-
-                        </td>*@
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.GradedPatternDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BulkFabricDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SewingTrimDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SizeSetDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PPMeetingDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FC1Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FinalMarkerDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FactoryPlannedPCDDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MerchandisingPCDDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InputDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PackingTrimDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OurStyle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LocationName)
-                        </td>*@
-
-                </tr>
-            }
-
-
-        </tbody>
-
-
-    </table>
-
-
-
-
-
-
-}
+<div id="demo2">
+    @*<div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                From Date :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+
+        </div>
+
+        <div id='loadingmessage' style='display:none'>
+            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
+        </div>
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="DeliveryOrderWF" type="button" value="Show TNA Between dates" data-toggle="tooltip" data-placement="top" title="Show TNA Between dates" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>*@
+</div>
+@*<div id="demo2">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                From Date :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+
+        </div>
+
+        <div id='loadingmessage' style='display:none'>
+            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
+        </div>
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="DeliveryOrderWF" type="button" value="Show TNA Between dates" data-toggle="tooltip" data-placement="top" title="Show TNA Between dates" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>*@
+
+
+
+<div id="demo2">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Factory PCD Upto: 
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                
+            </div>
+            <div class="col-sm-3">
+              
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+
+        </div>
+
+        <div id='loadingmessage' style='display:none'>
+            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
+        </div>
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="DeliveryOrderWF" type="button" value="Show TNA Upto Factory PCD Date" data-toggle="tooltip" data-placement="top" title="Show TNA Upto Factory PCD Date" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+<div  id="output"></div>

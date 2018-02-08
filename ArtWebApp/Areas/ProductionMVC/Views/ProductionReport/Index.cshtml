@@ -1,0 +1,393 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+
+            var Month = 'All';
+            $('#loadingmessage').show();
+                $.ajax({
+                    url: "@Url.Action("GetRequestDetailView", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Month': Month },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        document.title = "BE report  for " + Month;
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+
+        });
+        $("#ShowMonth").click(function (e, params) {
+            var Month = $('#Month').find('option:selected').val();
+                      $('#loadingmessage').show();
+                $.ajax({
+                    url: "@Url.Action("GetRequestDetailView", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Month': Month },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        document.title = "BE report  for " + Month;
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+
+                    });
+        
+
+        $("#CostingAll").click(function (e, params) {
+            var Id = 0;
+            $('#loadingmessage').show();
+                $.ajax({
+                    url: "@Url.Action("GetCostingData", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+
+                    });
+           $("#Costing").click(function (e, params) {
+               $('#loadingmessage').show();
+
+               var Id = $('#AtcID').find('option:selected').val();
+                $.ajax({
+                    url: "@Url.Action("GetCostingData", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+
+                    });
+
+        $("#PoofSupplier").click(function (e, params) {
+            $('#loadingmessage').show();
+                $.ajax({
+                    url: "@Url.Action("GetPurchasesfromSupplier", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+        $("#ShipmentReport").click(function (e, params) {
+            $('#loadingmessage').show();
+            var Id = $('#AtcID').find('option:selected').val();
+                $.ajax({
+                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+            $("#ShipmentReportAll").click(function (e, params) {
+            $('#loadingmessage').show();
+            var Id =0;
+                $.ajax({
+                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+
+            $("#RejectionrequestAll").click(function (e, params) {
+            $('#loadingmessage').show();
+            var Id =0;
+                $.ajax({
+                    url: "@Url.Action("GetRejectionRequest", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+            $("#DeliveryOrderWF").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = 0;
+            var todate = 0;
+
+            alert(fromdate);
+            alert(todate);
+                $.ajax({
+                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+</script>
+<h2>Report Engine</h2>
+
+
+
+
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo">Atc Reports</button>
+
+<div id="demo" class="container collapse">
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-2">Atc #:</div>
+            <div class="col-md-10">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                <input id="ShipmentReport" type="button" value="Get Shipment Report" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of Selected  Atc" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+                <input id="Costing" type="button" value="Get Costing data of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo1">All Atc Reports</button>
+
+<div id="demo1" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="Show" type="button" value="Show BE Report of Running Atc" data-toggle="tooltip" data-placement="top" title="Shows BE Report of Running Atc" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+                <input id="CostingAll" type="button" value="Get Costing data All  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data All  Atc" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+                <input id="PoofSupplier" type="button" value="Get Po of Supplier" data-toggle="tooltip" data-placement="top" title="Get Po of Supplier" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+                <input id="ShipmentReportAll" type="button" value="Get All Shipment Report" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of All  Atc" class="btn btn-default show" />
+            </div>
+
+        </div>
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="RejectionrequestAll" type="button" value="Show Rejection request Report " data-toggle="tooltip" data-placement="top" title="Show Rejection request Report" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo2">Between Date Reports</button>
+
+<div id="demo2" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                From Date :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+
+        </div>
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="DeliveryOrderWF" type="button" value="Show WF Report of Bewtween Date" data-toggle="tooltip" data-placement="top" title="Shows BE Report of Running Atc" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo3">Month Report</button>
+
+<div id="demo3" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Month :
+
+            </div>
+            <div class="col-sm-3">
+              
+                @Html.DropDownList("Month", (List<SelectListItem>)ViewBag.MonthList, htmlAttributes: new { @class = "chosen-select form-control" })
+
+            </div>
+            <div class="col-sm-2">
+              
+            </div>
+            <div class="col-sm-3">
+              
+            </div>
+            <div class="col-sm-2">
+               
+            </div>
+
+        </div>
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="ShowMonth" type="button" value="Show BE Report of Month" data-toggle="tooltip" data-placement="top" title="Show BE Report of Month" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+

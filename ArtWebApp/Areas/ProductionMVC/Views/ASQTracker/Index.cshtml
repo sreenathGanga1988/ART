@@ -1,0 +1,122 @@
+﻿@model ArtWebApp.Areas.ProductionMVC.Viewmodel.AsqTrackerModel
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ASQ Tracker </h2>
+
+
+
+<table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+    <thead>
+        <tr>
+            <th>PoPackId </th>
+            <th>AtcNum</th>
+            <th>BuyerName</th>
+            <th>  OurStyle</th>
+            <th>  PoPacknum</th>
+            <th> BuyerPO </th>
+            <th> Delivery Date</th>
+            <th> Hand over Date</th>
+            <th> Sales Hand over Date </th>
+            <th>Hand Over Month</th>
+            <th>Sales Hand Over Month </th>
+            <th>Hand Over Year</th>
+            <th>Sales Hand Over Year</th>
+            <th>Production Country</th>
+            <th>Factory</th>
+            <th>PoQty</th>
+            <th>ShippedQty</th>
+            <th>Is ShortClosed</th>
+            <th>ShortClosedBy</th>
+            <th>Is Cutable</th>
+            <th>Is Cutable</th>
+            <th>OurStyleID</th>
+
+        </tr>
+        <tr class="filterrow">
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (DataRow row in Model.AsqData.Rows)
+    {
+          
+        <tr>
+            <td>  @row["PoPackID"] </td>
+            <td>   @row["AtcNum"]</td>
+            <td>   @row["BuyerName"]</td>
+            <td>    @row["OurStyle"]</td>
+            <td>    @row["PoPacknum"]</td>
+            <td>   @row["BuyerPO"] </td>
+            <td>   @row["DeliveryDate"]</td>
+            <td>   @row["HandoverDate"]</td>
+            <td>   @row["SalesHandoverDate"] </td>
+            <td>  @row["HandOverMonth"]</td>
+            <td>   @row["SalesHandOverMonth"] </td>
+            <td>  @row["HandOverYear"]</td>
+            <td>  @row["SalesHandOverYear"]</td>
+            <td>  @row["ProductionCountry"]</td>
+            <td>  @row["LocationName"]</td>
+            <td>  @row["PoQty"]</td>
+            <td>  @row["ShippedQty"]</td>
+            <td>  @row["IsShortClosed"]</td>
+            <td>  @row["ShortClosedBy"]</td>
+            <td>  @row["IsCutable"]</td>
+            <td>  @row["IsCutable"]</td>
+            <td>  @row["OurStyleID"]</td>
+
+        </tr>
+
+}
+    </tbody>
+</table>
+

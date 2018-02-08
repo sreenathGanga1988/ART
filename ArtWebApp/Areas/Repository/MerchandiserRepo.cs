@@ -74,6 +74,7 @@ namespace ArtWebApp.Areas.Repository
                     frightchargedetail.AtcID = element.AtcID;
                     frightchargedetail.FreightCharge = element.FreightCharge;
                     frightchargedetail.FreightRequestID = mstr.FreightRequestID;
+                    frightchargedetail.FirstFreightCharge = element.FreightCharge;
                     db.FreightChargeDetails.Add(frightchargedetail);
                 }
 
@@ -119,6 +120,7 @@ namespace ArtWebApp.Areas.Repository
                     frightchargedetail.SPODetails_PK = int.Parse(element.SPODetails_PK.ToString());
                     frightchargedetail.StockFreightCharge = element.FreightCharge;
                     frightchargedetail.StockFreightRequestID = mstr.StockFreightRequestID;
+                    frightchargedetail.FirstStockFreightCharge = element.FreightCharge;
                     db.StockFreightChargeDetails.Add(frightchargedetail);
                 }
 
@@ -158,6 +160,7 @@ namespace ArtWebApp.Areas.Repository
                     LabChargeDetail frightchargedetail = new LabChargeDetail();
                     frightchargedetail.AtcID = element.AtcID;
                     frightchargedetail.LabCharge = element.FreightCharge;
+                    frightchargedetail.FirstLabCharge = element.FreightCharge;
                     frightchargedetail.LabRequestID = mstr.LabRequestID;
                     db.LabChargeDetails.Add(frightchargedetail);
                 }
@@ -204,8 +207,8 @@ namespace ArtWebApp.Areas.Repository
                         element.ApproximateCharges = order.ApproximateCharges;
 
                     }
-
-                    element.IsApproved = "N";
+                    element.IsApproved = order.IsApproved;
+                    
                     element.IsDeleted = "N";
                     element.AddedBy = HttpContext.Current.Session["Username"].ToString();
                     element.AddedDate = DateTime.Now;
@@ -240,7 +243,45 @@ namespace ArtWebApp.Areas.Repository
 
             return reqnum;
         }
+        public string UpdateLabCharge(LabChargeMasterViewModel order)
+        {
+            String reqnum = "";
+            using (ArtEntitiesnew db = new ArtEntitiesnew())
+            {
+                var q = from labchargemaster in db.LabRequestMasters
+                        where labchargemaster.LabRequestID == order.LabRequestID
+                        select labchargemaster;
+                foreach (var element in q)
+                {
 
+                    element.Merchandiser = order.Merchandiser;
+                    element.Reason = order.Reason;
+                    element.Remark = order.Remark;
+                    element.Supplier_pk = order.SupplierPK;
+                    element.IsApproved = order.IsApproved;
+                    element.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                    element.AddedDate = DateTime.Now;
+                }
+                foreach (FreightChargeDetailViewMoodel element in order.FreightChargeDetails)
+                {
+                    var q1 = from labdet in db.LabChargeDetails
+                             where labdet.LabReqDetID == element.FreightReqDetID
+                             select labdet;
+
+                    foreach (var labdetails in q1)
+                    {
+                        labdetails.LabCharge = element.FreightCharge;
+                        labdetails.Remark = element.Remark;
+                    }
+
+
+
+                }
+                db.SaveChanges();
+
+            }
+            return reqnum;
+        }
         /// <summary>
         /// get the last costing
         /// </summary>
@@ -344,6 +385,83 @@ GROUP BY  AtcId", con);
 
             return freightChargeDetailnew;
         }
+        public LabChargeDetail GetAllowedLabCharges(LabChargeDetail freightChargeDetailnew)
+        {
+            Decimal costingpk = 0;
+            Decimal alreadyUsed = 0;
+
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand(@"SELECT      sum(  Allowedvalue) As AllowedValue
+FROM            (SELECT        OurStyleID, Qty * Compvalue AS Allowedvalue, AtcId
+                          FROM            (SELECT        OurStyleID, ISNULL
+                             ((SELECT        SUM(PoQty) AS Expr1
+                                 FROM            POPackDetails
+                                 WHERE        (OurStyleID = AtcDetails.OurStyleID)), 0) AS Qty, ISNULL
+                             ((SELECT        MAX(StyleCostingComponentDetails.CompValue) AS Expr1
+                                 FROM            StyleCostingComponentDetails INNER JOIN
+                                                          StyleCostingMaster ON StyleCostingComponentDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                                 WHERE        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingComponentDetails.CostComp_PK = 10) AND (StyleCostingMaster.OurStyleID = AtcDetails.OurStyleID)), 0) AS Compvalue, AtcId
+FROM            AtcDetails
+WHERE        (AtcId = @atcid)) AS tt) AS ttt
+GROUP BY  AtcId", con);
+
+                cmd.Parameters.AddWithValue("@atcid", freightChargeDetailnew.AtcID);
+                try
+                {
+                    costingpk = Decimal.Parse(cmd.ExecuteScalar().ToString());
+                }
+                catch (Exception)
+                {
+
+                    costingpk = 0;
+                }
+
+
+
+            }
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = (from frgdet in enty.LabChargeDetails
+                         where frgdet.AtcID == freightChargeDetailnew.AtcID
+                         select new { frgdet.LabCharge }).ToList();
+
+                foreach (var element in q)
+                {
+
+                    try
+                    {
+                        if (decimal.Parse(element.LabCharge.ToString()) > 0)
+                        {
+                            alreadyUsed = alreadyUsed + decimal.Parse(element.LabCharge.ToString());
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                }
+
+
+
+            }
+
+
+
+
+            freightChargeDetailnew.AllowedValue = costingpk.ToString();
+            freightChargeDetailnew.UsedValue = alreadyUsed.ToString();
+            freightChargeDetailnew.BalanceValue = (Decimal.Parse(costingpk.ToString()) - Decimal.Parse(alreadyUsed.ToString())).ToString();
+            costingpk = costingpk - alreadyUsed;
+
+
+            return freightChargeDetailnew;
+        }
 
 
     }
@@ -389,6 +507,37 @@ WHERE        (AtcAction.Month = @Param1)");
             return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
         }
 
+
+
+        public DataTable GetBEofMonthAtc(string month)
+        {
+            DataTable dt = new DataTable();
+
+
+
+
+            SqlCommand cmd = new SqlCommand(@" SELECT AtcMaster.AtcId, AtcMaster.AtcNum, BuyerMaster.BuyerName, CountryMaster.ShortName, BEOfMonth.AddedBy as ActionDoneBy, BEOfMonth.AddedDate as ActionDoneDate,'BE' as ActionType, BEOfMonth.month,'0' as Year
+FROM            AtcMaster INNER JOIN
+                         BEOfMonth ON AtcMaster.AtcId = BEOfMonth.AtcID INNER JOIN
+                         BuyerMaster ON AtcMaster.Buyer_ID = BuyerMaster.BuyerID INNER JOIN
+                         CountryMaster ON AtcMaster.ProductionCountryID = CountryMaster.CountryID
+WHERE        (BEOfmonth.Month = @Param1)");
+
+
+            cmd.Parameters.AddWithValue("@Param1", month);
+
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
+        }
+
+
+
+
+
+
+
+
+       
         public List<AtcClosingModel> GetNonclosedatclist()
         {
             List<AtcClosingModel> ls = new List<AtcClosingModel>();
@@ -493,8 +642,53 @@ WHERE        (AtcAction.Month = @Param1)");
         }
 
 
+        public void BEofMonth(AtcClosingModelList atcClosingModelList)
+        {
 
-    }
+
+            foreach (AtcClosingModel atcClosingModel in atcClosingModelList.atcClosingModels)
+            {
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
+
+                   
+
+                    BEOfMonth bEOfMonth = new BEOfMonth();
+                    bEOfMonth.AtcID = atcClosingModel.AtcId;                 
+                    bEOfMonth.AddedDate = atcClosingModelList.Addeddate;
+                    bEOfMonth.AddedBy = atcClosingModelList.AddedBy;
+                    bEOfMonth.Month = atcClosingModelList.Month;
+                    enty.BEOfMonths.Add(bEOfMonth);
+
+                    enty.SaveChanges();
+                }
+
+
+            }
+
+
+        }
+
+
+        public void RemoveMonth(String Month)
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from bedet in enty.BEOfMonths
+                        where bedet.Month == Month
+                        select bedet;
+                foreach(var element in q)
+                {
+                    enty.BEOfMonths.Remove(element);
+
+
+                }
+
+                enty.SaveChanges();
+            }
+            }
+        }
 
 
 }

@@ -51,5 +51,10 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
 
 
 
-   
+    public class FCRStatusReportDataModel
+    {
+        public string ReportName { get; set; }
+
+        public DataTable FabricdataData { get; set; }
+    }
 }

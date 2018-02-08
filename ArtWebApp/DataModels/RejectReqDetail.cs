@@ -18,6 +18,10 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> RejFabReqID { get; set; }
         public Nullable<decimal> AllowedQty { get; set; }
         public Nullable<decimal> RejReqMasterID { get; set; }
+        public Nullable<decimal> GarmentQty { get; set; }
+        public string RejectionType { get; set; }
+        public Nullable<decimal> Location_PK { get; set; }
+        public string FabreqNum { get; set; }
     
         public virtual RejectReqMaster RejectReqMaster { get; set; }
     }

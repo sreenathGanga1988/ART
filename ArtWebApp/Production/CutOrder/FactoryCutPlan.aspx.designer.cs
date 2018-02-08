@@ -346,6 +346,24 @@ namespace ArtWebApp.Production.CutOrder {
         protected global::System.Web.UI.WebControls.TextBox txt_maximumMarkerlength;
         
         /// <summary>
+        /// upd_allowedExcess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_allowedExcess;
+        
+        /// <summary>
+        /// drp_allowedExcess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_allowedExcess;
+        
+        /// <summary>
         /// upd_garmentColor control.
         /// </summary>
         /// <remarks>

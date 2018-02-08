@@ -1,0 +1,179 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.ShippingDocumentMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Gate IN</h2>
+
+
+<table class="table table-responsive table-bordered table-striped MyDataTable">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipDocNum)
+            </th>
+            <th>
+                Shipper
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Conatianer
+            </th>
+            <th>
+                BL
+            </th>
+            <th>
+                AddedBY
+            </th>
+
+
+
+            <th></th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipDocNum)
+                </td>
+                <td>
+
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>ShipperName</td>
+                                <td>  @Html.DisplayFor(modelItem => item.ShipperName)</td>
+                            </tr>
+                            <tr>
+                                <td>ExporterName</td>
+                                <td>@Html.DisplayFor(modelItem => item.ExporterName)</td>
+                            </tr>
+                            <tr>
+                                <td>ShipperInv</td>
+                                <td> @Html.DisplayFor(modelItem => item.ShipperInv)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </td>
+                <td>
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>Description</td>
+                                <td> @Html.DisplayFor(modelItem => item.Description)</td>
+                            </tr>
+                            <tr>
+                                <td>No of Ctn</td>
+                                <td>@Html.DisplayFor(modelItem => item.NOofctnRoll)</td>
+                            </tr>
+                            <tr>
+                                <td>Package Type</td>
+                                <td>@Html.DisplayFor(modelItem => item.Packagetype)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>Weight</td>
+                                <td>  @Html.DisplayFor(modelItem => item.Weight)</td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td> @Html.DisplayFor(modelItem => item.Type)</td>
+                            </tr>
+                            <tr>
+                                <td>InvoiceValue</td>
+                                <td> @Html.DisplayFor(modelItem => item.InvoiceValue)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>Container</td>
+                                <td>@Html.DisplayFor(modelItem => item.Conatianer)</td>
+                            </tr>
+                            <tr>
+                                <td>Container Type</td>
+                                <td> @Html.DisplayFor(modelItem => item.ContsainerType)</td>
+                            </tr>
+                            <tr>
+                                <td>ETA</td>
+                                <td>@Html.DisplayFor(modelItem => item.ETA)</td>
+                            </tr>
+                            <tr>
+                                <td>Vessel</td>
+                                <td>@Html.DisplayFor(modelItem => item.Vessel)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>BL</td>
+                                <td> @Html.DisplayFor(modelItem => item.BL)</td>
+                            </tr>
+                            <tr>
+                                <td>Mode</td>
+                                <td>@Html.DisplayFor(modelItem => item.Mode)</td>
+                            </tr>
+                            <tr>
+                                <td>DocType</td>
+                                <td>@Html.DisplayFor(modelItem => item.DocType)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="table-bordered table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>AddedDate</td>
+                                <td> @Html.DisplayFor(modelItem => item.AddedDate)</td>
+                            </tr>
+                            <tr>
+                                <td>AddedBY</td>
+                                <td> @Html.DisplayFor(modelItem => item.AddedBY)</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </td>
+
+
+
+                <td>
+                    @Html.ActionLink("Gate IN", "GateIN", new { id = item.ShipingDoc_PK }) |
+
+
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

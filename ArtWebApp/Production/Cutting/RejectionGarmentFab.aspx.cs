@@ -140,15 +140,16 @@ namespace ArtWebApp.Production.Cutting
                     int lbl_RejFabReqID = int.Parse(((di.FindControl("lbl_RejFabReqID") as Label).Text.ToString()));
                  
                     decimal txt_allowed = decimal.Parse((di.FindControl("txt_allowed") as TextBox).Text.ToString());
-
-
+                    decimal lbl_reqQty = decimal.Parse((di.FindControl("lbl_reqQty") as Label).Text.ToString());
+                    
                     RejectReqDetailsData mrndetdata = new RejectReqDetailsData ();
 
                     mrndetdata.RejFabReqID = lbl_RejFabReqID;
                     mrndetdata.AllowedQty = txt_allowed;
-                 
-                  
-                  
+                    mrndetdata.GarmentQty = lbl_reqQty;
+                    
+
+
                     rk.Add(mrndetdata);
                 }
             }

@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+        $("#Show").click(function (e, params) {
+           
+            var Id = $('#AtcID').find('option:selected').val();
+            $('#loadingmessage').show();
+            $.ajax({
+                url: "@Url.Action("GetFCRStatus", "FCR")",
+                traditional: true,
+                type: "GET",
+                data: { 'Id': Id },
+                success: function (fooBarHTML) {
+                    
+                  
+                    $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $('#loadingmessage').hide();
+                }
+            });
+
+        });
+    });
+
+        </script>
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-2">Atc #:</div>
+            <div class="col-md-10">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+                <input id="Show" type="button" value="Get FCR Status of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+
+

@@ -46,7 +46,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
 
     public class FabreqDetails
     {
-        public Decimal? Fabreqid { get; set; }
+        public Decimal? RejFabPanelReqID { get; set; }
         public String Fabreqno { get; set; }
         public DateTime? Reqdate { get; set; }
         public String DepartmentName { get; set; }
@@ -56,7 +56,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Models
         public String LocationName { get; set; }
         public Decimal Allowedfabric { get; set; }
         public Boolean IsSelected { get; set; }
-        
+     
 
     }
 }

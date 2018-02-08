@@ -168,6 +168,29 @@ WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (Template_Master.ItemGro
             }
         }
 
+        /// <summary>
+        /// Get All Fabric DO of Atc
+        /// </summary>
+        /// <param name="atcid"></param>
+        /// <returns></returns>
+        public static DataTable getFabricSROIN(int atcid, int LCTNPK)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"
+SELECT    DISTINCT    RoInStockMaster.RoInStock_PK, RoInStockMaster.RoInStockNum
+FROM            RoInStockMaster INNER JOIN
+                         RoInStockDetails ON RoInStockMaster.RoInStock_PK = RoInStockDetails.RoInStock_PK INNER JOIN
+                         SkuRawmaterialDetail ON RoInStockDetails.ToSkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+						 WHERE        (SkuRawMaterialMaster.Atc_id = @atcid) AND (Template_Master.ItemGroup_PK = 1) AND (RoInStockMaster.Location_pk = @LCTNPK)";
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+                cmd.Parameters.AddWithValue("@LCTNPK", LCTNPK);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
+
 
         public static DataTable getFabricLOAN(int atcid, int LCTNPK)
         {
@@ -325,6 +348,33 @@ WHERE        (ROINMaster.ROIN_PK = @roin_pk)";
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
             }
         }
+
+
+
+        /// <summary>
+        /// gET LIST OF ALL FABRIC INSIDE A ROIN
+        /// </summary>
+        /// <param name="roin_pk"></param>
+        /// <returns></returns>
+        public static DataTable getFabricDetailsInsideSROin(int roin_pk)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT DISTINCT 
+                         SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + '  ' + SkuRawMaterialMaster.Weight + SkuRawMaterialMaster.Width + '  ' + SkuRawmaterialDetail.ItemColor
+                          AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, RoInStockMaster.RoInStock_PK
+FROM            RoInStockMaster INNER JOIN
+                         RoInStockDetails ON RoInStockMaster.RoInStock_PK = RoInStockDetails.RoInStock_PK INNER JOIN
+                         SkuRawmaterialDetail ON RoInStockDetails.ToSkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+WHERE        (RoInStockMaster.RoInStock_PK = @roin_pk)";
+
+                cmd.Parameters.AddWithValue("@roin_pk", roin_pk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
+
 
 
 
@@ -1399,7 +1449,92 @@ ORDER BY tt.RollNum ";
         }
 
 
+        public void insertSROINRollData()
+        {
 
+            int toskudetpk = 0;
+            int oldrollinventorypk = 0;
+            int locpk = 0;
+
+
+            using (ArtEntitiesnew entry = new ArtEntitiesnew())
+            {
+
+                var q = (from um in entry.RoInStockDetails
+                         where um.ToSkuDet_Pk == this.SkuDet_PK && um.RoInStock_PK == this.roin_PK
+
+                         select um.ToSkuDet_Pk).FirstOrDefault();
+
+                toskudetpk = int.Parse(q.ToString());
+
+                if (toskudetpk > 0)
+                {
+                    foreach (RollInventoryData rolldata in RollInventoryDatadatacollection)
+                    {
+
+
+
+
+                        var rolldataquery = from fbrcroll in entry.FabricRollmasters
+                                            where fbrcroll.Roll_PK == rolldata.roll_PK
+                                            select fbrcroll;
+
+                        foreach (var element in rolldataquery)
+                        {
+                            element.SkuDet_PK = toskudetpk;
+                        }
+
+
+                        var q1 = from rllinvdata in entry.RollInventoryMasters
+                                 where rllinvdata.Roll_PK == rolldata.roll_PK && rllinvdata.IsPresent == "W"
+                                 select rllinvdata;
+                        foreach (var element in q1)
+                        {
+                            element.IsPresent = "N";
+                            element.DeliveredVia = this.Docnum;
+                            locpk = int.Parse(element.Location_Pk.ToString());
+                            oldrollinventorypk = int.Parse(element.RollInventory_PK.ToString());
+                        }
+
+
+
+                        //creates a roll on the new location with is present as N
+
+                        RollInventoryMaster rvinvmstr = new RollInventoryMaster();
+
+                        rvinvmstr.Addeddate = DateTime.Now;
+                        rvinvmstr.DocumentNum = this.Docnum;
+                        rvinvmstr.AddedVia = "SROIN";
+                        rvinvmstr.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        rvinvmstr.Location_Pk = locpk;
+                        rvinvmstr.Roll_PK = rolldata.roll_PK;
+                        rvinvmstr.IsPresent = "Y";
+                        entry.RollInventoryMasters.Add(rvinvmstr);
+                        entry.SaveChanges();
+
+
+
+
+
+
+                        var q3 = from rllinvdata in entry.RollInventoryMasters
+                                 where rllinvdata.RollInventory_PK == oldrollinventorypk
+                                 select rllinvdata;
+                        foreach (var element in q3)
+                        {
+                            element.NewRollInventory_PK = rvinvmstr.RollInventory_PK;
+                        }
+
+                        entry.SaveChanges();
+
+                    }
+
+                }
+
+
+
+            }
+        }
 
 
     }
@@ -1698,6 +1833,22 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Loc
             }
         }
 
+        public DataTable getNonDeliveredRollofaIteminOneLocatiomGstock(int skudet_pk, int lctn_pk)
+        {
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, RollInventoryMaster.RollInventory_PK, FabricRollmaster.RollNum, RollInventoryMaster.DocumentNum, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK, RollInventoryMaster.AddedVia
+FROM            FabricRollmaster INNER JOIN
+                         RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
+WHERE        (RollInventoryMaster.IsPresent = N'W') AND (RollInventoryMaster.Location_Pk = @lctn_pk) AND (FabricRollmaster.IsDelivered = N'N')  AND 
+                         (RollInventoryMaster.AddedVia = N'GT')";
+               
+                cmd.Parameters.AddWithValue("@lctn_pk", lctn_pk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
 
 
         /// <summary>

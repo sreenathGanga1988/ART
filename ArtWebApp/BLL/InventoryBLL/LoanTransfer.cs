@@ -471,7 +471,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
 
                     var templatedata = from skudet in enty.SkuRawmaterialDetails
-                                       join skumstr in enty.SkuRawMaterialMasters on skudet.SkuDet_PK equals skumstr.Sku_Pk
+                                       join skumstr in enty.SkuRawMaterialMasters on skudet.Sku_PK equals skumstr.Sku_Pk
                                        where skudet.SkuDet_PK == skudetpk
                                        select new { skumstr.Construction, skumstr.Composition, skudet.ItemColor, skudet.ItemSize };
 
@@ -497,8 +497,8 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 spodetal.POQty = receivedQty;
                 spodetal.Uom_PK = uom_pk;
                 spodetal.CUrate = NewUnitprice;
-                spodetal.Composition = Construction;
-                spodetal.Construct = Composition;
+                spodetal.Composition = Composition;
+                spodetal.Construct = Construction;
                 spodetal.TemplateColor = ItemColor;
                 spodetal.TemplateSize = ItemSize;
                 enty.StockPODetails.Add(spodetal);

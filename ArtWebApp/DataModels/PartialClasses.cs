@@ -18,7 +18,7 @@ namespace ArtWebApp.DataModels
 
         {
             [Display(Name = "ID")]
-            
+
             public decimal User_PK { get; set; }
             [Display(Name = "User Name")]
             [Required(ErrorMessage = "Please enter the User Nam")]
@@ -72,9 +72,9 @@ namespace ArtWebApp.DataModels
         }
 
 
-       
 
-    
+
+
     }
 
     [MetadataType(typeof(DepartmentMasterMD))]
@@ -82,14 +82,14 @@ namespace ArtWebApp.DataModels
     {
         public class DepartmentMasterMD
         {
-        public decimal Deapartment_PK { get; set; }
+            public decimal Deapartment_PK { get; set; }
             [Display(Name = " Virtual Department")]
             public string DepartmentName { get; set; }
         }
 
-       
 
-       
+
+
     }
 
 
@@ -104,10 +104,10 @@ namespace ArtWebApp.DataModels
             public string LocationName { get; set; }
         }
 
-      
-       
 
-       
+
+
+
     }
 
     [MetadataType(typeof(UserProfileMaster))]
@@ -119,9 +119,9 @@ namespace ArtWebApp.DataModels
             public string UserProfileName { get; set; }
         }
 
-       
 
-        
+
+
     }
 
     [MetadataType(typeof(FreightRequestMasterMD))]
@@ -169,13 +169,13 @@ namespace ArtWebApp.DataModels
             public Nullable<System.DateTime> ApprovedDate { get; set; }
             public string IsApproved { get; set; }
             public string IsPosted { get; set; }
-           
+
         }
     }
 
 
-   
-    
+
+
     [MetadataType(typeof(FreightRequestDetailMD))]
     public partial class FreightChargeDetail
     {
@@ -186,7 +186,24 @@ namespace ArtWebApp.DataModels
         [NotMapped]
         public string BalanceValue { get; set; }
     }
+
+    [MetadataType(typeof(LabChargeDetailMD))]
+    public partial class LabChargeDetail
+    {
+        [NotMapped]
+        public string AllowedValue { get; set; }
+        [NotMapped]
+        public string UsedValue { get; set; }
+        [NotMapped]
+        public string BalanceValue { get; set; }
+    }
     public class FreightRequestDetailMD
+    {
+
+
+        // and other properties you want...
+    }
+    public class LabChargeDetailMD
     {
 
 

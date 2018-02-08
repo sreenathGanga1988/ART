@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public ShippingDocumentMaster()
         {
             this.ShippingDocumentDetails = new HashSet<ShippingDocumentDetail>();
+            this.ShippingDocumentActionDetails = new HashSet<ShippingDocumentActionDetail>();
         }
     
         public decimal ShipingDoc_PK { get; set; }
@@ -108,7 +109,12 @@ namespace ArtWebApp.DataModels
         public string InhouseFTY { get; set; }
         public Nullable<System.DateTime> InhouseFTYAddedDate { get; set; }
         public string InhouseFTYAddedBy { get; set; }
+        public string LastReceivedLocationPK { get; set; }
+        public string IsDelivered { get; set; }
+        public Nullable<decimal> DeliveredPackage { get; set; }
+        public string IsAssigned { get; set; }
     
         public virtual ICollection<ShippingDocumentDetail> ShippingDocumentDetails { get; set; }
+        public virtual ICollection<ShippingDocumentActionDetail> ShippingDocumentActionDetails { get; set; }
     }
 }

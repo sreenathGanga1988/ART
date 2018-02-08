@@ -105,13 +105,31 @@ namespace ArtWebApp.Areas.Shipping.Controllers
         {
             if (id == null)
             {
+
+
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ShippingDocumentMaster shippingDocumentMaster = db.ShippingDocumentMasters.Find(id);
+            ShippingRepo shippingRepo = new ShippingRepo();
+
+           
+
             if (shippingDocumentMaster == null)
             {
                 return HttpNotFound();
+
+                
             }
+            ViewBag.IsReceived = "N";
+            if (shippingRepo.IsGateReceived(int.Parse( id.ToString())))
+            {
+                ViewBag.IsReceived = "Y";
+            }
+            else
+            {
+                ViewBag.IsReceived = "N";
+            }
+           
             return View(shippingDocumentMaster);
         }
 

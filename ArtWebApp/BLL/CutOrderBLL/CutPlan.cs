@@ -1647,6 +1647,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 {
                     element.IsPatternAdded = "N";
                     element.IsCutorderGiven = "N";
+                    element.IsApproved = "N";
 
                 }
 

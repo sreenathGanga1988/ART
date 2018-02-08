@@ -1,0 +1,466 @@
+﻿@model ArtWebApp.Areas.Accounts.ViewModel.AccountdashBoard
+@using System.Data;
+<script src="~/Plugin/MyDataTable.js"></script>
+
+
+
+<div class="container">
+    <h2>Accounts DashBoard</h2>
+    <p>Click on the button to toggle between showing and hiding content.</p>
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingApprovalDiv">Pending General Po for Payable</button>
+    <div id="PendingApprovalDiv" class="collapse in">
+      
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingGeneralPoforPayable.Columns)
+            {
+                <th>
+                    @col.ColumnName
+                </th>
+    }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingGeneralPoforPayable.Columns)
+            {
+                <th>
+
+                </th>
+    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingGeneralPoforPayable.Rows)
+        {
+            <tr>
+
+                @foreach (DataColumn col in Model.PendingGeneralPoforPayable.Columns)
+        {
+            <td>
+                @row[@col.ColumnName]
+
+            </td>
+}
+            </tr>
+
+}
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingGeneralPoforPayable.Columns)
+            {
+                <th>
+
+                </th>
+    }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingpatternDiv">Pending PO for Payable</button>
+    <div id="PendingpatternDiv" class="collapse in">
+
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingPOforPayable.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingPOforPayable.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingPOforPayable.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingPOforPayable.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+            }
+                </tr>
+
+        }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingPOforPayable.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+
+
+
+    </div>
+
+
+
+
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingCutorderDiv">Pending service Po for Posting</button>
+    <div id="PendingCutorderDiv" class="collapse in">
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingservicePoforPosting.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingservicePoforPosting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingservicePoforPosting.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingservicePoforPosting.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+            }
+                </tr>
+
+        }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingservicePoforPosting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+
+    </div>
+
+
+
+
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingASQDiv">Pending Local External Sales for Posting</button>
+    <div id="PendingASQDiv" class="collapse in">
+
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingLocalExternalSalesforPosting.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingLocalExternalSalesforPosting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingLocalExternalSalesforPosting.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingLocalExternalSalesforPosting.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+            }
+                </tr>
+
+        }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingLocalExternalSalesforPosting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRatioDiv">Pending Internal Sales For Debiting</button>
+    <div id="PendingRatioDiv" class="collapse in">
+
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingInternalSalesForDebiting.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingInternalSalesForDebiting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingInternalSalesForDebiting.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingInternalSalesForDebiting.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+            }
+                </tr>
+
+        }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingInternalSalesForDebiting.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+
+
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRollDiv">Pending Debit note For Posting</button>
+    <div id="PendingRollDiv" class="collapse in">
+
+        <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
+            {
+                <th>
+                    @col.ColumnName
+                </th>
+    }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
+            {
+                <th>
+
+                </th>
+    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingDebitnoteForPosting.Rows)
+        {
+            <tr>
+
+                @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
+        {
+            <td>
+                @row[@col.ColumnName]
+
+            </td>
+}
+            </tr>
+
+}
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
+            {
+                <th>
+
+                </th>
+    }
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@*<table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+    <thead>
+
+
+
+        <tr>
+
+            @foreach (DataColumn col in Model.AsqData.Columns)
+            {
+                <th>
+                    @col.ColumnName
+                </th>
+            }
+
+        </tr>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.AsqData.Columns)
+            {
+                <th>
+
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (DataRow row in Model.AsqData.Rows)
+        {
+            <tr>
+
+                @foreach (DataColumn col in Model.AsqData.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+    <tfoot>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.AsqData.Columns)
+            {
+                <th>
+
+                </th>
+            }
+        </tr>
+
+    </tfoot>
+
+</table>*@
+
+
+
+

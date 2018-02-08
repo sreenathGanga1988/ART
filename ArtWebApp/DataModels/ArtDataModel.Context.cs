@@ -292,6 +292,10 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<FabricMissing> FabricMissings { get; set; }
         public virtual DbSet<AtcAction> AtcActions { get; set; }
         public virtual DbSet<ShippingDocumentDetailLocation> ShippingDocumentDetailLocations { get; set; }
+        public virtual DbSet<ShippingDocumentActionDetail> ShippingDocumentActionDetails { get; set; }
+        public virtual DbSet<RollPropertyChangeMaster> RollPropertyChangeMasters { get; set; }
+        public virtual DbSet<BEOfMonth> BEOfMonths { get; set; }
+        public virtual DbSet<FabricInLocation_tbl> FabricInLocation_tbl { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

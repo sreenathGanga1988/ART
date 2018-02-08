@@ -256,25 +256,42 @@ namespace ArtWebApp.Reports.MerchandiserReport
         protected void tbl_podata_RowDataBound(object sender, GridViewRowEventArgs e)
 
         {
+            int popackidtemp = 0;
+            int ourstyleidtemp = 0;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
-                    int popackid = int.Parse((e.Row.FindControl("lbl_popackid") as Label).Text);
+                    try
+                    {
+                        int ourstyleid = int.Parse((e.Row.FindControl("lbl_ourstyleid") as Label).Text);
+                        int popackid = int.Parse((e.Row.FindControl("lbl_popackid") as Label).Text);
+                        popackidtemp = popackid;
+                        ourstyleidtemp = ourstyleid;
 
-                    DataTable dt = (DataTable)(ViewState["asqtable"]);
-                    DataTable sizedata = BLL.FactoryAtcChart.createdatatable(dt, popackid, ourstyleid);
+                        if(popackidtemp==85625&& ourstyleidtemp==1033)
+                        {
+                            popackidtemp = 0;
+                        }
+                        DataTable dt = (DataTable)(ViewState["asqtable"]);
+                        DataTable sizedata = BLL.FactoryAtcChart.createdatatable(dt, popackid, ourstyleid);
 
-                    GenerateTable(sizedata, e.Row);
+                        GenerateTable(sizedata, e.Row);
 
-                    //    GenerateTable(BLL.popackupdater.createdatatable(ourstyleid, popackid), e.Row);
+                        //    GenerateTable(BLL.popackupdater.createdatatable(ourstyleid, popackid), e.Row);
 
 
-                    string IsAllocated = BLL.popackupdater.IsAllocated(ourstyleid, popackid);
+                        string IsAllocated = BLL.popackupdater.IsAllocated(ourstyleid, popackid);
 
-                    (e.Row.FindControl("lbl_allocated") as Label).Text = IsAllocated;
+                        (e.Row.FindControl("lbl_allocated") as Label).Text = IsAllocated;
 
+                    }
+                    catch (Exception EX)
+                    {
+                        int k = popackidtemp;
+                        int y= ourstyleidtemp;
+                        throw;
+                    }
 
                 }
 

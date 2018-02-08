@@ -428,7 +428,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.ExporterName = this.ExporterName;
                 shpdocmstr.ShipperInv = this.ShipperInv;
                 shpdocmstr.Description = this.Description;
-                shpdocmstr.NOofctnRoll = this.NOofctnRoll;
+                shpdocmstr.NOofctnRoll =Decimal.Parse(  this.NOofctnRoll).ToString();
                 shpdocmstr.Packagetype = this.Packagetype;
                 shpdocmstr.Weight = this.Weight;
                 shpdocmstr.Type = this.Type;
@@ -439,6 +439,9 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.BL = this.BL;
                 shpdocmstr.Mode = this.Mode;
                 shpdocmstr.DocType = this.DocType;
+                shpdocmstr.IsReceived = "N";
+                shpdocmstr.IsDelivered = "Y";
+                shpdocmstr.DeliveredPackage = Decimal.Parse( this.NOofctnRoll.ToString());
                 try
                 {
                     shpdocmstr.ETA = this.ETA;
@@ -494,7 +497,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.ExporterName = this.ExporterName;
                 shpdocmstr.ShipperInv = this.ShipperInv;
                 shpdocmstr.Description = this.Description;
-                shpdocmstr.NOofctnRoll = this.NOofctnRoll;
+                shpdocmstr.NOofctnRoll = Decimal.Parse(this.NOofctnRoll).ToString();
                 shpdocmstr.Packagetype = this.Packagetype;
                 shpdocmstr.Weight = this.Weight;
                 shpdocmstr.Type = this.Type;
@@ -505,6 +508,9 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.BL = this.BL;
                 shpdocmstr.Mode = this.Mode;
                 shpdocmstr.DocType = this.DocType;
+                shpdocmstr.IsReceived = "N";
+                shpdocmstr.IsDelivered = "Y";
+                shpdocmstr.DeliveredPackage = Decimal.Parse(this.NOofctnRoll.ToString());
                 try
                 {
                     shpdocmstr.ETA = this.ETA;
@@ -564,6 +570,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.Packagetype = this.Packagetype;
                 shpdocmstr.Weight = this.Weight;
                 shpdocmstr.Type = this.Type;
+                shpdocmstr.IsReceived = "N";
                 shpdocmstr.InvoiceValue = this.InvoiceValue;
                 shpdocmstr.Vessel = this.Vessel;
                 shpdocmstr.Conatianer = this.Conatianer;
@@ -626,7 +633,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.ExporterName = this.ExporterName;
                 shpdocmstr.ShipperInv = this.ShipperInv;
                 shpdocmstr.Description = this.Description;
-                shpdocmstr.NOofctnRoll = this.NOofctnRoll;
+                shpdocmstr.NOofctnRoll = Decimal.Parse(this.NOofctnRoll).ToString();
                 shpdocmstr.Packagetype = this.Packagetype;
                 shpdocmstr.Weight = this.Weight;
                 shpdocmstr.Type = this.Type;
@@ -638,6 +645,8 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.Mode = this.Mode;
                 shpdocmstr.DocType = this.DocType;
                 shpdocmstr.IsReceived = "N";
+                shpdocmstr.IsDelivered = "Y";
+                shpdocmstr.DeliveredPackage = Decimal.Parse(this.NOofctnRoll.ToString());
                 try
                 {
                     shpdocmstr.ETA = this.ETA;

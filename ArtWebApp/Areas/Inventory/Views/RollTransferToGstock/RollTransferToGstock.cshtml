@@ -1,0 +1,155 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.RollTransfertoGstockModelMaster
+@{
+    ViewBag.Title = "RollTransferToGstock";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <h2>Index</h2>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="control-label col-md-2">Transfer #  : </div>
+            <div class="col-md-4">
+
+                @Html.DropDownListFor(m => m.TransferToGSTock_PK, (SelectList)ViewBag.Id, "Please select Transfer", new { @class = "chosen-select form-control" })
+
+            </div>
+            <div class="control-label col-md-2">Fabric  : </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.SkuDet_PK, new SelectList(string.Empty, "Value", "Text"), "Please select Fabric", new { @class = "chosen-select form-control" })
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Show" type="button" value="Show" class="btn btn-default show" />
+        </div>
+    </div>
+    <div id='loadingmessage' style='display:none'>
+        <img src='~/Image/ajax-loader.gif' alt="loading...." />
+    </div>
+    if (TempData["Success"] != null)
+    {
+        <div class="top-buffer"></div>
+        <div class="alert alert-success">
+            <p><strong>@TempData["Success"].ToString()</strong></p>
+        </div>}
+    @if (TempData["Error"] != null)
+    {
+        <div class="top-buffer"></div>
+        <div class="alert alert-danger">
+            <p><strong>@TempData["Error"].ToString()</strong></p>
+        </div>}
+
+
+    <div id='output' class="">
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="Submit" type="submit" value="Submit Fabric request" class="btn btn-default show" />
+        </div>
+    </div>
+
+}
+<script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+          
+
+
+             $("#TransferToGSTock_PK").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+          
+            $.ajax({
+                url: "@Url.Action("PopulateFabric", "RollTransferToGstock")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#SkuDet_PK').empty();
+                    $('#output').empty();
+                    $.each(data, function () {
+
+
+                        $('#SkuDet_PK').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#SkuDet_PK").trigger("chosen:updated");
+
+
+                    $("#SkuDet_PK").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+
+
+    });
+
+            $("#Show").click(function (e, params) {
+
+            debugger;
+
+          var  SkuDet_PK = $("#SkuDet_PK").chosen().val();
+
+          if (SkuDet_PK != null)
+            {
+
+
+                $.ajax({
+                    url: "@Url.Action("GetRollView", "RollTransferToGstock")",
+                    traditional: true,
+                    data: { 'SkuDet_PK': SkuDet_PK },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+
+
+
+         }
+
+
+        });
+
+
+        });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+<style>
+    .top-buffer {
+        margin-top: 20px;
+    }
+</style>

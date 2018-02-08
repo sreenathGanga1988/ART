@@ -28,6 +28,9 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
         public Nullable<decimal> OurStyleID { get; set; }
         public Nullable<decimal> CM { get; set; }
+        public string IsApproved { get; set; }
+        public string ApprovedBy { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
     
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<JobContractDetail> JobContractDetails { get; set; }

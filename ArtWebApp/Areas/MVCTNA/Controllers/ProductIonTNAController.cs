@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ArtWebApp.Areas.MVCTNA.Controllers
 {
@@ -13,16 +14,36 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
     {
         ArtWebApp.DataModels.ArtEntitiesnew db = new DataModels.ArtEntitiesnew();
         // GET: MVCTNA/ProductIonTNA
-        public ActionResult Index(ProductionTNAVModelMaster model)
+        public ActionResult Index(ProductionTNAVModelMaster model=null)
         {
 
-            ProductionTNARepo productionTNARepo = new ProductionTNARepo();
 
-            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0);
+            if (model == null)
+            {
+                ProductionTNARepo productionTNARepo = new ProductionTNARepo();
+
+                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0);
+            }
+            else
+            {
+
+            }
+           
             return View(model);
         }
 
+        [HttpGet]
+        public PartialViewResult BetweenDateTNA(DateTime fromdate, DateTime todate)
+        {
 
+            ProductionTNARepo productionTNARepo = new ProductionTNARepo();
+            ProductionTNAVModelMaster model = new ProductionTNAVModelMaster();
+            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(fromdate, todate);
+            //  return RedirectToAction("Index", new RouteValueDictionary(model));
+            return PartialView("TnaView", model);
+        }
+
+      
         public ActionResult Create(ProductionTNAVModelMaster model = null)
         {
             ConfigureViewModel(model);
@@ -35,8 +56,8 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
             int atcid = 0;
 
             int userid = int.Parse(HttpContext.Session["User_PK"].ToString());
-            TnaUserRight tnaUserRight = db.TnaUserRights.Where(u=>u.User_PK==userid).FirstOrDefault();
-            model.tnaUserRight = tnaUserRight;
+          
+            model.tnaUserRights = db.TnaUserRights.Where(u => u.User_PK == userid).ToList();
             model.AtcList = new SelectList(db.AtcMasters.Where(o => o.IsClosed == "N"), "AtcId", "AtcNum");
             if (model.AtcID.HasValue)
             {
@@ -62,10 +83,27 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
 
         {
             bool status = false;
-            
 
 
-            
+            var olddet = db.ProductionTNADetails.Where(u => u.OurStyleID == ourstyleid && u.Location_PK == locationpk && u.ProductionTNACompID == 15 && u.IsDeleted == "N").ToList();
+
+            foreach(var element in olddet)
+            {
+                element.IsDeleted = "Y";
+               
+            }
+
+
+            ProductionTNADetail productionTNADetail = new ProductionTNADetail();
+            productionTNADetail.Location_PK = locationpk;
+            productionTNADetail.OurStyleID = ourstyleid;
+            productionTNADetail.ProductionTNACompID = 15;
+            productionTNADetail.Actionname = "IsFactoryPlannedPCDDate";
+            productionTNADetail.MarkedBy = HttpContext.Session["Username"].ToString();
+            productionTNADetail.MarkedDate = DateTime.Now;
+            productionTNADetail.IsDeleted = "N";
+            db.ProductionTNADetails.Add(productionTNADetail);
+
 
 
 

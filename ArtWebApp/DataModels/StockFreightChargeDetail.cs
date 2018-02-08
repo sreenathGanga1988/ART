@@ -20,6 +20,7 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
         public Nullable<decimal> SPO_PK { get; set; }
         public Nullable<decimal> SPODetails_PK { get; set; }
+        public Nullable<decimal> FirstStockFreightCharge { get; set; }
     
         public virtual StockFreightRequestMaster StockFreightRequestMaster { get; set; }
         public virtual StockPOMaster StockPOMaster { get; set; }

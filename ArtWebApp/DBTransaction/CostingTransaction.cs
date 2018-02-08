@@ -277,7 +277,27 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
                         foreach (var element in q)
                         {
                             if (element.CostComp_PK!=1 && element.CostComp_PK != 2) {
-                                element.CompValue = Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString());
+
+
+                                if(element.CostComp_PK== 3)
+                                {
+                                    Decimal jobcontractcm = getJobContractCM(cmstr.OurStyleID);
+                                    if(jobcontractcm> Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString()))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        element.CompValue = Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString());
+                                    
+                                    }
+                                }
+                                else
+                                {
+                                    element.CompValue = Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString());
+                                }
+
+                                
                             }
                             
 
@@ -389,7 +409,31 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
 
 
 
+        public Decimal getJobContractCM(int fromstyle)
+        {
+            Decimal compvalue = 0;
+            try
+            {
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                {
 
+
+                    var compvaluevar = (from o in enty.JobContractMasters
+                                        where o.OurStyleID == fromstyle
+                                        select o.CM).Max();
+
+
+                    compvalue = Decimal.Parse(compvaluevar.ToString());
+                }
+
+            }
+            catch (Exception)
+            {
+
+                compvalue = 0;
+            }
+            return compvalue;
+        }
 
 
 

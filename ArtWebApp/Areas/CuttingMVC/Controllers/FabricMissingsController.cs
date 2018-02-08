@@ -55,7 +55,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
                 db.Entry(fabricMissing).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Error"] = " Approved";
             }
+          
             return RedirectToAction("Index");
         }
 
