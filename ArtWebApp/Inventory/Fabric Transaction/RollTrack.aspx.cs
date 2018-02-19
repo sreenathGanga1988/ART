@@ -45,7 +45,7 @@ FROM            CutPlanRollDetails INNER JOIN
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as CutPlanNUM,(ISNULL(SkuRawMaterialMaster.RMNUM, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') )
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ')+'(' +SkuRawmaterialDetail.ColorCode+')')
                          AS itemDescription
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
@@ -79,7 +79,7 @@ FROM            CutPlanRollDetails INNER JOIN
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as CutPlanNUM,(ISNULL(SkuRawMaterialMaster.RMNUM, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') )
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ')+'(' +SkuRawmaterialDetail.ColorCode+')')
                          AS itemDescription
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
@@ -113,7 +113,7 @@ FROM            CutPlanRollDetails INNER JOIN
 WHERE        (CutPlanRollDetails.Roll_PK = FabricRollmaster.Roll_PK))tt
             FOR XML PATH('')) ,1,1,'') AS Txt
 ) as CutPlanNUM,(ISNULL(SkuRawMaterialMaster.RMNUM, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Composition, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, ' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, ' ') 
-                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ') )
+                         + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, ' ') + ' ' + ISNULL(SkuRawmaterialDetail.ItemSize, ' ')+'(' +SkuRawmaterialDetail.ColorCode+')')
                          AS itemDescription
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN

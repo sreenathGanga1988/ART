@@ -373,32 +373,62 @@ namespace ArtWebApp.BLL
 
                             var sesionid = enty.SeasonMasters.Where(u => u.SeasonName == pomdata.seasonName).Select(u => u.Season_PK).FirstOrDefault();
                             var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == pomdata.location_PK).Select(u => u.Location_PK).FirstOrDefault();
-
-
                             atcwordelement.ASQ = ponum +" / "+pomdata.BuyerPO.Trim();
                             atcwordelement.BuyerPO = pomdata.BuyerPO.Trim();
                             atcwordelement.DeliveryDate = pomdata.DeliveryDate;
                             atcwordelement.HandOverDate = pomdata.HandoverDate;
-                            atcwordelement.ChannelID = pomdata.ChannelID;
-                            
+                            atcwordelement.ChannelID = pomdata.ChannelID;                            
                             atcwordelement.BuyerDestination_PK = pomdata.BuyerDestination_PK;
                             atcwordelement.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                             atcwordelement.Season_PK = int.Parse(sesionid.ToString());
                             atcwordelement.ChannelName = channelname.ToString();
-                            atcwordelement.Season = pomdata.seasonName;
-
-                            
-
+                            atcwordelement.Season = pomdata.seasonName;                          
                             if (pomdata.Status == "Open")
                             {
                                 atcwordelement.ArtLocaion_PK = pomdata.location_PK;
-
                                 atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+                            }
+                            
+
+                         }
+                        atcenty.SaveChanges();
+                        using (AtcWorldEntities atcethenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities("Ethiopia"))
+                        {
+
+
+
+                            var atcworldethp = from asqatcwordmstr in atcethenty.ASQAllocationMaster_tbl
+                                           where asqatcwordmstr.POPackID == pomdata.PoPackId
+                                           select asqatcwordmstr;
+                            foreach (var atcwordelement in atcworldethp.ToList())
+                            {
+
+                                var channelname = enty.ChannelMasters.Where(u => u.ChannelID == pomdata.ChannelID).Select(u => u.ChannelName).FirstOrDefault();
+
+                                var sesionid = enty.SeasonMasters.Where(u => u.SeasonName == pomdata.seasonName).Select(u => u.Season_PK).FirstOrDefault();
+                                var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == pomdata.location_PK).Select(u => u.Location_PK).FirstOrDefault();
+                                atcwordelement.ASQ = ponum + " / " + pomdata.BuyerPO.Trim();
+                                atcwordelement.BuyerPO = pomdata.BuyerPO.Trim();
+                                atcwordelement.DeliveryDate = pomdata.DeliveryDate;
+                                atcwordelement.HandOverDate = pomdata.HandoverDate;
+                                atcwordelement.ChannelID = pomdata.ChannelID;
+                                atcwordelement.BuyerDestination_PK = pomdata.BuyerDestination_PK;
+                                atcwordelement.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                                atcwordelement.Season_PK = int.Parse(sesionid.ToString());
+                                atcwordelement.ChannelName = channelname.ToString();
+                                atcwordelement.Season = pomdata.seasonName;
+                                if (pomdata.Status == "Open")
+                                {
+                                    atcwordelement.ArtLocaion_PK = pomdata.location_PK;
+                                    atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+                                }
+
 
                             }
-
+                            atcethenty.SaveChanges();
                         }
-                        atcenty.SaveChanges();
+
+                      
                     }
                     catch (Exception)
                     {
@@ -1061,6 +1091,66 @@ FROM            PoPackMaster INNER JOIN
 
         }
 
+
+        public void MarkASQShufflable(Boolean ispackable ,int ourstyleid)
+        {
+
+
+
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+                var q = from ppc in enty.POPackDetails
+                        where ppc.OurStyleID == ourstyleid
+                        select ppc;
+                foreach (var element in q)
+                {
+                    if (ispackable)
+                    {
+                        element.IsInterChangable = "Y";
+                    }
+                    else
+                    {
+                        element.IsInterChangable = "N";
+                    }
+
+                }
+                enty.SaveChanges();
+            }
+
+
+
+        }
+
+
+        public void UpdateOurStyle(int  ourstlyeid,String OurStyleGroup)
+        {
+
+
+
+        
+
+
+                using (AtcWorldEntities atwcorldenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
+                {
+
+                    var atcworld = from asqatcwordmstr in atwcorldenty.ASQAllocationMaster_tbl
+                                   where asqatcwordmstr.OurStyleId == ourstlyeid
+                                   select asqatcwordmstr;
+                    foreach (var atcwordelement in atcworld)
+                    {
+                        atcwordelement.OurStyleGroup = OurStyleGroup;
+
+
+                    }
+
+                atwcorldenty.SaveChanges();
+                }
+
+                
+
+           
+        }
 
         public void MarkASQDeleted(Boolean isdeleted)
         {

@@ -26,18 +26,20 @@ namespace ArtWebApp.Merchandiser.PO
             string selectedpoid = "";
             foreach(GridViewRow gdrow in GridView1.Rows)
             {
-
-                int polineid = int.Parse((gdrow.FindControl("lbl_polineid") as Label).Text);
-
-                if (selectedpoid == "")
+                CheckBox chkBx = (CheckBox)gdrow.FindControl("chk_select");
+                if (chkBx.Checked == true)
                 {
-                    selectedpoid = selectedpoid + polineid.ToString ().Trim();
-                }
-                else
-                {
-                    selectedpoid = selectedpoid + "," + polineid.ToString().Trim();
-                }
+                    int polineid = int.Parse((gdrow.FindControl("lbl_polineid") as Label).Text);
 
+                    if (selectedpoid == "")
+                    {
+                        selectedpoid = selectedpoid + polineid.ToString().Trim();
+                    }
+                    else
+                    {
+                        selectedpoid = selectedpoid + "," + polineid.ToString().Trim();
+                    }
+                }
             }
             Response.Redirect("IPOMultiCreator.aspx?selectionid="+selectedpoid+"");
         }

@@ -100,7 +100,7 @@ namespace ArtWebApp.Areas.ProductionMVC.Controllers
             DataTable dt = productionReportRepo.GetDObetweenDate(fromdate, todate, dotype);
             model.AsqData = dt;
 
-            model.ReportName = dotype + "Report Between "+ fromdate.ToShortDateString() + "&&"+ todate.ToShortDateString();
+            model.ReportName = dotype + "Report Between  "+ fromdate.ToShortDateString() + " && "+ todate.ToShortDateString();
 
 
             return PartialView("ProductionReportViewer", model);

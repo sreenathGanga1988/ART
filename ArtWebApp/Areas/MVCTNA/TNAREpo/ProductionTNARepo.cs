@@ -16,16 +16,19 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
         List<TnaUserRight> tnaUserrightlist = null;
 
-        public List<ProductionTNAVModel> GetProductionTNAData(int? atcid)
+        public List<ProductionTNAVModel> GetProductionTNAData(int? atcid ,int? LocationID)
         {
+        
             List<ProductionTNAVModel> ProductionTNAVModelList = new List<ProductionTNAVModel>();
+            tnaUserrightlist = db.TnaUserRights.ToList();
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = @"ProductionTNAofAtc_SP";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@AtcId", atcid);
-
+                cmd.Parameters.AddWithValue("@LocationID", LocationID);
+                
                 DataTable dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
 
                 if (dt != null)
@@ -89,7 +92,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
             return ProductionTNAVModelList;
         }
 
-        public List<ProductionTNAVModel> GetProductionTNAData(DateTime fromdate, DateTime todate)
+        public List<ProductionTNAVModel> GetProductionTNAData(DateTime fromdate, DateTime todate, int LocationID)
         {
             List<ProductionTNAVModel> ProductionTNAVModelList = new List<ProductionTNAVModel>();
 
@@ -101,7 +104,8 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 cmd.Parameters.AddWithValue("@fromdate", fromdate);
                 cmd.Parameters.AddWithValue("@todate", todate);
-
+                cmd.Parameters.AddWithValue("@LocationID", LocationID);
+                
                 DataTable dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
 
                 if (dt != null)
@@ -232,7 +236,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     }
                     else
                     {
-                        Status = "Red";
+                        Status = "LightCoral";
                     }
 
                 }
@@ -248,7 +252,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
             else
             {
 
-                Status = "Green";
+                Status = "greenyellow";
 
             }
 
@@ -660,20 +664,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 catch (Exception)
                 {
-                    productionTNAVModel.UsrDFC1 = "";
-                    productionTNAVModel.UsrDPPMEETING = "";
-                    productionTNAVModel.UsrDSIZESET = "";
-                    productionTNAVModel.UsrDSEWINGTRIM = "";
-                    productionTNAVModel.UsrDBULKFABRIC = "";
-                    productionTNAVModel.UsrDRECEIPTOFORGINALDOCUMENT = "";
-                    productionTNAVModel.UsrDGRADDEDPATTERN = "";
-                    productionTNAVModel.UsrDSAMPLEYARDAGES = "";
-                    productionTNAVModel.UsrDPPAPPROVAL = "";
-                    productionTNAVModel.UsrDPPSUBMISSIONDATEMERCHANT = "";
-                    productionTNAVModel.UsrDINPUT = "";
-                    productionTNAVModel.UsrDPACKINGTRIMS = "";
-                    productionTNAVModel.UsrDFACTORYPLANNEDPCD = "";
-                    productionTNAVModel.UsrDSYSTEMFILES = "";
+                  
 
                     productionTNAVModel.UsrDSYSTEMFILES = "";
                 }

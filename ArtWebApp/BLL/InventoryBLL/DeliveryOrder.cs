@@ -506,6 +506,8 @@ namespace ArtWebApp.BLL.InventoryBLL
                 domstr.BoeNum = Dodata.Domstrdata.BoeNum;
                 domstr.ContainerNumber = Dodata.Domstrdata.ContainerNumber;
                 domstr.DeliveryDate = Dodata.Domstrdata.DeliveryDate;
+                domstr.ContentType = Dodata.Domstrdata.DoContentType;
+
                 enty.DeliveryOrderMasters.Add(domstr);
 
 
@@ -714,7 +716,7 @@ namespace ArtWebApp.BLL.InventoryBLL
         public DateTime AddedDate { get; set; }
         public string DoType { get; set; }
         public string ExportContainer { get; set; }
-        
+        public string DoContentType { get; set; }
     }
 
     public class DeliveryOrderDetailsData

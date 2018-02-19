@@ -126,6 +126,7 @@
           <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
           <Property Name="IsAtcWord" Type="nchar" MaxLength="10" />
           <Property Name="PackLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleGroup" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ASQShuffleDetailsAtc">
           <Key>
@@ -405,7 +406,6 @@
           </AssociationSet>
           <EntitySet Name="ArtLaySheetMasterDatas" EntityType="AtcModelModel.ArtLaySheetMasterData" />
           <EntitySet Name="Fabricreqforparts" EntityType="AtcModelModel.Fabricreqforpart" />
-          <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
           <EntitySet Name="CmDozmasters" EntityType="AtcModelModel.CmDozmaster" />
           <EntitySet Name="FactoryCostMasters" EntityType="AtcModelModel.FactoryCostMaster" />
           <AssociationSet Name="FK_CmDozmaster_LocationMaster_tbl" Association="AtcModelModel.FK_CmDozmaster_LocationMaster_tbl">
@@ -416,6 +416,7 @@
             <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
             <End Role="FactoryCostMaster" EntitySet="FactoryCostMasters" />
           </AssociationSet>
+          <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -663,53 +664,6 @@
           <Property Name="MachineIP" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="IsUploaded" Type="Boolean" />
         </EntityType>
-        <EntityType Name="ASQAllocationMaster_tbl">
-          <Key>
-            <PropertyRef Name="ASQAllocation_PK" />
-          </Key>
-          <Property Name="ASQAllocation_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="POPackID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="ArtLocaion_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Atcnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ASQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BuyerStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GarmentCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Season" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ChannelID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BuyerDestination_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Season_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Atc_Id" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ColorID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ChannelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BuyerStyleID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AllocatedQty" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ArtAllocation_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="POType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FirstDeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="HandOverDate" Type="DateTime" Precision="3" />
-          <Property Name="IsShortClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
-        </EntityType>
         <EntityType Name="CmDozmaster">
           <Key>
             <PropertyRef Name="CmDozId" />
@@ -765,6 +719,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ASQAllocationMaster_tbl">
+          <Key>
+            <PropertyRef Name="ASQAllocation_PK" />
+          </Key>
+          <Property Name="ASQAllocation_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="ArtLocaion_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atcnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ASQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GarmentCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Season" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ChannelID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerDestination_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Season_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atc_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ChannelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AllocatedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ArtAllocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="POType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FirstDeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="HandOverDate" Type="DateTime" Precision="3" />
+          <Property Name="IsShortClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1000,9 +1002,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CmDozmasters">
+            <EntityTypeMapping TypeName="AtcModelModel.CmDozmaster">
+              <MappingFragment StoreEntitySet="CmDozmaster">
+                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
+                <ScalarProperty Name="CmDoz" ColumnName="CmDoz" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
+                <ScalarProperty Name="Atc_Id" ColumnName="Atc_Id" />
+                <ScalarProperty Name="CmDozId" ColumnName="CmDozId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FactoryCostMasters">
+            <EntityTypeMapping TypeName="AtcModelModel.FactoryCostMaster">
+              <MappingFragment StoreEntitySet="FactoryCostMaster">
+                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="OTCostMinute" ColumnName="OTCostMinute" />
+                <ScalarProperty Name="CostMinute" ColumnName="CostMinute" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="FacCostMasterID" ColumnName="FacCostMasterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ASQAllocationMaster_tbl">
             <EntityTypeMapping TypeName="AtcModelModel.ASQAllocationMaster_tbl">
               <MappingFragment StoreEntitySet="ASQAllocationMaster_tbl">
+                <ScalarProperty Name="OurStyleGroup" ColumnName="OurStyleGroup" />
                 <ScalarProperty Name="PackLocation_PK" ColumnName="PackLocation_PK" />
                 <ScalarProperty Name="IsAtcWord" ColumnName="IsAtcWord" />
                 <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
@@ -1045,37 +1079,6 @@
                 <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
                 <ScalarProperty Name="POPackID" ColumnName="POPackID" />
                 <ScalarProperty Name="ASQAllocation_PK" ColumnName="ASQAllocation_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CmDozmasters">
-            <EntityTypeMapping TypeName="AtcModelModel.CmDozmaster">
-              <MappingFragment StoreEntitySet="CmDozmaster">
-                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
-                <ScalarProperty Name="CmDoz" ColumnName="CmDoz" />
-                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
-                <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
-                <ScalarProperty Name="Atc_Id" ColumnName="Atc_Id" />
-                <ScalarProperty Name="CmDozId" ColumnName="CmDozId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FactoryCostMasters">
-            <EntityTypeMapping TypeName="AtcModelModel.FactoryCostMaster">
-              <MappingFragment StoreEntitySet="FactoryCostMaster">
-                <ScalarProperty Name="MachineIP" ColumnName="MachineIP" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
-                <ScalarProperty Name="OTCostMinute" ColumnName="OTCostMinute" />
-                <ScalarProperty Name="CostMinute" ColumnName="CostMinute" />
-                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
-                <ScalarProperty Name="FacCostMasterID" ColumnName="FacCostMasterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

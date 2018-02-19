@@ -277,7 +277,7 @@
                                                    <asp:BoundField DataField="NoOfPlies" HeaderText="NoOfPlies" SortExpression="NoOfPlies" />
                                                 <asp:BoundField DataField="FabUtilized" HeaderText="FabUtilized" SortExpression="FabUtilized" />
                                                 <asp:BoundField DataField="BalToCut" HeaderText="BalToCut" SortExpression="BalToCut" />
-                                                <asp:BoundField DataField="ExcessOrShort" HeaderText="ExcessOrShort" SortExpression="ExcessOrShort" />
+                                                <asp:BoundField DataField="ExcessOrShort" HeaderText="Excess Or Short" SortExpression="ExcessOrShort" />
                                                 <asp:BoundField DataField="IsRecuttable" HeaderText="cuttable" SortExpression="IsRecuttable" />           </Columns>
                                             <FooterStyle BackColor="#CCCCCC" />
                                             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

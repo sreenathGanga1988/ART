@@ -1,0 +1,219 @@
+﻿@model ArtWebApp.Areas.MVCTNA.ViewModel.ProductionTNAVModelMaster
+@using ArtWebApp.DataModels;
+@{
+    ViewBag.Title = "FacPCDChanged";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Factory PCD Change</h2>
+
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="control-label col-md-2">Atc # : </div>
+      
+
+    </div>
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' alt="loading...." />
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="top-buffer"></div>
+    <div class="alert alert-success">
+        <p><strong>@TempData["Success"].ToString()</strong></p>
+    </div>}
+@if (TempData["Error"] != null)
+{
+    <div class="top-buffer"></div>
+    <div class="alert alert-danger">
+        <p><strong>@TempData["Error"].ToString()</strong></p>
+    </div>}
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update Factory PCD" id="Update" class="btn btn-default" />
+        </div>
+    </div>
+
+<table class="table table-responsive table-bordered table-striped Dataentry ">
+    <thead>
+        <tr>
+            <th>@Html.CheckBox("SelectAll")</th>
+            <th>ID</th>
+
+            <th>AtcNum</th>
+            <th>OurStyle</th>
+
+            <th>BuyerStyle</th>
+            <th>LocationName</th>
+            <th>ShortName</th>
+            <th>MerchantPCD</th>
+            <th>OldfactoryPCD</th>
+            <th>FactoryPCD</th>
+</thead>
+    <tbody>
+        @if (Model != null)
+        {
+            for (int i = 0; i < Model.ProductionTNAVModelList.Count; i++)
+            {
+        <tr class="rowadded">
+            <td> @Html.EditorFor(modelItem => Model.ProductionTNAVModelList[i].IsSelected, new { htmlAttributes = new { @class = "IsSelected" } })</td>
+            <td class="Id">
+
+                <div class="OurStyleID">@Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].OurStyleID)</div>
+                <div class="ExpectedLocation_PK">@Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].Location_PK)</div>
+
+            </td>
+
+            <td class="AtcNum"> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].AtcNum)</td>
+            <td class=OurStyle> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].OurStyle)</td>
+            <td class=BuyerStyle> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].BuyerStyle)</td>
+            <td class=LocationName> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].LocationName)</td>
+            <td class=ShortName> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].ShortName)</td>
+            <td class=MerchantPCD> @Model.ProductionTNAVModelList[i].PCD</td>
+            <td class=OldFactoryPCD> @Html.DisplayFor(modelItem => Model.ProductionTNAVModelList[i].FACTORYPLANNEDPCD)</td>
+            <td class=FactoryPCD>
+                @Html.EditorFor(model => Model.ProductionTNAVModelList[i].FACTORYPLANNEDPCD, new { htmlAttributes = new { @class = "datepicker" } })
+
+
+
+            </td>
+        </tr>}
+        }
+    </tbody>
+</table>
+<script>
+ $(document).ready(function() {
+
+});
+$('#SelectAll').change(function() {
+  if (this.checked) {
+      var parenttable = $(this).closest('table');
+      parenttable.css('background-color', '#8AE1E9');
+      parenttable.children('tr,td, th').css('background-color', '#8AE1E9');
+  $("[id$=IsSelected]").prop('checked', true);
+
+  } else {
+
+      var parenttable = $(this).closest('table');
+      parenttable.css('background-color', '#F5F5F7');
+    if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+ $("[id$=IsSelected]").prop('checked', false);
+       }
+     }
+   });
+  $("[id$=IsSelected]").change(function() {
+      if (this.checked) {
+   // $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+    }
+ else {
+    //      $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+     }
+    });
+
+
+    $("#Update").click(function () {
+
+
+        createcodes();
+    });
+
+
+    function createcodes() {
+
+        //run through each row
+        $('.Dataentry tr.rowadded').each(function (i, row) {
+
+
+            $(this).find('td input:checked').each(function () {
+
+
+                var OurStyleID = $(this).closest('tr').find('.OurStyleID').text();
+                var ExpectedLocation_PK = $(this).closest('tr').find('.ExpectedLocation_PK').text();
+
+                var merchantPCD = new Date($(this).closest('tr').find('.MerchantPCD').text());
+                var oldDate = new Date($(this).closest('tr').find('.OldFactoryPCD').text());
+
+
+
+                var newDate = $(this).closest('tr').find('.datepicker').datepicker('getDate');
+
+              
+                var datetoday = new Date($.now())
+                var diff = new Date(oldDate - datetoday);
+                var days = diff / 1000 / 60 / 60 / 24;
+
+
+
+
+                if (newDate < merchantPCD) {
+
+                    alert("Cannot Plan Prior to merchant PCD");
+
+
+                }
+                else if (days < 3) {
+                    alert("You Can Change Factory PlanDate atleast 3 days prior only");
+                }
+                else {
+                          $.ajax({
+                type: 'GET',
+                url: "@Url.Action("ChangeFactoryDate", "ProductIonTNA")",
+                data: { 'MerchantPCD': merchantPCD, 'FactoryPCD': newDate, 'CurrentFactoryPCD': oldDate, 'ourstyleid': OurStyleID, 'locationpk': ExpectedLocation_PK },
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                       
+                        alert('Successfully Updated');
+
+
+
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+                }
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+        });
+    }
+
+
+
+
+
+</script>
+<style>
+    .top-buffer {
+        margin-top: 20px;
+    }
+</style>
+

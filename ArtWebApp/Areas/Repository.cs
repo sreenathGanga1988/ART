@@ -165,7 +165,7 @@ namespace ArtWebApp.Areas
 
 
             var q = (from laydet in db.LaySheetDetails
-                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && !(from layshortdet in db.LayShortageDetails select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
+                     where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && !(from layshortdet in db.LayShortageDetails  where layshortdet.LaySheetDet_PK==laydet.LaySheetDet_PK select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
                      select new ApprovelaysheetModel
                      {
 

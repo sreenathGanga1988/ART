@@ -503,6 +503,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             asqmstr.POType = this.Potype;
                             asqmstr.IsAtcWord = this.IsAcdWorld;
                             asqmstr.IsInterChangable = element.PoPackMaster.IsShuffulable;
+                            asqmstr.OurStyleGroup = element.AtcDetail.OurstyleGroup;
                             enty.ASQAllocationMaster_tbl.Add(asqmstr);
                             enty.SaveChanges();
 

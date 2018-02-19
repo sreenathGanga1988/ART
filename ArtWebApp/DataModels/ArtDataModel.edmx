@@ -129,6 +129,9 @@
           <Property Name="MinutesperGarment" Type="numeric" Precision="18" Scale="3" />
           <Property Name="MerchantPCD" Type="datetime" />
           <Property Name="TTLSam" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="IsPCDChanges" Type="nchar" MaxLength="1" />
+          <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
+          <Property Name="OurstyleGroup" Type="nchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="AtcExpenseMaster">
           <Key>
@@ -846,6 +849,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="DoType" Type="nchar" MaxLength="10" />
           <Property Name="ExportContainer" Type="nvarchar(max)" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="DeliveryOrderStockDetails">
           <Key>
@@ -1164,6 +1168,25 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="FabLocationId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="OurStyleId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ColorCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationName" Type="nvarchar(max)" />
+          <Property Name="ITemdEscription" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="1" />
+          <Property Name="ClosedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClosedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FabricInLocationAtcMaster_tbl">
+          <Key>
+            <PropertyRef Name="FabricInLocationAtcMasterId" />
+          </Key>
+          <Property Name="FabricInLocationAtcMasterId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ColorName" Type="nvarchar" MaxLength="1000" />
@@ -2470,6 +2493,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsUploaded" Type="bit" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsApproved" Type="bit" />
+          <Property Name="RejectionType" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="RejectionPanelExtraFabbReq">
           <Key>
@@ -2485,6 +2509,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsUploaded" Type="bit" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsApproved" Type="bit" />
+          <Property Name="RejectionType" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="RejectReqDetails">
           <Key>
@@ -7660,6 +7685,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="ExtraRequestReason" EntityType="Self.ExtraRequestReason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraRequestReasonMaster" EntityType="Self.ExtraRequestReasonMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricInLocation_tbl" EntityType="Self.FabricInLocation_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FabricInLocationAtcMaster_tbl" EntityType="Self.FabricInLocationAtcMaster_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricMissing" EntityType="Self.FabricMissing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricRollmaster" EntityType="Self.FabricRollmaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FactoryType" EntityType="Self.FactoryType" Schema="dbo" store:Type="Tables" />
@@ -10519,6 +10545,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="TnaUserRight" EntitySet="TnaUserRights" />
           </AssociationSet>
           <EntitySet Name="FabricInLocation_tbl" EntityType="ArtModel.FabricInLocation_tbl" />
+          <EntitySet Name="FabricInLocationAtcMaster_tbl" EntityType="ArtModel.FabricInLocationAtcMaster_tbl" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -11115,6 +11142,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StyleCostingMasters" Relationship="ArtModel.FK_StyleCostingMaster_AtcDetails" FromRole="AtcDetail" ToRole="StyleCostingMaster" />
           <NavigationProperty Name="FabricMissings" Relationship="ArtModel.FK_FabricMissing_AtcDetails" FromRole="AtcDetail" ToRole="FabricMissing" />
           <Property Name="TTLSam" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="IsPCDChanges" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OurstyleGroup" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="AtcExpenseMaster">
           <Key>
@@ -11914,6 +11944,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="DeliveryReceiptMasters" Relationship="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryReceiptMaster" />
           <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DORollDetail" />
           <NavigationProperty Name="GoodsInTransits" Relationship="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="GoodsInTransit" />
+          <Property Name="ContentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DeliveryOrderStockDetail">
           <Key>
@@ -13703,6 +13734,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsApproved" Type="Boolean" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_RejectionExtraFabbReq_LocationMaster" FromRole="RejectionExtraFabbReq" ToRole="LocationMaster" />
           <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_RejectionExtraFabbReq_POPackDetails" FromRole="RejectionExtraFabbReq" ToRole="POPackDetail" />
+          <Property Name="RejectionType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="RejectionPanelExtraFabbReq">
           <Key>
@@ -13720,6 +13752,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsApproved" Type="Boolean" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_LocationMaster" FromRole="RejectionPanelExtraFabbReq" ToRole="LocationMaster" />
           <NavigationProperty Name="POPackDetail" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" FromRole="RejectionPanelExtraFabbReq" ToRole="POPackDetail" />
+          <Property Name="RejectionType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="RejectReqDetail">
           <Key>
@@ -18977,6 +19010,25 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ClosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClosedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="FabricInLocationAtcMaster_tbl">
+          <Key>
+            <PropertyRef Name="FabricInLocationAtcMasterId" />
+          </Key>
+          <Property Name="FabricInLocationAtcMasterId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ITemdEscription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsClosed" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="ClosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClosedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -19593,6 +19645,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="AtcDetails">
             <EntityTypeMapping TypeName="ArtModel.AtcDetail">
               <MappingFragment StoreEntitySet="AtcDetails">
+                <ScalarProperty Name="OurstyleGroup" ColumnName="OurstyleGroup" />
+                <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
+                <ScalarProperty Name="IsPCDChanges" ColumnName="IsPCDChanges" />
                 <ScalarProperty Name="TTLSam" ColumnName="TTLSam" />
                 <ScalarProperty Name="MerchantPCD" ColumnName="MerchantPCD" />
                 <ScalarProperty Name="MinutesperGarment" ColumnName="MinutesperGarment" />
@@ -20332,6 +20387,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="DeliveryOrderMasters">
             <EntityTypeMapping TypeName="ArtModel.DeliveryOrderMaster">
               <MappingFragment StoreEntitySet="DeliveryOrderMaster">
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="ExportContainer" ColumnName="ExportContainer" />
                 <ScalarProperty Name="DoType" ColumnName="DoType" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
@@ -21999,6 +22055,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RejectionExtraFabbReqs">
             <EntityTypeMapping TypeName="ArtModel.RejectionExtraFabbReq">
               <MappingFragment StoreEntitySet="RejectionExtraFabbReq">
+                <ScalarProperty Name="RejectionType" ColumnName="RejectionType" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
@@ -22015,6 +22072,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RejectionPanelExtraFabbReqs">
             <EntityTypeMapping TypeName="ArtModel.RejectionPanelExtraFabbReq">
               <MappingFragment StoreEntitySet="RejectionPanelExtraFabbReq">
+                <ScalarProperty Name="RejectionType" ColumnName="RejectionType" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
@@ -23743,6 +23801,26 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
                 <ScalarProperty Name="AtcId" ColumnName="AtcId" />
                 <ScalarProperty Name="FabLocationId" ColumnName="FabLocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FabricInLocationAtcMaster_tbl">
+            <EntityTypeMapping TypeName="ArtModel.FabricInLocationAtcMaster_tbl">
+              <MappingFragment StoreEntitySet="FabricInLocationAtcMaster_tbl">
+                <ScalarProperty Name="ClosedDate" ColumnName="ClosedDate" />
+                <ScalarProperty Name="ClosedBy" ColumnName="ClosedBy" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ITemdEscription" ColumnName="ITemdEscription" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="ItemColor" ColumnName="ItemColor" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
+                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="FabricInLocationAtcMasterId" ColumnName="FabricInLocationAtcMasterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

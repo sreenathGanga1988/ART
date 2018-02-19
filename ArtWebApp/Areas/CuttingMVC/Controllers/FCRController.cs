@@ -10,113 +10,198 @@ using System.Web.Mvc;
 
 namespace ArtWebApp.Areas.CuttingMVC.Controllers
 {
-   
+
     public class FCRController : Controller
     {
         ArtWebApp.DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew();
 
         // GET: CuttingMVC/FCR
-        public ActionResult Index(int id,int ourStyleid,int locationpk)
+        public ActionResult Index(int id, int ourStyleid, int locationpk)
         {
-            FcrRepo fcrRepo = new FcrRepo();
             FCRViewModel fCRViewModel = new FCRViewModel();
-            fCRViewModel.fcrMasterData = GetMasterData(id, ourStyleid, locationpk);
-            fCRViewModel.CutData = fcrRepo.GetAtcTemplateData(id);
-            fCRViewModel.LayshortagereqData = fcrRepo.GetLayShortageData(id);
-            fCRViewModel.RejectionReqData = fcrRepo.GetRejectionData(id);
+            FcrLoaderrepo fcrLoaderrepo = new FcrLoaderrepo();
+            fCRViewModel = fcrLoaderrepo.LoadFcrData(id, ourStyleid, locationpk);
+
+            //FcrRepo fcrRepo = new FcrRepo();
+            //FCRViewModel fCRViewModel = new FCRViewModel();
+            //fCRViewModel.CutData = fcrRepo.GetAtcTemplateData(id);
+            //fCRViewModel.LayshortagereqData = fcrRepo.GetLayShortageData(id);
+            //fCRViewModel.RejectionReqData = fcrRepo.GetRejectionData(id);
+            //fCRViewModel.SamplingCutOrderData = fcrRepo.GetSampleAndExtraCutorder(id, ourStyleid, locationpk);
+            //fCRViewModel.DeliveryData = fcrRepo.GetDeliveryData(id);
 
 
-            try
-            {
-
-                fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
-
-            }
-            catch (Exception)
-            {
-                fCRViewModel.ActualFCRConsumtion = "0";
-
-
-            }
-            fCRViewModel.OverConsumed= (Decimal.Parse(fCRViewModel.ActualFCRConsumtion.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString())).ToString();
-            if (ourStyleid != 0)
-            {
-                try
-                {
-                    fCRViewModel.LayshortagereqData = fCRViewModel.LayshortagereqData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
-
-                  
-                }
-                try
-                {
-                    fCRViewModel.RejectionReqData = fCRViewModel.RejectionReqData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
+            //if (ourStyleid != 0)
+            //{
+            //    try
+            //    {
+            //        fCRViewModel.LayshortagereqData = fCRViewModel.LayshortagereqData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        fCRViewModel.LayshortagereqData = null;
 
 
-                }
-                try
-                {
-                    fCRViewModel.CutData = fCRViewModel.CutData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.RejectionReqData = fCRViewModel.RejectionReqData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-                }
-                
-            }
-
-            if (locationpk != 0)
-            {
-
-                try
-                {
-                    fCRViewModel.LayshortagereqData = fCRViewModel.LayshortagereqData.Select("ToLoc = "+ locationpk + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.CutData = fCRViewModel.CutData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-                }
-                try
-                {
-                    fCRViewModel.RejectionReqData = fCRViewModel.RejectionReqData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.DeliveryData = fCRViewModel.DeliveryData.Select("OurStyleID = " + ourStyleid + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-                }
-                try
-                {
-                    fCRViewModel.CutData = fCRViewModel.CutData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
-                }
-                catch (Exception)
-                {
+            //    }
+            //}
+
+            //if (locationpk != 0)
+            //{
+
+            //    try
+            //    {
+            //        fCRViewModel.LayshortagereqData = fCRViewModel.LayshortagereqData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-                }
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.RejectionReqData = fCRViewModel.RejectionReqData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
-            }
+
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.CutData = fCRViewModel.CutData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-            fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
+            //    }
+            //    try
+            //    {
+            //        fCRViewModel.DeliveryData = fCRViewModel.DeliveryData.Select("ToLoc = " + locationpk + "").CopyToDataTable();
+            //    }
+            //    catch (Exception)
+            //    {
 
-            fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
-            fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
-            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
+
+            //    }
+
+            //}
+
+
+            //fCRViewModel.fcrMasterData = GetMasterData(id, ourStyleid, locationpk, fCRViewModel);
+
+            //try
+            //{
+
+            //    fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
+
+            //}
+            //catch (Exception)
+            //{
+            //    fCRViewModel.ActualFCRConsumtion = "0";
+
+
+            //}
+            //fCRViewModel.OverConsumed = (Decimal.Parse(fCRViewModel.ActualFCRConsumtion.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString())).ToString();
+
+            //fCRViewModel.TotalSampleYardage = "0";
+
+            //fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
+            //fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
+            //fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
+            //fCRViewModel.TotalShortage = fCRViewModel.CutData.Compute("Sum(ExcessOrShort)", "").ToString();
+            //fCRViewModel.TotalNonusableEndbit = fCRViewModel.CutData.Compute("Sum(NonReusableEndbit)", "").ToString();
+            //fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
+            //fCRViewModel.TotalSampleYardage = fCRViewModel.SamplingCutOrderData.Compute("Sum(FabQty)", "").ToString();
+
+            //if (fCRViewModel.TotalSampleYardage == "")
+            //{
+            //    fCRViewModel.TotalSampleYardage = "0";
+            //}
+            //fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.TotalBalanceQty) - Decimal.Parse(fCRViewModel.TotalShortage) - Decimal.Parse(fCRViewModel.TotalSampleYardage)).ToString();
+
+
+
+
+            //fCRViewModel.IsClosed = IsClosed(id, ourStyleid, locationpk);
+
+
+
+
+
+
+
+
+
+
 
 
             return View(fCRViewModel);
-           
+
 
         }
 
+
+
+        public ActionResult FullSkuIndex(int id,  int locationpk)
+        {
+            FcrLoaderrepo fcrLoaderrepo = new FcrLoaderrepo();
+            FullFCRModelData fullFCRModelData = fcrLoaderrepo.LoadFcrofSkuLocation(id, locationpk);
+            
+
+            return View(fullFCRModelData);
+
+
+        }
+
+
+
+       
+
+
+        public String IsClosed(int skudet_pk, int ourStyleid, int locationpk)
+        {
+            String status = "Closed";
+
+            var q = from fabdet in enty.FabricInLocation_tbl
+                    where fabdet.SkuDet_PK == skudet_pk && fabdet.OurStyleId == ourStyleid && fabdet.Location_pk == locationpk
+                    select fabdet;
+
+            foreach (var element in q)
+            {
+                status = element.Status;
+            }
+
+            return status;
+
+        }
 
 
 
@@ -144,11 +229,46 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 id = SkuDet_PK,
                 ourStyleid = ourStyleid,
-                locationpk = locationpk,              
-});
+                locationpk = locationpk,
+            });
 
 
         }
+
+
+        public ActionResult FCRMasterLoader(int id)
+        {
+
+            FabricInLocationAtcMaster_tbl fabricInLocation_Tbl = enty.FabricInLocationAtcMaster_tbl.Find(id);
+
+
+            int SkuDet_PK = int.Parse(fabricInLocation_Tbl.SkuDet_PK.ToString());
+          
+            int locationpk = int.Parse(fabricInLocation_Tbl.Location_pk.ToString());
+
+            return RedirectToAction("FullSkuIndex", new
+            {
+                id = SkuDet_PK,
+              
+                locationpk = locationpk,
+            });
+
+
+        }
+
+
+
+
+        public ActionResult FullFcrIndex(int id, int locationpk)
+        {
+            
+
+            return View();
+        }
+
+
+
+
 
 
 
@@ -167,15 +287,34 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
 
 
-
-
-
-
-
-
-
-        public FcrMasterData GetMasterData(int skudetpk = 0 ,int ourstyleid=0,int location_pk=0 )
+        [HttpGet]
+        public PartialViewResult GetFCRAtcStatus(int Id)
         {
+            FCRStatusReportDataModel model = new FCRStatusReportDataModel();
+
+            FcrRepo fcrRepo = new FcrRepo();
+            DataTable dt = fcrRepo.GetFabricoflocationByAtc(Id);
+            model.FabricdataData = dt;
+
+            model.ReportName = "FCR Status";
+            return PartialView("FcrMasterStatus", model);
+        }
+
+
+
+
+
+
+        public FcrMasterData GetMasterData(int skudetpk = 0, int ourstyleid = 0, int location_pk = 0, FCRViewModel fCRViewModel = null)
+        {
+
+
+
+
+
+
+
+
 
 
 
@@ -184,7 +323,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             int atcid = 0;
 
             var q = from s in enty.SkuRawmaterialDetails
-                    where s.SkuDet_PK == skudetpk 
+                    where s.SkuDet_PK == skudetpk
                     select s;
 
             FcrMasterData fcrMasterData = new FcrMasterData();
@@ -227,7 +366,8 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
             }
 
-            if (ourstyleid != 0) {
+            if (ourstyleid != 0)
+            {
                 var q1 = from atcDetail in enty.AtcDetails
                          where atcDetail.OurStyleID == ourstyleid
                          select atcDetail;
@@ -250,7 +390,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                     stylenum += element.BuyerStyle;
                 }
             }
-            
+
             fcrMasterData.Style = Stylename;
 
 
@@ -263,15 +403,16 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 fcrMasterData.Season += " / " + popackdet;
             }
-            var q3 = (from popack in enty.PoPackMasters  join
-                      lctnmastermstr in enty.LocationMasters on popack.ExpectedLocation_PK equals lctnmastermstr.Location_PK
-                      where popack.AtcId == atcid &&popack.ExpectedLocation_PK==location_pk
+            var q3 = (from popack in enty.PoPackMasters
+                      join
+lctnmastermstr in enty.LocationMasters on popack.ExpectedLocation_PK equals lctnmastermstr.Location_PK
+                      where popack.AtcId == atcid && popack.ExpectedLocation_PK == location_pk
                       select lctnmastermstr.LocationPrefix).Distinct();
             foreach (var popackdet in q3)
             {
                 fcrMasterData.Factory += " / " + popackdet;
             }
-           
+
             if (fcrMasterData.Color == "")
             {
                 var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk).Select(u => u.PoQty).Sum();
@@ -279,11 +420,11 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             }
             else
             {
-                var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk && u.ColorCode ==fcrMasterData.Color).Select(u => u.PoQty).Sum();
+                var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk && u.ColorCode == fcrMasterData.Color).Select(u => u.PoQty).Sum();
                 fcrMasterData.Order = orderqty.ToString();
             }
 
-            
+
 
             var skupk = enty.SkuRawmaterialDetails.Where(u => u.SkuDet_PK == skudetpk).Select(u => u.Sku_PK).FirstOrDefault();
 
@@ -292,21 +433,21 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
 
             int sku_pk = int.Parse(skupk.ToString());
             var q4 = (from stylmstr in enty.StyleCostingMasters
-                     join styldet in enty.StyleCostingDetails
-                     on stylmstr.Costing_PK equals styldet.Costing_PK
-                     where styldet.Sku_PK == sku_pk && stylmstr.IsApproved == "A" && stylmstr.AtcDetail.OurStyleID == ourstyleid
-                     select  styldet.Consumption ).Max();
-            
+                      join styldet in enty.StyleCostingDetails
+                      on stylmstr.Costing_PK equals styldet.Costing_PK
+                      where styldet.Sku_PK == sku_pk && stylmstr.IsApproved == "A" && stylmstr.AtcDetail.OurStyleID == ourstyleid
+                      select styldet.Consumption).Max();
 
-                fcrMasterData.Consumption = q4.ToString();
+
+            fcrMasterData.Consumption = q4.ToString();
 
             decimal totalqty = 0;
             decimal totalweightedqty = 0;
             var q5 = (from cutorder in enty.CutOrderMasters
-                     where cutorder.SkuDet_pk == skudetpk && cutorder.OurStyleID==ourstyleid
-                     select new { cutorder.Color, cutorder.CutQty, cutorder.ActualConsumption }).ToList();
+                      where cutorder.SkuDet_pk == skudetpk && cutorder.OurStyleID == ourstyleid
+                      select new { cutorder.Color, cutorder.CutQty, cutorder.ActualConsumption }).ToList();
 
-            foreach(var element in q5)
+            foreach (var element in q5)
             {
 
                 try
@@ -323,9 +464,9 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                 catch (Exception)
                 {
 
-                   
+
                 }
-              
+
             }
             try
             {
@@ -342,33 +483,31 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             decimal givenback = 0;
             decimal totalgiven = 0;
 
-            var giventofacotory= (from cutorderdo in enty.CutOrderDOes
-                                  where cutorderdo.CutOrderMaster.SkuDet_pk == skudetpk && cutorderdo.CutOrderMaster.ToLoc == location_pk
-                                  select new { cutorderdo.DeliveryQty }).ToList();
 
-             foreach (var element in giventofacotory)
+            foreach (DataRow row in fCRViewModel.DeliveryData.Rows)
             {
-                totalgiven += Decimal.Parse(element.DeliveryQty.ToString());
-                if (Decimal.Parse(element.DeliveryQty.ToString()) > 0)
+                totalgiven += Decimal.Parse(row["RollYard"].ToString());
+                if (Decimal.Parse(row["RollYard"].ToString()) > 0)
                 {
-                    giventofacotorydemo += Decimal.Parse(element.DeliveryQty.ToString());
+                    giventofacotorydemo += Decimal.Parse(row["RollYard"].ToString());
                 }
                 else
                 {
-                    givenback += Decimal.Parse(element.DeliveryQty.ToString());
+                    givenback += Decimal.Parse(row["RollYard"].ToString());
                 }
+
             }
+
             fcrMasterData.GiventoFactory = giventofacotorydemo.ToString();
             fcrMasterData.GivenBackToStore = givenback.ToString();
-            fcrMasterData.TotalGiven = totalgiven.ToString();
-
-            fcrMasterData.ToBeonLocation = (totalgiven - givenback).ToString();
-
+            fcrMasterData.TotalGiven = (totalgiven + givenback).ToString();
+            fcrMasterData.ToBeonLocation = totalgiven.ToString();
 
 
 
 
-            
+
+
 
 
 
@@ -421,11 +560,12 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         {
             bool status = false;
 
-            FabricInLocation_tbl fabricInLocation_Tbl = enty.FabricInLocation_tbl.Where(u=>u.SkuDet_PK== skudetpk && u.OurStyleId == ourStyleid && u.Location_pk == locationpk).FirstOrDefault();
-
+            FabricInLocation_tbl fabricInLocation_Tbl = enty.FabricInLocation_tbl.Where(u => u.SkuDet_PK == skudetpk && u.OurStyleId == ourStyleid && u.Location_pk == locationpk).FirstOrDefault();
+            fabricInLocation_Tbl.Status = "Closed";
             fabricInLocation_Tbl.IsClosed = "Y";
             fabricInLocation_Tbl.ClosedBy = HttpContext.Session["Username"].ToString();
             fabricInLocation_Tbl.ClosedDate = DateTime.Now;
+            enty.SaveChanges();
             return RedirectToAction("FCRIndex");
 
         }

@@ -10,7 +10,7 @@ namespace ArtWebApp.BLL
     public class AtcData
     {
         AtcTransaction atran = null;
-        
+
         public AtcData()
         {
             atran = new AtcTransaction();
@@ -31,7 +31,7 @@ namespace ArtWebApp.BLL
             set { AtcNum = value; }
         }
 
-       
+
         int buyerid = 0;
 
         public int Buyerid
@@ -54,7 +54,7 @@ namespace ArtWebApp.BLL
             set { merchandisername = value; }
         }
 
-      
+
         int noofstyles = 0;
 
         public int Noofstyles
@@ -105,7 +105,7 @@ namespace ArtWebApp.BLL
         public DataTable Ourstyledata
         {
             get { return getourstyledetail(Atcid); }
-            set {  ourstyledata = value; }
+            set { ourstyledata = value; }
         }
 
 
@@ -115,18 +115,18 @@ namespace ArtWebApp.BLL
         {
             DataTable dt = new DataTable();
             AtcTransaction atctrans = new AtcTransaction();
-          dt=atctrans.GetOurStyleDetails(atcid);
-          return dt;
+            dt = atctrans.GetOurStyleDetails(atcid);
+            return dt;
         }
 
         public void createOurStyle(AtcData atcdata)
         {
-            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum1, atcdata.atcid,atcdata.ShipDate1);
+            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum1, atcdata.atcid, atcdata.ShipDate1);
 
-          atran. insertourstyle(dt);
+            atran.insertourstyle(dt);
         }
 
-        public DataTable CreateOurStyleDataTable(int totalstylenum, String AtcNum, int atcid,DateTime shipmentdate)
+        public DataTable CreateOurStyleDataTable(int totalstylenum, String AtcNum, int atcid, DateTime shipmentdate)
         {
             String ourstyle = "";
             DataTable table = new DataTable();
@@ -150,16 +150,16 @@ namespace ArtWebApp.BLL
                 {
                     ourstyle = i.ToString() + AtcNum;
                 }
-               // table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0);
-                table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0, 0.0,shipmentdate);
+                // table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0);
+                table.Rows.Add(i, atcid, ourstyle, "Edit ", 0.0, 0.0, 0.0, 0.0, shipmentdate);
             }
             return table;
         }
 
-        
+
         public void UpdatemasterData(AtcData atcdata)
         {
-           
+
             atran.UpdatemasterData(atcdata);
         }
 
@@ -177,7 +177,7 @@ namespace ArtWebApp.BLL
                 atcdetapp.AtcId = this.atcid;
                 atcdetapp.Quantity = this.Qty;
                 //  atcdetapp.IsForwarded = "Y";
-                atcdetapp.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim(); 
+                atcdetapp.AddedBY = HttpContext.Current.Session["Username"].ToString().Trim();
                 atcdetapp.ForwardedBY = "N";
                 atcdetapp.AddedDate = DateTime.Now;
                 atcdetapp.IsApproved = "N";
@@ -224,7 +224,7 @@ namespace ArtWebApp.BLL
             set { fob = value; }
         }
 
-       
+
         float catid = 0;
 
         public float Catid
@@ -249,17 +249,18 @@ namespace ArtWebApp.BLL
             set { Qty = value; }
         }
 
-        float txtMinutesPerGarment =0;
+        float txtMinutesPerGarment = 0;
 
 
-
+        public String IsPCDChanged { get; set; }
 
         public String AddedBY { get; set; }
         public String ForwardedBY { get; set; }
-
-
+        
+             public String OURSTYLE_group { get; set; }
+        public String IsInterChangable { get; set; }
         public Decimal ProjectionQty { get; set; }
-      
+
         public DateTime MerchantPCD { get; set; }
         public float TxtMinutesPerGarment1 { get => txtMinutesPerGarment; set => txtMinutesPerGarment = value; }
 
@@ -274,16 +275,16 @@ namespace ArtWebApp.BLL
                         where atcdet.OurStyleID == this.ourstyleid &&
                         atcdet.IsApproved == "N"
                         select atcdet;
-                foreach(var element in q)
+                foreach (var element in q)
                 {
                     entty.AtcDetailApprovals.Remove(element);
-                 
+
                 }
                 entty.SaveChanges();
                 AtcDetailApproval atcdetapp = new AtcDetailApproval();
                 atcdetapp.OurStyleID = this.ourstyleid;
                 atcdetapp.Quantity = this.ProjectionQty;
-              //  atcdetapp.IsForwarded = "Y";
+                //  atcdetapp.IsForwarded = "Y";
                 atcdetapp.AddedBY = this.AddedBY;
                 atcdetapp.ForwardedBY = this.ForwardedBY;
                 atcdetapp.AddedDate = DateTime.Now;
@@ -325,6 +326,8 @@ namespace ArtWebApp.BLL
         {
             Boolean ischanged = false;
             Boolean ispcdchanged = false;
+            Boolean IscategoryChange = false;
+            POPackDetailData pOPackDetailData = new POPackDetailData();
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
 
@@ -336,35 +339,78 @@ namespace ArtWebApp.BLL
                 {
                     decimal oldfob = decimal.Parse(element.FOB.ToString());
 
+                    string isinterchangable = element.FOB.ToString().Trim();
 
                     DateTime oldpcd = DateTime.Parse(element.MerchantPCD.ToString());
                     element.FOB = ourstl.Fob;
-                    element.CategoryID = decimal.Parse(ourstl.Catid.ToString());
-                    element.BuyerStyle = ourstl.BuyerStyle1.Trim ();
-                    element.MerchantPCD = ourstl.MerchantPCD;
-                    element.MinutesperGarment =Decimal.Parse( ourstl.txtMinutesPerGarment.ToString());
-                    
 
-                    if(oldpcd!= DateTime.Parse(element.MerchantPCD.ToString()))
+
+                    if (!enty.POPackDetails.Any(f => f.OurStyleID == ourstyleid && f.IsCutable == "Y"))
+                    {
+                        element.OurstyleGroup = ourstl.OURSTYLE_group.Trim();
+                    }
+                    else
                     {
 
-                        ispcdchanged = true;
+                        if ((element.OurstyleGroup.Trim() != ourstl.OURSTYLE_group.Trim())&& element.OurstyleGroup.Trim()!="NA")
+                        {
+                            Controls.WebMsgBox.Show("Cannot Update Group of Cuttable Style");
+                        }
+                        else
+                        {
+                            if(ourstl.OURSTYLE_group.Trim() != "NA")
+                            {
+                                element.OurstyleGroup = ourstl.OURSTYLE_group.Trim();
+                                pOPackDetailData.UpdateOurStyle(int.Parse(element.OurStyleID.ToString()), ourstl.OURSTYLE_group.Trim());
 
-                       
+                            }
+                        }
+
+                          
 
                     }
 
+                    element.BuyerStyle = ourstl.BuyerStyle1.Trim();
+                    try
+                    {
+                        DateTime newdate = new DateTime(2010, 01, 01);
+                   if(newdate < DateTime.Parse(ourstl.MerchantPCD.ToString()))
+                        {
+                            element.MerchantPCD = DateTime.Parse(ourstl.MerchantPCD.ToString());
+                        }
+                      
+                    }
+                    catch (Exception)
+                    {
 
-                        if (oldfob== ourstl.Fob)
+                       
+                    }
+                    element.MinutesperGarment = Decimal.Parse(ourstl.txtMinutesPerGarment.ToString());                  
+                    element.CategoryID = decimal.Parse(ourstl.Catid.ToString());
+                     
+                    if (oldpcd != DateTime.Parse(element.MerchantPCD.ToString()))
+                    {ispcdchanged = true;
+                    }
+                    else
+                    {
+                       
+                    }
+
+                    if (oldfob == ourstl.Fob)
                     {
                         ischanged = false;
-                    }else
+                    }
+                    else
                     {
                         ischanged = true;
                     }
                 }
                 enty.SaveChanges();
 
+            
+
+
+             
 
             }
 
@@ -376,7 +422,7 @@ namespace ArtWebApp.BLL
 
 
             }
-
+          
             return ischanged;
         }
 
@@ -386,7 +432,7 @@ namespace ArtWebApp.BLL
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
                 var q = from tnadet in enty.ProductionTNADetails
-                        where tnadet.OurStyleID == ourstyleid && tnadet.ProductionTNACompID == 15 && tnadet.IsDeleted=="N"
+                        where tnadet.OurStyleID == ourstyleid && tnadet.ProductionTNACompID == 15 && tnadet.IsDeleted == "N"
                         select tnadet;
 
                 foreach (var element in q)
@@ -404,11 +450,11 @@ namespace ArtWebApp.BLL
 
         }
 
-       
+
     }
 
- 
 
 
-   
+
+
 }

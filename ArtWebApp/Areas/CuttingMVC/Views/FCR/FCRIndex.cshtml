@@ -10,6 +10,11 @@
     }
 </style>
 <script>
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>
+<script>
 
 
     $(document).ready(function () {
@@ -18,7 +23,7 @@
 
 
         $("#Show").click(function (e, params) {
-           
+
             var Id = $('#AtcID').find('option:selected').val();
             $('#loadingmessage').show();
             $.ajax({
@@ -27,8 +32,8 @@
                 type: "GET",
                 data: { 'Id': Id },
                 success: function (fooBarHTML) {
-                    
-                  
+
+
                     $('#loadingmessage').hide();
                     $("#output").html(fooBarHTML);
                 },
@@ -37,10 +42,32 @@
                 }
             });
 
+
+               $.ajax({
+                url: "@Url.Action("GetFCRAtcStatus", "FCR")",
+                traditional: true,
+                type: "GET",
+                data: { 'Id': Id },
+                success: function (fooBarHTML) {
+
+
+                    $('#loadingmessage').hide();
+                    $("#output1").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $('#loadingmessage').hide();
+                }
+            });
+
+
+
+
+            
+
         });
     });
 
-        </script>
+</script>
 <div class="container">
 
     <div class="container-fluid jumbotron">
@@ -71,8 +98,37 @@
 <div id='loadingmessage' style='display:none'>
     <img src='~/Image/ajax-loader.gif' />
 </div>
-<div id='output' class="">
+
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">StyleWise FCR</a></li>
+        <li><a href="#tabs-2">AtcWise FCR</a></li>
+       
+    </ul>
+    <div id="tabs-1">
+        <p>
+            <div id='output' class="">
+                <!-- Output goes here -->
+            </div>
+
+
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p><div id='output1' class="">
     <!-- Output goes here -->
+</div></p>
+    </div>
+    
 </div>
+
+
+
+
+
+
+
+
 
 

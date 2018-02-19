@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Routing;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using System.Web.Mvc;
 public partial class Default2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -49,5 +51,12 @@ public partial class Default2 : System.Web.UI.Page
         //var hubContext = GlobalHost.ConnectionManager.GetHubContext<ArtWebApp.ArtWebHub>();
         //hubContext.Clients.All.SayMessage();
 
+    }
+    [WebMethod]
+    public void  DeletePlanAysnc(int Planid)
+    {
+        System.Web.Mvc.UrlHelper urlHelp = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+       
+        Response.Redirect(urlHelp.Action( "Index", "ProductionTNA",new { area = "MVCTNA" }));
     }
 }

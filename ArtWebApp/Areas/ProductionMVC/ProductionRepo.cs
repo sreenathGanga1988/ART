@@ -174,18 +174,18 @@ namespace ArtWebApp.Areas.ProductionMVC
 
 
 
-        
 
 
 
 
-        public DataTable GetDObetweenDate(DateTime fromdate,DateTime todate,String dotype)
+
+        public DataTable GetDObetweenDate(DateTime fromdate, DateTime todate, String dotype)
         {
             DataTable dt = new DataTable();
 
 
 
-   
+
 
 
             using (SqlCommand cmd = new SqlCommand(@"GetDeliveryDosBetweenDates_SP"))

@@ -249,6 +249,8 @@
                                                       
 
                                                 <asp:BoundField DataField="AShade" HeaderText="AShade" SortExpression="AShade" />
+                                                  <asp:BoundField DataField="RollYard" HeaderText="RollYard" SortExpression="RollYard" />
+                                                
                                                   <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
                                                 <asp:TemplateField HeaderText="NoOfPlies" SortExpression="NoOfPlies">
                                                  
@@ -313,7 +315,13 @@
                                             <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                             <SortedDescendingHeaderStyle BackColor="#383838" />
                                         </asp:GridView>
-                                        <asp:SqlDataSource ID="RollData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT FabricRollmaster.RollNum, FabricRollmaster.AShade, LaySheetDetails.NoOfPlies, FabricRollmaster.SYard, FabricRollmaster.AYard, LaySheetDetails.FabUtilized, LaySheetDetails.EndBit, LaySheetDetails.BalToCut, SupplierDocumentMaster.AtracotrackingNum + '/' + SupplierDocumentMaster.SupplierDocnum AS invoice, LaySheetDetails.LaySheetDet_PK, LaySheetDetails.ExcessOrShort, LaySheetDetails.IsRecuttable, FabricRollmaster.AWidth, FabricRollmaster.AShrink, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.Roll_PK FROM LaySheetDetails INNER JOIN FabricRollmaster ON LaySheetDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk WHERE (LaySheetDetails.LaySheet_PK = @Param1) ORDER BY FabricRollmaster.ShadeGroup">
+                                        <asp:SqlDataSource ID="RollData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        FabricRollmaster.RollNum, FabricRollmaster.AShade, LaySheetDetails.NoOfPlies, FabricRollmaster.SYard, FabricRollmaster.AYard as RollYard, LaySheetDetails.FabUtilized, LaySheetDetails.EndBit, LaySheetDetails.BalToCut, 
+                         SupplierDocumentMaster.AtracotrackingNum + '/' + SupplierDocumentMaster.SupplierDocnum AS invoice, LaySheetDetails.LaySheetDet_PK, LaySheetDetails.ExcessOrShort, LaySheetDetails.IsRecuttable, 
+                         FabricRollmaster.AWidth, FabricRollmaster.AShrink, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, FabricRollmaster.ShrinkageGroup, FabricRollmaster.Roll_PK, LaySheetRollDetails.Yardage as Ayard
+FROM            LaySheetDetails INNER JOIN
+                         FabricRollmaster ON LaySheetDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                         LaySheetRollDetails ON LaySheetDetails.LaySheetRoll_Pk = LaySheetRollDetails.LaySheetRoll_Pk WHERE (LaySheetDetails.LaySheet_PK = @Param1) ORDER BY FabricRollmaster.ShadeGroup">
                                             <SelectParameters>
                                                 <asp:QueryStringParameter Name="Param1" QueryStringField="laysheetpk" />
                                             </SelectParameters>

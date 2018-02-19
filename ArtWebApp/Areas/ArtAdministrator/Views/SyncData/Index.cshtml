@@ -9,33 +9,100 @@
     $(document).ready(function () {
 
 
-
+        $("#output").empty();
 
         $("#Show").click(function (e, params) {
 
-           
+            $("#output").empty();
             $('#loadingmessage').show();
+            $("#output").append("<p><strong>Start Updating TTL</strong></p>");
             $.ajax({
-                url: "@Url.Action("UpdateData", "SyncData")",
+                url: "@Url.Action("UpdateTTL", "SyncData")",
                 traditional: true,
                 type: "GET",
                  success: function (fooBarHTML) {
-                    $('#loadingmessage').hide();
-                    document.title = "BE report  for " + Month;
-                    $("#output").html(fooBarHTML);
+
+
+                     $("#output").append("<p><strong> Successfully Completed Updating TTL</strong></p>")
+                     $('#loadingmessage').hide();
                 },
                 error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong> Error Updating TTL</strong></p>")
+                    $('#loadingmessage').hide();
+                }
+            });
+            $('#loadingmessage').show();
+            $("#output").append("<p><strong>Start Updating CostPerMinute</strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateCostperMinute", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating CostPerMinute</strong></p>")
+                     $('#loadingmessage').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating CostPerMinute</strong></p>")
                     $('#loadingmessage').hide();
                 }
             });
 
+
+
+
+
+
+
+
         });
+
+
+
+        $("#BackUP").click(function (e, params) {
+
+            $("#output").empty();
+            $('#loadingmessage').show();
+            $("#output").append("<p><strong>Start BackUP DB</strong></p>");
+            $.ajax({
+                url: "@Url.Action("BackUp", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+
+                     $("#output").append("<p><strong> Successfully Completed BackUP DB</strong></p>")
+                     $('#loadingmessage').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong> Error BackUP DB</strong></p>")
+                    $('#loadingmessage').hide();
+                }
+            });
+        
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
     });
-    </script>
+</script>
 <h2>Index</h2>
 
 <button id="Show" type="button" class="btn btn-primary">Sync DB</button>
 
+
+<button id="BackUP" type="button" class="btn btn-primary">BackUP</button>
 <div id="Message">
 
 
@@ -43,4 +110,10 @@
 </div>
 <div id='loadingmessage' style='display:none'>
     <img src='~/Image/ajax-loader.gif' />
+</div>
+
+<div id="output">
+
+
+
 </div>

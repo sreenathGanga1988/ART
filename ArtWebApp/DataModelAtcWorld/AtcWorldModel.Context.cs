@@ -20,7 +20,7 @@ namespace ArtWebApp.DataModelAtcWorld
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
-            : base("name=AtcWorldEthiopiaEntities")
+          : base("name=AtcWorldEthiopiaEntities")
         {
         }
 
@@ -43,8 +43,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public virtual DbSet<ArtLaySheetDetail> ArtLaySheetDetails { get; set; }
         public virtual DbSet<ArtLaySheetMasterData> ArtLaySheetMasterDatas { get; set; }
         public virtual DbSet<Fabricreqforpart> Fabricreqforparts { get; set; }
-        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
         public virtual DbSet<CmDozmaster> CmDozmasters { get; set; }
         public virtual DbSet<FactoryCostMaster> FactoryCostMasters { get; set; }
+        public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
     }
 }

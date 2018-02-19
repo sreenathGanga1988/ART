@@ -1,0 +1,68 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.ViewModel.FullFCRModelData
+@using System.Data
+@using ArtWebApp.Areas.CuttingMVC.ViewModel
+@{
+    ViewBag.Title = "FullSkuIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.FCRViewModelDatalist.Count > 0)
+{
+
+    foreach (FCRViewModel fCRViewModel in Model.FCRViewModelDatalist)
+    {
+<div class="jumbotron">
+    <h2>@fCRViewModel.fcrMasterData.Style</h2>
+    </div>
+
+    @Html.Partial("FullSkuPartialView", fCRViewModel);
+    }
+
+}
+
+<div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>Total Roll Yard Given to Factory</th>
+                <th> Total Roll Yard Returned to Warehouse </th>
+                <th>Total Roll Yard TO be on factory</th>
+                <th>Total Utilized Fabric</th>
+                <th> Shortage</th>
+                <th>Missing Fabric</th>
+                <th>Balance Fabric</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>@Model.GiventoFactory</td>
+                <td>@Model.GivenBackToStore</td>
+                <td>@Model.ToBeonLocation</td>
+                <td>@Model.TotalFabricLayed</td>
+                <td>@Model.TotalShortage</td>
+                <td>@Model.MarkMissedQty</td>
+                <td>
+                    @{var bal = float.Parse(Model.TotalBalanceQty.ToString()); }
+
+                    <div id="balance">
+                        @bal
+                    </div>
+                   
+                        @if (bal > 0)
+                        {
+                            @Html.HiddenFor(model => model.MissingQty, bal);
+
+                            <input id="markasmissing" type="button" value="Mark as Missing" class="btn btn-default show" />
+                        }
+                   
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

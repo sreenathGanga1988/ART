@@ -52,7 +52,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
                 fabricMissing.Level1ApprovedBY = HttpContext.Session["Username"].ToString();
                 fabricMissing.Level1ApprovedDate = DateTime.Now;
                 fabricMissing.IsLevel1Approved = "Y";
-
+                fabricMissing.IsApproved = "Y";
                 db.Entry(fabricMissing).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["Error"] = " Approved";

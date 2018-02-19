@@ -22,7 +22,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
             {
                 ProductionTNARepo productionTNARepo = new ProductionTNARepo();
 
-                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0);
+                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0,0);
             }
             else
             {
@@ -32,13 +32,42 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
             return View(model);
         }
 
+
+
+
+
+
+
+
+
+
+        public ActionResult FacPCDChanged(ProductionTNAVModelMaster model = null)
+        {
+
+
+            ProductionTNARepo productionTNARepo = new ProductionTNARepo();
+
+            DateTime tempdate = DateTime.Now.Date;
+            tempdate = tempdate.AddMonths(12);
+
+            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(tempdate, tempdate, 0);
+
+            return View(model);
+        }
+
+
+
+
+
+
+
         [HttpGet]
         public PartialViewResult BetweenDateTNA(DateTime fromdate, DateTime todate)
         {
 
             ProductionTNARepo productionTNARepo = new ProductionTNARepo();
             ProductionTNAVModelMaster model = new ProductionTNAVModelMaster();
-            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(fromdate, todate);
+            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(fromdate, todate,0);
             //  return RedirectToAction("Index", new RouteValueDictionary(model));
             return PartialView("TnaView", model);
         }
@@ -64,7 +93,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
 
                 ProductionTNARepo productionTNARepo = new ProductionTNARepo();
 
-                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(model.AtcID);
+                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(model.AtcID,0);
 
               
             }
@@ -172,5 +201,17 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

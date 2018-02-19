@@ -31,22 +31,24 @@ namespace ArtWebApp.Areas.Accounts
             DataTable dt = new DataTable();
 
 
-            String query = @"SELECT        SPO_Pk, SupplierName, SPONum, POQty, ReceivedQty, ExtraQty, MRNDate, InvoicedQty, ReceivedQty - InvoicedQty AS BancetoInvoice
-FROM            (SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(SUM(StockPODetails_1.POQty), 0) AS POQty, ISNULL(SUM(StockMRNDetails.ReceivedQty), 0) AS ReceivedQty, SupplierMaster.SupplierName, 
-                         MAX(StockMrnMaster.AddedDate) AS MRNDate, ISNULL(SUM(StockMRNDetails.ExtraQty), 0) AS ExtraQty, ISNULL
+            String query = @"SELECT        SPO_Pk, SupplierName, SPONum, POQty, ReceivedQty, ExtraQty, InvoicedQty, ReceivedQty - InvoicedQty AS BancetoInvoice
+FROM      (SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, SUM(StockPODetails_1.POQty) AS POQty, ISNULL
+                             ((SELECT        SUM(ReceivedQty) AS Expr1
+                                 FROM            StockMRNDetails
+                                 WHERE        (SPO_PK = StockPOMaster.SPO_Pk)), 0) AS ReceivedQty, ISNULL
+                             ((SELECT        SUM(ExtraQty) AS Expr1
+                                 FROM            StockMRNDetails AS StockMRNDetails_1
+                                 WHERE        (SPO_PK = StockPOMaster.SPO_Pk)), 0) AS ExtraQty, ISNULL
                              ((SELECT        SUM(SupplierStockInvoiceDetail.InvoiceQty) AS Expr1
                                  FROM            StockPODetails INNER JOIN
-                                                          SupplierStockInvoiceDetail ON StockPODetails.SPODetails_PK = SupplierStockInvoiceDetail.SPODetails_PK AND 
-                                                          StockPODetails.SPODetails_PK = SupplierStockInvoiceDetail.SPODetails_PK
+                                                          SupplierStockInvoiceDetail ON StockPODetails.SPODetails_PK = SupplierStockInvoiceDetail.SPODetails_PK AND StockPODetails.SPODetails_PK = SupplierStockInvoiceDetail.SPODetails_PK
                                  GROUP BY StockPODetails.SPO_PK
-                                 HAVING        (StockPODetails.SPO_PK = StockPOMaster.SPO_Pk)), 0) AS InvoicedQty, StockPOMaster.IsApproved, StockPOMaster.MarkCompleted
+                                 HAVING        (StockPODetails.SPO_PK = StockPOMaster.SPO_Pk)), 0) AS InvoicedQty, StockPOMaster.AddedDate
 FROM            StockPOMaster INNER JOIN
-                         StockPODetails AS StockPODetails_1 ON StockPOMaster.SPO_Pk = StockPODetails_1.SPO_PK INNER JOIN
-                         StockMRNDetails ON StockPOMaster.SPO_Pk = StockMRNDetails.SPO_PK INNER JOIN
-                         StockMrnMaster ON StockPOMaster.SPO_Pk = StockMrnMaster.SPo_PK INNER JOIN
-                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK
-GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, StockPOMaster.IsApproved, StockPOMaster.MarkCompleted
-HAVING        (StockPOMaster.IsApproved = N'Y') AND (StockPOMaster.MarkCompleted = N'N')) AS tt
+                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
+                         StockPODetails AS StockPODetails_1 ON StockPOMaster.SPO_Pk = StockPODetails_1.SPO_PK
+GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, StockPOMaster.IsApproved, StockPOMaster.AddedDate
+HAVING        (StockPOMaster.IsApproved = N'Y')) AS tt
 WHERE        (ReceivedQty - InvoicedQty > 0)";
             using (SqlCommand cmd = new SqlCommand())
             {
@@ -89,8 +91,8 @@ FROM            (SELECT        ProcurementMaster.PO_Pk, SUM(ProcurementDetails_1
                           FROM            ProcurementMaster INNER JOIN
                                                     ProcurementDetails AS ProcurementDetails_1 ON ProcurementMaster.PO_Pk = ProcurementDetails_1.PO_Pk
                           GROUP BY ProcurementMaster.PO_Pk, ProcurementMaster.IsNormal, ProcurementMaster.IsApproved, ProcurementMaster.IsDeleted, ProcurementMaster.MarkCompleted, ProcurementMaster.PONum, 
-                                                    ProcurementMaster.Supplier_Pk, ProcurementMaster.PaymentTermID
-                          HAVING         (ProcurementMaster.IsNormal = N'Y') AND (ProcurementMaster.IsApproved = N'Y') AND (ProcurementMaster.IsDeleted = N'N') AND (ProcurementMaster.Supplier_Pk <> 1113)AND (ProcurementMaster.MarkCompleted = N'N')) AS TT INNER JOIN
+                                                    ProcurementMaster.Supplier_Pk, ProcurementMaster.PaymentTermID,ProcurementMaster.AddedDate
+                          HAVING         (ProcurementMaster.IsNormal = N'Y') AND (ProcurementMaster.IsApproved = N'Y') AND (ProcurementMaster.IsDeleted = N'N') AND (ProcurementMaster.Supplier_Pk <> 1113)AND (ProcurementMaster.MarkCompleted = N'N') AND (ProcurementMaster.AddedDate > CONVERT(DATETIME, '2017-07-07 00:00:00', 102))) AS TT INNER JOIN
                          SupplierMaster ON TT.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
                          PaymentTermMaster ON TT.PaymentTermID = PaymentTermMaster.PaymentTermID
 WHERE        (TT.ReceiptQty - TT.invoiced >0)";

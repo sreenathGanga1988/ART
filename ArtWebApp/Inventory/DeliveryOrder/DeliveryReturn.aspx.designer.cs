@@ -49,6 +49,15 @@ namespace ArtWebApp.Inventory.DeliveryOrder {
         protected global::System.Web.UI.WebControls.TextBox txt_containernum;
         
         /// <summary>
+        /// drp_type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_type;
+        
+        /// <summary>
         /// drp_fromWarehouse control.
         /// </summary>
         /// <remarks>

@@ -59,6 +59,10 @@ namespace ArtWebApp.Approvals
                 {
                     MultiView1.ActiveViewIndex = 2;
                 }
+                else if(Session["UserProfile_Pk"].ToString().Trim()=="10")
+                {
+                    MultiView1.ActiveViewIndex = 2;
+                }
                 else
                 {
 

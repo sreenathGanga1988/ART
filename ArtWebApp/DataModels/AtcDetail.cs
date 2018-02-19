@@ -42,6 +42,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> MinutesperGarment { get; set; }
         public Nullable<System.DateTime> MerchantPCD { get; set; }
         public Nullable<decimal> TTLSam { get; set; }
+        public string IsPCDChanges { get; set; }
+        public string IsInterChangable { get; set; }
+        public string OurstyleGroup { get; set; }
     
         public virtual ICollection<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }

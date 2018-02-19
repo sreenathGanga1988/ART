@@ -68,18 +68,17 @@
             if (chkConfirm.checked) {
                 var txt_ayard = currentrow.getElementsByClassName('ExcessOrShort')[0];
 
-                var txt_endbit  = currentrow.getElementsByClassName('endbit')[0];
+                
                 
                 sum = sum + parseFloat(txt_ayard.innerHTML);
-                endbitsum = endbitsum + parseFloat(txt_endbit.innerHTML);
+               
             }
 
         }
         var totalyardfooter = document.getElementsByClassName("ExcessOrShortfooter")[0];
         totalyardfooter.value = sum;
 
-        var endbitfooter = document.getElementsByClassName("endbitfooter")[0];
-        endbitfooter.value = endbitsum;
+      
     }
 
 </script>
@@ -238,7 +237,7 @@
 
                 </th>
                 <th>
-                    <input id="txt" class="endbitfooter" />
+                    
                 </th>
                 <th>
 

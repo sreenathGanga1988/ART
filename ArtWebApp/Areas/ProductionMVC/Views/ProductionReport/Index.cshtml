@@ -182,16 +182,15 @@
 
             $("#DeliveryOrderWF").click(function (e, params) {
             $('#loadingmessage').show();
-            var fromdate = 0;
-            var todate = 0;
-
-            alert(fromdate);
-            alert(todate);
+            var fromdate = $("#FromDate").val();
+            var todate = $("#Todate").val();
+            var dotype = "WF";
+           
                 $.ajax({
-                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
+                    url: "@Url.Action("GetDoBetweenDate", "ProductionReport")",
                     traditional: true,
                     type: "GET",
-                    data: { 'Id': Id },
+                    data: { 'fromdate': fromdate, 'todate': todate, 'dotype': dotype},
                     success: function (fooBarHTML) {
                         $('#loadingmessage').hide();
                     $("#output").html(fooBarHTML);

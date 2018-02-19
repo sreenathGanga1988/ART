@@ -1,0 +1,70 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.ViewModel.FCRStatusReportDataModel
+@using System.Data;
+<h2>@Model.ReportName</h2>
+<script src="~/Plugin/MyDataTable.js"></script>
+
+<table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+    <thead>
+
+
+
+        <tr>
+
+            @foreach (DataColumn col in Model.FabricdataData.Columns)
+            {
+                <th>
+                    @col.ColumnName
+                </th>
+            }
+
+        </tr>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.FabricdataData.Columns)
+            {
+                <th>
+
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (DataRow row in Model.FabricdataData.Rows)
+        {
+            <tr>
+
+                @foreach (DataColumn col in Model.FabricdataData.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+                }
+                <td>
+                    @Html.ActionLink("Open", "FCRMasterLoader", new { id = @row["FabricInLocationAtcMasterId"] })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+    <tfoot>
+        <tr class="filterrow">
+            @foreach (DataColumn col in Model.FabricdataData.Columns)
+            {
+                <th>
+
+                </th>
+            }
+            <th>
+
+            </th>
+        </tr>
+
+    </tfoot>
+
+</table>
+
+
+
+

@@ -31,8 +31,8 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         {
             InventoryRepo inventoryRepo = new InventoryRepo();
             RollPropertyViewModelMaster rollPropertyViewModelMaster = inventoryRepo.GetRollData(id);
-           
-          
+
+            rollPropertyViewModelMaster.RollPropertyViewModellist = rollPropertyViewModelMaster.RollPropertyViewModellist.Where(u => u.IsPresent.Trim() == "Y").ToList();
             return PartialView("RollPropertyView", rollPropertyViewModelMaster);
         }
 

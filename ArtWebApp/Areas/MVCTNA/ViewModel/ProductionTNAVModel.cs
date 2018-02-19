@@ -34,7 +34,7 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public Nullable<decimal> OurStyleID { get; set; }
         public Nullable<decimal> Location_PK { get; set; }
         public Nullable<decimal> OrderQty { get; set; }
-        
+        public System.Boolean IsSelected { get; set; }
         public string LocationName { get; set; }
 
         [DataType(DataType.Date)]

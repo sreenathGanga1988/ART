@@ -197,6 +197,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
                   atcdet.Quantity = 0;
                   atcdet.FOB = fob;
                   atcdet.CategoryID = 0;
+                  atcdet.IsInterChangable = "N";
                   enty.AtcDetails.Add(atcdet);
 
                   enty.SaveChanges();

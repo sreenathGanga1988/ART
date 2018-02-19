@@ -296,6 +296,7 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<RollPropertyChangeMaster> RollPropertyChangeMasters { get; set; }
         public virtual DbSet<BEOfMonth> BEOfMonths { get; set; }
         public virtual DbSet<FabricInLocation_tbl> FabricInLocation_tbl { get; set; }
+        public virtual DbSet<FabricInLocationAtcMaster_tbl> FabricInLocationAtcMaster_tbl { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

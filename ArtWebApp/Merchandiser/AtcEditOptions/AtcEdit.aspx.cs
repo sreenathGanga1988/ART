@@ -115,6 +115,8 @@ namespace ArtWebApp.Merchandiser
 
                 DropDownList buyerstyledrp = (DropDownList)row.Cells[0]
                                                          .FindControl("ddl_Buyerstyle");
+                DropDownList oURSTYLEgROUP = (DropDownList)row.Cells[0]
+                                                         .FindControl("ddl_group");
                 DropDownList garmentcategory = (DropDownList)row.Cells[0]
                                                        .FindControl("ddl_catid");
                 TextBox txtqty = (TextBox)row.Cells[0].FindControl("txtQty");
@@ -122,7 +124,7 @@ namespace ArtWebApp.Merchandiser
                 TextBox txtMinutesPerGarment = (TextBox)row.Cells[0].FindControl("txtMinutesPerGarment");
                 
                 ourstyledata.BuyerStyle1 = buyerstyledrp.SelectedItem.Text;
-
+                ourstyledata.OURSTYLE_group= oURSTYLEgROUP.SelectedItem.Text;
                 String Garmentcategory = garmentcategory.SelectedItem.Text; ;
 
                 ourstyledata.Catid = int.Parse(garmentcategory.SelectedValue.ToString());
@@ -190,6 +192,8 @@ namespace ArtWebApp.Merchandiser
             {
                 DropDownList ddl_Buyerstyle = (e.Row.FindControl("ddl_Buyerstyle") as DropDownList);
                 DropDownList ddl_catid = (e.Row.FindControl("ddl_catid") as DropDownList);
+                DropDownList ddl_group = (e.Row.FindControl("ddl_group") as DropDownList);
+                
                 //ddl_Buyerstyle.DataBind();
                 //ddl_catid.DataBind();
 
@@ -206,6 +210,15 @@ namespace ArtWebApp.Merchandiser
                 {
                     string catid = (e.Row.FindControl("lbl_catid") as Label).Text.Trim(); 
                     ddl_catid.Items.FindByValue(catid).Selected = true;
+                }
+                catch (Exception)
+                {
+
+                }
+                try
+                {
+                    string catid = (e.Row.FindControl("lbl_group") as Label).Text.Trim();
+                    ddl_group.Items.FindByText(catid).Selected = true;
                 }
                 catch (Exception)
                 {
@@ -234,10 +247,12 @@ namespace ArtWebApp.Merchandiser
                                                          .FindControl("ddl_Buyerstyle");
                 DropDownList garmentcategory = (DropDownList)row.Cells[0]
                                                        .FindControl("ddl_catid");
+                DropDownList ddl_group = (DropDownList)row.Cells[0]
+                                                     .FindControl("ddl_group");
                 TextBox txtqty = (TextBox)row.Cells[0].FindControl("txtQty");
                 TextBox fobtxt = (TextBox)row.Cells[0].FindControl("txtfob");
 
-
+                
                 ourstyledata.BuyerStyle1 = buyerstyledrp.SelectedItem.Text;
 
                 String Garmentcategory = garmentcategory.SelectedItem.Text; ;
@@ -245,7 +260,7 @@ namespace ArtWebApp.Merchandiser
                 ourstyledata.Catid = int.Parse(garmentcategory.SelectedValue.ToString());
 
                 ourstyledata.Fob = decimal.Parse(fobtxt.Text);
-
+                ourstyledata.OURSTYLE_group= ddl_group.SelectedItem.Text; ;
                 Boolean isfobchanged = ourstyledata.UpdateOurStyle(ourstyledata);
 
                if( isfobchanged==true)

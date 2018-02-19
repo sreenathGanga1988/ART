@@ -113,33 +113,13 @@ WHERE        (Atc_Id = 121)";
 
 
 
-            return ReturnQueryResultDatatablefromAtcWorld(q3);
+            return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(q3);
         }
 
 
 
 
-        public DataTable ReturnQueryResultDatatablefromAtcWorld(String Qry)
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AtcWorldConnectionString"].ConnectionString.ToString()))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = Qry;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = con;
-                    con.Open();
-
-                    SqlDataReader rdr = cmd.ExecuteReader();
-
-                    dt.Load(rdr);
-                }
-            }
-
-            return dt;
-        }
-
+      
 
 
         protected void btn_sales_Click(object sender, EventArgs e)

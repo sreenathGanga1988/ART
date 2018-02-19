@@ -31,6 +31,8 @@
             <th>ShippedQty</th>
             <th>Is ShortClosed</th>
             <th>ShortClosedBy</th>
+            <th>ShortClosedDate</th>
+            
             <th>Is Cutable</th>
             <th>Is Cutable</th>
             <th>OurStyleID</th>
@@ -83,6 +85,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
 
@@ -110,7 +113,9 @@
             <td>  @row["ShippedQty"]</td>
             <td>  @row["IsShortClosed"]</td>
             <td>  @row["ShortClosedBy"]</td>
-            <td>  @row["IsCutable"]</td>
+            <td>@row["ShortClosedDate"]</td>
+
+<td>  @row["IsCutable"]</td>
             <td>  @row["IsCutable"]</td>
             <td>  @row["OurStyleID"]</td>
 

@@ -75,7 +75,25 @@ WHERE         (CutOrderMaster.SkuDet_pk = @skudet_pk) ");
         }
 
 
-        public DataTable GetFabriclocationGroup(int Atcid)
+        public DataTable GetDeliveryData(int skudet_pk)
+        {
+            DataTable dt = new DataTable();
+
+
+
+
+            SqlCommand cmd = new SqlCommand(@"DosOfSku_SP");
+
+
+            cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd); ;
+        }
+
+            public DataTable GetFabriclocationGroup(int Atcid)
         {
             DataTable dt = new DataTable();
             using (SqlCommand cmd = new SqlCommand())
@@ -91,12 +109,55 @@ WHERE         (CutOrderMaster.SkuDet_pk = @skudet_pk) ");
                 {
                     if (dt.Rows.Count > 0)
                     {
+
+
+
+
+                        DataView view = new DataView(dt);
+                        DataTable FablocCombo = view.ToTable(true, "AtcId", "SkuDet_PK", "Location_pk", "ColorName", "ItemColor", "ColorCode", "LocationName", "ITemdEscription", "Description");
+
+
+
+
+
+
+
                         using (ArtWebApp.DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
                         {
 
 
 
-                            foreach (DataRow row in dt.Rows)
+                            foreach (DataRow row in FablocCombo.Rows)
+                            {
+                                int skudetpk = int.Parse(row["SkuDet_PK"].ToString());
+                                int locationpk = int.Parse(row["Location_pk"].ToString());
+                               
+                                if (!enty.FabricInLocationAtcMaster_tbl.Any(f => f.SkuDet_PK == skudetpk&&  f.Location_pk == locationpk))
+                                {
+                                    FabricInLocationAtcMaster_tbl fabricInLocation_Tbl = new FabricInLocationAtcMaster_tbl();
+
+                                    fabricInLocation_Tbl.AtcId = int.Parse(row["AtcId"].ToString());
+                                  
+                                    fabricInLocation_Tbl.Location_pk = int.Parse(row["Location_pk"].ToString());
+                                    fabricInLocation_Tbl.SkuDet_PK = int.Parse(row["SkuDet_PK"].ToString());
+                                    fabricInLocation_Tbl.ColorName = row["ColorName"].ToString();
+                                    fabricInLocation_Tbl.ColorCode = row["ColorCode"].ToString();
+                                    fabricInLocation_Tbl.ItemColor = row["ItemColor"].ToString();
+                                    fabricInLocation_Tbl.LocationName = row["LocationName"].ToString();
+                                    fabricInLocation_Tbl.ITemdEscription = row["ITemdEscription"].ToString();
+                                    fabricInLocation_Tbl.Description = row["Description"].ToString();
+                                    fabricInLocation_Tbl.IsClosed = "N";
+                                    fabricInLocation_Tbl.Status = "Open";
+                                    enty.FabricInLocationAtcMaster_tbl.Add(fabricInLocation_Tbl);
+                                }
+
+                            }
+
+
+
+
+
+                                foreach (DataRow row in dt.Rows)
                             {
 
                                 int skudetpk = int.Parse(row["SkuDet_PK"].ToString());
@@ -176,5 +237,55 @@ WHERE         (CutOrderMaster.SkuDet_pk = @skudet_pk) ");
 
 
         }
+
+
+        public DataTable GetSampleAndExtraCutorder(int skudet_pk, int ourStyleid, int locationpk)
+        {
+            DataTable dt = new DataTable();
+
+
+
+
+            SqlCommand cmd = new SqlCommand(@"   SELECT        CutOrderMaster.CutID, CutOrderMaster.Cut_NO, SUM(CutOrderDO.DeliveryQty) AS FabQty, CutOrderMaster.CutOrderType, CutOrderMaster.SkuDet_pk
+FROM            CutOrderMaster INNER JOIN
+                         CutOrderDO ON CutOrderMaster.CutID = CutOrderDO.CutID
+WHERE        (CutOrderMaster.CutOrderType <> N'Normal') AND (CutOrderMaster.SkuDet_pk = @skudet_pk) 
+and  (CutOrderMaster.OurStyleID = @OurStyleID) AND (CutOrderMaster.ToLoc = @ToLoc)
+GROUP BY CutOrderMaster.CutID, CutOrderMaster.Cut_NO, CutOrderMaster.CutOrderType, CutOrderMaster.OurStyleID, CutOrderMaster.ToLoc, CutOrderMaster.SkuDet_pk ");
+
+
+            cmd.Parameters.AddWithValue("@skudet_pk", skudet_pk);
+
+            cmd.Parameters.AddWithValue("@OurStyleID", ourStyleid);
+            cmd.Parameters.AddWithValue("@ToLoc", locationpk);
+
+
+
+
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
+        }
+
+
+        public DataTable GetFabricoflocationByAtc(int AtcId)
+        {
+            DataTable dt = new DataTable();
+SqlCommand cmd = new SqlCommand(@"  SELECT        FabricInLocationAtcMasterId, LocationName, Description, ITemdEscription, SkuDet_PK, ColorName, ColorCode, ItemColor, Status, IsClosed, ClosedBy, ClosedDate
+FROM            FabricInLocationAtcMaster_tbl
+WHERE        (AtcId = @AtcId)");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId);  return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

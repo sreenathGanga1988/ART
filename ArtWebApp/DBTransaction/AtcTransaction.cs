@@ -110,7 +110,7 @@ namespace ArtWebApp.DBTransaction
                 con.Open();
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        OurStyleID, AtcId, OurStyle, BuyerStyle, FOB, CategoryID,Quantity, MinutesperGarment, MerchantPCD
+                SqlCommand cmd = new SqlCommand(@"SELECT         OurStyleID, AtcId, OurStyle, BuyerStyle, FOB, CategoryID, Quantity, MinutesperGarment, MerchantPCD, TTLSam, IsInterChangable, OurstyleGroup
 FROM            AtcDetails
 WHERE        (AtcId = @Param1)", con);
 

@@ -1528,11 +1528,6 @@
     <Content Include="Areas\CuttingMVC\Views\CutPlanEdit\Index.cshtml" />
     <Content Include="Areas\MVCTNA\Views\web.config" />
     <Content Include="Areas\MVCTNA\Views\ProductIonTNA\Create.cshtml" />
-    <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Create.cshtml" />
-    <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Delete.cshtml" />
-    <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Details.cshtml" />
-    <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Edit.cshtml" />
-    <Content Include="Areas\MVCTNA\Views\ProductionTNAs\Index.cshtml" />
     <Content Include="Areas\MVCTNA\Views\ProductIonTNA\Index.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\SeaFreightRequest\Create.cshtml" />
     <Content Include="Areas\ArtMVCMerchandiser\Views\GeneralFreightRequestMasters\Create.cshtml" />
@@ -1605,6 +1600,13 @@
     <Content Include="Areas\Accounts\Views\AccountReport\AccontDashboardview.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\FCR\FCRIndex.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\FCR\FCRStatus.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\ProductIonTNA\FacPCDChanged.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollTracker\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\RollTracker\InventoryRollView.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FullFinalFcr\FullFinalFcr.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FcrMasterStatus.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FullSkuIndex.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FullSkuPartialView.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1915,6 +1917,8 @@
       <DependentUpon>UserProfileCreation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Api\ArtApiController.cs" />
+    <Compile Include="Api\ModelView.cs" />
+    <Compile Include="Api\WebartApiRepo.cs" />
     <Compile Include="Approvals\ASQApprovals.aspx.cs">
       <DependentUpon>ASQApprovals.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2026,6 +2030,7 @@
     <Compile Include="Areas\CuttingMVC\Controllers\EndBitController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\FabricMissingsController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\FCRController.cs" />
+    <Compile Include="Areas\CuttingMVC\Controllers\FullFinalFcrController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaysheetController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LaySheetEditController.cs" />
     <Compile Include="Areas\CuttingMVC\Controllers\LayShortageadjustController.cs" />
@@ -2037,6 +2042,7 @@
     <Compile Include="Areas\CuttingMVC\Controllers\SubConExtraRequestsController.cs" />
     <Compile Include="Areas\CuttingMVC\CutPlanMastersController.cs" />
     <Compile Include="Areas\CuttingMVC\CuttingMVCAreaRegistration.cs" />
+    <Compile Include="Areas\CuttingMVC\FcrLoaderrepo.cs" />
     <Compile Include="Areas\CuttingMVC\Models\CutplanViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\LaySheetShortageViewModel.cs" />
     <Compile Include="Areas\CuttingMVC\Models\RejectionPanelViewModal.cs" />
@@ -2044,14 +2050,16 @@
     <Compile Include="Areas\CuttingMVC\ViewModel\FCRViewModel.cs" />
     <Compile Include="Areas\CuttingRepository.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollPropertyChangeController.cs" />
+    <Compile Include="Areas\Inventory\Controllers\RollTrackerController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollTransferToGstockController.cs" />
     <Compile Include="Areas\Inventory\InventoryAreaRegistration.cs" />
     <Compile Include="Areas\Inventory\InventoryRepo.cs" />
+    <Compile Include="Areas\Inventory\InventoryReportRepo.cs" />
+    <Compile Include="Areas\Inventory\ViewModel\InventoryReportmodel.cs" />
     <Compile Include="Areas\Inventory\ViewModel\RollPropertyViewmodel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceTypesController.cs" />
     <Compile Include="Areas\MVCTNA\Controllers\ProductIonTNAController.cs" />
-    <Compile Include="Areas\MVCTNA\Controllers\ProductionTNAsController.cs" />
     <Compile Include="Areas\MVCTNA\MVCTNAAreaRegistration.cs" />
     <Compile Include="Areas\MVCTNA\TNAREpo\ProductionTNARepo.cs" />
     <Compile Include="Areas\MVCTNA\Controllers\TnaUserRightsController.cs" />
@@ -2324,6 +2332,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ExtraRequestReasonMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricInLocationAtcMaster_tbl.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FabricInLocation_tbl.cs">

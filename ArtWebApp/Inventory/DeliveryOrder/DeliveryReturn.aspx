@@ -41,9 +41,14 @@
                         <asp:TextBox ID="txt_containernum" runat="server" Height="20px" Width="164px" CssClass="auto-style10"></asp:TextBox>
                     </td>
                     <td c>
-                        &nbsp;</td>
+                        Type</td>
                     <td >
-                        &nbsp;</td>
+                        <ucc:DropDownListChosen ID="drp_type" runat="server" Width="200px">
+                            <asp:ListItem>Normal</asp:ListItem>
+                            <asp:ListItem>EndBit</asp:ListItem>
+                            <asp:ListItem>Damaged</asp:ListItem>
+                        </ucc:DropDownListChosen>
+                    </td>
                 </tr>
                 <tr>
                     <td >

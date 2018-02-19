@@ -552,6 +552,7 @@
         <EntityTypeShape EntityType="ArtModel.BEOfMonth" Width="1.5" PointX="5.375" PointY="4.75" />
         <AssociationConnector Association="ArtModel.FK_TnaUserRight_LocationMaster" />
         <EntityTypeShape EntityType="ArtModel.FabricInLocation_tbl" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ArtModel.FabricInLocationAtcMaster_tbl" Width="1.5" PointX="5.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

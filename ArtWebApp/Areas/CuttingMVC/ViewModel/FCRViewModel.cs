@@ -6,6 +6,29 @@ using System.Web;
 
 namespace ArtWebApp.Areas.CuttingMVC.ViewModel
 {
+
+    public class FullFCRModelData
+    {
+
+        public List<FCRViewModel> FCRViewModelDatalist { get; set; }
+        public Decimal SkuDetPK { get; set; }
+        public Decimal LocationPk { get; set; }
+
+        public Decimal GiventoFactory { get; set; }
+        public Decimal GivenBackToStore { get; set; }
+        public Decimal ToBeonLocation { get; set; }
+        public Decimal TotalFabricLayed { get; set; }
+        public Decimal TotalShortage { get; set; }
+        public Decimal MarkMissedQty { get; set; }
+        public Decimal TotalBalanceQty { get; set; }
+        public Decimal MissingQty { get; set; }
+
+
+    }
+
+
+
+
     public class FCRViewModel
     {
         public FcrMasterData fcrMasterData { get; set; }
@@ -13,6 +36,10 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public DataTable CutData { get; set; }
         public DataTable LayshortagereqData { get; set; }
         public DataTable RejectionReqData { get; set; }
+        public DataTable SamplingCutOrderData { get; set; }
+        public DataTable DeliveryData { get; set; }
+
+        
 
 
         public String TotalFabQty { get; set; }
@@ -27,7 +54,14 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public String ActualFCRConsumtion { get; set; }
         public String OverConsumed { get; set; }
 
-       
+
+
+        public String TotalShortage { get; set; }
+        public String TotalNonusableEndbit { get; set; }
+        public String TotalSampleYardage { get; set; }
+
+
+        public String IsClosed { get; set; }
 
     }
 

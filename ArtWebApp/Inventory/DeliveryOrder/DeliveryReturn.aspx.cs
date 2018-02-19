@@ -101,6 +101,8 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             domstr.AddedBy = Session["Username"].ToString().Trim();
             domstr.ToLocation_PK = int.Parse(drp_ToWarehouse.SelectedValue.ToString()); ;
             domstr.FromLocation_PK = int.Parse(Session["UserLoc_pk"].ToString());
+            domstr.DoContentType = drp_type.SelectedItem.Text;
+          
             domstr.DoType = "FW";
 
             return domstr;

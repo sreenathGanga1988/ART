@@ -12,7 +12,7 @@
 
 
     $(document).ready(function () {
-        alert("Hi");
+       
             var Month = 'All';
             $('#loadingmessage').show();
                 $.ajax({
@@ -21,7 +21,7 @@
                     type: "GET",                   
                     success: function (fooBarHTML) {
                         $('#loadingmessage').hide();
-                        alert("Done");
+                       
                     $("#output").html(fooBarHTML);
                     },
                     error: function (xhr, status, errorThrown) {

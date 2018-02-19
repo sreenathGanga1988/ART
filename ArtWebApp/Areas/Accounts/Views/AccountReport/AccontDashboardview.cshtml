@@ -80,6 +80,9 @@
     <div id="PendingpatternDiv" class="collapse in">
 
 
+
+        @try
+    {
         <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
             <thead>
 
@@ -134,6 +137,12 @@
             </tfoot>
 
         </table>
+}
+catch 
+{
+
+}
+
 
 
 
@@ -145,6 +154,10 @@
 
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingCutorderDiv">Pending service Po for Posting</button>
     <div id="PendingCutorderDiv" class="collapse in">
+
+        @try
+    {
+
 
         <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
             <thead>
@@ -201,7 +214,11 @@
 
         </table>
 
+        }
+        catch
+        {
 
+        }
     </div>
 
 
@@ -209,7 +226,8 @@
 
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingASQDiv">Pending Local External Sales for Posting</button>
     <div id="PendingASQDiv" class="collapse in">
-
+        @try
+    {
 
         <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
             <thead>
@@ -265,13 +283,18 @@
             </tfoot>
 
         </table>
+        }
+        catch
+        {
 
+        }
     </div>
 
 
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRatioDiv">Pending Internal Sales For Debiting</button>
     <div id="PendingRatioDiv" class="collapse in">
-
+        @try
+    {
 
         <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
             <thead>
@@ -327,14 +350,19 @@
             </tfoot>
 
         </table>
+        }
+        catch
+        {
 
+        }
     </div>
 
 
 
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#PendingRollDiv">Pending Debit note For Posting</button>
     <div id="PendingRollDiv" class="collapse in">
-
+        @try
+    {
         <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
             <thead>
 
@@ -343,53 +371,57 @@
                 <tr>
 
                     @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
-            {
-                <th>
-                    @col.ColumnName
-                </th>
-    }
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
 
                 </tr>
                 <tr class="filterrow">
                     @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
-            {
-                <th>
+                {
+                    <th>
 
-                </th>
-    }
+                    </th>
+            }
                 </tr>
             </thead>
 
             <tbody>
                 @foreach (DataRow row in Model.PendingDebitnoteForPosting.Rows)
-        {
-            <tr>
+            {
+                <tr>
 
-                @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
-        {
-            <td>
-                @row[@col.ColumnName]
+                    @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
 
-            </td>
-}
-            </tr>
+                    </td>
+            }
+                </tr>
 
-}
+        }
             </tbody>
             <tfoot>
                 <tr class="filterrow">
                     @foreach (DataColumn col in Model.PendingDebitnoteForPosting.Columns)
-            {
-                <th>
+                {
+                    <th>
 
-                </th>
-    }
+                    </th>
+            }
                 </tr>
 
             </tfoot>
 
         </table>
+        }
+        catch
+        {
 
+        }
     </div>
 
 

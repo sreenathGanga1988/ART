@@ -164,8 +164,23 @@
                                     </ajaxToolkit:CalendarExtender>
                    </ItemTemplate>
                  </asp:TemplateField>
-                                <asp:ButtonField ButtonType="Button" CommandName="Update" HeaderText="Update" Text="Update" />
+                                
+                                <asp:TemplateField HeaderText="Group">
+                                  
+                                    <ItemTemplate>
+
+                                        
+                                          <asp:Label ID="lbl_group" Visible="false"  runat="server"  Text='<%# Bind("OurstyleGroup") %>'></asp:Label>
+                                      
+                                       <asp:DropDownList ID="ddl_group" runat="server"  Font-Names="Calibri" Font-Size="X-Small" Height="16px" DataSourceID="Ourstylegroupsource" DataTextField="OurStyleGroup" DataValueField="OurStyleGroup">
+                                           
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                    <asp:ButtonField ButtonType="Button" CommandName="Update" HeaderText="Update" Text="Update" />
                             </Columns>
+                        
                             <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
                             <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
@@ -229,4 +244,8 @@
        
                 <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [CategoryID], [CategoryName] FROM [GarmentCategory]">
                 </asp:SqlDataSource>
+
+
+    <asp:SqlDataSource ID="Ourstylegroupsource" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
+        SelectCommand="SELECT        OurStyleGroup FROM            OurStyleGroupMaster"></asp:SqlDataSource>
 </asp:Content>

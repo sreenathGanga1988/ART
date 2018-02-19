@@ -36,6 +36,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string DoType { get; set; }
         public string ExportContainer { get; set; }
+        public string ContentType { get; set; }
     
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual DeliveryMethodMaster DeliveryMethodMaster { get; set; }

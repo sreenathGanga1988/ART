@@ -24,6 +24,7 @@ namespace ArtWebApp.DataModels
         public Nullable<bool> IsUploaded { get; set; }
         public Nullable<decimal> Location_PK { get; set; }
         public Nullable<bool> IsApproved { get; set; }
+        public string RejectionType { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual POPackDetail POPackDetail { get; set; }

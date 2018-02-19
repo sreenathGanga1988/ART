@@ -13,60 +13,58 @@
 
 
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <script src=""
+    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script>
 
         $(document).ready(function () {
-
-           
-         
+          
+            var User_PK = '<%= Session["User_PK"] %>';          
+            
             $.ajax({
-                url: 'http://192.168.1.4:1938/api/Task/GetAllPendingTask',
+               // url: 'http://localhost:60029/api/Task/GetAllPendingTask',
+                url: '/api/Task/GetAllPendingTask',
                 type: 'GET',
                 dataType: 'jsonp',
                 ContentType: 'xml',
-                data: { id: 102534 },              
+                data: { id: User_PK },
                 success: function (data) {
 
                     $('#DashBoard').empty();
                     $.each(data, function (index, val) {
 
 
-                        $('#DashBoard').append(' <div class="col-md-4"> <button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify"   style="font-size: 30px;background:red">' + val.Pending +'</span> </div>');
+                        //$('#DashBoard').append(' <div class="col-md-4"> <button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify"   style="font-size: 30px;background:red">' + val.Pending +'</span> </div>');
 
+
+
+                        
+
+                        $('#DashBoard').append('<div class="col-md-4"> <div><button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify" style="font-size: 30px;">' + val.LightColorStatus + '</span></div><span class="d-block bg-primary" style="font-size: 30px;" >' + val.TaskName + '</span></div > ');
                     });
                 },
                 error: function (error) {
-                  
-                    alert('Error');
+
+                   
                 }
             });
 
 
-            //$.ajax({
-                
-            //    url: '/api/ArtApi/GetAtcs',                
-            //    type: 'GET',
-            //    dataType: 'jsonp',
-            //    ContentType: 'json',              
-            //    success: function (data) {
-            //        alert("Hi");
-            //        $('#DashBoard').empty();
-            //        $.each(data, function (index, val) {
-
-
-            //            $('#DashBoard').append(' <div class="col-md-4"> <button class="btn btn-default btn-lg btn-link" style="font-size: 150px;" ><span class="glyphicon glyphicon-comment"></span></button><span class="badge badge-notify"   style="font-size: 30px;background:red">' + val.AtcID + '</span> </div>');
-
-            //        });
-            //    },
-            //    error: function (error) {
-
-            //        alert('Error');
-            //    }
-            //});
+            $('body').on('click', 'div.col-md-4', function () {
+                alert("Iam Clicked");
+               
+                var planpk = 0;
+                PageMethods.DeletePlanAysnc(planpk, onSucess, onError);
+                function onSucess(result) {
+                   
+                }
+                function onError(result) {
+                    alert('Something wrong.');
+                }
+                   
+            });
         });
 
     </script>

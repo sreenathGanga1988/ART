@@ -2,6 +2,7 @@
 @using System.Data;
 <h2>@Model.ReportName</h2>
 <script src="~/Plugin/MyDataTable.js"></script>
+
 <table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
     <thead>
 
@@ -37,12 +38,12 @@
                 {
                     <td>
                         @row[@col.ColumnName]
-                       
+
                     </td>
                 }
-                    <td>
-                        @Html.ActionLink("Open", "FCRLoader", new { id = @row["Id"] })
-                    </td>
+                <td>
+                    @Html.ActionLink("Open", "FCRLoader", new { id = @row["Id"] })
+                </td>
             </tr>
 
         }
@@ -50,11 +51,11 @@
     <tfoot>
         <tr class="filterrow">
             @foreach (DataColumn col in Model.FabricdataData.Columns)
-        {
-            <th>
+            {
+                <th>
 
-            </th>
-    }
+                </th>
+            }
             <th>
 
             </th>

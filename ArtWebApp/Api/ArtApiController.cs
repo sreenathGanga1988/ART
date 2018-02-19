@@ -1,4 +1,5 @@
-﻿using ArtWebApp.DataModels;
+﻿using ArtWebApp.Areas.MVCTNA.ViewModel;
+using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,5 +60,43 @@ namespace ArtWebApp.Api
         public void Delete(int id)
         {
         }
+    }
+
+
+    public class TaskController : ApiController
+    {
+
+        // GET: api/GetAllPendingTask  
+        [System.Web.Http.HttpGet]
+        public IEnumerable<ArtTaskModel> GetAllPendingTask(int id)
+        {
+            List<TaskModel> students = new List<TaskModel>();
+
+            List<ArtTaskModel> list = new List<ArtTaskModel>();
+            list = WebartApiRepo.GetPendingTask(id);
+
+
+            TaskModel mt = new TaskModel();
+            mt.Rollnum = "2017-0001";
+            mt.TaskTittle = "Nishan";
+            mt.Location = "Kathmandu";
+            mt.Pending = "3";
+            mt.Message = "9849845061";
+           
+            students.Add(mt);
+
+
+            int k = list.Count();
+
+
+            return list;
+
+
+
+         
+        }
+
+
+
     }
 }
