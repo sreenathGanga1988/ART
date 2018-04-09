@@ -533,14 +533,14 @@ GROUP BY ProcurementMaster.PO_Pk, ProcurementMaster.PONum, AtcMaster.AtcNum, Sup
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CutorderSummaryTableAdapter" GeneratorDataComponentClassName="CutorderSummaryTableAdapter" Name="CutorderSummary" UserDataComponentName="CutorderSummaryTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        LocationMaster.LocationName, CutOrderMaster.CutID, CutOrderMaster.Cut_NO, AtcDetails.OurStyle, CutOrderMaster.Color, CutOrderMaster.CutQty, CutOrderMaster.FabQty, CutOrderMaster.ConsumptionQty, 
                          ExtraRequestReasonMaster.ExtraReason, AtcMaster.AtcNum, CutOrderMaster.CutOrderDate, CutOrderMaster.CutOrderType, ISNULL
                              ((SELECT        SUM(DeliveryQty) AS Expr1
                                  FROM            CutOrderDO
-                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId
+                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId, 0 AS Rollyard
 FROM            CutOrderMaster INNER JOIN
                          AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
@@ -566,6 +566,7 @@ FROM            CutOrderMaster INNER JOIN
               <Mapping SourceColumn="CutOrderType" DataSetColumn="CutOrderType" />
               <Mapping SourceColumn="DeliveredQty" DataSetColumn="DeliveredQty" />
               <Mapping SourceColumn="AtcId" DataSetColumn="AtcId" />
+              <Mapping SourceColumn="Rollyard" DataSetColumn="Rollyard" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1153,26 +1154,29 @@ GROUP BY AtcNum, LocationName, Description, UomCode, ItemName, ItemGroupName, Lo
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="JobContractCMTableAdapter" GeneratorDataComponentClassName="JobContractCMTableAdapter" Name="JobContractCM" UserDataComponentName="JobContractCMTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        POPackDetails.POPackId, SUM(POPackDetails.PoQty) AS PoQty, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, 
-                         JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, 
-                         PoPackMaster.BuyerPO, ROUND(SUM(POPackDetails.PoQty) * (JobContractDetail.CMvalue / 12), 2) AS POVAL, isnull( JobContractMaster.Remark,'') as Remark
-FROM            POPackDetails INNER JOIN
+                         JobContractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.AddedBy, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, 
+                         JobContractMaster.JobContract_pk, CONVERT(decimal(20, 3), SUM(POPackDetails.PoQty) * JobContractMaster.CM) AS POVAL, JobContractMaster.CM AS CMvalue, JobContractMaster.IsApproved, JobContractMaster.ApprovedBy, 
+                         JobContractMaster.ApprovedDate, JobContractMaster.Remark
+FROM            CountryMaster INNER JOIN
+                         LocationMaster INNER JOIN
+                         JobContractMaster ON LocationMaster.Location_PK = JobContractMaster.Location_Pk ON CountryMaster.CountryID = LocationMaster.CountryID INNER JOIN
+                         GarmentCategory INNER JOIN
+                         POPackDetails INNER JOIN
                          PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
-                         AtcMaster ON PoPackMaster.AtcId = AtcMaster.AtcId AND AtcDetails.AtcId = AtcMaster.AtcId INNER JOIN
-                         JobContractMaster ON AtcMaster.AtcId = JobContractMaster.AtcID INNER JOIN
-                         JobContractDetail ON PoPackMaster.PoPackId = JobContractDetail.PoPackID AND AtcDetails.OurStyleID = JobContractDetail.OurStyleID AND 
-                         JobContractMaster.JobContract_pk = JobContractDetail.JobContract_pk INNER JOIN
-                         LocationMaster ON JobContractMaster.Location_Pk = LocationMaster.Location_PK INNER JOIN
-                         GarmentCategory ON AtcDetails.CategoryID = GarmentCategory.CategoryID INNER JOIN
-                         CountryMaster ON LocationMaster.CountryID = CountryMaster.CountryID
+                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId ON GarmentCategory.CategoryID = AtcDetails.CategoryID ON JobContractMaster.OurStyleID = AtcDetails.OurStyleID AND 
+                         LocationMaster.Location_PK = PoPackMaster.ExpectedLocation_PK
 GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, JobContractMaster.JOBContractNUM, 
-                         JobContractMaster.AddedDate, JobContractMaster.AddedBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, 
-                         JobContractMaster.JobContract_pk, JobContractMaster.Remark</CommandText>
-                    <Parameters />
+                         JobContractMaster.AddedDate, JobContractMaster.AddedBy, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, JobContractMaster.JobContract_pk, JobContractMaster.CM, 
+                         JobContractMaster.IsApproved, JobContractMaster.ApprovedBy, JobContractMaster.ApprovedDate, JobContractMaster.Remark
+HAVING        (JobContractMaster.JobContract_pk = @jc_pk)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="jc_pk" ColumnName="JobContract_pk" DataSourceName="Art.dbo.JobContractMaster" DataTypeServer="numeric" DbType="Decimal" Direction="Input" ParameterName="@jc_pk" Precision="18" Scale="0" Size="9" SourceColumn="JobContract_pk" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
@@ -1194,6 +1198,10 @@ GROUP BY POPackDetails.POPackId, CountryMaster.Description, LocationMaster.Locat
               <Mapping SourceColumn="DeliveryDate" DataSetColumn="DeliveryDate" />
               <Mapping SourceColumn="BuyerPO" DataSetColumn="BuyerPO" />
               <Mapping SourceColumn="POVAL" DataSetColumn="POVAL" />
+              <Mapping SourceColumn="JobContract_pk" DataSetColumn="JobContract_pk" />
+              <Mapping SourceColumn="IsApproved" DataSetColumn="IsApproved" />
+              <Mapping SourceColumn="ApprovedBy" DataSetColumn="ApprovedBy" />
+              <Mapping SourceColumn="ApprovedDate" DataSetColumn="ApprovedDate" />
               <Mapping SourceColumn="Remark" DataSetColumn="Remark" />
             </Mappings>
             <Sources />
@@ -1878,7 +1886,7 @@ WHERE        (ShipmentHandOverDetails.ShipmentHandOverDate BETWEEN @fromdate AND
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="GetJobContractOptional_SPTableAdapter" GeneratorDataComponentClassName="GetJobContractOptional_SPTableAdapter" Name="GetJobContractOptional_SP" UserDataComponentName="GetJobContractOptional_SPTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectName="Art.dbo.GetJobContractOptional_SP" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectName="Art.dbo.GetJobContractOptional_SP" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.GetJobContractOptional_SP</CommandText>
@@ -1910,6 +1918,9 @@ WHERE        (ShipmentHandOverDetails.ShipmentHandOverDate BETWEEN @fromdate AND
               <Mapping SourceColumn="AddedDate" DataSetColumn="AddedDate" />
               <Mapping SourceColumn="AddedBy" DataSetColumn="AddedBy" />
               <Mapping SourceColumn="POVALUE" DataSetColumn="POVALUE" />
+              <Mapping SourceColumn="Printing" DataSetColumn="Printing" />
+              <Mapping SourceColumn="IsApproved" DataSetColumn="IsApproved" />
+              <Mapping SourceColumn="ApprovedBy" DataSetColumn="ApprovedBy" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1947,7 +1958,7 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="GetRollDetail_spTableAdapter" GeneratorDataComponentClassName="GetRollDetail_spTableAdapter" Name="GetRollDetail_sp" UserDataComponentName="GetRollDetail_spTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ArtConnectionString (Web.config)" DbObjectName="Art.dbo.GetRollDetail_sp" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectName="Art.dbo.GetRollDetail_sp" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.GetRollDetail_sp</CommandText>
@@ -1981,6 +1992,7 @@ WHERE        (CutOrderDO.CutID = @Param1)</CommandText>
               <Mapping SourceColumn="CutMarkerType" DataSetColumn="CutMarkerType" />
               <Mapping SourceColumn="CutID" DataSetColumn="CutID" />
               <Mapping SourceColumn="SkuDet_pk" DataSetColumn="SkuDet_pk" />
+              <Mapping SourceColumn="AtcNum" DataSetColumn="AtcNum" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2213,6 +2225,43 @@ FROM            AtcMaster </CommandText>
               <Mapping SourceColumn="WIPInvoicedValue" DataSetColumn="WIPInvoicedValue" />
               <Mapping SourceColumn="WWValue" DataSetColumn="WWValue" />
               <Mapping SourceColumn="orderQty" DataSetColumn="orderQty" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="GstockWithTransferData_SPTableAdapter" GeneratorDataComponentClassName="GstockWithTransferData_SPTableAdapter" Name="GstockWithTransferData_SP" UserDataComponentName="GstockWithTransferData_SPTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ArtSQL (Web.config)" DbObjectName="Art.dbo.GstockWithTransferData_SP" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                    <CommandText>dbo.GstockWithTransferData_SP</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Location_Pk" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="SInventoryItem_PK" DataSetColumn="SInventoryItem_PK" />
+              <Mapping SourceColumn="LocationName" DataSetColumn="LocationName" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="ItemDesc" DataSetColumn="ItemDesc" />
+              <Mapping SourceColumn="Unitprice" DataSetColumn="Unitprice" />
+              <Mapping SourceColumn="ReceivedQty" DataSetColumn="ReceivedQty" />
+              <Mapping SourceColumn="DeliveredQty" DataSetColumn="DeliveredQty" />
+              <Mapping SourceColumn="OnHandQty" DataSetColumn="OnHandQty" />
+              <Mapping SourceColumn="UomName" DataSetColumn="UomName" />
+              <Mapping SourceColumn="Location_Pk" DataSetColumn="Location_Pk" />
+              <Mapping SourceColumn="ReceivedVia" DataSetColumn="ReceivedVia" />
+              <Mapping SourceColumn="PoValue" DataSetColumn="PoValue" />
+              <Mapping SourceColumn="Refnum" DataSetColumn="Refnum" />
+              <Mapping SourceColumn="ParentRef" DataSetColumn="ParentRef" />
+              <Mapping SourceColumn="FreightCuRate" DataSetColumn="FreightCuRate" />
+              <Mapping SourceColumn="SROOut" DataSetColumn="SROOut" />
+              <Mapping SourceColumn="SDO" DataSetColumn="SDO" />
+              <Mapping SourceColumn="SWF" DataSetColumn="SWF" />
+              <Mapping SourceColumn="Myvalue" DataSetColumn="Myvalue" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -3303,6 +3352,7 @@ FROM            AtcMaster </CommandText>
               </xs:element>
               <xs:element name="DeliveredQty" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDeliveredQty" msprop:Generator_ColumnPropNameInRow="DeliveredQty" msprop:Generator_ColumnPropNameInTable="DeliveredQtyColumn" msprop:Generator_UserColumnName="DeliveredQty" type="xs:decimal" minOccurs="0" />
               <xs:element name="AtcId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnAtcId" msprop:Generator_ColumnPropNameInRow="AtcId" msprop:Generator_ColumnPropNameInTable="AtcIdColumn" msprop:Generator_UserColumnName="AtcId" type="xs:decimal" />
+              <xs:element name="Rollyard" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRollyard" msprop:Generator_ColumnPropNameInRow="Rollyard" msprop:Generator_ColumnPropNameInTable="RollyardColumn" msprop:Generator_UserColumnName="Rollyard" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -4379,7 +4429,23 @@ FROM            AtcMaster </CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="POVAL" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPOVAL" msprop:Generator_ColumnPropNameInRow="POVAL" msprop:Generator_ColumnPropNameInTable="POVALColumn" msprop:Generator_UserColumnName="POVAL" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Remark" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRemark" msprop:Generator_ColumnPropNameInRow="Remark" msprop:Generator_ColumnPropNameInTable="RemarkColumn" msprop:Generator_UserColumnName="Remark" minOccurs="0">
+              <xs:element name="JobContract_pk" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnJobContract_pk" msprop:Generator_ColumnPropNameInRow="JobContract_pk" msprop:Generator_ColumnPropNameInTable="JobContract_pkColumn" msprop:Generator_UserColumnName="JobContract_pk" type="xs:decimal" />
+              <xs:element name="IsApproved" msprop:Generator_ColumnVarNameInTable="columnIsApproved" msprop:Generator_ColumnPropNameInRow="IsApproved" msprop:Generator_ColumnPropNameInTable="IsApprovedColumn" msprop:Generator_UserColumnName="IsApproved" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApprovedBy" msprop:Generator_ColumnVarNameInTable="columnApprovedBy" msprop:Generator_ColumnPropNameInRow="ApprovedBy" msprop:Generator_ColumnPropNameInTable="ApprovedByColumn" msprop:Generator_UserColumnName="ApprovedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApprovedDate" msprop:Generator_ColumnVarNameInTable="columnApprovedDate" msprop:Generator_ColumnPropNameInRow="ApprovedDate" msprop:Generator_ColumnPropNameInTable="ApprovedDateColumn" msprop:Generator_UserColumnName="ApprovedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Remark" msprop:Generator_ColumnVarNameInTable="columnRemark" msprop:Generator_ColumnPropNameInRow="Remark" msprop:Generator_ColumnPropNameInTable="RemarkColumn" msprop:Generator_UserColumnName="Remark" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
@@ -5621,6 +5687,21 @@ FROM            AtcMaster </CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="POVALUE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPOVALUE" msprop:Generator_ColumnPropNameInRow="POVALUE" msprop:Generator_ColumnPropNameInTable="POVALUEColumn" msprop:Generator_UserColumnName="POVALUE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Printing" msprop:Generator_ColumnVarNameInTable="columnPrinting" msprop:Generator_ColumnPropNameInRow="Printing" msprop:Generator_ColumnPropNameInTable="PrintingColumn" msprop:Generator_UserColumnName="Printing" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IsApproved" msprop:Generator_ColumnVarNameInTable="columnIsApproved" msprop:Generator_ColumnPropNameInRow="IsApproved" msprop:Generator_ColumnPropNameInTable="IsApprovedColumn" msprop:Generator_UserColumnName="IsApproved" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApprovedBy" msprop:Generator_ColumnVarNameInTable="columnApprovedBy" msprop:Generator_ColumnPropNameInRow="ApprovedBy" msprop:Generator_ColumnPropNameInTable="ApprovedByColumn" msprop:Generator_UserColumnName="ApprovedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -5784,6 +5865,13 @@ FROM            AtcMaster </CommandText>
               </xs:element>
               <xs:element name="CutID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCutID" msprop:Generator_ColumnPropNameInRow="CutID" msprop:Generator_ColumnPropNameInTable="CutIDColumn" msprop:Generator_UserColumnName="CutID" type="xs:decimal" />
               <xs:element name="SkuDet_pk" msprop:Generator_ColumnVarNameInTable="columnSkuDet_pk" msprop:Generator_ColumnPropNameInRow="SkuDet_pk" msprop:Generator_ColumnPropNameInTable="SkuDet_pkColumn" msprop:Generator_UserColumnName="SkuDet_pk" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AtcNum" msprop:Generator_ColumnVarNameInTable="columnAtcNum" msprop:Generator_ColumnPropNameInRow="AtcNum" msprop:Generator_ColumnPropNameInTable="AtcNumColumn" msprop:Generator_UserColumnName="AtcNum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -6218,6 +6306,91 @@ FROM            AtcMaster </CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="GstockWithTransferData_SP" msprop:Generator_TableClassName="GstockWithTransferData_SPDataTable" msprop:Generator_TableVarName="tableGstockWithTransferData_SP" msprop:Generator_RowChangedName="GstockWithTransferData_SPRowChanged" msprop:Generator_TablePropName="GstockWithTransferData_SP" msprop:Generator_RowDeletingName="GstockWithTransferData_SPRowDeleting" msprop:Generator_RowChangingName="GstockWithTransferData_SPRowChanging" msprop:Generator_RowEvHandlerName="GstockWithTransferData_SPRowChangeEventHandler" msprop:Generator_RowDeletedName="GstockWithTransferData_SPRowDeleted" msprop:Generator_RowClassName="GstockWithTransferData_SPRow" msprop:Generator_UserTableName="GstockWithTransferData_SP" msprop:Generator_RowEvArgName="GstockWithTransferData_SPRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SInventoryItem_PK" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnSInventoryItem_PK" msprop:Generator_ColumnPropNameInRow="SInventoryItem_PK" msprop:Generator_ColumnPropNameInTable="SInventoryItem_PKColumn" msprop:Generator_UserColumnName="SInventoryItem_PK" type="xs:decimal" />
+              <xs:element name="LocationName" msprop:Generator_ColumnVarNameInTable="columnLocationName" msprop:Generator_ColumnPropNameInRow="LocationName" msprop:Generator_ColumnPropNameInTable="LocationNameColumn" msprop:Generator_UserColumnName="LocationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ItemDesc" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnItemDesc" msprop:Generator_ColumnPropNameInRow="ItemDesc" msprop:Generator_ColumnPropNameInTable="ItemDescColumn" msprop:Generator_UserColumnName="ItemDesc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unitprice" msprop:Generator_ColumnVarNameInTable="columnUnitprice" msprop:Generator_ColumnPropNameInRow="Unitprice" msprop:Generator_ColumnPropNameInTable="UnitpriceColumn" msprop:Generator_UserColumnName="Unitprice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ReceivedQty" msprop:Generator_ColumnVarNameInTable="columnReceivedQty" msprop:Generator_ColumnPropNameInRow="ReceivedQty" msprop:Generator_ColumnPropNameInTable="ReceivedQtyColumn" msprop:Generator_UserColumnName="ReceivedQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DeliveredQty" msprop:Generator_ColumnVarNameInTable="columnDeliveredQty" msprop:Generator_ColumnPropNameInRow="DeliveredQty" msprop:Generator_ColumnPropNameInTable="DeliveredQtyColumn" msprop:Generator_UserColumnName="DeliveredQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OnHandQty" msprop:Generator_ColumnVarNameInTable="columnOnHandQty" msprop:Generator_ColumnPropNameInRow="OnHandQty" msprop:Generator_ColumnPropNameInTable="OnHandQtyColumn" msprop:Generator_UserColumnName="OnHandQty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="UomName" msprop:Generator_ColumnVarNameInTable="columnUomName" msprop:Generator_ColumnPropNameInRow="UomName" msprop:Generator_ColumnPropNameInTable="UomNameColumn" msprop:Generator_UserColumnName="UomName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Location_Pk" msprop:Generator_ColumnVarNameInTable="columnLocation_Pk" msprop:Generator_ColumnPropNameInRow="Location_Pk" msprop:Generator_ColumnPropNameInTable="Location_PkColumn" msprop:Generator_UserColumnName="Location_Pk" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ReceivedVia" msprop:Generator_ColumnVarNameInTable="columnReceivedVia" msprop:Generator_ColumnPropNameInRow="ReceivedVia" msprop:Generator_ColumnPropNameInTable="ReceivedViaColumn" msprop:Generator_UserColumnName="ReceivedVia" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PoValue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPoValue" msprop:Generator_ColumnPropNameInRow="PoValue" msprop:Generator_ColumnPropNameInTable="PoValueColumn" msprop:Generator_UserColumnName="PoValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Refnum" msprop:Generator_ColumnVarNameInTable="columnRefnum" msprop:Generator_ColumnPropNameInRow="Refnum" msprop:Generator_ColumnPropNameInTable="RefnumColumn" msprop:Generator_UserColumnName="Refnum" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ParentRef" msprop:Generator_ColumnVarNameInTable="columnParentRef" msprop:Generator_ColumnPropNameInRow="ParentRef" msprop:Generator_ColumnPropNameInTable="ParentRefColumn" msprop:Generator_UserColumnName="ParentRef" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FreightCuRate" msprop:Generator_ColumnVarNameInTable="columnFreightCuRate" msprop:Generator_ColumnPropNameInRow="FreightCuRate" msprop:Generator_ColumnPropNameInTable="FreightCuRateColumn" msprop:Generator_UserColumnName="FreightCuRate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SROOut" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSROOut" msprop:Generator_ColumnPropNameInRow="SROOut" msprop:Generator_ColumnPropNameInTable="SROOutColumn" msprop:Generator_UserColumnName="SROOut" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SDO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSDO" msprop:Generator_ColumnPropNameInRow="SDO" msprop:Generator_ColumnPropNameInTable="SDOColumn" msprop:Generator_UserColumnName="SDO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SWF" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSWF" msprop:Generator_ColumnPropNameInRow="SWF" msprop:Generator_ColumnPropNameInTable="SWFColumn" msprop:Generator_UserColumnName="SWF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Myvalue" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMyvalue" msprop:Generator_ColumnPropNameInRow="Myvalue" msprop:Generator_ColumnPropNameInTable="MyvalueColumn" msprop:Generator_UserColumnName="Myvalue" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -6272,6 +6445,10 @@ FROM            AtcMaster </CommandText>
       <xs:selector xpath=".//mstns:lOANdATA" />
       <xs:field xpath="mstns:Loan_PK" />
     </xs:unique>
+    <xs:unique name="JobContractCM_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:JobContractCM" />
+      <xs:field xpath="mstns:JobContract_pk" />
+    </xs:unique>
     <xs:unique name="SamplingreqData_Constraint1" msdata:ConstraintName="Constraint1">
       <xs:selector xpath=".//mstns:SamplingreqData" />
       <xs:field xpath="mstns:PatternMasterID" />
@@ -6311,6 +6488,10 @@ FROM            AtcMaster </CommandText>
     <xs:unique name="WIPReport_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:WIPReport" />
       <xs:field xpath="mstns:AtcId" />
+    </xs:unique>
+    <xs:unique name="GstockWithTransferData_SP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:GstockWithTransferData_SP" />
+      <xs:field xpath="mstns:SInventoryItem_PK" />
     </xs:unique>
   </xs:element>
 </xs:schema>

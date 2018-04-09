@@ -21,17 +21,27 @@ namespace ArtWebApp.Production.JobContractNew
 
         protected void btn_JCSubmit_Click(object sender, EventArgs e)
         {
-            if (Decimal.Parse (txt_cmcost.Text)<=Decimal.Parse(txt_approvecost.Text))
+            if (Decimal.Parse(txt_cmcost.Text) <= Decimal.Parse(Lbl_LockedCM.Text))
             {
-                string msg = InsertJobContractdata();
-                tbl_podetails.DataSource = null;
-                tbl_podetails.DataBind();
 
-                MessgeboxUpdate("sucess", msg);
+                if (Decimal.Parse(txt_cmcost.Text) <= Decimal.Parse(txt_approvecost.Text))
+                {
+                    string msg = InsertJobContractdata();
+                    tbl_podetails.DataSource = null;
+                    tbl_podetails.DataBind();
+
+                    MessgeboxUpdate("success", msg);
+                }
+                else
+                {
+                    string msg = "Entered CM is greater than Approved CM Please Revise the Costing";
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "fails", msg);
+                    //  MessgeboxUpdate("sucess", msg);
+                }
             }
             else
             {
-                string msg = "Entered CM is greater than Approved CM Please Revise the Costing";
+                string msg = "Entered CM is greater than Locked CM Please Locked CM";
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "fails", msg);
                 //  MessgeboxUpdate("sucess", msg);
             }
@@ -44,6 +54,9 @@ namespace ArtWebApp.Production.JobContractNew
             jcmstrdata.AtcID = int.Parse(cmb_atc.SelectedValue.ToString());
             jcmstrdata.Location_Pk = int.Parse(drp_factory.SelectedValue.ToString());
             jcmstrdata.AddedBy = Session["Username"].ToString().Trim();
+            jcmstrdata.OurStylenum = cmb_ourstyle.SelectedItem.Text;
+            jcmstrdata.Atcnum = cmb_atc.SelectedItem.Text;
+            
             jcmstrdata.AddedDate = DateTime.Now;
             jcmstrdata.remark = txt_remark.Text;
             jcmstrdata.Ourstyleid= int.Parse(cmb_ourstyle.SelectedValue.ToString());
@@ -129,9 +142,12 @@ namespace ArtWebApp.Production.JobContractNew
                 var costingCM = enty.StyleCostingComponentDetails.Where(u => u.StyleCostingMaster.OurStyleID == Ourstyleid && u.StyleCostingMaster.IsApproved=="A"&&u.CostingComponentMaster.CostComp_PK==3).Select(u => u.CompValue).FirstOrDefault();
                 txt_approvecost.Text = costingCM.ToString();
 
+                var lockedcm= enty.AtcDetails.Where(u => u.OurStyleID == Ourstyleid ).Select(u => u.LockedCM).FirstOrDefault();
+
+                Lbl_LockedCM.Text = lockedcm.ToString();
 
 
-            
+
 
                 var q = (from jbmstr in enty.JobContractMasters
                          where jbmstr.OurStyleID == Ourstyleid && jbmstr.Location_Pk == Location_Pk

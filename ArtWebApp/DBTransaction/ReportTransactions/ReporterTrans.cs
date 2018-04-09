@@ -714,6 +714,34 @@ WHERE        (PoPackMaster.AtcId = @Param1)";
 
 
 
+        
+        public DataTable GetAtcDetails()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                string Query1 = @"SELECT        AtcDetails.OurStyleID, AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, AtcDetails.FOB, AtcDetails.MinutesperGarment, AtcDetails.MerchantPCD, AtcDetails.TTLSam, AtcDetails.LockedCM, 
+                         AtcDetails.IsCMLocked
+FROM            AtcMaster INNER JOIN
+                         AtcDetails ON AtcMaster.AtcId = AtcDetails.AtcId";
+
+
+                cmd.CommandText = Query1;
+              
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
 
 
 

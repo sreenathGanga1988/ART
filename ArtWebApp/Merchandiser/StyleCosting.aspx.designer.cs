@@ -67,6 +67,15 @@ namespace ArtWebApp.Merchandiser {
         protected global::System.Web.UI.WebControls.Button btn_showRawmaterial;
         
         /// <summary>
+        /// lbl_costingstatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_costingstatus;
+        
+        /// <summary>
         /// lbl_cost control.
         /// </summary>
         /// <remarks>

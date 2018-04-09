@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.PcdAlertUserright>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Cut_Start_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Approval_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Sewing_Material_Issue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_BO_remarks_sewing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Sewing_Bo_plan_accept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Sewing_action)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Packing_Material_Issue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_BO_remarks_Packing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Packing_bo_plan_accept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Packing_action)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserMaster.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Cut_Start_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Approval_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Sewing_Material_Issue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_BO_remarks_sewing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Sewing_Bo_plan_accept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Sewing_action)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Packing_Material_Issue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_BO_remarks_Packing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Packing_bo_plan_accept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Packing_action)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserMaster.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Pcduser_pk }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Pcduser_pk }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Pcduser_pk })
+        </td>
+    </tr>
+}
+
+</table>

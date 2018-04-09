@@ -229,7 +229,10 @@ WHERE        (CutOrderMaster.CutID = @Param1)", con);
                          ExtraRequestReasonMaster.ExtraReason, AtcMaster.AtcNum, CutOrderMaster.CutOrderDate, CutOrderMaster.CutOrderType, ISNULL
                              ((SELECT        SUM(DeliveryQty) AS Expr1
                                  FROM            CutOrderDO
-                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId
+                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId,  ISNULL
+                             ((SELECT        SUM(AYard)
+FROM            DORollDetails
+WHERE        (CutID =  CutOrderMaster.CutID)), 0) AS Rollyard
 FROM            CutOrderMaster INNER JOIN
                          AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
@@ -321,8 +324,8 @@ FROM            (SELECT        CutOrderSizeDetails.Size, CutOrderSizeDetails.Rat
                                                         ((SELECT        SUM(LaySheetDetails.NoOfPlies) AS Expr1
                                                             FROM            LaySheetDetails INNER JOIN
                                                                                      LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
-                                                            GROUP BY LaySheetMaster.CutOrderDet_PK
-                                                            HAVING        (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)), 0) AS Plies
+                                                            GROUP BY LaySheetMaster.CutOrderDet_PK,LaySheetDetails.IsDeleted 
+                                                            HAVING        (LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK)  AND (LaySheetDetails.IsDeleted = N'N')), 0) AS Plies
                           FROM            CutOrderSizeDetails INNER JOIN
                                                     CutOrderDetails ON CutOrderSizeDetails.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK
                           WHERE        (CutOrderDetails.CutID = @CutID)) AS tt

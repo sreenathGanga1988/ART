@@ -675,6 +675,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
                         rejectionExtraFabbReq.IsApproved = false;
+                        rejectionExtraFabbReq.RejectionType = "F";
                         entynew.RejectionExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }
@@ -718,6 +719,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
                         rejectionExtraFabbReq.IsApproved = false;
+                        rejectionExtraFabbReq.RejectionType = "F";
                         entynew.RejectionExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }
@@ -760,6 +762,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
                         rejectionExtraFabbReq.IsApproved = false;
+                        rejectionExtraFabbReq.RejectionType = "P";
                         entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }
@@ -802,6 +805,7 @@ HAVING        (LaySheetMaster.IsEdited = N'Y')";
                         rejectionExtraFabbReq.PoPack_Detail_PK = element.PoPack_Detail_PK;
                         rejectionExtraFabbReq.ReqQty = element.ReqQty;
                         rejectionExtraFabbReq.IsApproved = false;
+                        rejectionExtraFabbReq.RejectionType = "P";
                         entynew.RejectionPanelExtraFabbReqs.Add(rejectionExtraFabbReq);
                         entynew.SaveChanges();
                     }

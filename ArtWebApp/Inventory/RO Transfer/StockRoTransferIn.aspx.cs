@@ -44,11 +44,12 @@ namespace ArtWebApp.Inventory.RO_Transfer
             roin.rodetaildata = GetRODetailsData();
 
             mrnum = roin.insertStockRomaterial(roin);
-
+            tbl_Podetails.DataSource = null;
+            tbl_Podetails.DataBind();
 
             String msg = "Transfer # : " + mrnum + " is generated Sucessfully";
 
-
+           
             MessageBoxShow(msg);
 
         }

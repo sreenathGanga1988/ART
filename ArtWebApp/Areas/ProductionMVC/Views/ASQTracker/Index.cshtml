@@ -1,127 +1,222 @@
-﻿@model ArtWebApp.Areas.ProductionMVC.Viewmodel.AsqTrackerModel
-@using System.Data;
+﻿@using System.Data;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
+<script>
 
+
+    $(document).ready(function () {
+
+
+
+
+
+
+
+        $("#LoadASQ").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = $("#FromDate").val();
+            var todate = $("#Todate").val();
+            var dotype = "WF";
+
+                $.ajax({
+                    url: "@Url.Action("GetDoBetweenDate", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'dotype': dotype},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+
+                        $("#output").dialog();
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+
+
+
+    });
+
+
+
+
+
+</script>
 <h2>ASQ Tracker </h2>
 
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo2">Between Date Reports</button>
+
+<div id="demo2" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                From Date :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+
+        </div>
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="LoadASQ" type="button" value="Show CSFA " data-toggle="tooltip" data-placement="top" title="Show ASQ Between Date" class="btn btn-default show" />
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
-<table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
-    <thead>
-        <tr>
-            <th>PoPackId </th>
-            <th>AtcNum</th>
-            <th>BuyerName</th>
-            <th>  OurStyle</th>
-            <th>  PoPacknum</th>
-            <th> BuyerPO </th>
-            <th> Delivery Date</th>
-            <th> Hand over Date</th>
-            <th> Sales Hand over Date </th>
-            <th>Hand Over Month</th>
-            <th>Sales Hand Over Month </th>
-            <th>Hand Over Year</th>
-            <th>Sales Hand Over Year</th>
-            <th>Production Country</th>
-            <th>Factory</th>
-            <th>PoQty</th>
-            <th>ShippedQty</th>
-            <th>Is ShortClosed</th>
-            <th>ShortClosedBy</th>
-            <th>ShortClosedDate</th>
-            
-            <th>Is Cutable</th>
-            <th>Is Cutable</th>
-            <th>OurStyleID</th>
 
-        </tr>
-        <tr class="filterrow">
-            <th>
+@*<table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+        <thead>
+            <tr>
+                <th>PoPackId </th>
+                <th>AtcNum</th>
+                <th>BuyerName</th>
+                <th>  OurStyle</th>
+                <th>  PoPacknum</th>
+                <th> BuyerPO </th>
+                <th> Delivery Date</th>
+                <th> Hand over Date</th>
+                <th> Sales Hand over Date </th>
+                <th>Hand Over Month</th>
+                <th>Sales Hand Over Month </th>
+                <th>Hand Over Year</th>
+                <th>Sales Hand Over Year</th>
+                <th>Production Country</th>
+                <th>Factory</th>
+                <th>PoQty</th>
+                <th>ShippedQty</th>
+                <th>Is ShortClosed</th>
+                <th>ShortClosedBy</th>
+                <th>ShortClosedDate</th>
 
-            </th>
-            <th>
+                <th>Is Cutable</th>
+                <th>Is Cutable</th>
+                <th>OurStyleID</th>
 
-            </th>
-            <th>
+            </tr>
+            <tr class="filterrow">
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th>
+                </th>
+                <th>
 
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
+                </th>
+                <th>
 
-    <tbody>
-        @foreach (DataRow row in Model.AsqData.Rows)
-    {
-          
-        <tr>
-            <td>  @row["PoPackID"] </td>
-            <td>   @row["AtcNum"]</td>
-            <td>   @row["BuyerName"]</td>
-            <td>    @row["OurStyle"]</td>
-            <td>    @row["PoPacknum"]</td>
-            <td>   @row["BuyerPO"] </td>
-            <td>   @row["DeliveryDate"]</td>
-            <td>   @row["HandoverDate"]</td>
-            <td>   @row["SalesHandoverDate"] </td>
-            <td>  @row["HandOverMonth"]</td>
-            <td>   @row["SalesHandOverMonth"] </td>
-            <td>  @row["HandOverYear"]</td>
-            <td>  @row["SalesHandOverYear"]</td>
-            <td>  @row["ProductionCountry"]</td>
-            <td>  @row["LocationName"]</td>
-            <td>  @row["PoQty"]</td>
-            <td>  @row["ShippedQty"]</td>
-            <td>  @row["IsShortClosed"]</td>
-            <td>  @row["ShortClosedBy"]</td>
-            <td>@row["ShortClosedDate"]</td>
+                </th>
+                <th>
 
-<td>  @row["IsCutable"]</td>
-            <td>  @row["IsCutable"]</td>
-            <td>  @row["OurStyleID"]</td>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
-        </tr>
+        <tbody>
+            @foreach (DataRow row in Model.AsqData.Rows)
+        {
 
-}
-    </tbody>
-</table>
+            <tr>
+                <td>  @row["PoPackID"] </td>
+                <td>   @row["AtcNum"]</td>
+                <td>   @row["BuyerName"]</td>
+                <td>    @row["OurStyle"]</td>
+                <td>    @row["PoPacknum"]</td>
+                <td>   @row["BuyerPO"] </td>
+                <td>   @row["DeliveryDate"]</td>
+                <td>   @row["HandoverDate"]</td>
+                <td>   @row["SalesHandoverDate"] </td>
+                <td>  @row["HandOverMonth"]</td>
+                <td>   @row["SalesHandOverMonth"] </td>
+                <td>  @row["HandOverYear"]</td>
+                <td>  @row["SalesHandOverYear"]</td>
+                <td>  @row["ProductionCountry"]</td>
+                <td>  @row["LocationName"]</td>
+                <td>  @row["PoQty"]</td>
+                <td>  @row["ShippedQty"]</td>
+                <td>  @row["IsShortClosed"]</td>
+                <td>  @row["ShortClosedBy"]</td>
+                <td>@row["ShortClosedDate"]</td>
+
+    <td>  @row["IsCutable"]</td>
+                <td>  @row["IsCutable"]</td>
+                <td>  @row["OurStyleID"]</td>
+
+            </tr>
+
+    }
+        </tbody>
+    </table>*@
+
+
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+
 

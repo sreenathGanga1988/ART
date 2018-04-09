@@ -21,6 +21,7 @@ namespace ArtWebApp.DataModels
             this.CityMasters = new HashSet<CityMaster>();
             this.SupplierMasters = new HashSet<SupplierMaster>();
             this.SupplierMasters1 = new HashSet<SupplierMaster>();
+            this.BuyerMasters = new HashSet<BuyerMaster>();
         }
     
         public decimal CountryID { get; set; }
@@ -34,5 +35,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<CityMaster> CityMasters { get; set; }
         public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
         public virtual ICollection<SupplierMaster> SupplierMasters1 { get; set; }
+        public virtual ICollection<BuyerMaster> BuyerMasters { get; set; }
     }
 }

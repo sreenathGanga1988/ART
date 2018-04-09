@@ -308,6 +308,27 @@ FabricRollmaster.ShadeGroup">
                             <td class="NormalTD">&nbsp;</td>
                         </tr>
                     </caption>
+                    <tr>
+                        <td class="NormalTD" colspan="7">
+                            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" DataKeyNames="LaysheetRollmaster_Pk" DataSourceID="laysheetData">
+                                <Columns>
+                                    <asp:BoundField DataField="LayRollRef" HeaderText="LayRollRef" SortExpression="LayRollRef" />
+                                    <asp:BoundField DataField="NoofPlies" HeaderText="NoofPlies" SortExpression="NoofPlies" />
+                                    <asp:BoundField DataField="Layedplies" HeaderText="Layedplies" ReadOnly="True" SortExpression="Layedplies" />
+                                </Columns>
+                                <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+                                <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+                                <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+                                <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+                                <SortedAscendingCellStyle BackColor="#FFF1D4" />
+                                <SortedAscendingHeaderStyle BackColor="#B95C30" />
+                                <SortedDescendingCellStyle BackColor="#F1E5CE" />
+                                <SortedDescendingHeaderStyle BackColor="#93451F" />
+                            </asp:GridView>
+                        </td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
                 </table>
                                        </ContentTemplate>
                             </asp:UpdatePanel>
@@ -328,6 +349,17 @@ FabricRollmaster.ShadeGroup">
         </tr>
     </table>
     </div>
+       <asp:SqlDataSource ID="laysheetData" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        LayRollRef, NoofPlies, ISNULL
+                             ((SELECT        SUM(LaySheetDetails.NoOfPlies) AS Expr1
+                                 FROM            LaySheetRollDetails INNER JOIN
+                                                          LaySheetDetails ON LaySheetRollDetails.LaySheetRoll_Pk = LaySheetDetails.LaySheetRoll_Pk
+                                 WHERE        (LaySheetDetails.IsDeleted = N'N') AND (LaySheetRollDetails.LaysheetRollmaster_Pk = LaySheetRollMaster.LaysheetRollmaster_Pk)), 0) AS Layedplies, LaysheetRollmaster_Pk
+FROM            LaySheetRollMaster
+WHERE        (LaysheetRollmaster_Pk = @Param1)">
+                                            <SelectParameters>
+                                                <asp:QueryStringParameter Name="Param1" QueryStringField="laysheetpk" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
     </form>
 </body>
 </html>

@@ -47,5 +47,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<DeliveryOrderStockDetail> DeliveryOrderStockDetails { get; set; }
         public virtual ICollection<DeliveryReceiptStockDetail> DeliveryReceiptStockDetails { get; set; }
         public virtual ICollection<StockGoodsInTransit> StockGoodsInTransits { get; set; }
+        public virtual StockPODetail StockPODetail { get; set; }
     }
 }

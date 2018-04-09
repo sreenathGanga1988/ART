@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public PaymentModeMaster()
         {
             this.SupplierMasters = new HashSet<SupplierMaster>();
+            this.BuyerMasters = new HashSet<BuyerMaster>();
         }
     
         public decimal PaymentModeID { get; set; }
@@ -24,5 +25,6 @@ namespace ArtWebApp.DataModels
         public string PaymentModeDescription { get; set; }
     
         public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
+        public virtual ICollection<BuyerMaster> BuyerMasters { get; set; }
     }
 }

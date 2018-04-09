@@ -1,0 +1,96 @@
+﻿@model ArtWebApp.Areas.CuttingMVC.ViewModel.FCRSummary
+@using System.Data;
+
+<div> <h2>Atc : @Model.AtcNum </h2></div>
+<div> <h3>Factory : @Model.Factory </h3></div>
+<div> <h4>Date: : @Model.Generateddate </h4></div>
+<style>
+    .locationID {
+        display: none;
+    }
+
+    .AtcID {
+        display: none;
+    }
+
+    .SkudDetPk {
+        display: none;
+    }
+</style>
+<script src="~/Plugin/MyDataTable.js"></script>
+
+<script language="javascript" type="text/javascript">
+    function PrintRadGrid() {
+        debugger;
+        var divToPrint = document.getElementById('printfcr');
+        var newWin = window.open('PrintDiv', 'Print-Window', 'width=920,height=750,top=100,left=100');
+        newWin.document.open();
+        newWin.document.write('<html><title>FCR Summary</title><head><style>.locationID{display:none;}.AtcID{display: none; }.SkudDetPk{display: none; }</style><body   onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+    }
+</script>\
+
+<input id="printsummary" type="button" onclick="PrintRadGrid()" value="Close FCR" class="btn btn-default show" />
+
+<div id="printfcr">
+    <table id="MyDataTable" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+
+
+
+            <tr style="border-color:black">
+
+                @foreach (DataColumn col in Model.FCRDatatable.Columns)
+                {
+                    <th class="@col.ColumnName" style="border-color:black">
+                        @col.ColumnName
+                    </th>
+                }
+
+            </tr>
+            @*<tr class="filterrow">
+                    @foreach (DataColumn col in Model.FCRDatatable.Columns)
+                    {
+                        <th>
+
+                        </th>
+                    }
+                </tr>*@
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.FCRDatatable.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.FCRDatatable.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+        @*<tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.FCRDatatable.Columns)
+                    {
+                        <th>
+
+                        </th>
+                    }
+                </tr>
+
+            </tfoot>*@
+
+    </table>
+
+</div>
+
+
+

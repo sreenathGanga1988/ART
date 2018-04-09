@@ -200,7 +200,12 @@
                                         <asp:BoundField DataField="UOMCode" HeaderText="UOM" />
                                          <asp:BoundField DataField="TotalOnhand" HeaderText="Total Onhand" />
                                              <asp:BoundField DataField="BlockedQty" HeaderText="Blocked Qty" />
-                                        <asp:BoundField DataField="OnhandQty" HeaderText="OnhandQty" />
+                                        <asp:TemplateField HeaderText="OnhandQty">
+                                          
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_onhandQty" runat="server" Text='<%# Bind("OnhandQty") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="ROQty">
                                            
                                             <ItemTemplate>
@@ -215,7 +220,7 @@
                                         </asp:TemplateField>
                                         
 
-                                         <asp:BoundField DataField="Refnum" HeaderText="Refnum" />
+                                        <asp:BoundField DataField="Refnum" HeaderText="Refnum" />
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

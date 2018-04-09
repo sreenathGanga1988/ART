@@ -15,7 +15,16 @@ namespace ArtWebApp.Api
         public string LightColorStatus { get; set; }
        
     }
+    public class ArtTaskModelLoccation
+    {
+        public string TaskName { get; set; }
+        public string OrangeStatus { get; set; }
+        public string LightColorStatus { get; set; }
+        public string GreenStatus { get; set; }
+        public  int Location_pk { get; set; }
+        public int OurStyleID { get; set; }
 
+    }
     public class TaskModel
     {
         public string Rollnum { get; set; }

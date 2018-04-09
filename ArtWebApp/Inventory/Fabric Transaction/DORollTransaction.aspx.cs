@@ -10,6 +10,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 {
     public partial class DORollTransaction : System.Web.UI.Page
     {
+        String docnum = "";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -54,6 +55,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             {
                 if (ddl_do.SelectedValue != null)
                 {
+                    ViewState["Docnum"] = ddl_do.SelectedItem.Text;
                     FillFabricombo(int.Parse(ddl_do.SelectedValue.ToString()));
                 }
             }
@@ -112,8 +114,8 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
         protected void Button1_Click(object sender, EventArgs e)
         {
             BLL.InventoryBLL.FabricRollEntryDO dorolldata = new BLL.InventoryBLL.FabricRollEntryDO();
-            //mrnrolldata.rollinvdata = getmstrdetails();
-            dorolldata.Docnum = ddl_do.SelectedItem.Text;
+            //mrnrolldata.rollinvdata = getmstrdetails(); ViewState["Docnum"]
+            dorolldata.Docnum = ViewState["Docnum"].ToString().Trim();
             dorolldata.RollInventoryDatadatacollection = GetRollDetailsData();
 
             dorolldata.insertDORollData();
@@ -144,7 +146,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
 
                     BLL.InventoryBLL.RollInventoryData rolldata = new BLL.InventoryBLL.RollInventoryData();
 
-                    rolldata.DocumentNum = ddl_do.Text;
+                    rolldata.DocumentNum = ViewState["Docnum"].ToString().Trim();
                     rolldata.roll_PK = int.Parse(lbl_rollpk);
                     rolldata.rollinventory_pk = int.Parse(lbl_RollInventory_PK);
                     rk.Add(rolldata);

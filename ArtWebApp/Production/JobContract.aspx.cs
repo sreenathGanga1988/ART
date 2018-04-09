@@ -83,10 +83,10 @@ namespace ArtWebApp.Production
 
             jcdata.JCmstrdata = GetJCMasterData();
             jcdata.JobContractDetailDataCollection = GetJobContractDetailData();
-            String jcnum = jcdata.insertJObContract(jcdata);
+           // String jcnum = jcdata.insertJObContract(jcdata);
 
 
-            msg = "JobContract # : " + jcnum + " is generated Sucessfully";
+            msg = "JobContract #  is generated Sucessfully";
 
 
 

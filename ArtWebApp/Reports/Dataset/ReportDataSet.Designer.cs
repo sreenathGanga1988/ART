@@ -118,6 +118,8 @@ namespace ArtWebApp.Reports.Dataset {
         
         private WIPReportDataTable tableWIPReport;
         
+        private GstockWithTransferData_SPDataTable tableGstockWithTransferData_SP;
+        
         private DataTable2DataTable tableDataTable2;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
@@ -288,6 +290,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["WIPReport"] != null)) {
                     base.Tables.Add(new WIPReportDataTable(ds.Tables["WIPReport"]));
+                }
+                if ((ds.Tables["GstockWithTransferData_SP"] != null)) {
+                    base.Tables.Add(new GstockWithTransferData_SPDataTable(ds.Tables["GstockWithTransferData_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -784,6 +789,16 @@ namespace ArtWebApp.Reports.Dataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public GstockWithTransferData_SPDataTable GstockWithTransferData_SP {
+            get {
+                return this.tableGstockWithTransferData_SP;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable2DataTable DataTable2 {
             get {
                 return this.tableDataTable2;
@@ -997,6 +1012,9 @@ namespace ArtWebApp.Reports.Dataset {
                 }
                 if ((ds.Tables["WIPReport"] != null)) {
                     base.Tables.Add(new WIPReportDataTable(ds.Tables["WIPReport"]));
+                }
+                if ((ds.Tables["GstockWithTransferData_SP"] != null)) {
+                    base.Tables.Add(new GstockWithTransferData_SPDataTable(ds.Tables["GstockWithTransferData_SP"]));
                 }
                 if ((ds.Tables["DataTable2"] != null)) {
                     base.Tables.Add(new DataTable2DataTable(ds.Tables["DataTable2"]));
@@ -1316,6 +1334,12 @@ namespace ArtWebApp.Reports.Dataset {
                     this.tableWIPReport.InitVars();
                 }
             }
+            this.tableGstockWithTransferData_SP = ((GstockWithTransferData_SPDataTable)(base.Tables["GstockWithTransferData_SP"]));
+            if ((initTable == true)) {
+                if ((this.tableGstockWithTransferData_SP != null)) {
+                    this.tableGstockWithTransferData_SP.InitVars();
+                }
+            }
             this.tableDataTable2 = ((DataTable2DataTable)(base.Tables["DataTable2"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable2 != null)) {
@@ -1426,6 +1450,8 @@ namespace ArtWebApp.Reports.Dataset {
             base.Tables.Add(this.tableLaySheetSummary_SP);
             this.tableWIPReport = new WIPReportDataTable();
             base.Tables.Add(this.tableWIPReport);
+            this.tableGstockWithTransferData_SP = new GstockWithTransferData_SPDataTable();
+            base.Tables.Add(this.tableGstockWithTransferData_SP);
             this.tableDataTable2 = new DataTable2DataTable();
             base.Tables.Add(this.tableDataTable2);
         }
@@ -1714,6 +1740,12 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeGstockWithTransferData_SP() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeDataTable2() {
             return false;
         }
@@ -1913,6 +1945,9 @@ namespace ArtWebApp.Reports.Dataset {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void WIPReportRowChangeEventHandler(object sender, WIPReportRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void GstockWithTransferData_SPRowChangeEventHandler(object sender, GstockWithTransferData_SPRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void DataTable2RowChangeEventHandler(object sender, DataTable2RowChangeEvent e);
@@ -6595,6 +6630,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnAtcId;
             
+            private global::System.Data.DataColumn columnRollyard;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public CutorderSummaryDataTable() {
@@ -6742,6 +6779,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RollyardColumn {
+                get {
+                    return this.columnRollyard;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6777,7 +6822,7 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CutorderSummaryRow AddCutorderSummaryRow(string LocationName, string Cut_NO, string OurStyle, string Color, decimal CutQty, decimal FabQty, decimal ConsumptionQty, string ExtraReason, string AtcNum, System.DateTime CutOrderDate, string CutOrderType, decimal DeliveredQty) {
+            public CutorderSummaryRow AddCutorderSummaryRow(string LocationName, string Cut_NO, string OurStyle, string Color, decimal CutQty, decimal FabQty, decimal ConsumptionQty, string ExtraReason, string AtcNum, System.DateTime CutOrderDate, string CutOrderType, decimal DeliveredQty, int Rollyard) {
                 CutorderSummaryRow rowCutorderSummaryRow = ((CutorderSummaryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LocationName,
@@ -6793,7 +6838,8 @@ namespace ArtWebApp.Reports.Dataset {
                         CutOrderDate,
                         CutOrderType,
                         DeliveredQty,
-                        null};
+                        null,
+                        Rollyard};
                 rowCutorderSummaryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCutorderSummaryRow);
                 return rowCutorderSummaryRow;
@@ -6830,6 +6876,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnCutOrderType = base.Columns["CutOrderType"];
                 this.columnDeliveredQty = base.Columns["DeliveredQty"];
                 this.columnAtcId = base.Columns["AtcId"];
+                this.columnRollyard = base.Columns["Rollyard"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6863,6 +6910,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnDeliveredQty);
                 this.columnAtcId = new global::System.Data.DataColumn("AtcId", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAtcId);
+                this.columnRollyard = new global::System.Data.DataColumn("Rollyard", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRollyard);
                 this.columnLocationName.MaxLength = 50;
                 this.columnCutID.AutoIncrement = true;
                 this.columnCutID.AutoIncrementSeed = -1;
@@ -6882,6 +6931,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnAtcId.AutoIncrementStep = -1;
                 this.columnAtcId.AllowDBNull = false;
                 this.columnAtcId.ReadOnly = true;
+                this.columnRollyard.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13197,6 +13247,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnPOVAL;
             
+            private global::System.Data.DataColumn columnJobContract_pk;
+            
+            private global::System.Data.DataColumn columnIsApproved;
+            
+            private global::System.Data.DataColumn columnApprovedBy;
+            
+            private global::System.Data.DataColumn columnApprovedDate;
+            
             private global::System.Data.DataColumn columnRemark;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13362,6 +13420,38 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn JobContract_pkColumn {
+                get {
+                    return this.columnJobContract_pk;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsApprovedColumn {
+                get {
+                    return this.columnIsApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ApprovedByColumn {
+                get {
+                    return this.columnApprovedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ApprovedDateColumn {
+                get {
+                    return this.columnApprovedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn RemarkColumn {
                 get {
                     return this.columnRemark;
@@ -13422,6 +13512,9 @@ namespace ArtWebApp.Reports.Dataset {
                         System.DateTime DeliveryDate, 
                         string BuyerPO, 
                         decimal POVAL, 
+                        string IsApproved, 
+                        string ApprovedBy, 
+                        System.DateTime ApprovedDate, 
                         string Remark) {
                 JobContractCMRow rowJobContractCMRow = ((JobContractCMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -13441,10 +13534,21 @@ namespace ArtWebApp.Reports.Dataset {
                         DeliveryDate,
                         BuyerPO,
                         POVAL,
+                        null,
+                        IsApproved,
+                        ApprovedBy,
+                        ApprovedDate,
                         Remark};
                 rowJobContractCMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowJobContractCMRow);
                 return rowJobContractCMRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public JobContractCMRow FindByJobContract_pk(decimal JobContract_pk) {
+                return ((JobContractCMRow)(this.Rows.Find(new object[] {
+                            JobContract_pk})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13480,6 +13584,10 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnDeliveryDate = base.Columns["DeliveryDate"];
                 this.columnBuyerPO = base.Columns["BuyerPO"];
                 this.columnPOVAL = base.Columns["POVAL"];
+                this.columnJobContract_pk = base.Columns["JobContract_pk"];
+                this.columnIsApproved = base.Columns["IsApproved"];
+                this.columnApprovedBy = base.Columns["ApprovedBy"];
+                this.columnApprovedDate = base.Columns["ApprovedDate"];
                 this.columnRemark = base.Columns["Remark"];
             }
             
@@ -13518,8 +13626,18 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnBuyerPO);
                 this.columnPOVAL = new global::System.Data.DataColumn("POVAL", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPOVAL);
+                this.columnJobContract_pk = new global::System.Data.DataColumn("JobContract_pk", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJobContract_pk);
+                this.columnIsApproved = new global::System.Data.DataColumn("IsApproved", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApproved);
+                this.columnApprovedBy = new global::System.Data.DataColumn("ApprovedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedBy);
+                this.columnApprovedDate = new global::System.Data.DataColumn("ApprovedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedDate);
                 this.columnRemark = new global::System.Data.DataColumn("Remark", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRemark);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnJobContract_pk}, true));
                 this.columnPoQty.ReadOnly = true;
                 this.columnDescription.MaxLength = 50;
                 this.columnLocationName.MaxLength = 50;
@@ -13533,7 +13651,14 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnPoPacknum.MaxLength = 10;
                 this.columnBuyerPO.MaxLength = 50;
                 this.columnPOVAL.ReadOnly = true;
-                this.columnRemark.ReadOnly = true;
+                this.columnJobContract_pk.AutoIncrement = true;
+                this.columnJobContract_pk.AutoIncrementSeed = -1;
+                this.columnJobContract_pk.AutoIncrementStep = -1;
+                this.columnJobContract_pk.AllowDBNull = false;
+                this.columnJobContract_pk.ReadOnly = true;
+                this.columnJobContract_pk.Unique = true;
+                this.columnIsApproved.MaxLength = 1;
+                this.columnApprovedBy.MaxLength = 50;
                 this.columnRemark.MaxLength = 50;
             }
             
@@ -21985,6 +22110,12 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnPOVALUE;
             
+            private global::System.Data.DataColumn columnPrinting;
+            
+            private global::System.Data.DataColumn columnIsApproved;
+            
+            private global::System.Data.DataColumn columnApprovedBy;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public GetJobContractOptional_SPDataTable() {
@@ -22172,6 +22303,30 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PrintingColumn {
+                get {
+                    return this.columnPrinting;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IsApprovedColumn {
+                get {
+                    return this.columnIsApproved;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ApprovedByColumn {
+                get {
+                    return this.columnApprovedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -22226,7 +22381,10 @@ namespace ArtWebApp.Reports.Dataset {
                         decimal FactoryLogistic, 
                         System.DateTime AddedDate, 
                         string AddedBy, 
-                        decimal POVALUE) {
+                        decimal POVALUE, 
+                        decimal Printing, 
+                        string IsApproved, 
+                        string ApprovedBy) {
                 GetJobContractOptional_SPRow rowGetJobContractOptional_SPRow = ((GetJobContractOptional_SPRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         POPackId,
@@ -22247,7 +22405,10 @@ namespace ArtWebApp.Reports.Dataset {
                         FactoryLogistic,
                         AddedDate,
                         AddedBy,
-                        POVALUE};
+                        POVALUE,
+                        Printing,
+                        IsApproved,
+                        ApprovedBy};
                 rowGetJobContractOptional_SPRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGetJobContractOptional_SPRow);
                 return rowGetJobContractOptional_SPRow;
@@ -22289,6 +22450,9 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnAddedDate = base.Columns["AddedDate"];
                 this.columnAddedBy = base.Columns["AddedBy"];
                 this.columnPOVALUE = base.Columns["POVALUE"];
+                this.columnPrinting = base.Columns["Printing"];
+                this.columnIsApproved = base.Columns["IsApproved"];
+                this.columnApprovedBy = base.Columns["ApprovedBy"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22332,6 +22496,12 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnAddedBy);
                 this.columnPOVALUE = new global::System.Data.DataColumn("POVALUE", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPOVALUE);
+                this.columnPrinting = new global::System.Data.DataColumn("Printing", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrinting);
+                this.columnIsApproved = new global::System.Data.DataColumn("IsApproved", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApproved);
+                this.columnApprovedBy = new global::System.Data.DataColumn("ApprovedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApprovedBy);
                 this.columnPoQty.ReadOnly = true;
                 this.columnDescription.MaxLength = 50;
                 this.columnLocationName.MaxLength = 50;
@@ -22345,6 +22515,8 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnJobContractOptionalNUM.MaxLength = 50;
                 this.columnAddedBy.MaxLength = 50;
                 this.columnPOVALUE.ReadOnly = true;
+                this.columnIsApproved.MaxLength = 1;
+                this.columnApprovedBy.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22898,6 +23070,8 @@ namespace ArtWebApp.Reports.Dataset {
             
             private global::System.Data.DataColumn columnSkuDet_pk;
             
+            private global::System.Data.DataColumn columnAtcNum;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public GetRollDetail_spDataTable() {
@@ -23101,6 +23275,14 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AtcNumColumn {
+                get {
+                    return this.columnAtcNum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -23155,7 +23337,8 @@ namespace ArtWebApp.Reports.Dataset {
                         string Shrinkage, 
                         string CutWidth, 
                         string CutMarkerType, 
-                        decimal SkuDet_pk) {
+                        decimal SkuDet_pk, 
+                        string AtcNum) {
                 GetRollDetail_spRow rowGetRollDetail_spRow = ((GetRollDetail_spRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -23178,7 +23361,8 @@ namespace ArtWebApp.Reports.Dataset {
                         CutWidth,
                         CutMarkerType,
                         null,
-                        SkuDet_pk};
+                        SkuDet_pk,
+                        AtcNum};
                 rowGetRollDetail_spRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGetRollDetail_spRow);
                 return rowGetRollDetail_spRow;
@@ -23222,6 +23406,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnCutMarkerType = base.Columns["CutMarkerType"];
                 this.columnCutID = base.Columns["CutID"];
                 this.columnSkuDet_pk = base.Columns["SkuDet_pk"];
+                this.columnAtcNum = base.Columns["AtcNum"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23269,6 +23454,8 @@ namespace ArtWebApp.Reports.Dataset {
                 base.Columns.Add(this.columnCutID);
                 this.columnSkuDet_pk = new global::System.Data.DataColumn("SkuDet_pk", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSkuDet_pk);
+                this.columnAtcNum = new global::System.Data.DataColumn("AtcNum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAtcNum);
                 this.columnRoll_PK.AutoIncrement = true;
                 this.columnRoll_PK.AutoIncrementSeed = -1;
                 this.columnRoll_PK.AutoIncrementStep = -1;
@@ -23294,6 +23481,7 @@ namespace ArtWebApp.Reports.Dataset {
                 this.columnCutID.AutoIncrementStep = -1;
                 this.columnCutID.AllowDBNull = false;
                 this.columnCutID.ReadOnly = true;
+                this.columnAtcNum.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26501,6 +26689,555 @@ namespace ArtWebApp.Reports.Dataset {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "WIPReportDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GstockWithTransferData_SPDataTable : global::System.Data.TypedTableBase<GstockWithTransferData_SPRow> {
+            
+            private global::System.Data.DataColumn columnSInventoryItem_PK;
+            
+            private global::System.Data.DataColumn columnLocationName;
+            
+            private global::System.Data.DataColumn columnDescription;
+            
+            private global::System.Data.DataColumn columnItemDesc;
+            
+            private global::System.Data.DataColumn columnUnitprice;
+            
+            private global::System.Data.DataColumn columnReceivedQty;
+            
+            private global::System.Data.DataColumn columnDeliveredQty;
+            
+            private global::System.Data.DataColumn columnOnHandQty;
+            
+            private global::System.Data.DataColumn columnUomName;
+            
+            private global::System.Data.DataColumn columnLocation_Pk;
+            
+            private global::System.Data.DataColumn columnReceivedVia;
+            
+            private global::System.Data.DataColumn columnPoValue;
+            
+            private global::System.Data.DataColumn columnRefnum;
+            
+            private global::System.Data.DataColumn columnParentRef;
+            
+            private global::System.Data.DataColumn columnFreightCuRate;
+            
+            private global::System.Data.DataColumn columnSROOut;
+            
+            private global::System.Data.DataColumn columnSDO;
+            
+            private global::System.Data.DataColumn columnSWF;
+            
+            private global::System.Data.DataColumn columnMyvalue;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPDataTable() {
+                this.TableName = "GstockWithTransferData_SP";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal GstockWithTransferData_SPDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected GstockWithTransferData_SPDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SInventoryItem_PKColumn {
+                get {
+                    return this.columnSInventoryItem_PK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LocationNameColumn {
+                get {
+                    return this.columnLocationName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DescriptionColumn {
+                get {
+                    return this.columnDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ItemDescColumn {
+                get {
+                    return this.columnItemDesc;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UnitpriceColumn {
+                get {
+                    return this.columnUnitprice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ReceivedQtyColumn {
+                get {
+                    return this.columnReceivedQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DeliveredQtyColumn {
+                get {
+                    return this.columnDeliveredQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn OnHandQtyColumn {
+                get {
+                    return this.columnOnHandQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UomNameColumn {
+                get {
+                    return this.columnUomName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Location_PkColumn {
+                get {
+                    return this.columnLocation_Pk;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ReceivedViaColumn {
+                get {
+                    return this.columnReceivedVia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn PoValueColumn {
+                get {
+                    return this.columnPoValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn RefnumColumn {
+                get {
+                    return this.columnRefnum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ParentRefColumn {
+                get {
+                    return this.columnParentRef;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn FreightCuRateColumn {
+                get {
+                    return this.columnFreightCuRate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SROOutColumn {
+                get {
+                    return this.columnSROOut;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SDOColumn {
+                get {
+                    return this.columnSDO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SWFColumn {
+                get {
+                    return this.columnSWF;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MyvalueColumn {
+                get {
+                    return this.columnMyvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRow this[int index] {
+                get {
+                    return ((GstockWithTransferData_SPRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event GstockWithTransferData_SPRowChangeEventHandler GstockWithTransferData_SPRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event GstockWithTransferData_SPRowChangeEventHandler GstockWithTransferData_SPRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event GstockWithTransferData_SPRowChangeEventHandler GstockWithTransferData_SPRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event GstockWithTransferData_SPRowChangeEventHandler GstockWithTransferData_SPRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddGstockWithTransferData_SPRow(GstockWithTransferData_SPRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRow AddGstockWithTransferData_SPRow(
+                        string LocationName, 
+                        string Description, 
+                        string ItemDesc, 
+                        decimal Unitprice, 
+                        decimal ReceivedQty, 
+                        decimal DeliveredQty, 
+                        decimal OnHandQty, 
+                        string UomName, 
+                        decimal Location_Pk, 
+                        string ReceivedVia, 
+                        decimal PoValue, 
+                        string Refnum, 
+                        string ParentRef, 
+                        decimal FreightCuRate, 
+                        string SROOut, 
+                        string SDO, 
+                        string SWF, 
+                        decimal Myvalue) {
+                GstockWithTransferData_SPRow rowGstockWithTransferData_SPRow = ((GstockWithTransferData_SPRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        LocationName,
+                        Description,
+                        ItemDesc,
+                        Unitprice,
+                        ReceivedQty,
+                        DeliveredQty,
+                        OnHandQty,
+                        UomName,
+                        Location_Pk,
+                        ReceivedVia,
+                        PoValue,
+                        Refnum,
+                        ParentRef,
+                        FreightCuRate,
+                        SROOut,
+                        SDO,
+                        SWF,
+                        Myvalue};
+                rowGstockWithTransferData_SPRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowGstockWithTransferData_SPRow);
+                return rowGstockWithTransferData_SPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRow FindBySInventoryItem_PK(decimal SInventoryItem_PK) {
+                return ((GstockWithTransferData_SPRow)(this.Rows.Find(new object[] {
+                            SInventoryItem_PK})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                GstockWithTransferData_SPDataTable cln = ((GstockWithTransferData_SPDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new GstockWithTransferData_SPDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnSInventoryItem_PK = base.Columns["SInventoryItem_PK"];
+                this.columnLocationName = base.Columns["LocationName"];
+                this.columnDescription = base.Columns["Description"];
+                this.columnItemDesc = base.Columns["ItemDesc"];
+                this.columnUnitprice = base.Columns["Unitprice"];
+                this.columnReceivedQty = base.Columns["ReceivedQty"];
+                this.columnDeliveredQty = base.Columns["DeliveredQty"];
+                this.columnOnHandQty = base.Columns["OnHandQty"];
+                this.columnUomName = base.Columns["UomName"];
+                this.columnLocation_Pk = base.Columns["Location_Pk"];
+                this.columnReceivedVia = base.Columns["ReceivedVia"];
+                this.columnPoValue = base.Columns["PoValue"];
+                this.columnRefnum = base.Columns["Refnum"];
+                this.columnParentRef = base.Columns["ParentRef"];
+                this.columnFreightCuRate = base.Columns["FreightCuRate"];
+                this.columnSROOut = base.Columns["SROOut"];
+                this.columnSDO = base.Columns["SDO"];
+                this.columnSWF = base.Columns["SWF"];
+                this.columnMyvalue = base.Columns["Myvalue"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnSInventoryItem_PK = new global::System.Data.DataColumn("SInventoryItem_PK", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSInventoryItem_PK);
+                this.columnLocationName = new global::System.Data.DataColumn("LocationName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocationName);
+                this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescription);
+                this.columnItemDesc = new global::System.Data.DataColumn("ItemDesc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnItemDesc);
+                this.columnUnitprice = new global::System.Data.DataColumn("Unitprice", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUnitprice);
+                this.columnReceivedQty = new global::System.Data.DataColumn("ReceivedQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReceivedQty);
+                this.columnDeliveredQty = new global::System.Data.DataColumn("DeliveredQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeliveredQty);
+                this.columnOnHandQty = new global::System.Data.DataColumn("OnHandQty", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOnHandQty);
+                this.columnUomName = new global::System.Data.DataColumn("UomName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUomName);
+                this.columnLocation_Pk = new global::System.Data.DataColumn("Location_Pk", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocation_Pk);
+                this.columnReceivedVia = new global::System.Data.DataColumn("ReceivedVia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReceivedVia);
+                this.columnPoValue = new global::System.Data.DataColumn("PoValue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPoValue);
+                this.columnRefnum = new global::System.Data.DataColumn("Refnum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRefnum);
+                this.columnParentRef = new global::System.Data.DataColumn("ParentRef", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnParentRef);
+                this.columnFreightCuRate = new global::System.Data.DataColumn("FreightCuRate", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFreightCuRate);
+                this.columnSROOut = new global::System.Data.DataColumn("SROOut", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSROOut);
+                this.columnSDO = new global::System.Data.DataColumn("SDO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSDO);
+                this.columnSWF = new global::System.Data.DataColumn("SWF", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSWF);
+                this.columnMyvalue = new global::System.Data.DataColumn("Myvalue", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMyvalue);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnSInventoryItem_PK}, true));
+                this.columnSInventoryItem_PK.AutoIncrement = true;
+                this.columnSInventoryItem_PK.AutoIncrementSeed = -1;
+                this.columnSInventoryItem_PK.AutoIncrementStep = -1;
+                this.columnSInventoryItem_PK.AllowDBNull = false;
+                this.columnSInventoryItem_PK.ReadOnly = true;
+                this.columnSInventoryItem_PK.Unique = true;
+                this.columnLocationName.MaxLength = 50;
+                this.columnDescription.AllowDBNull = false;
+                this.columnDescription.MaxLength = 50;
+                this.columnItemDesc.ReadOnly = true;
+                this.columnItemDesc.MaxLength = 2147483647;
+                this.columnUomName.MaxLength = 50;
+                this.columnReceivedVia.MaxLength = 20;
+                this.columnPoValue.ReadOnly = true;
+                this.columnRefnum.MaxLength = 20;
+                this.columnParentRef.MaxLength = 50;
+                this.columnSROOut.ReadOnly = true;
+                this.columnSROOut.MaxLength = 2147483647;
+                this.columnSDO.ReadOnly = true;
+                this.columnSDO.MaxLength = 2147483647;
+                this.columnSWF.ReadOnly = true;
+                this.columnSWF.MaxLength = 2147483647;
+                this.columnMyvalue.ReadOnly = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRow NewGstockWithTransferData_SPRow() {
+                return ((GstockWithTransferData_SPRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new GstockWithTransferData_SPRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(GstockWithTransferData_SPRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GstockWithTransferData_SPRowChanged != null)) {
+                    this.GstockWithTransferData_SPRowChanged(this, new GstockWithTransferData_SPRowChangeEvent(((GstockWithTransferData_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GstockWithTransferData_SPRowChanging != null)) {
+                    this.GstockWithTransferData_SPRowChanging(this, new GstockWithTransferData_SPRowChangeEvent(((GstockWithTransferData_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GstockWithTransferData_SPRowDeleted != null)) {
+                    this.GstockWithTransferData_SPRowDeleted(this, new GstockWithTransferData_SPRowChangeEvent(((GstockWithTransferData_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GstockWithTransferData_SPRowDeleting != null)) {
+                    this.GstockWithTransferData_SPRowDeleting(this, new GstockWithTransferData_SPRowChangeEvent(((GstockWithTransferData_SPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveGstockWithTransferData_SPRow(GstockWithTransferData_SPRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ReportDataSet ds = new ReportDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GstockWithTransferData_SPDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -32110,6 +32847,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int Rollyard {
+                get {
+                    try {
+                        return ((int)(this[this.tableCutorderSummary.RollyardColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Rollyard\' in table \'CutorderSummary\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCutorderSummary.RollyardColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsLocationNameNull() {
                 return this.IsNull(this.tableCutorderSummary.LocationNameColumn);
             }
@@ -32238,6 +32991,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDeliveredQtyNull() {
                 this[this.tableCutorderSummary.DeliveredQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRollyardNull() {
+                return this.IsNull(this.tableCutorderSummary.RollyardColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRollyardNull() {
+                this[this.tableCutorderSummary.RollyardColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -38124,6 +38889,65 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal JobContract_pk {
+                get {
+                    return ((decimal)(this[this.tableJobContractCM.JobContract_pkColumn]));
+                }
+                set {
+                    this[this.tableJobContractCM.JobContract_pkColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsApproved {
+                get {
+                    try {
+                        return ((string)(this[this.tableJobContractCM.IsApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsApproved\' in table \'JobContractCM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableJobContractCM.IsApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ApprovedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableJobContractCM.ApprovedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedBy\' in table \'JobContractCM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableJobContractCM.ApprovedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime ApprovedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableJobContractCM.ApprovedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedDate\' in table \'JobContractCM\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableJobContractCM.ApprovedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public string Remark {
                 get {
                     try {
@@ -38316,6 +39140,42 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetPOVALNull() {
                 this[this.tableJobContractCM.POVALColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsApprovedNull() {
+                return this.IsNull(this.tableJobContractCM.IsApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsApprovedNull() {
+                this[this.tableJobContractCM.IsApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsApprovedByNull() {
+                return this.IsNull(this.tableJobContractCM.ApprovedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetApprovedByNull() {
+                this[this.tableJobContractCM.ApprovedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsApprovedDateNull() {
+                return this.IsNull(this.tableJobContractCM.ApprovedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetApprovedDateNull() {
+                this[this.tableJobContractCM.ApprovedDateColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -46186,6 +47046,56 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Printing {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGetJobContractOptional_SP.PrintingColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Printing\' in table \'GetJobContractOptional_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetJobContractOptional_SP.PrintingColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string IsApproved {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetJobContractOptional_SP.IsApprovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsApproved\' in table \'GetJobContractOptional_SP\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableGetJobContractOptional_SP.IsApprovedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ApprovedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetJobContractOptional_SP.ApprovedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ApprovedBy\' in table \'GetJobContractOptional_SP\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableGetJobContractOptional_SP.ApprovedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsPOPackIdNull() {
                 return this.IsNull(this.tableGetJobContractOptional_SP.POPackIdColumn);
             }
@@ -46398,6 +47308,42 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetPOVALUENull() {
                 this[this.tableGetJobContractOptional_SP.POVALUEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPrintingNull() {
+                return this.IsNull(this.tableGetJobContractOptional_SP.PrintingColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPrintingNull() {
+                this[this.tableGetJobContractOptional_SP.PrintingColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsIsApprovedNull() {
+                return this.IsNull(this.tableGetJobContractOptional_SP.IsApprovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetIsApprovedNull() {
+                this[this.tableGetJobContractOptional_SP.IsApprovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsApprovedByNull() {
+                return this.IsNull(this.tableGetJobContractOptional_SP.ApprovedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetApprovedByNull() {
+                this[this.tableGetJobContractOptional_SP.ApprovedByColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -47038,6 +47984,22 @@ namespace ArtWebApp.Reports.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string AtcNum {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetRollDetail_sp.AtcNumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AtcNum\' in table \'GetRollDetail_sp\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetRollDetail_sp.AtcNumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsRollNumNull() {
                 return this.IsNull(this.tableGetRollDetail_sp.RollNumColumn);
             }
@@ -47262,6 +48224,18 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetSkuDet_pkNull() {
                 this[this.tableGetRollDetail_sp.SkuDet_pkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAtcNumNull() {
+                return this.IsNull(this.tableGetRollDetail_sp.AtcNumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAtcNumNull() {
+                this[this.tableGetRollDetail_sp.AtcNumColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -50187,6 +51161,525 @@ namespace ArtWebApp.Reports.Dataset {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class GstockWithTransferData_SPRow : global::System.Data.DataRow {
+            
+            private GstockWithTransferData_SPDataTable tableGstockWithTransferData_SP;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal GstockWithTransferData_SPRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGstockWithTransferData_SP = ((GstockWithTransferData_SPDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal SInventoryItem_PK {
+                get {
+                    return ((decimal)(this[this.tableGstockWithTransferData_SP.SInventoryItem_PKColumn]));
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.SInventoryItem_PKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string LocationName {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.LocationNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LocationName\' in table \'GstockWithTransferData_SP\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.LocationNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Description {
+                get {
+                    return ((string)(this[this.tableGstockWithTransferData_SP.DescriptionColumn]));
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.DescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ItemDesc {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.ItemDescColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ItemDesc\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.ItemDescColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Unitprice {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.UnitpriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Unitprice\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.UnitpriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal ReceivedQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.ReceivedQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReceivedQty\' in table \'GstockWithTransferData_SP\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.ReceivedQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal DeliveredQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.DeliveredQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DeliveredQty\' in table \'GstockWithTransferData_SP\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.DeliveredQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal OnHandQty {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.OnHandQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OnHandQty\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.OnHandQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string UomName {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.UomNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UomName\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.UomNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Location_Pk {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.Location_PkColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Location_Pk\' in table \'GstockWithTransferData_SP\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.Location_PkColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ReceivedVia {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.ReceivedViaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReceivedVia\' in table \'GstockWithTransferData_SP\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.ReceivedViaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal PoValue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.PoValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PoValue\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.PoValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Refnum {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.RefnumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Refnum\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.RefnumColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string ParentRef {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.ParentRefColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ParentRef\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.ParentRefColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal FreightCuRate {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.FreightCuRateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FreightCuRate\' in table \'GstockWithTransferData_SP\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.FreightCuRateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string SROOut {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.SROOutColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SROOut\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.SROOutColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string SDO {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.SDOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SDO\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.SDOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string SWF {
+                get {
+                    try {
+                        return ((string)(this[this.tableGstockWithTransferData_SP.SWFColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SWF\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.SWFColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Myvalue {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGstockWithTransferData_SP.MyvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Myvalue\' in table \'GstockWithTransferData_SP\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGstockWithTransferData_SP.MyvalueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLocationNameNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.LocationNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLocationNameNull() {
+                this[this.tableGstockWithTransferData_SP.LocationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsItemDescNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.ItemDescColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetItemDescNull() {
+                this[this.tableGstockWithTransferData_SP.ItemDescColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUnitpriceNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.UnitpriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUnitpriceNull() {
+                this[this.tableGstockWithTransferData_SP.UnitpriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsReceivedQtyNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.ReceivedQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetReceivedQtyNull() {
+                this[this.tableGstockWithTransferData_SP.ReceivedQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsDeliveredQtyNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.DeliveredQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetDeliveredQtyNull() {
+                this[this.tableGstockWithTransferData_SP.DeliveredQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsOnHandQtyNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.OnHandQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetOnHandQtyNull() {
+                this[this.tableGstockWithTransferData_SP.OnHandQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsUomNameNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.UomNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetUomNameNull() {
+                this[this.tableGstockWithTransferData_SP.UomNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLocation_PkNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.Location_PkColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLocation_PkNull() {
+                this[this.tableGstockWithTransferData_SP.Location_PkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsReceivedViaNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.ReceivedViaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetReceivedViaNull() {
+                this[this.tableGstockWithTransferData_SP.ReceivedViaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsPoValueNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.PoValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetPoValueNull() {
+                this[this.tableGstockWithTransferData_SP.PoValueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsRefnumNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.RefnumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetRefnumNull() {
+                this[this.tableGstockWithTransferData_SP.RefnumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsParentRefNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.ParentRefColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetParentRefNull() {
+                this[this.tableGstockWithTransferData_SP.ParentRefColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsFreightCuRateNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.FreightCuRateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetFreightCuRateNull() {
+                this[this.tableGstockWithTransferData_SP.FreightCuRateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSROOutNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.SROOutColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSROOutNull() {
+                this[this.tableGstockWithTransferData_SP.SROOutColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSDONull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.SDOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSDONull() {
+                this[this.tableGstockWithTransferData_SP.SDOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSWFNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.SWFColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSWFNull() {
+                this[this.tableGstockWithTransferData_SP.SWFColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMyvalueNull() {
+                return this.IsNull(this.tableGstockWithTransferData_SP.MyvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMyvalueNull() {
+                this[this.tableGstockWithTransferData_SP.MyvalueColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class DataTable2Row : global::System.Data.DataRow {
             
             private DataTable2DataTable tableDataTable2;
@@ -51783,6 +53276,40 @@ namespace ArtWebApp.Reports.Dataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public WIPReportRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class GstockWithTransferData_SPRowChangeEvent : global::System.EventArgs {
+            
+            private GstockWithTransferData_SPRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRowChangeEvent(GstockWithTransferData_SPRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public GstockWithTransferData_SPRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -53727,6 +55254,7 @@ FROM            CutOrderMaster INNER JOIN
             tableMapping.ColumnMappings.Add("CutOrderType", "CutOrderType");
             tableMapping.ColumnMappings.Add("DeliveredQty", "DeliveredQty");
             tableMapping.ColumnMappings.Add("AtcId", "AtcId");
+            tableMapping.ColumnMappings.Add("Rollyard", "Rollyard");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -53734,7 +55262,7 @@ FROM            CutOrderMaster INNER JOIN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -53747,7 +55275,7 @@ FROM            CutOrderMaster INNER JOIN
                          ExtraRequestReasonMaster.ExtraReason, AtcMaster.AtcNum, CutOrderMaster.CutOrderDate, CutOrderMaster.CutOrderType, ISNULL
                              ((SELECT        SUM(DeliveryQty) AS Expr1
                                  FROM            CutOrderDO
-                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId
+                                 WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId, 0 AS Rollyard
 FROM            CutOrderMaster INNER JOIN
                          AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN
@@ -56503,6 +58031,10 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
             tableMapping.ColumnMappings.Add("DeliveryDate", "DeliveryDate");
             tableMapping.ColumnMappings.Add("BuyerPO", "BuyerPO");
             tableMapping.ColumnMappings.Add("POVAL", "POVAL");
+            tableMapping.ColumnMappings.Add("JobContract_pk", "JobContract_pk");
+            tableMapping.ColumnMappings.Add("IsApproved", "IsApproved");
+            tableMapping.ColumnMappings.Add("ApprovedBy", "ApprovedBy");
+            tableMapping.ColumnMappings.Add("ApprovedDate", "ApprovedDate");
             tableMapping.ColumnMappings.Add("Remark", "Remark");
             this._adapter.TableMappings.Add(tableMapping);
         }
@@ -56511,7 +58043,7 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -56524,38 +58056,41 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
                 "aster.Description, LocationMaster.LocationName, LocationMaster.LocationAddress, " +
                 "AtcMaster.AtcNum, GarmentCategory.CategoryName, \r\n                         JobCo" +
                 "ntractMaster.JOBContractNUM, JobContractMaster.AddedDate, JobContractMaster.Adde" +
-                "dBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoP" +
-                "ackMaster.DeliveryDate, \r\n                         PoPackMaster.BuyerPO, ROUND(S" +
-                "UM(POPackDetails.PoQty) * (JobContractDetail.CMvalue / 12), 2) AS POVAL, isnull(" +
-                " JobContractMaster.Remark,\'\') as Remark\r\nFROM            POPackDetails INNER JOI" +
-                "N\r\n                         PoPackMaster ON POPackDetails.POPackId = PoPackMaste" +
-                "r.PoPackId INNER JOIN\r\n                         AtcDetails ON POPackDetails.OurS" +
-                "tyleID = AtcDetails.OurStyleID INNER JOIN\r\n                         AtcMaster ON" +
-                " PoPackMaster.AtcId = AtcMaster.AtcId AND AtcDetails.AtcId = AtcMaster.AtcId INN" +
-                "ER JOIN\r\n                         JobContractMaster ON AtcMaster.AtcId = JobCont" +
-                "ractMaster.AtcID INNER JOIN\r\n                         JobContractDetail ON PoPac" +
-                "kMaster.PoPackId = JobContractDetail.PoPackID AND AtcDetails.OurStyleID = JobCon" +
-                "tractDetail.OurStyleID AND \r\n                         JobContractMaster.JobContr" +
-                "act_pk = JobContractDetail.JobContract_pk INNER JOIN\r\n                         L" +
-                "ocationMaster ON JobContractMaster.Location_Pk = LocationMaster.Location_PK INNE" +
-                "R JOIN\r\n                         GarmentCategory ON AtcDetails.CategoryID = Garm" +
-                "entCategory.CategoryID INNER JOIN\r\n                         CountryMaster ON Loc" +
-                "ationMaster.CountryID = CountryMaster.CountryID\r\nGROUP BY POPackDetails.POPackId" +
-                ", CountryMaster.Description, LocationMaster.LocationName, LocationMaster.Locatio" +
-                "nAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, JobContractMaster.JOBC" +
-                "ontractNUM, \r\n                         JobContractMaster.AddedDate, JobContractM" +
-                "aster.AddedBy, JobContractDetail.CMvalue, AtcDetails.OurStyle, PoPackMaster.PoPa" +
-                "cknum, PoPackMaster.DeliveryDate, PoPackMaster.BuyerPO, \r\n                      " +
-                "   JobContractMaster.JobContract_pk, JobContractMaster.Remark";
+                "dBy, AtcDetails.OurStyle, PoPackMaster.PoPacknum, PoPackMaster.DeliveryDate, PoP" +
+                "ackMaster.BuyerPO, \r\n                         JobContractMaster.JobContract_pk, " +
+                "CONVERT(decimal(20, 3), SUM(POPackDetails.PoQty) * JobContractMaster.CM) AS POVA" +
+                "L, JobContractMaster.CM AS CMvalue, JobContractMaster.IsApproved, JobContractMas" +
+                "ter.ApprovedBy, \r\n                         JobContractMaster.ApprovedDate, JobCo" +
+                "ntractMaster.Remark\r\nFROM            CountryMaster INNER JOIN\r\n                 " +
+                "        LocationMaster INNER JOIN\r\n                         JobContractMaster ON" +
+                " LocationMaster.Location_PK = JobContractMaster.Location_Pk ON CountryMaster.Cou" +
+                "ntryID = LocationMaster.CountryID INNER JOIN\r\n                         GarmentCa" +
+                "tegory INNER JOIN\r\n                         POPackDetails INNER JOIN\r\n          " +
+                "               PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId IN" +
+                "NER JOIN\r\n                         AtcDetails ON POPackDetails.OurStyleID = AtcD" +
+                "etails.OurStyleID INNER JOIN\r\n                         AtcMaster ON AtcDetails.A" +
+                "tcId = AtcMaster.AtcId ON GarmentCategory.CategoryID = AtcDetails.CategoryID ON " +
+                "JobContractMaster.OurStyleID = AtcDetails.OurStyleID AND \r\n                     " +
+                "    LocationMaster.Location_PK = PoPackMaster.ExpectedLocation_PK\r\nGROUP BY POPa" +
+                "ckDetails.POPackId, CountryMaster.Description, LocationMaster.LocationName, Loca" +
+                "tionMaster.LocationAddress, AtcMaster.AtcNum, GarmentCategory.CategoryName, JobC" +
+                "ontractMaster.JOBContractNUM, \r\n                         JobContractMaster.Added" +
+                "Date, JobContractMaster.AddedBy, AtcDetails.OurStyle, PoPackMaster.PoPacknum, Po" +
+                "PackMaster.DeliveryDate, PoPackMaster.BuyerPO, JobContractMaster.JobContract_pk," +
+                " JobContractMaster.CM, \r\n                         JobContractMaster.IsApproved, " +
+                "JobContractMaster.ApprovedBy, JobContractMaster.ApprovedDate, JobContractMaster." +
+                "Remark\r\nHAVING        (JobContractMaster.JobContract_pk = @jc_pk)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@jc_pk", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 0, "JobContract_pk", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportDataSet.JobContractCMDataTable dataTable) {
+        public virtual int Fill(ReportDataSet.JobContractCMDataTable dataTable, decimal jc_pk) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(jc_pk));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -56567,8 +58102,9 @@ WHERE        (ProcurementDetails.PO_Pk = @Param1)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportDataSet.JobContractCMDataTable GetData() {
+        public virtual ReportDataSet.JobContractCMDataTable GetData(decimal jc_pk) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((decimal)(jc_pk));
             ReportDataSet.JobContractCMDataTable dataTable = new ReportDataSet.JobContractCMDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -60266,6 +61802,9 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
             tableMapping.ColumnMappings.Add("AddedDate", "AddedDate");
             tableMapping.ColumnMappings.Add("AddedBy", "AddedBy");
             tableMapping.ColumnMappings.Add("POVALUE", "POVALUE");
+            tableMapping.ColumnMappings.Add("Printing", "Printing");
+            tableMapping.ColumnMappings.Add("IsApproved", "IsApproved");
+            tableMapping.ColumnMappings.Add("ApprovedBy", "ApprovedBy");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -60273,7 +61812,7 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -60661,6 +62200,7 @@ WHERE        (CutOrderDO.CutID = @Param1)";
             tableMapping.ColumnMappings.Add("CutMarkerType", "CutMarkerType");
             tableMapping.ColumnMappings.Add("CutID", "CutID");
             tableMapping.ColumnMappings.Add("SkuDet_pk", "SkuDet_pk");
+            tableMapping.ColumnMappings.Add("AtcNum", "AtcNum");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -60668,7 +62208,7 @@ WHERE        (CutOrderDO.CutID = @Param1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -61968,6 +63508,205 @@ FROM            AtcMaster ";
         public virtual ReportDataSet.WIPReportDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             ReportDataSet.WIPReportDataTable dataTable = new ReportDataSet.WIPReportDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GstockWithTransferData_SPTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public GstockWithTransferData_SPTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GstockWithTransferData_SP";
+            tableMapping.ColumnMappings.Add("SInventoryItem_PK", "SInventoryItem_PK");
+            tableMapping.ColumnMappings.Add("LocationName", "LocationName");
+            tableMapping.ColumnMappings.Add("Description", "Description");
+            tableMapping.ColumnMappings.Add("ItemDesc", "ItemDesc");
+            tableMapping.ColumnMappings.Add("Unitprice", "Unitprice");
+            tableMapping.ColumnMappings.Add("ReceivedQty", "ReceivedQty");
+            tableMapping.ColumnMappings.Add("DeliveredQty", "DeliveredQty");
+            tableMapping.ColumnMappings.Add("OnHandQty", "OnHandQty");
+            tableMapping.ColumnMappings.Add("UomName", "UomName");
+            tableMapping.ColumnMappings.Add("Location_Pk", "Location_Pk");
+            tableMapping.ColumnMappings.Add("ReceivedVia", "ReceivedVia");
+            tableMapping.ColumnMappings.Add("PoValue", "PoValue");
+            tableMapping.ColumnMappings.Add("Refnum", "Refnum");
+            tableMapping.ColumnMappings.Add("ParentRef", "ParentRef");
+            tableMapping.ColumnMappings.Add("FreightCuRate", "FreightCuRate");
+            tableMapping.ColumnMappings.Add("SROOut", "SROOut");
+            tableMapping.ColumnMappings.Add("SDO", "SDO");
+            tableMapping.ColumnMappings.Add("SWF", "SWF");
+            tableMapping.ColumnMappings.Add("Myvalue", "Myvalue");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ArtSQL"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GstockWithTransferData_SP";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Location_Pk", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ReportDataSet.GstockWithTransferData_SPDataTable dataTable, global::System.Nullable<int> Location_Pk) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((Location_Pk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Location_Pk.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ReportDataSet.GstockWithTransferData_SPDataTable GetData(global::System.Nullable<int> Location_Pk) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((Location_Pk.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Location_Pk.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            ReportDataSet.GstockWithTransferData_SPDataTable dataTable = new ReportDataSet.GstockWithTransferData_SPDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

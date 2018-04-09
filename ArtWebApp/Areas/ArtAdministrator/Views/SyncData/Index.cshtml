@@ -9,12 +9,38 @@
     $(document).ready(function () {
 
 
+        var totalcompleted = 0;
+
+        
         $("#output").empty();
 
         $("#Show").click(function (e, params) {
-
+            var issucess=
             $("#output").empty();
             $('#loadingmessage').show();
+            
+
+              $("#output").append("<p><strong>Start Updating Locations</strong></p>");
+            $.ajax({
+                url: "@Url.Action("UpDateLocation", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Locations" + fooBarHTML.filename + "Ms </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong> Error Updating Locations</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+
+
             $("#output").append("<p><strong>Start Updating TTL</strong></p>");
             $.ajax({
                 url: "@Url.Action("UpdateTTL", "SyncData")",
@@ -23,15 +49,17 @@
                  success: function (fooBarHTML) {
 
 
-                     $("#output").append("<p><strong> Successfully Completed Updating TTL</strong></p>")
-                     $('#loadingmessage').hide();
+                     $("#output").append("<p><strong> Successfully Completed Updating TTL" + fooBarHTML.filename + "Ms </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
                 },
                 error: function (xhr, status, errorThrown) {
                     $("#output").append("<p><strong> Error Updating TTL</strong></p>")
-                    $('#loadingmessage').hide();
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
                 }
             });
-            $('#loadingmessage').show();
+
             $("#output").append("<p><strong>Start Updating CostPerMinute</strong></p>");
               $.ajax({
                 url: "@Url.Action("UpdateCostperMinute", "SyncData")",
@@ -39,12 +67,34 @@
                 type: "GET",
                  success: function (fooBarHTML) {
 
-                     $("#output").append("<p><strong> Successfully Completed Updating CostPerMinute</strong></p>")
-                     $('#loadingmessage').hide();
+                     $("#output").append("<p><strong> Successfully Completed Updating CostPerMinute" + fooBarHTML.filename +"Ms </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
                 },
                 error: function (xhr, status, errorThrown) {
                     $("#output").append("<p><strong>Error Updating CostPerMinute</strong></p>")
-                    $('#loadingmessage').hide();
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+
+
+            $("#output").append("<p><strong>Start Updating CostPerMinute</strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateExtraReq", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating ExtraReq in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating ExtraReq</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
                 }
             });
 
@@ -52,12 +102,99 @@
 
 
 
+             $("#output").append("<p><strong>Start Updating Jobcontract </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpDateJobContracttokenya", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
 
+                     $("#output").append("<p><strong> Successfully Completed Updating Jobcontract in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Jobcontract</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+             $("#output").append("<p><strong>Start Updating Optional Jobcontract </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpDateJobContractOptionaltokenya", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Optional Jobcontract in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Optional Jobcontract</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+
+             $("#output").append("<p><strong>Start Updating CSFA </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateCSFA", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating CSFA in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating CSFA </strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+             });
+
+
+
+              hideDiv(totalcompleted);
+              if (totalcompleted >= 6) {
+                  $("#output").hide();
+              }
+
+
+
+
+
+             @*$('#loadingmessage').show();
+            $("#output").append("<p><strong>Start Updating PL </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdatePL", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating PL in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     $('#loadingmessage').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating PL</strong></p>")
+                    $('#loadingmessage').hide();
+                }
+            });*@
 
 
         });
 
-
+        function hideDiv(totalcompleted) {
+            
+            if (totalcompleted >= 6) {
+                alert("Completed");
+                $("#loadingmessage").hide();
+            }
+        }
 
         $("#BackUP").click(function (e, params) {
 
@@ -71,15 +208,46 @@
                  success: function (fooBarHTML) {
 
 
-                     $("#output").append("<p><strong> Successfully Completed BackUP DB</strong></p>")
+                     $("#output").append("<p><strong> Successfully Completed BackUP DB to " + fooBarHTML.filename+"</strong></p>")
                      $('#loadingmessage').hide();
+
+
+
+
+                      $('#loadingmessage').show();
+                      $("#output").append("<p><strong>Start Zipping BackUPto " + fooBarHTML.filename + "Comp</strong></p>")
+              $.ajax({
+                url: "@Url.Action("ZipBackUP", "SyncData")",
+                traditional: true,
+                type: "GET",
+                data: { 'filename': fooBarHTML.filename },
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Zipped BackUP to " + fooBarHTML.filename + "Comp</strong></p>")
+                     $('#loadingmessage').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Zipping BackUP</strong></p>")
+                    $('#loadingmessage').hide();
+                }
+            });
+
+
+
+
+
+
+
+
+
+
                 },
                 error: function (xhr, status, errorThrown) {
                     $("#output").append("<p><strong> Error BackUP DB</strong></p>")
                     $('#loadingmessage').hide();
                 }
             });
-        
+
 
 
 

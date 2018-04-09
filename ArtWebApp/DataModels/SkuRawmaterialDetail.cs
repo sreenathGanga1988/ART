@@ -28,6 +28,7 @@ namespace ArtWebApp.DataModels
             this.ProcurmentPlanDetails = new HashSet<ProcurmentPlanDetail>();
             this.TransferToGstockDetails = new HashSet<TransferToGstockDetail>();
             this.FabricMissings = new HashSet<FabricMissing>();
+            this.FabricMissingMasters = new HashSet<FabricMissingMaster>();
         }
     
         public decimal SkuDet_PK { get; set; }
@@ -58,5 +59,6 @@ namespace ArtWebApp.DataModels
         public virtual SkuRawMaterialMaster SkuRawMaterialMaster { get; set; }
         public virtual ICollection<TransferToGstockDetail> TransferToGstockDetails { get; set; }
         public virtual ICollection<FabricMissing> FabricMissings { get; set; }
+        public virtual ICollection<FabricMissingMaster> FabricMissingMasters { get; set; }
     }
 }

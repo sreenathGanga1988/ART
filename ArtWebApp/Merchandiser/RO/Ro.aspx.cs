@@ -108,7 +108,7 @@ namespace ArtWebApp.Merchandiser
                     
                 }
             }
-
+            Boolean isOnhandlesser = false;
             List<RoDetailsData> rk = new List<RoDetailsData>();
             foreach (GridViewRow di in tbl_InverntoryDetails.Rows)
             {
@@ -125,17 +125,34 @@ namespace ArtWebApp.Merchandiser
                      rddet.InventoryItem_PK= int.Parse((di.FindControl("lblInventoryItem_PK") as Label).Text);
                      rddet.UnitPrice = Decimal.Parse((di.FindControl("lbl_fromcurate") as Label).Text); ;
                      rddet.FromSkuDet_PK = int.Parse((di.FindControl("lbl_fromSkuDet_Pk") as Label).Text); ;
-                     rk.Add(rddet);
-                 }
+                    rddet.OnhandQty = Decimal.Parse((di.FindControl("lbl_onhandQty") as Label).Text);
+                    rk.Add(rddet);
+                    if (rddet.OnhandQty < rddet.Qty)
+                    {
+                        isOnhandlesser = true;
+                    }
+                }
 
             }
 
-            rmstr.RoDetailsDataCollection = rk;
-            rmstr.ToSkuDet_PK = toskudetpk;
-            rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
-      String ro= rmstr.insertRowmaterial(rmstr);
-       string msg="Ro# '"+ro+"' Generated Successfully";
-       MessgeboxUpdate("sucess", msg);
+         
+
+
+
+            if (isOnhandlesser == false)
+            {
+                rmstr.RoDetailsDataCollection = rk;
+                rmstr.ToSkuDet_PK = toskudetpk;
+                rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
+                String ro = rmstr.insertRowmaterial(rmstr);
+                string msg = "Ro# '" + ro + "' Generated Successfully";
+                MessgeboxUpdate("sucess", msg);
+            }
+            else
+            {
+                string msg = "Cannot Create Ro greater than Onhand";
+                MessgeboxUpdate("error", msg);
+            }
         }
 
 

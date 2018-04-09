@@ -41,5 +41,6 @@ namespace ArtWebApp.DataModels
         public string BookedBy { get; set; }
         public string Country { get; set; }
         public Nullable<decimal> ProductionArtLocation { get; set; }
+        public Nullable<decimal> CMPerPc { get; set; }
     }
 }

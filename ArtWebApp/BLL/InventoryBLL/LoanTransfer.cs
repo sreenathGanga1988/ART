@@ -46,6 +46,39 @@ namespace ArtWebApp.BLL.InventoryBLL
 
         }
 
+        public Boolean ifStockAvailableforLoanTransfer(int loanpk)
+        {
+            Boolean isbalancethere = true;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                try
+                {
+                    var rodata = from rodet in enty.InventoryLoanMasters
+                                 join inventry in enty.InventoryMasters
+                                 on rodet.FromIIT_Pk equals inventry.InventoryItem_PK
+                                 where rodet.Loan_PK == loanpk
+                                 select new { rodet.LoanQty, inventry.OnhandQty };
+
+                    foreach (var element in rodata)
+                    {
+                        if (element.OnhandQty < element.LoanQty)
+                        {
+                            isbalancethere = false;
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                    isbalancethere = false;
+                }
+
+
+            }
+
+            return isbalancethere;
+        }
 
 
         public void GetLoanApproved(int loan_pk)
@@ -353,6 +386,60 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             return trnnum;
         }
 
+
+
+
+
+        public Boolean ifStockAvailableforTransfertoGstock(int TransferToGSTock_PK)
+        {
+            Boolean isbalancethere = true;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                try
+                {
+                    var rodata = from rodet in enty.TransferToGstockDetails
+                                 join inventry in enty.InventoryMasters
+                                 on rodet.InventoryItemPK equals inventry.InventoryItem_PK
+                                 where rodet.TransferToGSTock_PK == TransferToGSTock_PK
+                                 select new { rodet.ReceivedQty, inventry.OnhandQty };
+
+                    foreach (var element in rodata)
+                    {
+                        if (element.OnhandQty < element.ReceivedQty)
+                        {
+                            isbalancethere = false;
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                    isbalancethere = false;
+                }
+
+
+            }
+
+            return isbalancethere;
+        }
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
         public void GetTransferApproved(int trnsfr_pk)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
@@ -434,6 +521,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
 
                 StockMrnMaster smrnmstrdb = new StockMrnMaster();
                 smrnmstrdb.DoNumber = TransferNumber;
+                smrnmstrdb.SMrnNum = TransferNumber;
                 smrnmstrdb.AddedDate = DateTime.Now;
                 smrnmstrdb.SPo_PK = spomstr.SPO_Pk;
                 smrnmstrdb.AddedBY = "Admin";
@@ -449,7 +537,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                                       where trndet.TransferToGSTock_PK == trnsfr_pk
                                       select trndet;
 
-                foreach (var trdet in transferdetails)
+                foreach (var trdet in transferdetails.ToList())
                 {
                     templete_PK = int.Parse(trdet.Template_PK.ToString());
                     NewUnitprice = Decimal.Parse(trdet.NewUnitprice.ToString());
@@ -485,66 +573,66 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                         ItemColor = elementtemplatedata.ItemColor == null ? "" : elementtemplatedata.ItemColor.ToString();
                         ItemSize = elementtemplatedata.ItemSize == null ? "" : elementtemplatedata.ItemSize.ToString();
                     }
+                    StockPODetail spodetal = new StockPODetail();
+                    spodetal.SPO_PK = spomstr.SPO_Pk;
+                    spodetal.Template_PK = templete_PK;
 
+                    spodetal.Unitprice = NewUnitprice;
+                    spodetal.POQty = receivedQty;
+                    spodetal.Uom_PK = uom_pk;
+                    spodetal.CUrate = NewUnitprice;
+                    spodetal.Composition = Composition;
+                    spodetal.Construct = Construction;
+                    spodetal.TemplateColor = ItemColor;
+                    spodetal.TemplateSize = ItemSize;
+                    enty.StockPODetails.Add(spodetal);
+                    enty.SaveChanges();
+
+
+
+
+
+                    StockMRNDetail smrndetdb = new StockMRNDetail();
+                    smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
+                    smrndetdb.SPODetails_PK = spodetal.SPODetails_PK;
+                    smrndetdb.SPO_PK = spomstr.SPO_Pk;
+                    smrndetdb.ReceivedQty = receivedQty;
+                    smrndetdb.Unitprice = NewUnitprice;
+                    smrndetdb.Uom_PK = uom_pk;
+                    smrndetdb.ExtraQty = 0;
+                    enty.StockMRNDetails.Add(smrndetdb);
+
+                    enty.SaveChanges();
+
+
+
+
+                    StockInventoryMaster sinvmstr = new StockInventoryMaster();
+
+                    sinvmstr.SMRNDet_Pk = smrndetdb.SMRNDet_Pk;
+                    sinvmstr.SPODetails_PK = spodetal.SPODetails_PK;
+                    sinvmstr.Template_PK = templete_PK;
+                    sinvmstr.OnHandQty = receivedQty;
+                    sinvmstr.ReceivedQty = receivedQty;
+                    sinvmstr.DeliveredQty = 0;
+                    sinvmstr.Unitprice = smrndetdb.Unitprice;
+                    sinvmstr.Composition = Composition;
+                    sinvmstr.Construct = Construction;
+                    sinvmstr.TemplateColor = ItemColor;
+                    sinvmstr.TemplateSize = ItemSize;
+
+                    sinvmstr.Uom_PK = uom_pk;
+                    sinvmstr.CuRate = smrndetdb.Unitprice;
+                    sinvmstr.ReceivedVia = "GTR";
+                    sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
+                    sinvmstr.Refnum = smrnmstrdb.SMrnNum;
+                    sinvmstr.AddedDate = DateTime.Now.Date;
+                    enty.StockInventoryMasters.Add(sinvmstr);
+                    enty.SaveChanges();
 
 
                 }
-                StockPODetail spodetal = new StockPODetail();
-                spodetal.SPO_PK = spomstr.SPO_Pk;
-                spodetal.Template_PK = templete_PK;
-
-                spodetal.Unitprice = NewUnitprice;
-                spodetal.POQty = receivedQty;
-                spodetal.Uom_PK = uom_pk;
-                spodetal.CUrate = NewUnitprice;
-                spodetal.Composition = Composition;
-                spodetal.Construct = Construction;
-                spodetal.TemplateColor = ItemColor;
-                spodetal.TemplateSize = ItemSize;
-                enty.StockPODetails.Add(spodetal);
-                enty.SaveChanges();
-
-
-
-
-
-                StockMRNDetail smrndetdb = new StockMRNDetail();
-                smrndetdb.SMRN_Pk = smrnmstrdb.SMrn_PK;
-                smrndetdb.SPODetails_PK = spodetal.SPODetails_PK;
-                smrndetdb.SPO_PK = spomstr.SPO_Pk;
-                smrndetdb.ReceivedQty = receivedQty;
-                smrndetdb.Unitprice = NewUnitprice;
-                smrndetdb.Uom_PK = uom_pk;
-                smrndetdb.ExtraQty = 0;
-                enty.StockMRNDetails.Add(smrndetdb);
-
-                enty.SaveChanges();
-
-
-
-
-                StockInventoryMaster sinvmstr = new StockInventoryMaster();
-
-                sinvmstr.SMRNDet_Pk = smrndetdb.SMRNDet_Pk;
-                sinvmstr.SPODetails_PK = spodetal.SPODetails_PK;
-                sinvmstr.Template_PK = templete_PK;
-                sinvmstr.OnHandQty = receivedQty;
-                sinvmstr.ReceivedQty = receivedQty;
-                sinvmstr.DeliveredQty = 0;
-                sinvmstr.Unitprice = smrndetdb.Unitprice;
-                sinvmstr.Composition = Composition;
-                sinvmstr.Construct = Construction;
-                sinvmstr.TemplateColor = ItemColor;
-                sinvmstr.TemplateSize = ItemSize;
-
-                sinvmstr.Uom_PK = uom_pk;
-                sinvmstr.CuRate = smrndetdb.Unitprice;
-                sinvmstr.ReceivedVia = "GTR";
-                sinvmstr.Location_Pk = smrnmstrdb.Location_Pk;
-                sinvmstr.Refnum = smrnmstrdb.SMrnNum;
-                sinvmstr.AddedDate = DateTime.Now.Date;
-                enty.StockInventoryMasters.Add(sinvmstr);
-                enty.SaveChanges();
+              
 
 
 

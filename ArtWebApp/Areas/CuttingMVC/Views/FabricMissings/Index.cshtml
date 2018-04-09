@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ArtWebApp.DataModels.FabricMissing>
+﻿@model IEnumerable<ArtWebApp.DataModels.FabricMissingMaster>
 
 @{
     ViewBag.Title = "Index";
@@ -46,9 +46,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ApprovedDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OurStyleID)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.IsLevel1Approved)
         </th>
@@ -86,16 +84,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ApprovedDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AtcDetail.OurStyle)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.IsLevel1Approved)
             </td>
 
             <td>
-                @Html.ActionLink("Approve", "Approve", new { id = item.FabricMissingID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.FabricMissingID }) |
+                @Html.ActionLink("Approve", "Approve", new { id = item.FabricMissingMasterID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.FabricMissingMasterID }) |
             </td>
         </tr>
     }

@@ -5,64 +5,169 @@
     ViewBag.Title = "FullSkuIndex";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
+@Html.HiddenFor(model => model.LocationPk);
+@Html.HiddenFor(model => model.SkuDetPK);
 
 @if (Model.FCRViewModelDatalist.Count > 0)
 {
 
     foreach (FCRViewModel fCRViewModel in Model.FCRViewModelDatalist)
     {
-<div class="jumbotron">
-    <h2>@fCRViewModel.fcrMasterData.Style</h2>
-    </div>
+        <div class="jumbotron">
+            <h2>@fCRViewModel.fcrMasterData.Style</h2>
+        </div>
 
-    @Html.Partial("FullSkuPartialView", fCRViewModel);
+        @Html.Partial("FullSkuPartialView", fCRViewModel);
     }
 
 }
 
 <div>
+    <h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
+                    <th>Total Roll Yard Given to Factory</th>
+                    <th> Total Roll Yard Returned to Warehouse </th>
+                    <th>Total Roll Yard TO be on factory</th>
+                    <th>Total Utilized Fabric</th>
+                    <th> Shortage</th>
+                    <th> Reject Panel</th>
+                    <th>Missing Fabric</th>
+                    <th>Balance Fabric</th>
+                </tr>
 
-                <th>Total Roll Yard Given to Factory</th>
-                <th> Total Roll Yard Returned to Warehouse </th>
-                <th>Total Roll Yard TO be on factory</th>
-                <th>Total Utilized Fabric</th>
-                <th> Shortage</th>
-                <th>Missing Fabric</th>
-                <th>Balance Fabric</th>
-            </tr>
+            </thead>
+            <tbody>
+                <tr>
 
-        </thead>
-        <tbody>
-            <tr>
+                    <td>@Model.GiventoFactory</td>
+                    <td>@Model.GivenBackToStore</td>
+                    <td>@Model.ToBeonLocation</td>
+                    <td>@Model.TotalFabricLayed</td>
+                    <td>@Model.TotalShortage</td>
+                    <td>@Model.RejectionrecutQty</td>
+                    <td>@Model.MissingQty</td>
+                    <td>
+                        @{var bal = float.Parse(Model.TotalBalanceQty.ToString()); }
 
-                <td>@Model.GiventoFactory</td>
-                <td>@Model.GivenBackToStore</td>
-                <td>@Model.ToBeonLocation</td>
-                <td>@Model.TotalFabricLayed</td>
-                <td>@Model.TotalShortage</td>
-                <td>@Model.MarkMissedQty</td>
-                <td>
-                    @{var bal = float.Parse(Model.TotalBalanceQty.ToString()); }
+                        <div id="balance">
+                            @bal
+                        </div>
 
-                    <div id="balance">
-                        @bal
-                    </div>
-                   
                         @if (bal > 0)
-                        {
-                            @Html.HiddenFor(model => model.MissingQty, bal);
+    {
+                    @Html.HiddenFor(model => model.MissingQty, bal);
 
-                            <input id="markasmissing" type="button" value="Mark as Missing" class="btn btn-default show" />
-                        }
-                   
+                    <input id="markasmissing" type="button" value="Mark as Missing" class="btn btn-default show" />
+}
 
-                </td>
+                        @{var isclosebutton = Model.Isclosebuttonvisible.ToString();}
+                    </td>
 
-            </tr>
-        </tbody>
-    </table>
+                </tr>
+            </tbody>
+        </table>
+    </h3>
 </div>
+<div>
+    @if (bal <= 0 && isclosebutton=="Y")
+    {
+        <input id="closefcr" type="button" value="Close FCR" class="btn btn-default show" />
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#markasmissing").click(function (e, params) {
+            debugger;
+
+
+
+            if (confirm('Are you sure you want to Mark as Missing?')) {
+                var loc_pk = $('#LocationPk').val();
+                var skudetpk = document.getElementById("SkuDetPK").value;
+                var missing_qty = document.getElementById("balance").innerHTML;
+                $.ajax({
+                    url: "@Url.Action("MarkMissing", "FCR")",
+                    traditional: true,
+                    data: { 'skudetpk': skudetpk,  'locationpk': loc_pk, 'Missingqty': missing_qty },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert("Sucessfully Updated");
+                        $.ajax({
+                            type: "Get",
+                            url: "@Url.Action("Index", "FCR")",
+                            dataType: 'json',
+                            data: { 'id': skudetpk, 'ourStyleid': ourstyleid, 'locationpk': loc_pk },
+                            crossDomain: true,
+                            success: function (data) {
+                                window.location.href = data;
+                            }
+                        });
+                    },
+
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+    }
+
+
+        });
+
+
+
+
+
+        $("#closefcr").click(function (e, params) {
+            debugger;
+
+
+
+            if (confirm('Are you sure you want to Close this FCR?')) {
+                var loc_pk = $('#LocationPk').val();
+               
+                var skudetpk = document.getElementById("SkuDetPK").value;
+               
+                $.ajax({
+                    url: "@Url.Action("CloseFullFCR", "FCR")",
+                    traditional: true,
+                    data: { 'skudetpk': skudetpk,  'locationpk': loc_pk},
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert("Sucessfully Updated");
+                        $.ajax({
+                            type: "Get",
+                            url: "@Url.Action("FCRIndex", "FCR")",
+                            dataType: 'json',
+                            crossDomain: true,
+                            success: function (data) {
+                                window.location.href = data;
+                            }
+                        });
+                    },
+
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+    }
+
+
+        });
+
+
+
+
+
+
+    });
+
+</script>

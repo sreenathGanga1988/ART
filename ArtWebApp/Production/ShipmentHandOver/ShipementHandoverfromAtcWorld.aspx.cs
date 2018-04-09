@@ -75,7 +75,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
                 {
                     if (i == 0)
                     {
-                        condition = condition + "Where  ATCWorldToArtShipData.SDONo='" + Sdolist[i].ToString().Trim()+"'";
+                        condition = condition + "Where ( ATCWorldToArtShipData.SDONo='" + Sdolist[i].ToString().Trim()+"'";
                     }
                     else
                     {
@@ -83,7 +83,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
                     }
 
 
-
+                    condition = condition + " )";
                 }
 
 
@@ -130,8 +130,9 @@ namespace ArtWebApp.Production.ShipmentHandOver
 
                 string lbl_SDONo = (di.FindControl("lbl_SDONo") as Label).Text.ToString().Trim();
                     int lbl_qty = int.Parse(((di.FindControl("lbl_qty") as Label).Text.ToString()));
+                Decimal lbl_CMPerPc = Decimal.Parse(((di.FindControl("lbl_CMPerPc") as Label).Text.ToString()));
 
-
+                
                 DateTime lbl_ShipmentDate= DateTime.Parse(((di.FindControl("lbl_ShipmentDate") as Label).Text.ToString()));
 
 
@@ -147,6 +148,7 @@ namespace ArtWebApp.Production.ShipmentHandOver
                     shpdet.ShipmenthandOverdate = DateTime.Parse(shipdate.Value.ToString());
                     shpdet.ShippedQty = int.Parse(lbl_qty.ToString());
                   shpdet.ProducedLctn_PK = int.Parse(lblProductionArtLocation_PK.ToString ());
+                shpdet.Cmperpc = lbl_CMPerPc;
                     shpdet.AddedBy = Session["Username"].ToString().Trim();
                     shpdet.AddedDate = DateTime.Now;
                 shpdet.ShipmentDate = lbl_ShipmentDate;

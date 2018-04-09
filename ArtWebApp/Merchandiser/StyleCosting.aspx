@@ -246,6 +246,25 @@
                     
                     
                 </tr>
+              
+                <tr>
+                    <td   class="NormalTD">CM Status</td>
+                    <td>
+                        <asp:Label ID="lbl_costingstatus" runat="server" Text="Open"></asp:Label>
+                    </td>
+                    <td class="SearchButtonTD" >
+                        &nbsp;</td>
+                    <td class="NormalTD" >&nbsp;</td>
+                    <td >
+                       
+                        &nbsp;</td>
+                    <td class="SearchButtonTD" >
+                        &nbsp;</td>
+                    <td >&nbsp;</td>
+                    
+                    
+                    
+                </tr>
                 <tr>
                     <td colspan="7"><strong>Enter&nbsp; Raw Material Costing</strong></td>
                 </tr>

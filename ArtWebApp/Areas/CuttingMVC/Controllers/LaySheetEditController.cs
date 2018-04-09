@@ -21,7 +21,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             return View();
         }
       
-        public PartialViewResult Details(decimal id)
+        public PartialViewResult RecuttableDetails(decimal id)
         {
             if (id == null)
             {
@@ -32,6 +32,24 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 
             }
+            return PartialView("LaySheetCuttableView", laySheetMaster);
+            //    return PartialView("Details", laySheetMaster);
+
+
+        }
+
+
+        public PartialViewResult Details(decimal id)
+        {
+            if (id == null)
+            {
+
+            }
+            LaySheetMaster laySheetMaster = db.LaySheetMasters.Find(id);
+            if (laySheetMaster == null)
+            {
+
+            }
             return PartialView("_LaysheetDetails", laySheetMaster);
             //    return PartialView("Details", laySheetMaster);
 
@@ -39,12 +57,34 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         }
 
 
+
+
+
+
+
+
+
+
+        
         public ActionResult DeleteRoll(int rollid)
         {
             LaysheetMasterData lymstrdata = new LaysheetMasterData();
             lymstrdata.DeletelaysheetdetailRoll(rollid);
             return View();
         }
+
+
+
+
+        public ActionResult UpdateRecutableRoll(int rollid)
+        {
+            LaysheetMasterData lymstrdata = new LaysheetMasterData();
+            lymstrdata.UpdateRollDetailID(rollid);
+            return View();
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -53,5 +93,17 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public ActionResult MarkRecuttable()
+        {
+
+            ViewBag.LaySheet_PK = new SelectList(db.LaySheetMasters.Where(u => u.IsApproved == "N"), "LaySheet_PK", "LaySheetNum");
+            return View();
+        }
+
+
+
     }
 }

@@ -24,7 +24,9 @@ namespace ArtWebApp.Areas.Inventory
             cmd.Parameters.AddWithValue("@supplierdock_pk", 0);
             cmd.Parameters.AddWithValue("@Skudetpk", 0);
             cmd.Parameters.AddWithValue("@RollPk", id);
-
+            cmd.Parameters.AddWithValue("@cutplanPk", 0);
+            cmd.Parameters.AddWithValue("@docnum", "NA");
+    
             cmd.CommandType = CommandType.StoredProcedure;
 
 

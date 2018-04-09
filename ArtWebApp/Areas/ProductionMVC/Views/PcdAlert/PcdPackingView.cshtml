@@ -1,0 +1,377 @@
+﻿@model ArtWebApp.Areas.ProductionMVC.Viewmodel.PcdAlertModel
+@using System.Data;
+@using ArtWebApp.DataModels;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        // This will make every element with the class "date-picker" into a DatePicker element
+        $('.date-picker').datepicker();
+    })
+</script>
+<style>
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+<script src="~/Areas/ArtMVCMerchandiser/Js/LabChargescript.js"></script>
+<h2>PCD Packing</h2>
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Yes",
+        Value = "Yes"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "No",
+        Value = "No",
+        Selected = true
+    });
+}
+@{
+    List<SelectListItem> listItems2 = new List<SelectListItem>();
+    listItems2.Add(new SelectListItem
+    {
+        Text = "Yes",
+        Value = "Yes"
+    });
+    listItems2.Add(new SelectListItem
+    {
+        Text = "No",
+        Value = "No",
+        Selected = true
+    });
+}
+@{
+    List<SelectListItem> listItems1 = new List<SelectListItem>();
+    listItems1.Add(new SelectListItem
+    {
+        Text = "Closed",
+        Value = "Closed"
+    });
+    listItems1.Add(new SelectListItem
+    {
+        Text = "Pending",
+        Value = "Pending",
+        Selected = true
+    });
+}
+
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-3">Week#:</div>
+            <div class="col-md-9"><input id="WeekNo" class="date-picker" style="width:100px" /></div>
+            <div class="col-md-3">Factory:</div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.Location_pk, (SelectList)ViewBag.Location_pk, htmlAttributes: new { @class = "chosen-select form-control" })
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+
+            <div class="col-sm-3">
+                <input id="Show" type="button" value="Show Details" data-toggle="tooltip" data-placement="top" title="GetPCD Alert Details" class="btn btn-default show" />
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+@{
+
+    PcdAlertUserright userrightlist = (PcdAlertUserright)ViewBag.Userright;
+
+}
+
+
+@if (userrightlist != null)
+{
+
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+
+                <th>Line#</th>
+                <th>Atcid</th>
+                <th>CutStart Date</th>
+                <th>Approval Status</th>
+                <th>Packing Material Issue</th>
+                <th>BO Remarks for Packing Trims</th>
+                <th> BO Plan Accepted/Not Accepted</th>
+                <th> Action Pending/Closed</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr>
+
+                <td> <input id="LineNo" type="text" style="width:50px" /> </td>
+                <td>
+                    @Html.DropDownListFor(model => model.Atcid, (SelectList)ViewBag.Atcid, htmlAttributes: new { @class = "chosen-select form-control", @style = "width: 90px" })
+                </td>
+                <td>
+                    <input id="CutStartDate" class="date-picker" style="width:90px" />
+                </td>
+                <td style="width:100px">
+
+                    @if (userrightlist.Is_Approval_status == "Y")
+                    {
+
+                        @Html.DropDownListFor(model => model.ApprovalStatus, listItems, "-- Select Status --")
+
+                    }
+                    else
+                    {<div class="disabledbutton">
+
+                            @Html.DropDownListFor(model => model.ApprovalStatus, listItems, "-- Select Status --")
+                        </div>
+
+                    }
+
+                </td>
+                <td>
+
+
+
+                    @if (userrightlist.Is_Packing_Material_Issue == "Y")
+                    {
+
+                        @Html.TextBox("PackingMaterialIssue", "", new { style = "width:650px; height:65px" })
+
+                    }
+                    else
+                    {<div class="disabledbutton">
+
+                            @Html.TextBox("PackingMaterialIssue", "", new { style = "width:650px; height:65px" })
+                        </div>
+
+                    }
+
+
+
+
+
+                </td>
+                <td>
+
+
+
+
+                    @if (userrightlist.Is_BO_remarks_Packing == "Y")
+                    {
+
+                        @Html.TextBox("BoRemarksPacking", "", new { style = "width:650px; height:65px" })
+
+                    }
+                    else
+                    {<div class="disabledbutton">
+
+                            @Html.TextBox("BoRemarksPacking", "", new { style = "width:650px; height:65px" })
+                        </div>
+
+                    }
+
+
+
+                </td>
+                <td style="width:100px">
+
+
+
+                    @if (userrightlist.Is_Packing_bo_plan_accept == "Y")
+                    {
+
+                        @Html.DropDownListFor(model => model.BoPlanPackingAccept, listItems2, "-- Select Status --")
+
+                    }
+                    else
+                    {<div class="disabledbutton">
+                            @Html.DropDownListFor(model => model.BoPlanPackingAccept, listItems2, "-- Select Status --")
+                        </div>
+
+                    }
+
+
+
+                </td>
+                <td style="width:100px">
+
+
+                    @if (userrightlist.Is_Packing_action == "Y")
+                    {
+                        @Html.DropDownListFor(model => model.PackingAction, listItems1, "-- Select Status --")
+
+                    }
+                    else
+                    {<div class="disabledbutton">
+                            @Html.DropDownListFor(model => model.PackingAction, listItems1, "-- Select Status --")
+                        </div>
+
+                    }
+
+
+
+
+                </td>
+                <td style="display:none"> <input id="PCDAlert_Pk" type="text" /> </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-sm-3">
+        <input id="submit_details" type="button" value="Submit" data-toggle="tooltip" data-placement="top" title="Submit Details" class="btn btn-default show" />
+    </div>
+}
+<div id="output">
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $("#submit_details").click(function (e, params) {
+
+
+            var WeekNo = $("#WeekNo").val();
+            var LineNo = $("#LineNo").val();
+            var Atcid = $("#Atcid").val();
+            var Location_pk = $('#Location_pk').val();
+            var PCDAlert_Pk = $('#PCDAlert_Pk').val();
+
+            var CutStartDate = document.getElementById("CutStartDate").value;
+            var ApprovalStatus = document.getElementById("ApprovalStatus").value;
+            var PackingMaterialIssue = document.getElementById("PackingMaterialIssue").value;
+            var BoRemarksPacking = document.getElementById("BoRemarksPacking").value;
+            var BoPlanPackingAccept = document.getElementById("BoPlanPackingAccept").value;
+            var PackingAction = document.getElementById("PackingAction").value;
+            var PcdAlertModel = {
+                WeekNo: WeekNo, LineNo: LineNo, Atcid: Atcid, CutStartDate: CutStartDate, ApprovalStatus: ApprovalStatus,
+                PackingMaterialIssue: PackingMaterialIssue, BoRemarksPacking: BoRemarksPacking, BoPlanPackingAccept: BoPlanPackingAccept,
+                PackingAction: PackingAction, Location_pk: Location_pk, PCDAlert_Pk: PCDAlert_Pk
+            };
+
+
+            var things = JSON.stringify({ 'things': PcdAlertModel });
+            $.ajax({
+                url: "@Url.Action("SubmitDetailsPacking", "PcdAlert")",
+                traditional: true,
+                data: things,
+                type: "post",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (fooBarHTML) {
+
+                    $("#output").empty();
+                    alert(fooBarHTML.msge);
+                     $.ajax({
+                    url: "@Url.Action("getalreadyadded_packing", "PcdAlert")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'weekno': WeekNo, 'locationpk': Location_pk },
+                    success: function (fooBarHTML) {
+
+                        $("#output").html(fooBarHTML);
+                        $("#PCDAlert_Pk").val("0");
+                        $("#LineNo").val("");
+                        $("#CutStartDate").val("");
+                        $("#PackingMaterialIssue").val("");
+                        $("#BoRemarksPacking").val("");
+                        $("#ApprovalStatus").val("No")
+                        $("#BoPlanPackingAccept").val("No")
+                        $("#PackingAction").val("Pending")
+
+                        alert("Sucessfully Updated");
+                    },
+                    error: function (xhr, status, errorThrown) {
+
+                    }
+                    });
+
+
+                },
+
+                error: function (xhr, status, errorThrown) {
+                    //...
+                }
+            });
+
+        });
+        $("#Show").click(function (e, params) {
+
+            var WeekNo = $("#WeekNo").val();
+            var Location_pk = $('#Location_pk').val();
+            $("#output").empty();
+
+            $.ajax({
+                url: "@Url.Action("getalreadyadded_packing", "PcdAlert")",
+                traditional: true,
+                type: "GET",
+                data: { 'weekno': WeekNo, 'locationpk': Location_pk },
+                success: function (fooBarHTML) {
+
+                    $("#output").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+
+                }
+            });
+
+        });
+
+
+
+        $(document).on("click", "table tbody tr", function () {
+            var LineNostring = $(this).find(".LineNo").html().trim();
+            var atcid = $(this).find(".AtcIDhidden").html().trim();
+            var ApprovalStatus = $(this).find(".ApprovalStatus").html().trim();
+            var SewingMaterialIssue = $(this).find(".SewingMaterialIssue").html().trim();
+            var BoPlanSewingAccpet = $(this).find(".BoPlanSewingAccpet").html().trim();
+            var SewingAction = $(this).find(".SewingAction").html().trim();
+            var Location_pk = $(this).find(".Location_pk").html().trim();
+            var Pcdalert_pk = $(this).find(".Pcdalert_pk").html().trim();
+            var CutStartDate = $(this).find(".CutStartDate").html().trim();
+            var BoRemarksSewing = $(this).find(".BoRemarksSewing").html().trim();
+
+
+            $("#LineNo").val(LineNostring);
+            $("#Atcid").val(atcid);
+            $("#Atcid").trigger("chosen:updated");
+            $("#Atcid").trigger("change");
+            $('#CutStartDate').datepicker('setDate', CutStartDate);
+            $("#PCDAlert_Pk").val(Pcdalert_pk);
+            $("#ApprovalStatus").val(ApprovalStatus);
+            $("#SewingMaterialIssue").val(SewingMaterialIssue);
+            $("#BoRemarksSewing").val(BoRemarksSewing);
+            $("#BoPlanSewingAccpet").val(BoPlanSewingAccpet);
+            $("#SewingAction").val(SewingAction);
+
+            //$("#Location_pk").val(Location_pk);
+            //$("#Location_pk").trigger("chosen:updated");
+            //$("#Location_pk").trigger("change");
+
+        });
+
+
+    });
+
+</script>

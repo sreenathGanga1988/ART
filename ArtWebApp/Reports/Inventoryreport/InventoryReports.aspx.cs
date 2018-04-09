@@ -28,15 +28,31 @@ namespace ArtWebApp.Reports.Inventoryreport
         {
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
-                var q = from order in entty.LocationMasters
-                        where order.LocType == "W" || order.LocType == "F" 
-                        select new
-                        {
-                            name = order.LocationName,
-                            pk = order.Location_PK
-                        };
-                   drp_ToWarehouse.DataSource = q.ToList();
-                drp_ToWarehouse.DataBind();
+
+                if (int.Parse( Session["User_PK"].ToString().Trim())== 20058) {
+                    var q = from order in entty.LocationMasters
+                            where (order.LocType == "W" || order.LocType == "F") && order.IsActive == "A"
+                            select new
+                            {
+                                name = order.LocationName,
+                                pk = order.Location_PK
+                            };
+                    drp_ToWarehouse.DataSource = q.ToList();
+                    drp_ToWarehouse.DataBind();
+                }
+                else
+                {
+                    var q = from order in entty.LocationMasters
+                            where (order.LocType == "W" || order.LocType == "F") 
+                            select new
+                            {
+                                name = order.LocationName,
+                                pk = order.Location_PK
+                            };
+                    drp_ToWarehouse.DataSource = q.ToList();
+                    drp_ToWarehouse.DataBind();
+                }
+       
             
             }
         }

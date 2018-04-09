@@ -183,6 +183,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
         public int PaymentModeID { get; set; }
         public float PO_value { get; set; }
         public int Location_PK { get; set; }
+        public int DeptPk { get; set; }
         public int CurrencyID { get; set; }
         public string AddedBy { get; set; }
         public DateTime AddedDate { get; set; }
@@ -213,6 +214,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 spomstr.DeliveryTerms_Pk = spodata.DeliveryTerms_Pk;
                 spomstr.DeliveryMethod_Pk = spodata.DeliveryMethod_Pk;
                 spomstr.PaymentTermID = spodata.PaymentTermID;
+                spomstr.DeptPK = spodata.DeptPk;
                 spomstr.PO_value = 0;
                 spomstr.Location_PK = spodata.Location_PK;
                 spomstr.CurrencyID = spodata.CurrencyID;
@@ -270,9 +272,9 @@ namespace ArtWebApp.BLL.ProcurementBLL
                     spomstr.AddedDate = DateTime.Now;
                     spomstr.IsApproved = "N";
                     spomstr.IsDeleted = "N";
+                    spomstr.DeptPK = spodata.DeptPk;
 
-                  
-                   // spomstr.SPONum = spodata.SPONum;
+                    // spomstr.SPONum = spodata.SPONum;
                 }
 
 

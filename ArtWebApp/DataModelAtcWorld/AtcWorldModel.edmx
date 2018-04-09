@@ -42,6 +42,31 @@
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CM" Type="numeric" Precision="18" Scale="4" />
           <Property Name="JobContractNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="AtcNum" Type="varchar" MaxLength="50" />
+          <Property Name="OurStyle" Type="varchar" MaxLength="50" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ArtJobContractOptionalMaster">
+          <Key>
+            <PropertyRef Name="ArtJobContractOpionID" />
+          </Key>
+          <Property Name="ArtJobContractOpionID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobContractOptionalDetail_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="JobContractOptional_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Wash" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="EmbroidaryPrinting" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="CompanyLogistic" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="FactoryLogistic" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="DryProcess" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="FabCommision" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="GarmentComission" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Printing" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="JobContractOptionalNUM" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ArtLaySheetDetails">
           <Key>
@@ -98,7 +123,7 @@
           <Property Name="PoPack_Detail_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Atcnum" Type="nvarchar" MaxLength="50" />
           <Property Name="OurStyle" Type="nvarchar" MaxLength="50" />
-          <Property Name="ASQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="ASQ" Type="nvarchar(max)" />
           <Property Name="BuyerPO" Type="nvarchar" MaxLength="50" />
           <Property Name="BuyerStyle" Type="nvarchar" MaxLength="50" />
           <Property Name="DeliveryDate" Type="datetime" />
@@ -350,6 +375,7 @@
           <EntitySet Name="ArtCutPlanASQDet" EntityType="Self.ArtCutPlanASQDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="Self.ArtCutPlanMarkerSizeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtJobContractMaster" EntityType="Self.ArtJobContractMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtJobContractOptionalMaster" EntityType="Self.ArtJobContractOptionalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtLaySheetDetails" EntityType="Self.ArtLaySheetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtLaySheetMasterData" EntityType="Self.ArtLaySheetMasterData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="Self.ASQAllocationMaster_tbl" Schema="dbo" store:Type="Tables" />
@@ -417,6 +443,7 @@
             <End Role="FactoryCostMaster" EntitySet="FactoryCostMasters" />
           </AssociationSet>
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
+          <EntitySet Name="ArtJobContractOptionalMasters" EntityType="AtcModelModel.ArtJobContractOptionalMaster" />
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -549,6 +576,9 @@
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CM" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="JobContractNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AtcNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ArtCutPlanASQDet">
           <Key>
@@ -737,7 +767,7 @@
           <Property Name="PoPack_Detail_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Atcnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OurStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ASQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ASQ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BuyerStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
@@ -766,6 +796,28 @@
           <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="OurStyleGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ArtJobContractOptionalMaster">
+          <Key>
+            <PropertyRef Name="ArtJobContractOpionID" />
+          </Key>
+          <Property Name="ArtJobContractOpionID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobContractOptionalDetail_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="JobContractOptional_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Wash" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="EmbroidaryPrinting" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CompanyLogistic" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="FactoryLogistic" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="DryProcess" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="FabCommision" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="GarmentComission" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Printing" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="JobContractOptionalNUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -886,6 +938,9 @@
           <EntitySetMapping Name="ArtJobContractMasters">
             <EntityTypeMapping TypeName="AtcModelModel.ArtJobContractMaster">
               <MappingFragment StoreEntitySet="ArtJobContractMaster">
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="OurStyle" ColumnName="OurStyle" />
+                <ScalarProperty Name="AtcNum" ColumnName="AtcNum" />
                 <ScalarProperty Name="JobContractNum" ColumnName="JobContractNum" />
                 <ScalarProperty Name="CM" ColumnName="CM" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
@@ -1079,6 +1134,29 @@
                 <ScalarProperty Name="OurStyleId" ColumnName="OurStyleId" />
                 <ScalarProperty Name="POPackID" ColumnName="POPackID" />
                 <ScalarProperty Name="ASQAllocation_PK" ColumnName="ASQAllocation_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtJobContractOptionalMasters">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtJobContractOptionalMaster">
+              <MappingFragment StoreEntitySet="ArtJobContractOptionalMaster">
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
+                <ScalarProperty Name="JobContractOptionalNUM" ColumnName="JobContractOptionalNUM" />
+                <ScalarProperty Name="Printing" ColumnName="Printing" />
+                <ScalarProperty Name="GarmentComission" ColumnName="GarmentComission" />
+                <ScalarProperty Name="FabCommision" ColumnName="FabCommision" />
+                <ScalarProperty Name="DryProcess" ColumnName="DryProcess" />
+                <ScalarProperty Name="FactoryLogistic" ColumnName="FactoryLogistic" />
+                <ScalarProperty Name="CompanyLogistic" ColumnName="CompanyLogistic" />
+                <ScalarProperty Name="EmbroidaryPrinting" ColumnName="EmbroidaryPrinting" />
+                <ScalarProperty Name="Wash" ColumnName="Wash" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="JobContractOptional_pk" ColumnName="JobContractOptional_pk" />
+                <ScalarProperty Name="JobContractOptionalDetail_pk" ColumnName="JobContractOptionalDetail_pk" />
+                <ScalarProperty Name="ArtJobContractOpionID" ColumnName="ArtJobContractOpionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

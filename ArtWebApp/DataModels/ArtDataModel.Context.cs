@@ -297,6 +297,15 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<BEOfMonth> BEOfMonths { get; set; }
         public virtual DbSet<FabricInLocation_tbl> FabricInLocation_tbl { get; set; }
         public virtual DbSet<FabricInLocationAtcMaster_tbl> FabricInLocationAtcMaster_tbl { get; set; }
+        public virtual DbSet<FabricMissingMaster> FabricMissingMasters { get; set; }
+        public virtual DbSet<CMOurstyleLock> CMOurstyleLocks { get; set; }
+        public virtual DbSet<PLAtcworld_tbl> PLAtcworld_tbl { get; set; }
+        public virtual DbSet<ProductionTNAPending> ProductionTNAPendings { get; set; }
+        public virtual DbSet<OurStyleDeptCM> OurStyleDeptCMs { get; set; }
+        public virtual DbSet<PcdAlertMaster> PcdAlertMasters { get; set; }
+        public virtual DbSet<YearWeekMaster> YearWeekMasters { get; set; }
+        public virtual DbSet<CSFA_Component> CSFA_Component { get; set; }
+        public virtual DbSet<PcdAlertUserright> PcdAlertUserrights { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

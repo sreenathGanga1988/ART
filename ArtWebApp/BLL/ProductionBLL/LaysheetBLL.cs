@@ -93,9 +93,8 @@ HAVING        (CutOrderDet_PK = @param1)),0)";
 Select isnull((SELECT        ISNULL(SUM(LaySheetDetails.NoOfPlies), 0) AS NoOfPlies
 FROM            LaySheetDetails INNER JOIN
                          LaySheetMaster ON LaySheetDetails.LaySheet_PK = LaySheetMaster.LaySheet_PK
-GROUP BY LaySheetMaster.CutOrderDet_PK
-HAVING        (LaySheetMaster.CutOrderDet_PK = @Param1)
-),0)";
+GROUP BY LaySheetMaster.CutOrderDet_PK, LaySheetDetails.IsDeleted
+HAVING        (LaySheetMaster.CutOrderDet_PK = @param1) AND (LaySheetDetails.IsDeleted = N'N')),0) ";
             cmd.Parameters.AddWithValue("@param1", CutOrderDet_PK);
 
             var obj = QueryFunctions.ReturnQueryValue(cmd);
@@ -698,7 +697,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                     excessorshort= excessorshort+ di.ExceSShortage;
 
                     var qlayroll = from rlldata in enty.LaySheetRollDetails
-                                   where rlldata.Roll_PK == di.Roll_PK && rlldata.LaySheetRoll_Pk == di.LaySheetRoll_Pk
+                                   where rlldata.Roll_PK == di.Roll_PK && rlldata.LaySheetRoll_Pk == di.LaySheetRoll_Pk && rlldata.IsDeleted=="N"
                                    select rlldata;
                     foreach (var element1 in qlayroll)
                     {
@@ -770,7 +769,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                     element.IsDeleted = "Y";
                     element.DeletedBy = HttpContext.Current.Session["Username"].ToString();
                     element.Deleteddate = DateTime.Now;
-                    laysheetpk = int.Parse(element.LaySheetRoll_Pk.ToString());
+                    laysheetpk = int.Parse(element.LaySheet_PK.ToString());
 
                     if (element.IsRecuttable == "Y")
                     {
@@ -800,7 +799,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
                 try
                 {
-                    var allocatedqty = enty.LaySheetDetails.Where(i => i.LaySheet_PK == LaySheet_PK && i.IsDeleted == "N").Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
+                    var allocatedqty = enty.LaySheetDetails.Where(i => i.LaySheet_PK == laysheetpk && i.IsDeleted == "N").Select(i => i.FabricRollmaster.AYard).DefaultIfEmpty(0).Sum();
                     noofplu = decimal.Parse(allocatedqty.ToString());
                 }
                 catch (Exception)
@@ -824,6 +823,91 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
         }
 
 
+        public String UpdateRollDetailID(int laysheetdetpk)
+        {
+            String MSG = "";
+            string Cutn = "";
+            decimal? endbit = 0;
+            decimal newbalance = 0;
+            String isreusable = "";
+            int laysheetrolldetpk = 0;
+            int laysheetpk = 0;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from laysheetdet in enty.LaySheetDetails
+                        where laysheetdet.LaySheetDet_PK == laysheetdetpk 
+                        select laysheetdet;
+                foreach (var element in q)
+                {
+
+                    if (element.IsDeleted != "Y")
+                    {
+
+                        laysheetrolldetpk = int.Parse(element.LaySheetRoll_Pk.ToString());
+                        laysheetpk = int.Parse(element.LaySheet_PK.ToString());
+                        endbit = decimal.Parse(element.EndBit.ToString());
+
+
+
+
+
+                        if (element.IsRecuttable == "Y")
+                        {
+
+                            var q12 = from laysheetrolldetil in enty.LaySheetRollDetails
+                                     where laysheetrolldetil.LaySheetRoll_Pk == laysheetrolldetpk
+                                     select laysheetrolldetil;
+
+                            foreach (var element123 in q12)
+                            {
+                               
+                            }
+
+
+
+
+
+                        }
+                        else
+                        {
+                           
+                        }
+
+
+
+
+
+
+
+
+
+                    }
+                    else
+                    {
+                        MSG = "Cannot Mark Cuttable on UnCuttable on Deleted Rows";
+                    }
+                 
+
+                    
+                }
+
+
+                var q1 = from laysheetrolldetil in enty.LaySheetRollDetails
+                         where laysheetrolldetil.LaySheetRoll_Pk == laysheetrolldetpk
+                         select laysheetrolldetil;
+
+                foreach (var element in q1)
+                {
+                    element.IsUsed = isreusable;
+                    element.BalanceYardage = newbalance;
+                }
+                enty.SaveChanges();
+
+
+               
+            }
+            return Cutn;
+        }
 
 
 
@@ -866,6 +950,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
                         lcdet.Status = di.RollStatus;
+                        lcdet.IsDeleted = "N";
                         enty.LaySheetRollDetails.Add(lcdet);
                     }
                     else
@@ -890,7 +975,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.Status = di.RollStatus;
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
-
+                        lcdet.IsDeleted = "N";
                         enty.LaySheetRollDetails.Add(lcdet);
 
                     }
@@ -974,7 +1059,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.LaysheetRollmaster_Pk = this.LaysheetRollmaster_Pk;
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
-
+                        lcdet.IsDeleted = "N";
                         enty.LaySheetRollDetails.Add(lcdet);
                     }
                     else
@@ -996,7 +1081,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.Yardage = di.RollAyard;
                         lcdet.BalanceYardage = di.RollAyard;
                         lcdet.LayRollRef = this.LayRollRef;
-
+                        lcdet.IsDeleted = "N";
                         lcdet.LaysheetRollmaster_Pk = this.LaysheetRollmaster_Pk;
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
@@ -1034,7 +1119,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                 var rollpkobj = enty.LaySheetRollDetails.Where(u => u.LaySheetRoll_Pk == layrrollpk).Select(u => u.Roll_PK).FirstOrDefault();
                 int rollpk = int.Parse(rollpkobj.ToString());
 
-                if (!enty.LaySheetDetails.Any(f => f.Roll_PK == rollpk && f.LaySheetRoll_Pk== layrrollpk))
+                if (!enty.LaySheetDetails.Any(f => f.Roll_PK == rollpk && f.LaySheetRoll_Pk== layrrollpk && f.IsDeleted=="N"))
                 {
 
                     var q = from layroll in enty.LaySheetRollDetails
@@ -1045,14 +1130,16 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
 
                         if (element.Status == "New")
                         {
-                            enty.LaySheetRollDetails.Remove(element);
+                         //   enty.LaySheetRollDetails.Remove(element);
+
+
                         }
                         else
                         {
 
                             element.IsUsed = "R";
                         }
-
+                        element.IsDeleted = "Y";
                         Cutn = "Sucess";
                     }
                     enty.SaveChanges();
@@ -1061,6 +1148,15 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                 }
                 else
                 {
+
+
+
+
+
+
+
+
+
                     Controls.WebMsgBox.Show("Rolls Used in Laysheet  Delete it first ");
                 }
                   

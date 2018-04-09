@@ -69,7 +69,7 @@ FROM            FabricRollmaster INNER JOIN
 WHERE        (FabricRollmaster.Roll_PK NOT IN
                              (SELECT        Roll_PK
                                FROM            LaySheetRollDetails
-                               WHERE        (Roll_PK = FabricRollmaster.Roll_PK)))  AND (RollInventoryMaster.FactId = @factid) AND (CutOrderMaster.CutID = @cutid) AND (RollInventoryMaster.IsPresent = N'Y')
+                               WHERE        (Roll_PK = FabricRollmaster.Roll_PK)  AND (LaySheetRollDetails.IsDeleted = N'N')))  AND (RollInventoryMaster.FactId = @factid) AND (CutOrderMaster.CutID = @cutid) AND (RollInventoryMaster.IsPresent = N'Y')
 
 
 
@@ -164,11 +164,11 @@ WHERE        (DORollDetails.CutID = @cutid) AND (FabricRollmaster.Roll_PK NOT IN
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, LaySheetRollDetails.Yardage as Ayard, LaySheetRollDetails.IsUsed, LaySheetRollDetails.LayRollRef, LaySheetRollDetails.LaySheetRoll_Pk
+                         FabricRollmaster.SYard, LaySheetRollDetails.Yardage as Ayard, LaySheetRollDetails.IsUsed, LaySheetRollDetails.LayRollRef, LaySheetRollDetails.LaySheetRoll_Pk, LaySheetRollDetails.IsDeleted
 FROM            SupplierDocumentMaster INNER JOIN
                          FabricRollmaster ON SupplierDocumentMaster.SupplierDoc_pk = FabricRollmaster.SupplierDoc_pk INNER JOIN
                          LaySheetRollDetails ON FabricRollmaster.Roll_PK = LaySheetRollDetails.Roll_PK
-WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref) ORDER BY FabricRollmaster.ShadeGroup ";
+WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref) AND (LaySheetRollDetails.IsDeleted = N'N') ORDER BY FabricRollmaster.ShadeGroup ";
                 cmd.Parameters.AddWithValue("@Laysheetref", Laysheetref);
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);

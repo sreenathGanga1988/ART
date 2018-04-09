@@ -71,14 +71,38 @@ namespace ArtWebApp.Inventory
 
             dodata.Domstrdata = GetDoMasterData();
             dodata.DeliveryOrderDetailsDataCollection = GetDeliveryOrderDetailsData();
-            String donum = dodata.insertWarehouseDO(dodata);
-
-            tbl_InverntoryDetails.DataSource = null;
-            tbl_InverntoryDetails.DataBind();
-            String msg = "DO # : " + donum + " is generated Successfully";
 
 
-          MessgeboxUpdate("sucess", msg);
+            if (dodata.CheckWhetherQtyAvaialblefortransfer(dodata))
+            {
+                String donum = dodata.insertWarehouseDO(dodata);
+
+                tbl_InverntoryDetails.DataSource = null;
+                tbl_InverntoryDetails.DataBind();
+                String msg = "DO # : " + donum + " is generated Successfully";
+
+
+                MessgeboxUpdate("sucess", msg);
+            }
+
+            else
+            {
+                String msg = "Stock Not Available in Location";
+                tbl_InverntoryDetails.DataSource = null;
+                tbl_InverntoryDetails.DataBind();
+                
+
+                MessgeboxUpdate("fail", msg);
+            }
+
+
+
+
+
+
+
+
+        
 
            
         }
@@ -195,6 +219,15 @@ namespace ArtWebApp.Inventory
                 if (ArtWebApp.Controls.Gridviewvalidation.countofRowselected(tbl_InverntoryDetails, "chk_select") > 0)
                 {
                     InsertDOdata();
+
+
+
+
+
+
+
+
+
                 }
                 else
                 {

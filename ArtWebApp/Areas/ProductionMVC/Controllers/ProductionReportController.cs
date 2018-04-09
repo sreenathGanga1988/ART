@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.Areas.ProductionMVC.Viewmodel;
 using ArtWebApp.DataModels;
+using ArtWebApp.DBTransaction.ReportTransactions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -51,6 +52,18 @@ namespace ArtWebApp.Areas.ProductionMVC.Controllers
         }
 
         [HttpGet]
+        public PartialViewResult GetRatioRequestDetailView(String Month = "All")
+        {
+            ReportDataModel model = new ReportDataModel();
+            ProductionReportRepo productionReportRepo = new ProductionReportRepo();
+
+            model = productionReportRepo.GetBEpercentRatioReport(Month);
+            model.ReportName = "BE Report";
+            return PartialView("ProductionReportViewer", model);
+        }
+
+
+        [HttpGet]
         public PartialViewResult GetCostingData(int Id)
         {
             ReportDataModel model = new ReportDataModel();
@@ -64,15 +77,15 @@ namespace ArtWebApp.Areas.ProductionMVC.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult GetPurchasesfromSupplier()
+        public PartialViewResult GetAtcDetails()
         {
             ReportDataModel model = new ReportDataModel();
-            DBTransaction.ReportTransactions.AccountReportrans acctrn = new DBTransaction.ReportTransactions.AccountReportrans();
+            ProductionReportsTrans acctrn = new ProductionReportsTrans();
 
-            DataTable dt = acctrn.GetPurchasesfromSupplier();
+            DataTable dt = acctrn.GetAtcDetails();
             model.AsqData = dt;
 
-            model.ReportName = "Purchase of Supplier ";
+            model.ReportName = "AtcDetails ";
             return PartialView("ProductionReportViewer", model);
         }
 
@@ -122,10 +135,72 @@ namespace ArtWebApp.Areas.ProductionMVC.Controllers
             return PartialView("ProductionReportViewer", model);
         }
 
-      
+        [HttpGet]
+        public PartialViewResult GetJobContractRequestAll(int Id)
+        {
+            ReportDataModel model = new ReportDataModel();
+            ProductionReportRepo productionReportRepo = new ProductionReportRepo();
+            DataTable dt = productionReportRepo.GetJobContractMaster(Id);
+            model.AsqData = dt;
+
+            model.ReportName = "Job Contract Report";
+
+
+            return PartialView("ProductionReportViewer", model);
+        }
+
+
+        [HttpGet]
+        public PartialViewResult GETCSFA(DateTime fromdate, DateTime todate, int Id)
+        {
+            ReportDataModel model = new ReportDataModel();
+            ProductionReportRepo productionReportRepo = new ProductionReportRepo();
+            DataTable dt = productionReportRepo.GetCSFANew(fromdate, todate,Id);
+            model.AsqData = dt;
+
+            model.ReportName = "CSFA Report";
+
+
+            return PartialView("CSFAReportViewer", model);
+        }
 
 
 
+        [HttpGet]
+        public PartialViewResult GETCSFABreakUP(DateTime fromdate, DateTime todate, int Id,String Type)
+        {
+            ReportDataModel model = new ReportDataModel();
+            ProductionReportRepo productionReportRepo = new ProductionReportRepo();
+            DataTable dt = productionReportRepo.GetCSFAWithAtcAndRatio(fromdate, todate, Id,Type);
+            model.AsqData = dt;
+
+            model.ReportName = "CSFA Report";
+
+
+            return PartialView("CSFAReportViewer", model);
+        }
+
+
+
+
+
+
+
+
+
+        [HttpGet]
+        public JsonResult UpdateCSFA(DateTime fromdate, DateTime todate)
+
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            bool status = false;
+            ArtAdministrator.ArtAdministratorRepo.UpdateCSFA(fromdate,todate);
+            status = true;
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            JsonResult jsd = Json(new { status = status, filename = elapsedMs }, JsonRequestBehavior.AllowGet);
+            return jsd;
+        }
 
 
     }

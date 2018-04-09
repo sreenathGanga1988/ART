@@ -22,7 +22,8 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public Decimal MarkMissedQty { get; set; }
         public Decimal TotalBalanceQty { get; set; }
         public Decimal MissingQty { get; set; }
-
+        public Decimal RejectionrecutQty { get; set; }
+        public String Isclosebuttonvisible { get; set; }
 
     }
 
@@ -53,14 +54,15 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
 
         public String ActualFCRConsumtion { get; set; }
         public String OverConsumed { get; set; }
-
+        public String OverConsumedPer { get; set; }
+        
 
 
         public String TotalShortage { get; set; }
         public String TotalNonusableEndbit { get; set; }
         public String TotalSampleYardage { get; set; }
 
-
+        public String Isclosebuttonvisible { get; set; }
         public String IsClosed { get; set; }
 
     }
@@ -92,4 +94,13 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public Decimal MissingQty { get; set; }
 
     }
-}
+
+
+    public class FCRSummary
+    {
+        public String Factory { get; set; }
+        public String AtcNum { get; set; }
+        public String Generateddate { get; set; }
+        public DataTable FCRDatatable { get; set; }
+    }
+    }

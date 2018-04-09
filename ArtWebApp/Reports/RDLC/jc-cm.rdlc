@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource1">
@@ -99,6 +99,22 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
         <Field Name="POVAL">
           <DataField>POVAL</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="JobContract_pk">
+          <DataField>JobContract_pk</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="IsApproved">
+          <DataField>IsApproved</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ApprovedBy">
+          <DataField>ApprovedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ApprovedDate">
+          <DataField>ApprovedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="Remark">
           <DataField>Remark</DataField>
@@ -1864,7 +1880,7 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>3.13417in</Top>
+            <Top>3.12722in</Top>
             <Left>1.30605in</Left>
             <Height>0.19792in</Height>
             <Width>5.01166in</Width>
@@ -2758,8 +2774,8 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
             </Style>
           </Textbox>
           <Line Name="Line4">
-            <Top>8.53in</Top>
-            <Left>0.01958in</Left>
+            <Top>8.88417in</Top>
+            <Left>0.03in</Left>
             <Height>0in</Height>
             <Width>2.13279in</Width>
             <ZIndex>31</ZIndex>
@@ -2770,7 +2786,7 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
             </Style>
           </Line>
           <Line Name="Line5">
-            <Top>8.53in</Top>
+            <Top>8.99181in</Top>
             <Left>4.58374in</Left>
             <Height>0in</Height>
             <Width>2.13279in</Width>
@@ -2802,7 +2818,8 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>8.53in</Top>
+            <Top>9.03in</Top>
+            <Left>0.0573in</Left>
             <Height>0.25in</Height>
             <Width>2.12237in</Width>
             <ZIndex>33</ZIndex>
@@ -2837,7 +2854,7 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox22</rd:DefaultName>
-            <Top>8.56125in</Top>
+            <Top>9.06125in</Top>
             <Left>4.60292in</Left>
             <Height>0.21875in</Height>
             <Width>2.11361in</Width>
@@ -2884,11 +2901,122 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Textbox Name="Textbox13">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>ONLINE APPROVED BY MR.</Value>
+                        <Style>
+                          <FontFamily>Calibri</FontFamily>
+                          <FontSize>8pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox13</rd:DefaultName>
+                <Top>0.10417in</Top>
+                <Height>0.21875in</Height>
+                <Width>1.38639in</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox23">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!ApprovedBy.Value, "DataSet1")</Value>
+                        <Style>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox23</rd:DefaultName>
+                <Top>0.10417in</Top>
+                <Left>1.48438in</Left>
+                <Height>0.21875in</Height>
+                <Width>0.88146in</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox26">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!ApprovedDate.Value, "DataSet1")</Value>
+                        <Style>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox26</rd:DefaultName>
+                <Top>0.37847in</Top>
+                <Left>0.06077in</Left>
+                <Height>0.19792in</Height>
+                <Width>1in</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>8.13417in</Top>
+            <Left>4.3507in</Left>
+            <Height>0.75in</Height>
+            <Width>2.46701in</Width>
+            <ZIndex>36</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
         </ReportItems>
-        <Height>9.14583in</Height>
+        <Height>9.70833in</Height>
         <Style />
       </Body>
-      <Width>6.8507in</Width>
+      <Width>6.93625in</Width>
       <Page>
         <LeftMargin>0.3937in</LeftMargin>
         <RightMargin>0.3937in</RightMargin>
@@ -2898,6 +3026,12 @@ HAVING      (JobContractMaster.JOBContractNUM = N'JC000063')</CommandText>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Shared Function changeToWords(ByVal numb As [String]) As [String]
     Dim val As [String] = "", wholeNo As [String] = numb, points As [String] = "", andStr As [String] = "", pointStr As [String] = ""
     Dim endStr As [String] = ""

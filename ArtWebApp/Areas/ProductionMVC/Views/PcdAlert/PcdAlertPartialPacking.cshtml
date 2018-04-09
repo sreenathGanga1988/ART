@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ArtWebApp.Areas.ProductionMVC.Viewmodel.PcdAlertModel>
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+
+            <th>Week#</th>
+            <th>Line#</th>
+            <th>Atcid</th>
+            <th>CutStart Date</th>
+            <th>Approval Status</th>
+            <th>Packing Material Issue</th>
+            <th>BO Remarks for Packing Trims</th>
+            <th> BO Plan Accepted/Not Accepted</th>
+            <th> Action Pending/Closed</th>
+            <th>Factory</th>
+            <th>PCD Alert PK</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td class="WeekNo">
+                    @Html.DisplayFor(modelItem => item.WeekNo)
+                </td>
+                <td class="LineNo">
+                    @Html.DisplayFor(modelItem => item.LineNo)
+                </td>
+                <td class="Atcnum">
+                    @Html.DisplayFor(modelItem => item.Atcnum)
+
+                </td>
+                <td class="AtcIDhidden" style="display:none">
+                    @item.Atcid
+                </td>
+                <td class="CutStartDate">
+                    @Html.DisplayFor(modelItem => item.CutStartDate)
+                </td>
+                <td class="ApprovalStatus">
+                    @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                </td>
+                <td class="SewingMaterialIssue">
+                    @Html.DisplayFor(modelItem => item.PackingMaterialIssue)
+                </td>
+                <td class="BoRemarksSewing">
+                    @Html.DisplayFor(modelItem => item.BoRemarksPacking)
+                </td>
+                <td class="BoPlanSewingAccpet">
+                    @Html.DisplayFor(modelItem => item.BoPlanPackingAccept)
+                </td>
+                <td class="SewingAction">
+                    @Html.DisplayFor(modelItem => item.PackingAction)
+                </td>
+                <td class="Location_pk">
+                    @Html.DisplayFor(modelItem => item.Location_pk)
+                </td>
+                <td class="Pcdalert_pk">
+                    @Html.DisplayFor(modelItem => item.Pcdalert_pk)
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+

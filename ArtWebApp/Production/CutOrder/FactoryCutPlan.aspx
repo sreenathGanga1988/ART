@@ -20,20 +20,28 @@
            var cellindex = objText.parentNode.cellIndex;
            var rowindex = cell.parentNode.rowIndex;
            var htmlrow = htmltable.rows[rowindex - 1];
-
-           
+           var htmlCutrow = htmltable.rows[rowindex - 2];
+           var htmltotalrow = htmltable.rows[rowindex - 3];
            
            var htmlcell = htmlrow.cells[cellindex].getElementsByClassName("BalQty");
 
+           var totalqty = htmltotalrow.cells[cellindex].getElementsByClassName("Qty")[0].value;
+           var Cutqty = htmlCutrow.cells[cellindex].getElementsByClassName("Qty")[0].value;
+
+
+       
+
+
            if (parseFloat(htmlcell[0].value) < parseFloat(objText.value))
            {
-               var allowedexcess = (1/ 100) * parseFloat(htmlcell[0].value);
-
-               var allowedqty = allowedexcess + parseFloat(htmlcell[0].value);
-
+               var allowedexcess = (1 / 100) * parseFloat(totalqty.toString());
+               allowedexcess = Math.ceil(allowedexcess)
+               var allowedqty = allowedexcess + parseFloat(totalqty.toString());
+               allowedqty = allowedqty - parseFloat(Cutqty.toString());
                if (allowedqty < parseFloat(objText.value))
                {
                    alert("Qty Cannot be greater than 1% extra of ASQ balance");
+                   objText.value =0;
                    objText.focus();
                }
 
@@ -54,7 +62,7 @@
            var textboxtotalqtys = row.getElementsByClassName("GrandTotal");
 
            textboxtotalqtys[0].value = sum.toString();
-           CheckBoxSelectionValidation();
+           CheckBoxSelectionValidationForExtra();
 
        }
 
@@ -159,11 +167,13 @@
        }
 
 
+   
 
-
-       function CheckBoxSelectionValidation() {
+       function CheckBoxSelectionValidationForExtra() {
              debugger;
              var gridView = document.getElementById("<%= tbl_podata.ClientID %>");
+             
+           
            var tottallgrandqty = 0;
              for (var i = 1; i < gridView.rows.length; i++) {
                  var count = 0;
@@ -194,6 +204,9 @@
              if (parseFloat(reqqty) > parseFloat(balanceyard[0].innerHTML)) {
 
                  alert("Not enough Fabric");
+             }
+             else {
+
              }
 
 

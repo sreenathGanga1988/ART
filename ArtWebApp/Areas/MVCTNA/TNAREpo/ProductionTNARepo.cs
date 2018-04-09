@@ -269,7 +269,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
             productionTNAVModel.FACTORYPLANNEDPCD = CalculateFactoryPCD(int.Parse(productionTNAVModel.OurStyleID.ToString()), int.Parse(productionTNAVModel.Location_PK.ToString()), productionTNAVModel.PCD.ToString());
 
-            var ActualDates = db.ProductionTNADetails.Where(u => u.OurStyleID == productionTNAVModel.OurStyleID && u.IsDeleted == "N").ToList();
+            var ActualDates = db.ProductionTNADetails.Where(u => u.OurStyleID == productionTNAVModel.OurStyleID && u.Location_PK == productionTNAVModel.Location_PK && u.IsDeleted == "N").ToList();
             var q = (from productiontnacomp in db.ProductionTNAComponents
                      select productiontnacomp).ToList();
 
@@ -308,7 +308,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.FINALMARKER = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.FINALMARKER = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdFINALMARKER = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualFINALMARKER = actualdate;
                     productionTNAVModel.status_dFINALMARKER =CalculateStatus(productionTNAVModel.ActualFINALMARKER, DateTime.Parse(productionTNAVModel.FINALMARKER.ToString()), alertdays);
@@ -317,7 +317,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.FC1 = DateTime.Parse(productionTNAVModel.FINALMARKER.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.FC1 = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdFC1 = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualFC1 = actualdate;
                     productionTNAVModel.status_FC1 = CalculateStatus(productionTNAVModel.ActualFC1, DateTime.Parse(productionTNAVModel.FC1.ToString()), alertdays);
@@ -327,7 +327,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.PPMEETING = DateTime.Parse(productionTNAVModel.FC1.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.PPMEETING = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPPMEETING = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPPMEETING = actualdate;
                     productionTNAVModel.status_PPMEETING = CalculateStatus(productionTNAVModel.ActualPPMEETING, DateTime.Parse(productionTNAVModel.PPMEETING.ToString()), alertdays);
@@ -337,7 +337,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.SIZESET = DateTime.Parse(productionTNAVModel.PPMEETING.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy"); ;
+                    productionTNAVModel.SIZESET = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy"); ;
                     productionTNAVModel.IdSIZESET = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualSIZESET = actualdate;
                     productionTNAVModel.status_SIZESET = CalculateStatus(productionTNAVModel.ActualSIZESET, 
@@ -348,7 +348,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.SEWINGTRIM = DateTime.Parse(productionTNAVModel.SIZESET.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.SEWINGTRIM = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdSEWINGTRIM = int.Parse(element.ProductionTNACompID.ToString());
 
                     productionTNAVModel.ActualSEWINGTRIM = actualdate;
@@ -360,7 +360,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.BULKFABRIC = DateTime.Parse(productionTNAVModel.SEWINGTRIM.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.BULKFABRIC = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdBULKFABRIC = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualBULKFABRIC = actualdate;
 
@@ -371,7 +371,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.RECEIPTOFORGINALDOCUMENT = DateTime.Parse(productionTNAVModel.BULKFABRIC.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.RECEIPTOFORGINALDOCUMENT = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdRECEIPTOFORGINALDOCUMENT = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualRECEIPTOFORGINALDOCUMENT = actualdate;
 
@@ -382,7 +382,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.GRADDEDPATTERN = DateTime.Parse(productionTNAVModel.BULKFABRIC.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.GRADDEDPATTERN = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdGRADDEDPATTERN = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualGRADDEDPATTERN = actualdate;
 
@@ -393,7 +393,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.SAMPLEYARDAGES = DateTime.Parse(productionTNAVModel.GRADDEDPATTERN.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.SAMPLEYARDAGES = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdSAMPLEYARDAGES = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualSAMPLEYARDAGES = actualdate;
 
@@ -404,7 +404,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.PPAPPROVAL = DateTime.Parse(productionTNAVModel.SAMPLEYARDAGES.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.PPAPPROVAL = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPPAPPROVAL = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPPAPPROVAL = actualdate;
 
@@ -415,7 +415,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.PPSUBMISSIONDATEMERCHANT = DateTime.Parse(productionTNAVModel.PPAPPROVAL.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.PPSUBMISSIONDATEMERCHANT = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPPSUBMISSIONDATEMERCHANT = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPPSUBMISSIONDATEMERCHANT = actualdate;
 
@@ -428,7 +428,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 {
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
-                    productionTNAVModel.INPUT = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.INPUT = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdINPUT = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualINPUT = actualdate;
                     productionTNAVModel.status_INPUT = CalculateStatus(productionTNAVModel.ActualINPUT,
@@ -489,7 +489,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 List<TnaUserRight> tnaUserrightlisttemp = tnaUserrightlist.Where(u => u.Location_PK == productionTNAVModel.Location_PK).ToList();
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsBulkFabricDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsFinalMarkerDate == true).LastOrDefault();
                     productionTNAVModel.User_IDdFINALMARKER = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDdFINALMARKER = q.UserMaster.UserName;
                 }
@@ -500,7 +500,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsFC1Date == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsFC1Date == true).LastOrDefault();
                     productionTNAVModel.User_IDFC1 = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDFC1 = q.UserMaster.UserName;
                 }
@@ -510,7 +510,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsPPMeetingDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsPPMeetingDate == true).LastOrDefault();
                     productionTNAVModel.User_IDPPMEETING = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDPPMEETING = q.UserMaster.UserName;
                 }
@@ -521,7 +521,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsSizeSetDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsSizeSetDate == true).LastOrDefault();
                     productionTNAVModel.User_IDSIZESET = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSIZESET = q.UserMaster.UserName;
                 }
@@ -534,7 +534,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsSewingTrimDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsSewingTrimDate == true).LastOrDefault();
                     productionTNAVModel.User_IDSEWINGTRIM = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSEWINGTRIM = q.UserMaster.UserName;
                 }
@@ -547,7 +547,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsBulkFabricDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsBulkFabricDate == true).LastOrDefault();
                     productionTNAVModel.User_IDBULKFABRIC = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDBULKFABRIC = q.UserMaster.UserName;
                 }
@@ -558,7 +558,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsBulkFabricDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsBulkFabricDate == true).LastOrDefault();
                     productionTNAVModel.User_IDRECEIPTOFORGINALDOCUMENT = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDRECEIPTOFORGINALDOCUMENT = q.UserMaster.UserName;
                 }
@@ -569,7 +569,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsGradedPatternDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsGradedPatternDate == true).LastOrDefault();
                     productionTNAVModel.User_IDGRADDEDPATTERN = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDGRADDEDPATTERN = q.UserMaster.UserName;
                 }
@@ -583,7 +583,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsSampleYardagesDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsSampleYardagesDate == true).LastOrDefault();
                     productionTNAVModel.User_IDSAMPLEYARDAGES = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSAMPLEYARDAGES = q.UserMaster.UserName;
                 }
@@ -595,7 +595,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsPPApprovalDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsPPApprovalDate == true).LastOrDefault();
                     productionTNAVModel.User_IDPPAPPROVAL = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDPPAPPROVAL = q.UserMaster.UserName;
                 }
@@ -607,7 +607,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsPPSumbissionDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsPPSumbissionDate == true).LastOrDefault();
                     productionTNAVModel.User_IDPPSUBMISSIONDATEMERCHANT = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDPPSUBMISSIONDATEMERCHANT = q.UserMaster.UserName;
                 }
@@ -619,7 +619,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsInputDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsInputDate == true).LastOrDefault();
                     productionTNAVModel.User_IDINPUT = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDINPUT = q.UserMaster.UserName;
                 }

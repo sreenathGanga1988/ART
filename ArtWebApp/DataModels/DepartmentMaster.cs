@@ -17,11 +17,13 @@ namespace ArtWebApp.DataModels
         public DepartmentMaster()
         {
             this.UserMasters = new HashSet<UserMaster>();
+            this.StockPOMasters = new HashSet<StockPOMaster>();
         }
     
         public decimal Deapartment_PK { get; set; }
         public string DepartmentName { get; set; }
     
         public virtual ICollection<UserMaster> UserMasters { get; set; }
+        public virtual ICollection<StockPOMaster> StockPOMasters { get; set; }
     }
 }

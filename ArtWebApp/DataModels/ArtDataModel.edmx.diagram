@@ -553,6 +553,28 @@
         <AssociationConnector Association="ArtModel.FK_TnaUserRight_LocationMaster" />
         <EntityTypeShape EntityType="ArtModel.FabricInLocation_tbl" Width="1.5" PointX="5.375" PointY="7.75" />
         <EntityTypeShape EntityType="ArtModel.FabricInLocationAtcMaster_tbl" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ArtModel.FabricMissingMaster" Width="1.5" PointX="18.5" PointY="127.75" />
+        <AssociationConnector Association="ArtModel.FK_FabricMissingMaster_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_FabricMissingMaster_SkuRawmaterialDetail" />
+        <EntityTypeShape EntityType="ArtModel.CMOurstyleLock" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ArtModel.PLAtcworld_tbl" Width="1.5" PointX="3.375" PointY="17.75" />
+        <EntityTypeShape EntityType="ArtModel.ProductionTNAPending" Width="1.5" PointX="5.375" PointY="18.75" />
+        <AssociationConnector Association="ArtModel.FK_AtcDetails_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_FabricInLocation_tbl_AtcDetails" />
+        <EntityTypeShape EntityType="ArtModel.OurStyleDeptCM" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="ArtModel.PcdAlertMaster" Width="1.5" PointX="32" PointY="82.75" />
+        <AssociationConnector Association="ArtModel.FK_PcdAlertMaster_AtcMaster" />
+        <AssociationConnector Association="ArtModel.FK_PcdAlertMaster_LocationMaster" />
+        <EntityTypeShape EntityType="ArtModel.YearWeekMaster" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArtModel.CSFA_Component" Width="1.5" PointX="5.375" PointY="22.75" />
+        <AssociationConnector Association="ArtModel.FK_BuyerMaster_Countrymaster" />
+        <AssociationConnector Association="ArtModel.FK_BuyerMaster_CurrencyMaster" />
+        <AssociationConnector Association="ArtModel.FK_BuyerMaster_PaymentModeMaster" />
+        <AssociationConnector Association="ArtModel.FK_StockInventoryMaster_StockPODetails" />
+        <EntityTypeShape EntityType="ArtModel.PcdAlertUserright" Width="1.5" PointX="21.75" PointY="89.625" />
+        <AssociationConnector Association="ArtModel.FK_PcdAlert_Userrights_LocationMaster" />
+        <AssociationConnector Association="ArtModel.FK_PcdAlert_Userrights_UserMaster" />
+        <AssociationConnector Association="ArtModel.FK_StockPOMaster_DepartmentMaster" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

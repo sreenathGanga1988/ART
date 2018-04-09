@@ -21,6 +21,7 @@ namespace ArtWebApp.DataModels
             this.StockPOMasters = new HashSet<StockPOMaster>();
             this.SupplierMasters = new HashSet<SupplierMaster>();
             this.SupplierMasters1 = new HashSet<SupplierMaster>();
+            this.BuyerMasters = new HashSet<BuyerMaster>();
         }
     
         public decimal CurrencyID { get; set; }
@@ -33,5 +34,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<StockPOMaster> StockPOMasters { get; set; }
         public virtual ICollection<SupplierMaster> SupplierMasters { get; set; }
         public virtual ICollection<SupplierMaster> SupplierMasters1 { get; set; }
+        public virtual ICollection<BuyerMaster> BuyerMasters { get; set; }
     }
 }

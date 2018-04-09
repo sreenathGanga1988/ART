@@ -28,6 +28,7 @@ namespace ArtWebApp.DataModels
             this.ProductionTNAs = new HashSet<ProductionTNA>();
             this.StyleCostingMasters = new HashSet<StyleCostingMaster>();
             this.FabricMissings = new HashSet<FabricMissing>();
+            this.FabricInLocation_tbl = new HashSet<FabricInLocation_tbl>();
         }
     
         public decimal OurStyleID { get; set; }
@@ -45,6 +46,8 @@ namespace ArtWebApp.DataModels
         public string IsPCDChanges { get; set; }
         public string IsInterChangable { get; set; }
         public string OurstyleGroup { get; set; }
+        public Nullable<decimal> LockedCM { get; set; }
+        public string IsCMLocked { get; set; }
     
         public virtual ICollection<AtcDetailApproval> AtcDetailApprovals { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
@@ -58,5 +61,7 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<ProductionTNA> ProductionTNAs { get; set; }
         public virtual ICollection<StyleCostingMaster> StyleCostingMasters { get; set; }
         public virtual ICollection<FabricMissing> FabricMissings { get; set; }
+        public virtual AtcMaster AtcMaster { get; set; }
+        public virtual ICollection<FabricInLocation_tbl> FabricInLocation_tbl { get; set; }
     }
 }

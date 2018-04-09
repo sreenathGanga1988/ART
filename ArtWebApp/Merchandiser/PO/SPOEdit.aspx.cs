@@ -15,6 +15,34 @@ namespace ArtWebApp.Merchandiser.PO
         {
 
 
+            if (!IsPostBack)
+            {
+                FillDept();
+            }
+
+        }
+
+
+
+        public void FillDept()
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+
+                var temp = from tmplatmstr in enty.DepartmentMasters
+                           select tmplatmstr;
+
+
+                drp_dept.DataSource = temp.ToList();
+                drp_dept.DataValueField = "Deapartment_PK";
+                drp_dept.DataTextField = "DepartmentName";
+
+                drp_dept.DataBind();
+                upd_dept.Update();
+
+
+            }
         }
 
         protected void drp_currency_DataBound(object sender, EventArgs e)
@@ -59,6 +87,7 @@ namespace ArtWebApp.Merchandiser.PO
             spodata.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());
             spodata.Remark = txt_unitPrice.Text.Trim();
             spodata.SPO_Pk= int.Parse(Session["spo_Pk"].ToString());
+            spodata.DeptPk = int.Parse(drp_dept.SelectedValue.ToString());
             String sPO = spodata.UpdateSpoMasterData(spodata);
 
 
@@ -102,6 +131,7 @@ namespace ArtWebApp.Merchandiser.PO
             spdetdata.Composition = drp_composition.SelectedItem.Text.ToString().Trim();
             spdetdata.Construct = drp_construction.SelectedItem.Text.ToString().Trim();
             spdetdata.Unitprice = Decimal.Parse(txt_unitPrice.Text.ToString());
+           
             spdetdata.POQty = Decimal.Parse(txt_qty.Text.ToString());
             spdetdata.Uom_PK = int.Parse(drp_UOM.SelectedValue.ToString());
             spdetdata.InsertSpoDetails(spdetdata);
@@ -346,6 +376,7 @@ namespace ArtWebApp.Merchandiser.PO
                     drp_paymentterm.SelectedValue = element.PaymentTermID.ToString();
                     drp_deliverydestination.SelectedValue = element.Location_PK.ToString();
                     drp_deliveryterm.SelectedValue = element.DeliveryTerms_Pk.ToString();
+                    drp_dept.SelectedValue = element.DeptPK.ToString();
                     dtp_deliverydate.Date = DateTime.Parse( element.DeliveryDate.ToString ());
                     try
                     {

@@ -1,0 +1,115 @@
+﻿@model ArtWebApp.DataModels.PcdAlertUserright
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PcdAlertUserright</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Cut_Start_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Cut_Start_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Approval_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Approval_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Sewing_Material_Issue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Sewing_Material_Issue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_BO_remarks_sewing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_BO_remarks_sewing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Sewing_Bo_plan_accept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Sewing_Bo_plan_accept)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Sewing_action)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Sewing_action)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Packing_Material_Issue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Packing_Material_Issue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_BO_remarks_Packing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_BO_remarks_Packing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Packing_bo_plan_accept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Packing_bo_plan_accept)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Packing_action)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Packing_action)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationMaster.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserMaster.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserMaster.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pcduser_pk }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

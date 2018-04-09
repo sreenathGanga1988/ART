@@ -86,8 +86,7 @@
                     <td class="auto-style8" rowspan="2">
                         <ig:WebDropDown ID="drp_ToWarehouse" runat="server" Width="189px" TextField="name"
         DropDownContainerHeight="300px" EnableDropDownAsChild="false"
-        DropDownContainerWidth="200px" DropDownAnimationType="EaseOut" EnablePaging="True"
-        PageSize="12" Height="22px" ValueField="pk" EnableMultipleSelection="True" EnableClosingDropDownOnSelect="False">
+        DropDownContainerWidth="200px" DropDownAnimationType="EaseOut" Height="22px" ValueField="pk" EnableMultipleSelection="True" EnableClosingDropDownOnSelect="False">
                             <DropDownItemBinding TextField="name" ValueField="pk" />
                         </ig:WebDropDown></td>
                    <td class="NormalTD">

@@ -139,6 +139,24 @@ namespace ArtWebApp.Merchandiser.PO {
         protected global::CustomDropDown.DropDownListChosen drp_paymentterm;
         
         /// <summary>
+        /// upd_dept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_dept;
+        
+        /// <summary>
+        /// drp_dept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_dept;
+        
+        /// <summary>
         /// btn_AddSpo control.
         /// </summary>
         /// <remarks>

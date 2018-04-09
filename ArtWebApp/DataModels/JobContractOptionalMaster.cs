@@ -26,6 +26,8 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string AddedBy { get; set; }
         public Nullable<decimal> OurStyleID { get; set; }
+        public string IsApproved { get; set; }
+        public string ApprovedBy { get; set; }
     
         public virtual AtcMaster AtcMaster { get; set; }
         public virtual ICollection<JobContractOptionalDetail> JobContractOptionalDetails { get; set; }

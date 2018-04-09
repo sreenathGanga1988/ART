@@ -177,6 +177,58 @@ namespace ArtWebApp.BLL.InventoryBLL
         }
 
 
+
+
+
+
+
+
+        public Boolean CheckWhetherQtyAvaialblefortransfer(DeliveryOrder Dodata)
+        {
+            Boolean isbalancethere = true;
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+
+            
+
+                try
+                {
+                    foreach (DeliveryOrderDetailsData di in Dodata.DeliveryOrderDetailsDataCollection)
+                    {
+
+                        var q = from invitem in enty.InventoryMasters
+                                where invitem.InventoryItem_PK == di.InventoryItem_PK
+                                select new { invitem.OnhandQty };
+
+                        foreach (var invitemdetail in q)
+                        {
+                            if (invitemdetail.OnhandQty < di.DeliveryQty)
+                            {
+                                isbalancethere = false;
+                            }
+
+                        }
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    isbalancethere = false;
+                }
+
+
+            }
+
+            return isbalancethere;
+        }
+
+
+
+
+
+
         /// <summary>
         /// Transfer Fabric from One warehouse to factory based on Cut order
         /// </summary>

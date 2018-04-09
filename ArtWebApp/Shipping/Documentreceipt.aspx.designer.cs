@@ -103,6 +103,15 @@ namespace ArtWebApp.Shipping {
         protected global::CustomDropDown.DropDownListChosen drp_deliverymode;
         
         /// <summary>
+        /// drp_country control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_country;
+        
+        /// <summary>
         /// txt_shipper control.
         /// </summary>
         /// <remarks>

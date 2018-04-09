@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ArtWebApp.DataModels.BuyerMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prefix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Agent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Debitaccid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Br)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.partner_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountryMaster.ShortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrencyMaster.CurrencyCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentModeMaster.PaymentModeCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prefix)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Agent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Allowance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Debitaccid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Br)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.partner_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CountryMaster.ShortName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrencyMaster.CurrencyCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentModeMaster.PaymentModeCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BuyerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BuyerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BuyerID })
+        </td>
+    </tr>
+}
+
+</table>

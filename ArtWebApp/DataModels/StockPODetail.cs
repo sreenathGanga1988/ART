@@ -18,6 +18,7 @@ namespace ArtWebApp.DataModels
         {
             this.StockMRNDetails = new HashSet<StockMRNDetail>();
             this.StockFreightChargeDetails = new HashSet<StockFreightChargeDetail>();
+            this.StockInventoryMasters = new HashSet<StockInventoryMaster>();
         }
     
         public decimal SPODetails_PK { get; set; }
@@ -38,5 +39,6 @@ namespace ArtWebApp.DataModels
         public virtual StockPOMaster StockPOMaster { get; set; }
         public virtual ICollection<StockFreightChargeDetail> StockFreightChargeDetails { get; set; }
         public virtual Template_Master Template_Master { get; set; }
+        public virtual ICollection<StockInventoryMaster> StockInventoryMasters { get; set; }
     }
 }

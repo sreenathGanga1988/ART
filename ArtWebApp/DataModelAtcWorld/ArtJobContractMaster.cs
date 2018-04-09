@@ -20,5 +20,8 @@ namespace ArtWebApp.DataModelAtcWorld
         public Nullable<decimal> Location_PK { get; set; }
         public Nullable<decimal> CM { get; set; }
         public string JobContractNum { get; set; }
+        public string AtcNum { get; set; }
+        public string OurStyle { get; set; }
+        public Nullable<decimal> AtcID { get; set; }
     }
 }

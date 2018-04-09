@@ -17,7 +17,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
         // GET: CuttingMVC/FabricMissings
         public ActionResult Index()
         {
-            return View(db.FabricMissings.Where(u=>u.IsLevel1Approved=="N").ToList());
+            return View(db.FabricMissingMasters.Where(u=>u.IsLevel1Approved=="N").ToList());
         }
 
         // GET: CuttingMVC/FabricMissings/Details/5
@@ -27,12 +27,12 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FabricMissing fabricMissing = db.FabricMissings.Find(id);
-            if (fabricMissing == null)
+            FabricMissingMaster fabricMissingMasters = db.FabricMissingMasters.Find(id);
+            if (fabricMissingMasters == null)
             {
                 return HttpNotFound();
             }
-            return View(fabricMissing);
+            return View(fabricMissingMasters);
         }
 
         // GET: CuttingMVC/FabricMissings/Details/5
@@ -42,7 +42,7 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            FabricMissing fabricMissing = db.FabricMissings.Find(id);
+            FabricMissingMaster fabricMissing = db.FabricMissingMasters.Find(id);
             if (fabricMissing == null)
             {
                 return HttpNotFound();

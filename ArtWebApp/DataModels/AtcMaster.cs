@@ -31,6 +31,8 @@ namespace ArtWebApp.DataModels
             this.RequestOrderStockMasters = new HashSet<RequestOrderStockMaster>();
             this.SkuRawMaterialMasters = new HashSet<SkuRawMaterialMaster>();
             this.SubConExtraRequests = new HashSet<SubConExtraRequest>();
+            this.AtcDetails = new HashSet<AtcDetail>();
+            this.PcdAlertMasters = new HashSet<PcdAlertMaster>();
         }
     
         public decimal AtcId { get; set; }
@@ -71,5 +73,7 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<RequestOrderStockMaster> RequestOrderStockMasters { get; set; }
         public virtual ICollection<SkuRawMaterialMaster> SkuRawMaterialMasters { get; set; }
         public virtual ICollection<SubConExtraRequest> SubConExtraRequests { get; set; }
+        public virtual ICollection<AtcDetail> AtcDetails { get; set; }
+        public virtual ICollection<PcdAlertMaster> PcdAlertMasters { get; set; }
     }
 }

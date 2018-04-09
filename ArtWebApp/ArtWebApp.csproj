@@ -346,6 +346,8 @@
     <Content Include="Areas\Controls\chosen_v1.7.0\index.proto.html" />
     <Content Include="Areas\Controls\chosen_v1.7.0\options.html" />
     <Content Include="Areas\Controls\chosen_v1.7.0\seleer.html" />
+    <Content Include="Areas\Inventory\JS\InventoryReporter.js" />
+    <Content Include="Areas\ProductionMVC\JS\ProductionReporter.js" />
     <Content Include="ArtLogin.aspx" />
     <Content Include="Authorisation.aspx" />
     <Content Include="bin\ArtWebApp.dll" />
@@ -433,6 +435,7 @@
     <Content Include="Merchandiser\PO\GPODashBoard.aspx" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
+    <Content Include="Plugin\InventoryReporter.js" />
     <Content Include="Plugin\MyDataTable.js" />
     <Content Include="Plugin\MyDataTableReporter.js" />
     <Content Include="Plugin\MyDataTableSummary.js" />
@@ -454,6 +457,7 @@
     <Content Include="Production\Schedular\ProductionReporting.aspx" />
     <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
     <Content Include="Progressbar.js" />
+    <Content Include="Reports\Inventoryreport\DummyReportpage.aspx" />
     <Content Include="Reports\Production\CutplanHTMLReportWithRoll.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
     <Content Include="Reports\Production\MSI\AtcASQStatus.aspx" />
@@ -1607,6 +1611,41 @@
     <Content Include="Areas\CuttingMVC\Views\FCR\FcrMasterStatus.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\FCR\FullSkuIndex.cshtml" />
     <Content Include="Areas\CuttingMVC\Views\FCR\FullSkuPartialView.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\FCRSummaryView_P.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\Index.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\PackingPCDReportP.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\PcdAlertPartialPacking.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\PcdAlertPartialView.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\PcdAlertReport.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\PcdPackingView.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlert\SewingPCDReportP.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\ProductionReport\CSFAReportViewer.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LaySheetEdit\MarkRecuttable.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\LaySheetEdit\LaySheetCuttableView.cshtml" />
+    <Content Include="Areas\Quality\Views\web.config" />
+    <Content Include="Areas\Quality\Views\QualityDashBoard\QualityDashBoard.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\ASQTracker\AsQqTracker_partial.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerDestinationMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerDestinationMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerDestinationMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerDestinationMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerDestinationMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ChannelMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ChannelMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ChannelMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ChannelMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\ChannelMasters\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\BuyerMasters\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\DeliveryReceipt\DeliveryReceipt.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Create.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Delete.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Details.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Edit.cshtml" />
+    <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -1985,6 +2024,10 @@
     <Compile Include="Areas\ArtMVCGPO\Controllers\StockMrnMastersController.cs" />
     <Compile Include="Areas\ArtMVCGPO\ViewModal\GMRNViewModal.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\BodyPartMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\BuyerDestinationMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\BuyerMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\BuyerStyleMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\ChannelMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CityMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\ColorMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\CutTypeMastersController.cs" />
@@ -2049,6 +2092,7 @@
     <Compile Include="Areas\CuttingMVC\ViewModel\CuttingViewModal.cs" />
     <Compile Include="Areas\CuttingMVC\ViewModel\FCRViewModel.cs" />
     <Compile Include="Areas\CuttingRepository.cs" />
+    <Compile Include="Areas\Inventory\Controllers\DeliveryReceiptController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollPropertyChangeController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollTrackerController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollTransferToGstockController.cs" />
@@ -2066,10 +2110,17 @@
     <Compile Include="Areas\MVCTNA\ViewModel\ProductionTNAVModel.cs" />
     <Compile Include="Areas\MycontrolsExtension.cs" />
     <Compile Include="Areas\ProductionMVC\Controllers\ASQTrackerController.cs" />
+    <Compile Include="Areas\ProductionMVC\Controllers\ManagementReportController.cs" />
+    <Compile Include="Areas\ProductionMVC\Controllers\PcdAlertController.cs" />
+    <Compile Include="Areas\ProductionMVC\Controllers\PcdAlertUserrightsController.cs" />
     <Compile Include="Areas\ProductionMVC\Controllers\ProductionReportController.cs" />
     <Compile Include="Areas\ProductionMVC\ProductionMVCAreaRegistration.cs" />
     <Compile Include="Areas\ProductionMVC\ProductionRepo.cs" />
     <Compile Include="Areas\ProductionMVC\Viewmodel\AsqTracker.cs" />
+    <Compile Include="Areas\Quality\Controllers\QualityDashBoardController.cs" />
+    <Compile Include="Areas\Quality\QualityAreaRegistration.cs" />
+    <Compile Include="Areas\Quality\QualityRepo.cs" />
+    <Compile Include="Areas\Quality\ViewModel\QualityDashBoardViewmodel.cs" />
     <Compile Include="Areas\Repository\AdministratorRepo.cs" />
     <Compile Include="Areas\Repository\AtcPerformanceRepo.cs" />
     <Compile Include="Areas\Repository\FcrRepo.cs" />
@@ -2082,6 +2133,9 @@
     <Compile Include="Areas\Shipping\ViewModel\ImportViewModel.cs" />
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
+    <Compile Include="DataModelAtcWorld\ArtJobContractOptionalMaster.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelAtcWorld\CmDozmaster.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
@@ -2172,6 +2226,9 @@
     <Compile Include="DataModels\CityMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\CMOurstyleLock.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\ColorMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2197,6 +2254,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CreditNoteMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\CSFA_Component.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\CurrencyMaster.cs">
@@ -2341,6 +2401,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FabricMissing.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\FabricMissingMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\FabricRollmaster.cs">
@@ -2559,6 +2622,9 @@
     <Compile Include="DataModels\OrginUpdatedTable.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\OurStyleDeptCM.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\PackingListDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2584,7 +2650,16 @@
     <Compile Include="DataModels\PaymentTermMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\PcdAlertMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PcdAlertUserright.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\PlaningRemarkMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PLAtcworld_tbl.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\POApproval.cs">
@@ -2639,6 +2714,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ProductionTNALocationMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\ProductionTNAPending.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RecieptMaster.cs">
@@ -2959,6 +3037,9 @@
     <Compile Include="DataModels\YearMonthMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\YearWeekMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.cs">
       <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3017,6 +3098,13 @@
     </Compile>
     <Compile Include="Reports\Dataset\ReportDataSet.cs">
       <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\DummyReportpage.aspx.cs">
+      <DependentUpon>DummyReportpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Inventoryreport\DummyReportpage.aspx.designer.cs">
+      <DependentUpon>DummyReportpage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
@@ -4908,6 +4996,7 @@
     <EmbeddedResource Include="Reports\RDLC\GoodsintransistLinear.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Gstock.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\GstockReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\GstockWithTransferdata.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Inventory.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\InventoryConsolidatedWithDate.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\InventoryMissedReplaced - Backup %282%29.rdlc" />
@@ -4958,6 +5047,7 @@
     <EmbeddedResource Include="Reports\RDLC\ProfitabilityofMonth.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PUR.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\PurchaseReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\Report1.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\s-ro.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\SalesDO.rdlc" />
@@ -5000,6 +5090,7 @@
     <Folder Include="Areas\ArtMVCGPO\Models\" />
     <Folder Include="Areas\ArtMVCGPO\Views\Shared\" />
     <Folder Include="Areas\ArtMVCMaster\Models\" />
+    <Folder Include="Areas\ArtMVCMaster\Views\BuyerStyleMasters\" />
     <Folder Include="Areas\ArtMVCMaster\Views\GarmentCategories\" />
     <Folder Include="Areas\ArtMVCMaster\Views\Shared\" />
     <Folder Include="Areas\ArtMVCMaster\Views\TemplateColors\" />
@@ -5021,7 +5112,10 @@
     <Folder Include="Areas\MVCTNA\Models\" />
     <Folder Include="Areas\MVCTNA\Views\Shared\" />
     <Folder Include="Areas\ProductionMVC\Models\" />
+    <Folder Include="Areas\ProductionMVC\Views\ManagementReport\" />
     <Folder Include="Areas\ProductionMVC\Views\Shared\" />
+    <Folder Include="Areas\Quality\Models\" />
+    <Folder Include="Areas\Quality\Views\Shared\" />
     <Folder Include="Areas\Shipping\Models\" />
     <Folder Include="Areas\Shipping\Views\Shared\" />
     <Folder Include="BLL\ASQReportBLL\" />

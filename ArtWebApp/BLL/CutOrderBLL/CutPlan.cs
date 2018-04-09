@@ -231,10 +231,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
                     ayardsum += float.Parse(element.AYard.ToString());
 
 
-                    if(element.Roll_PK== 159357)
-                    {
-
-                    }
+                   
                 }
 
                 var deliveryedrol= from rolldet in entty.FabricRollmasters
@@ -252,10 +249,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
                         deliveredayardsum += float.Parse(element123.AYard.ToString());
                     }
-                    if (element123.Roll_PK == 159357)
-                    {
-
-                    }
+                  
 
                 }
 
@@ -341,7 +335,7 @@ namespace ArtWebApp.BLL.CutOrderBLL
 
              var cutplanrolldetail= (from cplndet in entty.CutPlanRollDetails
                                     where cplndet.CutPlanMaster.SkuDet_PK == skudet_PK && cplndet.CutPlanMaster.ShrinkageGroup == Shrinkagegroup &&
-                                   cplndet.CutPlanMaster.WidthGroup == widthgroup && cplndet.CutPlanMaster.MarkerType == markerTyple && cplndet.CutPlanMaster.IsDeleted == "N"
+                                   cplndet.CutPlanMaster.WidthGroup == widthgroup && cplndet.CutPlanMaster.MarkerType == markerTyple && cplndet.CutPlanMaster.IsDeleted == "N" && cplndet.IsDeleted == "N"
                                      select new { cplndet.FabricRollmaster.AYard, cplndet.FabricRollmaster.Roll_PK });
                 foreach (var element in cutplanrolldetail)
                 {
@@ -2072,7 +2066,8 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 }
                 else
                 {
-                    Controls.WebMsgBox.Show("Rolls Used in Lausheet Roll Reference Delete it first ");
+                    asqshuffle = "Rolls Used in Lausheet Roll Reference Delete it first ";
+                 //   Controls.WebMsgBox.Show("Rolls Used in Lausheet Roll Reference Delete it first ");
                 }
               
             }

@@ -125,8 +125,14 @@
                             </asp:UpdatePanel>
                                             </td>
                                             <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td>Dept </td>
+                                            <td>  <asp:UpdatePanel ID="upd_dept" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                                <ucc:DropDownListChosen ID="drp_dept" runat="server" Width="170px">
+                                                    <asp:ListItem Selected="True"></asp:ListItem>
+                                                </ucc:DropDownListChosen>     </ContentTemplate>
+                            </asp:UpdatePanel>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
@@ -296,7 +302,7 @@
                                             <td class="NormalTD">
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txt_qty" ErrorMessage="Enter Qty" ForeColor="Red" ValidationGroup="detail">*</asp:RequiredFieldValidator>
                                             </td>
-                                            <td>&nbsp;</td>
+                                            <td>Dept </td>
                                             <td>&nbsp;</td>
                                         </tr>
                                      

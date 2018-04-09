@@ -1,0 +1,110 @@
+﻿@model ArtWebApp.Areas.ProductionMVC.Viewmodel.PcdAlertModel
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        // This will make every element with the class "date-picker" into a DatePicker element
+        $('.date-picker').datepicker();
+    })
+</script>
+
+
+<h2>PcdAlertReport</h2>
+
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-3">Week#:</div>
+            <div class="col-md-9"><input id="WeekNo" class="date-picker" style="width:100px" /></div>
+            <div class="col-md-3">Factory:</div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.Location_pk, (SelectList)ViewBag.Location_pk, htmlAttributes: new { @class = "chosen-select form-control" })
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+
+            <div class="col-sm-3">
+                <input id="Show" type="button" value="Show Sewing" data-toggle="tooltip" data-placement="top" title="GetPCD Alert Details" class="btn btn-default show" />
+            </div>
+           
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Sewing</a></li>
+        <li><a href="#tabs-2">Packing</a></li>
+
+    </ul>
+    <div id="tabs-1">
+        <p>
+            <div id='output' class="">
+                <!-- Output goes here -->
+            </div>
+
+
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p>
+            <div id='output1' class="">
+                <!-- Output goes here -->
+            </div>
+        </p>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Show").click(function (e, params) {
+
+            var WeekNo = $("#WeekNo").val();
+            var Location_pk = $('#Location_pk').val();
+            $("#output").empty();
+            $("#output1").empty();
+            $.ajax({
+                url: "@Url.Action("GetPCDSewingDetails", "PcdAlert")",
+                traditional: true,
+                type: "GET",
+                data: { 'weekno': WeekNo, 'locationpk': Location_pk },
+                success: function (fooBarHTML) {
+
+                    $("#output").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+
+                }
+            });
+            $.ajax({
+                url: "@Url.Action("GetPCDPackingDetails", "PcdAlert")",
+                traditional: true,
+                type: "GET",
+                data: { 'weekno': WeekNo, 'locationpk': Location_pk },
+                success: function (fooBarHTML) {
+
+                    $("#output1").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+
+                }
+            });
+        });
+
+        
+
+    });
+</script>
+

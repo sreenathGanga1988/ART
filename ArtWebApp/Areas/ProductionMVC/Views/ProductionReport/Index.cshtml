@@ -55,7 +55,33 @@
                     }
                     });
 
+        });
+
+
+
+        $("#ShowMonthRatio").click(function (e, params) {
+            var Month = $('#Month').find('option:selected').val();
+                      $('#loadingmessage').show();
+                $.ajax({
+                    url: "@Url.Action("GetRatioRequestDetailView", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Month': Month },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        document.title = "BE report  for " + Month;
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
                     });
+
+                    });
+
+
+
+
         
 
         $("#CostingAll").click(function (e, params) {
@@ -96,14 +122,15 @@
 
                     });
 
-        $("#PoofSupplier").click(function (e, params) {
+        $("#GetAtcDetails").click(function (e, params) {
             $('#loadingmessage').show();
                 $.ajax({
-                    url: "@Url.Action("GetPurchasesfromSupplier", "ProductionReport")",
+                    url: "@Url.Action("GetAtcDetails", "ProductionReport")",
                     traditional: true,
                     type: "GET",
                     success: function (fooBarHTML) {
                         $('#loadingmessage').hide();
+                        document.title = "Po of Supplier"
                     $("#output").html(fooBarHTML);
                     },
                     error: function (xhr, status, errorThrown) {
@@ -172,6 +199,24 @@
 
 
 
+            $("#JobContractRequestAll").click(function (e, params) {
+            $('#loadingmessage').show();
+            var Id =0;
+                $.ajax({
+                    url: "@Url.Action("GetJobContractRequestAll", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
 
 
 
@@ -185,7 +230,7 @@
             var fromdate = $("#FromDate").val();
             var todate = $("#Todate").val();
             var dotype = "WF";
-           
+
                 $.ajax({
                     url: "@Url.Action("GetDoBetweenDate", "ProductionReport")",
                     traditional: true,
@@ -202,10 +247,100 @@
                     });
 
 
+            $("#LoadCSFA").click(function (e, params) {
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+            var Id = 0;
+                $.ajax({
+                    url: "@Url.Action("UpdateCSFA", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
 
 
+            $("#CSFA").click(function (e, params) {
+                               
+
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+            var Id = 0;
+                $.ajax({
+                    url: "@Url.Action("GETCSFA", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
 
 
+        $("#CSFADay").click(function (e, params) {
+                               
+
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+            var Id = 0;
+            var Type = 'Day';
+                $.ajax({
+                    url: "@Url.Action("GETCSFABreakUP", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+
+
+        $("#CSFAAtc").click(function (e, params) {
+                               
+
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+            var Id = 0;
+            var Type = 'Atc';
+            
+                $.ajax({
+                    url: "@Url.Action("GETCSFABreakUP", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+        
+        
 
     });
 
@@ -238,7 +373,7 @@
                 <input id="Costing" type="button" value="Get Costing data of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
-
+              
             </div>
             <div class="col-sm-3">
 
@@ -262,7 +397,7 @@
                 <input id="CostingAll" type="button" value="Get Costing data All  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data All  Atc" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
-                <input id="PoofSupplier" type="button" value="Get Po of Supplier" data-toggle="tooltip" data-placement="top" title="Get Po of Supplier" class="btn btn-default show" />
+                <input id="GetAtcDetails" type="button" value="OurStyle Details" data-toggle="tooltip" data-placement="top" title="Get OurStyle Details" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
                 <input id="ShipmentReportAll" type="button" value="Get All Shipment Report" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of All  Atc" class="btn btn-default show" />
@@ -276,8 +411,11 @@
 
             </div>
             <div class="col-sm-3">
+                <input id="JobContractRequestAll" type="button" value="Show JobContracts " data-toggle="tooltip" data-placement="top" title="Show All Job Contract" class="btn btn-default show" />
+
             </div>
             <div class="col-sm-3">
+               
             </div>
             <div class="col-sm-3">
             </div>
@@ -306,20 +444,23 @@
                 @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
             </div>
             <div class="col-sm-2">
-                To date
-            </div>
+                <input id="LoadCSFA" type="button" value="Update CSFA " data-toggle="tooltip" data-placement="top" title="Load CSFA Between Date" class="btn btn-default show" />
 
+            </div>
+           
         </div>
 
         <div class="row top-buffer" style="background-color:greenyellow;">
             <div class="col-sm-3">
-                <input id="DeliveryOrderWF" type="button" value="Show WF Report of Bewtween Date" data-toggle="tooltip" data-placement="top" title="Shows BE Report of Running Atc" class="btn btn-default show" />
+                <input id="CSFA" type="button" value="Show CSFA " data-toggle="tooltip" data-placement="top" title="Show CSFA Between Date" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
+                <input id="CSFADay" type="button" value="Show CSFA  DayWise" data-toggle="tooltip" data-placement="top" title="Show CSFA Between Date" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
+                <input id="CSFAAtc" type="button" value="Show CSFA  AtcWise BreakUP" data-toggle="tooltip" data-placement="top" title="Show CSFA Between Date" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
@@ -364,6 +505,7 @@
 
             </div>
             <div class="col-sm-3">
+                <input id="ShowMonthRatio" type="button" value="Show BE Ratio Report of Month" data-toggle="tooltip" data-placement="top" title="Show BE Report of Month" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">

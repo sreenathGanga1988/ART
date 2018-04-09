@@ -26,6 +26,8 @@ namespace ArtWebApp.Areas.CuttingMVC
             Decimal MarkMissedQty = 0;
             Decimal TotalBalanceQty = 0;
             Decimal MissingQty = 0;
+            Decimal RejectionrecutQty = 0;
+
             FullFCRModelData fullFCRModelData = new FullFCRModelData();
             List<FCRViewModel> fcrMasterDatalist = new List<FCRViewModel>();
 
@@ -51,11 +53,49 @@ namespace ArtWebApp.Areas.CuttingMVC
                     TotalBalanceQty = TotalBalanceQty + decimal.Parse(fCRViewModel.TotalBalanceQty.ToString());
                     MissingQty = MissingQty + decimal.Parse(fCRViewModel.fcrMasterData.MissingQty.ToString());
 
-
+                    RejectionrecutQty = RejectionrecutQty + decimal.Parse(fCRViewModel.Rejectionrecut.ToString());
                     fcrMasterDatalist.Add(fCRViewModel);
 
                 }
+
+
+
+
+
+
+                try
+                {
+
+                    var missingqty = enty.FabricMissingMasters.Where(u => u.SkuDetPK == id && u.Location_Pk == locationpk && u.IsApproved == "Y").Select(u => u.MissingQty).Sum();
+
+                    if (missingqty == null)
+                    {
+                        MissingQty = 0;
+                    }
+                    else
+                    {
+                        MissingQty = Decimal.Parse(missingqty.ToString());
+                    }
+
+                }
+                catch (Exception)
+                {
+                    MissingQty = 0;
+
+                }
+
+
+
             }
+
+
+
+
+
+
+
+
+
 
             fullFCRModelData.FCRViewModelDatalist = fcrMasterDatalist;
 
@@ -67,6 +107,8 @@ namespace ArtWebApp.Areas.CuttingMVC
             fullFCRModelData.MarkMissedQty = MarkMissedQty;
             fullFCRModelData.TotalBalanceQty = TotalBalanceQty;
             fullFCRModelData.MissingQty = MissingQty;
+            fullFCRModelData.RejectionrecutQty = RejectionrecutQty;
+            fullFCRModelData.TotalBalanceQty = TotalBalanceQty - RejectionrecutQty - MissingQty;
             return fullFCRModelData;
         }
 
@@ -176,25 +218,71 @@ namespace ArtWebApp.Areas.CuttingMVC
 
             fCRViewModel.TotalSampleYardage = "0";
 
-            fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
-            fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
-            fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
-            fCRViewModel.TotalShortage = fCRViewModel.CutData.Compute("Sum(ExcessOrShort)", "").ToString();
-            fCRViewModel.TotalNonusableEndbit = fCRViewModel.CutData.Compute("Sum(NonReusableEndbit)", "").ToString();
-            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
-            fCRViewModel.TotalSampleYardage = fCRViewModel.SamplingCutOrderData.Compute("Sum(FabQty)", "").ToString();
 
-            if (fCRViewModel.TotalSampleYardage == "")
+
+            fCRViewModel.TotaCutorderQty ="0";
+            fCRViewModel.TotalFabricLayed = "0";
+            fCRViewModel.TotalLayedQty = "0";
+            fCRViewModel.TotalShortage = "0";
+            fCRViewModel.TotalNonusableEndbit = "0";
+            fCRViewModel.TotalBalanceQty = "0";
+            fCRViewModel.ActualFCRConsumtion = "0";
+            fCRViewModel.OverConsumedPer = "0";
+
+
+            if (fCRViewModel.CutData != null)
             {
-                fCRViewModel.TotalSampleYardage = "0";
+                if (fCRViewModel.CutData.Rows.Count > 0)
+                {
+
+                    fCRViewModel.TotaCutorderQty = fCRViewModel.CutData.Compute("Sum(Qty)", "").ToString();
+                    fCRViewModel.TotalFabricLayed = fCRViewModel.CutData.Compute("Sum(layedFabric)", "").ToString();
+                    fCRViewModel.TotalLayedQty = fCRViewModel.CutData.Compute("Sum(CutQty)", "").ToString();
+                    fCRViewModel.TotalShortage = fCRViewModel.CutData.Compute("Sum(ExcessOrShort)", "").ToString();
+                    fCRViewModel.TotalNonusableEndbit = fCRViewModel.CutData.Compute("Sum(NonReusableEndbit)", "").ToString();
+
+
+                }
             }
-            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.TotalBalanceQty) - Decimal.Parse(fCRViewModel.TotalShortage) - Decimal.Parse(fCRViewModel.TotalSampleYardage)).ToString();
+
+
+            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.fcrMasterData.ToBeonLocation.ToString()) - Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.MarkMissedQty.ToString())).ToString();
 
 
             try
             {
+                fCRViewModel.TotalSampleYardage = fCRViewModel.SamplingCutOrderData.Compute("Sum(FabQty)", "").ToString();
+            }
+            catch (Exception)
+            {
 
-                fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
+                fCRViewModel.TotalSampleYardage = "0";
+            }
+
+            try
+            {
+                fCRViewModel.Rejectionrecut = fCRViewModel.RejectionReqData.Compute("Sum(Qty)", "").ToString();
+            }
+            catch (Exception)
+            {
+
+                fCRViewModel.Rejectionrecut = "0";
+            }
+            if (fCRViewModel.TotalSampleYardage == "")
+            {
+                fCRViewModel.TotalSampleYardage = "0";
+            }
+            fCRViewModel.TotalBalanceQty = (Decimal.Parse(fCRViewModel.TotalBalanceQty) - Decimal.Parse(fCRViewModel.TotalShortage)
+                - Decimal.Parse(fCRViewModel.TotalSampleYardage) - Decimal.Parse(fCRViewModel.Rejectionrecut)).ToString();
+
+
+            try
+            {
+                if ((Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString())>0) && (Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())>0))
+                    {
+                    fCRViewModel.ActualFCRConsumtion = (Decimal.Parse(fCRViewModel.TotalFabricLayed.ToString()) / Decimal.Parse(fCRViewModel.TotalLayedQty.ToString())).ToString();
+                }
+                
 
             }
             catch (Exception)
@@ -204,7 +292,11 @@ namespace ArtWebApp.Areas.CuttingMVC
 
             }
             fCRViewModel.OverConsumed = (Decimal.Parse(fCRViewModel.ActualFCRConsumtion.ToString()) - Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString())).ToString();
-
+            if ((Decimal.Parse(fCRViewModel.OverConsumed.ToString()) > 0) && (Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString()) > 0))
+            {
+                fCRViewModel.OverConsumedPer = ((Decimal.Parse(fCRViewModel.OverConsumed.ToString()) / Decimal.Parse(fCRViewModel.fcrMasterData.ApprovedConsumption.ToString())) * 100).ToString();
+            }
+                
 
             fCRViewModel.IsClosed = IsClosed(id, ourStyleid, locationpk);
 
@@ -358,8 +450,16 @@ namespace ArtWebApp.Areas.CuttingMVC
                 }
                 else
                 {
-                    var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk && u.ColorCode == fcrMasterData.Color).Select(u => u.PoQty).Sum();
-                    fcrMasterData.Order = orderqty.ToString();
+                    if (fcrMasterData.Color.Trim ()==""|| fcrMasterData.Color == "CM")
+                    {
+                        var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk).Select(u => u.PoQty).Sum();
+                        fcrMasterData.Order = orderqty.ToString();
+                    }
+                    else
+                    {
+                        var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == location_pk && u.ColorCode == fcrMasterData.Color).Select(u => u.PoQty).Sum();
+                        fcrMasterData.Order = orderqty.ToString();
+                    }
                 }
 
 
@@ -381,21 +481,50 @@ namespace ArtWebApp.Areas.CuttingMVC
 
                 decimal totalqty = 0;
                 decimal totalweightedqty = 0;
-                var q5 = (from cutorder in enty.CutOrderMasters
-                          where cutorder.SkuDet_pk == skudetpk && cutorder.OurStyleID == ourstyleid
-                          select new { cutorder.Color, cutorder.CutQty, cutorder.ActualConsumption }).ToList();
+                //var q5 = (from cutorder in enty.CutOrderMasters
+                //          where cutorder.SkuDet_pk == skudetpk && cutorder.OurStyleID == ourstyleid
+                //          select new { cutorder.Color, cutorder.CutQty, cutorder.ConsumptionQty }).ToList();
+
+                //foreach (var element in q5)
+                //{
+
+                //    try
+                //    {
+                //        fcrMasterData.Fabdescription = element.Color;
+                //        if (element.ConsumptionQty != null)
+                //        {
+                //            totalqty += decimal.Parse(element.CutQty.ToString());
+
+                //            decimal tryqty = decimal.Parse(element.CutQty.ToString()) * decimal.Parse(element.ConsumptionQty.ToString());
+                //            totalweightedqty += tryqty;
+                //        }
+                //    }
+                //    catch (Exception)
+                //    {
+
+
+                //    }
+
+                //}
+
+
+                var q5 = (from cutorder in enty.CutPlanMasters
+                          where cutorder.SkuDet_PK == skudetpk && cutorder.OurStyleID == ourstyleid && cutorder.IsDeleted=="N"
+                          select new { cutorder.FabDescription, cutorder.CutPlan_PK, cutorder.CutplanConsumption }).ToList();
 
                 foreach (var element in q5)
                 {
 
                     try
                     {
-                        fcrMasterData.Fabdescription = element.Color;
-                        if (element.ActualConsumption != null)
+                        fcrMasterData.Fabdescription = element.FabDescription;
+                        if (element.CutplanConsumption != null)
                         {
-                            totalqty += decimal.Parse(element.CutQty.ToString());
+                            int cutpk = int.Parse(element.CutPlan_PK.ToString());
+                            var qtynew = enty.CutPlanASQDetails.Where(u => u.CutPlan_PK == cutpk && u.IsDeleted == "N").Select(u => u.CutQty).Sum();
+                            totalqty += decimal.Parse(qtynew.ToString());
 
-                            decimal tryqty = decimal.Parse(element.CutQty.ToString()) * decimal.Parse(element.ActualConsumption.ToString());
+                            decimal tryqty = decimal.Parse(qtynew.ToString()) * decimal.Parse(element.CutplanConsumption.ToString());
                             totalweightedqty += tryqty;
                         }
                     }
@@ -406,6 +535,8 @@ namespace ArtWebApp.Areas.CuttingMVC
                     }
 
                 }
+
+
                 try
                 {
                     fcrMasterData.ApprovedConsumption = (totalweightedqty / totalqty).ToString();
@@ -421,20 +552,28 @@ namespace ArtWebApp.Areas.CuttingMVC
                 decimal givenback = 0;
                 decimal totalgiven = 0;
 
-
-                foreach (DataRow row in fCRViewModel.DeliveryData.Rows)
+                if (fCRViewModel.DeliveryData != null)
                 {
-                    totalgiven += Decimal.Parse(row["RollYard"].ToString());
-                    if (Decimal.Parse(row["RollYard"].ToString()) > 0)
+                    if (fCRViewModel.DeliveryData.Rows.Count > 0)
                     {
-                        giventofacotorydemo += Decimal.Parse(row["RollYard"].ToString());
-                    }
-                    else
-                    {
-                        givenback += Decimal.Parse(row["RollYard"].ToString());
-                    }
 
+                        foreach (DataRow row in fCRViewModel.DeliveryData.Rows)
+                        {
+                            totalgiven += Decimal.Parse(row["RollYard"].ToString());
+                            if (Decimal.Parse(row["RollYard"].ToString()) > 0)
+                            {
+                                giventofacotorydemo += Decimal.Parse(row["RollYard"].ToString());
+                            }
+                            else
+                            {
+                                givenback += Decimal.Parse(row["RollYard"].ToString());
+                            }
+
+                        }
+
+                    }
                 }
+               
 
                 fcrMasterData.GiventoFactory = giventofacotorydemo.ToString();
                 fcrMasterData.GivenBackToStore = givenback.ToString();

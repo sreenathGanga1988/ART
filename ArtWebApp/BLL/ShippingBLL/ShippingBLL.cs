@@ -411,7 +411,7 @@ namespace ArtWebApp.BLL.ShippingBLL
         public string BL { get; set; }
         public string Mode { get; set; }
         public string ShipDocNum { get; set; }
-
+         public string countryname { get; set; }
         public string DocType { get; set; }
 
         public List<ShippingDocumentDetailsData> ShippingDocumentDetailsDataCollection { get; set; }
@@ -442,6 +442,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.IsReceived = "N";
                 shpdocmstr.IsDelivered = "Y";
                 shpdocmstr.DeliveredPackage = Decimal.Parse( this.NOofctnRoll.ToString());
+                shpdocmstr.Country = this.countryname;
                 try
                 {
                     shpdocmstr.ETA = this.ETA;
@@ -511,6 +512,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.IsReceived = "N";
                 shpdocmstr.IsDelivered = "Y";
                 shpdocmstr.DeliveredPackage = Decimal.Parse(this.NOofctnRoll.ToString());
+                shpdocmstr.Country = this.countryname;
                 try
                 {
                     shpdocmstr.ETA = this.ETA;
@@ -647,6 +649,7 @@ namespace ArtWebApp.BLL.ShippingBLL
                 shpdocmstr.IsReceived = "N";
                 shpdocmstr.IsDelivered = "Y";
                 shpdocmstr.DeliveredPackage = Decimal.Parse(this.NOofctnRoll.ToString());
+                shpdocmstr.Country = this.countryname;
                 try
                 {
                     shpdocmstr.ETA = this.ETA;

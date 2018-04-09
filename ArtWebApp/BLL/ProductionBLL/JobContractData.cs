@@ -15,50 +15,50 @@ namespace ArtWebApp.BLL.ProductionBLL
         public JobContractMasterData JCmstrdata { get; set; }
         public List<JobContractDetailData> JobContractDetailDataCollection { get; set; }
 
-        public String insertJObContract(JobContractData jcdata)
-        {
-            String Donum = "";
-            using (ArtEntitiesnew enty = new ArtEntitiesnew())
-            {
-                JobContractMaster jcmstr = new JobContractMaster();
-                jcmstr.AtcID = jcdata.JCmstrdata.AtcID;
-                jcmstr.AddedDate = DateTime.Now;
-                jcmstr.AddedBy = jcdata.JCmstrdata.AddedBy;
-                jcmstr.Location_Pk = jcdata.JCmstrdata.Location_Pk;
-                jcmstr.Remark = JCmstrdata.remark;
-                enty.JobContractMasters.Add(jcmstr);
+        //public String insertJObContract(JobContractData jcdata)
+        //{
+        //    String Donum = "";
+        //    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+        //    {
+        //        JobContractMaster jcmstr = new JobContractMaster();
+        //        jcmstr.AtcID = jcdata.JCmstrdata.AtcID;
+        //        jcmstr.AddedDate = DateTime.Now;
+        //        jcmstr.AddedBy = jcdata.JCmstrdata.AddedBy;
+        //        jcmstr.Location_Pk = jcdata.JCmstrdata.Location_Pk;
+        //        jcmstr.Remark = JCmstrdata.remark;
+        //        enty.JobContractMasters.Add(jcmstr);
 
 
-                enty.SaveChanges();
+        //        enty.SaveChanges();
 
-                Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-
-
+        //        Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
 
 
-                foreach (JobContractDetailData di in jcdata.JobContractDetailDataCollection)
-                {
-                    //Add the delivery details
-                    JobContractDetail jcdetdata = new JobContractDetail();
-                    jcdetdata.JobContract_pk = jcmstr.JobContract_pk;
-                    jcdetdata.OurStyleID = di.OurStyleID;
-                    jcdetdata.PoPackID = di.PoPackID;
-                    jcdetdata.CMvalue = decimal.Parse ( di.CMvalue.ToString ());
+
+
+        //        foreach (JobContractDetailData di in jcdata.JobContractDetailDataCollection)
+        //        {
+        //            //Add the delivery details
+        //            JobContractDetail jcdetdata = new JobContractDetail();
+        //            jcdetdata.JobContract_pk = jcmstr.JobContract_pk;
+        //            jcdetdata.OurStyleID = di.OurStyleID;
+        //            jcdetdata.PoPackID = di.PoPackID;
+        //            jcdetdata.CMvalue = decimal.Parse ( di.CMvalue.ToString ());
                     
-                    enty.JobContractDetails.Add(jcdetdata);
+        //            enty.JobContractDetails.Add(jcdetdata);
 
 
 
 
 
-                }
-                enty.SaveChanges();
+        //        }
+        //        enty.SaveChanges();
 
-            }
+        //    }
 
 
-            return Donum;
-        }
+        //    return Donum;
+        //}
 
         public String insertOtherJObContract(JobContractData jcdata)
         {
@@ -127,8 +127,9 @@ namespace ArtWebApp.BLL.ProductionBLL
                     using (AtcWorldEntities atcenty = new AtcWorldEntities())
                     {
 
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == this.JCmstrdata.Location_Pk).Select(u => u.Location_PK).FirstOrDefault();
 
-
+                        int locid = int.Parse(atclocation_pk.ToString());
 
                         if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
                         {
@@ -142,17 +143,17 @@ namespace ArtWebApp.BLL.ProductionBLL
                             jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                             jcmstr.CM = this.JCmstrdata.CMCost;
                             jcmstr.IsApproved = "N";
-                            enty.JobContractMasters.Add(jcmstr);
-
-
+                            enty.JobContractMasters.Add(jcmstr);//
                             enty.SaveChanges();
-
                             Donum = jcmstr.JOBContractNUM = CodeGenerator.GetUniqueCode("JC", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(jcmstr.JobContract_pk.ToString()));
-                        
-                                ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
+                            enty.SaveChanges();
+                            ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
 
-                            ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
+                            ajcmstr.Location_PK = locid;
                             ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
+                            ajcmstr.AtcID = this.JCmstrdata.AtcID;
+                            ajcmstr.AtcNum = this.JCmstrdata.Atcnum;
+                            ajcmstr.OurStyle = this.JCmstrdata.OurStylenum;
                             ajcmstr.CM = this.JCmstrdata.CMCost;
                             ajcmstr.JobContractNum = Donum;
                             atcenty.ArtJobContractMasters.Add(ajcmstr);
@@ -169,47 +170,23 @@ namespace ArtWebApp.BLL.ProductionBLL
                                     select jbmstr;
                             foreach (var element in q)
                             {
-
-
                                 element.AddedDate = DateTime.Now;
                                 element.AddedBy = this.JCmstrdata.AddedBy;
-
+                                element.IsApproved = "N";
                                 element.Remark = this.JCmstrdata.remark;
                                 Donum = element.JOBContractNUM;
                                 element.CM = this.JCmstrdata.CMCost;
-
-
-
+                                
                             }
-
-
                             var q1 = from jbmstr in atcenty.ArtJobContractMasters
-                                     where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == this.JCmstrdata.Location_Pk
+                                     where jbmstr.OurStyleID == this.JCmstrdata.Ourstyleid && jbmstr.Location_PK == locid
                                      select jbmstr;
                             foreach (var element in q1)
                             {
-
-
-
                                 element.CM = this.JCmstrdata.CMCost;
 
 
-
                             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                             atcenty.SaveChanges();
                             enty.SaveChanges();
@@ -244,6 +221,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                             jcmstr.Remark = this.JCmstrdata.remark;
                             jcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                             jcmstr.CM = this.JCmstrdata.CMCost;
+                            jcmstr.IsApproved = "N";
                             enty.JobContractMasters.Add(jcmstr);
 
 
@@ -469,6 +447,7 @@ namespace ArtWebApp.BLL.ProductionBLL
     {
         public int JobContract_pk { get; set; }
         public string JOBContractNUM { get; set; }
+        public string OurStylenum { get; set; }
         public int Location_Pk { get; set; }
         public int AtcID { get; set; }
         public int OurStyleID { get; set; }
@@ -476,7 +455,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public string AddedBy { get; set; }
         public string remark { get; set; }
         public int Ourstyleid { get; set; }
-
+        public string Atcnum { get; set; }
         public Decimal CMCost { get; set; }
 
 
@@ -745,7 +724,7 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
                     shpdert.ProducedLctn_PK = int.Parse(di.ProducedLctn_PK.ToString());
                     shpdert.SDODate = di.ShipmentDate;
                     shpdert.CombinationCode = shpdert.POPackId.ToString().Trim() + "/" + shpdert.OurStyleID.ToString().Trim();
-
+                    shpdert.FCM = di.Cmperpc;
                     enty.ShipmentHandOverDetails.Add(shpdert);
                  
                     enty.SaveChanges();
@@ -849,12 +828,12 @@ FROM(SELECT        AtcDetails.OurStyleID, AtcDetails.OurStyle, AtcMaster.AtcNum,
         public int Popackid { get; set; }
         public int OurStyleId { get; set; }
         public int ProducedLctn_PK { get; set; }
-        
-             public DateTime ShipmentDate { get; set; }
+        public Decimal Cmperpc { get; set; }
+        public DateTime ShipmentDate { get; set; }
         public int ShippedQty { get; set; }
             public DateTime AddedDate { get; set; }
             public string AddedBy { get; set; }
-
+        
         public string SDO { get; set; }
 
         public DateTime ShipmenthandOverdate { get; set; }

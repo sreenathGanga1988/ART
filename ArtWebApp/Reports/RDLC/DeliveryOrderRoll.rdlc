@@ -257,7 +257,7 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>2.80431in</Top>
+        <Top>3.05431in</Top>
         <Height>0in</Height>
         <Width>5.39583in</Width>
         <ZIndex>8</ZIndex>
@@ -1347,7 +1347,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>2.87375in</Top>
+        <Top>3.12375in</Top>
         <Left>0.11458in</Left>
         <Height>0.91666in</Height>
         <Width>5.16194in</Width>
@@ -1399,7 +1399,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!DONum.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1429,7 +1431,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!FromLocation.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1459,7 +1463,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!Cut_NO.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1489,7 +1495,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!DeliveryDate.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1519,7 +1527,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!ToLocation.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1582,7 +1592,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!CutWidth.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1592,7 +1604,7 @@
         <Top>2.06472in</Top>
         <Left>3.94668in</Left>
         <Height>0.25in</Height>
-        <Width>1in</Width>
+        <Width>1.05901in</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1645,7 +1657,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!Shrinkage.Value, "DataSet1")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1688,7 +1702,7 @@
         <Top>2.39521in</Top>
         <Left>2.81125in</Left>
         <Height>0.25in</Height>
-        <Width>0.97395in</Width>
+        <Width>1.02084in</Width>
         <ZIndex>20</ZIndex>
         <Style>
           <Border>
@@ -1707,8 +1721,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value EvaluationMode="Constant">First(Fields!CutMarkerType.Value, "DataSet1")</Value>
-                <Style />
+                <Value>=First(Fields!CutMarkerType.Value, "DataSet1")</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -1730,8 +1746,71 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox41">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Atc #:</Value>
+                <Style>
+                  <FontFamily>CAlibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox5</rd:DefaultName>
+        <Top>2.73487in</Top>
+        <Left>0.11458in</Left>
+        <Height>0.25in</Height>
+        <Width>1in</Width>
+        <ZIndex>22</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox8">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!AtcNum.Value, "DataSet1")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Top>2.73487in</Top>
+        <Left>1.35291in</Left>
+        <Height>0.2159in</Height>
+        <Width>1in</Width>
+        <ZIndex>23</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>3.85291in</Height>
+    <Height>4.12374in</Height>
     <Style />
   </Body>
   <Width>5.46749in</Width>
@@ -1842,6 +1921,10 @@
         <Field Name="SkuDet_pk">
           <DataField>SkuDet_pk</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AtcNum">
+          <DataField>AtcNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

@@ -250,7 +250,7 @@ namespace ArtWebApp.Shipping
             shpdocmstr.BL = txtBL.Text;
             shpdocmstr.DocType = "Direct";
             shpdocmstr.Mode = drp_deliverymode.SelectedItem.Text;
-
+            shpdocmstr.countryname = drp_country.SelectedItem.Text;
             try
             {
                 string et = Request.Form[dtp_deliverydate.UniqueID].ToString();
@@ -287,7 +287,7 @@ namespace ArtWebApp.Shipping
             shpdocmstr.BL = txtBL.Text;
             shpdocmstr.DocType = "Via";
             shpdocmstr.Mode = drp_deliverymode.SelectedItem.Text;
-
+            shpdocmstr.countryname = drp_country.SelectedItem.Text;
             try
             {
                 string et = Request.Form[dtp_deliverydate.UniqueID].ToString();
@@ -473,7 +473,7 @@ namespace ArtWebApp.Shipping
             shpdocmstr.BL = txtBL.Text;
             shpdocmstr.DocType = "GenDirect";
             shpdocmstr.Mode = drp_deliverymode.SelectedItem.Text;
-
+            shpdocmstr.countryname = drp_country.SelectedItem.Text;
             try
             {
                 string et = Request.Form[dtp_deliverydate.UniqueID].ToString();

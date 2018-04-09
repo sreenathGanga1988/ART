@@ -125,8 +125,16 @@
                             </asp:UpdatePanel>
                                             </td>
                                             <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td>Dept</td>
+                                            <td>
+                                                <asp:UpdatePanel ID="upd_dept" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <ucc:DropDownListChosen ID="drp_dept" runat="server" Width="170px">
+                                                            <asp:ListItem Selected="True"></asp:ListItem>
+                                                        </ucc:DropDownListChosen>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>

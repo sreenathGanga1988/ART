@@ -14,9 +14,41 @@ namespace ArtWebApp.Merchandiser
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack)
+            {
+                FillDept();
+            }
 
         }
+
+
+
+        public void FillDept()
+        {
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+               
+
+                var temp = from tmplatmstr in enty.DepartmentMasters                         
+                           select tmplatmstr;
+
+
+                drp_dept.DataSource = temp.ToList();
+                drp_dept.DataValueField = "Deapartment_PK";
+                drp_dept.DataTextField = "DepartmentName";
+
+                drp_dept.DataBind();
+                upd_dept.Update();
+
+
+            }
+        }
+
+
+
+
+
+
 
         protected void drp_currency_DataBound(object sender, EventArgs e)
         {
@@ -55,6 +87,7 @@ namespace ArtWebApp.Merchandiser
             spodata.DeliveryTerms_Pk = int.Parse(drp_deliveryterm.SelectedValue.ToString());
             spodata.DeliveryMethod_Pk = int.Parse(drp_deliverymethod.SelectedValue.ToString());
             spodata.PaymentTermID = int.Parse(drp_paymentterm.SelectedValue.ToString());
+            spodata.DeptPk = int.Parse(drp_dept.SelectedValue.ToString());
             spodata.PO_value = 0;
             spodata.Location_PK = int.Parse(drp_deliverydestination.SelectedValue.ToString());
             spodata.CurrencyID = int.Parse(drp_currency.SelectedValue.ToString());

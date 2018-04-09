@@ -18,7 +18,7 @@
                     data: { 'id': Id },
                     type: "GET",
                     success: function (fooBarHTML) {
-                     
+
                         $("#output").html(fooBarHTML);
                     },
                     error: function (xhr, status, errorThrown) {
@@ -28,32 +28,36 @@
             }
             });
         $("body").on("click",".Delete" ,function () {
-         
+
             var row = $(this).closest('tr');
             var Id = parseInt(row.find('.LaySheetDet_PK').text(), 10);
-           
-                
+
+
 
                   if (Id != null)
                   {
-                      alert(Id);
-                $.ajax({
+                      var retVal = confirm("Do you want to continue  Deleting Roll from LaySheetDetail ?");
+                      if (retVal == true) {
+                            $.ajax({
                     url: "@Url.Action("DeleteRoll", "LaySheetEdit")",
                     traditional: true,
                     data: { 'rollid': Id },
                     type: "GET",
                     success: function (fooBarHTML) {
-                    
+
                         $(row).children('td,th').css('background-color', '#000');
                     },
                     error: function (xhr, status, errorThrown) {
                         //...
                     }
                 });
+
+                      }
+
             }
         });
 
-       
+
 
 
 

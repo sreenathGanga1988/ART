@@ -25,6 +25,7 @@
         <AssociationConnector Association="AtcModelModel.FK_CmDozmaster_LocationMaster_tbl" />
         <AssociationConnector Association="AtcModelModel.FK_RevenueMaster_LocationMaster_tbl" />
         <EntityTypeShape EntityType="AtcModelModel.ASQAllocationMaster_tbl" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AtcModelModel.ArtJobContractOptionalMaster" Width="1.5" PointX="7.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

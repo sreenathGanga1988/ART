@@ -57,6 +57,9 @@ namespace ArtWebApp.DataModels
             this.UserMasters = new HashSet<UserMaster>();
             this.FabricMissings = new HashSet<FabricMissing>();
             this.TnaUserRights = new HashSet<TnaUserRight>();
+            this.FabricMissingMasters = new HashSet<FabricMissingMaster>();
+            this.PcdAlertMasters = new HashSet<PcdAlertMaster>();
+            this.PcdAlertUserrights = new HashSet<PcdAlertUserright>();
         }
     
         public decimal Location_PK { get; set; }
@@ -77,6 +80,7 @@ namespace ArtWebApp.DataModels
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<decimal> CostPerMinute { get; set; }
+        public Nullable<decimal> AtcWorldlocation_PK { get; set; }
     
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
@@ -119,5 +123,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<UserMaster> UserMasters { get; set; }
         public virtual ICollection<FabricMissing> FabricMissings { get; set; }
         public virtual ICollection<TnaUserRight> TnaUserRights { get; set; }
+        public virtual ICollection<FabricMissingMaster> FabricMissingMasters { get; set; }
+        public virtual ICollection<PcdAlertMaster> PcdAlertMasters { get; set; }
+        public virtual ICollection<PcdAlertUserright> PcdAlertUserrights { get; set; }
     }
 }

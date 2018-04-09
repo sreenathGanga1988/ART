@@ -15,7 +15,7 @@ namespace ArtWebApp.Approvals
 
             string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
-            List<String> LoanApproverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" , "mithilesh" ,"ravi", "martin"});
+            List<String> LoanApproverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" , "mithilesh" ,"ravi", "martin","Hiren"});
             string v = Request.QueryString["navtype"];
             if (navtype == "Ro Approval")
             {
@@ -55,7 +55,7 @@ namespace ArtWebApp.Approvals
             }
             else if (navtype == "Transfer")
             {
-                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
+                if (HttpContext.Current.User.Identity.Name == "Mannan" || HttpContext.Current.User.Identity.Name == "Hiren" || HttpContext.Current.User.Identity.Name == "Abhishek" || HttpContext.Current.User.Identity.Name == "Sreenath" || HttpContext.Current.User.Identity.Name == "mithilesh" || HttpContext.Current.User.Identity.Name == "siraj")
                 {
                     MultiView1.ActiveViewIndex = 2;
                 }
@@ -136,7 +136,12 @@ namespace ArtWebApp.Approvals
                 if (chk_isreq == "Y")
                 {
                     int loanpk = int.Parse(tbl_loanApproval.Rows[i].Cells[1].Text);
-                    lnmstr.GetLoanApproved(loanpk);
+
+                    
+                         if (lnmstr.ifStockAvailableforLoanTransfer(loanpk))
+                    {
+                        lnmstr.GetLoanApproved(loanpk);
+                    }
                 }
 
             }
@@ -185,7 +190,12 @@ namespace ArtWebApp.Approvals
                 if (chk_isreq == "Y")
                 {
                     int loanpk = int.Parse(tbl_transfer.Rows[i].Cells[1].Text);
-                    lnmstr.GetTransferApproved(loanpk);
+
+
+                    if (lnmstr.ifStockAvailableforTransfertoGstock(loanpk))
+                    {
+                        lnmstr.GetTransferApproved(loanpk);
+                    }
                 }
 
             }
@@ -198,6 +208,25 @@ namespace ArtWebApp.Approvals
         {
             ApproveTransfertoGstock();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         protected void Button4_Click(object sender, EventArgs e)
         {

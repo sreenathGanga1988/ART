@@ -10,9 +10,7 @@
     }
 </style>
 <script>
-    $(function () {
-        $("#tabs").tabs();
-    });
+
 </script>
 <script>
 
@@ -62,7 +60,43 @@
 
 
 
+
+
+        });
+
+
+
+
+        $("#Show_FCRSummary").click(function (e, params) {
+
+            var Id = $('#AtcID').find('option:selected').val();
+            var Locid = $('#Locid').find('option:selected').val();
             
+               $("#output").empty();
+               $("#output1").empty();
+               alert('hi')
+            $('#loadingmessage').show();
+            $.ajax({
+                url: "@Url.Action("GetFCRSummary", "FCR")",
+                traditional: true,
+                type: "GET",
+                data: { 'Id': Id, 'Locid': Locid },
+                success: function (fooBarHTML) {
+
+
+                    $('#loadingmessage').hide();
+                    $("#Summarydiv").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $('#loadingmessage').hide();
+                }
+            });
+
+
+
+
+
+
 
         });
     });
@@ -73,22 +107,21 @@
     <div class="container-fluid jumbotron">
         <div class="row top-buffer">
             <div class="col-md-2">Atc #:</div>
-            <div class="col-md-10">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
-
-        </div>
-        <div class="row top-buffer">
-            <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-3">
+            <div class="col-md-6">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+            <div class="col-md-4">
                 <input id="Show" type="button" value="Get FCR Status of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
             </div>
-            <div class="col-sm-3">
-
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Factory :
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-6">  @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
 
+            <div class="col-sm-4">
+                <input id="Show_FCRSummary" type="button" value="Get FCR Summary" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
             </div>
+            
 
         </div>
     </div>
@@ -104,7 +137,7 @@
     <ul>
         <li><a href="#tabs-1">StyleWise FCR</a></li>
         <li><a href="#tabs-2">AtcWise FCR</a></li>
-       
+
     </ul>
     <div id="tabs-1">
         <p>
@@ -116,14 +149,16 @@
         </p>
     </div>
     <div id="tabs-2">
-        <p><div id='output1' class="">
-    <!-- Output goes here -->
-</div></p>
+        <p>
+            <div id='output1' class="">
+                <!-- Output goes here -->
+            </div>
+        </p>
     </div>
-    
+
 </div>
 
-
+<div id="Summarydiv"> </div>
 
 
 

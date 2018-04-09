@@ -1,0 +1,285 @@
+﻿@model ArtWebApp.DataModels.LaySheetMaster
+
+<div class="top-buffer">
+    <h4>@Html.DisplayFor(model => model.LaySheetNum) </h4>
+    <hr />
+
+    <div class="modal-body">
+
+        <div class="form-group row">
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.AtcDetail.OurStyle)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.AtcDetail.OurStyle)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.AtcMaster.AtcNum)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.AtcMaster.AtcNum)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.LayCutNum)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.LayCutNum)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.IsApproved)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.IsApproved)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.NoOfPlies)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.NoOfPlies)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.CutOrderDetail.MarkerNo)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.CutOrderDetail.MarkerNo)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.IsEdited)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.IsEdited)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.IsUploaded)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.IsUploaded)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.IsDetailUploaded)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.IsDetailUploaded)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.IsDeleted)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.LayLength)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.LayLength)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.AddedBY)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.AddedBY)
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.AddedDate)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.AddedDate)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.LaySheetNum)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.LaySheetNum)
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(model => model.LocationMaster.LocationName)
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+<h2>Laysheet Details</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+
+            LaySheet Detail ID
+        </th>
+        <th>
+
+            Roll_PK
+        </th>
+        <th>
+            RollNum
+
+        </th>
+        <th>
+
+            No of Plies
+        </th>
+        <th>
+            FabUtilized
+
+        </th>
+        <th>
+            EndBit
+
+        </th>
+        <th>
+            BalToCut
+
+        </th>
+        <th>
+            ExcessOrShort
+
+        </th>
+        <th>
+            IsRecuttable
+
+        </th>
+
+        <th>
+            LayLength
+
+        </th>
+        <th>
+            IsUsed
+
+        </th>
+        <th>
+            IsDeleted
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.LaySheetDetails)
+    {
+        <tr>
+            <td>
+                <div class="LaySheetDet_PK">
+                    @Html.DisplayFor(modelItem => item.LaySheetDet_PK)
+                </div>
+
+
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roll_PK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FabricRollmaster.RollNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPlies)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FabUtilized)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndBit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BalToCut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExcessOrShort)
+            </td>
+            <td>
+                <div class="IsRecuttable">
+                    @Html.DisplayFor(modelItem => item.IsRecuttable)
+                </div>
+                
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LaySheetMaster.LayLength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LaySheetRollDetail.IsUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                <div class="Delete">
+
+                   @if (item.IsRecuttable == "Y") { <p>Mark Non Recutable</p> } else { <p>Mark Recutable </p>};
+
+
+</div>
+
+
+           </td>
+
+       </tr>
+    }
+
+</table>
+
+
+
+
+
+
+
+
+

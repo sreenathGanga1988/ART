@@ -1,0 +1,163 @@
+﻿@model ArtWebApp.DataModels.BuyerMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BuyerMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prefix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prefix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Agent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Allowance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Debitaccid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Debitaccid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Br)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Br)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.partner_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.partner_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryMaster.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryMaster.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyMaster.CurrencyCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyMaster.CurrencyCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentModeMaster.PaymentModeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentModeMaster.PaymentModeCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BuyerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

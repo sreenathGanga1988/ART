@@ -50,7 +50,7 @@ WHERE(Location_Pk = @Param1) AND (IsCompleted = N'N')", con);
 
 
                 SqlCommand cmd = new SqlCommand(@"SELECT        AtcDetails.OurStyleID, POPackDetails.POPackId, AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, 
-                         SUM(ATCWorldToArtShipData.ShipQty) AS ShipQty, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate
+                         SUM(ATCWorldToArtShipData.ShipQty) AS ShipQty, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate,isnull( ATCWorldToArtShipData.CMPerPc,0) as CMPerPc
 FROM            POPackDetails INNER JOIN
                          PoPackMaster ON POPackDetails.POPackId = PoPackMaster.PoPackId INNER JOIN
                          ATCWorldToArtShipData ON POPackDetails.PoPack_Detail_PK = ATCWorldToArtShipData.PoPack_Detail_PK INNER JOIN
@@ -63,7 +63,7 @@ FROM            ShipmentHandOverDetails INNER JOIN
 WHERE        (ShipmentHandOverDetails.POPackId = ATCWorldToArtShipData.POPackID) AND (ShipmentHandOverDetails.OurStyleID = ATCWorldToArtShipData.OurStyleId) AND (ShipmentHandOverMaster.Location_Pk = ATCWorldToArtShipData.ArtLocation_PK) AND 
                          (ShipmentHandOverDetails.ProducedLctn_PK = ATCWorldToArtShipData.ProductionArtLocation)) 
   GROUP BY AtcMaster.AtcNum, AtcDetails.OurStyle, AtcDetails.BuyerStyle, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, ATCWorldToArtShipData.SDONo, AtcDetails.OurStyleID, POPackDetails.POPackId, 
-                         ATCWorldToArtShipData.ArtLocation_PK, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate
+                         ATCWorldToArtShipData.ArtLocation_PK, ATCWorldToArtShipData.ProductionArtLocation, LocationMaster.LocationName, ATCWorldToArtShipData.ShipmentDate, ATCWorldToArtShipData.CMPerPc
 HAVING        (ATCWorldToArtShipData.ArtLocation_PK = @ArtLocation_PK)", con);
 
 

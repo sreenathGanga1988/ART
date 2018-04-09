@@ -72,8 +72,14 @@
                         <td class="NormalTD"><ucc:DropDownListChosen ID="drp_deliverymode" runat="server" Width="200px">
                         </ucc:DropDownListChosen></td>
                         <td>&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
-                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">Country : </td>
+                        <td class="NormalTD">
+                            <ucc:DropDownListChosen ID="drp_country" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                <asp:ListItem>Kenya</asp:ListItem>
+                                <asp:ListItem>Ethiopia</asp:ListItem>
+                                <asp:ListItem>Dubai</asp:ListItem>
+                            </ucc:DropDownListChosen>
+                        </td>
                         <td class="ButtonTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>

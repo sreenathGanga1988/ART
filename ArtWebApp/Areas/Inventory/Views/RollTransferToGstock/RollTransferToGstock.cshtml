@@ -35,7 +35,7 @@
         <div class="alert alert-success">
             <p><strong>@TempData["Success"].ToString()</strong></p>
         </div>}
-    @if (TempData["Error"] != null)
+    if (TempData["Error"] != null)
     {
         <div class="top-buffer"></div>
         <div class="alert alert-danger">

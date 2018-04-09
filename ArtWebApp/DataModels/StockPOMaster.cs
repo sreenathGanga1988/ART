@@ -46,6 +46,7 @@ namespace ArtWebApp.DataModels
         public string IsSubmitted { get; set; }
         public string ForwardedBy { get; set; }
         public string MarkCompleted { get; set; }
+        public Nullable<decimal> DeptPK { get; set; }
     
         public virtual CurrencyMaster CurrencyMaster { get; set; }
         public virtual DeliveryTermMaster DeliveryTermMaster { get; set; }
@@ -57,5 +58,6 @@ namespace ArtWebApp.DataModels
         public virtual StockPOMaster StockPOMaster2 { get; set; }
         public virtual SupplierMaster SupplierMaster { get; set; }
         public virtual ICollection<StockFreightChargeDetail> StockFreightChargeDetails { get; set; }
+        public virtual DepartmentMaster DepartmentMaster { get; set; }
     }
 }

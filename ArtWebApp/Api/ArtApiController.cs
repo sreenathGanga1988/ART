@@ -73,10 +73,10 @@ namespace ArtWebApp.Api
             List<TaskModel> students = new List<TaskModel>();
 
             List<ArtTaskModel> list = new List<ArtTaskModel>();
-            list = WebartApiRepo.GetPendingTask(id);
-
-
-            TaskModel mt = new TaskModel();
+           list = WebartApiRepo.GetPendingTask(id);
+           WebartApiRepo.GetPendingTask();
+            
+          TaskModel mt = new TaskModel();
             mt.Rollnum = "2017-0001";
             mt.TaskTittle = "Nishan";
             mt.Location = "Kathmandu";

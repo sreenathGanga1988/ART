@@ -105,7 +105,7 @@ namespace ArtWebApp.Merchandiser
 
                 }
             }
-
+            Boolean isOnhandlesser = false;
             List<RoDetailsData> rk = new List<RoDetailsData>();
             foreach (GridViewRow di in tbl_InverntoryDetails.Rows)
             {
@@ -121,20 +121,39 @@ namespace ArtWebApp.Merchandiser
                     rddet.ToSkuDet_PK = toskudetpk;
                     rddet.Qty = Decimal.Parse((di.FindControl("txt_deliveryQty") as TextBox).Text);
                     rddet.InventoryItem_PK = int.Parse((di.FindControl("lblInventoryItem_PK") as Label).Text);
-                    rddet.UnitPrice = Decimal.Parse((di.FindControl("lbl_fromrate") as Label).Text); ;
-                   
+                    rddet.UnitPrice = Decimal.Parse((di.FindControl("lbl_fromrate") as Label).Text); 
+                    rddet.OnhandQty = Decimal.Parse((di.FindControl("lbl_onhandQty") as Label).Text);                   
                     rk.Add(rddet);
+
+                    if (rddet.OnhandQty < rddet.Qty) {
+                        isOnhandlesser = true;
+                    }
                 }
 
             }
 
-            rmstr.RoDetailsDataCollection = rk;
-            rmstr.ToSkuDet_PK = toskudetpk;
-            rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
-            String ro = rmstr.insertStockRowmaterial(rmstr);
-            string msg = "Ro# '" + ro + "' Generated Successfully";
-            MessgeboxUpdate("sucess", msg);
+
+
+            if (isOnhandlesser == false)
+            {
+                rmstr.RoDetailsDataCollection = rk;
+                rmstr.ToSkuDet_PK = toskudetpk;
+                rmstr.Location_Pk = int.Parse(cmb_warehouse.SelectedValue.ToString());
+                String ro = rmstr.insertStockRowmaterial(rmstr);
+                string msg = "Ro# '" + ro + "' Generated Successfully";
+                MessgeboxUpdate("sucess", msg);
+            }
+            else
+            {
+                string msg = "Cannot Create Ro greater than Onhand";
+                MessgeboxUpdate("error", msg);
+            }
+          
         }
+
+
+
+
 
 
         public int IsMultipleRowselected(GridView tbldata, String checkboxname)

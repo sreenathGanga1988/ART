@@ -457,6 +457,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
         public int ToSkuDet_PK { get; set; }
         public int InventoryItem_PK { get; set; }
         public Decimal Qty { get; set; }
+        public Decimal OnhandQty { get; set; }
         public Decimal UnitPrice { get; set; }
 
         public DataTable Rodetails;

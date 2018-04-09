@@ -29,5 +29,15 @@ namespace ArtWebApp.DataModels
         public string IsClosed { get; set; }
         public string ClosedBy { get; set; }
         public Nullable<System.DateTime> ClosedDate { get; set; }
+        public Nullable<decimal> OrderQty { get; set; }
+        public Nullable<decimal> CutQty { get; set; }
+        public Nullable<decimal> TotalFabConsumed { get; set; }
+        public Nullable<decimal> BomConsumption { get; set; }
+        public Nullable<decimal> MarkerConsumption { get; set; }
+        public Nullable<decimal> ActualConsumption { get; set; }
+        public Nullable<decimal> OverConsumed { get; set; }
+        public Nullable<decimal> OverConsumedPer { get; set; }
+    
+        public virtual AtcDetail AtcDetail { get; set; }
     }
 }

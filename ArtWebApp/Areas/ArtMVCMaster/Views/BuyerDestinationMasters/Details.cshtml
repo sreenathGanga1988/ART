@@ -1,0 +1,35 @@
+﻿@model ArtWebApp.DataModels.BuyerDestinationMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BuyerDestinationMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyerDestination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyerDestination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyerMaster.BuyerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyerMaster.BuyerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BuyerDestination_PK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

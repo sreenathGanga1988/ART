@@ -1,0 +1,196 @@
+﻿@model ArtWebApp.Areas.Quality.ViewModel.QualityDashBoardViewmodel
+@using System.Data;
+@{
+    ViewBag.Title = "QualityDashBoard";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QAD DashBoard </h2>
+
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo1">PENDING VALIDATION</button>
+
+<div id="demo1" class="container collapse">
+    <h3>PENDING VALIDATION</h3>
+    <table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+        <thead>
+
+
+
+            <tr>
+
+                @foreach (DataColumn col in Model.PendingvalidationData.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+                }
+
+            </tr>
+            <tr class="filterrow">
+                @foreach (DataColumn col in Model.PendingvalidationData.Columns)
+                {
+                    <th>
+
+                    </th>
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.PendingvalidationData.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingvalidationData.Columns)
+                    {
+                        <td>
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+        <tfoot>
+            <tr class="filterrow">
+                @foreach (DataColumn col in Model.PendingvalidationData.Columns)
+                {
+                    <th>
+
+                    </th>
+                }
+            </tr>
+
+        </tfoot>
+
+    </table>
+</div>
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo2"> PENDING INSPECTION</button>
+
+<div id="demo2" class="container collapse">
+    <h3>PENDING INSPECTION</h3>
+    <div class="container-fluid ">
+
+        <table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingInspection.Columns)
+                {
+                    <th>
+                        @col.ColumnName
+                    </th>
+            }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingInspection.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingInspection.Rows)
+            {
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingInspection.Columns)
+                {
+                    <td>
+                        @row[@col.ColumnName]
+
+                    </td>
+            }
+                </tr>
+
+        }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingInspection.Columns)
+                {
+                    <th>
+
+                    </th>
+            }
+                </tr>
+
+            </tfoot>
+
+        </table>
+    </div>
+</div>
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo3">PENDING GROUPING</button>
+
+<div id="demo3" class="container collapse">
+    <h3>PENDING GROUPING</h3>
+    <div class="container-fluid ">
+
+        <table class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100">
+            <thead>
+
+
+
+                <tr>
+
+                    @foreach (DataColumn col in Model.PendingGrouping.Columns)
+                    {
+                        <th>
+                            @col.ColumnName
+                        </th>
+                    }
+
+                </tr>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingGrouping.Columns)
+                    {
+                        <th>
+
+                        </th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (DataRow row in Model.PendingGrouping.Rows)
+                {
+                    <tr>
+
+                        @foreach (DataColumn col in Model.PendingGrouping.Columns)
+                        {
+                            <td>
+                                @row[@col.ColumnName]
+
+                            </td>
+                        }
+                    </tr>
+
+                }
+            </tbody>
+            <tfoot>
+                <tr class="filterrow">
+                    @foreach (DataColumn col in Model.PendingGrouping.Columns)
+                    {
+                        <th>
+
+                        </th>
+                    }
+                </tr>
+
+            </tfoot>
+
+        </table>
+    </div>
+</div>
+

@@ -134,7 +134,12 @@
                                         <asp:Label ID="lbl_ShipmentDate" runat="server" Text='<%# Bind("ShipmentDate") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
+                                 <asp:TemplateField HeaderText="CMPerPc" SortExpression="CMPerPc">
+                                   
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_CMPerPc" runat="server" Text='<%# Bind("CMPerPc") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 
                                
 

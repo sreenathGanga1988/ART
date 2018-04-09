@@ -50,5 +50,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<BuyerStyleMaster> BuyerStyleMasters { get; set; }
         public virtual ICollection<SampCutReqMaster> SampCutReqMasters { get; set; }
         public virtual ICollection<SampCutTicketMaster> SampCutTicketMasters { get; set; }
+        public virtual CountryMaster CountryMaster { get; set; }
+        public virtual CurrencyMaster CurrencyMaster { get; set; }
+        public virtual PaymentModeMaster PaymentModeMaster { get; set; }
     }
 }

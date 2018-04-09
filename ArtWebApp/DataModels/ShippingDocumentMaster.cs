@@ -113,6 +113,10 @@ namespace ArtWebApp.DataModels
         public string IsDelivered { get; set; }
         public Nullable<decimal> DeliveredPackage { get; set; }
         public string IsAssigned { get; set; }
+        public string IsUpLoaded { get; set; }
+        public string Country { get; set; }
+        public Nullable<System.DateTime> BerthAddedDate { get; set; }
+        public string BerthAddedBy { get; set; }
     
         public virtual ICollection<ShippingDocumentDetail> ShippingDocumentDetails { get; set; }
         public virtual ICollection<ShippingDocumentActionDetail> ShippingDocumentActionDetails { get; set; }

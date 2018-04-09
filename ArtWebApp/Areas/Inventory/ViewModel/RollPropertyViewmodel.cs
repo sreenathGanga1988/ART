@@ -46,6 +46,8 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
 
     public class RollPropertApprovalModel
     {
+        
+             public System.Decimal FabricRollChangeID { get; set; }
         public System.Decimal Roll_PK { get; set; }
         public System.String RollNum { get; set; }
         public System.String LocationName { get; set; }

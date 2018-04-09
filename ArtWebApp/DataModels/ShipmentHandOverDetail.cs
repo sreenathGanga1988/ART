@@ -27,6 +27,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ProducedLctn_PK { get; set; }
         public Nullable<System.DateTime> SDODate { get; set; }
         public string CombinationCode { get; set; }
+        public Nullable<decimal> FCM { get; set; }
     
         public virtual JobContractDetail JobContractDetail { get; set; }
         public virtual ShipmentHandOverMaster ShipmentHandOverMaster { get; set; }

@@ -9,133 +9,304 @@
         width: 300px !important; /* or any value that fits your needs */
     }
 </style>
+
 <script>
 
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
 
 
 
-        $("#Show").click(function (e, params) {
+            $("#GetGtockreportOnhanld").click(function (e, params) {
 
-            var Month = 'All';
-            $('#loadingmessage').show();
-                $.ajax({
-                    url: "@Url.Action("GetRequestDetailView", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Month': Month },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                        document.title = "BE report  for " + Month;
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
+                var location_pk = 0;
+                $('#loadingmessage').show();
+                    $.ajax({
+                        url: "@Url.Action("GetGstockData", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'location_pk': location_pk },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                            document.title = "Gstock Onhand Report";
+                           
 
-        });
-        $("#ShowMonth").click(function (e, params) {
-            var Month = $('#Month').find('option:selected').val();
-                      $('#loadingmessage').show();
-                $.ajax({
-                    url: "@Url.Action("GetRequestDetailView", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Month': Month },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                        document.title = "BE report  for " + Month;
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
 
-                    });
+            });
+          
 
 
-        $("#CostingAll").click(function (e, params) {
-            var Id = 0;
-            $('#loadingmessage').show();
-                $.ajax({
-                    url: "@Url.Action("GetCostingData", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Id': Id },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
+               $("#RollAllocation").click(function (e, params) {
+                   $('#loadingmessage').show();
 
-                    });
-           $("#Costing").click(function (e, params) {
-               $('#loadingmessage').show();
+                   var Id = $('#AtcID').find('option:selected').val();
+                    $.ajax({
+                        url: "@Url.Action("GetRollYardLocation", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'AtcID': Id },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
 
-               var Id = $('#AtcID').find('option:selected').val();
-                $.ajax({
-                    url: "@Url.Action("GetCostingData", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Id': Id },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-
-                    });
-
-        $("#PoofSupplier").click(function (e, params) {
-            $('#loadingmessage').show();
-                $.ajax({
-                    url: "@Url.Action("GetPurchasesfromSupplier", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
+            });
 
 
-        $("#ShipmentReport").click(function (e, params) {
+
+
+
+
+
+
+
+            $("#PoofSupplier").click(function (e, params) {
+                $('#loadingmessage').show();
+                    $.ajax({
+                        url: "@Url.Action("GetPurchasesfromSupplier", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+
+           
+
+
+             
+
+
+
+     $("#InventoryOrderWF").click(function (e, params) {
+                $('#loadingmessage').show();
+                var fromdate = $("#locFromDate").val();
+                var todate = $("#locTodate").val();
+                var dotype = "WF";
+                var Id = $('#Location_pk').find('option:selected').val();
+                    $.ajax({
+                        url: "@Url.Action("GetInventoryBetweenDate", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id},
+                        success: function (fooBarHTML) {
+                            alert("Hi");
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+             $("#RoReport").click(function (e, params) {
+                var Id = 0;
+                $('#loadingmessage').show();
+                    $.ajax({
+                        url: "@Url.Action("GetRoReport", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                      //  data: { 'Id': Id },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+
+                        });
+
+
+             $("#StockRoReport").click(function (e, params) {
+                var Id = 0;
+                $('#loadingmessage').show();
+                    $.ajax({
+                        url: "@Url.Action("GetStockRoReport", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                      //  data: { 'Id': Id },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+
+                        });
+
+
+
+
+
+
+
+                $("#DeliveryOrderWF").click(function (e, params) {
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+                var dotype = "WF";
+
+                    $.ajax({
+                        url: "@Url.Action("GetDoBetweenDate", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'fromdate': fromdate, 'todate': todate, 'dotype': dotype},
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+
+                $("#SKUTrack").click(function (e, params) {
+                $('#loadingmessage').show();
+                var id = $("#srch-term").val();
+                var supplierdock_pk = 0;
+                var Skudetpk = id;
+                var RollPk = 0;
+                var cutplanPk = 0;
+                var docnum = 'NA';
+                    $.ajax({
+                        url: "@Url.Action("GetRollTracker", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk, 'Docnum': docnum },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+
+                $("#ASNTrack").click(function (e, params) {
+                $('#loadingmessage').show();
+                var id = $("#srch-term").val();
+                var supplierdock_pk = id;
+                var Skudetpk = 0;
+                var RollPk = 0;
+                var cutplanPk = 0;
+                var docnum = 'NA';
+
+                    $.ajax({
+                        url: "@Url.Action("GetRollTracker", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk, 'Docnum': docnum },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+
+                $("#RollPKTrack").click(function (e, params) {
+                $('#loadingmessage').show();
+                var id = $("#srch-term").val();
+                var supplierdock_pk = 0;
+                var Skudetpk = 0;
+                var RollPk = id;
+                var docnum = 'NA';
+                var cutplanPk = 0;
+                    $.ajax({
+                        url: "@Url.Action("GetRollTracker", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk, 'Docnum': docnum },
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                });
+
+
+                $("#CutplanPKTrack").click(function (e, params) {
+                $('#loadingmessage').show();
+                var id = $("#srch-term").val();
+                var supplierdock_pk = 0;
+                var Skudetpk = 0;
+                var RollPk = 0;
+                var docnum = 'NA';
+                var cutplanPk = id;
+                    $.ajax({
+                        url: "@Url.Action("GetRollTracker", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk, 'Docnum': docnum},
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                });
+                $("#Doctrack").click(function (e, params) {
+                $('#loadingmessage').show();
+                var id = $("#srch-term").val();
+                var supplierdock_pk = 0;
+                var Skudetpk = 0;
+                var RollPk = 0;
+                var docnum = id;
+                var cutplanPk = 0;
+                    $.ajax({
+                        url: "@Url.Action("GetRollTracker", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk, 'Docnum': docnum},
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                });
+
+               $("#Critical").click(function (e, params) {
             $('#loadingmessage').show();
             var Id = $('#AtcID').find('option:selected').val();
                 $.ajax({
-                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Id': Id },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
-
-            $("#ShipmentReportAll").click(function (e, params) {
-            $('#loadingmessage').show();
-            var Id =0;
-                $.ajax({
-                    url: "@Url.Action("GetShipmentofAtc", "ProductionReport")",
+                    url: "@Url.Action("GetCriticalAtc", "RollTracker")",
                     traditional: true,
                     type: "GET",
                     data: { 'Id': Id },
@@ -150,154 +321,7 @@
                     });
 
 
-
-            $("#RejectionrequestAll").click(function (e, params) {
-            $('#loadingmessage').show();
-            var Id =0;
-                $.ajax({
-                    url: "@Url.Action("GetRejectionRequest", "ProductionReport")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'Id': Id },
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
-
-
-
-
-
-
-
-
-
-
-
-
-            $("#DeliveryOrderWF").click(function (e, params) {
-            $('#loadingmessage').show();
-            var fromdate = $("#FromDate").val();
-            var todate = $("#Todate").val();
-            var dotype = "WF";
-
-                $.ajax({
-                    url: "@Url.Action("GetDoBetweenDate", "RollTracker")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'fromdate': fromdate, 'todate': todate, 'dotype': dotype},
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
-
-
-            $("#SKUTrack").click(function (e, params) {
-            $('#loadingmessage').show();
-            var id = $("#srch-term").val();
-            var supplierdock_pk = 0;
-            var Skudetpk = id;
-            var RollPk = 0;
-            var cutplanPk = 0;
-                $.ajax({
-                    url: "@Url.Action("GetRollTracker", "RollTracker")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk},
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
-
-
-            $("#ASNTrack").click(function (e, params) {
-            $('#loadingmessage').show();
-            var id = $("#srch-term").val();
-            var supplierdock_pk = id;
-            var Skudetpk = 0;
-            var RollPk = 0;
-            var cutplanPk = 0;
-
-
-                $.ajax({
-                    url: "@Url.Action("GetRollTracker", "RollTracker")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk},
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-                    });
-
-
-            $("#RollPKTrack").click(function (e, params) {
-            $('#loadingmessage').show();
-            var id = $("#srch-term").val();
-            var supplierdock_pk = 0;
-            var Skudetpk = 0;
-            var RollPk = id;
-            var cutplanPk = 0;
-                $.ajax({
-                    url: "@Url.Action("GetRollTracker", "RollTracker")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk},
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-            });
-
-
-            $("#CutplanPKTrack").click(function (e, params) {
-            $('#loadingmessage').show();
-            var id = $("#srch-term").val();
-            var supplierdock_pk = 0;
-            var Skudetpk = 0;
-            var RollPk = 0;
-            var cutplanPk = id;
-                $.ajax({
-                    url: "@Url.Action("GetRollTracker", "RollTracker")",
-                    traditional: true,
-                    type: "GET",
-                    data: { 'supplierdock_pk': supplierdock_pk, 'Skudetpk': Skudetpk, 'RollPk': RollPk, 'cutplanPk': cutplanPk},
-                    success: function (fooBarHTML) {
-                        $('#loadingmessage').hide();
-                    $("#output").html(fooBarHTML);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        $('#loadingmessage').hide();
-                    }
-                    });
-            });
-
-            
-
-    });
+        });
 
 
 
@@ -321,13 +345,32 @@
         </div>
         <div class="row top-buffer">
             <div class="col-sm-3">
-                <input id="ShipmentReport" type="button" value="Get Shipment Report" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of Selected  Atc" class="btn btn-default show" />
+                <input id="Critical" type="button" value="Get Critical Path Report of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
-                <input id="Costing" type="button" value="Get Costing data of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
+                       </div>
+            <div class="col-sm-3">
+                <input id="RollAllocation" type="button" value="Get RollYard Location " data-toggle="tooltip" data-placement="top" title="Get Roll allocation of Yardage" class="btn btn-default show" />
+
+
             </div>
             <div class="col-sm-3">
+             
+            </div>
+
+        </div>
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+
+              
+            </div>
+            <div class="col-sm-3">
+              
+            </div>
+            <div class="col-sm-3">
+
 
             </div>
             <div class="col-sm-3">
@@ -335,6 +378,7 @@
             </div>
 
         </div>
+
     </div>
 </div>
 
@@ -345,24 +389,24 @@
 
         <div class="row top-buffer" style="background-color:greenyellow;">
             <div class="col-sm-3">
-                <input id="Show" type="button" value="Show BE Report of Running Atc" data-toggle="tooltip" data-placement="top" title="Shows BE Report of Running Atc" class="btn btn-default show" />
+                <input id="GetGtockreportOnhanld" type="button" value="Get Gstock Report(onhand)" data-toggle="tooltip" data-placement="top" title="Get Gstock" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
-                <input id="CostingAll" type="button" value="Get Costing data All  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data All  Atc" class="btn btn-default show" />
-            </div>
+                 </div>
             <div class="col-sm-3">
                 <input id="PoofSupplier" type="button" value="Get Po of Supplier" data-toggle="tooltip" data-placement="top" title="Get Po of Supplier" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
-                <input id="ShipmentReportAll" type="button" value="Get All Shipment Report" data-toggle="tooltip" data-placement="top" title="Get Shipment Report of All  Atc" class="btn btn-default show" />
+                <input id="StockRoReport" type="button" value="Get STOCKRO Summary  " data-toggle="tooltip" data-placement="top" title="Get STOCKRO Report" class="btn btn-default show" />
+
             </div>
 
         </div>
 
         <div class="row top-buffer" style="background-color:greenyellow;">
             <div class="col-sm-3">
-                <input id="RejectionrequestAll" type="button" value="Show Rejection request Report " data-toggle="tooltip" data-placement="top" title="Show Rejection request Report" class="btn btn-default show" />
+                <input id="RoReport" type="button" value="Get RO Summary " data-toggle="tooltip" data-placement="top" title="Get RO Report" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">
@@ -420,6 +464,76 @@
 </div>
 
 
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo5">Between Date Inventory Reports of Location </button>
+
+<div id="demo5" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Location :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+
+    </div>
+
+
+    <div class="row top-buffer">
+        <div class="col-sm-2">
+            From Date :
+
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBox("locFromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+        </div>
+        <div class="col-sm-2">
+            To date
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBox("locTodate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+        </div>
+        <div class="col-sm-2">
+            To date
+        </div>
+
+    </div>
+
+    <div class="row top-buffer" style="background-color:greenyellow;">
+        <div class="col-sm-3">
+            <input id="InventoryOrderWF" type="button" value="Show Inventory Report of Bewtween Date" data-toggle="tooltip" data-placement="top" title="Shows BE Report of Running Atc" class="btn btn-default show" />
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-3">
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <button data-toggle="collapse" class="btn btn-info" data-target="#demo3">Month Report</button>
 
@@ -473,7 +587,7 @@
     <div class="container-fluid jumbotron">
 
         <div class="row top-buffer">
-           
+
             <div class="col-sm-5">
 
                 <form class="navbar-form">
@@ -513,6 +627,16 @@
                 <input id="CutplanPKTrack" type="button" value="I Entered CutPlan PK" data-toggle="tooltip" data-placement="top" title="Show Roll  History of CutPlan" class="btn btn-default show" />
 
             </div>
+
+        </div>
+
+
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="Doctrack" type="button" value="I Entered Docnum" data-toggle="tooltip" data-placement="top" title="Show Roll History of Docnum" class="btn btn-default show" />
+
+            </div>
+
 
         </div>
     </div>

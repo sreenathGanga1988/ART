@@ -51,8 +51,10 @@
                          <asp:Button ID="btn_showPO0" runat="server" Text="S" OnClick="btn_showPO0_Click" />
                           </ContentTemplate>
      </asp:UpdatePanel>   </td>
-                     <td class="NormalTDauto-style7">&nbsp;</td>
-                     <td class="NormalTDauto-style7">&nbsp;</td>
+                     <td class="NormalTDauto-style7">Locked CM</td>
+                     <td class="NormalTDauto-style7">
+                         <asp:Label ID="Lbl_LockedCM" runat="server" Text="0"></asp:Label>
+                     </td>
                  </tr>
         
                  <tr>

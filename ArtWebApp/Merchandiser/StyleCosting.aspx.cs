@@ -134,8 +134,34 @@ namespace ArtWebApp.Merchandiser
             fillOptionalComponentsOfCosting(oldcostingid);
             FillOptionalComponents();
             LoadCostingGrid();
+            fillCmstatus(int.Parse(ddl_ourstyle.SelectedValue.ToString()));
         }
  
+
+        public void fillCmstatus( int ourstyleid)
+        {
+            String status = "Open";
+            using (ArtEntitiesnew enty= new ArtEntitiesnew ())
+            {
+                var q = from atcdet in enty.AtcDetails
+                        where atcdet.OurStyleID == ourstyleid
+                        select atcdet;
+
+                foreach (var element in q)
+                {
+                    if (element.IsCMLocked == "Y") { status = "Open"; } else
+                    {
+                        status = "Closed";
+                    }
+
+                }
+
+               
+             }
+
+            lbl_costingstatus.Text = status;
+        }
+
         protected void btn_InsertCosting_Click(object sender, EventArgs e)
         {
 

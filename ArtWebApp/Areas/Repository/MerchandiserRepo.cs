@@ -207,8 +207,10 @@ namespace ArtWebApp.Areas.Repository
                         element.ApproximateCharges = order.ApproximateCharges;
 
                     }
-                    element.IsApproved = order.IsApproved;
-                    
+                    if (element.IsApproved == "Y")
+                    {
+                        element.IsApproved = order.IsApproved;
+                    }
                     element.IsDeleted = "N";
                     element.AddedBy = HttpContext.Current.Session["Username"].ToString();
                     element.AddedDate = DateTime.Now;

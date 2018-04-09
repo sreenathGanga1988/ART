@@ -631,7 +631,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          CutPlanMaster ON FabricRollmaster.SkuDet_PK = CutPlanMaster.SkuDet_PK AND FabricRollmaster.ShrinkageGroup = CutPlanMaster.ShrinkageGroup AND 
                          FabricRollmaster.WidthGroup = CutPlanMaster.WidthGroup AND FabricRollmaster.MarkerType = CutPlanMaster.MarkerType INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
-WHERE        (FabricRollmaster.IsDelivered <> N'Y') AND (CutPlanMaster.CutPlan_PK = @cutplan_PK) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @location_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails where   IsDeleted='N')) AS tt
+WHERE        (FabricRollmaster.IsDelivered <> N'Y')and  (FabricRollmaster.IsAcceptable = 'Yes') AND (CutPlanMaster.CutPlan_PK = @cutplan_PK) AND (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @location_pk) and FabricRollmaster.Roll_PK not in (Select Roll_PK from CutPlanRollDetails where   IsDeleted='N')) AS tt
 ORDER BY tt.RollNum ";
                 ;
                 cmd.Parameters.AddWithValue("@cutplan_PK", cutplan_PK);
