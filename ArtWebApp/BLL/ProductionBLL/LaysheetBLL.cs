@@ -216,13 +216,15 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @param1) AND (LaySheetDetails.IsD
                              where lymstr.LaySheet_PK == laysheetPK
                              select lymstr;
 
-                    foreach (var atcwolrdelement in q1)
-                    {
+                   
+                        foreach (var atcwolrdelement in q1)
+                        {
 
-                        atcwolrdelement.IsApproved = "Y";
-                        ismasteralreadypresent = true;
+                            atcwolrdelement.IsApproved = "Y";
+                            ismasteralreadypresent = true;
 
-                    }
+                        }
+                    
 
 
 

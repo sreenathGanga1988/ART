@@ -918,6 +918,8 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                     element.Level1Approval = "Y";
                     element.Level1ApprovedBY = HttpContext.Current.Session["Username"].ToString().Trim();
+                    element.L1ApprovedDate = DateTime.Now;
+
                 
 
                 }

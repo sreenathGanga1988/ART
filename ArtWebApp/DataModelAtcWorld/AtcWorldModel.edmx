@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AtcModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArtAtcClosingMaster">
+          <Key>
+            <PropertyRef Name="AtcClosing_PK" />
+          </Key>
+          <Property Name="AtcClosing_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AtcNum" Type="nchar" MaxLength="20" />
+          <Property Name="OurstyleId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Ourstyle" Type="nchar" MaxLength="30" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="10" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="ArtCutPlanASQDet">
           <Key>
             <PropertyRef Name="ArtCutASqDet_PK" />
@@ -144,7 +157,7 @@
           <Property Name="BuyerStyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="AllocatedQty" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ArtAllocation_PK" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="POType" Type="nvarchar" MaxLength="20" />
+          <Property Name="POType" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstDeliveryDate" Type="datetime" />
           <Property Name="HandOverDate" Type="datetime" />
           <Property Name="IsShortClosed" Type="nvarchar" MaxLength="50" />
@@ -335,18 +348,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FabricRequest_tbl_LocationMaster_tbl">
-          <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
-          <End Role="FabricRequest_tbl" Type="Self.FabricRequest_tbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster_tbl">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="FabricRequest_tbl">
-              <PropertyRef Name="Location_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PackingListDetailsAtc_PackingListMasterAtcPro">
           <End Role="PackingListMasterAtcPro" Type="Self.PackingListMasterAtcPro" Multiplicity="0..1" />
           <End Role="PackingListDetailsAtc" Type="Self.PackingListDetailsAtc" Multiplicity="*" />
@@ -359,19 +360,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RevenueMaster_LocationMaster_tbl">
-          <End Role="LocationMaster_tbl" Type="Self.LocationMaster_tbl" Multiplicity="0..1" />
-          <End Role="FactoryCostMaster" Type="Self.FactoryCostMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster_tbl">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="FactoryCostMaster">
-              <PropertyRef Name="Location_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="AtcModelModelStoreContainer">
+          <EntitySet Name="ArtAtcClosingMaster" EntityType="Self.ArtAtcClosingMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtCutPlanASQDet" EntityType="Self.ArtCutPlanASQDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtCutPlanMarkerSizeDetails" EntityType="Self.ArtCutPlanMarkerSizeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArtJobContractMaster" EntityType="Self.ArtJobContractMaster" Schema="dbo" store:Type="Tables" />
@@ -393,17 +383,9 @@
             <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
             <End Role="CmDozmaster" EntitySet="CmDozmaster" />
           </AssociationSet>
-          <AssociationSet Name="FK_FabricRequest_tbl_LocationMaster_tbl" Association="Self.FK_FabricRequest_tbl_LocationMaster_tbl">
-            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
-            <End Role="FabricRequest_tbl" EntitySet="FabricRequest_tbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_PackingListDetailsAtc_PackingListMasterAtcPro" Association="Self.FK_PackingListDetailsAtc_PackingListMasterAtcPro">
             <End Role="PackingListMasterAtcPro" EntitySet="PackingListMasterAtcPro" />
             <End Role="PackingListDetailsAtc" EntitySet="PackingListDetailsAtc" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RevenueMaster_LocationMaster_tbl" Association="Self.FK_RevenueMaster_LocationMaster_tbl">
-            <End Role="LocationMaster_tbl" EntitySet="LocationMaster_tbl" />
-            <End Role="FactoryCostMaster" EntitySet="FactoryCostMaster" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -444,6 +426,7 @@
           </AssociationSet>
           <EntitySet Name="ASQAllocationMaster_tbl" EntityType="AtcModelModel.ASQAllocationMaster_tbl" />
           <EntitySet Name="ArtJobContractOptionalMasters" EntityType="AtcModelModel.ArtJobContractOptionalMaster" />
+          <EntitySet Name="ArtAtcClosingMasters" EntityType="AtcModelModel.ArtAtcClosingMaster" />
         </EntityContainer>
         <EntityType Name="LocationMaster_tbl">
           <Key>
@@ -788,7 +771,7 @@
           <Property Name="BuyerStyleID" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="AllocatedQty" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ArtAllocation_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="POType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="POType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstDeliveryDate" Type="DateTime" Precision="3" />
           <Property Name="HandOverDate" Type="DateTime" Precision="3" />
           <Property Name="IsShortClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -818,6 +801,19 @@
           <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ArtAtcClosingMaster">
+          <Key>
+            <PropertyRef Name="AtcClosing_PK" />
+          </Key>
+          <Property Name="AtcClosing_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcNum" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="OurstyleId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Ourstyle" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="IsClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1157,6 +1153,20 @@
                 <ScalarProperty Name="JobContractOptional_pk" ColumnName="JobContractOptional_pk" />
                 <ScalarProperty Name="JobContractOptionalDetail_pk" ColumnName="JobContractOptionalDetail_pk" />
                 <ScalarProperty Name="ArtJobContractOpionID" ColumnName="ArtJobContractOpionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtAtcClosingMasters">
+            <EntityTypeMapping TypeName="AtcModelModel.ArtAtcClosingMaster">
+              <MappingFragment StoreEntitySet="ArtAtcClosingMaster">
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="Ourstyle" ColumnName="Ourstyle" />
+                <ScalarProperty Name="OurstyleId" ColumnName="OurstyleId" />
+                <ScalarProperty Name="AtcNum" ColumnName="AtcNum" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="AtcClosing_PK" ColumnName="AtcClosing_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

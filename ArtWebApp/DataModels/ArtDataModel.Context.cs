@@ -306,6 +306,10 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<YearWeekMaster> YearWeekMasters { get; set; }
         public virtual DbSet<CSFA_Component> CSFA_Component { get; set; }
         public virtual DbSet<PcdAlertUserright> PcdAlertUserrights { get; set; }
+        public virtual DbSet<MCRDetail> MCRDetails { get; set; }
+        public virtual DbSet<MCR_Master> MCR_Master { get; set; }
+        public virtual DbSet<RackMaster> RackMasters { get; set; }
+        public virtual DbSet<RackInventoryMaster> RackInventoryMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

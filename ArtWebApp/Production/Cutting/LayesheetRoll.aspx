@@ -486,6 +486,20 @@
 
                                               </FooterTemplate>
                                              </asp:TemplateField>
+
+
+                                           <asp:TemplateField HeaderText="Cut_NO" SortExpression="Cut_NO">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lblCutNO" CssClass="txtaCutNO" runat="server" Text='<%# Bind("Cut_NO") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                                 <FooterTemplate>
+                                            <%--      <asp:TextBox ID="txt_totalyard" Width="70px" CssClass="totalyardfooter" runat="server"></asp:TextBox>--%>
+
+                                              </FooterTemplate>
+                                             </asp:TemplateField>
+
+
                                          
                                                                             
                                              <asp:TemplateField HeaderText="Plies" Visible="False">

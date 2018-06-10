@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "ReportIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ReportIndex</h2>
+
+
+<style>
+
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
+
+<script>
+
+
+        $(document).ready(function () {
+
+            
+            $("#Show_locationwise").click(function (e, params) {
+                $('#loadingmessage').show();
+                $('#output').empty();
+                $('#output1').empty();
+                 var fromdate = $("#FromDate").val();
+                 var todate = $("#Todate").val();
+                 var LocId = $('#Locid').find('option:selected').val();
+                var Atcid = $('#AtcID').find('option:selected').val();
+                $.ajax({
+                        url: "@Url.Action("Getdatewisefabricconsume", "FCR")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'fromdate': fromdate, 'todate': todate, 'locid': LocId, 'atcid': Atcid },                    
+                    success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+            });
+
+            $("#Show_ATCwise").click(function (e, params) {
+                $('#loadingmessage').show();  
+                $('#output').empty();
+                $('#output1').empty();
+                 var LocId = $('#Locid').find('option:selected').val();
+                var Atcid = $('#AtcID').find('option:selected').val();
+                alert(Atcid);
+                $.ajax({
+                        url: "@Url.Action("GetATCwisefabricconsume", "FCR")",
+                        traditional: true,
+                        type: "GET",
+                        data: {'locid': LocId, 'atcid': Atcid },                    
+                    success: function (fooBarHTML) {
+                       
+                        alert("Hi");
+                            $('#loadingmessage').hide();
+                        $("#output1").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+                        });
+
+
+
+        });
+
+
+
+
+
+</script>
+
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                From Date :
+
+            </div>
+            <div class="col-sm-9">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-3">
+                To date
+            </div>
+            <div class="col-sm-9">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-3">
+                    Factory :
+                </div>
+                <div class="col-md-6">  @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+                <div class="col-sm-3">
+                    <input id="Show_locationwise" type="button" value="Show" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-3">Atc #:</div>
+                <div class="col-md-6">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+                <div class="col-md-3">
+                    <input id="Show_ATCwise" type="button" value="Show ATCwise" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+
+
+
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>
+<div id='output1' class="">
+    <!-- Output goes here -->
+</div>
+@*<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Datewise Details</a></li>
+        <li><a href="#tabs-2">ATCwise Details</a></li>
+
+    </ul>
+    <div id="tabs-1">
+        <p>
+            <div id='output' class="">
+                <!-- Output goes here -->
+            </div>
+
+
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p>
+            <div id='output1' class="">
+                <!-- Output goes here -->
+            </div>
+        </p>
+    </div>
+
+</div>*@

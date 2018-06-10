@@ -122,6 +122,35 @@ namespace ArtWebApp.Areas.ProductionMVC.Controllers
 
 
         [HttpGet]
+        public PartialViewResult GETADNWISE(DateTime fromdate, DateTime todate)
+        {
+            ReportDataModel model = new ReportDataModel();
+            ProductionReportRepo productionReportRepo = new ProductionReportRepo();
+            DataTable dt = productionReportRepo.GETADNWISE(fromdate, todate);
+            model.AsqData = dt;
+
+            model.ReportName = "Report Between  " + fromdate.ToShortDateString() + " && " + todate.ToShortDateString();
+
+
+            return PartialView("ProductionReportViewer", model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpGet]
         public PartialViewResult GetRejectionRequest(int Id)
         {
             ReportDataModel model = new ReportDataModel();

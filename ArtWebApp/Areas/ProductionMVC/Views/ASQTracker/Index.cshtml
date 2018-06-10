@@ -21,7 +21,8 @@
             var dotype = "WF";
 
                 $.ajax({
-                    url: "@Url.Action("GetDoBetweenDate", "ProductionReport")",
+                    url: "@Url.Action("GetASQ", "ASQTracker")",
+                   
                     traditional: true,
                     type: "GET",
                     data: { 'fromdate': fromdate, 'todate': todate, 'dotype': dotype},
@@ -29,7 +30,7 @@
                         $('#loadingmessage').hide();
                         $("#output").html(fooBarHTML);
 
-                        $("#output").dialog();
+                        //$("#output").dialog();
                     },
                     error: function (xhr, status, errorThrown) {
                         $('#loadingmessage').hide();
@@ -77,7 +78,7 @@
 
         <div class="row top-buffer" style="background-color:greenyellow;">
             <div class="col-sm-3">
-                <input id="LoadASQ" type="button" value="Show CSFA " data-toggle="tooltip" data-placement="top" title="Show ASQ Between Date" class="btn btn-default show" />
+                <input id="LoadASQ" type="button" value="Show" data-toggle="tooltip" data-placement="top" title="Show ASQ Between Date" class="btn btn-default show" />
 
             </div>
             <div class="col-sm-3">

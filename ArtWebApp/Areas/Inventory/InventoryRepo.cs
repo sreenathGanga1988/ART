@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-
 namespace ArtWebApp.Areas.Inventory
 {
     public class InventoryRepo
@@ -26,7 +25,7 @@ namespace ArtWebApp.Areas.Inventory
             cmd.Parameters.AddWithValue("@RollPk", id);
             cmd.Parameters.AddWithValue("@cutplanPk", 0);
             cmd.Parameters.AddWithValue("@docnum", "NA");
-    
+
             cmd.CommandType = CommandType.StoredProcedure;
 
 
@@ -38,9 +37,196 @@ namespace ArtWebApp.Areas.Inventory
 
         }
 
+        public DataTable GetATCwiseFabricInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+            
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                 ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, InventoryMaster.OnhandQty as PhysicalQty,
+                LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,AtcMaster.AtcID,LocationMaster.Location_PK,
+                0 as DiffQty,InventoryMaster.CURate as ActualRate
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Fabric')
+                 AND (InventoryMaster.OnhandQty > 0) 
+and AtcMaster.AtcId not in(select Atcid from MCRDetails where Location_pk =@Locid)
+ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
 
 
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
 
+            return dt;
+        }
+        public DataTable GetATCwiseTrimsInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty,
+InventoryMaster.OnhandQty as PhysicalQty,
+                AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,
+AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate as ActualRate
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Trims')
+                 AND (InventoryMaster.OnhandQty > 0) and AtcMaster.AtcId not in(select Atcid from MCRDetails where Location_pk =@Locid) ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+        public DataTable GetMrnDetailsforAllocation(int MRN_PK,int Rack_PK)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty,
+                AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate,
+AtcMaster.AtcID,LocationMaster.Location_PK,MrnMaster.MrnNum,@Rack_PK as Rack_PK
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE (ItemGroupMaster.ItemGroupName = N'Trims')
+				and MrnMaster.Mrn_PK =@MRN_PK and MrnDetails.IsRackAllocateDone is NULL
+                 ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode ";
+            cmd.Parameters.AddWithValue("@MRN_PK", MRN_PK);
+            cmd.Parameters.AddWithValue("@Rack_PK", Rack_PK);
+            
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+        public DataTable MCRFabricInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+FROM            MCRDetails
+WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F')";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable MCRTrimsInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+FROM            MCRDetails
+WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable ApprovedMCRFabricInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+FROM            MCRDetails
+WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F') and (Isapproved='Y')";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable ApprovedMCRTrimsInventory(int Locid, int Atcid)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+FROM            MCRDetails
+WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')  and (Isapproved='Y')";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+
+        public string MCRTrimsInventory(AtcwiseFabricInventory order) {
+            string MCRNum = "";
+            using (ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+            {
+
+              
+                
+
+
+            }
+                return MCRNum;
+
+        }
+
+        
         public List<RollPropertyViewModel> GetRollPropertyViewModellist(DataTable datatable)
         {
             List<RollPropertyViewModel> list = new List<RollPropertyViewModel>();
@@ -358,6 +544,7 @@ HAVING(TransferToGstockDetails.TransferToGSTock_PK = @TransferToGSTock_PK)";
             return dt;
         }
 
+       
 
         public String InsertGstockRoll(RollTransfertoGstockModelMaster model)
         {
@@ -429,6 +616,7 @@ HAVING(TransferToGstockDetails.TransferToGSTock_PK = @TransferToGSTock_PK)";
             return msg;
         }
 
+        
 
     }
 

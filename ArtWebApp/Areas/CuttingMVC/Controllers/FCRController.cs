@@ -74,8 +74,39 @@ namespace ArtWebApp.Areas.CuttingMVC.Controllers
             ViewBag.AtcID = new SelectList(enty.AtcMasters, "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters, "location_pk", "locationname");
             return View();
+        }
 
+        public ActionResult ReportIndex()
+        {
+            ViewBag.AtcID = new SelectList(enty.AtcMasters, "AtcId", "AtcNum");
+            ViewBag.Locid = new SelectList(enty.LocationMasters, "location_pk", "locationname");
+            return View();
 
+        }
+
+        [HttpGet]
+        public PartialViewResult Getdatewisefabricconsume(DateTime fromdate, DateTime todate, int locid, int atcid)
+        {
+            DatewiseFabricConsume model = new DatewiseFabricConsume();
+
+            FcrRepo fcrRepo = new FcrRepo();
+            DataTable dt = fcrRepo.Getdatewisefabricconsume(fromdate,todate,locid,atcid);
+            model.Getdatewisefabricconsume = dt;
+            
+         //   model.ReportName = "Datewise Details";
+            return PartialView("DatewiseFabricConsume_P", model);
+        }
+
+        [HttpGet]
+        public PartialViewResult GetATCwisefabricconsume( int locid, int atcid)
+        {
+            ATCwiseFabricConsume model = new ATCwiseFabricConsume();
+            FcrRepo fcrRepo = new FcrRepo();
+            DataTable dt = fcrRepo.GetATCwisefabricconsume(locid, atcid);
+            model.GetATCwisefabricconsume= dt;
+
+            //   model.ReportName = "Datewise Details";
+            return PartialView("ATCwiseFabricConsume_P", model);
         }
 
 

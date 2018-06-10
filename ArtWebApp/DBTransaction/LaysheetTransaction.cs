@@ -60,7 +60,7 @@ namespace ArtWebApp.DBTransaction
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, FabricRollmaster.AYard, RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent,'New' as RollStatus
+                         FabricRollmaster.SYard, FabricRollmaster.AYard, RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent,'New' as RollStatus,CutOrderMaster.Cut_No
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
@@ -78,7 +78,7 @@ Union
 
 SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, LaySheetRollDetails.balanceyardage as AYard , RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent ,'ReCut' as RollStatus
+                         FabricRollmaster.SYard, LaySheetRollDetails.balanceyardage as AYard , RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent ,'ReCut' as RollStatus,CutOrderMaster.Cut_No
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN

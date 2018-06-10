@@ -197,7 +197,14 @@ namespace ArtWebApp.Reports
                         others = others + float.Parse(element.CompValue.ToString());
                     }
 
-                    
+                    else if (element.ComponentName.Trim() == "EMBROIDERY")
+                    {
+                        lblsummary_Embroidary.Text = element.CompValue.ToString();
+                        lbl_embriodary.Text = element.CompValue.ToString();
+                        others = others + float.Parse(element.CompValue.ToString());
+                    }
+
+
                     else if (element.ComponentName.Trim() == "OTHERS")
                     {
                         lbl_others.Text = element.CompValue.ToString();
@@ -315,6 +322,7 @@ namespace ArtWebApp.Reports
             float trimperdzn = float.Parse(lblsummary_trimcost.Text) * 12;
             float cmdzn = float.Parse(lblsummary_cmcost.Text) * 12;
             float washperdzn = float.Parse(lblsummary_washcost.Text ) * 12;
+            float ebroideryperdzn = float.Parse(lblsummary_Embroidary.Text) * 12;
 
             float printperdzn = float.Parse(lblsummary_printing.Text) * 12;
             float otherperdozen = float.Parse(lblsummary_otherscost.Text) * 12;
@@ -334,6 +342,7 @@ namespace ArtWebApp.Reports
             lblsummary_othersdzn.Text = otherperdozen.ToString();
             lblsummary_comisiondzn.Text=commisionperdozen.ToString ();
             lblsummary_printingdzn.Text = printperdzn.ToString();
+            lblsummary_Embroidary0.Text = ebroideryperdzn.ToString();
 
 
 
@@ -347,6 +356,7 @@ namespace ArtWebApp.Reports
             float totalpercent = (totalcostindzn / fobindzn) * 100;
 
             float totalprint = (printperdzn / fobindzn) * 100;
+            float totalembrio = (ebroideryperdzn / fobindzn) * 100;
 
 
 
@@ -358,6 +368,7 @@ namespace ArtWebApp.Reports
             lblsummary_otherspercent.Text = otherpercent.ToString();
             lblsummary_totalcostpercent.Text = totalpercent.ToString();
             lblsummary_printingpercent.Text = totalprint.ToString();
+            lblsummary_Embroidarypercent.Text = totalembrio.ToString();
 
 
 

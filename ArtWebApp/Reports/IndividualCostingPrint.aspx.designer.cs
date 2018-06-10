@@ -490,6 +490,15 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.WebControls.Label lbl_garmentcom;
         
         /// <summary>
+        /// lbl_embriodary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_embriodary;
+        
+        /// <summary>
         /// tbl_fabdet control.
         /// </summary>
         /// <remarks>

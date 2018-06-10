@@ -1,83 +1,54 @@
 ﻿@model ArtWebApp.Areas.MVCTNA.ViewModel.ProductionTNAVModelMaster
-<script src="~/Scripts/jquery-3.2.1.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
-<link href="~/css/bootstrap.css" rel="stylesheet" />
 
-
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src=" https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
-<script type="text/javascript" language="javascript" src=" https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.bootstrap.min.css" />
 
 <script src="~/Plugin/MyDataTable.js"></script>
 @if (Model.ProductionTNAVModelList != null)
 {
+    
+<table id="MyDataTable" class="MyDataTable table table-striped table-bordered" cellspacing="0" width="100" style="border:1px solid black">
+    <thead>
+        <tr>
 
+            <th style="border:1px solid black">                Atc            </th>
+            <th style="border:1px solid black">                OurStyle            </th>
+            <th style="border:1px solid black">                BuyerStyle            </th>
+            <th style="border:1px solid black">                Factory            </th>
+            <th style="border:1px solid black">                Details            </th>
+            <th style="border:1px solid black">  PCD                           </th>
+            <th style="border:1px solid black">  FACTORY PLANNED PCD           </th>
+            <th style="border:1px solid black">  FINAL MARKER                  </th>
+            <th style="border:1px solid black">  FC1                           </th>
+            <th style="border:1px solid black">  PP MEETING                    </th>
+            <th style="border:1px solid black">  SIZE SET                      </th>
+            <th style="border:1px solid black">  SEWING TRIM                   </th>
+            <th style="border:1px solid black">  BULK FABRIC                   </th>
+            <th style="border:1px solid black">  RECEIPT OF ORGINAL DOCUMENT   </th>
+            <th style="border:1px solid black">  GRADDED PATTERN               </th>
+            <th style="border:1px solid black">  SAMPLE YARDAGES               </th>
+            <th style="border:1px solid black">  PP APPROVAL                   </th>
+            <th style="border:1px solid black">  PP SUBMISSION DATE MERCHANT   </th>
+            <th style="border:1px solid black">  INPUT                         </th>
+            <th style="border:1px solid black">  PACKING TRIMS                 </th>
+            <th style="border:1px solid black">  SystemFile                 </th>
 
-    <table class="table table-bordered table-bordered table-striped MyDataTable">
-        <thead>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductionTNAVModelList)
+        {
             <tr>
-
-                <th>
-                    Atc
-                </th>
-                <th>
-                    OurStyle
-                </th>
-                <th>
-                    BuyerStyle
-                </th>
-                <th>
-                    Factory
-                </th>
-                <th>
-                    Details
-                </th>
-
-                <th>  PCD                           </th>
-                <th>  FACTORY PLANNED PCD           </th>
-                <th>  FINAL MARKER                  </th>
-                <th>  FC1                           </th>
-                <th>  PP MEETING                    </th>
-                <th>  SIZE SET                      </th>
-                <th>  SEWING TRIM                   </th>
-                <th>  BULK FABRIC                   </th>
-                <th>  RECEIPT OF ORGINAL DOCUMENT   </th>
-                <th>  GRADDED PATTERN               </th>
-                <th>  SAMPLE YARDAGES               </th>
-                <th>  PP APPROVAL                   </th>
-                <th>  PP SUBMISSION DATE MERCHANT   </th>
-                <th>  INPUT                         </th>
-                <th>  PACKING TRIMS                 </th>
-                <th>  SystemFile                 </th>
-
-            </tr>
-
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ProductionTNAVModelList)
-            {
-            <tr>
-                <td>
+                <td style="border:1px solid black">
 
                     @Html.DisplayFor(modelItem => item.AtcNum)
                 </td>
 
-
-                <td>@Html.DisplayFor(modelItem => item.OurStyle)</td>
-                <td>
+                <td style="border:1px solid black">@Html.DisplayFor(modelItem => item.OurStyle)</td>
+                <td style="border:1px solid black">
                     @Html.DisplayFor(modelItem => item.BuyerStyle)
                 </td>
-                <td><div class="well-sm">@Html.DisplayFor(modelItem => item.LocationName)</div></td>
-                <td>
+                <td style="border:1px solid black"><div class="well-sm">@Html.DisplayFor(modelItem => item.LocationName)</div></td>
+                <td style="border:1px solid black">
                     <div class=" ourstyleid">
                         @Html.HiddenFor(modelItem => item.OurStyleID)
 
@@ -87,56 +58,35 @@
                     </div>
                 </td>
 
-
-
-
-
-
-
-
-
-
-
-                <td>
+                <td style="border:1px solid black">
                     <p>
-
-
                         <div> @item.PCD </div>
-
-
                     </p>
-
-
-
                 </td>
-                <td>
-
-
+                <td style="border:1px solid black">
                     <div> @item.FACTORYPLANNEDPCD </div>
 
-
-
                 </td>
-                <td>
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_dFINALMARKER">
                         <span style="white-space: pre-line">Plan  : @item.FINALMARKER</span><span style="white-space: pre-line">
                             Status  : @if (item.status_dFINALMARKER == "greenyellow")
-                {<span>Done : @item.ActualFINALMARKER</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualFINALMARKER</span> }
+                        else
+                        { <span>Pending</span>}
                         </span><span style="white-space: pre-line">By  : @item.UsrDdFINALMARKER</span>
                     </div>
                 </td>
 
-                <td>
+                <td style="border:1px solid black">
 
 
                     <div style="background-color:@item.status_FC1">
                         <span style="white-space: pre-line">Plan  : @item.FINALMARKER</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_FC1 == "greenyellow")
-                {<span>Done : @item.ActualFC1</span> }
+            {<span>Done : @item.ActualFC1</span> }
 
 else
 { <span>Pending</span>}
@@ -144,50 +94,34 @@ else
                         <span style="white-space: pre-line">By  : @item.UsrDFC1</span>
                     </div>
 
-
-
-
-
                 </td>
 
 
-                <td>
-
-
-
-
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_PPMEETING">
                         <span style="white-space: pre-line">Plan  : @item.PPMEETING</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_PPMEETING == "greenyellow")
-                {<span>Done : @item.ActualPPMEETING</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualPPMEETING</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDPPMEETING</span>
                     </div>
 
-
-
-
-
-
                 </td>
 
 
-                <td>
-
-
-
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_SIZESET">
                         <span style="white-space: pre-line">Plan  : @item.SIZESET</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_SIZESET == "greenyellow")
-                {<span>Done : @item.ActualSIZESET</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualSIZESET</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDSIZESET</span>
                     </div>
@@ -195,18 +129,16 @@ else
                 </td>
 
 
-                <td>
-
-
+                <td style="border:1px solid black">
 
 
                     <div style="background-color:@item.status_SEWINGTRIM">
                         <span style="white-space: pre-line">Plan  : @item.SEWINGTRIM</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_SEWINGTRIM == "greenyellow")
-                {<span>Done : @item.ActualSEWINGTRIM</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualSEWINGTRIM</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDSEWINGTRIM</span>
                     </div>
@@ -214,7 +146,7 @@ else
                 </td>
 
 
-                <td>
+                <td style="border:1px solid black">
 
 
 
@@ -223,28 +155,25 @@ else
                         <span style="white-space: pre-line">Plan  : @item.BULKFABRIC</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_BULKFABRIC == "greenyellow")
-                {<span>Done : @item.ActualBULKFABRIC</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualBULKFABRIC</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDBULKFABRIC</span>
                     </div>
                 </td>
 
 
-                <td>
-
-
-
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_RECEIPTOFORGINALDOCUMENT">
                         <span style="white-space: pre-line">Plan  : @item.RECEIPTOFORGINALDOCUMENT</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_RECEIPTOFORGINALDOCUMENT == "greenyellow")
-                {<span>Done : @item.ActualRECEIPTOFORGINALDOCUMENT</span> }
+                            {<span>Done : @item.ActualRECEIPTOFORGINALDOCUMENT</span> }
 
-else
-{ <span>Pending</span>}
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDRECEIPTOFORGINALDOCUMENT</span>
                     </div>
@@ -252,19 +181,15 @@ else
                 </td>
 
 
-                <td>
-
-
-
-
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_GRADDEDPATTERN">
                         <span style="white-space: pre-line">Plan  : @item.GRADDEDPATTERN</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_GRADDEDPATTERN == "greenyellow")
-                {<span>Done : @item.ActualGRADDEDPATTERN</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualGRADDEDPATTERN</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDGRADDEDPATTERN</span>
                     </div>
@@ -272,37 +197,31 @@ else
 
                 </td>
 
-
-                <td>
-
-
+                <td style="border:1px solid black">
 
 
                     <div style="background-color:@item.status_SAMPLEYARDAGES">
                         <span style="white-space: pre-line">Plan  : @item.SAMPLEYARDAGES</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_SAMPLEYARDAGES == "greenyellow")
-                {<span>Done : @item.ActualSAMPLEYARDAGES</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualSAMPLEYARDAGES</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDSAMPLEYARDAGES</span>
                     </div>
                 </td>
 
 
-                <td>
-
-
-
+                <td style="border:1px solid black">
 
                     <div style="background-color:@item.status_PPAPPROVAL">
                         <span style="white-space: pre-line">Plan  : @item.PPAPPROVAL</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_PPAPPROVAL == "greenyellow")
-                {<span>Done : @item.ActualPPAPPROVAL</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualPPAPPROVAL</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDPPAPPROVAL</span>
                     </div>
@@ -310,30 +229,23 @@ else
                 </td>
 
 
-                <td>
-
-
+                <td style="border:1px solid black">
 
 
                     <div style="background-color:@item.status_PPSUBMISSIONDATEMERCHANT">
                         <span style="white-space: pre-line">Plan  : @item.PPSUBMISSIONDATEMERCHANT</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_PPSUBMISSIONDATEMERCHANT == "greenyellow")
-                {<span>Done : @item.ActualPPSUBMISSIONDATEMERCHANT</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualPPSUBMISSIONDATEMERCHANT</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDPPSUBMISSIONDATEMERCHANT</span>
                     </div>
 
-                </td>
+                </td>                
 
-
-
-
-
-
-                <td>
+                <td style="border:1px solid black">
 
 
 
@@ -342,16 +254,16 @@ else
                         <span style="white-space: pre-line">Plan  : @item.INPUT</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_INPUT == "greenyellow")
-                {<span>Done : @item.ActualINPUT</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualINPUT</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDINPUT</span>
                     </div>
 
                 </td>
 
-                <td>
+                <td style="border:1px solid black">
 
 
 
@@ -360,9 +272,9 @@ else
                         <span style="white-space: pre-line">Plan  : @item.PACKINGTRIMS</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_PACKINGTRIMS == "greenyellow")
-                {<span>Done : @item.ActualPACKINGTRIMS</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualPACKINGTRIMS</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDPACKINGTRIMS</span>
                     </div>
@@ -370,7 +282,7 @@ else
                 </td>
 
 
-                <td>
+                <td style="border:1px solid black">
 
 
 
@@ -379,9 +291,9 @@ else
                         <span style="white-space: pre-line">Plan  : @item.SYSTEMFILES</span>
                         <span style="white-space: pre-line">
                             Status  : @if (item.status_SYSTEMFILES == "greenyellow")
-                {<span>Done : @item.ActualSYSTEMFILES</span> }
-else
-{ <span>Pending</span>}
+                            {<span>Done : @item.ActualSYSTEMFILES</span> }
+                        else
+                        { <span>Pending</span>}
                         </span>
                         <span style="white-space: pre-line">By  : @item.UsrDSYSTEMFILES</span>
                     </div>
@@ -390,134 +302,134 @@ else
 
                 @*<td>
 
-            <div class="container">
+                        <div class="container">
 
-                <div class="col-md-3">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"> PP SUBMISSION DATE</h3>
+                            <div class="col-md-3">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"> PP SUBMISSION DATE</h3>
+                                    </div>
+                                    <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div></div>
+                                </div>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">PP APPROVAL</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">SAMPLE YARDAGES</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">GRADDED PATTERN</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">SEWING TRIM</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">SEWING SET</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.SIZESET </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-3">
+
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">SIZE SET</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.SIZESET </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">PP MEETING</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">FC1</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.FC1 </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Final Marker</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Input</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.INPUT </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Packing trim</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div></div>
-                    </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">PP APPROVAL</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">SAMPLE YARDAGES</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">GRADDED PATTERN</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">SEWING TRIM</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">SEWING SET</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.SIZESET </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-md-3">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">SIZE SET</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.SIZESET </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">PP MEETING</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">FC1</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.FC1 </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Final Marker</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Input</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.INPUT </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Packing trim</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 
 
 
@@ -530,58 +442,58 @@ else
 
 
 
-        </td>*@
+                    </td>*@
                 @*<td>
 
-        </td>*@
+                    </td>*@
                 @*<td>
-            @Html.DisplayFor(modelItem => item.GradedPatternDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BulkFabricDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SewingTrimDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SizeSetDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PPMeetingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FC1Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalMarkerDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FactoryPlannedPCDDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MerchandisingPCDDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InputDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PackingTrimDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OurStyle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationName)
-        </td>*@
+                        @Html.DisplayFor(modelItem => item.GradedPatternDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BulkFabricDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SewingTrimDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SizeSetDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PPMeetingDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FC1Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinalMarkerDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FactoryPlannedPCDDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MerchandisingPCDDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InputDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PackingTrimDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OurStyle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocationName)
+                    </td>*@
 
             </tr>
-            }
+        }
 
 
-        </tbody>
+    </tbody>
 
 
-    </table>
+</table>
 
 
 

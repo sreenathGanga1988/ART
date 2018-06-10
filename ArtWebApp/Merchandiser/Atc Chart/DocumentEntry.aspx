@@ -156,6 +156,7 @@
                                          <asp:ListItem Value="LocalUAE">Local UAE ADN</asp:ListItem>
                                          <asp:ListItem Value="LocalKenya">Local Kenyan ADN</asp:ListItem>
                                          <asp:ListItem Value="IntlSupplier">International ADN</asp:ListItem>
+                                         <asp:ListItem Value="LocalEthiopia">Local Ethiopia ADN</asp:ListItem>
                                      </ucc:DropDownListChosen>
                                  </td>
                                  <td>From Country</td>

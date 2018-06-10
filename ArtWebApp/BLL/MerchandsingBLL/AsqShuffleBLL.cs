@@ -12,6 +12,9 @@ using ArtWebApp.DataModelAtcWorld;
 
 namespace ArtWebApp.BLL.MerchandsingBLL
 {
+
+    
+
     public class AsqShuffleBLL
     {
 
@@ -246,6 +249,12 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                     }
                     catch (Exception exp)
                     {
+
+                        while (exp.InnerException != null)
+                        {
+                            exp = exp.InnerException;
+                        }
+
                         Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
                         throw;
                     }
@@ -260,6 +269,10 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
 
 
     }
+
+
+    
+
     public class AsqShuffleMasterData
     {
 

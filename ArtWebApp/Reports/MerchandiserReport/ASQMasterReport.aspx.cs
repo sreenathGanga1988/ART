@@ -199,7 +199,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                         {
                             tb.CssClass = "colorname";
                             tb.Enabled = false;
-                            tb.Width = 60;
+                            tb.Width = 120;
                             tb.Font.Size = 7;
                         }
                         else if (dt.Columns[j].ColumnName == "ColorTotal")
@@ -705,7 +705,16 @@ namespace ArtWebApp.Reports.MerchandiserReport
             DataTable sizedata = BLL.FactoryAtcChart.createdatatable(dt);
             tbl_podata.DataSource = SqlDataSource3;
             //  tbl_podata.DataSource = asqshuffle.GetAllPOPackDataofStyleandPopack(int.Parse(drp_ourstyle.SelectedValue.ToString()), popaklist);
-            tbl_podata.DataBind();
+
+            try
+            {
+                tbl_podata.DataBind();
+            }
+            catch (Exception exp)
+            {
+
+                throw;
+            }
            
             GenerateSmallTable(sizedata);
             upd_main.Update();
@@ -804,15 +813,20 @@ namespace ArtWebApp.Reports.MerchandiserReport
                 for (int k = 0; k < dt.Columns.Count; k++)
                 {
                     TableHeaderCell hcell = new TableHeaderCell();
-                    hcell.Width = 60;
+                    hcell.Width = 80;
                     hcell.CssClass = "na";
                     Label tb = new Label();
                     tb.Text = dt.Columns[k].ColumnName.ToString();
-                    if (tb.Text == "ColorTotal")
+                    if (tb.Text == "Color")
                     {
-                        tb.Width = 60;
+                        tb.Width = 120;
+                    }
+                    else if (tb.Text == "ColorTotal")
+                    {
+                        tb.Width = 80;
                         tb.CssClass = "headercolor";
                     }
+                   
                     else
                     {
                         tb.Width = 60;
@@ -840,7 +854,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
 
 
                         TableCell cell = new TableCell();
-                        cell.Width = 70;
+                        cell.Width = 100;
 
                         TextBox tb = new TextBox();
 
@@ -848,7 +862,7 @@ namespace ArtWebApp.Reports.MerchandiserReport
                         {
                             tb.CssClass = "colorname";
                             tb.Enabled = false;
-                            tb.Width = 80;
+                            tb.Width = 120;
                         }
                         else if (dt.Columns[j].ColumnName == "ColorTotal")
                         {

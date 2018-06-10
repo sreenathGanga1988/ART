@@ -47,7 +47,7 @@
                         Order No</td>
                     <td class="NormalTD">
                              
-                        <ucc:DropDownListChosen ID="cmb_atc" runat="server" DataSourceID="SqlDataSource1" DataTextField="AtcNum" DataValueField="AtcId" DisableSearchThreshold="10" Width="200px">
+                        <ucc:DropDownListChosen ID="cmb_atc" runat="server" DataSourceID="SqlDataSource1" DataTextField="AtcNum" DataValueField="AtcId" DisableSearchThreshold="10" Width="200px" OnSelectedIndexChanged="cmb_atc_SelectedIndexChanged">
                         </ucc:DropDownListChosen>
                     
                
@@ -278,7 +278,7 @@ PopupControlID="Panel1" DropShadow="True">
         
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
-                    SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') ORDER BY AtcNum, AtcId">
+                    SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') AND (IsMCRDone IS NULL) ORDER BY AtcNum, AtcId">
                 </asp:SqlDataSource>
                     
                

@@ -16,13 +16,15 @@ namespace ArtWebApp.DataModelAtcWorld
     public partial class AtcWorldEntities : DbContext
     {
         public AtcWorldEntities()
-           : base("name=AtcWorldEntities")
+            : base("name=AtcWorldEntities")
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
-        : base("name=AtcWorldEthiopiaEntities")
+            : base("name=AtcWorldEthiopiaEntities")
         {
         }
+
+       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -46,5 +48,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public virtual DbSet<FactoryCostMaster> FactoryCostMasters { get; set; }
         public virtual DbSet<ASQAllocationMaster_tbl> ASQAllocationMaster_tbl { get; set; }
         public virtual DbSet<ArtJobContractOptionalMaster> ArtJobContractOptionalMasters { get; set; }
+        public virtual DbSet<ArtAtcClosingMaster> ArtAtcClosingMasters { get; set; }
     }
 }

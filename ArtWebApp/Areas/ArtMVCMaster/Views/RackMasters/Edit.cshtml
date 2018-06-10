@@ -1,0 +1,99 @@
+﻿@model ArtWebApp.DataModels.RackMaster
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Trims",
+        Value = "Trims"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Fabric",
+        Value = "Fabric",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "General",
+        Value = "General"
+    });
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>RackMaster</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Rack_pk)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location_pk, "Location_pk", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Location_pk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rack_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rack_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rack_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rack_type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Rack_type, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.Rack_type, listItems, "-- Select Rack Type --", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rack_type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddedBy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddedBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddedDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

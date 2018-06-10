@@ -20,4 +20,65 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
 
         public DataTable AsqData { get; set; }
     }
+
+
+    public class AtcwiseFabricInventory
+    {
+      
+        public string AtcId{ get; set; }
+        public string Location{ get; set; }
+        public DataTable InventoryDetails { get; set; }
+        public DataTable TrimsInventoryDetails { get; set; }
+        
+
+    }
+
+
+    public class GetMcrInventory
+    {
+
+        public string AtcId { get; set; }
+        public string Location { get; set; }
+        public DataTable InventoryDetails { get; set; }
+        public DataTable TrimsInventoryDetails { get; set; }
+
+
+    }
+
+    public class FabricInventoryList
+    {
+        public string AtcId { get; set; }
+        public string Location { get; set; }
+        public string InventoryItem_PK { get; set; }
+        public string RMNum { get; set; }
+        public string Description { get; set; }
+        public string ItemColor { get; set; }
+        public string SupplierColor { get; set; }
+        public string UomCode { get; set; }
+        public string ReceivedQty { get; set; }
+        public string DeliveredQty { get; set; }
+        public string OnhandQty { get; set; }
+        public string PhysicalQty { get; set; }
+        public string DiffQty { get; set; }
+        public string Type { get; set; }
+        public string MCRDetails_Pk { get; set; }
+        public string ActualCURate { get; set; }
+        public string CURate { get; set; }
+        public string Template_Pk { get; set; }
+        public string Skudet_Pk{ get; set; }
+    }
+
+    public class AllocateRack
+    {
+        public string Mrn_PK { get; set; }
+        public string Rack_PK { get; set; }
+        public DataTable GetMrnlist { get; set; }
+
+    }
+    public class Approvedata
+    {
+        public string InventoryItem_PK { get; set; }
+        public string Rack_PK { get; set; }
+
+    }
 }

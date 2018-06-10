@@ -282,7 +282,8 @@ WHERE        (IsOptional = N'Y')  and  (IsActive = N'Y') ", con);
                                 if(element.CostComp_PK== 3)
                                 {
                                     Decimal jobcontractcm = getJobContractCM(cmstr.OurStyleID);
-                                    if(jobcontractcm> Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString()))
+                                    
+                                        if (jobcontractcm> Decimal.Parse(cmstr.stylecombdata.Rows[i]["CompValue"].ToString()))
                                     {
 
                                     }

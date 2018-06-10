@@ -1,0 +1,532 @@
+﻿@model ArtWebApp.Areas.MVCTNA.ViewModel.ProductionTNAVModelMaster{
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    @if (Model.ProductionTNAVModelList != null){
+
+    <table class="table table-bordered table-bordered table-striped MyDataTable">
+        <thead>
+            <tr>
+
+                <th>
+                    Atc
+                </th>
+                <th>
+                    OurStyle
+                </th>
+                <th>
+                    BuyerStyle
+                </th>
+                <th>
+                    Factory
+                </th>
+                <th>
+                    Details
+                </th>
+
+                <th>  PCD                           </th>
+                <th>  FACTORY PLANNED PCD           </th>
+                <th>  FINAL MARKER                  </th>
+                <th>  FC1                           </th>
+                <th>  PP MEETING                    </th>
+                <th>  SIZE SET                      </th>
+                <th>  SEWING TRIM                   </th>
+                <th>  BULK FABRIC                   </th>
+                <th>  RECEIPT OF ORGINAL DOCUMENT   </th>
+                <th>  GRADDED PATTERN               </th>
+                <th>  SAMPLE YARDAGES               </th>
+                <th>  PP APPROVAL                   </th>
+                <th>  PP SUBMISSION DATE MERCHANT   </th>
+                <th>  INPUT                         </th>
+                <th>  PACKING TRIMS                 </th>
+                <th>  SystemFile                 </th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductionTNAVModelList)
+            {
+            <tr>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.AtcNum)
+                </td>
+
+
+                <td>@Html.DisplayFor(modelItem => item.OurStyle)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyerStyle)
+                </td>
+                <td><div class="well-sm">@Html.DisplayFor(modelItem => item.LocationName)</div></td>
+                <td>
+                    <div class=" ourstyleid">
+                        @Html.HiddenFor(modelItem => item.OurStyleID)
+
+                    </div>
+                    <div class="locationpk">
+                        @Html.HiddenFor(modelItem => item.Location_PK)
+                    </div>
+                </td>
+
+
+
+
+
+
+
+
+
+
+
+                <td>
+                    <p>
+
+
+                        <div> @item.PCD </div>
+
+
+                    </p>
+
+
+
+                </td>
+                <td>
+
+
+                    <div> @item.FACTORYPLANNEDPCD </div>
+
+
+
+                </td>
+                <td>
+
+                    <div style="background-color:@item.status_dFINALMARKER">
+                        <span style="white-space: pre-line">Plan  : @item.FINALMARKER</span><span style="white-space: pre-line">
+                            Status  : @if (item.status_dFINALMARKER == "greenyellow")
+                            {<span>Done : @item.ActualFINALMARKER</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span><span style="white-space: pre-line">By  : @item.UsrDdFINALMARKER</span>
+                    </div>
+                </td>
+
+                <td>
+
+
+                    <div style="background-color:@item.status_FC1">
+                        <span style="white-space: pre-line">Plan  : @item.FINALMARKER</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_FC1 == "greenyellow")
+                            {<span>Done : @item.ActualFC1</span> }
+
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDFC1</span>
+                    </div>
+
+
+
+
+
+                </td>
+
+
+                <td>
+
+
+
+
+
+                    <div style="background-color:@item.status_PPMEETING">
+                        <span style="white-space: pre-line">Plan  : @item.PPMEETING</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_PPMEETING == "greenyellow")
+                            {<span>Done : @item.ActualPPMEETING</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDPPMEETING</span>
+                    </div>
+
+
+
+
+
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_SIZESET">
+                        <span style="white-space: pre-line">Plan  : @item.SIZESET</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_SIZESET == "greenyellow")
+                            {<span>Done : @item.ActualSIZESET</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDSIZESET</span>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_SEWINGTRIM">
+                        <span style="white-space: pre-line">Plan  : @item.SEWINGTRIM</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_SEWINGTRIM == "greenyellow")
+                            {<span>Done : @item.ActualSEWINGTRIM</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDSEWINGTRIM</span>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_BULKFABRIC">
+                        <span style="white-space: pre-line">Plan  : @item.BULKFABRIC</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_BULKFABRIC == "greenyellow")
+                            {<span>Done : @item.ActualBULKFABRIC</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDBULKFABRIC</span>
+                    </div>
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_RECEIPTOFORGINALDOCUMENT">
+                        <span style="white-space: pre-line">Plan  : @item.RECEIPTOFORGINALDOCUMENT</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_RECEIPTOFORGINALDOCUMENT == "greenyellow")
+                            {<span>Done : @item.ActualRECEIPTOFORGINALDOCUMENT</span> }
+
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDRECEIPTOFORGINALDOCUMENT</span>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+
+
+
+
+                    <div style="background-color:@item.status_GRADDEDPATTERN">
+                        <span style="white-space: pre-line">Plan  : @item.GRADDEDPATTERN</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_GRADDEDPATTERN == "greenyellow")
+                            {<span>Done : @item.ActualGRADDEDPATTERN</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDGRADDEDPATTERN</span>
+                    </div>
+
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_SAMPLEYARDAGES">
+                        <span style="white-space: pre-line">Plan  : @item.SAMPLEYARDAGES</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_SAMPLEYARDAGES == "greenyellow")
+                            {<span>Done : @item.ActualSAMPLEYARDAGES</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDSAMPLEYARDAGES</span>
+                    </div>
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_PPAPPROVAL">
+                        <span style="white-space: pre-line">Plan  : @item.PPAPPROVAL</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_PPAPPROVAL == "greenyellow")
+                            {<span>Done : @item.ActualPPAPPROVAL</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDPPAPPROVAL</span>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_PPSUBMISSIONDATEMERCHANT">
+                        <span style="white-space: pre-line">Plan  : @item.PPSUBMISSIONDATEMERCHANT</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_PPSUBMISSIONDATEMERCHANT == "greenyellow")
+                            {<span>Done : @item.ActualPPSUBMISSIONDATEMERCHANT</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDPPSUBMISSIONDATEMERCHANT</span>
+                    </div>
+
+                </td>
+
+
+
+
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_INPUT">
+                        <span style="white-space: pre-line">Plan  : @item.INPUT</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_INPUT == "greenyellow")
+                            {<span>Done : @item.ActualINPUT</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDINPUT</span>
+                    </div>
+
+                </td>
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_PACKINGTRIMS">
+                        <span style="white-space: pre-line">Plan  : @item.PACKINGTRIMS</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_PACKINGTRIMS == "greenyellow")
+                            {<span>Done : @item.ActualPACKINGTRIMS</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDPACKINGTRIMS</span>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+
+
+
+                    <div style="background-color:@item.status_SYSTEMFILES">
+                        <span style="white-space: pre-line">Plan  : @item.SYSTEMFILES</span>
+                        <span style="white-space: pre-line">
+                            Status  : @if (item.status_SYSTEMFILES == "greenyellow")
+                            {<span>Done : @item.ActualSYSTEMFILES</span> }
+                            else
+                            { <span>Pending</span>}
+                        </span>
+                        <span style="white-space: pre-line">By  : @item.UsrDSYSTEMFILES</span>
+                    </div>
+
+                </td>
+
+                @*
+                <td>
+
+                    <div class="container">
+
+                        <div class="col-md-3">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"> PP SUBMISSION DATE</h3>
+                                </div>
+                                <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div>Actual  : </div></div>
+                            </div>
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">PP APPROVAL</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.PPAPPROVAL </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">SAMPLE YARDAGES</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.SAMPLEYARDAGES </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">GRADDED PATTERN</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.GRADDEDPATTERN </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">SEWING TRIM</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.SEWINGTRIM </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">SEWING SET</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.SIZESET </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-3">
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">SIZE SET</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.SIZESET </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">PP MEETING</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.PPMEETING </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">FC1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.FC1 </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Final Marker</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.FINALMARKER </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Input</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.INPUT </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Packing trim</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div>Plan : @item.PACKINGTRIMS </div><div>Actual  : </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+            </tr>
+            }
+
+
+        </tbody>
+
+
+    </table>
+
+
+
+
+    }
+
+</body>
+</html>
+}

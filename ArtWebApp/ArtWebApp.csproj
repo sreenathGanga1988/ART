@@ -130,6 +130,9 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcMailer.4.5\lib\45\Mvc.Mailer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -347,6 +350,7 @@
     <Content Include="Areas\Controls\chosen_v1.7.0\options.html" />
     <Content Include="Areas\Controls\chosen_v1.7.0\seleer.html" />
     <Content Include="Areas\Inventory\JS\InventoryReporter.js" />
+    <Content Include="Areas\MVCTNA\Views\ProductIonTNA\HtmlPage1.html" />
     <Content Include="Areas\ProductionMVC\JS\ProductionReporter.js" />
     <Content Include="ArtLogin.aspx" />
     <Content Include="Authorisation.aspx" />
@@ -422,6 +426,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Image\ajax-loader.gif" />
+    <Content Include="Image\giphy.gif" />
+    <Content Include="Image\loading-animated-gif-8.gif" />
     <Content Include="Image\password.jpg" />
     <Content Include="Image\Refresh.png" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
@@ -1646,6 +1652,41 @@
     <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Details.cshtml" />
     <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Edit.cshtml" />
     <Content Include="Areas\ProductionMVC\Views\PcdAlertUserrights\Index.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\ReportIndex.cshtml" />
+    <Content Include="Areas\CuttingMVC\Views\FCR\DatewiseFabricConsume_P.cshtml" />
+    <Content Include="ArtDataSet.xsc">
+      <DependentUpon>ArtDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Areas\CuttingMVC\Views\FCR\ATCwiseFabricConsume_P.cshtml" />
+    <Content Include="Areas\Shipping\Views\ImportDocumentLocation\ReportIndex.cshtml" />
+    <Content Include="Areas\Shipping\Views\ImportDocumentLocation\ContainerTrack_P.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\EXPADN\EXPADN_P.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\EXPADN\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\MCRDetails_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\EditIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\MCREdit_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Inventory\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ConfirmIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\GetApprovedMCR_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ApproveIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ApproveView_P.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Create.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Delete.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Details.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Edit.cshtml" />
+    <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Index.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\RackAllocationIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\TrimsRackAllocation_P.cshtml" />
+    <None Include="ArtDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ArtDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ArtDataSet.xss">
+      <DependentUpon>ArtDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -2038,6 +2079,7 @@
     <Compile Include="Areas\ArtMVCMaster\Controllers\LocationGroupMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerDirectionMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\MarkerMadeMastersController.cs" />
+    <Compile Include="Areas\ArtMVCMaster\Controllers\RackMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\SizeMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\SubMenuMastersController.cs" />
     <Compile Include="Areas\ArtMVCMaster\Controllers\SupplierMastersController.cs" />
@@ -2056,6 +2098,7 @@
     <Compile Include="Areas\ArtMVCMerchandiser\AtcChartRepo.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcChartController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcClosingController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\EXPADNController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightChargeDetailsController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightRequestMastersController.cs" />
@@ -2093,12 +2136,15 @@
     <Compile Include="Areas\CuttingMVC\ViewModel\FCRViewModel.cs" />
     <Compile Include="Areas\CuttingRepository.cs" />
     <Compile Include="Areas\Inventory\Controllers\DeliveryReceiptController.cs" />
+    <Compile Include="Areas\Inventory\Controllers\MCRController.cs" />
+    <Compile Include="Areas\Inventory\Controllers\RackAllocationController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollPropertyChangeController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollTrackerController.cs" />
     <Compile Include="Areas\Inventory\Controllers\RollTransferToGstockController.cs" />
     <Compile Include="Areas\Inventory\InventoryAreaRegistration.cs" />
     <Compile Include="Areas\Inventory\InventoryRepo.cs" />
     <Compile Include="Areas\Inventory\InventoryReportRepo.cs" />
+    <Compile Include="Areas\Inventory\ViewModel\InventoryDetails.cs" />
     <Compile Include="Areas\Inventory\ViewModel\InventoryReportmodel.cs" />
     <Compile Include="Areas\Inventory\ViewModel\RollPropertyViewmodel.cs" />
     <Compile Include="Areas\ITAdministrator\Controllers\DeviceMastersController.cs" />
@@ -2131,8 +2177,16 @@
     <Compile Include="Areas\Shipping\ShippingAreaRegistration.cs" />
     <Compile Include="Areas\Shipping\ShippingRepo.cs" />
     <Compile Include="Areas\Shipping\ViewModel\ImportViewModel.cs" />
+    <Compile Include="ArtDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="BLL\MerchandsingBLL\FreightChargeBLL.cs" />
     <Compile Include="BLL\ProductionBLL\RejectionPanelBLL.cs" />
+    <Compile Include="DataModelAtcWorld\ArtAtcClosingMaster.cs">
+      <DependentUpon>AtcWorldModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelAtcWorld\ArtJobContractOptionalMaster.cs">
       <DependentUpon>AtcWorldModel.tt</DependentUpon>
     </Compile>
@@ -2604,6 +2658,12 @@
     <Compile Include="DataModels\MarqueeMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\MCRDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\MCR_Master.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\MerchandiserMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2717,6 +2777,12 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ProductionTNAPending.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RackInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RackMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RecieptMaster.cs">
@@ -5106,7 +5172,6 @@
     <Folder Include="Areas\CuttingMVC\Views\RejectPanel\" />
     <Folder Include="Areas\CuttingMVC\Views\Shared\" />
     <Folder Include="Areas\Inventory\Models\" />
-    <Folder Include="Areas\Inventory\Views\Shared\" />
     <Folder Include="Areas\ITAdministrator\Models\" />
     <Folder Include="Areas\ITAdministrator\Views\Shared\" />
     <Folder Include="Areas\MVCTNA\Models\" />

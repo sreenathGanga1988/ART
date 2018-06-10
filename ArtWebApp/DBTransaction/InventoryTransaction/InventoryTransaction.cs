@@ -722,14 +722,16 @@ FROM            Template_Master INNER JOIN
 
             if (condition != "where")
             {
-                String query = @"SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, 
-                         StockInventoryMaster.TemplateSize, StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.CURate as Unitprice, StockInventoryMaster.OnHandQty, 
-                         UOMMaster.UomName, StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty, StockInventoryMaster.TemplateWidth, StockInventoryMaster.TemplateWeight, StockInventoryMaster.ReceivedVia, 
-                         LocationMaster.LocationName,StockInventoryMaster.CURate * StockInventoryMaster.OnHandQty AS PoValue
-FROM            StockInventoryMaster INNER JOIN
+                String query = @"SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, StockInventoryMaster.TemplateSize, 
+                         StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.CuRate AS Unitprice, StockInventoryMaster.OnHandQty, UOMMaster.UomName, 
+                         StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty, StockInventoryMaster.TemplateWidth, StockInventoryMaster.TemplateWeight, StockInventoryMaster.ReceivedVia, LocationMaster.LocationName, 
+                         StockInventoryMaster.CuRate * StockInventoryMaster.OnHandQty AS PoValue, StockMrnMaster.SMrnNum AS MRNNum, StockMrnMaster.AddedDate AS MRNDate
+FROM            StockMRNDetails INNER JOIN
+                         StockMrnMaster ON StockMRNDetails.SMRN_Pk = StockMrnMaster.SMrn_PK INNER JOIN
+                         StockInventoryMaster INNER JOIN
                          Template_Master ON StockInventoryMaster.Template_PK = Template_Master.Template_PK INNER JOIN
                          UOMMaster ON StockInventoryMaster.Uom_PK = UOMMaster.Uom_PK INNER JOIN
-                         LocationMaster ON StockInventoryMaster.Location_Pk = LocationMaster.Location_PK " + condition + "  AND (StockInventoryMaster.OnHandQty > 0) ";
+                         LocationMaster ON StockInventoryMaster.Location_Pk = LocationMaster.Location_PK ON StockMRNDetails.SMRNDet_Pk = StockInventoryMaster.SMRNDet_Pk " + condition + " AND (StockInventoryMaster.OnHandQty > 0)";
                 using (SqlCommand cmd = new SqlCommand())
                 {
 

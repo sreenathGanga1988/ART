@@ -86,7 +86,19 @@ namespace ArtWebApp.BLL.ProcurementBLL
                     cmb_debit.DataSource = PoQuery.ToList();
                     cmb_debit.DataBind();
                 }
+                else if (Debitfrom == "Atraco")
+                {
 
+                    var PoQuery = from bmstr in enty.SupplierMasters
+                                  where bmstr.SupplierName!= ""
+                                  select new
+                                  {
+                                      name = bmstr.SupplierName,
+                                      pk = bmstr.Supplier_PK
+                                  };
+                    cmb_debit.DataSource = PoQuery.ToList();
+                    cmb_debit.DataBind();
+                }
 
 
             }
@@ -227,7 +239,10 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 spodata.SPONum = CreateSPOnum();
                 spomstr.SPONum = spodata.SPONum;
                 enty.StockPOMasters.Add(spomstr);
-                enty.SaveChanges();
+
+               
+                    enty.SaveChanges();
+               
                 //spodata.SPONum = CodeGenerator.GetUniqueCode("SPO", "", int.Parse(spomstr.SPO_Pk.ToString())); ;
 
                 //enty.SaveChanges();

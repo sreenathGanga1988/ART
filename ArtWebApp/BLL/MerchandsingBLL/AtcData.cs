@@ -121,7 +121,7 @@ namespace ArtWebApp.BLL
 
         public void createOurStyle(AtcData atcdata)
         {
-            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum1, atcdata.atcid, atcdata.ShipDate1);
+            DataTable dt = CreateOurStyleDataTable(atcdata.Noofstyles, atcdata.AtcNum1, atcdata.atcid, atcdata.InHouseDate);
 
             atran.insertourstyle(dt);
         }

@@ -23,11 +23,6 @@ namespace ArtWebApp.Api
 
             List<ArtTaskModel> ArtTaskModels = new List<ArtTaskModel>();
 
-
-
-
-
-
             try
             {
                 #region Final marker

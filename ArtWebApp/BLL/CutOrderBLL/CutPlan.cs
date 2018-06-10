@@ -2066,7 +2066,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
                 }
                 else
                 {
-                    asqshuffle = "Rolls Used in Lausheet Roll Reference Delete it first ";
+                    asqshuffle = "Rolls Used in Laysheet Roll Reference Delete it first ";
                  //   Controls.WebMsgBox.Show("Rolls Used in Lausheet Roll Reference Delete it first ");
                 }
               

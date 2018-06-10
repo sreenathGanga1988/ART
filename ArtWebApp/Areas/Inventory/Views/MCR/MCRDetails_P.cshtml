@@ -1,0 +1,279 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.AtcwiseFabricInventory
+@using System.Data;
+
+<script src="~/Plugin/MyDataTable.js"></script>
+
+
+<h2>Fabric Details</h2>
+   
+<div id="printfcr">
+    <table id="FabricTable" class="FabricTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th style="display:none">AtcID</th>
+                <th style="display:none">Location</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>OnhandQty</th>
+                <th>PhysicalQty</th>
+                <th>DiffQty</th>
+                <th style="display:none">ActualRate</th>
+                <th style="display:none">CU Rate</th>
+                <th style="display:none">Template PK</th>
+                <th style="display:none">SkuDetPk</th>
+                @*@foreach (DataColumn col in Model.InventoryDetails.Columns)
+        {
+            <th class="@col.ColumnName" style="border-color:black">
+                @col.ColumnName
+            </th>
+        }*@
+
+            </tr>
+
+
+
+        </thead>
+
+        <tbody >
+            @foreach (DataRow row in Model.InventoryDetails.Rows)
+            {
+            <tr class="FabricTableRow" style="border-color:black">
+
+                <td style="display:none" class="AtcID">@row["AtcID"]</td>
+                <td style="display:none" class="Location_PK">@row["Location_PK"]</td>
+                <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+                <td><span class="RMNum">@row["RMNum"]</span></td>
+                <td><span class="Description">@row["Description"]</span></td>
+                <td><span class="ItemColor">@row["ItemColor"]</span></td>
+                <td><span class="SupplierColor">@row["SupplierColor"]</span></td>
+                <td><span class="UomCode">@row["UomCode"]</span></td>
+                <td><span class="ReceivedQty">@row["ReceivedQty"]</span></td>
+                <td><span class="DeliveredQty">@row["DeliveredQty"]</span></td>
+                <td><span class="OnhandQty">@row["OnhandQty"] </span></td>
+                <td class="PhysicalQty">
+                
+                @Html.TextBox("PhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "PhysicalQty", style = "width:80px" })</td>
+                @*<td><div class="DiffQty"></div></td>*@
+                <td class="DiffQty"> @row["DiffQty"]</td>
+                <td style="display:none"><span class="ActualRate">@row["ActualRate"] </span></td>
+                <td style="display:none"><span class="CURate">@row["CURate"] </span></td>
+                <td style="display:none"><span class="Template_pk">@row["Template_pk"] </span></td>
+                <td style="display:none"><span class="SkuDet_Pk">@row["SkuDet_Pk"] </span></td>
+            </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<h2>Trims Details</h2>
+<div id="printfcr1">
+    <table id="TrimTable" class="TrimTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th style="display:none">AtcID</th>
+                <th style="display:none">Location</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>OnhandQty</th>
+                <th>PhysicalQty</th>
+                <th>DiffQty</th>
+                <th style="display:none">ActualRate</th>
+                <th style="display:none">CU Rate</th>
+                <th style="display:none">Template PK</th>
+                <th style="display:none">SkuDetPk</th>
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.TrimsInventoryDetails.Rows)
+            {
+            <tr class="TrimTableRow" style="border-color:black">
+                <td style="display:none" class="TrAtcID">@row["AtcID"]</td>
+                <td style="display:none" class="TrLocation_PK">@row["Location_PK"]</td>
+                <td class="TrInventoryItem_PK">@row["InventoryItem_PK"]</td>
+                <td class="TrRMNum">@row["RMNum"]</td>
+                <td class="TrDescription">@row["Description"]</td>
+                <td class="TrItemColor">@row["ItemColor"]</td>
+                <td class="TrSupplierColor">@row["SupplierColor"]</td>
+                <td class="TrUomCode">@row["UomCode"]</td>
+                <td class="TrReceivedQty">@row["ReceivedQty"]</td>
+                <td class="TrDeliveredQty ">@row["DeliveredQty"]</td>
+                <td><span class="TrimsOnhandQty">@row["OnhandQty"] </span></td>
+                <td> <span class="TPhysicalQty"> @Html.TextBox("TrimsPhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "TrimsPhysicalQty", style = "width:80px" })</span></td>
+                <td class="TrimsDiffQty"> @row["DiffQty"]</td>
+                <td style="display:none"><span class="TrimsActualRate">@row["ActualRate"] </span></td>
+                <td style="display:none"><span class="TrimsCURate">@row["CURate"] </span></td>
+                <td style="display:none"><span class="TrTemplate_pk">@row["Template_pk"] </span></td>
+                <td style="display:none"><span class="TrSkuDet_Pk">@row["SkuDet_Pk"] </span></td>
+
+            </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="Submit" type="button" value="Submit" class="btn btn-default show" />
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+
+        $('body').on('change', '.PhysicalQty', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");            
+
+            $(".PhysicalQty").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var OnhandQty= $currentrow.find("td span[class='OnhandQty']").first().text();
+                var newvalue1 = $currentrow.find("td input[class='PhysicalQty']").first().val();
+                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());               
+                $currentrow.find('td:eq(12)').html(diffvalue);               
+            });
+        });
+
+        $('body').on('change', '.TrimsPhysicalQty', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            $(".TrimsPhysicalQty").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var OnhandQty = $currentrow.find("td span[class='TrimsOnhandQty']").first().text();
+                var newvalue1 = $currentrow.find("td input[class='TrimsPhysicalQty']").first().val();
+                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());
+                $currentrow.find('td:eq(12)').html(diffvalue);
+            });
+        });
+
+   
+
+        $("#Submit").click(function (e, params) {
+            var list = [];
+            
+
+            var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
+            var Sizename = 0;
+            for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {
+                var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];                
+                var InventoryItem_PK = currenttable.getElementsByClassName("InventoryItem_PK")[0].innerHTML;
+                var RMNum = currenttable.getElementsByClassName("RMNum")[0].innerHTML;
+                var Description = currenttable.getElementsByClassName("Description")[0].innerHTML;
+                var ItemColor = currenttable.getElementsByClassName("ItemColor")[0].innerHTML;
+                var SupplierColor = currenttable.getElementsByClassName("SupplierColor")[0].innerHTML;
+                var UomCode = currenttable.getElementsByClassName("UomCode")[0].innerHTML;
+                var ReceivedQty = currenttable.getElementsByClassName("ReceivedQty")[0].innerHTML;
+                var DeliveredQty = currenttable.getElementsByClassName("DeliveredQty")[0].innerHTML;
+                var OnhandQty = currenttable.getElementsByClassName("OnhandQty")[0].innerHTML;
+                //var PhysicalQty = currenttable.getElementsByClassName("PhysicalQty")[0];
+                var checkqty = currenttable.getElementsByClassName("PhysicalQty")[0].innerHTML;
+                var DiffQty = currenttable.getElementsByClassName("DiffQty")[0].innerHTML;
+                var AtcID = currenttable.getElementsByClassName("AtcID")[0].innerHTML;
+                var Location_PK = currenttable.getElementsByClassName("Location_PK")[0].innerHTML;
+                var ActualRate = currenttable.getElementsByClassName("ActualRate")[0].innerHTML;
+                var CURate = currenttable.getElementsByClassName("CURate")[0].innerHTML;
+                var TemplatePK = currenttable.getElementsByClassName("Template_pk")[0].innerHTML;
+                var SkuDet_Pk = currenttable.getElementsByClassName("SkuDet_Pk")[0].innerHTML;
+                
+                var PhysicalQty = parseFloat(OnhandQty.toString()) + parseFloat(DiffQty.toString());
+                var ASQMAster = {
+                    InventoryItem_PK: InventoryItem_PK, RMNum: RMNum, Description: Description, ItemColor: ItemColor, SupplierColor: SupplierColor, UomCode: UomCode,Type:"F",
+                    ReceivedQty: ReceivedQty, DeliveredQty: DeliveredQty, OnhandQty: OnhandQty, PhysicalQty: PhysicalQty, DiffQty: DiffQty, AtcID: AtcID, Location: Location_PK,
+                    ActualCURate: ActualRate, CURate: CURate, Template_Pk: TemplatePK, Skudet_Pk: SkuDet_Pk};
+
+                list.push(ASQMAster);
+            }
+            //alert(list);
+            
+            var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];
+            
+            alert(asqtablemaster1.rows.length);
+            for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {                
+                var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];                
+                var TrInventoryItem_PK = currenttable.getElementsByClassName("TrInventoryItem_PK")[0].innerHTML;                
+                var TrRMNum = currenttable.getElementsByClassName("TrRMNum")[0].innerHTML;                
+                var TrDescription = currenttable.getElementsByClassName("TrDescription")[0].innerHTML;                
+                var TrItemColor = currenttable.getElementsByClassName("TrItemColor")[0].innerHTML;                
+                var TrSupplierColor = currenttable.getElementsByClassName("TrSupplierColor")[0].innerHTML;                
+                var TrUomCode = currenttable.getElementsByClassName("TrUomCode")[0].innerHTML;                
+                var TrReceivedQty = currenttable.getElementsByClassName("TrReceivedQty")[0].innerHTML;
+                var TrDeliveredQty = currenttable.getElementsByClassName("TrDeliveredQty")[0].innerHTML;
+                var TrOnhandQty = currenttable.getElementsByClassName("TrimsOnhandQty")[0].innerHTML;
+                //var TrPhysicalQty = currenttable.getElementsByClassName("TPhysicalQty")[0].childNodes[0].v                
+                var TrDiffQty = currenttable.getElementsByClassName("TrimsDiffQty")[0].innerHTML;
+                var TrAtcID = currenttable.getElementsByClassName("TrAtcID")[0].innerHTML;
+                var TrLocation_PK = currenttable.getElementsByClassName("TrLocation_PK")[0].innerHTML;
+                var TrActualRate = currenttable.getElementsByClassName("TrimsActualRate")[0].innerHTML;
+                var TrCURate = currenttable.getElementsByClassName("TrimsCURate")[0].innerHTML;
+                var TrTemplatePK = currenttable.getElementsByClassName("TrTemplate_pk")[0].innerHTML;
+                var TrSkuDet_Pk = currenttable.getElementsByClassName("TrSkuDet_Pk")[0].innerHTML;
+                var TrPhysicalQty = parseFloat(TrOnhandQty.toString()) + parseFloat(TrDiffQty.toString());
+                var ASQMAster = {
+                    InventoryItem_PK: TrInventoryItem_PK, RMNum: TrRMNum, Description: TrDescription, ItemColor: TrItemColor, SupplierColor: TrSupplierColor, UomCode: TrUomCode, Type: "T",
+                    ReceivedQty: TrReceivedQty, DeliveredQty: TrDeliveredQty, OnhandQty: TrOnhandQty, PhysicalQty: TrPhysicalQty, DiffQty: TrDiffQty, AtcID: TrAtcID, Location: TrLocation_PK,
+                    ActualCURate: TrActualRate, CURate: TrCURate, Template_Pk: TrTemplatePK, Skudet_Pk: TrSkuDet_Pk};
+
+                list.push(ASQMAster);
+            }
+            var things = JSON.stringify({ 'things': list,  });
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Create", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        $("#Submit").prop('disabled', true);
+                      
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+        });
+
+
+    });
+
+
+</script>

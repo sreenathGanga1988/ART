@@ -103,4 +103,21 @@ namespace ArtWebApp.Areas.CuttingMVC.ViewModel
         public String Generateddate { get; set; }
         public DataTable FCRDatatable { get; set; }
     }
+
+    public class DatewiseFabricConsume
+    {
+        public String Factory { get; set; }
+        public String AtcNum { get; set; }
+        public String FromDate{ get; set; }
+        public String ToDate { get; set; }
+        public DataTable Getdatewisefabricconsume { get; set; }
     }
+
+
+    public class ATCwiseFabricConsume
+    {
+        public String Factory { get; set; }
+        public String AtcNum { get; set; }       
+        public DataTable GetATCwisefabricconsume { get; set; }
+    }
+}

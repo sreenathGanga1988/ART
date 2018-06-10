@@ -60,6 +60,7 @@ namespace ArtWebApp.DataModels
             this.FabricMissingMasters = new HashSet<FabricMissingMaster>();
             this.PcdAlertMasters = new HashSet<PcdAlertMaster>();
             this.PcdAlertUserrights = new HashSet<PcdAlertUserright>();
+            this.RackMasters = new HashSet<RackMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -126,5 +127,6 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<FabricMissingMaster> FabricMissingMasters { get; set; }
         public virtual ICollection<PcdAlertMaster> PcdAlertMasters { get; set; }
         public virtual ICollection<PcdAlertUserright> PcdAlertUserrights { get; set; }
+        public virtual ICollection<RackMaster> RackMasters { get; set; }
     }
 }

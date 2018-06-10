@@ -96,6 +96,8 @@ namespace ArtWebApp.Accounts
                 
                 lbl_invValue.Text = calculategridValue().ToString ();
                 upd_invvalue.Update();
+                lbl_invqty.Text = calculategridQty().ToString ();
+                Upd_invoiceqty.Update();
 
             }
         }
@@ -199,7 +201,40 @@ namespace ArtWebApp.Accounts
 
 
 
+        public float calculategridQty()
+        {
 
+
+            float Invqty = 0;
+            for (int i = 0; i < tbl_Podetails.Rows.Count; i++)
+            {
+                GridViewRow currentRow = tbl_Podetails.Rows[i];
+                CheckBox chkBx = (CheckBox)currentRow.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+                    try
+                    {
+
+                        Invqty = Invqty+ float.Parse(((tbl_Podetails.Rows[i].FindControl("txt_invQty") as TextBox).Text.ToString()));
+                        float pounitrate = float.Parse(((tbl_Podetails.Rows[i].FindControl("lbl_porate") as Label).Text.ToString()));
+
+                        
+                    }
+                    catch (Exception)
+                    {
+
+                        (tbl_Podetails.Rows[i].FindControl("txt_invQty") as TextBox).BackColor = System.Drawing.Color.Red;
+
+                    }
+                }
+
+
+
+            }
+
+            return Invqty;
+        }
         public float calculategridValue()
         {
 
@@ -361,6 +396,11 @@ namespace ArtWebApp.Accounts
             GridView1.DataBind();
             upd_subgrid.Update();
             ModalPopupExtender1.Show();
+        }
+
+        protected void tbl_Podetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

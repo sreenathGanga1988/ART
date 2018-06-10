@@ -575,6 +575,11 @@
         <AssociationConnector Association="ArtModel.FK_PcdAlert_Userrights_LocationMaster" />
         <AssociationConnector Association="ArtModel.FK_PcdAlert_Userrights_UserMaster" />
         <AssociationConnector Association="ArtModel.FK_StockPOMaster_DepartmentMaster" />
+        <EntityTypeShape EntityType="ArtModel.MCRDetail" Width="1.5" PointX="0.75" PointY="27.75" />
+        <EntityTypeShape EntityType="ArtModel.MCR_Master" Width="1.5" PointX="3.375" PointY="27.75" />
+        <EntityTypeShape EntityType="ArtModel.RackMaster" Width="1.5" PointX="10.5" PointY="160.375" />
+        <AssociationConnector Association="ArtModel.FK_RackMaster_LocationMaster" />
+        <EntityTypeShape EntityType="ArtModel.RackInventoryMaster" Width="1.5" PointX="5.375" PointY="27.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

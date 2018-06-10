@@ -42,5 +42,6 @@ namespace ArtWebApp.DataModels
         public string Country { get; set; }
         public Nullable<decimal> ProductionArtLocation { get; set; }
         public Nullable<decimal> CMPerPc { get; set; }
+        public string ContainerNo { get; set; }
     }
 }

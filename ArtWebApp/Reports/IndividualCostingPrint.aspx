@@ -529,8 +529,8 @@
                                     <td class="auto-style14">
                                                     <asp:Label ID="lbl_garmentcom" runat="server" Text="0"></asp:Label>
                                                 </td>
-                                    <td class="auto-style14">&nbsp;</td>
-                                    <td class="auto-style14">&nbsp;</td>
+                                    <td class="auto-style14">Embroidary</td>
+                                    <td class="auto-style14"><asp:Label ID="lbl_embriodary" runat="server" Text="0"></asp:Label></td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>

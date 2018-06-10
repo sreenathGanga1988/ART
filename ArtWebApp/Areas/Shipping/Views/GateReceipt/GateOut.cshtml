@@ -3,102 +3,122 @@
     ViewBag.Title = "GateIN";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
-
+<script language="javascript" type="text/javascript">
+    function PrintRadGrid() {
+        debugger;
+        var divToPrint = document.getElementById('printgateout');
+        var newWin = window.open('PrintDiv', 'Print-Window', 'width=920,height=750,top=100,left=100');
+        newWin.document.open();
+        newWin.document.write('<html><title>Gate Out</title><head><style><link rel="stylesheet" type="text/css" href="content/assets/css/style.css" media="print"></style><body   onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+    }
+</script>
 <h2>GateIN</h2>
 
 <h2>@Html.DisplayFor(model => model.ShipDocNum)</h2>
 <div class="container">
-    @using (Html.BeginForm("GateOut", "GateReceipt", FormMethod.Post))
-    {
+    @*@using (Html.BeginForm("GateOut", "GateReceipt", FormMethod.Post))
+    {*@
         @Html.HiddenFor(model => model.ShipingDoc_PK)
-    <table class="table">
-
-        <tr>
-
-            <td class="col-md-2">Shipper :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.ShipperName)</td>
-            <td class="col-md-2">Exporter : </td>
-            <td class="col-md-2">   @Html.DisplayFor(model => model.ExporterName)</td>
-            <td class="col-md-2"></td>
-            <td class="col-md-2"></td>
-        </tr>
-        <tr>
-            <td class="col-md-2">Shipper Inv :</td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.ShipperInv)</td>
-            <td class="col-md-2"> Description :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.Description)</td>
-            <td class="col-md-2">No Of Ctn :</td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.NOofctnRoll)</td>
-        </tr>
-        <tr>
-            <td class="col-md-2">Package Type :</td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.Packagetype)</td>
-            <td class="col-md-2">Weight : </td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.Weight)</td>
-            <td class="col-md-2">Weight :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.Weight)</td>
-        </tr>
-        <tr>
-            <td class="col-md-2">Type :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.Type)</td>
-            <td class="col-md-2"> Invoice value</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.InvoiceValue)</td>
-            <td class="col-md-2"> Vessel :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.Vessel)</td>
-        </tr>
-
-        <tr>
-            <td class="col-md-2">Container :</td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.Conatianer) </td>
-            <td class="col-md-2">Container Type</td>
-            <td class="col-md-2">   @Html.DisplayFor(model => model.ContsainerType)</td>
-            <td class="col-md-2">Eta : </td>
-            <td class="col-md-2">  @Html.DisplayFor(model => model.ETA)</td>
-        </tr>
-        <tr>
-            <td class="col-md-2">BL :</td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.BL)</td>
-            <td class="col-md-2">Mode: </td>
-            <td class="col-md-2"> @Html.DisplayFor(model => model.Mode)</td>
-            <td class="col-md-2">DocType :</td>
-            <td class="col-md-2">   @Html.DisplayFor(model => model.DocType)</td>
-        </tr>
-
-
-    </table>
-
-    <div>
-
-
-    </div>
-    <div>
-        @Html.EditorFor(model => model.DeliveredPackage)
-
-    </div>
-
-
-
-    <div class="panel panel-primary">
+    <div id="printgateout">
         <table class="table">
+
             <tr>
 
-                <td class="col-md-12">
-
-                    <input id="Submit" type="Submit" value="Gate OUT" class="btn btn-primary show" />
-
-
-
+                <td class="col-md-2">Shipper :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.ShipperName)</td>
+                <td class="col-md-2">Exporter : </td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.ExporterName)</td>
+                <td class="col-md-2"></td>
+                <td class="col-md-2"></td>
             </tr>
+            <tr>
+                <td class="col-md-2">Shipper Inv :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.ShipperInv)</td>
+                <td class="col-md-2"> Description :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.Description)</td>
+                <td class="col-md-2">No Of Ctn :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.NOofctnRoll)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Package Type :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.Packagetype)</td>
+                <td class="col-md-2">Weight : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.Weight)</td>
+                <td class="col-md-2">Weight :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.Weight)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">Type :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.Type)</td>
+                <td class="col-md-2"> Invoice value</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.InvoiceValue)</td>
+                <td class="col-md-2"> Vessel :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.Vessel)</td>
+            </tr>
+
+            <tr>
+                <td class="col-md-2">Container :</td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.Conatianer) </td>
+                <td class="col-md-2">Container Type</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.ContsainerType)</td>
+                <td class="col-md-2">Eta : </td>
+                <td class="col-md-2">  @Html.DisplayFor(model => model.ETA)</td>
+            </tr>
+            <tr>
+                <td class="col-md-2">BL :</td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.BL)</td>
+                <td class="col-md-2">Mode: </td>
+                <td class="col-md-2"> @Html.DisplayFor(model => model.Mode)</td>
+                <td class="col-md-2">DocType :</td>
+                <td class="col-md-2">   @Html.DisplayFor(model => model.DocType)</td>
+            </tr>
+
 
         </table>
 
+        <div>
 
+
+        </div>
+
+
+
+
+        <div>
+            @Html.EditorFor(model => model.DeliveredPackage) <br />
+            @*@Html.EditorFor(model => Model.SetLocation, new { htmlAttributes = new { @class = "IsSelected" } })*@
+        </div>
+        <div>
+            <input class="messageCheckbox" type="checkbox" value="3" name="mailId">
+        </div>
+        <div id="ShowHideMe">
+            @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 500px;", @class = "chosen-select form-control" })
+        </div>
     </div>
 
+        <div class="panel panel-primary">
+            <table class="table">
+                <tr>
+
+                    <td class="col-md-12">
+
+                        <input id="Submit" type="Submit" value="Gate OUT" class="btn btn-primary show" />
 
 
-}
-    <div class="panel panel-danger">
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
+
+
+    @*}*@
+    @*<div class="panel panel-danger">
         <table class="table">
             <tr>
 
@@ -113,8 +133,58 @@
         </table>
 
 
-    </div>
+    </div>*@
 
 
 
 </div>
+<div>
+    <input id="printsummary" type="button" onclick="PrintRadGrid()" value="Print" class="btn btn-default show" />
+
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#Submit").click(function (e, params) {
+            var ShipingDoc_PK = document.getElementById("ShipingDoc_PK").value;
+            var DeliveredPackage = $("#DeliveredPackage").val();            
+            var LocId = $('#Locid').find('option:selected').val();            
+            var SetLocation = $(".messageCheckbox").is(":checked");
+            
+            $.ajax({                
+                    url: "@Url.Action("UpdateGateOut", "GateReceipt")",
+                    
+                    traditional: true,
+                    data: {
+                        'shippingdoc_pk': ShipingDoc_PK, 'qty': DeliveredPackage, 'locid': LocId, 'setlocation': SetLocation
+                    },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+                        alert("Sucessfully Updated");                      
+                    },
+
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+
+
+
+        });
+
+        $("#ShowHideMe").hide();
+
+        $('.messageCheckbox').change(function (e, params) {
+            $('#ShowHideMe').toggle($(this).is(':checked'));
+        });
+
+
+    });
+
+</script>

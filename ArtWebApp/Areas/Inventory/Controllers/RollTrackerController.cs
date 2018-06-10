@@ -90,6 +90,23 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         }
 
 
+        [HttpGet]
+        public PartialViewResult GetPendingRO(DateTime fromdate, DateTime todate, int Location_pk)
+        {
+            InventoryReportDataModel model = new InventoryReportDataModel();
+            InventoryReportRepo productionReportRepo = new InventoryReportRepo();
+            DataTable dt = productionReportRepo.GetROPending(fromdate, todate, Location_pk);
+            model.AsqData = dt;
+
+            model.ReportName = Location_pk + "Report Between  " + fromdate.ToShortDateString() + " && " + todate.ToShortDateString();
+
+
+            return PartialView("InventoryRollView", model);
+        }
+
+
+
+
 
 
         [HttpGet]

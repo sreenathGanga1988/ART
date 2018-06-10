@@ -58,18 +58,14 @@
             <th>
                 NoofStyles
             </th>
-            <th>
-                IsCompleted
-            </th>
+            
             <th>
                 IsClosed
             </th>
             <th>
                 Country
             </th>
-            <th>
-                projectionQty
-            </th>
+            
             <th></th>
         </tr>
         @if (Model != null)
@@ -101,18 +97,14 @@
                     <td>
                         @Html.DisplayFor(modelItem => Model.atcClosingModels[i].NoofStyles)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.atcClosingModels[i].IsCompleted)
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(modelItem => Model.atcClosingModels[i].IsClosed)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => Model.atcClosingModels[i].Description)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.atcClosingModels[i].ProjectionQty)
-                    </td>
+                    
 
                 </tr>
             }

@@ -272,29 +272,13 @@ WHERE        (Qty - OrderedQty &gt; 0)"></asp:SqlDataSource>
                                         <asp:BoundField DataField="ReceivedQty" HeaderText="ReceivedQty" ReadOnly="True" SortExpression="ReceivedQty" />
                                         <asp:BoundField DataField="ExtraQty" HeaderText="ExtraQty" ReadOnly="True" SortExpression="ExtraQty" />
                                         <asp:BoundField DataField="BalanceToReceive" HeaderText="BalanceToReceive" ReadOnly="True" SortExpression="BalanceToReceive" />
+                                         <asp:BoundField DataField="Remark" HeaderText="Remark" ReadOnly="True" SortExpression="Remark" />
                                     </Columns>
                                     <HeaderStyle CssClass="header" />
                                     <PagerStyle CssClass="pager" />
                                     <RowStyle CssClass="rows" />
                                 </asp:GridView>
-                                <asp:SqlDataSource ID="PendingtoReceive" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        SPO_Pk, SupplierName, SPONum, itemDescription, Unitprice, POQty, ReceivedQty, ExtraQty, POQty - ReceivedQty AS BalanceToReceive
-FROM            (SELECT        StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(Template_Master.Description, N'') + ISNULL(StockPODetails.Composition, N'') + ISNULL(StockPODetails.Construct, N'') 
-                                                    + ISNULL(StockPODetails.TemplateColor, N'') + ISNULL(StockPODetails.TemplateWidth, N'') + ISNULL(StockPODetails.TemplateWeight, N'') AS itemDescription, StockPODetails.Unitprice, 
-                                                    SUM(StockPODetails.POQty) AS POQty, SUM(StockMRNDetails.ReceivedQty) AS ReceivedQty, SUM(StockMRNDetails.ExtraQty) AS ExtraQty, SupplierMaster.SupplierName
-                          FROM            StockPOMaster INNER JOIN
-                                                    StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
-                                                    StockMRNDetails ON StockPODetails.SPODetails_PK = StockMRNDetails.SPODetails_PK INNER JOIN
-                                                    SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN
-                                                    Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
-                                                    UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName
-                          GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateWidth, 
-                                                    StockPODetails.TemplateWeight, StockPODetails.Unitprice, SupplierMaster.SupplierName, Template_Master.Description, Template_Master.ItemGroup_PK, StockPOMaster.AddedBy, 
-                                                    UserMaster.Department_PK
-                          HAVING         (UserMaster.Department_PK =@dept_pk)) AS tt
-WHERE        (POQty - ReceivedQty &gt; 0)">
-                                    <SelectParameters>
-                                        <asp:SessionParameter Name="dept_pk" SessionField="Department_PK" />
-                                    </SelectParameters>
+                                <asp:SqlDataSource ID="PendingtoReceive" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SPO_Pk, SupplierName, SPONum, itemDescription, Unitprice, POQty, ReceivedQty, ExtraQty, POQty - ReceivedQty AS BalanceToReceive, Remark FROM (SELECT StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(Template_Master.Description, N'') + ISNULL(StockPODetails.Composition, N'') + ISNULL(StockPODetails.Construct, N'') + ISNULL(StockPODetails.TemplateColor, N'') + ISNULL(StockPODetails.TemplateWidth, N'') + ISNULL(StockPODetails.TemplateWeight, N'') AS itemDescription, StockPODetails.Unitprice, SUM(StockPODetails.POQty) AS POQty, StockPODetails.SPODetails_PK, ISNULL((SELECT SUM(ReceivedQty) AS Expr1 FROM StockMRNDetails WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ReceivedQty, ISNULL((SELECT SUM(ExtraQty) AS Expr1 FROM StockMRNDetails AS StockMRNDetails_1 WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ExtraQty, SupplierMaster.SupplierName, StockPOMaster.Remark FROM StockPOMaster INNER JOIN StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, StockPODetails.Unitprice, SupplierMaster.SupplierName, Template_Master.Description, Template_Master.ItemGroup_PK, StockPOMaster.AddedBy, UserMaster.Department_PK, StockPOMaster.Remark, StockPODetails.SPODetails_PK HAVING (UserMaster.Department_PK = 4)) AS tt WHERE (POQty - ReceivedQty &gt; 0)">
                                 </asp:SqlDataSource>
 
 

@@ -396,6 +396,45 @@ namespace ArtWebApp.Areas.ArtAdministrator
 
         }
 
+        public static void UpdateUpdateInputlineData()
+        {
+            DataTable dt = GetInputDate();
+            using (ArtEntitiesnew artenty = new ArtEntitiesnew())
+            {
+                foreach(DataRow row in dt.Rows)
+                {
+                    try
+                    {
+                        Decimal Location_PK = Decimal.Parse(row["Location_PK"].ToString());                        
+                        int OurStyleId = int.Parse(row["OurStyleId"].ToString());
+                        var atclocation_pk = artenty.LocationMasters.Where(u => u.AtcWorldlocation_PK == Location_PK).Select(u => u.Location_PK).FirstOrDefault();
+
+                        if (!artenty.ProductionTNADetails.Any(f => f.ProductionTNACompID == 13 && f.OurStyleID == OurStyleId && f.Location_PK == atclocation_pk && f.IsDeleted == "N"))
+                        {
+
+
+                            ProductionTNADetail productionTNADetail = new ProductionTNADetail();
+                            productionTNADetail.Location_PK = atclocation_pk;
+                            productionTNADetail.OurStyleID = OurStyleId;
+                            productionTNADetail.ProductionTNACompID = 13;
+                            productionTNADetail.Actionname = "IsInputDate";
+                            //productionTNADetail.MarkedBy = HttpContext.Session["Username"].ToString();
+                            productionTNADetail.MarkedDate = DateTime.Parse(row["FirstInput"].ToString());
+                            productionTNADetail.IsDeleted = "N";
+                            artenty.ProductionTNADetails.Add(productionTNADetail);
+
+                        }
+                        artenty.SaveChanges();
+
+                    }
+                    catch (Exception exp)
+                    {
+
+                    }
+                }
+
+            }
+        }
 
         public static void UpdateCSFA()
         {
@@ -721,6 +760,21 @@ namespace ArtWebApp.Areas.ArtAdministrator
         public static DataTable GetPL()
         {
             String Qry = @"select * from PandLSewprodvsfactoryPL";
+            return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);
+
+        }
+
+        public static DataTable GetInputDate()
+        {
+            String Qry = @"
+SELECT        SewInput_Tbl.Location_PK,LocationMaster_tbl.ArtLocation_PK,LocationMaster_tbl.LocationName, CutSummary_tbl.OurStyleId, MIN(cast(SewInput_Tbl.SewinDate as date)) AS FirstInput
+FROM          CutSummary_tbl INNER JOIN
+CutSummaryDetails_tbl ON CutSummary_tbl.CtrID = CutSummaryDetails_tbl.CtrID INNER JOIN
+CutIssue_tbl ON CutSummaryDetails_tbl.Ctrdetailid = CutIssue_tbl.Ctrdetailid INNER JOIN
+SewInput_Tbl ON CutIssue_tbl.CtiID = SewInput_Tbl.CtiID
+inner Join LocationMaster_tbl on SewInput_Tbl.Location_PK = LocationMaster_tbl.Location_PK 
+GROUP BY SewInput_Tbl.Location_PK,LocationMaster_tbl.ArtLocation_PK,LocationMaster_tbl.LocationName, CutSummary_tbl.OurStyleId
+";
             return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);
 
         }

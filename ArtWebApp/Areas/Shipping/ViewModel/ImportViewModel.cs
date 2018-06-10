@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -49,5 +50,16 @@ namespace ArtWebApp.Areas.Shipping.ViewModel
 
         public int PendingCount { get; set; }
 
+    }
+    public class ReportDataModel
+    {
+        public string ReportName { get; set; }
+
+        public DataTable AsqData { get; set; }
+    }
+    public class ATCwiseShipmentClose
+    {        
+        public String AtcNum { get; set; }
+        public DataTable GetShipmentshortclosedetails { get; set; }
     }
 }

@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "ApproveIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+
+
+        $(document).ready(function () {
+
+
+            $("#Show_MCRSummary").click(function (e, params) {
+                $('#loadingmessage').show();
+                var LocId = $('#Locid').find('option:selected').val();
+                var Atcid = $('#AtcID').find('option:selected').val();
+
+                $.ajax({
+                        url: "@Url.Action("LoadMCRDetails", "MCR")",
+                        traditional: true,
+                        type: "GET",
+                        data: {  'locid': LocId, 'atcid': Atcid },
+                    success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#Summarydiv").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+            });
+
+            $("#Locid1").change(function (e, params) {
+
+            var Id = $('#Locid').find('option:selected').val();
+
+                if (Id != null)
+            {
+
+                //Populate arrayOfValues
+                $.ajax({
+                    url: "@Url.Action("GetATCList", "MCR")",
+                    type: "Get",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                traditional: true,
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#AtcID').empty();
+                    $.each(data, function () {
+
+
+                        $('#AtcID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#AtcID").trigger("chosen:updated");
+
+
+                    $("#AtcID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+
+
+        });
+
+        });
+
+
+
+
+
+</script>
+<h2>Approve MCR</h2>
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Location :
+            </div>
+            <div class="col-md-6">  @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+            <div class="col-sm-4">
+                <input id="Show_MCRSummary" type="button" value="Show Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-md-2">Atc #:</div>
+            
+            <div class="col-md-6">
+                @*@Html.DropDownList("AtcID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })*@
+                @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+
+
+<div id="Summarydiv"> </div>
+
+
+

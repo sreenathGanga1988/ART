@@ -157,6 +157,23 @@
                 }
              });
 
+            $("#output").append("<p><strong>Start Updating Input Date</strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateInputlineData", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Input date in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Input Date </strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+             });
 
 
               hideDiv(totalcompleted);
@@ -185,6 +202,107 @@
                 }
             });*@
 
+
+        });
+        $("#Sync_jc_Optional").click(function (e, params) {
+            var issucess=
+            $("#output").empty();
+            $('#loadingmessage').show();
+
+             $("#output").append("<p><strong>Start Updating Jobcontract </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpDateJobContracttokenya", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Jobcontract in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Jobcontract</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+             $("#output").append("<p><strong>Start Updating Optional Jobcontract </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpDateJobContractOptionaltokenya", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Optional Jobcontract in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Optional Jobcontract</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+
+            $("#output").append("<p><strong>Start Updating TTL</strong></p>");
+            $.ajax({
+                url: "@Url.Action("UpdateTTL", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+
+                     $("#output").append("<p><strong> Successfully Completed Updating TTL" + fooBarHTML.filename + "Ms </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong> Error Updating TTL</strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+            });
+
+              hideDiv(totalcompleted);
+              if (totalcompleted >= 6) {
+                  $("#output").hide();
+              }
+
+        });
+
+        $("#input_date_update").click(function (e, params) {
+            var issucess=
+            $("#output").empty();
+            $('#loadingmessage').show();
+
+              $("#output").append("<p><strong>Start Updating Input Date</strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateInputlineData", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating Input date in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                     $('#loadingmessage').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating Input Date </strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+             });
+
+
+           
+
+              hideDiv(totalcompleted);
+              if (totalcompleted >= 6) {
+                  $("#output").hide();
+              }
 
         });
 
@@ -231,16 +349,6 @@
                     $('#loadingmessage').hide();
                 }
             });
-
-
-
-
-
-
-
-
-
-
                 },
                 error: function (xhr, status, errorThrown) {
                     $("#output").append("<p><strong> Error BackUP DB</strong></p>")
@@ -268,6 +376,10 @@
 <h2>Index</h2>
 
 <button id="Show" type="button" class="btn btn-primary">Sync DB</button>
+
+
+<button id="Sync_jc_Optional" type="button" class="btn btn-primary">JobContract Optional</button>
+<button id="input_date_update" type="button" class="btn btn-primary">Input Date</button>
 
 
 <button id="BackUP" type="button" class="btn btn-primary">BackUP</button>

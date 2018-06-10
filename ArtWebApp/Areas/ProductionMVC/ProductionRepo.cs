@@ -1271,6 +1271,58 @@ namespace ArtWebApp.Areas.ProductionMVC
         }
 
 
+
+
+        public DataTable GETADNWISE(DateTime fromdate, DateTime todate)
+        {
+            DataTable dt = new DataTable();
+
+
+
+
+
+
+            using (SqlCommand cmd = new SqlCommand(@"GetADNWISE_SP"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return dt;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public DataTable GetCriticalAtc(int atcid = 0)
         {
             DataTable dt = new DataTable();

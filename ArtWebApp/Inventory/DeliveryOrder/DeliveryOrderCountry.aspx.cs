@@ -265,5 +265,10 @@ namespace ArtWebApp.Inventory
                 Messaediv.InnerText = Messg;
             }
         }
+
+        protected void cmb_atc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

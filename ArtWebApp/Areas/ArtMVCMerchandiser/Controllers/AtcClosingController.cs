@@ -16,7 +16,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         {
             AtcClosingModelList atcClosingModelList = new AtcClosingModelList();
 
-            atcClosingModelList= ConfigureViewModel(atcClosingModelList);
+            atcClosingModelList= ConfigureViewModel1(atcClosingModelList);
             return View(atcClosingModelList);
         }
 
@@ -64,6 +64,13 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         {
             AtcClosingRepo repo = new AtcClosingRepo();
             model.atcClosingModels = repo.GetNonclosedatclist();
+
+            return model;
+        }
+        private AtcClosingModelList ConfigureViewModel1(AtcClosingModelList model)
+        {
+            AtcClosingRepo repo = new AtcClosingRepo();
+            model.atcClosingModels = repo.GetNonclosedatclistforshipmentclose();
 
             return model;
         }

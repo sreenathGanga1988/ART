@@ -241,6 +241,10 @@ WHERE         (CutOrderMaster.SkuDet_pk = @skudet_pk) ");
 
         }
 
+        internal DataTable Getdatewisefabricconsume(object fromdate, object todate, object locid, object atcid)
+        {
+            throw new NotImplementedException();
+        }
 
         public DataTable GetSampleAndExtraCutorder(int skudet_pk, int ourStyleid, int locationpk)
         {
@@ -892,6 +896,352 @@ WHERE        (AtcId = @AtcId)");
         }
 
         #endregion
+
+
+        public DataTable Getdatewisefabricconsume(DateTime fromdate, DateTime todate, int locid, int atcid)
+        {
+
+            DataTable dt = new DataTable();
+            DataTable dt1 = new DataTable();
+            DataTable dt2 = new DataTable();
+            SqlCommand cmd = new SqlCommand(@"SELECT        OurStyle, LocationName, color, SUM(Ratiosum * NoOfPlies) AS CutQty, SUM(Fabutilized) AS FabricConsumed, LaysheetDate, OustyleID, Location_PK,skudet_pk
+FROM            (SELECT        LaySheetMaster.LaySheet_PK, LaySheetMaster.CutOrderDet_PK, LaySheetMaster.LayCutNum, LaySheetMaster.IsEdited, LaySheetMaster.IsDetailUploaded, LaySheetMaster.NoOfPlies, 
+                                                    LaySheetMaster.LaySheetNum, LaySheetMaster.OustyleID, LaySheetMaster.AtcID, LocationMaster.Location_PK,
+                                                        (SELECT        CutOrderMaster.Color
+                                                          FROM            CutOrderMaster INNER JOIN
+                                                                                    CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+                                                          WHERE        (CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK)) AS color, 
+(SELECT        CutOrderMaster.SkuDet_pk
+                                                          FROM            CutOrderMaster INNER JOIN
+                                                                                    CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+                                                          WHERE        (CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK)) AS skudet_pk,
+CONVERT(DATE, LaySheetMaster.AddedDate, 101) AS LaysheetDate, LaySheetMaster.IsDeleted, ISNULL
+                                                        ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                            FROM            CutOrderDetails AS CutOrderDetails_1 INNER JOIN
+                                                                                     CutPlanMarkerDetails ON CutOrderDetails_1.CutPlanMarkerDetails_PK = CutPlanMarkerDetails.CutPlanMarkerDetails_PK INNER JOIN
+                                                                                     CutPlanMarkerSizeDetails ON CutPlanMarkerDetails.CutPlanMarkerDetails_PK = CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK
+                                                            WHERE        (CutOrderDetails_1.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK) AND (CutPlanMarkerSizeDetails.IsDeleted = N'N') AND (CutPlanMarkerDetails.IsDeleted = N'N')), 0) AS Ratiosum, 
+                                                    ISNULL
+                                                        ((SELECT        SUM(EndBit) AS Expr1
+                                                            FROM            LaySheetDetails
+                                                            WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS NonReusableEndbit, ISNULL
+                                                        ((SELECT        SUM(FabUtilized) AS Expr1
+                                                            FROM            LaySheetDetails AS LaySheetDetails_1
+                                                            WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS Fabutilized, AtcDetails.OurStyle, LocationMaster.LocationName
+                          FROM            LaySheetMaster INNER JOIN
+                                                    AtcDetails ON LaySheetMaster.OustyleID = AtcDetails.OurStyleID INNER JOIN
+                                                    LocationMaster ON LaySheetMaster.Location_PK = LocationMaster.Location_PK
+                          WHERE        (CONVERT(DATE, LaySheetMaster.AddedDate, 101) BETWEEN @fromdate AND @todate) AND (LaySheetMaster.Location_PK = @locid) AND (LaySheetMaster.IsDeleted = N'N')) AS tt
+GROUP BY OurStyle, LocationName, color, LaysheetDate, OustyleID, Location_PK,skudet_pk
+HAVING        (SUM(Ratiosum * NoOfPlies) > 0)
+ORDER BY LaysheetDate, OustyleID");
+            
+
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+                cmd.Parameters.AddWithValue("@locid", locid);
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            try
+            {
+                dt.Columns.Add("OrderQty(ASQ)");
+                dt.Columns.Add("CummulativeQty");
+                dt.Columns.Add("BalCutQty");
+                dt.Columns.Add("TotalFabricConsumed");
+                dt.Columns.Add("ConsumptionPerPC");
+                dt.Columns.Add("ApprovedConsPPC");
+                dt.Columns.Add("BOMConsumptionPerPc");
+                dt.Columns.Add("BOMConsumed");
+                dt.Columns.Add("AgainstBOMSaving");
+            }
+            catch (Exception exp)
+            {
+
+                throw;
+            }
+            foreach (DataRow rowdata in dt.Rows)
+            {
+                try
+                {
+                    int ourstyleid = int.Parse(rowdata["OustyleID"].ToString());
+                    int skudet_pk = int.Parse(rowdata["skudet_pk"].ToString());
+                    Decimal CutQty= Decimal.Parse(rowdata["CutQty"].ToString());
+                    Decimal Fabconsumed= Decimal.Parse(rowdata["FabricConsumed"].ToString());
+                    var date_from = DateTime.Parse(rowdata["LaysheetDate"].ToString());
+                    var colorcode = rowdata["color"];
+                    SqlCommand cmd1 = new SqlCommand(@"SELECT        SUM(CutQty) AS cumlative_qty, SUM(FabricConsumed) AS cosumed
+FROM            (SELECT        OurStyle, LocationName, color, Ratiosum * NoOfPlies AS CutQty,  Fabutilized AS FabricConsumed,OustyleID
+                          FROM            (SELECT        LaySheetMaster.LaySheet_PK, LaySheetMaster.CutOrderDet_PK, LaySheetMaster.LayCutNum, LaySheetMaster.IsEdited, LaySheetMaster.IsDetailUploaded, LaySheetMaster.NoOfPlies, 
+                                                                              LaySheetMaster.LaySheetNum, LaySheetMaster.OustyleID, LaySheetMaster.AtcID,
+                                                                                  (SELECT        CutOrderMaster.Color
+                                                                                    FROM            CutOrderMaster INNER JOIN
+                                                                                                              CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+                                                                                    WHERE        (CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK)) AS color, CONVERT(DATE, LaySheetMaster.AddedDate, 101) AS LaysheetDate, LaySheetMaster.IsDeleted, 
+                                                                              ISNULL
+                                                                                  ((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                                                                                      FROM            CutOrderDetails AS CutOrderDetails_1 INNER JOIN
+                                                                                                               CutPlanMarkerDetails ON CutOrderDetails_1.CutPlanMarkerDetails_PK = CutPlanMarkerDetails.CutPlanMarkerDetails_PK INNER JOIN
+                                                                                                               CutPlanMarkerSizeDetails ON CutPlanMarkerDetails.CutPlanMarkerDetails_PK = CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK
+                                                                                      WHERE        (CutOrderDetails_1.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK) AND (CutPlanMarkerSizeDetails.IsDeleted = N'N') AND (CutPlanMarkerDetails.IsDeleted = N'N')), 0) AS Ratiosum, 
+                                                                              ISNULL
+                                                                                  ((SELECT        SUM(EndBit) AS Expr1
+                                                                                      FROM            LaySheetDetails
+                                                                                      WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS NonReusableEndbit, ISNULL
+                                                                                  ((SELECT        SUM(FabUtilized) AS Expr1
+                                                                                      FROM            LaySheetDetails AS LaySheetDetails_1
+                                                                                      WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS Fabutilized, AtcDetails.OurStyle, LocationMaster.LocationName
+                                                    FROM            LaySheetMaster INNER JOIN
+                                                                              AtcDetails ON LaySheetMaster.OustyleID = AtcDetails.OurStyleID INNER JOIN
+                                                                              LocationMaster ON LaySheetMaster.Location_PK = LocationMaster.Location_PK
+                                                    WHERE        (CONVERT(DATE, LaySheetMaster.AddedDate, 101) <=@from_date) AND (LaySheetMaster.Location_PK = @loc_id) and  (LaySheetMaster.IsDeleted = N'N')) AS tt) AS consolidate
+where OustyleID=@ourstyleID and color=@Color GROUP BY OustyleID 
+");
+                    cmd1.Parameters.AddWithValue("@from_date", date_from);
+                    cmd1.Parameters.AddWithValue("@loc_id", locid);
+                    cmd1.Parameters.AddWithValue("@ourstyleID", ourstyleid);
+                    cmd1.Parameters.AddWithValue("@Color", colorcode);
+                    dt1 = QueryFunctions.ReturnQueryResultDatatable(cmd1);
+                    foreach (DataRow cum in dt1.Rows)
+                    {
+                        Decimal cumulative = Decimal.Parse(cum["cumlative_qty"].ToString());
+                        Decimal FabricConsumed = Decimal.Parse(cum["cosumed"].ToString());
+                        rowdata["CummulativeQty"] = cumulative;
+                        rowdata["TotalFabricConsumed"] = FabricConsumed;
+                        try
+                        {
+                            rowdata["ConsumptionPerPC"] = FabricConsumed / cumulative;
+                        }
+                        catch (Exception)
+                        {
+
+                            rowdata["ConsumptionPerPC"] = 0;
+                        }
+                        
+                        using (ArtEntitiesnew enty = new ArtEntitiesnew()) {
+                            decimal totalqty = 0;
+                            decimal totalweightedqty = 0;
+                            var skupk = enty.SkuRawmaterialDetails.Where(u => u.SkuDet_PK == skudet_pk).Select(u => u.Sku_PK).FirstOrDefault();
+                            int sku_pk = int.Parse(skupk.ToString());
+                            var q4 = (from stylmstr in enty.StyleCostingMasters
+                                      join styldet in enty.StyleCostingDetails
+                                      on stylmstr.Costing_PK equals styldet.Costing_PK
+                                      where styldet.Sku_PK == sku_pk && stylmstr.IsApproved == "A" && stylmstr.AtcDetail.OurStyleID == ourstyleid
+                                      select styldet.Consumption).Max();
+
+                            rowdata["BOMConsumptionPerPc"] = q4;
+                            rowdata["BOMConsumed"] = q4 * cumulative;
+                            rowdata["AgainstBOMSaving"] = (FabricConsumed - (q4 * cumulative));
+                            var asqcolorcode = from s in enty.SkuRawmaterialDetails
+                                    where s.SkuDet_PK == skudet_pk
+                                            select s;
+                            foreach(var cdode in asqcolorcode)
+                            {
+                                colorcode = cdode.ColorCode;
+                            }
+                            var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == ourstyleid && u.PoPackMaster.ExpectedLocation_PK == locid && u.ColorCode == colorcode).Select(u => u.PoQty).Sum();
+                            rowdata["OrderQty(ASQ)"] = orderqty;
+                            rowdata["BalCutQty"] = orderqty- cumulative;
+
+
+                            var q5 = (from cutorder in  enty.CutPlanMasters
+                                  where cutorder.SkuDet_PK == skudet_pk && cutorder.OurStyleID == ourstyleid && cutorder.IsDeleted == "N"
+                                  select new { cutorder.FabDescription, cutorder.CutPlan_PK, cutorder.CutplanConsumption }).ToList();
+
+                            foreach (var element in q5)
+                            {
+
+                                try
+                                {   
+                                    if (element.CutplanConsumption != null)
+                                    {
+                                        int cutpk = int.Parse(element.CutPlan_PK.ToString());
+                                        var qtynew = enty.CutPlanASQDetails.Where(u => u.CutPlan_PK == cutpk && u.IsDeleted == "N").Select(u => u.CutQty).Sum();
+                                        totalqty += decimal.Parse(qtynew.ToString());
+
+                                        decimal tryqty = decimal.Parse(qtynew.ToString()) * decimal.Parse(element.CutplanConsumption.ToString());
+                                        totalweightedqty += tryqty;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+
+
+                                }
+
+                            }
+                            try
+                            {
+                                rowdata["ApprovedConsPPC"] = (totalweightedqty / totalqty);
+                            }
+                            catch (Exception)
+                            {
+
+                                rowdata["ApprovedConsPPC"] = 0;
+                            }
+                        }
+
+                       
+                    }
+                }
+
+
+                catch (Exception exp)
+                {
+
+                    throw;
+                }
+            }
+           
+
+
+
+
+
+
+            return dt;
+
+
+        }
+
+
+        public DataTable GetATCwisefabricconsume(int locid, int atcid)
+        {
+
+            DataTable dt = new DataTable();
+            DataTable dt1 = new DataTable();
+            DataTable dt2 = new DataTable();
+            SqlCommand cmd1 = new SqlCommand(@"SELECT        OurStyle, LocationName, color, SUM(Ratiosum * NoOfPlies) AS CutQty, SUM(Fabutilized) AS FabricConsumed,  OustyleID, Location_PK,skudet_pk,laysheetdate
+                        FROM            (SELECT        LaySheetMaster.LaySheet_PK, LaySheetMaster.CutOrderDet_PK, LaySheetMaster.LayCutNum, LaySheetMaster.IsEdited, LaySheetMaster.IsDetailUploaded, LaySheetMaster.NoOfPlies, 
+                        LaySheetMaster.LaySheetNum, LaySheetMaster.OustyleID, LaySheetMaster.AtcID, LocationMaster.Location_PK,                                                       
+                        (SELECT        CutOrderMaster.Color FROM            CutOrderMaster INNER JOIN
+                        CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+                        WHERE        (CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK)) AS color, (SELECT        CutOrderMaster.SkuDet_pk
+                        FROM            CutOrderMaster INNER JOIN
+                        CutOrderDetails ON CutOrderMaster.CutID = CutOrderDetails.CutID
+                        WHERE        (CutOrderDetails.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK)) AS skudet_pk,
+                        (SELECT max(LaySheetMaster.AddedDate)
+                        FROM            LaySheetMaster INNER JOIN CutOrderDetails ON LaySheetMaster.CutOrderDet_PK = CutOrderDetails.CutOrderDet_PK INNER JOIN
+                                                 CutOrderMaster ON CutOrderDetails.CutID = CutOrderMaster.CutID
+                        WHERE        (LaySheetMaster.OustyleID = atcdetails.OurStyleID) AND (CutOrderMaster.SkuDet_pk = skudet_pk)) as laysheetdate,
+                         LaySheetMaster.IsDeleted,ISNULL((SELECT        SUM(CutPlanMarkerSizeDetails.Ratio) AS Expr1
+                        FROM            CutOrderDetails AS CutOrderDetails_1 INNER JOIN
+                        CutPlanMarkerDetails ON CutOrderDetails_1.CutPlanMarkerDetails_PK = CutPlanMarkerDetails.CutPlanMarkerDetails_PK INNER JOIN
+                        CutPlanMarkerSizeDetails ON CutPlanMarkerDetails.CutPlanMarkerDetails_PK = CutPlanMarkerSizeDetails.CutPlanMarkerDetails_PK
+                        WHERE        (CutOrderDetails_1.CutOrderDet_PK = LaySheetMaster.CutOrderDet_PK) AND (CutPlanMarkerSizeDetails.IsDeleted = N'N') AND (CutPlanMarkerDetails.IsDeleted = N'N')), 0) AS Ratiosum, 
+                        ISNULL((SELECT        SUM(EndBit) AS Expr1 FROM            LaySheetDetails
+                        WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS NonReusableEndbit, ISNULL
+                        ((SELECT        SUM(FabUtilized) AS Expr1 
+                        FROM            LaySheetDetails AS LaySheetDetails_1
+                        WHERE        (IsDeleted = 'N') AND (LaySheet_PK = LaySheetMaster.LaySheet_PK)), 0) AS Fabutilized, AtcDetails.OurStyle, LocationMaster.LocationName
+                        FROM            LaySheetMaster INNER JOIN
+                        AtcDetails ON LaySheetMaster.OustyleID = AtcDetails.OurStyleID INNER JOIN
+                        LocationMaster ON LaySheetMaster.Location_PK = LocationMaster.Location_PK
+                        WHERE  (atcdetails.AtcId=@atcid) and (LaySheetMaster.Location_PK = @locid) AND (LaySheetMaster.IsDeleted = N'N')) AS tt
+                        GROUP BY OurStyle, LocationName, color,  OustyleID, Location_PK,skudet_pk,laysheetdate
+                        ORDER BY  OustyleID");
+                    
+                    cmd1.Parameters.AddWithValue("@locid", locid);
+                    cmd1.Parameters.AddWithValue("@atcid", atcid);
+                    dt1 = QueryFunctions.ReturnQueryResultDatatable(cmd1);
+            dt1.Columns.Add("OrderQty(ASQ)");
+            dt1.Columns.Add("BalCutQty");
+            dt1.Columns.Add("ConsumptionPerPC");
+            dt1.Columns.Add("ApprovedConsPPC");
+            dt1.Columns.Add("BOMConsumptionPerPc");
+            dt1.Columns.Add("BOMConsumed");
+            dt1.Columns.Add("AgainstBOMSaving");
+            foreach (DataRow cum in dt1.Rows)
+                    {
+                        Decimal cumulative = Decimal.Parse(cum["CutQty"].ToString());
+                        Decimal FabricConsumed = Decimal.Parse(cum["FabricConsumed"].ToString());
+                int skudet_pk = int.Parse(cum["skudet_pk"].ToString());
+                int OustyleID = int.Parse(cum["OustyleID"].ToString());
+                var colorcode = cum["color"];
+                try
+                {
+                    cum["ConsumptionPerPC"] = FabricConsumed / cumulative;
+                }
+                catch (Exception exp)
+                {
+
+                    throw;
+                }
+
+
+                using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                        {
+                            decimal totalqty = 0;
+                            decimal totalweightedqty = 0;
+                            var skupk = enty.SkuRawmaterialDetails.Where(u => u.SkuDet_PK == skudet_pk).Select(u => u.Sku_PK).FirstOrDefault();
+                            int sku_pk = int.Parse(skupk.ToString());
+                            var q4 = (from stylmstr in enty.StyleCostingMasters
+                                      join styldet in enty.StyleCostingDetails
+                                      on stylmstr.Costing_PK equals styldet.Costing_PK
+                                      where styldet.Sku_PK == sku_pk && stylmstr.IsApproved == "A" && stylmstr.AtcDetail.OurStyleID == OustyleID
+                                      select styldet.Consumption).Max();
+
+                    cum["BOMConsumptionPerPc"] = q4;
+                    cum["BOMConsumed"] = q4 * cumulative;
+                    cum["AgainstBOMSaving"] = ( FabricConsumed- (q4 * cumulative));
+                    var asqcolorcode = from s in enty.SkuRawmaterialDetails
+                                       where s.SkuDet_PK == skudet_pk
+                                       select s;
+                    foreach (var cdode in asqcolorcode)
+                    {
+                        colorcode = cdode.ColorCode;
+                    }
+                    var orderqty = enty.POPackDetails.Where(u => u.OurStyleID == OustyleID && u.PoPackMaster.ExpectedLocation_PK == locid && u.ColorCode == colorcode).Select(u => u.PoQty).Sum();
+                    cum["OrderQty(ASQ)"] = orderqty;
+                    cum["BalCutQty"] = orderqty - cumulative;
+
+                    var q5 = (from cutorder in enty.CutPlanMasters
+                                      where cutorder.SkuDet_PK == skudet_pk && cutorder.OurStyleID == OustyleID && cutorder.IsDeleted == "N"
+                                      select new { cutorder.FabDescription, cutorder.CutPlan_PK, cutorder.CutplanConsumption }).ToList();
+
+                            foreach (var element in q5)
+                            {
+
+                                try
+                                {
+                                    if (element.CutplanConsumption != null)
+                                    {
+                                        int cutpk = int.Parse(element.CutPlan_PK.ToString());
+                                        var qtynew = enty.CutPlanASQDetails.Where(u => u.CutPlan_PK == cutpk && u.IsDeleted == "N").Select(u => u.CutQty).Sum();
+                                        totalqty += decimal.Parse(qtynew.ToString());
+
+                                        decimal tryqty = decimal.Parse(qtynew.ToString()) * decimal.Parse(element.CutplanConsumption.ToString());
+                                        totalweightedqty += tryqty;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+
+
+                                }
+
+                            }
+                            try
+                            {
+                                cum["ApprovedConsPPC"] = (totalweightedqty / totalqty);
+                            }
+                            catch (Exception)
+                            {
+
+                                cum["ApprovedConsPPC"] = 0;
+                            }
+                        }
+
+
+                    }
+            return dt1;
+
+
+        }
+
+
+
+
+
 
 
 

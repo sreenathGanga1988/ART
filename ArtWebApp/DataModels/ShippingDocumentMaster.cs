@@ -117,6 +117,7 @@ namespace ArtWebApp.DataModels
         public string Country { get; set; }
         public Nullable<System.DateTime> BerthAddedDate { get; set; }
         public string BerthAddedBy { get; set; }
+        public Nullable<decimal> ToLoc_Pk { get; set; }
     
         public virtual ICollection<ShippingDocumentDetail> ShippingDocumentDetails { get; set; }
         public virtual ICollection<ShippingDocumentActionDetail> ShippingDocumentActionDetails { get; set; }

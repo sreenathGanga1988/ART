@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
+using ArtWebApp.DataModelAtcWorld;
 namespace ArtWebApp.Areas.Repository
 {
     public class MerchandiserRepo
@@ -488,6 +489,29 @@ GROUP BY  AtcId", con);
             return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
         }
 
+        public DataTable GetClosedATCList(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@"  SELECT        PoPackId, PoPacknum, BuyerPO, OurStyle, BuyerStyle, POQty, ShipedQty, OurStyleID, FirstDeliveryDate, DeliveryDate, HandoverDate, AtcId
+FROM            (SELECT        PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, SUM(POPackDetails.PoQty) AS POQty, ISNULL
+                                                        ((SELECT        SUM(ShippedQty) AS Expr1
+                                                            FROM            ShipmentHandOverDetails
+                                                            GROUP BY POPackId, OurStyleID
+                                                            HAVING        (POPackId = PoPackMaster.PoPackId) AND (OurStyleID = POPackDetails.OurStyleID)), 0) AS ShipedQty, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, PoPackMaster.DeliveryDate, 
+                                                    PoPackMaster.AtcId, PoPackMaster.HandoverDate, MAX(POPackDetails.IsShortClosed) AS Expr1, AtcDetails.AtcId AS Expr2
+                          FROM            PoPackMaster INNER JOIN
+                                                    POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
+                                                    AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
+                          GROUP BY PoPackMaster.PoPackId, PoPackMaster.PoPacknum, PoPackMaster.BuyerPO, AtcDetails.OurStyle, AtcDetails.BuyerStyle, POPackDetails.OurStyleID, AtcDetails.OurStyleID, PoPackMaster.FirstDeliveryDate, 
+                                                    PoPackMaster.DeliveryDate, PoPackMaster.AtcId, PoPackMaster.HandoverDate, AtcDetails.AtcId
+                          HAVING   (AtcDetails.AtcId=@AtcId)   and  (MAX(POPackDetails.IsShortClosed) <> N'Y') ) AS tt
+WHERE        (POQty - ShipedQty > 0)");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
+        }
+
+
         public DataTable GetClosedAtc(string month)
         {
             DataTable dt = new DataTable();
@@ -543,6 +567,7 @@ WHERE        (BEOfmonth.Month = @Param1)");
         public List<AtcClosingModel> GetNonclosedatclist()
         {
             List<AtcClosingModel> ls = new List<AtcClosingModel>();
+
             DataTable dt = GetNonClosedAtc();
             if (dt != null)
             {
@@ -564,28 +589,60 @@ WHERE        (BEOfmonth.Month = @Param1)");
                         atcClosingModel.ProjectionQty = drow["ProjectionQty"].ToString();
                         atcClosingModel.AtcId = int.Parse(drow["AtcId"].ToString());
                         ls.Add(atcClosingModel);
-
                     }
-
-
-
-
-
-
-
-
                 }
 
             }
-
-
-
 
             return ls;
 
 
         }
+        public List<AtcClosingModel> GetNonclosedatclistforshipmentclose()
+        {
+            List<AtcClosingModel> ls = new List<AtcClosingModel>();
+            using (ArtEntitiesnew db = new ArtEntitiesnew())
+            {
+                var q1 = from AtcMaster in db.AtcMasters
+                         where AtcMaster.IsShipmentCompleted != "Y"
+                         select AtcMaster;
+                foreach (var element in q1)
+                {
 
+                    DataTable atc = GetClosedATCList(int.Parse(element.AtcId.ToString()));
+
+                    if (atc.Rows.Count == 0)
+                    {
+                        AtcClosingModel atcClosingModel = new AtcClosingModel();
+                        atcClosingModel.IsSelected = false;
+                        atcClosingModel.AtcNum = element.AtcNum;
+                        var buyer = from BuyerMaster in db.BuyerMasters
+                                    where BuyerMaster.BuyerID == element.Buyer_ID
+                                    select BuyerMaster;
+                        foreach (var buy in buyer)
+                        {
+                            atcClosingModel.BuyerName = buy.BuyerName;
+                        }
+                        var country = from CountryMaster in db.CountryMasters
+                                      where CountryMaster.CountryID == element.ProductionCountryID
+                                      select CountryMaster;
+                        foreach (var procount in country)
+                        {
+                            atcClosingModel.Description = procount.Description;
+                        }
+                        atcClosingModel.NoofStyles = element.NoofStyles.ToString();
+                        atcClosingModel.IsClosed = element.IsShipmentCompleted;
+                        atcClosingModel.AtcId = int.Parse(element.AtcId.ToString());
+                        ls.Add(atcClosingModel);
+                    }
+                }
+
+            }
+
+            return ls;
+
+
+        }
         public DataTable AtcofMonth(string month)
         {
            
@@ -610,31 +667,48 @@ WHERE        (BEOfmonth.Month = @Param1)");
 
             foreach(AtcClosingModel atcClosingModel in atcClosingModelList.atcClosingModels)
             {
-
-               using (ArtEntitiesnew enty= new ArtEntitiesnew())
+                using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
                 {
-
-                    var q = from atcmstr in enty.AtcMasters
-                            where atcmstr.AtcId == atcClosingModel.AtcId
-                            select atcmstr;
-                    foreach (var element in q)
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
                     {
-                        element.IsClosed = "Y";
 
+                        Decimal atcid = 0;
+                        var q = from atcmstr in enty.AtcMasters
+                                where atcmstr.AtcId == atcClosingModel.AtcId
+                                select atcmstr;
+                        foreach (var element in q)
+                        {
+                            //element.IsClosed = "Y";
+                            element.IsShipmentCompleted = "Y";
+                            atcid = Decimal.Parse(element.AtcId.ToString());
 
+                        }
 
-                    }
-
-                    AtcAction atcAction = new AtcAction();
-                    atcAction.AtcID = atcClosingModel.AtcId;
-                    atcAction.ActionType = atcClosingModelList.Type;
-                    atcAction.ActionDoneDate = atcClosingModelList.Addeddate;
-                    atcAction.ActionDoneBy = atcClosingModelList.AddedBy;
-                    atcAction.Month = atcClosingModelList.Month;
-
+                        AtcAction atcAction = new AtcAction();
+                        atcAction.AtcID = atcClosingModel.AtcId;
+                        atcAction.ActionType = atcClosingModelList.Type;
+                        atcAction.ActionDoneDate = atcClosingModelList.Addeddate;
+                        atcAction.ActionDoneBy = atcClosingModelList.AddedBy;
+                        atcAction.Month = atcClosingModelList.Month;
                         enty.AtcActions.Add(atcAction);
-
-                    enty.SaveChanges();
+                        enty.SaveChanges();
+                        var ourstyleids = from AtcDetail in enty.AtcDetails
+                                          where AtcDetail.AtcId==atcid
+                                          select AtcDetail;
+                        foreach(var ourstyle in ourstyleids)
+                        {
+                            ArtAtcClosingMaster artAtcClosingMaster = new ArtAtcClosingMaster();
+                            artAtcClosingMaster.AtcId = atcid;
+                            artAtcClosingMaster.AtcNum = ourstyle.AtcMaster.AtcNum;
+                            artAtcClosingMaster.OurstyleId = ourstyle.OurStyleID;
+                            artAtcClosingMaster.Ourstyle = ourstyle.OurStyle;
+                            artAtcClosingMaster.IsClosed = "Y";
+                            artAtcClosingMaster.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                            artAtcClosingMaster.AddedDate = DateTime.Now;
+                            atcenty.ArtAtcClosingMasters.Add(artAtcClosingMaster);
+                            atcenty.SaveChanges();
+                        }
+                    }
                 }
 
 
@@ -650,24 +724,24 @@ WHERE        (BEOfmonth.Month = @Param1)");
 
             foreach (AtcClosingModel atcClosingModel in atcClosingModelList.atcClosingModels)
             {
+               
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                    {
 
-                using (ArtEntitiesnew enty = new ArtEntitiesnew())
-                {
 
-                   
 
-                    BEOfMonth bEOfMonth = new BEOfMonth();
-                    bEOfMonth.AtcID = atcClosingModel.AtcId;                 
-                    bEOfMonth.AddedDate = atcClosingModelList.Addeddate;
-                    bEOfMonth.AddedBy = atcClosingModelList.AddedBy;
-                    bEOfMonth.Month = atcClosingModelList.Month;
-                    enty.BEOfMonths.Add(bEOfMonth);
+                        BEOfMonth bEOfMonth = new BEOfMonth();
+                        bEOfMonth.AtcID = atcClosingModel.AtcId;
+                        bEOfMonth.AddedDate = atcClosingModelList.Addeddate;
+                        bEOfMonth.AddedBy = atcClosingModelList.AddedBy;
+                        bEOfMonth.Month = atcClosingModelList.Month;
+                        enty.BEOfMonths.Add(bEOfMonth);
 
-                    enty.SaveChanges();
+                        enty.SaveChanges();
+                    }
                 }
 
-
-            }
+        
 
 
         }

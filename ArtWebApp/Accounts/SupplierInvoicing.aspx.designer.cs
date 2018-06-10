@@ -229,6 +229,24 @@ namespace ArtWebApp.Accounts {
         protected global::CustomDropDown.DropDownListChosen drp_currency;
         
         /// <summary>
+        /// Upd_invoiceqty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upd_invoiceqty;
+        
+        /// <summary>
+        /// lbl_invqty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_invqty;
+        
+        /// <summary>
         /// txt_remark control.
         /// </summary>
         /// <remarks>

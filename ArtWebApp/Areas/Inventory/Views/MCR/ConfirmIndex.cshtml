@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirm MCR</h2>
+
+<script>
+
+
+        $(document).ready(function () {
+
+
+            $("#Show_MCRSummary").click(function (e, params) {
+                $('#loadingmessage').show();
+                var LocId = $('#Locid').find('option:selected').val();
+                var Atcid = $('#AtcID').find('option:selected').val();
+
+                $.ajax({
+                        url: "@Url.Action("GetApprovedMCR", "MCR")",
+                        traditional: true,
+                        type: "GET",
+                        data: {  'locid': LocId, 'atcid': Atcid },
+                    success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#Summarydiv").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+            });
+
+        });
+
+
+
+
+
+</script>
+<h2>MCRIndex</h2>
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-2">Atc #:</div>
+            <div class="col-md-6">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Location :
+            </div>
+            <div class="col-md-6">  @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+            <div class="col-sm-4">
+                <input id="Show_MCRSummary" type="button" value="Show Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+
+
+<div id="Summarydiv"> </div>
+
+
+

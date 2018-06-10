@@ -82,7 +82,52 @@
 
 
 
-        
+        $("#ADNWISE").click(function (e, params) {
+          
+            $('#loadingmessage').show();
+            var dOCfromdate = $("#DocFromDate").val();
+            var DOCtodate = $("#DocTodate").val();
+                $.ajax({
+                    url: "@Url.Action("GETADNWISE", "ProductionReport")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': dOCfromdate, 'todate': DOCtodate },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                      
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $("#CostingAll").click(function (e, params) {
             var Id = 0;
@@ -269,7 +314,7 @@
 
 
             $("#CSFA").click(function (e, params) {
-                               
+
 
                 $('#loadingmessage').show();
                 var fromdate = $("#FromDate").val();
@@ -292,7 +337,7 @@
 
 
         $("#CSFADay").click(function (e, params) {
-                               
+
 
                 $('#loadingmessage').show();
                 var fromdate = $("#FromDate").val();
@@ -303,7 +348,7 @@
                     url: "@Url.Action("GETCSFABreakUP", "ProductionReport")",
                     traditional: true,
                     type: "GET",
-                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id, 'Type': Type },
                     success: function (fooBarHTML) {
                         $('#loadingmessage').hide();
                     $("#output").html(fooBarHTML);
@@ -316,19 +361,19 @@
 
 
         $("#CSFAAtc").click(function (e, params) {
-                               
+
 
                 $('#loadingmessage').show();
                 var fromdate = $("#FromDate").val();
                 var todate = $("#Todate").val();
             var Id = 0;
             var Type = 'Atc';
-            
+
                 $.ajax({
                     url: "@Url.Action("GETCSFABreakUP", "ProductionReport")",
                     traditional: true,
                     type: "GET",
-                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id },
+                    data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id, 'Type': Type},
                     success: function (fooBarHTML) {
                         $('#loadingmessage').hide();
                     $("#output").html(fooBarHTML);
@@ -339,8 +384,8 @@
                     });
                     });
 
-        
-        
+
+
 
     });
 
@@ -373,7 +418,7 @@
                 <input id="Costing" type="button" value="Get Costing data of  Atc" data-toggle="tooltip" data-placement="top" title="Get Costing data of  Atc" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
-              
+
             </div>
             <div class="col-sm-3">
 
@@ -415,7 +460,7 @@
 
             </div>
             <div class="col-sm-3">
-               
+
             </div>
             <div class="col-sm-3">
             </div>
@@ -447,7 +492,7 @@
                 <input id="LoadCSFA" type="button" value="Update CSFA " data-toggle="tooltip" data-placement="top" title="Load CSFA Between Date" class="btn btn-default show" />
 
             </div>
-           
+
         </div>
 
         <div class="row top-buffer" style="background-color:greenyellow;">
@@ -483,18 +528,18 @@
 
             </div>
             <div class="col-sm-3">
-              
+
                 @Html.DropDownList("Month", (List<SelectListItem>)ViewBag.MonthList, htmlAttributes: new { @class = "chosen-select form-control" })
 
             </div>
             <div class="col-sm-2">
-              
+
             </div>
             <div class="col-sm-3">
-              
+
             </div>
             <div class="col-sm-2">
-               
+
             </div>
 
         </div>
@@ -519,7 +564,43 @@
 </div>
 
 
+@*<button data-toggle="collapse" class="btn btn-info" data-target="#demo4">ADN WISE PENDING MRN</button>*@
 
+
+@*<div id="demo4" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                From Date :
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("DocFromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-3">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("DocTodate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+
+
+        </div>
+        <div class="col-sm-5">
+            <input id="ADNWISE" type="button" value="ADNWISE" data-toggle="tooltip" data-placement="top" />
+
+        </div>
+
+    </div>
+        
+             
+
+
+            </div>*@
+           
+      
+
+       
 
 
 

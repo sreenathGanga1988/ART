@@ -32,6 +32,28 @@ namespace ArtWebApp.Areas.Inventory
 
 
 
+        public DataTable GetROPending(DateTime fromdate, DateTime todate, int Location_pk)
+        {
+            DataTable dt = new DataTable();
+
+
+            using (SqlCommand cmd = new SqlCommand(@"GetPENDINGROBetweenDates_SP"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+                cmd.Parameters.AddWithValue("@Location_pk", Location_pk);
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+
+
+
+            return dt;
+        }
+
+
+
+
         public DataTable GetRollTrackData(int supplierdock_pk, int Skudetpk, int RollPk ,int cutplanPk,string docnum)
         {
             DataTable dt = new DataTable();

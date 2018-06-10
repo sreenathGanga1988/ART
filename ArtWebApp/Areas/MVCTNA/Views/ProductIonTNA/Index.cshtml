@@ -50,8 +50,50 @@
                         $('#loadingmessage').hide();
                     }
                     });
-                    });
+        });
 
+        $("#send_mail").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = $("#FromDate").val();
+            var todate = $("#FromDate").val();
+
+          
+                $.ajax({
+                    url: "@Url.Action("Sendmail", "ProductIonTNA")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+
+        $("#send_mail_factory").click(function (e, params) {
+            $('#loadingmessage').show();
+            var fromdate = $("#FromDate").val();
+            var todate = $("#FromDate").val();
+
+          
+                $.ajax({
+                    url: "@Url.Action("SendmailFactory", "ProductIonTNA")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        alert("Sucess");
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
 
 
 
@@ -181,10 +223,10 @@
 
             </div>
             <div class="col-sm-3">
-
+                <input id="send_mail" type="button" value="Send Mail Merchantwise" data-toggle="tooltip" data-placement="top" title="Send Mail Merchantwise" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
-
+                <input id="send_mail_factory" type="button" value="Send Mail Factorywise" data-toggle="tooltip" data-placement="top" title="Send Mail Factorywise" class="btn btn-default show" />
             </div>
             <div class="col-sm-3">
             </div>

@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "ReportIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ReportIndex</h2>
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+       
+            $("#ShowContainer").click(function (e, params) {
+            $('#loadingmessage').show();
+            var container = $("#srch-con").val();
+            var bl = $("#srch-bl").val();
+            var dotype = "WF";
+
+                $.ajax({
+                    url: "@Url.Action("GetContainer", "ImportDocumentLocation")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'container': container, 'bl': bl },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+            $("#ShowContainer_bl").click(function (e, params) {
+            $('#loadingmessage').show();
+            var container = $("#srch-con").val();
+            var bl = $("#srch-bl").val();
+            var dotype = "WF";
+
+                $.ajax({
+                    url: "@Url.Action("GetContainer", "ImportDocumentLocation")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'container': container, 'bl': bl },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+                    });
+
+
+    });
+
+
+
+
+
+</script>
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo4">Container wise Report</button>
+<div id="demo4" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            
+            <div class="row top-buffer" style="background-color:greenyellow;">
+                <div class="col-sm-4">
+                    <input class="form-control" placeholder="Search" name="srch-con" id="srch-con" type="text">
+                    <input id="ShowContainer" type="button" value="Show Container wise" data-toggle="tooltip" data-placement="top" title="Shows Container Wise " class="btn btn-default show" />
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" placeholder="Search" name="srch-bl" id="srch-bl" type="text">
+                    <input id="ShowContainer_bl" type="button" value="Show BL wise" data-toggle="tooltip" data-placement="top" title="Shows Container Wise " class="btn btn-default show" />
+                </div>
+            </div>
+
+
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+<div id='output' class="">
+    <!-- Output goes here -->
+</div>

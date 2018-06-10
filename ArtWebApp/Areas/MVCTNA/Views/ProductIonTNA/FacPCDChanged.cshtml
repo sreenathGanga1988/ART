@@ -137,7 +137,7 @@ $('#SelectAll').change(function() {
                 var oldDate = new Date($(this).closest('tr').find('.OldFactoryPCD').text());
 
 
-
+              
                 var newDate = $(this).closest('tr').find('.datepicker').datepicker('getDate');
 
               
@@ -146,19 +146,22 @@ $('#SelectAll').change(function() {
                 var days = diff / 1000 / 60 / 60 / 24;
 
 
-
-
+                OurStyleID = parseInt(OurStyleID.toString());
+                ExpectedLocation_PK = parseInt(ExpectedLocation_PK.toString());
                 if (newDate < merchantPCD) {
 
                     alert("Cannot Plan Prior to merchant PCD");
 
 
                 }
-                else if (days < 3) {
-                    alert("You Can Change Factory PlanDate atleast 3 days prior only");
-                }
+               
+                //else if (days < 3) {
+                //    alert("You Can Change Factory PlanDate atleast 3 days prior only");
+                //}
                 else {
-                          $.ajax({
+
+                  
+                $.ajax({
                 type: 'GET',
                 url: "@Url.Action("ChangeFactoryDate", "ProductIonTNA")",
                 data: { 'MerchantPCD': merchantPCD, 'FactoryPCD': newDate, 'CurrentFactoryPCD': oldDate, 'ourstyleid': OurStyleID, 'locationpk': ExpectedLocation_PK },

@@ -54,6 +54,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ProductionCountryID { get; set; }
         public string IsCuttingCompleted { get; set; }
         public string IsAtcWord { get; set; }
+        public string IsShipmentCompleted { get; set; }
+        public string IsMCRDone { get; set; }
     
         public virtual BuyerMaster BuyerMaster { get; set; }
         public virtual CountryMaster CountryMaster { get; set; }

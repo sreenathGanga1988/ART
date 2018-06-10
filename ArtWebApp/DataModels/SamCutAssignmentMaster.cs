@@ -37,6 +37,8 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> CompletedQty { get; set; }
         public string PendingReason { get; set; }
         public string IsPatternCompleted { get; set; }
+        public Nullable<System.DateTime> Samplingcommiteddate { get; set; }
+        public Nullable<System.DateTime> NewCommitedDate { get; set; }
     
         public virtual PatternMaster PatternMaster { get; set; }
         public virtual SampCutReqMaster SampCutReqMaster { get; set; }

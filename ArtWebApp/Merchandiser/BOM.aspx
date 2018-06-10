@@ -84,6 +84,7 @@ z-index: 10;
                                 <td colspan="6" >
                                 <asp:UpdateProgress ID="upProgClaimantSearch" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
                                     <ProgressTemplate>
+                                        <%--<img src="../Image/giphy.gif"  alt="" class="auto-style8"/>--%>
             <img src="../Image/ProgressCircle.gif" alt="" class="auto-style8" />
                                     </ProgressTemplate>
                         </asp:UpdateProgress></td>

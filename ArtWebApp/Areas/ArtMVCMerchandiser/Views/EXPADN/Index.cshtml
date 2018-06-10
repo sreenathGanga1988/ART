@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
+
+
+<script>
+
+    $(document).ready(function () {
+
+    $("#SHOWEXP").click(function (e, params) {
+
+       
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+           
+                $.ajax({
+                    url: "@Url.Action("GETEXPWISE", "EXPADN")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+    });
+
+
+</script>
+<h2>Index</h2>
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo1">ADN WISE MRN (EXP) Between Date Reports</button>
+
+<div id="demo1" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                From Date :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                To date
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-2">
+                <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Load EXP WISE REPORT" class="btn btn-default show" />
+
+            </div>
+
+        </div>
+
+        @*<div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
+
+            </div>
+         
+         
+            <div class="col-sm-3">
+            </div>
+
+        </div>*@
+    </div>
+</div>
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Details</a></li>        
+
+    </ul>
+    <div id="tabs-1">
+        <p>
+            <div id='output' class="">
+                <!-- Output goes here -->
+            </div>
+
+
+        </p>
+    </div>
+
+</div>

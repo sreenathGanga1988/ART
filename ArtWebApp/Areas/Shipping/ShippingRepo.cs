@@ -2,6 +2,7 @@
 using ArtWebApp.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -230,7 +231,7 @@ namespace ArtWebApp.Areas.Shipping
 
 
 
-        public void gateOut(int id,Decimal qty)
+        public void gateOut(int id,Decimal qty,Boolean setlocation,Decimal toloc)
         {
 
 
@@ -251,7 +252,14 @@ namespace ArtWebApp.Areas.Shipping
                     element.LastReceivedLocationPK = HttpContext.Current.Session["UserLoc_pk"].ToString();
                     element.IsDelivered = "Y";
                     element.DeliveredPackage = qty;
-
+                    if (setlocation==true)
+                    {
+                        element.ToLoc_Pk = toloc;
+                    }
+                    else
+                    {
+                        element.ToLoc_Pk = null;
+                    }
                 }
 
 
@@ -293,5 +301,46 @@ namespace ArtWebApp.Areas.Shipping
             return IsgateReceipt;
         }
 
+
+        public DataTable GetContainer(String container, String bl)
+        {
+            DataTable dt = new DataTable();
+
+
+            using (SqlCommand cmd = new SqlCommand(@"ContainerWise_SP"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@container", container);
+                cmd.Parameters.AddWithValue("@bl", bl);
+
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+
+
+
+
+
+            return dt;
+        }
+       public DataTable GetShipmentshortclosedetails(int atcid)
+        {
+            DataTable dt = new DataTable();
+
+
+            using (SqlCommand cmd = new SqlCommand(@"GetShipmentClosedDetails"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@atcid", atcid);
+
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+
+
+
+
+
+            return dt;
+        }
+       
     }
 }

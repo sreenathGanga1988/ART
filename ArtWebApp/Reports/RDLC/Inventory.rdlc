@@ -2672,9 +2672,9 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>8.27in</PageHeight>
-        <PageWidth>11.69in</PageWidth>
-        <RightMargin>0.1in</RightMargin>
+        <PageHeight>11.69in</PageHeight>
+        <PageWidth>8.27in</PageWidth>
+        <LeftMargin>0.1in</LeftMargin>
         <TopMargin>0.1in</TopMargin>
         <Style />
       </Page>

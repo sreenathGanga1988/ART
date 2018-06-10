@@ -1,0 +1,307 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.GetMcrInventory
+@using System.Data;
+
+<script src="~/Plugin/MyDataTable.js"></script>
+
+
+<h2>Fabric Details</h2>
+
+<div id="printfcr">
+    <table id="FabricTable" class="FabricTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>MCR_PK</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>OnhandQty</th>
+                <th>PhysicalQty</th>
+                <th>DiffQty</th>
+                <th style="display:none">ActualRate</th>
+                <th style="display:none">CU Rate</th>
+
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.InventoryDetails.Rows)
+            {
+                <tr class="FabricTableRow" style="border-color:black">
+
+                    <td class="McrDetails_pk">@row["McrDetails_pk"]</td>
+                    <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+                    <td><span class="RMNum">@row["RMNum"]</span></td>
+                    <td><span class="Description">@row["Description"]</span></td>
+                    <td><span class="ItemColor">@row["ItemColor"]</span></td>
+                    <td><span class="SupplierColor">@row["SupplierColor"]</span></td>
+                    <td><span class="UomCode">@row["UOM"]</span></td>
+                    <td><span class="ReceivedQty">@row["ReceivedQty"]</span></td>
+                    <td><span class="DeliveredQty">@row["DeliveredQty"]</span></td>
+                    <td><span class="OnhandQty">@row["OnhandQty"] </span></td>
+                    <td class="PhysicalQty">
+
+                        @Html.TextBox("PhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "PhysicalQty", style = "width:80px" })
+                    </td>
+                    @*<td><div class="DiffQty"></div></td>*@
+                    <td class="DiffQty"> @row["DiffQty"]</td>
+                    <td style="display:none"><span class="ActualRate">@row["ActualCU_Rate"] </span></td>
+                    <td style="display:none"><span class="CURate">@row["CU_Rate"] </span></td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<h2>Trims Details</h2>
+<div id="printfcr1">
+    <table id="TrimTable" class="TrimTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>MCR_PK</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>OnhandQty</th>
+                <th>PhysicalQty</th>
+                <th>DiffQty</th>
+                <th style="display:none">ActualRate</th>
+                <th style="display:none">CU Rate</th>
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.TrimsInventoryDetails.Rows)
+            {
+                <tr class="TrimTableRow" style="border-color:black">
+                    <td class="TrMcrDetails_pk">@row["McrDetails_pk"]</td>
+                    <td class="TrInventoryItem_PK">@row["InventoryItem_PK"]</td>
+                    <td class="TrRMNum">@row["RMNum"]</td>
+                    <td class="TrDescription">@row["Description"]</td>
+                    <td class="TrItemColor">@row["ItemColor"]</td>
+                    <td class="TrSupplierColor">@row["SupplierColor"]</td>
+                    <td class="TrUomCode">@row["UOM"]</td>
+                    <td class="TrReceivedQty">@row["ReceivedQty"]</td>
+                    <td class="TrDeliveredQty ">@row["DeliveredQty"]</td>
+                    <td><span class="TrimsOnhandQty">@row["OnhandQty"] </span></td>
+                    <td> <span class="TPhysicalQty"> @Html.TextBox("TrimsPhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "TrimsPhysicalQty", style = "width:80px" })</span></td>
+                    <td class="TrimsDiffQty"> @row["DiffQty"]</td>
+                    <td style="display:none"><span class="TrimsActualRate">@row["ActualCU_Rate"] </span></td>
+                    <td style="display:none"><span class="TrimsCURate">@row["CU_Rate"] </span></td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-6">
+        <input id="Submit" type="button" value="Update" class="btn btn-default show" />
+    </div>    
+</div>
+<script>
+
+    $(document).ready(function () {
+
+
+        $('body').on('change', '.PhysicalQty', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            $(".PhysicalQty").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var OnhandQty= $currentrow.find("td span[class='OnhandQty']").first().text();
+                var newvalue1 = $currentrow.find("td input[class='PhysicalQty']").first().val();
+                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());
+                $currentrow.find('td:eq(11)').html(diffvalue);
+            });
+        });
+
+        $('body').on('change', '.TrimsPhysicalQty', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            $(".TrimsPhysicalQty").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var OnhandQty = $currentrow.find("td span[class='TrimsOnhandQty']").first().text();
+                var newvalue1 = $currentrow.find("td input[class='TrimsPhysicalQty']").first().val();
+                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());
+                $currentrow.find('td:eq(11)').html(diffvalue);
+            });
+        });
+
+
+
+        $("#Submit").click(function (e, params) {
+            var list = [];
+            var check = 0;
+            var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
+            var Sizename = 0;
+            for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {                
+                var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];
+                
+                var OnhandQty = currenttable.getElementsByClassName("OnhandQty")[0].innerHTML;
+                //var PhysicalQty = currenttable.getElementsByClassName("PhysicalQty")[0];
+                var checkqty = currenttable.getElementsByClassName("PhysicalQty")[0].innerHTML;
+                var DiffQty = currenttable.getElementsByClassName("DiffQty")[0].innerHTML;
+                var McrDetails_pk = currenttable.getElementsByClassName("McrDetails_pk")[0].innerHTML;
+                var ActualRate = currenttable.getElementsByClassName("ActualRate")[0].innerHTML;
+                var CURate = currenttable.getElementsByClassName("CURate")[0].innerHTML;
+                var PhysicalQty = parseFloat(OnhandQty.toString()) + parseFloat(DiffQty.toString());
+                var ASQMAster = {OnhandQty: OnhandQty, PhysicalQty: PhysicalQty, DiffQty: DiffQty, McrDetails_pk: McrDetails_pk,
+                ActualRate:ActualRate,CURate:CURate};
+
+                list.push(ASQMAster);
+            }
+            var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];
+            
+            for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {
+                var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];               
+
+                var TrOnhandQty = currenttable.getElementsByClassName("TrimsOnhandQty")[0].innerHTML;
+                //var TrPhysicalQty = currenttable.getElementsByClassName("TPhysicalQty")[0].childNodes[0].v
+
+
+                var TrDiffQty = currenttable.getElementsByClassName("TrimsDiffQty")[0].innerHTML;
+
+                var TrMcrDetails_pk = currenttable.getElementsByClassName("TrMcrDetails_pk")[0].innerHTML;
+                var TrActualRate = currenttable.getElementsByClassName("TrimsActualRate")[0].innerHTML;
+                var TrCURate = currenttable.getElementsByClassName("TrimsCURate")[0].innerHTML;
+                var checkrate = currenttable.getElementsByClassName("TrimsCURate")[0].node
+                var TrPhysicalQty = parseFloat(TrOnhandQty.toString()) + parseFloat(TrDiffQty.toString());
+                var ASQMAster = {
+                    OnhandQty: TrOnhandQty, PhysicalQty: TrPhysicalQty, DiffQty: TrDiffQty, McrDetails_pk: TrMcrDetails_pk,
+                    ActualRate: TrActualRate, CURate: TrCURate};
+
+                list.push(ASQMAster);
+            }
+            var things = JSON.stringify({ 'things': list });
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Edit", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+
+            });
+
+        });
+
+
+        $("#Approve").click(function (e, params) {
+
+            var check = 0;
+
+            if (confirm('Are you sure you want to Approve?')) {                
+                var list = [];
+                var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
+                var Sizename = 0;
+                for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {
+                    var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];                    
+                    var McrDetails_pk = currenttable.getElementsByClassName("McrDetails_pk")[0].innerHTML;                    
+                    var ASQMAster = {McrDetails_pk: McrDetails_pk };
+
+                    list.push(ASQMAster);
+                }
+
+                var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];                                
+                for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {
+                    var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];                    
+                    var TrOnhandQty = currenttable.getElementsByClassName("TrimsOnhandQty")[0].innerHTML;
+                    //var TrPhysicalQty = currenttable.getElementsByClassName("TPhysicalQty")[0].childNodes[0].v
+
+
+                    var TrDiffQty = currenttable.getElementsByClassName("TrimsDiffQty")[0].innerHTML;
+
+                    var TrMcrDetails_pk = currenttable.getElementsByClassName("TrMcrDetails_pk")[0].innerHTML;
+                    var TrActualRate = currenttable.getElementsByClassName("TrimsActualRate")[0].innerHTML;
+                    var TrCURate = currenttable.getElementsByClassName("TrimsCURate")[0].innerHTML;
+                    var TrPhysicalQty = parseFloat(TrOnhandQty.toString()) + parseFloat(TrDiffQty.toString());
+                    var ASQMAster = {McrDetails_pk: TrMcrDetails_pk};
+
+                    list.push(ASQMAster);
+                }
+                alert(list);
+                var things = JSON.stringify({ 'things': list });
+               
+                $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ApproveMCR", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        check = 1;
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+
+
+            }
+            if (check == 1) {
+                $("#Approve").hide();
+            }
+
+
+        });
+
+
+    });
+
+
+</script>

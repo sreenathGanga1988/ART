@@ -28,6 +28,7 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
         public Nullable<decimal> Uom_PK { get; set; }
         public Nullable<decimal> Doc_Pk { get; set; }
+        public string IsRackAllocateDone { get; set; }
     
         public virtual ICollection<InventoryMaster> InventoryMasters { get; set; }
         public virtual MrnMaster MrnMaster { get; set; }

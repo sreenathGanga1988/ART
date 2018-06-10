@@ -73,6 +73,14 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Size4DeliveredQty { get; set; }
         public Nullable<decimal> Size5DeliveredQty { get; set; }
         public Nullable<decimal> Size6DeliveredQty { get; set; }
+        public Nullable<decimal> Size1RecivedQty { get; set; }
+        public Nullable<decimal> Size2RecivedQty { get; set; }
+        public Nullable<decimal> Size3RecivedQty { get; set; }
+        public Nullable<decimal> Size4RecivedQty { get; set; }
+        public Nullable<decimal> Size5RecivedQty { get; set; }
+        public Nullable<decimal> Size6RecivedQty { get; set; }
+        public Nullable<System.DateTime> Samplingcommiteddate { get; set; }
+        public Nullable<System.DateTime> NewCommitedDate { get; set; }
     
         public virtual BuyerMaster BuyerMaster { get; set; }
         public virtual PatternStyle PatternStyle { get; set; }

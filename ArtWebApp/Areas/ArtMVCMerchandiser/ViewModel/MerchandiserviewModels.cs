@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
 {
@@ -82,5 +83,13 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
         public virtual ICollection<FreightChargeDetailViewMoodel> FreightChargeDetails { get; set; }
     }
 
+
+    public class EXPADNReportModel
+    {
+        public string ReportName { get; set; }
+        public DataTable  AsqData { get; set; }
+
+
+    }
 
 }

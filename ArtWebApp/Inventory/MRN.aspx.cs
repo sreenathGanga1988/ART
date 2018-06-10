@@ -439,5 +439,10 @@ namespace ArtWebApp.Inventory
            
           
         }
+
+        protected void tbl_Podetails_SelectedIndexChanged()
+        {
+
+        }
     }
 }

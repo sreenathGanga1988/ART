@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 using System.Configuration;
 using ArtWebApp.DataModelAtcWorld;
+using System.Data.Entity.Validation;
 
 namespace ArtWebApp.BLL.MerchandsingBLL
 {
@@ -383,6 +384,29 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                 asqmstr.OurStyleGroup = element.AtcDetail.OurstyleGroup;
                                 enty.ASQAllocationMaster_tbl.Add(asqmstr);
                                 enty.SaveChanges();
+
+
+                                //try
+                                //{
+                                //    enty.SaveChanges();
+
+                                //}
+                                //catch (DbEntityValidationException ex)
+                                //{
+                                //    // Retrieve the error messages as a list of strings.
+                                //    var errorMessages = ex.EntityValidationErrors
+                                //            .SelectMany(x => x.ValidationErrors)
+                                //            .Select(x => x.ErrorMessage);
+
+                                //    // Join the list to a single string.
+                                //    var fullErrorMessage = string.Join("; ", errorMessages);
+
+                                //    // Combine the original exception message with the new one.
+                                //    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                                //    // Throw a new DbEntityValidationException with the improved exception message.
+                                //    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                                //}
                             }
                             catch (Exception exp)
                             {
@@ -1050,7 +1074,7 @@ FROM            (SELECT        TOP (100) PERCENT PoPackMaster.PoPacknum + ' / ' 
                              (  LocationMaster_1.LocationName,(SELECT DISTINCT LocationMaster.LocationName
                                  FROM            ASQAllocationMaster INNER JOIN
                                                           LocationMaster ON ASQAllocationMaster.Locaion_PK = LocationMaster.Location_PK
-                                 WHERE        (ASQAllocationMaster.PoPackId = PoPackMaster.PoPackId) AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID))) AS LocationName, ChannelMaster.ChannelName, 
+                                 WHERE        (ASQAllocationMaster.PoPackId = PoPackMaster.PoPackId) AND (ASQAllocationMaster.Qty>0)  AND (ASQAllocationMaster.OurStyleId = POPackDetails.OurStyleID))) AS LocationName, ChannelMaster.ChannelName, 
                          BuyerDestinationMaster.BuyerDestination, AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, 
                          SeasonMaster.Season_PK, BuyerMaster.BuyerID, BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate
 FROM            PoPackMaster INNER JOIN
@@ -1067,7 +1091,7 @@ GROUP BY PoPackMaster.PoPacknum + ' / ' + PoPackMaster.BuyerPO, PoPackMaster.PoP
                          PoPackMaster.AtcId, PoPackMaster.IsCutable, POPackDetails.IsPackable, PoPackMaster.DeliveryDate, PoPackMaster.SeasonName, ChannelMaster.ChannelName, BuyerDestinationMaster.BuyerDestination, 
                          AtcMaster.AtcNum, GarmentCategory.CategoryName, GarmentCategory.CategoryID, ChannelMaster.ChannelID, BuyerDestinationMaster.BuyerDestination_PK, SeasonMaster.Season_PK, BuyerMaster.BuyerID, 
                          BuyerMaster.BuyerName, PoPackMaster.ExpectedLocation_PK, PoPackMaster.HandoverDate, PoPackMaster.FirstDeliveryDate, LocationMaster_1.LocationName
-HAVING        (PoPackMaster.AtcId = "+atcid+ " )ORDER BY PoPackMaster.PoPackId DESC ";
+HAVING        (PoPackMaster.AtcId = " + atcid+ " )ORDER BY PoPackMaster.PoPackId DESC ";
             DBTransaction.PoPackTransaction pktrans = new DBTransaction.PoPackTransaction();
             
             dt = pktrans.getPodetails(query);

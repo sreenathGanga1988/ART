@@ -98,10 +98,25 @@ namespace ArtWebApp.Areas.ArtAdministrator.Controllers
         }
 
 
-        
 
 
-  [HttpGet]
+        [HttpGet]
+        public JsonResult UpdateInputlineData()
+
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            bool status = false;
+            ArtAdministrator.ArtAdministratorRepo.UpdateUpdateInputlineData();
+            status = true;
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            JsonResult jsd = Json(new { status = status, filename = elapsedMs }, JsonRequestBehavior.AllowGet);
+            return jsd;
+        }
+
+
+
+        [HttpGet]
         public JsonResult UpdateCSFA()
 
         {

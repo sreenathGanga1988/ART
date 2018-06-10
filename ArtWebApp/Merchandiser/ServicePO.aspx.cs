@@ -78,6 +78,9 @@ namespace ArtWebApp.Merchandiser
             else if (ddl_debitfrom.SelectedItem.Text.Trim() == "Factory")
             {
                 spdata.LoadCombo("Factory", drp__name);
+            }else if (ddl_debitfrom.SelectedItem.Text.Trim() == "Atraco")
+            {
+                spdata.LoadCombo("Atraco", drp__name);
             }
         }
        

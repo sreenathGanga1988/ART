@@ -266,8 +266,17 @@ namespace ArtWebApp.Merchandiser
         public void AddPrimaryComponent()
         {
             csmstr = new BLL.CostingBLL.StyleCostingMaster();
-            csmstr.Costing_PK = int.Parse(Session["CostingID"].ToString());
+            try
+            {
+                csmstr.Costing_PK = int.Parse(Session["CostingID"].ToString());
+            }
+            catch (Exception exp)
+            {
 
+                throw;
+            }
+            int ourstyleid = int.Parse(ddl_ourstyle.SelectedValue.ToString());
+            csmstr.OurStyleID = ourstyleid;
             DataTable table = new DataTable();
             table.Columns.Add("CostComp_Pk", typeof(int));
             table.Columns.Add("CalculationMode", typeof(string));

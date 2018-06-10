@@ -1,5 +1,6 @@
 ﻿using ArtWebApp.Areas.Shipping.ViewModel;
 using ArtWebApp.DataModels;
+using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,27 +52,25 @@ namespace ArtWebApp.Areas.Shipping.Controllers
         public ActionResult GateOut(int id)
         {
             String locid = HttpContext.Session["UserLoc_pk"].ToString();
+            ViewBag.Locid = new SelectList(db.LocationMasters, "location_pk", "locationname");
             ShippingDocumentMaster shippingDocument = db.ShippingDocumentMasters.Where(u=>u.ShipingDoc_PK==id && u.LastReceivedLocationPK== locid && u.IsDelivered=="N").FirstOrDefault();
             return View(shippingDocument);
         }
-        [HttpPost]
-        public ActionResult GateOut(ShippingDocumentMaster shippingDocument)
+        //[HttpPost]
+        //public ActionResult GateOut(ShippingDocumentMaster shippingDocument)
+        //{
+        //    ShippingRepo shippingRepo = new ShippingRepo();
+        //    shippingRepo.gateOut(int.Parse(shippingDocument.ShipingDoc_PK.ToString()), decimal.Parse(shippingDocument.DeliveredPackage.ToString()),shippingDocument.SetLocation, decimal.Parse(shippingDocument.ToLoc_Pk.ToString()));
+        //    return RedirectToAction("GateOutIndex");
+        //}
+        [HttpGet]
+        public ActionResult UpdateGateOut(int shippingdoc_pk,decimal qty, int locid, Boolean setlocation)
         {
+            ShippingDocumentMaster shippingDocumentMaster = new ShippingDocumentMaster();
             ShippingRepo shippingRepo = new ShippingRepo();
-            shippingRepo.gateOut(int.Parse(shippingDocument.ShipingDoc_PK.ToString()), decimal.Parse(shippingDocument.DeliveredPackage.ToString()));
+            shippingRepo.gateOut(shippingdoc_pk, qty,setlocation,decimal.Parse(locid.ToString()));
             return RedirectToAction("GateOutIndex");
         }
-
-
-
-
-
-
-
-
-
-
-
 
         [HttpGet]
         public ActionResult GateReceipt(int id)
@@ -139,5 +138,6 @@ namespace ArtWebApp.Areas.Shipping.Controllers
 
             return RedirectToAction("GateReceipt", importViewModelMaster.ID);
         }
+      
     }
 }

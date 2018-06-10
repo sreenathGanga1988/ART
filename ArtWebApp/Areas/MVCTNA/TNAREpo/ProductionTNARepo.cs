@@ -92,6 +92,140 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
             return ProductionTNAVModelList;
         }
 
+
+
+
+
+        public List<ProductionTNAVModel> MerchantwiseData(DateTime fromdate, DateTime todate, string Merchant, int location)
+        {
+            List<ProductionTNAVModel> ProductionTNAVModelList = new List<ProductionTNAVModel>();
+
+            tnaUserrightlist = db.TnaUserRights.ToList();
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"[ProductionTNAMerchantwise_sp]";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+                cmd.Parameters.AddWithValue("@merchant", Merchant);
+                cmd.Parameters.AddWithValue("@location", location);
+                cmd.Parameters.AddWithValue("@rpt", "merch");
+
+                DataTable dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+
+
+                            ProductionTNAVModel productionTNAVModel = new ProductionTNAVModel();
+
+
+                            productionTNAVModel.OurStyleID = Decimal.Parse(row["OurStyleID"].ToString());
+                            try
+                            {
+                                productionTNAVModel.Location_PK = Decimal.Parse(row["ExpectedLocation_PK"].ToString());
+                            }
+                            catch (Exception)
+                            {
+
+
+                                productionTNAVModel.Location_PK = 0;
+                            }
+                            productionTNAVModel.PCD = DateTime.Parse(row["MerchantPCD"].ToString());
+                            productionTNAVModel.LocationName = row["LocationName"].ToString();
+                            productionTNAVModel.OurStyle = row["OurStyle"].ToString();
+                            productionTNAVModel.BuyerStyle = row["BuyerStyle"].ToString();
+                            productionTNAVModel.AtcNum = row["AtcNum"].ToString();
+                            productionTNAVModel.AtcID = int.Parse(row["AtcId"].ToString());
+                            productionTNAVModel.ShortName = row["ShortName"].ToString();
+                            productionTNAVModel = calculateProductionTNA(productionTNAVModel);
+                            ProductionTNAVModelList.Add(productionTNAVModel);
+
+
+                        }
+
+
+                    }
+                }
+
+
+
+
+            }
+
+            return ProductionTNAVModelList;
+        }
+
+        public List<ProductionTNAVModel> FactorywiseData(DateTime fromdate, DateTime todate, String location)
+        {
+            List<ProductionTNAVModel> ProductionTNAVModelList = new List<ProductionTNAVModel>();
+
+            tnaUserrightlist = db.TnaUserRights.ToList();
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"[ProductionTNAMerchantwise_sp]";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+                cmd.Parameters.AddWithValue("@location", location);
+                cmd.Parameters.AddWithValue("@merchant", "");
+                cmd.Parameters.AddWithValue("@rpt", "fact");
+
+                DataTable dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+
+
+                            ProductionTNAVModel productionTNAVModel = new ProductionTNAVModel();
+
+
+                            productionTNAVModel.OurStyleID = Decimal.Parse(row["OurStyleID"].ToString());
+                            try
+                            {
+                                productionTNAVModel.Location_PK = Decimal.Parse(row["ExpectedLocation_PK"].ToString());
+                            }
+                            catch (Exception)
+                            {
+
+
+                                productionTNAVModel.Location_PK = 0;
+                            }
+                            productionTNAVModel.PCD = DateTime.Parse(row["MerchantPCD"].ToString());
+                            productionTNAVModel.LocationName = row["LocationName"].ToString();
+                            productionTNAVModel.OurStyle = row["OurStyle"].ToString();
+                            productionTNAVModel.BuyerStyle = row["BuyerStyle"].ToString();
+                            productionTNAVModel.AtcNum = row["AtcNum"].ToString();
+                            productionTNAVModel.AtcID = int.Parse(row["AtcId"].ToString());
+                            productionTNAVModel.ShortName = row["ShortName"].ToString();
+                            productionTNAVModel = calculateProductionTNA(productionTNAVModel);
+                            ProductionTNAVModelList.Add(productionTNAVModel);
+
+
+                        }
+
+
+                    }
+                }
+
+
+
+
+            }
+
+            return ProductionTNAVModelList;
+        }
+
         public List<ProductionTNAVModel> GetProductionTNAData(DateTime fromdate, DateTime todate, int LocationID)
         {
             List<ProductionTNAVModel> ProductionTNAVModelList = new List<ProductionTNAVModel>();
@@ -144,20 +278,6 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     }
                 }
 
@@ -192,7 +312,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
         }
 
-
+        
         public String CalculateFactoryPCD(int ourstyleid, int locationpk, String merchantpcd)
         {
             String FactoryPCD = merchantpcd;
@@ -489,7 +609,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 List<TnaUserRight> tnaUserrightlisttemp = tnaUserrightlist.Where(u => u.Location_PK == productionTNAVModel.Location_PK).ToList();
                 try
                 {
-                    var q = tnaUserrightlisttemp.Where(u => u.IsFinalMarkerDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsFinalMarkerDate == true && u.Location_PK == productionTNAVModel.Location_PK).LastOrDefault();
                     productionTNAVModel.User_IDdFINALMARKER = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDdFINALMARKER = q.UserMaster.UserName;
                 }
@@ -583,7 +703,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlisttemp.Where(u => u.IsSampleYardagesDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsSampleYardagesDate == true && u.Location_PK == productionTNAVModel.Location_PK).LastOrDefault();
                     productionTNAVModel.User_IDSAMPLEYARDAGES = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSAMPLEYARDAGES = q.UserMaster.UserName;
                 }
@@ -634,7 +754,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsPackingTrimDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsPackingTrimDate == true).LastOrDefault();
                     productionTNAVModel.User_IDPACKINGTRIMS = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDPACKINGTRIMS = q.UserMaster.UserName;
                 }
@@ -646,7 +766,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsFactoryPlannedPCDDate == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsFactoryPlannedPCDDate == true).LastOrDefault();
                     productionTNAVModel.User_IDFACTORYPLANNEDPCD = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDFACTORYPLANNEDPCD = q.UserMaster.UserName;
                 }
@@ -658,7 +778,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsSystemFile == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsSystemFile == true).LastOrDefault();
                     productionTNAVModel.User_IDSYSTEMFILES = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSYSTEMFILES = q.UserMaster.UserName;
                 }
@@ -670,7 +790,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 try
                 {
-                    var q = tnaUserrightlist.Where(u => u.IsShrinkage == true).LastOrDefault();
+                    var q = tnaUserrightlisttemp.Where(u => u.IsShrinkage == true).LastOrDefault();
                     productionTNAVModel.User_IDSHRINKAGE = int.Parse(q.User_PK.ToString());
                     productionTNAVModel.UsrDSHRINKAGE = q.UserMaster.UserName;
                 }

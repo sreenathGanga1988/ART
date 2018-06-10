@@ -22,7 +22,11 @@
         width: 400px;
         height: 200px;
     }
-</style>
+        .auto-style1 {
+            height: 27px;
+            width: 76px;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -115,7 +119,7 @@
             <td>
                  <asp:UpdatePanel ID="upd_Grid"   UpdateMode="Conditional" runat="server">
                      <ContentTemplate>
-                         <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%" ShowFooter="True">
+                         <asp:GridView ID="tbl_Podetails" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri" Width="90%" ShowFooter="True" OnSelectedIndexChanged="tbl_Podetails_SelectedIndexChanged">
                                 <Columns>
 
                                      <asp:TemplateField>  
@@ -338,7 +342,15 @@ PopupControlID="Panel1" DropShadow="True">
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
-                        <td class="NormalTD">&nbsp;</td>
+                        <td class="auto-style1">Invoice Qty</td>
+                        <td class="NormalTD">
+                            
+                            <asp:UpdatePanel ID="Upd_invoiceqty" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                    <asp:Label ID="lbl_invqty" runat="server" Text="0"></asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
                     </tr>
                     <tr>
                          <td class="NormalTD">Remark</td>
@@ -349,6 +361,7 @@ PopupControlID="Panel1" DropShadow="True">
                         <td class="NormalTD">
                             <ig:WebDatePicker ID="dtp_invdate" runat="server">
                          </ig:WebDatePicker></td>
+                        <td class="auto-style1">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
                     <tr>
@@ -360,6 +373,7 @@ PopupControlID="Panel1" DropShadow="True">
                         <td class="NormalTD">
                             <asp:TextBox ID="txt_suppinvoicenum" runat="server"></asp:TextBox>
                          </td>
+                        <td class="auto-style1">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
                 </table>

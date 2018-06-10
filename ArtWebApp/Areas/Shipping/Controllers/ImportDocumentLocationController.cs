@@ -37,5 +37,30 @@ namespace ArtWebApp.Areas.Shipping.Controllers
 
             return RedirectToAction("AssignOffLoadLocation", importViewModelMaster.ID);
         }
+
+
+        public ActionResult ReportIndex()
+        {
+         
+            return View();
+
+        }
+
+        
+
+
+        [HttpGet]
+        public PartialViewResult GetContainer(string container, string bl)
+        {
+            ReportDataModel model = new ReportDataModel();
+            ShippingRepo shippingRepo = new ShippingRepo();
+            
+            DataTable dt = shippingRepo.GetContainer(container, bl);
+            model.AsqData = dt;
+
+            return PartialView("ContainerTrack_P", model);
+        }
+
+        
     }
 }
