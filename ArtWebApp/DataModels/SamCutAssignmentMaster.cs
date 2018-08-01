@@ -44,5 +44,11 @@ namespace ArtWebApp.DataModels
         public virtual SampCutReqMaster SampCutReqMaster { get; set; }
         public virtual ICollection<SamCutPlanPriority> SamCutPlanPriorities { get; set; }
         public virtual ICollection<SamSewingPriority> SamSewingPriorities { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster1 { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster2 { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster11 { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster3 { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster12 { get; set; }
+        public virtual SamCutAssignmentMaster SamCutAssignmentMaster4 { get; set; }
     }
 }

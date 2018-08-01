@@ -42,6 +42,7 @@ namespace ArtWebApp.DataModels
         public bool AllowOutSideAction { get; set; }
         public string AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
+        public string Is_Tnalistadd { get; set; }
     
         public virtual ICollection<ApprovalTable> ApprovalTables { get; set; }
         public virtual DepartmentMaster DepartmentMaster { get; set; }

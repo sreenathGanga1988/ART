@@ -15,14 +15,19 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         [Required(ErrorMessage = "Please select Atc")]
         public int? AtcID { get; set; }
         public IEnumerable<SelectListItem> ActOptions { get; set; }
+        public IEnumerable<SelectListItem> OurslyeList { get; set; }
         public SelectList AtcList { get; set; }
-
+        public string location { get; set; }
         public List<ProductionTNAVModel> ProductionTNAVModelList { get; set; }
         public ProductionTNAVModel productionTNAVModel { get; set; }
         public TnaUserRight tnaUserRight { get; set; }
         public List<TnaUserRight> tnaUserRights { get; set; }
     }
 
+    public class ProductionTNAATCList
+    {
+        public string ourstyle { get; set; }
+    }
 
     public class ProductionTNAVModel
     {
@@ -167,6 +172,22 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int Alert_DSYSTEMFILES { get; set; }
         public int Alert_DSHRINKAGE { get; set; }
 
+        public int DaysFINALMARKER { get; set; }
+        public int DaysFC1 { get; set; }
+        public int DaysPPMEETING { get; set; }
+        public int DaysSIZESET { get; set; }
+        public int DaysSEWINGTRIM { get; set; }
+        public int DaysBULKFABRIC { get; set; }
+        public int DaysRECEIPTOFORGINALDOCUMENT { get; set; }
+        public int DaysGRADDEDPATTERN { get; set; }
+        public int DaysSAMPLEYARDAGES { get; set; }
+        public int DaysPPAPPROVAL { get; set; }
+        public int DaysPPSUBMISSIONDATEMERCHANT { get; set; }
+        public int DaysINPUT { get; set; }
+        public int DaysPACKINGTRIMS { get; set; }
+        public int DaysFACTORYPLANNEDPCD { get; set; }
+        public int DaysSYSTEMFILES { get; set; }
+        public int DaysSHRINKAGE { get; set; }
 
 
 

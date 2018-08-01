@@ -9,9 +9,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Net.Mail;
 using System.IO;
-using System.Web.Routing;
 using System.Text;
 using Rotativa.MVC;
+using System.Data;
 
 namespace ArtWebApp.Areas.MVCTNA.Controllers
 {
@@ -21,7 +21,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
         // GET: MVCTNA/ProductIonTNA
         public ActionResult Index(ProductionTNAVModelMaster model=null)
         {
-
+            ViewBag.Location_pk = new SelectList(db.LocationMasters.Where (u=> u.LocType=="F"), "Location_PK", "LocationName");
 
             if (model == null)
             {
@@ -36,7 +36,149 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
            
             return View(model);
         }
+        public ActionResult TNAListIndex(ProductionTNAVModelMaster model = null)
+        {
+            ViewBag.Location_pk = new SelectList(db.LocationMasters.Where(u => u.LocType == "F"), "Location_PK", "LocationName");
 
+            if (model == null)
+            {
+                ProductionTNARepo productionTNARepo = new ProductionTNARepo();
+
+                model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAData(0, 0);
+            }
+            else
+            {
+
+            }
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteRoll(List<ProductionTNAATCList> things)
+        {
+            bool status = false;
+            ProductionTNARepo tnarepo = new ProductionTNARepo();
+            int count = 0;
+            string username = HttpContext.Session["Username"].ToString();
+            var per = from user in db.UserMasters where user.UserName == username && user.Is_Tnalistadd == "Y" select user;
+            foreach (var cin in per)
+            {
+
+                count = count + 1;
+            }
+            if (count > 0)
+            {
+
+            
+            foreach (ProductionTNAATCList roll in things)
+            {
+                int ourstyle= int.Parse(roll.ourstyle.ToString());
+                var q1 = from ourlist in db.TNA_OurstlyeList where ourlist.Ourstyle_id == ourstyle select ourlist;
+                foreach (var element in q1)
+                {
+                    element.IsDeleted = "Y";
+                }
+                
+
+                try
+                {
+                    db.SaveChanges();
+                    status = true;
+                }
+                catch (Exception exp)
+                {
+                    status = false;
+                    throw;
+                }
+
+            }
+                return Json(new { isok = true, message = "Succesfully Removed"});
+            }
+            else
+            {
+                return Json(new { isok = false, message = "Not Allowed" });
+            }
+            
+        }
+        
+
+        [HttpGet]
+        public JsonResult PopulateOurStyle(int Id = 0)
+        {
+            
+            ProductionTNARepo tnarept = new ProductionTNARepo();
+            
+            DataTable mylist = tnarept.get_oursylelist();            
+
+            SelectList ourstyleitem = MVCControls.DataTabletoSelectList("OurStyleID", "OurStyle", mylist, "");
+
+            JsonResult jsd = Json(ourstyleitem, JsonRequestBehavior.AllowGet);
+
+            return jsd;
+
+        }
+
+
+        
+       
+        [HttpPost]
+        public ActionResult update_ourstyle(decimal[] SelectedOurStyle,int locpk)
+
+        {
+            int atc_id = 0;
+            int count = 0;
+            string mes = "";
+            string ourstylenum = "";
+            string username= HttpContext.Session["Username"].ToString();
+            var per = from user in db.UserMasters where user.UserName == username && user.Is_Tnalistadd=="Y" select user;
+            foreach(var cin in per)
+            {
+                
+                count = count + 1;
+            }
+            if (count>0)
+            {
+
+            
+            foreach ( var  oursytle in SelectedOurStyle)
+            {
+                int ourstyleid = int.Parse(oursytle.ToString());
+                var q = from atcdet in db.AtcDetails where atcdet.OurStyleID == ourstyleid  select atcdet;
+                    foreach (var element in q)
+                    {
+                        atc_id = int.Parse(element.AtcId.ToString());
+                    ourstylenum = element.OurStyle;
+
+                    }
+
+                if (!db.TNA_OurstlyeList.Any(f => f.Ourstyle_id== ourstyleid && f.location_pk== locpk))
+                { 
+                    TNA_OurstlyeList tnalist= new TNA_OurstlyeList();
+                tnalist.Atc_id = atc_id;
+                tnalist.Ourstyle_id = int.Parse(oursytle.ToString());
+                tnalist.Ourstyle = ourstylenum;
+                tnalist.location_pk = locpk;
+               tnalist.AddedBy= HttpContext.Session["Username"].ToString();
+                tnalist.AddedDate = DateTime.Now;
+                tnalist.IsDeleted = "N";
+                db.TNA_OurstlyeList.Add(tnalist);
+                db.SaveChanges();
+                }
+            }
+                mes = "Ourstyle details updated#" ;
+                return Json(new { isok = true, message = mes });
+
+            }
+            else
+            {
+                mes= "You are not allowed";
+                return Json(new { isok = false, message = mes });
+            }
+            //return RedirectToAction("TNAListIndex");
+            
+        }
 
         public ActionResult FacPCDChanged(ProductionTNAVModelMaster model = null)
         {
@@ -70,6 +212,21 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         
             return PartialView("TnaView", model);
         }
+
+        [HttpGet]
+        public PartialViewResult TNAOurstylewise(DateTime fromdate, DateTime todate, decimal[] SelectedOurStyle, int locpk)
+        {
+            
+            int Ourstyle_id = 0;
+            ProductionTNARepo productionTNARepo = new ProductionTNARepo();
+            ProductionTNAVModelMaster model = new ProductionTNAVModelMaster();
+            
+            model.ProductionTNAVModelList = productionTNARepo.GetProductionTNAOurstyleData(fromdate, todate, locpk, SelectedOurStyle);
+            
+            return PartialView("TNAListview", model);
+        }
+
+
         public Boolean SendTnaMail(DateTime startdate, String merchant, int location)
         {
             var result = false;
@@ -103,13 +260,22 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("kristel_tabao@atraco.ae");
-                        //mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        //mailMessage.To.Add("abhishek_gupta@atraco.ae");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("kristel_tabao@atraco.ae");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
+                        mailMessage.To.Add("cathy_joy@atraco.ae");
+                        mailMessage.To.Add("sanjay.pandita@ashton-apparel.com");
+                        mailMessage.To.Add("raghavendra.g@ashton-apparel.com");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("sandeep.kalathil@ashton-apparel.com");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body ="<div><b>"+ locationname + " "+ merchant +" TNA upto Merchant PCD "+ startdate.ToString("dd/mm/yyyy") + "</b></div><br/>"+ body;
                         mailMessage.Subject = subject;
@@ -122,18 +288,27 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("devaraju_n@atraco.ae");
-                        //mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("devaraju_n@atraco.ae");
+                        mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("cathy_joy@atraco.ae");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
                         mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("suresh.tk@mombasa-apparel.com");
+                        mailMessage.To.Add("rajith@ashton-apparel.com");
+                        mailMessage.To.Add("rhey_uson@ashton-apparel.com");
+                        mailMessage.To.Add("siddu.hs@mombasa-apparel.com");
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -141,18 +316,28 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("jyoti_t@atraco.ae");
-                        //mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("rethinam.prakash@gmail.com");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("jyoti_t@atraco.ae");
+                        mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
+                        mailMessage.To.Add("cathy_joy@atraco.ae");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("mahesh.subrayamaiya@mombasa-apparel.com");
+                        mailMessage.To.Add("bhupesh.mallappa@mombasa-apparel.com");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("mohan@mombasa-apparel.com");
+
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -160,18 +345,28 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("kristel_tabao@atraco.ae");
-                        //mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("rethinam.prakash@gmail.com");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("kristel_tabao@atraco.ae");
+                        mailMessage.To.Add("vijeesh_aandiyan@atraco.ae");
+                        mailMessage.To.Add("cathy_joy@atraco.ae");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("bobby_charakanam@ashton-ethiopia.com");
+                        mailMessage.To.Add("Alberto_Mercedes@ashton-ethiopia.com");
+                        mailMessage.To.Add("ronald.martis@ashton-ethiopia.com");
+                        mailMessage.To.Add("mithilesh@ashton-ethiopia.com");
+                        mailMessage.To.Add("avnish_choudhary@ashton-ethiopia.com");
+                        mailMessage.To.Add("amarnath.karthick@ashton-ethiopia.com");
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -179,18 +374,27 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("kristel_tabao@atraco.ae");
-                        //mailMessage.To.Add("mahendra_goswami@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("abhishek_gupta@atraco.ae");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("kristel_tabao@atraco.ae");
+                        mailMessage.To.Add("mahendra_goswami@atraco.ae");
+                        mailMessage.To.Add("jinu_rajan@atraco.ae");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("sanjay.pandita@ashton-apparel.com");
+                        mailMessage.To.Add("raghavendra.g@ashton-apparel.com");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("sandeep.kalathil@ashton-apparel.com");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -198,18 +402,27 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("devaraju_n@atraco.ae");
-                        //mailMessage.To.Add("mahendra_goswami@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("rethinam.prakash@gmail.com");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("devaraju_n@atraco.ae");
+                        mailMessage.To.Add("mahendra_goswami@atraco.ae");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("jinu_rajan@atraco.ae");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("suresh.tk@mombasa-apparel.com");
+                        mailMessage.To.Add("rajith@ashton-apparel.com");
+                        mailMessage.To.Add("rhey_uson@ashton-apparel.com");
+                        mailMessage.To.Add("siddu.hs@mombasa-apparel.com");
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -217,18 +430,27 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("jyoti_t@atraco.ae");
-                        //mailMessage.To.Add("mahendra_goswami@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("rethinam.prakash@gmail.com");
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("jyoti_t@atraco.ae");
+                        mailMessage.To.Add("mahendra_goswami@atraco.ae");
+                        mailMessage.To.Add("jinu_rajan@atraco.ae");
+                        mailMessage.To.Add("vijesh@ashton-apparel.com");
+                        mailMessage.To.Add("mahesh.subrayamaiya@mombasa-apparel.com");
+                        mailMessage.To.Add("bhupesh.mallappa@mombasa-apparel.com");
+                        mailMessage.To.Add("bargesh@ashton-apparel.com");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("mohan@mombasa-apparel.com");
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -236,18 +458,30 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                 {
                     using (MailMessage mailMessage = new MailMessage())
                     {
-                        //mailMessage.To.Add("zohair_kamdar@atraco.ae");
-                        //mailMessage.To.Add("jinil_raj@atraco.ae");
-                        //mailMessage.To.Add("kristel_tabao@atraco.ae");
-                        //mailMessage.To.Add("mahendra_goswami@atraco.ae");
-                        //mailMessage.To.Add("cathy_joy@atraco.ae");
-                        mailMessage.To.Add("prakash_rethinam@atraco.ae");
-                        mailMessage.To.Add("rethinam.prakash@gmail.com");
+
+                        mailMessage.To.Add("zohair_kamdar@atraco.ae");
+                        mailMessage.To.Add("jinil_raj@atraco.ae");
+                        mailMessage.To.Add("Kotwal_Kiran@atraco.ae");
+                        mailMessage.To.Add("karan_jain@atraco.ae");
+                        mailMessage.To.Add("kristel_tabao@atraco.ae");
+                        mailMessage.To.Add("mahendra_goswami@atraco.ae");
+                        mailMessage.To.Add("jinu_rajan@atraco.ae");
+                        mailMessage.To.Add("sathish@ashton-apparel.com");
+                        mailMessage.To.Add("mannan_kapasi@atraco.ae");
+                        mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("bobby_charakanam@ashton-ethiopia.com");
+                        mailMessage.To.Add("ronald.martis@ashton-ethiopia.com");
+                        mailMessage.To.Add("Alberto_Mercedes@ashton-ethiopia.com");
+                        mailMessage.To.Add("mithilesh@ashton-ethiopia.com");
+                        mailMessage.To.Add("avnish_choudhary@ashton-ethiopia.com");
+                        mailMessage.To.Add("amarnath.karthick@ashton-ethiopia.com");
+
+                        
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" +  body;
                         mailMessage.Subject = subject;
                         mailMessage.BodyEncoding = UTF8Encoding.UTF8;
-                        //smtp.Send(mailMessage);
+                        smtp.Send(mailMessage);
                         result = true;
                     }
                 }
@@ -280,7 +514,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                     result = SendTnaMail(startdate, element.MerchandiserName, 14);
                 }
             }
-            else if (weekday == "Sunday")
+            else if (weekday == "Saturday")
             {
                 foreach (var element in q)
                 {

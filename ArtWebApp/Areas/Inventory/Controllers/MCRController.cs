@@ -22,20 +22,20 @@ namespace ArtWebApp.Areas.Inventory.Controllers
 
         public ActionResult EditIndex()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone!="Y").ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone=="Y" ).ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u=> u.LocType=="W").ToList(), "location_pk", "locationname");
             return View();
         }
         public ActionResult ApproveIndex()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u => u.IsShipmentCompleted == "Y" && u.IsMCRDone != "Y").ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u => u.IsShipmentCompleted == "Y" && u.IsMCRDone == "Y").ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u => u.LocType == "W").ToList(), "location_pk", "locationname");
             return View();
         }
 
         public ActionResult ConfirmIndex()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone!="Y").ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone=="Y").ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u=> u.LocType=="W").ToList(), "location_pk", "locationname");
             return View();
         }
@@ -220,9 +220,9 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                 var atc = from atcmaster in enty.AtcMasters where atcmaster.AtcId == atcid select atcmaster;
                 foreach(var element in atc)
                 {
-                    element.IsMCRDone = "Y";
-                    enty.SaveChanges();
+                    element.IsMCRDone = "Y";                    
                 }
+                enty.SaveChanges();
             }
             catch (Exception exp)
             {

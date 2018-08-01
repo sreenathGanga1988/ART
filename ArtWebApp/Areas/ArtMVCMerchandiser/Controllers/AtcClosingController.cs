@@ -96,6 +96,27 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "SaveETH")]
+        public ActionResult ETHIndex(AtcClosingModelList model)
+        {
+            model.AddedBy = HttpContext.Session["Username"].ToString();
+
+            model.Addeddate = DateTime.Now;
+            var Number = (from n
+                   in model.atcClosingModels
+                          where n.IsSelected == true
+                          select n).ToList();
+            model.atcClosingModels = Number;
+            model.Type = "AtcClosing";
+            AtcClosingRepo repo = new AtcClosingRepo();
+            repo.CloseAtcETH(model);
+            
+
+
+            return RedirectToAction("Index");
+        }
+
 
 
         [HttpPost]

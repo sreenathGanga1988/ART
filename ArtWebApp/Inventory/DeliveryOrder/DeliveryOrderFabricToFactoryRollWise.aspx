@@ -173,7 +173,7 @@
                     <td class="gridtable" colspan="9">
                         <asp:UpdatePanel ID="UpdatePanel1"  UpdateMode="Conditional"   runat="server">
                             <ContentTemplate>
-                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="InventoryItem_PK" OnRowCommand="tbl_InverntoryDetails_RowCommand">
+                                <asp:GridView ID="tbl_InverntoryDetails" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="InventoryItem_PK" OnRowCommand="tbl_InverntoryDetails_RowCommand" >
                                     <Columns>
                                         <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
                                             <ItemTemplate>
@@ -388,6 +388,7 @@
                                         </asp:TemplateField>
                                   
                                         <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
+                                        <asp:BoundField DataField="RACK_NAME" HeaderText="Rack" SortExpression="RACK_NAME" />
                                         <asp:BoundField DataField="ASN" HeaderText="ASN" ReadOnly="True" SortExpression="ASN" />
                                         <asp:BoundField DataField="PONum" HeaderText="PONum" SortExpression="PONum" />
                                         <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" ReadOnly="True" SortExpression="itemDescription" />

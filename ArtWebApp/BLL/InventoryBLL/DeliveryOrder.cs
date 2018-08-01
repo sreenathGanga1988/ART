@@ -464,6 +464,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                         {
                             rolldet.IsDelivered = "Y";
                             rolldet.IsCut = "N";
+                            rolldet.RackAllocated = "";
 
                         }
 
@@ -475,6 +476,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                         {
                             element.IsPresent = "N";
                             element.DeliveredVia = Donum;
+                            element.Rack_PK = 0;
 
 
                         }

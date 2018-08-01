@@ -505,7 +505,7 @@ namespace ArtWebApp.Shipping
 
 
 
-                    int doc_pk = int.Parse(((di.FindControl("lbl_doc_pk") as Label).Text.ToString()));
+                    int doc_pk = int.Parse(((di.FindControl("lbl_SDoc_Pk") as Label).Text.ToString()));
 
 
 
@@ -580,7 +580,7 @@ namespace ArtWebApp.Shipping
                 }
             }
 
-            else if (rbt_directgenitem.Checked == true && tbl_dodetails.Rows.Count > 0)
+            else if (rbt_directgenitem.Checked == true && tbl_StockAdn.Rows.Count > 0)
             {
                 if (ArtWebApp.Controls.Gridviewvalidation.countofRowselected(tbl_StockAdn, "chk_select") > 0)
                 {

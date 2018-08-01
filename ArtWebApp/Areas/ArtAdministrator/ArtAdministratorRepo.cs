@@ -429,7 +429,7 @@ namespace ArtWebApp.Areas.ArtAdministrator
                     }
                     catch (Exception exp)
                     {
-
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
                     }
                 }
 
@@ -474,7 +474,8 @@ namespace ArtWebApp.Areas.ArtAdministrator
                             effDate = DateTime.Parse(row["effDate"].ToString());
                         }
                         catch (Exception)
-                        {                           
+                        {
+                            effDate = DateTime.Now;
                         }
                         
 
@@ -550,6 +551,7 @@ namespace ArtWebApp.Areas.ArtAdministrator
                                 element.Revenue = Revenue;
                                 element.DeptSAM = DeptSAM;
                                 element.JCM = JCM;
+                                element.effDate = effDate;
                             }
 
                             artenty.SaveChanges();
@@ -781,6 +783,36 @@ GROUP BY SewInput_Tbl.Location_PK,LocationMaster_tbl.ArtLocation_PK,LocationMast
         public static DataTable GetCSFA()
         {
             String Qry = @"
+Select Final.Location_pk,Final.DeptID_Pk,final.DeptName,final.OurStyleId,Final.DeptSAM,Final.DeptCM/100 DeptCM,ProducedGarment, Revenue, effDate,Cm/100 as JCM from
+(select Location_pk,OB.DeptID_Pk,DepartmentMaster.DeptName,CMDOZ.OurStyleId,ValueMinute DeptSAM,CMDOZ.CM,cast(Ob.ValueMinute * (CM/CummSAM) as numeric(18,3))DeptCM from
+(SELECT Location_pk, OurStyleId, cast(((CmDoz*100)/12) as Numeric(18,3))CM
+FROM            CmDozmaster)CMDOZ
+inner join 
+(
+select OurStyleID,sum(ValueMinute)CummSAM from ObTarget_tbl 
+group By OurStyleID)SAMMas
+On CMDOZ.OurStyleId = SAMMas.OurStyleId 
+inner join 
+(Select OurStyleID,DeptID_Pk,ValueMinute from ObTarget_tbl)OB
+on CMDOZ.OurStyleId =OB.OurStyleID
+inner join DepartmentMaster on Ob.DeptID_Pk = DepartmentMaster.DeptID_Pk)Final
+left Join
+(SELECT        Location_PK, DeptID_Pk, DeptName, OurStyleId, DeptSAM, [DeptCM/Cent] / 100 AS DeptCM, SUM(ProducedGarment) AS ProducedGarment, SUM(Revenue$) AS Revenue, effDate,[CM/Doz$]/12 as JCM
+FROM            PandLFinal_VW
+WHERE        (OurStyleId IS NOT NULL) AND (ProducedGarment > 0)
+GROUP BY Location_PK, DeptID_Pk, DeptName, OurStyleId, DeptSAM, [DeptCM/Cent], effDate,[CM/Doz$]/12
+HAVING        (effDate > '25 jan 2018')
+)ProdCm
+on Final.Location_pk = ProdCm.Location_PK and Final.DeptID_Pk = ProdCm.DeptID_Pk
+and final.OurStyleId = ProdCm.OurStyleId
+ORDER BY final.Location_PK, final.OurStyleId, final.DeptID_Pk
+";
+            return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);
+
+        }
+        public static DataTable GetCSFAOld()
+        {
+            String Qry = @"
 SELECT        Location_PK, DeptID_Pk, DeptName, OurStyleId, DeptSAM, [DeptCM/Cent] / 100 AS DeptCM, SUM(ProducedGarment) AS ProducedGarment, SUM(Revenue$) AS Revenue, effDate,[CM/Doz$]/12 as JCM
 FROM            PandLFinal_VW
 WHERE        (OurStyleId IS NOT NULL) AND (ProducedGarment > 0)
@@ -791,7 +823,6 @@ ORDER BY Location_PK, OurStyleId, DeptID_Pk
             return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);
 
         }
-
 
         public static DataTable GetCSFA(DateTime fromdate, DateTime todate)
         {

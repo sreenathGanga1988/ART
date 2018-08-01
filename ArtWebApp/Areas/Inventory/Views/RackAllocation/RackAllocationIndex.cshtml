@@ -6,16 +6,35 @@
 
 <h2>RackAllocationIndex</h2>
 
+<style>
 
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
 <script>
 
 
         $(document).ready(function () {
-
+            var by_mrn = "N";
+            $("#mrn").hide();
+            $("#Inventory_item").click(function () {
+                $("#mrn").hide();
+                by_mrn = "N";
+            });
+            $("#By_MRN").click(function () {
+                $("#mrn").show();
+                by_mrn = "Y";
+            });
 
             $("#Show_MCRSummary").click(function (e, params) {
                 $('#loadingmessage').show();
-                var Mrn_PK = $('#Mrn_PK').find('option:selected').val();
+                if (by_mrn == "Y") {
+                    var Mrn_PK = $('#Mrn_PK').find('option:selected').val();
+                }
+                if (by_mrn == "N") {
+                    var Mrn_PK = 0;
+                }
                 var Rack_PK = $('#Rack_PK').find('option:selected').val();
 
                 $.ajax({
@@ -41,10 +60,16 @@
 
 
 </script>
-<div class="container">
+<button id="By_MRN" data-toggle="collapse" class="btn btn-info" data-target="#demo3">MRN Wise Rack Allocation</button>
+<button id="Inventory_item" data-toggle="collapse" class="btn btn-info" data-target="#demo3">All Item Rack Allocation</button>
 
-    <div class="container-fluid jumbotron">
-        <div class="row top-buffer">
+<div id="demo3" class="container">
+    @*<div>
+        <input id="By_MRN" type="button" value="MRN Wise Rack Allocation" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+        <input id="Inventory_item" type="button" value="All Item Rack Allocation" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+    </div>*@
+    <div class="container-fluid jumbotron" id="Show">
+        <div id="mrn" class="row top-buffer">
             <div class="col-md-2">MRN #:</div>
             <div class="col-md-6">  @Html.DropDownList("Mrn_PK", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
         </div>

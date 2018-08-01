@@ -168,8 +168,6 @@ namespace ArtWebApp.Areas
                      where laysheetpkarry.Contains(laydet.LaySheet_PK ?? 0) && !(from layshortdet in db.LayShortageDetails  where layshortdet.LaySheetDet_PK==laydet.LaySheetDet_PK select layshortdet.Roll_PK).Contains(laydet.Roll_PK)
                      select new ApprovelaysheetModel
                      {
-
-
                          LaySheetDet_PK = laydet.LaySheetDet_PK,
                          IsSelected = false,
                          LaySheet_PK = laydet.LaySheet_PK??0,
@@ -186,10 +184,6 @@ namespace ArtWebApp.Areas
                          ShrinkageGroup = laydet.FabricRollmaster.ShrinkageGroup,
                          WidthGroup =laydet.FabricRollmaster.WidthGroup,
                          MarkerType = laydet.FabricRollmaster.MarkerType,
-
-
-
-
 
                      }).ToList();
 

@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "TNAListIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#Location_pk").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+
+            $.ajax({
+                url: "@Url.Action("PopulateOurStyle", "ProductIonTNA")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#OurStyleID').empty();
+                    $.each(data, function () {
+
+
+                        $('#OurStyleID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#OurStyleID").trigger("chosen:updated");
+
+
+                    $("#OurStyleID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+
+
+        });
+
+        $("#Submit_Details").click(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#OurStyleID").chosen().val();
+            var locpk = $('#Location_pk').find('option:selected').val();
+
+            if (SelectedOurStyle != null)
+            {
+                
+
+                $.ajax({
+                    url: "@Url.Action("update_ourstyle", "ProductIonTNA")",
+                    traditional: true,
+                    data: { 'SelectedOurStyle': SelectedOurStyle,'locpk':locpk },
+                    type: "Post",
+                    success: function (data) {
+                        
+                        if (data.isok) {
+                            alert('Successfully saved');
+                        }
+                        else {
+                            alert('You are not allowed');
+                        }
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+         }
+
+
+        });
+        $("#Get_TNA_Details").click(function (e, params) {
+            $('#loadingmessage').show();
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#OurStyleID").chosen().val();
+            var locpk = $('#Location_pk').find('option:selected').val();
+            var fromdate = $("#AsOnDate").val();
+            var todate = $("#AsOnDate").val();
+            //alert(SelectedOurStyle);
+            //SelectedOurStyle = SelectedOurStyle.join(',');
+            //alert(SelectedOurStyle);
+                $.ajax({
+                    url: "@Url.Action("TNAOurstylewise", "ProductIonTNA")",
+
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'SelectedOurStyle': SelectedOurStyle, 'locpk': locpk},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        //alert("Sucess");
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+
+
+      
+
+    });
+
+</script>
+
+<h2>Index</h2>
+
+
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo3">Selected ATC Reports</button>
+
+<div id="demo3">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                Factory PCD Upto:
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("AsOnDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                Location:
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })
+            </div>
+            <div class="col-sm-3">
+                <input id="Submit_Details" type="button" value="Update List" data-toggle="tooltip" data-placement="top" title="Update Oustyle Details" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+        <div id='loadingmessage' style='display:none'>
+            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
+        </div>
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="Get_TNA_Details" type="button" value="Show TNA Upto Factory PCD Date" data-toggle="tooltip" data-placement="top" title="Show TNA Upto Factory PCD Date" class="btn btn-default show" />
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div id="output"></div>
+
+

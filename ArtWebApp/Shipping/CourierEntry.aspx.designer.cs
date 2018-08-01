@@ -13,6 +13,24 @@ namespace ArtWebApp.Shipping {
     public partial class CourierEntry {
         
         /// <summary>
+        /// drp_couriertype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_couriertype;
+        
+        /// <summary>
+        /// txt_awbnum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_awbnum;
+        
+        /// <summary>
         /// txt_courierdate control.
         /// </summary>
         /// <remarks>
@@ -157,31 +175,13 @@ namespace ArtWebApp.Shipping {
         protected global::System.Web.UI.WebControls.TextBox txt_remark;
         
         /// <summary>
-        /// txt_addeddate control.
+        /// drp_country control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_addeddate;
-        
-        /// <summary>
-        /// CalendarExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
-        /// <summary>
-        /// txt_awbnum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_awbnum;
+        protected global::CustomDropDown.DropDownListChosen drp_country;
         
         /// <summary>
         /// btn_submit control.

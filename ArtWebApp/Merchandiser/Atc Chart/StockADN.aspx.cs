@@ -187,7 +187,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
         {
             BLL.MerchandsingBLL.DocumentReceiptdata rcptmstrdata = new BLL.MerchandsingBLL.DocumentReceiptdata();
             rcptmstrdata.DocumentDetailsDataCollection = GetPODetailsData();
-            rcptmstrdata.insertPoEtaData(rcptmstrdata);
+            rcptmstrdata.insertSPoEtaData(rcptmstrdata);
         }
 
         public void MessageBoxShow(String msg)

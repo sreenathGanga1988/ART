@@ -245,6 +245,9 @@ namespace ArtWebApp.Inventory
             }
         }
 
-       
+        protected void SqlDataSource1_Selecting()
+        {
+
+        }
     }
 }

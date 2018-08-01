@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ArtWebApp.BLL;
+using ArtWebApp.DataModels;
 
 namespace ArtWebApp.Inventory
+
 {
     public partial class StockMRN : System.Web.UI.Page
     {
@@ -67,9 +69,55 @@ namespace ArtWebApp.Inventory
             BLL.ProcurementBLL.StockPODetailsdata spdata = new BLL.ProcurementBLL.StockPODetailsdata();
             BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
             lbl_potype.Text=prrrcpt.ShowPOType(int.Parse(drp_Po.SelectedValue.ToString()));
+            fillSADN(int.Parse(drp_Po.SelectedValue.ToString()));
             tbl_Podetails.DataSource = spdata.GetSpoData(int.Parse(drp_Po.SelectedValue.ToString()));
             tbl_Podetails.DataBind();
         }
+
+        protected void btn_sdn_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void fillSADN(int popk)
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                entty.Configuration.AutoDetectChangesEnabled = false;
+                var q = from docmstr in entty.SDocMasters join doccdet in entty.SDocDetails on docmstr.SDoc_Pk equals doccdet.SDoc_Pk
+                        join procdet in entty.StockPODetails on doccdet.SPODet_Pk  equals procdet.SPODetails_PK
+                        where procdet.SPO_PK == popk
+                        select new
+                        {
+                            name = docmstr.SDocNum,
+                            pk = docmstr.SDoc_Pk
+                        } into X
+                        group X by new { X.name, X.pk } into g
+                        select new
+                        {
+                            name = g.Key.name,
+                            pk = g.Key.pk
+
+                        };
+
+                // Create a table from the query.
+                drp_sadn.DataSource = q.ToList();
+                drp_sadn.DataBind();
+
+
+
+
+            }
+
+        }
+
+
+
+
+
+
+
+
 
         protected void btn_saveMrn_Click(object sender, EventArgs e)
         {
@@ -189,5 +237,7 @@ namespace ArtWebApp.Inventory
             Upd_rxptdrop.Update();
 
         }
+
+     
     }
 }

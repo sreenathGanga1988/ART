@@ -408,10 +408,22 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                 //    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
                                 //}
                             }
-                            catch (Exception exp)
+                            catch (DbEntityValidationException exp)
                             {
+                                // Retrieve the error messages as a list of strings.
+                                var errorMessages = exp.EntityValidationErrors
+                                        .SelectMany(x => x.ValidationErrors)
+                                        .Select(x => x.ErrorMessage);
 
-                                Elmah.ErrorSignal.FromCurrentContext().Raise(exp); 
+                                // Join the list to a single string.
+                                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                                // Combine the original exception message with the new one.
+                                var exceptionMessage = string.Concat(exp.Message, " The validation errors are: ", fullErrorMessage);
+
+                                // Throw a new DbEntityValidationException with the improved exception message.
+                                throw new DbEntityValidationException(exceptionMessage, exp.EntityValidationErrors);
+                                Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
                             }
 
                         }
@@ -430,6 +442,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                     atcwordelement.ArtLocaion_PK = location_pk;
                                     atcwordelement.Qty = element.PoQty;
                                     atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+                                    atcwordelement.DeliveryDate = this.DeliveryDate;                                    
+                                    atcwordelement.HandOverDate = this.HandoverDate;
 
                                 }
 
@@ -648,11 +662,16 @@ namespace ArtWebApp.BLL.MerchandsingBLL
         }
 
 
-        public void MarknonCutable(int popackid, int ourstyleid)
+        public string MarknonCutable(int popackid, int ourstyleid)
         {
-           
+            string msg = "";
                 using (ArtEntitiesnew artentty = new DataModels.ArtEntitiesnew())
                 {
+                    
+                if (!artentty.CutPlanASQDetails .Any(f => f.PoPackId == popackid && f.OurStyleId == ourstyleid && f.IsDeleted == "N"))
+                {
+
+               
 
                     var q=  from  asqalocart in artentty.ASQAllocationMasters
                             where asqalocart.OurStyleId == ourstyleid && asqalocart.PoPackId == popackid
@@ -679,10 +698,16 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
                 artentty.SaveChanges();
 
-                   
+                    msg = "Marked Uncut Sucessfully ";
                 }
-
+                else
+                {
+                    msg = "Cutplan already created";
+                }
             }
+
+            return msg;
+        }
 
 
 

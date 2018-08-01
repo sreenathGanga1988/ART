@@ -666,9 +666,7 @@ namespace ArtWebApp.Api
 
                
             }
-
-
-
+            
             try
             {
                
@@ -845,9 +843,6 @@ namespace ArtWebApp.Api
 
 
 
-
-
-
             return ArtTaskModels;
 
         }
@@ -859,7 +854,7 @@ namespace ArtWebApp.Api
         public static List<ArtTaskModelLoccation> GetPendingTask()
         {
 
-            ProductionTNAVModelMaster model = new ProductionTNAVModelMaster();
+           ProductionTNAVModelMaster model = new ProductionTNAVModelMaster();
             ProductionTNARepo productionTNARepo = new ProductionTNARepo();
             DateTime tempdate = DateTime.Now.Date;
             tempdate = tempdate.AddDays(30);

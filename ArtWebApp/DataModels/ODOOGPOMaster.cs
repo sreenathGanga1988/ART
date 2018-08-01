@@ -28,5 +28,6 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> PO_Date { get; set; }
         public string Odoo_UOM { get; set; }
         public string OdooLocation { get; set; }
+        public string IsClosed { get; set; }
     }
 }

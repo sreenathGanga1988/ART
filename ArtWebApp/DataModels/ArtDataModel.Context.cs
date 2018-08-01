@@ -310,6 +310,9 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<MCR_Master> MCR_Master { get; set; }
         public virtual DbSet<RackMaster> RackMasters { get; set; }
         public virtual DbSet<RackInventoryMaster> RackInventoryMasters { get; set; }
+        public virtual DbSet<LaySheetMasterHistory> LaySheetMasterHistories { get; set; }
+        public virtual DbSet<Cutplan_UnapproveHistory> Cutplan_UnapproveHistory { get; set; }
+        public virtual DbSet<TNA_OurstlyeList> TNA_OurstlyeList { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

@@ -243,13 +243,19 @@ HAVING        (DeliveryOrderDetails.DO_PK = @dopk)", con);
 
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, 
-                         StockInventoryMaster.TemplateSize, StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.Unitprice, StockInventoryMaster.ReceivedQty, 
-                         StockInventoryMaster.OnHandQty, UOMMaster.UomName, StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty , StockInventoryMaster.CUrate
-FROM            StockInventoryMaster INNER JOIN
-                         Template_Master ON StockInventoryMaster.Template_PK = Template_Master.Template_PK INNER JOIN
-                         UOMMaster ON StockInventoryMaster.Uom_PK = UOMMaster.Uom_PK
-WHERE        (StockInventoryMaster.Location_Pk = @loctn_pk) AND (StockInventoryMaster.OnHandQty > 0)", con);
+                SqlCommand cmd = new SqlCommand(@"SELECT        SInventoryItem_PK, Description, Composition, Construct, TemplateColor, TemplateSize, width, Unitprice, ReceivedQty, (OnHandQty-BlockedQty)as OnHandQty, UomName, Location_Pk, deliveryqty, CuRate, BlockedQty
+FROM            (SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, 
+                                                    StockInventoryMaster.TemplateSize, StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.Unitprice, StockInventoryMaster.ReceivedQty, 
+                                                    StockInventoryMaster.OnHandQty, UOMMaster.UomName, StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty, StockInventoryMaster.CuRate, ISNULL
+                                                        ((SELECT        SUM(RequestOrderStockDetails.Qty) AS Expr1
+                                                            FROM            RequestOrderStockMaster INNER JOIN
+                                                                                     RequestOrderStockDetails ON RequestOrderStockMaster.SRO_Pk = RequestOrderStockDetails.SRO_Pk
+                                                            WHERE        (RequestOrderStockMaster.Iscompleted = N'N') AND (RequestOrderStockMaster.IsDeleted = N'N') AND (RequestOrderStockDetails.SInventoryItem_PK = StockInventoryMaster.SInventoryItem_PK)), 0) 
+                                                    AS BlockedQty
+                          FROM            StockInventoryMaster INNER JOIN
+                                                    Template_Master ON StockInventoryMaster.Template_PK = Template_Master.Template_PK INNER JOIN
+                                                    UOMMaster ON StockInventoryMaster.Uom_PK = UOMMaster.Uom_PK
+                          WHERE        (StockInventoryMaster.Location_Pk = @loctn_pk) AND (StockInventoryMaster.OnHandQty > 0)) AS tt", con);
                
                 cmd.Parameters.AddWithValue("@loctn_pk", lctn_pk);
 

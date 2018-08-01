@@ -201,9 +201,18 @@ namespace ArtWebApp
                 cmd.Connection = con;
                 con.Open();
 
-                SqlDataReader rdr = cmd.ExecuteReader();
+                try
+                {
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    dt.Load(rdr);
+                }
+                catch (Exception exp)
+                {
 
-                dt.Load(rdr);
+                    throw;
+                }
+
+                
             }
 
             return dt;

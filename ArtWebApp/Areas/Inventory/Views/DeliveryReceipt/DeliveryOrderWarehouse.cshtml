@@ -1,0 +1,121 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.DeliveryReceipt
+@{
+    ViewBag.Title = "DeliveryOrderWarehouse";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeliveryOrderWarehouse</h2>
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "TRIMS",
+        Value = "T",
+        Selected = true
+
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "FABRIC",
+        Value = "F"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "SPARE PARTS",
+        Value = "SP"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "OTHERS",
+        Value = "O"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "SERVICE",
+        Value = "S"
+    });
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+
+        $("#show_itemdetails").click(function (e, params) {
+
+            var Atcid = $("#Atcid").val();
+            var DODate = $("#DODate").val();
+            var DOType = $("#DOType").val();
+            var container_no = $("#container_no").val();
+            var FactId = $("#toLocid").val();
+            var boe_no = $("#boe_no").val();
+            var DOMethod = $("#DOMethod").val();
+            $("#output").empty();
+            alert("hi");
+            $.ajax({
+                url: "@Url.Action("GetItemDetails", "DeliveryReceipt")",
+                traditional: true,
+                type: "GET",
+                data: {
+                    'atcid': Atcid, 'dodate': DODate, 'container': container_no, 'toloc': FactId, 'boe': boe_no, 'dotype': "WW"   },
+                success: function (fooBarHTML) {
+
+                    $("#output").html(fooBarHTML);
+                },
+                error: function (xhr, status, errorThrown) {
+
+                }
+            });
+
+        });
+
+
+
+    });
+
+</script>
+<div class="container-fluid jumbotron">
+    <div class="row top-buffer">
+        <div class="col-md-2">ATC #:</div>
+        <div class="col-md-4">  @Html.DropDownList("Atcid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+        <div class="col-md-2">DO Date:</div>
+        <div class="col-md-4">  @Html.TextBox("DODate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })</div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-sm-2">
+            DO Type:
+        </div>
+        <div class="col-md-4">@Html.DropDownList("DOType", listItems, "-- Select Rack Type --", new { htmlAttributes = new { @class = "form-control" } }) </div>
+        <div class="col-sm-2">
+            Container #:
+        </div>
+        <div class="col-md-4">@Html.TextBox("container_no", null, htmlAttributes: new { @style = "width: 250px;", @class = "form-control" }) </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-sm-2">
+            TO :
+        </div>
+        <div class="col-md-4">@Html.DropDownList("toLocid",  null, htmlAttributes: new { @class = "chosen-select form-control", }) </div>
+        <div class="col-sm-2">
+            BOE#:
+        </div>
+        <div class="col-md-4">@Html.TextBox("boe_no", null, htmlAttributes: new { @style = "width: 250px;", @class = "form-control" }) </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-sm-2">
+            Delivery Method:
+        </div>
+        <div class="col-md-4">@Html.DropDownList("DOMethod", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-4">
+            <input id="show_itemdetails" type="button" value="Get Details" data-toggle="tooltip" data-placement="top" title="Get Inventory of ATC" class="btn btn-default show" />
+        </div>
+    </div>
+
+</div>
+
+<div id="output">
+
+
+</div>

@@ -6,7 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using ArtWebApp.Areas.Inventory;
 using System.Web.UI.WebControls;
+using System.Collections;
 
 namespace ArtWebApp.Production.Cutting
 {
@@ -17,7 +19,7 @@ namespace ArtWebApp.Production.Cutting
             if (!IsPostBack)
             {
                 FillAtcCombo();
-
+                Fillbodymaster();
             }
         }
 
@@ -72,20 +74,157 @@ namespace ArtWebApp.Production.Cutting
 
             }
         }
+        protected void Chk_select_CheckedChanged1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (drp_ourstyle.SelectedItem.Value != null)
+                {
+                    RejectReqMasterData prrrcpt = new RejectReqMasterData();
+                    InventoryRepo inve = new InventoryRepo();
+
+                    CheckBox chkbox = (CheckBox)sender;
+                    GridViewRow currentRow = chkbox.ClosestContainer<GridViewRow>();
+
+                    if (chkbox.Checked == true)
+                    {
+                        DataTable dt = inve.GetBodyParts();
+                        UpdatePanel upd_fabrication = (currentRow.FindControl("upd_fabrication") as UpdatePanel);
+                        
+                        DropDownList drp_cut = (currentRow.FindControl("dd_fabrication") as DropDownList);
+                        drp_cut.DataSource = dt;
+                        drp_cut.DataTextField = "BodyPartName";
+                        drp_cut.DataValueField = "BodyPart_PK";
+                        drp_cut.DataBind();
+
+                        upd_fabrication.Update();
+                        drp_cut.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Cut#"));
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                MessgeboxUpdate("error", "Location Not Selected");
+            }
+        }
         protected void btn_atc_Click(object sender, EventArgs e)
         {
             FillOurStyleCombo(int.Parse(drp_atc.SelectedValue.ToString()));
         }
 
+
+        public ArrayList Getbodymasterlist()
+        {
+            ArrayList bodymasterlist = new ArrayList();
+            List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_bodypart.SelectedItems;
+            foreach (Infragistics.Web.UI.ListControls.DropDownItem item in items)
+            {
+
+                int bodypk = int.Parse(item.Value.ToString());
+                String part = item.Text.ToString();
+                bodymasterlist.Add(part);
+            }
+            return bodymasterlist;
+        }
+
+
+
+        public void Fillbodymaster()
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                entty.Configuration.AutoDetectChangesEnabled = false;
+                var q = from atcorder in entty.BodyPartMasters
+                        select new
+                        {
+                            name = atcorder.BodyPartName,
+                            pk = atcorder.BodyPart_PK
+                        };
+
+
+                drp_bodypart.DataSource = q.ToList();
+                drp_bodypart.DataBind();
+                //// Create a table from the query.
+                //drp_Atc.DataSource = q.ToList();
+                //drp_Atc.DataBind();
+
+
+
+
+            }
+        }
+
+
+
         protected void btn_OURSTYLE_Click(object sender, EventArgs e)
         {
-            DataTable dt = RejectionPanelFunction.GetPendingRejectionRequest(int.Parse(drp_ourstyle.SelectedItem.Value.ToString()), int.Parse(drp_fact.SelectedItem.Value.ToString()));
+            InventoryRepo inve = new InventoryRepo();
+            DataTable dt = new DataTable();
+            DataTable dt1 = new DataTable();
+            dt1.Columns.Add("Fabreqid");
+            dt1.Columns.Add("Fabreqno");
+            dt1.Columns.Add("RejFabReqID");
+            dt1.Columns.Add("DepartmentName");
+            dt1.Columns.Add("ReqQty");
+            dt1.Columns.Add("ColorName");
+            dt1.Columns.Add("OurStyle");
+            dt1.Columns.Add("LocationName");
+            dt1.Columns.Add("Allowedfabric");
+            dt1.Columns.Add("IsApproved");
+            dt1.Columns.Add("OurStyleID");
+            dt1.Columns.Add("Location_PK");
+            dt1.Columns.Add("parts");
+            dt1.Columns.Add("Reqdate");
 
 
-            tbl_podetails.DataSource = dt;
+
+            ArrayList LocArraylist = Getbodymasterlist();
+            if (LocArraylist.Count > 0 && LocArraylist != null)
+            {
+                for (int i = 0; i < LocArraylist.Count; i++)
+                {
+                    dt = RejectionPanelFunction.GetPendingRejectionRequest(int.Parse(drp_ourstyle.SelectedItem.Value.ToString()), int.Parse(drp_fact.SelectedItem.Value.ToString()), LocArraylist[i].ToString());
+                    foreach(DataRow row in dt.Rows)
+                    {
+                        DataRow row1 = dt1.NewRow();
+                        row1["Fabreqid"] = row["Fabreqid"];
+                        row1["Fabreqno"] = row["Fabreqno"];
+                        row1["RejFabReqID"] = row["RejFabReqID"];
+                        row1["DepartmentName"] = row["DepartmentName"];
+                        row1["ReqQty"] = row["ReqQty"];
+                        row1["ColorName"] = row["ColorName"];
+                        row1["OurStyle"] = row["OurStyle"];
+                        row1["LocationName"] = row["LocationName"];
+                        row1["Allowedfabric"] = row["Allowedfabric"];
+                        row1["IsApproved"] = row["IsApproved"];
+                        row1["OurStyleID"] = row["OurStyleID"];
+                        row1["Location_PK"] = row["Location_PK"];
+                        row1["parts"] = row["parts"];
+                        row1["Reqdate"] = row["Reqdate"];
+                        try
+                        {
+                            dt1.Rows.Add(row1);
+                        }
+                        catch (Exception exp)
+                        {
+
+                            throw;
+                        }
+                    }
+                   
+                   
+                    
+                }
+                    
+
+            }
+            tbl_podetails.DataSource = dt1;
             tbl_podetails.DataBind();
             upd_grid.Update();
-         }
+
+        }
         public void insertmrn()
         {
             String mrnum = "";

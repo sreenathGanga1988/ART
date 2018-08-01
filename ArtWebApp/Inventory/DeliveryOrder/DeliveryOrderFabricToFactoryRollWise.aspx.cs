@@ -593,6 +593,8 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             tbl_rolldata.DataSource = dt;
             tbl_rolldata.DataBind();
         }
+
+      
     }
 
 }

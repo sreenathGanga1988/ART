@@ -190,7 +190,7 @@ FROM            PoPackMaster INNER JOIN
                          BuyerDestinationMaster ON PoPackMaster.BuyerDestination_PK = BuyerDestinationMaster.BuyerDestination_PK INNER JOIN
                          ChannelMaster ON PoPackMaster.ChannelID = ChannelMaster.ChannelID INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID
-WHERE        (LocationMaster.Location_PK = @Location_PK) AND (POPackDetails.OurStyleID = @OurStyleID)">
+WHERE        (POPackDetails.OurStyleID = @OurStyleID)">
     <SelectParameters>
         <asp:ControlParameter ControlID="drp_factory" Name="Location_PK" PropertyName="SelectedValue" />
         <asp:ControlParameter ControlID="cmb_ourstyle" Name="OurStyleID" PropertyName="SelectedValue" />

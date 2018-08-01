@@ -26,11 +26,14 @@ namespace ArtWebApp.BLL.ShippingBLL
         public string Weight { get; set; }
         public string ApprCost { get; set; }
         public string Remark { get; set; }
+        public string Countryname{ get; set; }
+        public string Couriertype { get; set; }
         public DateTime Addeddate { get; set; }
 
 
-        public void InsertCourierData()
+        public string InsertCourierData()
         {
+            String Donum = "";
             using (DataModels.ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
             {
 
@@ -51,12 +54,15 @@ namespace ArtWebApp.BLL.ShippingBLL
                 courierde.ApprCost = decimal.Parse(this.ApprCost);
                 courierde.Remark = this.Remark;
                 courierde.Addeddate = this.Addeddate;
+                courierde.Country = this.Countryname;
+                courierde.Couriertype = this.Couriertype;
                 courierde.AddedBY= HttpContext.Current.Session["Username"].ToString();
                 enty.CourierTables.Add(courierde);
-                enty.SaveChanges();          
-               
+                enty.SaveChanges();
+                Donum = courierde.CouDocNum= CodeGenerator.GetUniqueCode("COU", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(courierde.CourierID.ToString()));
+                enty.SaveChanges();
             }
-
+            return Donum;
         }
     }
 }

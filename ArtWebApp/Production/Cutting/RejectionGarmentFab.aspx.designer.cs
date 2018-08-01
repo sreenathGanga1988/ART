@@ -85,22 +85,31 @@ namespace ArtWebApp.Production.Cutting {
         protected global::CustomDropDown.DropDownListChosen drp_ourstyle;
         
         /// <summary>
-        /// UpdatePanel7 control.
+        /// drp_bodypart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_bodypart;
         
         /// <summary>
-        /// btn_OURSTYLE control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_OURSTYLE;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
         /// upd_grid control.

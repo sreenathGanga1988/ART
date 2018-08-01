@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using ArtWebApp.DataModels;
+
 namespace ArtWebApp.Merchandiser.PO
 {
     public partial class GeneralPurchasedashBoard : System.Web.UI.Page
@@ -44,6 +46,38 @@ namespace ArtWebApp.Merchandiser.PO
             Response.Redirect("IPOMultiCreator.aspx?selectionid="+selectedpoid+"");
         }
 
-    
+        protected void btn_closeipo_Click(object sender, EventArgs e)
+        {
+
+            string selectedpoid = "";
+            foreach (GridViewRow gdrow in GridView1.Rows)
+            {
+                CheckBox chkBx = (CheckBox)gdrow.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+                    int polineid = int.Parse((gdrow.FindControl("lbl_polineid") as Label).Text);
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                    {
+                    
+                        var q = from pckmst in enty.ODOOGPOMasters
+                            where pckmst.POLineID == polineid
+                            select pckmst;
+                    foreach (var element in q)
+                    {
+                        element.IsClosed = "Y";
+                    }
+                    enty.SaveChanges();
+                    }
+                    String msg = " IPO Closed Sucessfully ";
+
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+
+                }
+
+            }
+
+
+
+            }
     }
 }

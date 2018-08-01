@@ -1048,6 +1048,7 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
 
         public String newRefPattern { get; set; }
         public String Refpattern { get; set; }
+        public string UnapproveReason { get; set; }
         public List<CutPlanDetailsData> CutPlanDetailsDataCollection { get; set; }
         public List<CutPlanMarkerDetailsData> CutPlanMarkerDetailsDataCollection { get; set; }
         public List<CutPlanMarkerTypeData> CutPlanMarkerTypeDataDataCollection { get; set; }
@@ -1317,6 +1318,40 @@ GROUP BY SkuDet_PK, OurStyleID, Location_PK, CutPlan_PK)  as tt";
             }
        }
 
+        public string UnApproveCutPlan(int cutplan_pk)
+        {
+            string msg = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                Cutplan_UnapproveHistory cutunapp = new Cutplan_UnapproveHistory();
+                if (enty.CutPlanMasters .Any(f => f.CutPlan_PK == cutplan_pk && f.IsCutorderGiven =="N"))
+                {
+               
+                    var q = from ctplnmstr in enty.CutPlanMasters
+                        where ctplnmstr.CutPlan_PK == cutplan_pk
+                        select ctplnmstr;
+
+                foreach (var element in q)
+                {
+                        cutunapp.cutplan_pk = cutplan_pk;
+                        cutunapp.AddedDate = DateTime.Now;
+                        cutunapp.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                        cutunapp.reason = this.UnapproveReason;
+                        enty.Cutplan_UnapproveHistory.Add(cutunapp);
+                        element.IsApproved = "N";
+                    element.IsPatternAdded  = "N";                    
+
+                }
+                enty.SaveChanges();
+                    msg = "Cutplan Unapproved Successfully";
+            }
+                else
+                {
+                    msg = "Cutorder is already given. Delete CutOrder First";
+                }
+            }
+            return msg;
+        }
 
 
         public void RejectCutPlan(int cutplan_pk)

@@ -446,15 +446,18 @@
     <Content Include="Plugin\MyDataTableReporter.js" />
     <Content Include="Plugin\MyDataTableSummary.js" />
     <Content Include="Production\CutOrder\CutOrderClose.aspx" />
+    <Content Include="Production\CutOrder\CutOrderDeletion.aspx" />
     <Content Include="Production\CutOrder\CutPlanMasterASQEdit.aspx" />
     <Content Include="Production\CutOrder\CutPlanRollMapping.aspx" />
     <Content Include="Production\CutOrder\DisplayRoll.aspx" />
     <Content Include="Production\Cutting\ApprovedLaysheet.aspx" />
     <Content Include="Production\Cutting\CutplanAndRollofAtc.aspx" />
     <Content Include="Production\Cutting\CutplanApproval.aspx" />
+    <Content Include="Production\Cutting\CutPlanUnApprovalFactory.aspx" />
     <Content Include="Production\Cutting\CuttingDashBoardBoot.aspx" />
     <Content Include="Production\Cutting\LaysheetApproval.aspx" />
     <Content Include="Production\Cutting\LaysheetRollEditor.aspx" />
+    <Content Include="Production\Cutting\LaysheetUnApproval.aspx" />
     <Content Include="Production\Cutting\RejectionGarmentFab.aspx" />
     <Content Include="Production\JobContractNew\JObContractNew.aspx" />
     <Content Include="Production\JobContractNew\JobContractOthersNew.aspx" />
@@ -1679,6 +1682,16 @@
     <Content Include="Areas\ArtMVCMaster\Views\RackMasters\Index.cshtml" />
     <Content Include="Areas\Inventory\Views\RackAllocation\RackAllocationIndex.cshtml" />
     <Content Include="Areas\Inventory\Views\RackAllocation\TrimsRackAllocation_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\DeliveryReceipt\DeliveryReceipt_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\RollRackAllocationIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\RollRackAllocation_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\DeliveryReceipt\DeliveryOrderWarehouse.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\TrimsRackShuffleIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\TrimsRackShuffle_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\RollRackShuffleIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\RollRackShuffle_P.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\ProductIonTNA\TNAListIndex.cshtml" />
+    <Content Include="Areas\MVCTNA\Views\ProductIonTNA\TNAListview.cshtml" />
     <None Include="ArtDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ArtDataSet.Designer.cs</LastGenOutput>
@@ -2358,6 +2371,9 @@
     <Compile Include="DataModels\CutPlanRollDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\Cutplan_UnapproveHistory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\CuttingDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2596,6 +2612,9 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LaySheetMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\LaySheetMasterHistory.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\LaySheetRollDetail.cs">
@@ -3073,6 +3092,9 @@
     <Compile Include="DataModels\TnaUserRight.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\TNA_OurstlyeList.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\TransferToGstockDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -3134,6 +3156,13 @@
     <Compile Include="Production\CutOrder\CutOrderClose.aspx.designer.cs">
       <DependentUpon>CutOrderClose.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\CutOrder\CutOrderDeletion.aspx.cs">
+      <DependentUpon>CutOrderDeletion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\CutOrder\CutOrderDeletion.aspx.designer.cs">
+      <DependentUpon>CutOrderDeletion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Production\Cutting\ApprovedLaysheet.aspx.cs">
       <DependentUpon>ApprovedLaysheet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3148,12 +3177,26 @@
     <Compile Include="Production\Cutting\CutplanApproval.aspx.designer.cs">
       <DependentUpon>CutplanApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Production\Cutting\CutPlanUnApprovalFactory.aspx.cs">
+      <DependentUpon>CutPlanUnApprovalFactory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\CutPlanUnApprovalFactory.aspx.designer.cs">
+      <DependentUpon>CutPlanUnApprovalFactory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.cs">
       <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Production\Cutting\CuttingDashBoardBoot.aspx.designer.cs">
       <DependentUpon>CuttingDashBoardBoot.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Production\Cutting\LaysheetUnApproval.aspx.cs">
+      <DependentUpon>LaysheetUnApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Production\Cutting\LaysheetUnApproval.aspx.designer.cs">
+      <DependentUpon>LaysheetUnApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\Cutting\RejectionGarmentFab.aspx.cs">
       <DependentUpon>RejectionGarmentFab.aspx</DependentUpon>

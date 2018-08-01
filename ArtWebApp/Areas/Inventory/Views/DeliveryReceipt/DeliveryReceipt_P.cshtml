@@ -1,0 +1,271 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.DeliveryReceipt
+@using System.Data;
+
+@Html.HiddenFor(model => model.AtcId);
+@Html.HiddenFor(model => model.DoDate);
+@Html.HiddenFor(model => model.deliverymethod);
+@Html.HiddenFor(model => model.containerno);
+@Html.HiddenFor(model => model.toloc);
+@Html.HiddenFor(model => model.boe);
+<div>Trims details</div>
+<div id="printfcr">
+    <table id="Dataentry" class="table table-striped table-bordered MyDataTable Dataentry" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>@Html.CheckBox("SelectAll")</th>
+                <th>I_IPK</th>
+                <th>RackNo</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>ItemSize</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedVia</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>TotalOnhandQty</th>
+                <th>BlockedQty</th>
+                <th>OnHandQty</th>
+                <th>DeliveryQty</th>
+                <th style="display:none">Rack_PK</th>
+                <th style="display:none">RackInventory_PK</th>
+            </tr>
+        </thead>
+        @foreach (DataRow row in Model.DeliveryDetails.Rows)
+        {
+        <tr class="TrimsTableRow" style="border-color:black">
+            <td class="IsSelected">@Html.CheckBox("IsSelected")</td>
+            <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+            <td><span class="Rack_name">@row["Rack_name"]</span></td>
+            <td><span class="RMNum">@row["RMNum"]</span></td>
+            <td><span class="Description">@row["Description"]</span></td>
+            <td><span class="ItemColor">@row["ItemColor"]</span></td>
+            <td><span class="ItemSize">@row["ItemSize"]</span></td>
+            <td><span class="SupplierColor">@row["SupplierColor"]</span></td>
+            <td><span class="UomCode">@row["UomCode"]</span></td>
+            <td><span class="Refnum">@row["Refnum"]</span></td>
+            <td><span class="ReceivedQty">@row["ReceivedQty"]</span></td>
+            <td><span class="DeliveredQty">@row["DeliveredQty"]</span></td>
+            <td><span class="TotalOnhand">@row["TotalOnhand"] </span></td>
+            <td><span class="BlockedQty">@row["BlockedQty"] </span></td>
+            <td><span class="OnhandQty">@row["OnhandQty"] </span></td>
+            <td class="DeliveryQty">
+
+                @Html.TextBox("DeliveryQty", null, new { @class = "DeliveryQty", style = "width:80px" })
+            </td>
+            <td style="display:none"><span class="Rack_PK">@row["Rack_PK"] </span></td>
+            <td style="display:none"><span class="RackInventory_PK">@row["RackInventory_PK"] </span></td>
+
+
+        </tr>
+
+
+
+        }
+    </table>
+</div>
+
+@if (Model.DeliverFabricDetails != null) { 
+    <div>Fabric details</div>
+<div>
+    <table id="Dataentry1" class="table table-striped table-bordered MyDataTable1 Dataentry1" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>@Html.CheckBox("FSelectAll")</th>
+                <th>I_IPK</th>                
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>ItemSize</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>ReceivedVia</th>
+                <th>ReceivedQty</th>
+                <th>DeliveredQty</th>
+                <th>TotalOnhandQty</th>
+                <th>BlockedQty</th>
+                <th>OnHandQty</th>
+                <th>DeliveryQty</th>
+                
+            </tr>
+        </thead>
+        @foreach (DataRow row in Model.DeliverFabricDetails.Rows)
+        {
+            <tr class="FabricTableRow" style="border-color:black">
+                <td class="FIsSelected">@Html.CheckBox("FIsSelected")</td>
+                <td><span class="FInventoryItem_PK">@row["InventoryItem_PK"]</span></td>                
+                <td><span class="FRMNum">@row["RMNum"]</span></td>
+                <td><span class="FDescription">@row["Description"]</span></td>
+                <td><span class="FItemColor">@row["ItemColor"]</span></td>
+                <td><span class="FItemSize">@row["ItemSize"]</span></td>
+                <td><span class="FSupplierColor">@row["SupplierColor"]</span></td>
+                <td><span class="FUomCode">@row["UomCode"]</span></td>
+                <td><span class="FRefnum">@row["Refnum"]</span></td>
+                <td><span class="FReceivedQty">@row["ReceivedQty"]</span></td>
+                <td><span class="FDeliveredQty">@row["DeliveredQty"]</span></td>
+                <td><span class="FTotalOnhand">@row["TotalOnhand"] </span></td>
+                <td><span class="FBlockedQty">@row["BlockedQty"] </span></td>
+                <td><span class="FOnhandQty">@row["OnhandQty"] </span></td>
+                <td class="FDeliveryQty">
+
+                    @Html.TextBox("FDeliveryQty", null, new { @class = "FDeliveryQty", style = "width:80px" })
+                </td>                
+                
+
+
+            </tr>
+
+
+
+        }
+    </table>
+
+
+</div>
+}
+<div class="col-sm-3">
+    <input id="submit_details" type="button" value="Submit" data-toggle="tooltip" data-placement="top" title="Submit Details" class="btn btn-default show" />
+</div>
+<script>
+     $(document).ready(function () {
+
+        $('.Dataentry').DataTable();
+        $('.Dataentry1').DataTable();
+        
+         $('#submit_details').click(function (e, params) {
+            var things = [];
+             var list = [];
+             var isok = true;
+            var AtcId = $('#AtcId').val();
+            var DoDate = $('#DoDate').val();
+            var deliverymethod = $('#deliverymethod').val();
+            var containerno = $('#containerno').val();
+            var toloc = $('#toloc').val();
+             var boe = $('#boe').val();
+             alert(deliverymethod);
+             $('.Dataentry tr.TrimsTableRow').each(function (i, row) {                 
+                $(this).find('td input:checked').each(function () {
+                    
+                    var row = $(this).closest('tr');                    
+                    var InventoryItem_PK = parseFloat(row.find('.InventoryItem_PK').text());                    
+                    var RackInventory_PK = parseFloat(row.find('.RackInventory_PK').text());                    
+                    var Rack_PK = parseFloat(row.find('.Rack_PK').text());                    
+                    var DeliveryQty = row.find('td:eq(15) input').val();                    
+                    var OnhandQty = parseFloat(row.find('.OnhandQty').text());                    
+                    if (parseFloat(DeliveryQty.toString()) > parseFloat(OnhandQty.toString())) {                        
+                        isok = false;
+                    }
+
+                    var Approvedata = {
+                        AtcId: AtcId, toloc: toloc, DoDate: DoDate, containerno: containerno, boe: boe,
+                        InventoryItem_PK: InventoryItem_PK, DeliveryQty: DeliveryQty, Rack_PK: Rack_PK,
+                        RackInventory_PK: RackInventory_PK, dotype: deliverymethod,itemgroup:2
+                    }
+                    list.push(Approvedata);
+                    
+
+                });
+             });
+             $('.Dataentry1 tr.FabricTableRow').each(function (i, row) {
+                 $(this).find('td input:checked').each(function () {
+
+                     var row = $(this).closest('tr');
+                     var InventoryItem_PK = parseFloat(row.find('.FInventoryItem_PK').text());
+                     var DeliveryQty = row.find('td:eq(14) input').val();
+                     var OnhandQty = parseFloat(row.find('.FOnhandQty').text());
+                     if (parseFloat(DeliveryQty.toString()) > parseFloat(OnhandQty.toString())) {
+                         isok = false;
+                     }
+
+                     var Approvedata = {
+                         AtcId: AtcId, toloc: toloc, DoDate: DoDate, containerno: containerno, boe: boe,
+                         InventoryItem_PK: InventoryItem_PK, DeliveryQty: DeliveryQty, Rack_PK: 0,
+                         RackInventory_PK: RackInventory_PK, dotype: deliverymethod,itemgroup:1
+                     }
+                     list.push(Approvedata);
+
+
+                 });
+             });
+             alert(isok);
+             var things = JSON.stringify({ 'things': list, });
+            if (isok == true) {
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("CreateDO", "DeliveryReceipt")",
+                    data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        $("#submit_details").prop('disabled', true);
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+                });
+
+
+            }
+            else {
+                alert("The Delivery Qty is more than Onhand Qty");
+            }
+
+
+        });
+
+    });
+
+
+    $('#SelectAll').change(function () {
+        if (this.checked) {
+            var parenttable = $(this).closest('table');
+            parenttable.children('tbody,tr,td').css('background-color', '#8AE1E9');
+            $("[id$=IsSelected]").prop('checked', true);
+
+        } else {
+            if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+                $("[id$=IsSelected]").prop('checked', false);
+            }
+            parenttable.children('tbody,tr,td').css('background-color', '#F5F5F7');
+        }
+    });
+    $("[id$=IsSelected]").change(function () {
+        if (this.checked) {
+            $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+        }
+        else {
+            $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+        }
+    });
+
+    $('#FSelectAll').change(function () {
+        if (this.checked) {
+            var parenttable = $(this).closest('table');
+            parenttable.children('tbody,tr,td').css('background-color', '#8AE1E9');
+            $("[id$=FIsSelected]").prop('checked', true);
+
+        } else {
+            if ($('[id$=FIsSelected]:checked').length == $('[id$=FIsSelected]').length) {
+                $("[id$=FIsSelected]").prop('checked', false);
+            }
+            parenttable.children('tbody,tr,td').css('background-color', '#F5F5F7');
+        }
+    });
+    $("[id$=FIsSelected]").change(function () {
+        if (this.checked) {
+            $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+        }
+        else {
+            $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+        }
+    });
+</script>

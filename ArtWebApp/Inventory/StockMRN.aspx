@@ -4,6 +4,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <style type="text/css">
 
+          .auto-style1 {
+              height: 30px;
+          }
+
     </style>
     <link href="../css/style.css" rel="stylesheet" />
     <script src="../JQuery/GridJQuery.js"></script>
@@ -179,6 +183,32 @@
                                     <td >
                                         <asp:TextBox ID="txt_deliverynote" runat="server" CssClass="auto-style39"></asp:TextBox>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style1" >SADN</td>
+                                    <td class="auto-style1" >
+                                    <ucc:DropDownListChosen ID="drp_sadn" runat="server" DisableSearchThreshold="10" Width="200px" DataTextField="name" DataValueField="pk">
+                                        </ucc:DropDownListChosen>    
+
+                                    </td>
+                                    <td class="auto-style1" >
+                                        <asp:Button ID="btn_sdn" runat="server" OnClick="btn_sdn_Click" Text="S" Width="27px" />
+                                    </td>
+                                    <td class="auto-style1" > </td>
+                                    <td class="auto-style1" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >EXP</td>
+                                    <td >
+                                        
+
+                                          &nbsp;</td>
+                                    <td >
+                                        &nbsp;</td>
+                                    <td >&nbsp;</td>
+                                    <td >
+                                        &nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td >PO Type</td>

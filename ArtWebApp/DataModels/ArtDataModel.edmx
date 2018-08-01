@@ -481,6 +481,10 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="Addeddate" Type="datetime" />
           <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="CouDocNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsUploaded" Type="nchar" MaxLength="10" />
+          <Property Name="Couriertype" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CreditNoteMaster">
           <Key>
@@ -613,6 +617,16 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="CutPlanSize_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CutPlanMarkerDetails_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Cutplan_UnapproveHistory">
+          <Key>
+            <PropertyRef Name="cutplan_unapprove_pk" />
+          </Key>
+          <Property Name="cutplan_unapprove_pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cutplan_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="reason" Type="nvarchar" MaxLength="150" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CutPlanASQDetails">
           <Key>
@@ -1331,6 +1345,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="GroupedDate" Type="date" />
           <Property Name="ValidatedDate" Type="date" />
           <Property Name="InspectedDate" Type="date" />
+          <Property Name="RackAllocated" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="FactoryType">
           <Key>
@@ -1765,6 +1780,29 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ExxcessOrShort" Type="numeric" Precision="18" Scale="4" />
         </EntityType>
+        <EntityType Name="LaySheetMasterHistory">
+          <Key>
+            <PropertyRef Name="LaySheethistory_PK" />
+          </Key>
+          <Property Name="LaySheethistory_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LaySheet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LayLength" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="CutOrderDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OustyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LaySheetNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="LayCutNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="IsEdited" Type="nchar" MaxLength="10" />
+          <Property Name="IsUploaded" Type="nchar" MaxLength="10" />
+          <Property Name="IsDetailUploaded" Type="nchar" MaxLength="10" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="NoOfPlies" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ExxcessOrShort" Type="numeric" Precision="18" Scale="4" />
+        </EntityType>
         <EntityType Name="LaySheetRollDetails">
           <Key>
             <PropertyRef Name="LaySheetRoll_Pk" />
@@ -2124,6 +2162,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="PO_Date" Type="datetime" />
           <Property Name="Odoo_UOM" Type="varchar" MaxLength="50" />
           <Property Name="OdooLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="OrginUpdatedTable">
           <Key>
@@ -2676,8 +2715,12 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="MrnDet_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="PoDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MrnQty" Type="numeric" Precision="18" Scale="2" />
           <Property Name="OnhandQty" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="ReceivedVia" Type="nchar" MaxLength="10" />
+          <Property Name="ReceivedQty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DeliveredQty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="BalanceQty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ReceivedVia" Type="nvarchar" MaxLength="40" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Rack_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="RefNum" Type="nchar" MaxLength="15" />
@@ -2914,6 +2957,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="DeliveredVia" Type="nvarchar" MaxLength="20" />
           <Property Name="NewRollInventory_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="FactId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Rack_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="RollPropertyChangeMaster">
           <Key>
@@ -4147,6 +4191,19 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="TNA_OurstlyeList">
+          <Key>
+            <PropertyRef Name="TNA_list_PK" />
+          </Key>
+          <Property Name="TNA_list_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ourstyle_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Ourstyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Atc_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="TnaUserRight">
           <Key>
             <PropertyRef Name="TNAUserRightID" />
@@ -4235,6 +4292,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="AllowOutSideAction" Type="bit" Nullable="false" />
           <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
+          <Property Name="Is_Tnalistadd" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="UserProfileMaster">
           <Key>
@@ -6672,6 +6730,54 @@ warning 6035: The relationship 'FK_POPackDetails_ColorMaster' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SamCutAssignmentMaster_PatternMaster1">
+          <End Role="PatternMaster" Type="Self.PatternMaster" Multiplicity="0..1" />
+          <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatternMaster">
+              <PropertyRef Name="PatternMasterID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster">
+              <PropertyRef Name="PatternMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster">
+          <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="1" />
+          <End Role="SamCutAssignmentMaster1" Type="Self.SamCutAssignmentMaster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster1">
+          <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="1" />
+          <End Role="SamCutAssignmentMaster1" Type="Self.SamCutAssignmentMaster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster2">
+          <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="1" />
+          <End Role="SamCutAssignmentMaster1" Type="Self.SamCutAssignmentMaster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SamCutAssignmentMaster_SampCutReqMaster">
           <End Role="SampCutReqMaster" Type="Self.SampCutReqMaster" Multiplicity="1" />
           <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="*" />
@@ -6861,18 +6967,6 @@ warning 6035: The relationship 'FK_POPackDetails_ColorMaster' has columns that a
             </Principal>
             <Dependent Role="SampleTypeMasterDummy">
               <PropertyRef Name="SampleApprovalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SamSewingPriority_SamCutAssignmentMaster">
-          <End Role="SamCutAssignmentMaster" Type="Self.SamCutAssignmentMaster" Multiplicity="0..1" />
-          <End Role="SamSewingPriority" Type="Self.SamSewingPriority" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SamCutAssignmentMaster">
-              <PropertyRef Name="CutAssignID" />
-            </Principal>
-            <Dependent Role="SamSewingPriority">
-              <PropertyRef Name="CutAssignID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8047,6 +8141,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="CutOrderDO" EntityType="Self.CutOrderDO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutOrderMaster" EntityType="Self.CutOrderMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutOrderSizeDetails" EntityType="Self.CutOrderSizeDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cutplan_UnapproveHistory" EntityType="Self.Cutplan_UnapproveHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutPlanASQDetails" EntityType="Self.CutPlanASQDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutPlanMarkerDetails" EntityType="Self.CutPlanMarkerDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CutPlanMarkerSizeDetails" EntityType="Self.CutPlanMarkerSizeDetails" Schema="dbo" store:Type="Tables" />
@@ -8120,6 +8215,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="LayAdjustDetails" EntityType="Self.LayAdjustDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetDetails" EntityType="Self.LaySheetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetMaster" EntityType="Self.LaySheetMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LaySheetMasterHistory" EntityType="Self.LaySheetMasterHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetRollDetails" EntityType="Self.LaySheetRollDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LaySheetRollMaster" EntityType="Self.LaySheetRollMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayShortageCutorderAdjustment" EntityType="Self.LayShortageCutorderAdjustment" Schema="dbo" store:Type="Tables" />
@@ -8275,6 +8371,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="TemplateWeight" EntityType="Self.TemplateWeight" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplateWidth" EntityType="Self.TemplateWidth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TempProductionData" EntityType="Self.TempProductionData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TNA_OurstlyeList" EntityType="Self.TNA_OurstlyeList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TnaUserRight" EntityType="Self.TnaUserRight" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransferToGstockDetails" EntityType="Self.TransferToGstockDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransferToGstockMaster" EntityType="Self.TransferToGstockMaster" Schema="dbo" store:Type="Tables" />
@@ -9074,6 +9171,22 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="PatternMaster" EntitySet="PatternMaster" />
             <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_PatternMaster1" Association="Self.FK_SamCutAssignmentMaster_PatternMaster1">
+            <End Role="PatternMaster" EntitySet="PatternMaster" />
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster" Association="Self.FK_SamCutAssignmentMaster_SamCutAssignmentMaster">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" Association="Self.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" Association="Self.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_SamCutAssignmentMaster_SampCutReqMaster" Association="Self.FK_SamCutAssignmentMaster_SampCutReqMaster">
             <End Role="SampCutReqMaster" EntitySet="SampCutReqMaster" />
             <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
@@ -9137,10 +9250,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_SampleTypeMaster_SampleAprrovalAuthorities" Association="Self.FK_SampleTypeMaster_SampleAprrovalAuthorities">
             <End Role="SampleAprrovalAuthorities" EntitySet="SampleAprrovalAuthorities" />
             <End Role="SampleTypeMasterDummy" EntitySet="SampleTypeMasterDummy" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SamSewingPriority_SamCutAssignmentMaster" Association="Self.FK_SamSewingPriority_SamCutAssignmentMaster">
-            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMaster" />
-            <End Role="SamSewingPriority" EntitySet="SamSewingPriority" />
           </AssociationSet>
           <AssociationSet Name="FK_SDocMaster_LocationMaster" Association="Self.FK_SDocMaster_LocationMaster">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
@@ -11072,6 +11181,21 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="RackMaster" EntitySet="RackMasters" />
           </AssociationSet>
           <EntitySet Name="RackInventoryMasters" EntityType="ArtModel.RackInventoryMaster" />
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster" Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMasters" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMasters" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2">
+            <End Role="SamCutAssignmentMaster" EntitySet="SamCutAssignmentMasters" />
+            <End Role="SamCutAssignmentMaster1" EntitySet="SamCutAssignmentMasters" />
+          </AssociationSet>
+          <EntitySet Name="LaySheetMasterHistories" EntityType="ArtModel.LaySheetMasterHistory" />
+          <EntitySet Name="Cutplan_UnapproveHistory" EntityType="ArtModel.Cutplan_UnapproveHistory" />
+          <EntitySet Name="TNA_OurstlyeList" EntityType="ArtModel.TNA_OurstlyeList" />
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -12038,6 +12162,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Addeddate" Type="DateTime" Precision="3" />
           <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CouDocNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Couriertype" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="CreditNoteMaster">
           <Key>
@@ -12900,6 +13028,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LayShortageDetails" Relationship="ArtModel.FK_LayShortageDetail_FabricRollmaster" FromRole="FabricRollmaster" ToRole="LayShortageDetail" />
           <NavigationProperty Name="RollInventoryMasters" Relationship="ArtModel.FK_RollInventoryMaster_FabricRollmaster" FromRole="FabricRollmaster" ToRole="RollInventoryMaster" />
           <NavigationProperty Name="RollPropertyChangeMasters" Relationship="ArtModel.FK_RollPropertyChangeMaster_FabricRollmaster" FromRole="FabricRollmaster" ToRole="RollPropertyChangeMaster" />
+          <Property Name="RackAllocated" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="FactoryType">
           <Key>
@@ -13763,6 +13892,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="PO_Date" Type="DateTime" Precision="3" />
           <Property Name="Odoo_UOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OdooLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="OrginUpdatedTable">
           <Key>
@@ -14486,6 +14616,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="NewRollInventory_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="FactId" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_RollInventoryMaster_FabricRollmaster" FromRole="RollInventoryMaster" ToRole="FabricRollmaster" />
+          <Property Name="Rack_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="SalesDebitNoteDetail">
           <Key>
@@ -14539,6 +14670,12 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SamSewingPriorities" Relationship="ArtModel.FK_SamSewingPriority_SamCutAssignmentMaster" FromRole="SamCutAssignmentMaster" ToRole="SamSewingPriority" />
           <Property Name="Samplingcommiteddate" Type="DateTime" Precision="3" />
           <Property Name="NewCommitedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SamCutAssignmentMaster1" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster" FromRole="SamCutAssignmentMaster" ToRole="SamCutAssignmentMaster1" />
+          <NavigationProperty Name="SamCutAssignmentMaster2" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster" FromRole="SamCutAssignmentMaster1" ToRole="SamCutAssignmentMaster" />
+          <NavigationProperty Name="SamCutAssignmentMaster11" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" FromRole="SamCutAssignmentMaster" ToRole="SamCutAssignmentMaster1" />
+          <NavigationProperty Name="SamCutAssignmentMaster3" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" FromRole="SamCutAssignmentMaster1" ToRole="SamCutAssignmentMaster" />
+          <NavigationProperty Name="SamCutAssignmentMaster12" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" FromRole="SamCutAssignmentMaster" ToRole="SamCutAssignmentMaster1" />
+          <NavigationProperty Name="SamCutAssignmentMaster4" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" FromRole="SamCutAssignmentMaster1" ToRole="SamCutAssignmentMaster" />
         </EntityType>
         <EntityType Name="SamCutPlanPriority">
           <Key>
@@ -15818,6 +15955,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="TnaUserRights" Relationship="ArtModel.FK_TnaUserRight_UserMaster" FromRole="UserMaster" ToRole="TnaUserRight" />
           <NavigationProperty Name="UserProfileMaster" Relationship="ArtModel.FK_UserMaster_UserProfileMaster" FromRole="UserMaster" ToRole="UserProfileMaster" />
           <NavigationProperty Name="PcdAlertUserrights" Relationship="ArtModel.FK_PcdAlert_Userrights_UserMaster" FromRole="UserMaster" ToRole="PcdAlertUserright" />
+          <Property Name="Is_Tnalistadd" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="UserProfileMaster">
           <Key>
@@ -20016,11 +20154,97 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PoDet_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="OnhandQty" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ReceivedVia" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ReceivedVia" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Rack_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="RefNum" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="IsLast" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="MrnQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReceivedQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DeliveredQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BalanceQty" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster">
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster" Multiplicity="1" />
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster1">
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster" Multiplicity="1" />
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster2">
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster" Multiplicity="1" />
+          <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SamCutAssignmentMaster">
+              <PropertyRef Name="CutAssignID" />
+            </Principal>
+            <Dependent Role="SamCutAssignmentMaster1">
+              <PropertyRef Name="CutAssignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LaySheetMasterHistory">
+          <Key>
+            <PropertyRef Name="LaySheethistory_PK" />
+          </Key>
+          <Property Name="LaySheethistory_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LaySheet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LayLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="CutOrderDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OustyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LaySheetNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LayCutNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsEdited" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDetailUploaded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NoOfPlies" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExxcessOrShort" Type="Decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="Cutplan_UnapproveHistory">
+          <Key>
+            <PropertyRef Name="cutplan_unapprove_pk" />
+          </Key>
+          <Property Name="cutplan_unapprove_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cutplan_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="reason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TNA_OurstlyeList">
+          <Key>
+            <PropertyRef Name="TNA_list_PK" />
+          </Key>
+          <Property Name="TNA_list_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ourstyle_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="location_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Atc_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ourstyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -20974,6 +21198,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="CourierTables">
             <EntityTypeMapping TypeName="ArtModel.CourierTable">
               <MappingFragment StoreEntitySet="CourierTable">
+                <ScalarProperty Name="Couriertype" ColumnName="Couriertype" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CouDocNum" ColumnName="CouDocNum" />
                 <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
                 <ScalarProperty Name="Addeddate" ColumnName="Addeddate" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -21742,6 +21970,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="FabricRollmasters">
             <EntityTypeMapping TypeName="ArtModel.FabricRollmaster">
               <MappingFragment StoreEntitySet="FabricRollmaster">
+                <ScalarProperty Name="RackAllocated" ColumnName="RackAllocated" />
                 <ScalarProperty Name="InspectedDate" ColumnName="InspectedDate" />
                 <ScalarProperty Name="ValidatedDate" ColumnName="ValidatedDate" />
                 <ScalarProperty Name="GroupedDate" ColumnName="GroupedDate" />
@@ -22558,6 +22787,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="ODOOGPOMasters">
             <EntityTypeMapping TypeName="ArtModel.ODOOGPOMaster">
               <MappingFragment StoreEntitySet="ODOOGPOMaster">
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="OdooLocation" ColumnName="OdooLocation" />
                 <ScalarProperty Name="Odoo_UOM" ColumnName="Odoo_UOM" />
                 <ScalarProperty Name="PO_Date" ColumnName="PO_Date" />
@@ -23247,6 +23477,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RollInventoryMasters">
             <EntityTypeMapping TypeName="ArtModel.RollInventoryMaster">
               <MappingFragment StoreEntitySet="RollInventoryMaster">
+                <ScalarProperty Name="Rack_PK" ColumnName="Rack_PK" />
                 <ScalarProperty Name="FactId" ColumnName="FactId" />
                 <ScalarProperty Name="NewRollInventory_PK" ColumnName="NewRollInventory_PK" />
                 <ScalarProperty Name="DeliveredVia" ColumnName="DeliveredVia" />
@@ -24468,6 +24699,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="UserMasters">
             <EntityTypeMapping TypeName="ArtModel.UserMaster">
               <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="Is_Tnalistadd" ColumnName="Is_Tnalistadd" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="AllowOutSideAction" ColumnName="AllowOutSideAction" />
@@ -25087,6 +25319,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RackInventoryMasters">
             <EntityTypeMapping TypeName="ArtModel.RackInventoryMaster">
               <MappingFragment StoreEntitySet="RackInventoryMaster">
+                <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
+                <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+                <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+                <ScalarProperty Name="MrnQty" ColumnName="MrnQty" />
                 <ScalarProperty Name="IsLast" ColumnName="IsLast" />
                 <ScalarProperty Name="RefNum" ColumnName="RefNum" />
                 <ScalarProperty Name="Rack_PK" ColumnName="Rack_PK" />
@@ -25098,6 +25334,55 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="MrnDet_Pk" ColumnName="MrnDet_Pk" />
                 <ScalarProperty Name="Inventoryitem_PK" ColumnName="Inventoryitem_PK" />
                 <ScalarProperty Name="RackInventory_PK" ColumnName="RackInventory_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaySheetMasterHistories">
+            <EntityTypeMapping TypeName="ArtModel.LaySheetMasterHistory">
+              <MappingFragment StoreEntitySet="LaySheetMasterHistory">
+                <ScalarProperty Name="ExxcessOrShort" ColumnName="ExxcessOrShort" />
+                <ScalarProperty Name="NoOfPlies" ColumnName="NoOfPlies" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsDetailUploaded" ColumnName="IsDetailUploaded" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="LayCutNum" ColumnName="LayCutNum" />
+                <ScalarProperty Name="LaySheetNum" ColumnName="LaySheetNum" />
+                <ScalarProperty Name="OustyleID" ColumnName="OustyleID" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="CutOrderDet_PK" ColumnName="CutOrderDet_PK" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="LayLength" ColumnName="LayLength" />
+                <ScalarProperty Name="LaySheet_PK" ColumnName="LaySheet_PK" />
+                <ScalarProperty Name="LaySheethistory_PK" ColumnName="LaySheethistory_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cutplan_UnapproveHistory">
+            <EntityTypeMapping TypeName="ArtModel.Cutplan_UnapproveHistory">
+              <MappingFragment StoreEntitySet="Cutplan_UnapproveHistory">
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="cutplan_pk" ColumnName="cutplan_pk" />
+                <ScalarProperty Name="cutplan_unapprove_pk" ColumnName="cutplan_unapprove_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TNA_OurstlyeList">
+            <EntityTypeMapping TypeName="ArtModel.TNA_OurstlyeList">
+              <MappingFragment StoreEntitySet="TNA_OurstlyeList">
+                <ScalarProperty Name="Ourstyle" ColumnName="Ourstyle" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Atc_id" ColumnName="Atc_id" />
+                <ScalarProperty Name="location_pk" ColumnName="location_pk" />
+                <ScalarProperty Name="Ourstyle_id" ColumnName="Ourstyle_id" />
+                <ScalarProperty Name="TNA_list_PK" ColumnName="TNA_list_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

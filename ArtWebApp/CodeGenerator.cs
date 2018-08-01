@@ -149,6 +149,10 @@ namespace ArtWebApp
 
                     generatednum = "EXP#" + Locationcode + pk.ToString().PadLeft(6, '0');
                     break;
+                case "COU":
+
+                    generatednum = "CEXP#" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
 
                 case "LN":
 

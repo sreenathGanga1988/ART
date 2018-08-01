@@ -79,6 +79,38 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
     {
         public string InventoryItem_PK { get; set; }
         public string Rack_PK { get; set; }
+        public string NewRack_PK { get; set; }
+        public string AllocateQty { get; set; }
+        public string mrnqty { get; set; }
+        public string BalanceQty { get; set; }
 
     }
+
+    public class DeliveryReceipt
+    {
+        public int AtcId { get; set; }
+        public DateTime DoDate { get; set; }
+        public string dotype { get; set; }
+        public string containerno { get; set; }
+        public int toloc { get; set; }
+        public string boe { get; set; }
+        public string deliverymethod { get; set; }
+        public DataTable DeliveryDetails{ get; set; }
+        public DataTable DeliverFabricDetails { get; set; }
+    }
+    public class DeliveryDetails
+    {
+        public int AtcId { get; set; }
+        public string DoDate { get; set; }
+        public string dotype { get; set; }
+        public string containerno { get; set; }
+        public int toloc { get; set; }
+        public string boe { get; set; }        
+        public int InventoryItem_pk { get; set; }
+        public Decimal DeliveryQty { get; set; }
+        public int DO_Pk { get; set; }
+        public int rack_pk { get; set; }
+        public int RackInventory_PK { get; set; }
+    }
+
 }

@@ -393,30 +393,66 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
 
                 foreach (DocPodetaildata mrnrdet in Dorcpt.DocumentDetailsDataCollection)
                 {
-                    DocDetail docdetdb = new DocDetail();
-                    docdetdb.Doc_Pk = mrnrdet.Doc_Pk;
-                    docdetdb.PODet_Pk = mrnrdet.podet_PK;
-                    docdetdb.Qty = mrnrdet.Qty;
-                    docdetdb.Eta = mrnrdet.ETADate;
-                    docdetdb.Donumber = mrnrdet.InvNum;
-                    docdetdb.AddedBy = mrnrdet.AddedBy;
-                    docdetdb.AddedDate = mrnrdet.AddedDate;
-                    docdetdb.ExtraQty = mrnrdet.eXCESSQty;
-                    enty.DocDetails.Add(docdetdb);
+                    DocDetail docDetail = new DocDetail();
+                    SDocDetail docdetdb = new SDocDetail();
+                    docDetail.Doc_Pk= mrnrdet.Doc_Pk;
+                    docDetail.PODet_Pk= mrnrdet.podet_PK;
+                    docDetail.Qty = mrnrdet.Qty;
+                    docDetail.Eta = mrnrdet.ETADate;
+                    docDetail.Donumber = mrnrdet.InvNum;
+                    docDetail.AddedBy = mrnrdet.AddedBy;
+                    docDetail.AddedDate = mrnrdet.AddedDate;
+                    docDetail.ExtraQty = mrnrdet.eXCESSQty;
+                    enty.DocDetails.Add(docDetail);
 
 
 
 
                 }
 
-                enty.SaveChanges();
+                
+                    enty.SaveChanges();
+                
 
 
             }
 
             return mrnum;
         }
+        public String insertSPoEtaData(DocumentReceiptdata Dorcpt)
+        {
+            String mrnum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
 
+                foreach (DocPodetaildata mrnrdet in Dorcpt.DocumentDetailsDataCollection)
+                {
+                    SDocDetail docDetail = new SDocDetail();
+                    
+                    docDetail.SDoc_Pk= mrnrdet.Doc_Pk;
+                    docDetail.SPODet_Pk = mrnrdet.podet_PK;
+                    docDetail.Qty = mrnrdet.Qty;
+                    docDetail.Eta = mrnrdet.ETADate;
+                    docDetail.Donumber = mrnrdet.InvNum;
+                    docDetail.AddedBy = mrnrdet.AddedBy;
+                    docDetail.AddedDate = mrnrdet.AddedDate;
+                    docDetail.ExtraQty = mrnrdet.eXCESSQty;
+                    enty.SDocDetails.Add(docDetail);
+
+
+
+
+                }
+
+
+                enty.SaveChanges();
+
+
+
+            }
+
+            return mrnum;
+        }
 
 
 

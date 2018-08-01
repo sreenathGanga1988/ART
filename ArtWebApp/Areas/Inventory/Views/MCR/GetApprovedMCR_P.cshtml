@@ -196,6 +196,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
+                    alert(data);
                     if (data.status) {
                         alert('Successfully saved');
                         $("#Submit").prop('disabled', true);

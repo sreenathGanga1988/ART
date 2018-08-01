@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "TrimsRackShuffleIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TrimsRackShuffleIndex</h2>
+
+
+<style>
+
+    .chosen-container.chosen-container-single {
+        width: 300px !important; /* or any value that fits your needs */
+    }
+</style>
+<script>
+
+
+        $(document).ready(function () {
+            
+
+            $("#Show_MCRSummary").click(function (e, params) {
+                $('#loadingmessage').show();
+                
+                var Rack_PK = $('#Rack_PK').find('option:selected').val();
+
+                $.ajax({
+                        url: "@Url.Action("GetDetailsRackShuffle", "RackAllocation")",
+                        traditional: true,
+                        type: "GET",
+                    data: {
+                         'Rack_PK': Rack_PK},
+                    success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#Summarydiv").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+            });
+
+        });
+
+
+
+
+
+</script>
+
+
+<div id="demo3" class="container">
+
+    <div class="container-fluid jumbotron" id="Show">
+        
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Rack Num :
+            </div>
+            <div class="col-md-6">  @Html.DropDownList("Rack_PK", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+            <div class="col-sm-4">
+                <input id="Show_MCRSummary" type="button" value="Get Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+
+
+<div id="Summarydiv"> </div>

@@ -2109,7 +2109,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!AddedDate.Value, "DataSet1")</Value>
+                <Value>=First(Fields!AddedDate.Value, "DataSet3")</Value>
                 <Style>
                   <FontFamily>CALibri</FontFamily>
                   <FontSize>8pt</FontSize>

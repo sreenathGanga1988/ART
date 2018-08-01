@@ -22,7 +22,7 @@ namespace ArtWebApp.Shipping
             {
                 loadShipmentCode(int.Parse(drp_factory.SelectedValue.ToString()));
             }
-            catch (Exception)
+            catch (Exception exp)
             {
 
 

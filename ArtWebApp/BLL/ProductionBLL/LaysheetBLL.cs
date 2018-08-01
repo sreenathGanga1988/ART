@@ -192,6 +192,26 @@ HAVING        (LaySheetMaster.CutOrderDet_PK = @param1) AND (LaySheetDetails.IsD
             }
         }
 
+        public static void unaprovallaysheet(int layshhet_pk)
+        {
+            using (ArtEntitiesnew enty = new DataModels.ArtEntitiesnew())
+            {
+                var q = from lymstr in enty.LaySheetMasters
+                        where lymstr.LaySheet_PK == layshhet_pk
+                        select lymstr;
+                foreach (var element in q)
+                {
+
+                    element.IsApproved = "Y";
+                   
+
+                }
+
+
+            }
+
+            }
+
 
 
             public static void ApproveLaysheet(int laysheetPK)

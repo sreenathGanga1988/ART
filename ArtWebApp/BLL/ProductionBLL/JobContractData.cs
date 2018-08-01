@@ -207,7 +207,9 @@ namespace ArtWebApp.BLL.ProductionBLL
                     using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
                     {
 
+                        var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == this.JCmstrdata.Location_Pk).Select(u => u.Location_PK).FirstOrDefault();
 
+                        int locid = int.Parse(atclocation_pk.ToString());
 
 
                         if (!enty.JobContractMasters.Any(f => f.OurStyleID == this.JCmstrdata.Ourstyleid && f.Location_Pk == this.JCmstrdata.Location_Pk))
@@ -231,10 +233,13 @@ namespace ArtWebApp.BLL.ProductionBLL
                 
 
                             ArtJobContractMaster ajcmstr = new DataModelAtcWorld.ArtJobContractMaster();
-                            ajcmstr.Location_PK = this.JCmstrdata.Location_Pk;
+                            ajcmstr.Location_PK = locid;
                             ajcmstr.OurStyleID = this.JCmstrdata.Ourstyleid;
                             ajcmstr.CM = this.JCmstrdata.CMCost;
                             ajcmstr.JobContractNum = Donum;
+                            ajcmstr.AtcID = this.JCmstrdata.AtcID;
+                            ajcmstr.AtcNum = this.JCmstrdata.Atcnum;
+                            ajcmstr.OurStyle = this.JCmstrdata.OurStylenum;
                             atcenty.ArtJobContractMasters.Add(ajcmstr);
                             atcenty.SaveChanges();
                             enty.SaveChanges();

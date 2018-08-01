@@ -335,7 +335,7 @@
                                               <asp:TemplateField HeaderText="SDoc_Pk" InsertVisible="False" SortExpression="SDoc_Pk">
                                                 
                                                  <ItemTemplate>
-                                                     <asp:Label ID="lbl_DO_PK" runat="server" Text='<%# Bind("SDoc_Pk") %>'></asp:Label>
+                                                     <asp:Label ID="lbl_SDoc_Pk" runat="server" Text='<%# Bind("SDoc_Pk") %>'></asp:Label>
                                                  </ItemTemplate>
                                              </asp:TemplateField>
                                            

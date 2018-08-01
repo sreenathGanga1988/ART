@@ -6,6 +6,7 @@ using System.Data;
 using ArtWebApp.DBTransaction;
 using ArtWebApp.DataModels;
 using System.Data.SqlClient;
+using System.Data.Entity.Validation;
 
 namespace ArtWebApp.BLL.CutOrderBLL
 {
@@ -784,7 +785,7 @@ HAVING        (CutID = @Param1)";
             decimal cutid = 0;
 
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
-            {
+            { 
 
                 var q = from CutPlnmstr in enty.CutPlanMasters
                         where CutPlnmstr.CutPlan_PK == this.cutplanpk
@@ -889,7 +890,10 @@ HAVING        (CutID = @Param1)";
 
 
                 }
-                enty.SaveChanges();
+               
+                    enty.SaveChanges();
+
+               
 
 
 

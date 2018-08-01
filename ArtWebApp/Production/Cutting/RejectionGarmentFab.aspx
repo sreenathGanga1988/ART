@@ -12,7 +12,7 @@
                         <td class="RedHeadding" colspan="8" >Full Garment Rejection Request</td>
                     </tr>
                          <tr>
-                        <td class="NormalTD" >fACTORY</td>
+                        <td class="NormalTD" >FACTORY</td>
                         <td class="NormalTD" >
                                <asp:UpdatePanel ID="UPD_FACT" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
@@ -61,12 +61,33 @@
                             </asp:UpdatePanel>
                         </td>
                         <td class="SearchButtonTD">
-                            <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                            &nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                        <td class="NormalTD">&nbsp;</td>
+                    </tr>
+                    
+               
+                    <tr>
+                        <td class="NormalTD" >SELECT BODYPART</td>
+                         <td class="NormalTD">
+                        <ig:WebDropDown ID="drp_bodypart" runat="server" DropDownAnimationType="EaseOut" DropDownContainerHeight="300px" DropDownContainerWidth="200px" EnableDropDownAsChild="false" EnableMultipleSelection="True" Height="21px" PageSize="12" TextField="name" ValueField="pk" Width="156px" EnableClosingDropDownOnSelect="False">
+                            <DropDownItemBinding TextField="name" ValueField="pk" />
+                        </ig:WebDropDown>
+                    </td>
+                        <td class="NormalTD">
+                            &nbsp;</td>
+                        <td class="NormalTD">Request No.&nbsp;</td>
+                        
+                        <td class="NormalTD">
+                            &nbsp;</td>
+                        <td class="SearchButtonTD">
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:Button ID="btn_OURSTYLE" runat="server" OnClick="btn_OURSTYLE_Click" Text="S" />
+                                    <asp:Button ID="Button2" runat="server" OnClick="btn_OURSTYLE_Click" Text="S" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
+                        
                         <td class="NormalTD">&nbsp;</td>
                         <td class="NormalTD">&nbsp;</td>
                     </tr>
@@ -88,7 +109,7 @@
                                         <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
                                     </HeaderTemplate>                                 
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="Chk_select" runat="server" onclick="Check_Click(this)"/>
+                                        <asp:CheckBox ID="Chk_select" runat="server" onclick="Check_Click(this)" />
                                     </ItemTemplate>
                                 </asp:TemplateField>   
                 <asp:TemplateField HeaderText="Fabreqid" SortExpression="Fabreqid">
@@ -110,6 +131,8 @@
                 <asp:BoundField DataField="ColorName" HeaderText="ColorName" SortExpression="ColorName" />
                 <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
                 <asp:BoundField DataField="LocationName" HeaderText="LocationName" SortExpression="LocationName" />
+                
+                <asp:BoundField DataField="parts" HeaderText="BodyParts" SortExpression="parts" />
                 <asp:TemplateField HeaderText="Allowedfabric" SortExpression="Allowedfabric">
                    
                     <ItemTemplate>
@@ -132,7 +155,7 @@
         
              
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        RejectionExtraFabbReq.Fabreqid, RejectionExtraFabbReq.Fabreqno, RejectionExtraFabbReq.RejFabReqID, RejectionExtraFabbReq.Reqdate, RejectionExtraFabbReq.DepartmentName, 
-                         RejectionExtraFabbReq.ReqQty, POPackDetails.ColorName, AtcDetails.OurStyle, LocationMaster.LocationName,0.0 as Allowedfabric
+                         RejectionExtraFabbReq.ReqQty, POPackDetails.ColorName, AtcDetails.OurStyle, LocationMaster.LocationName,0.0 as Allowedfabric,0 as parts
 FROM            RejectionExtraFabbReq INNER JOIN
                          POPackDetails ON RejectionExtraFabbReq.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN

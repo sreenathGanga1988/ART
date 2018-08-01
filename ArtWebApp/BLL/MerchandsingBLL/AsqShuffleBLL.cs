@@ -248,15 +248,10 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                         enttty.SaveChanges();
                     }
                     catch (Exception exp)
-                    {
-
-                        while (exp.InnerException != null)
-                        {
-                            exp = exp.InnerException;
-                        }
+                    {  
 
                         Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
-                        throw;
+                        
                     }
                 }
              

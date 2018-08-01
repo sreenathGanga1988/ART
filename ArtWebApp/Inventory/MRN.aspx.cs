@@ -96,7 +96,7 @@ namespace ArtWebApp.Inventory
 
 
 
-
+  
 
 
         public void fillADN( int popk)

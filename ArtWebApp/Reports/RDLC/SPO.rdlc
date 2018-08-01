@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource1">
@@ -8,6 +8,7 @@
         <ConnectString>Data Source=192.168.1.4;Initial Catalog=Art</ConnectString>
         <Prompt>Specify a user name and password for data source DataSource1:</Prompt>
       </ConnectionProperties>
+      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>0ed87a9d-ee0e-4991-a201-0d8749e0a7a9</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -15,24 +16,24 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>SELECT        CurrencyMaster.CurrencyCode, StockPOMaster.SPONum, DeliveryTermMaster.DeliveryTerm, LocationMaster.LocationName, LocationMaster.LocationAddress, 
-                         UOMMaster.UomName, DeliveryMethodMaster.DeliveryMethod, PaymentTermMaster.PaymentCodeDescription, Template_Master.Description, 
-                         StockPOMaster.DeliveryDate, StockPOMaster.AddedDate, StockPOMaster.Remark, StockPOMaster.IsApproved, StockPODetails.Composition, 
-                         StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateSize, StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, 
-                         StockPODetails.Unitprice, StockPODetails.POQty, StockPODetails.POQty * StockPODetails.Unitprice AS POvalue, SupplierMaster.SupplierName, 
-                         SupplierMaster.SupplierAddress, StockPOMaster.ApprovedBy, StockPOMaster.Approveddate
-FROM            PaymentTermMaster INNER JOIN
-                         StockPOMaster INNER JOIN
-                         StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
-                         CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
-                         DeliveryTermMaster ON StockPOMaster.DeliveryTerms_Pk = DeliveryTermMaster.DeliveryTerms_Pk INNER JOIN
-                         LocationMaster ON StockPOMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
-                         UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
-                         DeliveryMethodMaster ON StockPOMaster.DeliveryMethod_Pk = DeliveryMethodMaster.Deliverymethod_Pk ON 
-                         PaymentTermMaster.PaymentTermID = StockPOMaster.PaymentTermID INNER JOIN
-                         Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
-                         SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK
-WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
+        <CommandText>SELECT     CurrencyMaster.CurrencyCode, StockPOMaster.SPONum, DeliveryTermMaster.DeliveryTerm, LocationMaster.LocationName, LocationMaster.LocationAddress, 
+                      UOMMaster.UomName, DeliveryMethodMaster.DeliveryMethod, PaymentTermMaster.PaymentCodeDescription, Template_Master.Description, 
+                      StockPOMaster.DeliveryDate, StockPOMaster.AddedDate, StockPOMaster.Remark, StockPOMaster.IsApproved, StockPODetails.Composition, 
+                      StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateSize, StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, 
+                      StockPODetails.Unitprice, StockPODetails.POQty, StockPODetails.POQty * StockPODetails.Unitprice AS POvalue, SupplierMaster.SupplierName, 
+                      SupplierMaster.SupplierAddress, StockPOMaster.ApprovedBy, StockPOMaster.Approveddate, StockPOMaster.AddedBy
+FROM         PaymentTermMaster INNER JOIN
+                      StockPOMaster INNER JOIN
+                      StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
+                      CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN
+                      DeliveryTermMaster ON StockPOMaster.DeliveryTerms_Pk = DeliveryTermMaster.DeliveryTerms_Pk INNER JOIN
+                      LocationMaster ON StockPOMaster.Location_PK = LocationMaster.Location_PK INNER JOIN
+                      UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+                      DeliveryMethodMaster ON StockPOMaster.DeliveryMethod_Pk = DeliveryMethodMaster.Deliverymethod_Pk ON 
+                      PaymentTermMaster.PaymentTermID = StockPOMaster.PaymentTermID INNER JOIN
+                      Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN
+                      SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK
+WHERE     (StockPOMaster.SPONum = N'SPO052730')</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -139,6 +140,10 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
         <Field Name="Approveddate">
           <DataField>Approveddate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="AddedBy">
+          <DataField>AddedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1470,6 +1475,41 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
+              <Textbox Name="DeliveryTerm2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!AddedBy.Value, "DataSet1")</Value>
+                        <Style>
+                          <FontFamily>Calibri</FontFamily>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>DeliveryTerm</rd:DefaultName>
+                <Top>0.52918cm</Top>
+                <Left>0.34615cm</Left>
+                <Height>0.43215cm</Height>
+                <Width>2.5cm</Width>
+                <ZIndex>11</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>2.01958in</Top>
@@ -1588,7 +1628,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox47</rd:DefaultName>
-            <Top>3.0661in</Top>
+            <Top>2.9411in</Top>
             <Left>0.11156in</Left>
             <Height>0.15625in</Height>
             <Width>0.53944in</Width>
@@ -1704,9 +1744,9 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>7.82318cm</Top>
+            <Top>7.48453cm</Top>
             <Left>1.75934cm</Left>
-            <Height>0.3616cm</Height>
+            <Height>0.38275cm</Height>
             <Width>7.24203cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
@@ -1906,9 +1946,9 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
             </Paragraphs>
             <rd:DefaultName>Remark</rd:DefaultName>
             <Top>7.93431cm</Top>
-            <Left>9.54063cm</Left>
+            <Left>1.75934cm</Left>
             <Height>0.39158cm</Height>
-            <Width>5.52037cm</Width>
+            <Width>12.45656cm</Width>
             <ZIndex>20</ZIndex>
             <Style>
               <Border>
@@ -2049,7 +2089,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox24</rd:DefaultName>
-                <Top>0.20989cm</Top>
+                <Top>0.10405cm</Top>
                 <Left>0.2152cm</Left>
                 <Height>0.49417cm</Height>
                 <Width>3.77325cm</Width>
@@ -2082,8 +2122,8 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>ApprovedBy</rd:DefaultName>
-                <Top>0.20989cm</Top>
-                <Left>4.02373cm</Left>
+                <Top>0.10405cm</Top>
+                <Left>3.70623cm</Left>
                 <Height>0.49417cm</Height>
                 <Width>2.24663cm</Width>
                 <ZIndex>1</ZIndex>
@@ -2118,7 +2158,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Approveddate</rd:DefaultName>
-                <Top>0.73906cm</Top>
+                <Top>0.63322cm</Top>
                 <Left>3.26982cm</Left>
                 <Height>0.46771cm</Height>
                 <Width>2.5cm</Width>
@@ -2154,7 +2194,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Approveddate1</rd:DefaultName>
-                <Top>0.70406cm</Top>
+                <Top>0.59822cm</Top>
                 <Left>0.24861cm</Left>
                 <Height>0.50271cm</Height>
                 <Width>2.5cm</Width>
@@ -2188,7 +2228,7 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox1</rd:DefaultName>
-                <Top>0.73934cm</Top>
+                <Top>0.6335cm</Top>
                 <Left>2.78388cm</Left>
                 <Height>0.50299cm</Height>
                 <Width>0.48593cm</Width>
@@ -2205,10 +2245,10 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>14.86991cm</Top>
+            <Top>14.97575cm</Top>
             <Left>9.56899cm</Left>
-            <Height>1.27557cm</Height>
-            <Width>6.44173cm</Width>
+            <Height>1.16973cm</Height>
+            <Width>5.95286cm</Width>
             <ZIndex>23</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!IsApproved.Value, "DataSet1") = "Y", false, true)</Hidden>
@@ -2296,6 +2336,40 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
             <Height>0.47778cm</Height>
             <Width>6.13361cm</Width>
             <ZIndex>25</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox49">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>REMARK</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox47</rd:DefaultName>
+            <Top>3.11401in</Top>
+            <Left>0.11851in</Left>
+            <Height>0.15625in</Height>
+            <Width>0.53944in</Width>
+            <ZIndex>26</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2518,6 +2592,19 @@ WHERE        (StockPOMaster.SPONum = N'SPO050088')</CommandText>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>1</NumberOfColumns>
+      <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Potype</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Shared Function changeToWords(ByVal numb As [String]) As [String]
     Dim val As [String] = "", wholeNo As [String] = numb, points As [String] = "", andStr As [String] = "", pointStr As [String] = ""
     Dim endStr As [String] = ""

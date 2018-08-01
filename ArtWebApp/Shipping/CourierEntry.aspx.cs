@@ -27,7 +27,7 @@ namespace ArtWebApp.Shipping
             txt_qty.Text = "";
             txt_destination.Text = "";
             txt_apprcost.Text = "";
-            txt_addeddate.Text = "";
+            
             txt_accountnum.Text = "";
             txt_remark.Text = "";
             txt_isouraccount.Text = "";
@@ -43,14 +43,15 @@ namespace ArtWebApp.Shipping
 
         protected void btn_submit_Click(object sender, EventArgs e)
         {
-          try
+            String docnum = "";
+            try
 
     {
                 BLL.ShippingBLL.CourierTableData cde = new BLL.ShippingBLL.CourierTableData();
 
                 //   cde.CourierDate = DateTime.Parse(Request.Form[txt_courierdate.UniqueID].ToString());
                 string s = DateTime.Parse(Request.Form[txt_courierdate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
-                string s1 = DateTime.Parse(Request.Form[txt_addeddate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
+               // string s1 = DateTime.Parse(Request.Form[txt_addeddate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
                
 
 
@@ -70,12 +71,14 @@ namespace ArtWebApp.Shipping
                 cde.Weight = txt_weight.Text.Trim();
                 cde.ApprCost = txt_apprcost.Text.Trim();
                 cde.Remark = txt_remark.Text.Trim();
+                cde.Countryname= drp_country.SelectedItem.Text;
+                cde.Couriertype = drp_couriertype.SelectedItem.Text;
                 // cde.Addeddate = DateTime.Parse(Request.Form[txt_addeddate.UniqueID].ToString());
-               
-                cde.Addeddate = DateTime.Parse(s1);
-             
-                cde.InsertCourierData();
-                lbl_msg.Text = "Added Successsfuly";
+
+                cde.Addeddate = DateTime.Now;
+
+                docnum =cde.InsertCourierData();
+                lbl_msg.Text = docnum + " Added Successsfuly";
                 ClearData();
 
             }
@@ -84,7 +87,7 @@ namespace ArtWebApp.Shipping
             {
 
                 Response.Write("courierdate" + Request.Form[txt_courierdate.UniqueID].ToString());
-                Response.Write("AddedDate" + Request.Form[txt_addeddate.UniqueID].ToString());
+                //Response.Write("AddedDate" + Request.Form[txt_addeddate.UniqueID].ToString());
 
 
 
@@ -101,16 +104,7 @@ namespace ArtWebApp.Shipping
                 }
 
 
-                try
-                {
-                    string s1 = DateTime.Parse(Request.Form[txt_addeddate.UniqueID].ToString()).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    Response.Write("converted AddedDate" + s1);
-                }
-                catch (Exception)
-                {
-
-                    
-                }
+                
                 
 
 

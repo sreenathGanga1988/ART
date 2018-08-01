@@ -66,7 +66,7 @@ namespace ArtWebApp.Approvals
                         btn_ro.Visible = false;
                         if (navtype == "PO")
                         {
-                            setgridviewPO();
+                            setgridviewPO(currentusername);
                         }
                         else if (navtype == "SPOApproval")
                         {
@@ -162,6 +162,7 @@ namespace ArtWebApp.Approvals
         /// </summary>
         public void ForwardPOforApproval()
         {
+            string currentusername = HttpContext.Current.User.Identity.Name.ToString();
             ProcurementTransaction ptrans = new ProcurementTransaction();
             for (int i = 0; i < tbl_podata.Rows.Count; i++)
             {
@@ -174,14 +175,19 @@ namespace ArtWebApp.Approvals
 
             }
 
-            setgridviewPO();
+            setgridviewPO(currentusername);
         }
 
-        public void setgridviewPO()
+        public void setgridviewPO(string currentusername)
         {
-            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+
+            if (HttpContext.Current.User.Identity.Name.Contains("Mahendra") || HttpContext.Current.User.Identity.Name.Contains("Vijeesh"))
             {
 
+            //}
+            //if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "vijeesh")
+            //{
+                var username = Session["username"].ToString().Trim();
                 SqlDataSource1.SelectCommand = @"SELECT        ProcurementMaster.PO_Pk, ProcurementMaster.PONum, AtcMaster.AtcNum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, SUM(ProcurementDetails.POQty * ProcurementDetails.POUnitRate) 
                          AS POValue, ProcurementMaster.AddedDate, ProcurementMaster.AddedBy, ProcurementMaster.IsDeleted, AtcMaster.MerchandiserName, COUNT(POApproval.ForwardedBy) AS Isforwarded
 FROM            ProcurementMaster INNER JOIN
@@ -194,6 +200,7 @@ GROUP BY ProcurementMaster.PO_Pk, ProcurementMaster.PONum, AtcMaster.AtcNum, Sup
                          ProcurementMaster.IsApproved, ProcurementMaster.IsDeleted, AtcMaster.MerchandiserName ,ProcurementMaster.IsNormal
 HAVING        (ProcurementMaster.IsApproved = N'N') AND (ProcurementMaster.IsDeleted <> N'Y') AND (ProcurementMaster.IsNormal = N'Y')   AND(AtcMaster.MerchandiserName  like '" + Session["username"].ToString().Trim() + "') order by ProcurementMaster.PO_Pk";
             }
+            
             tbl_podata.DataBind();
 
         }

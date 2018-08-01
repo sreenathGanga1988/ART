@@ -36,7 +36,7 @@
             var fromdate = $("#FromDate").val();
             var todate = $("#FromDate").val();
 
-          
+
                 $.ajax({
                     url: "@Url.Action("BetweenDateTNA", "ProductIonTNA")",
                     traditional: true,
@@ -57,7 +57,7 @@
             var fromdate = $("#FromDate").val();
             var todate = $("#FromDate").val();
 
-          
+
                 $.ajax({
                     url: "@Url.Action("Sendmail", "ProductIonTNA")",
                     traditional: true,
@@ -78,7 +78,7 @@
             var fromdate = $("#FromDate").val();
             var todate = $("#FromDate").val();
 
-          
+
                 $.ajax({
                     url: "@Url.Action("SendmailFactory", "ProductIonTNA")",
                     traditional: true,
@@ -94,119 +94,153 @@
                     }
                     });
                     });
+        $("#Location_pk").change(function () {
+
+            debugger
+            var Id = $(this).find('option:selected').val();
+
+            
+            $.ajax({
+                url: "@Url.Action("PopulateOurStyle", "ProductIonTNA")",
+                type: 'Get',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+              //  data: JSON.stringify(123),
+                data: { 'Id': Id },
+                success: function (data) {
+                    $('#OurStyleID').empty();
+                    $.each(data, function () {
 
 
+                        $('#OurStyleID').append('<option value=' +
+                          this.Value + '>' + this.Text + '</option>');
+                    });
+                    $("#OurStyleID").trigger("chosen:updated");
+
+
+                    $("#OurStyleID").trigger("change");
+
+
+                },
+                error: function (data) {
+
+                }
+            });
+             
+
+        });
+
+        $("#Submit_Details").click(function (e, params) {
+
+            debugger;
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#OurStyleID").chosen().val();            
+            var locpk = $('#Location_pk').find('option:selected').val();
+
+            if (SelectedOurStyle != null)
+            {
+                alert(SelectedOurStyle);    
+
+                $.ajax({
+                    url: "@Url.Action("update_ourstyle", "ProductIonTNA")",
+                    traditional: true,
+                    data: { 'SelectedOurStyle': SelectedOurStyle,'locpk':locpk },
+                    type: "Post",
+                    success: function (data) {
+                        alert('Successfully saved');
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+         }
+
+
+        });
+        $("#Get_TNA_Details").click(function (e, params) {
+            $('#loadingmessage').show();
+            var SelectedOurStyle = new Array();
+            SelectedOurStyle = $("#OurStyleID").chosen().val();
+            var locpk = $('#Location_pk').find('option:selected').val();
+            var fromdate = $("#AsOnDate").val();
+            var todate = $("#AsOnDate").val();
+            //alert(SelectedOurStyle);
+            //SelectedOurStyle = SelectedOurStyle.join(',');
+            //alert(SelectedOurStyle);
+                $.ajax({
+                    url: "@Url.Action("TNAOurstylewise", "ProductIonTNA")",
+                    
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate, 'SelectedOurStyle': SelectedOurStyle, 'locpk': locpk},
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                        //alert("Sucess");
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+
+
+         $("body").on("click",".Delete" ,function () {
+
+             var row = $(this).closest('tr');
+             alert(row);
+             var Id = row.find('.OurStyle').text();
+
+             alert(Id);
+
+                  if (Id != null)
+                  {
+                      var retVal = confirm("Do you want to continue  Deleting Ourstyle from List?");
+                      if (retVal == true) {
+                            $.ajax({
+                    url: "@Url.Action("DeleteRoll", "ProductIonTNA")",
+                    traditional: true,
+                                data: { 'ourstyle': Id },
+                    type: "GET",
+                    success: function (fooBarHTML) {
+
+                        $(row).children('td,th').css('background-color', '#000');
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        //...
+                    }
+                });
+
+                      }
+
+            }
+        });
 
     });
 
 </script>
 
 <h2>Index</h2>
-<div id="demo2">
-    @*<div class="container-fluid jumbotron">
-
-        <div class="row top-buffer">
-            <div class="col-sm-2">
-                From Date :
-
-            </div>
-            <div class="col-sm-3">
-                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
-            </div>
-            <div class="col-sm-2">
-                To date
-            </div>
-            <div class="col-sm-3">
-                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
-            </div>
-            <div class="col-sm-2">
-                To date
-            </div>
-
-        </div>
-
-        <div id='loadingmessage' style='display:none'>
-            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
-        </div>
-        <div class="row top-buffer" style="background-color:greenyellow;">
-            <div class="col-sm-3">
-                <input id="DeliveryOrderWF" type="button" value="Show TNA Between dates" data-toggle="tooltip" data-placement="top" title="Show TNA Between dates" class="btn btn-default show" />
-
-            </div>
-            <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-3">
-            </div>
-
-        </div>
-    </div>*@
-</div>
-@*<div id="demo2">
-    <div class="container-fluid jumbotron">
-
-        <div class="row top-buffer">
-            <div class="col-sm-2">
-                From Date :
-
-            </div>
-            <div class="col-sm-3">
-                @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
-            </div>
-            <div class="col-sm-2">
-                To date
-            </div>
-            <div class="col-sm-3">
-                @Html.TextBox("Todate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
-            </div>
-            <div class="col-sm-2">
-                To date
-            </div>
-
-        </div>
-
-        <div id='loadingmessage' style='display:none'>
-            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
-        </div>
-        <div class="row top-buffer" style="background-color:greenyellow;">
-            <div class="col-sm-3">
-                <input id="DeliveryOrderWF" type="button" value="Show TNA Between dates" data-toggle="tooltip" data-placement="top" title="Show TNA Between dates" class="btn btn-default show" />
-
-            </div>
-            <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-3">
-            </div>
-
-        </div>
-    </div>
-</div>*@
 
 
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo2">All ATC Reports</button>
 
 <div id="demo2">
     <div class="container-fluid jumbotron">
 
         <div class="row top-buffer">
             <div class="col-sm-2">
-                Factory PCD Upto: 
+                Factory PCD Upto:
 
             </div>
             <div class="col-sm-3">
                 @Html.TextBox("FromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
             </div>
             <div class="col-sm-2">
-                
+
             </div>
             <div class="col-sm-3">
-              
+
             </div>
             <div class="col-sm-2">
                 To date
@@ -223,10 +257,10 @@
 
             </div>
             <div class="col-sm-3">
-                <input id="send_mail" type="button" value="Send Mail Merchantwise" data-toggle="tooltip" data-placement="top" title="Send Mail Merchantwise" class="btn btn-default show" />
+                @*<input id="send_mail" type="button" value="Send Mail Merchantwise" data-toggle="tooltip" data-placement="top" title="Send Mail Merchantwise" class="btn btn-default show" />*@
             </div>
             <div class="col-sm-3">
-                <input id="send_mail_factory" type="button" value="Send Mail Factorywise" data-toggle="tooltip" data-placement="top" title="Send Mail Factorywise" class="btn btn-default show" />
+                @*<input id="send_mail_factory" type="button" value="Send Mail Factorywise" data-toggle="tooltip" data-placement="top" title="Send Mail Factorywise" class="btn btn-default show" />*@
             </div>
             <div class="col-sm-3">
             </div>
@@ -234,4 +268,70 @@
         </div>
     </div>
 </div>
-<div  id="output"></div>
+
+
+@*<button data-toggle="collapse" class="btn btn-info" data-target="#demo3">Selected ATC Reports</button>
+
+<div id="demo3">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                Factory PCD Upto:
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBox("AsOnDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                Location:
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+            <div class="col-sm-3">
+               
+            </div>
+            <div class="col-sm-3">
+                
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                @Html.Label("OurStyle#", new { @class = "control-label col-md-2" });
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("OurStyleID", new MultiSelectList(string.Empty, "Value", "Text"), null, htmlAttributes: new { @class = "chosen-select form-control", @multiple = "multiple" })
+            </div>
+            <div class="col-sm-3">
+                <input id="Submit_Details" type="button" value="Update List" data-toggle="tooltip" data-placement="top" title="Update Oustyle Details" class="btn btn-default show" />
+            </div>
+            <div class="col-sm-3">
+                
+            </div>
+
+        </div>
+        <div id='loadingmessage' style='display:none'>
+            <img src='~/Image/ajax-loader.gif' /><img src="~/Image/ajax-loader.gif" />
+        </div>
+        <div class="row top-buffer" style="background-color:greenyellow;">
+            <div class="col-sm-3">
+                <input id="Get_TNA_Details" type="button" value="Show TNA Upto Factory PCD Date" data-toggle="tooltip" data-placement="top" title="Show TNA Upto Factory PCD Date" class="btn btn-default show" />
+
+            </div>
+
+
+        </div>
+    </div>
+</div>*@
+
+
+<div id="output"></div>

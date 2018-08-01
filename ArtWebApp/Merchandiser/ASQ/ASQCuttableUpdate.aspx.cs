@@ -389,14 +389,10 @@ namespace ArtWebApp.Merchandiser.ASQ
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-
+            string msg = "";
             int k = 0;
             foreach (GridViewRow row in tbl_podata.Rows)
             {
-
-
-
-
 
                 CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
                 if (chkBx.Checked == true)
@@ -406,9 +402,10 @@ namespace ArtWebApp.Merchandiser.ASQ
 
                     int ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
                     int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+
                   
 
-                    pdata.MarknonCutable(popackid,ourstyleid);
+                    msg=pdata.MarknonCutable(popackid,ourstyleid);
 
                     k++;
 
@@ -419,7 +416,7 @@ namespace ArtWebApp.Merchandiser.ASQ
             {
                 tbl_podata.DataSource = null;
                 tbl_podata.DataBind();
-                String msg = " Marked Uncut Sucessfully ";
+                //msg = " Marked Uncut Sucessfully ";
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
             }
         }

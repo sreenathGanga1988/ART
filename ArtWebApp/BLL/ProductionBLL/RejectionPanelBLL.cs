@@ -184,7 +184,7 @@ namespace ArtWebApp.BLL.ProductionBLL
 
 
 
-        public static DataTable GetPendingRejectionRequest(int OurStyleID, int Location_PK)
+        public static DataTable GetPendingRejectionRequest(int OurStyleID, int Location_PK,string parts)
         {
             DataTable dt = new DataTable();
 
@@ -193,7 +193,7 @@ namespace ArtWebApp.BLL.ProductionBLL
 
                 cmd.CommandText = @"SELECT        RejectionExtraFabbReq.Fabreqid, RejectionExtraFabbReq.Fabreqno, RejectionExtraFabbReq.RejFabReqID, RejectionExtraFabbReq.Reqdate, RejectionExtraFabbReq.DepartmentName, 
                          RejectionExtraFabbReq.ReqQty, POPackDetails.ColorName, AtcDetails.OurStyle, LocationMaster.LocationName, 0.0 AS Allowedfabric, RejectionExtraFabbReq.IsApproved, AtcDetails.OurStyleID, 
-                         RejectionExtraFabbReq.Location_PK
+                         RejectionExtraFabbReq.Location_PK,@parts as parts
 FROM            RejectionExtraFabbReq INNER JOIN
                          POPackDetails ON RejectionExtraFabbReq.PoPack_Detail_PK = POPackDetails.PoPack_Detail_PK INNER JOIN
                          AtcDetails ON POPackDetails.OurStyleID = AtcDetails.OurStyleID INNER JOIN
@@ -202,6 +202,7 @@ WHERE        (RejectionExtraFabbReq.IsApproved = 0) AND (AtcDetails.OurStyleID =
 
                 cmd.Parameters.AddWithValue("@OurStyleID", OurStyleID);
                 cmd.Parameters.AddWithValue("@Location_PK", Location_PK);
+                cmd.Parameters.AddWithValue("@parts", parts);
 
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);

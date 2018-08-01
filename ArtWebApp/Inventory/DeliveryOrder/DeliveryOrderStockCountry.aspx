@@ -113,6 +113,13 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
+                                         <asp:TemplateField HeaderText="BlockedQty">
+                                            
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_BlockedQty" runat="server" Text='<%# Bind("BlockedQty") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
                                         <asp:TemplateField HeaderText="deliveryqty" SortExpression="deliveryqty">
                                            
                                             <ItemTemplate>

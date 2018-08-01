@@ -50,6 +50,9 @@
         .NormalTD {
             font-size: small;
         }
+        .auto-style1 {
+            height: 23px;
+        }
     </style>
 
 </asp:Content>
@@ -152,7 +155,7 @@
                                     <Columns>
                                         <asp:TemplateField HeaderImageUrl="~/Image/tick.jpg">
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="chk_select" runat="server" AutoPostBack="True" OnCheckedChanged="chk_select_CheckedChanged" />
+                                                <asp:CheckBox ID="chk_select" runat="server" AutoPostBack="True" OnCheckedChanged="chk_select_CheckedChanged"/>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="II_PK">
@@ -278,7 +281,7 @@
                 </tr>
 
     <tr >
-                    <td colspan="9" >
+                    <td colspan="9" class="auto-style1" >
 
                            <div id="Messaediv" runat="server">
                  

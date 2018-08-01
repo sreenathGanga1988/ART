@@ -154,8 +154,11 @@
 	    padding: 5px;
 
 	}
+        .auto-style1 {
+            width: 506px;
+        }
         </style>
-<%--    <link href="../../css/style.css" rel="stylesheet" />
+    <%--    <link href="../../css/style.css" rel="stylesheet" />
     <script src="../../JQuery/GridJQuery.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -173,12 +176,12 @@
             <td>
                 <table class="DataEntryTable">
                     <tr>
-                        <td class="RedHeadding">
+                        <td class="RedHeadding" colspan="2">
                             Pending Ordering</td>
                         <td class="RedHeadding">&nbsp;Pending Approval</td>
                     </tr>
                     <tr>
-                        <td class="smallgridtable">
+                        <td class="smallgridtable" colspan="2">
 
                             <div></div>
 
@@ -225,34 +228,45 @@
                              </div>
                             
                             
-                            <asp:SqlDataSource ID="PendingOrder" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        PONum, POId, Description, Qty, PO_Date, Odoo_UOM, OrderedQty, Qty - OrderedQty AS Balance, DATEDIFF(day, PO_Date, GETDATE()) AS PendingFor, POLineID
-FROM            (SELECT        ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, 
-                                                    ISNULL(SUM(StocPOForODOO.POQty), 0) AS OrderedQty, ODOOGPOMaster.POLineID
+                            <asp:SqlDataSource ID="PendingOrder" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT    PONum, POId, Description, Qty, PO_Date, Odoo_UOM, OrderedQty, Qty - OrderedQty AS Balance, DATEDIFF(day, PO_Date, GETDATE()) AS PendingFor, POLineID, IsClosed
+FROM            (SELECT        ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, ISNULL(SUM(StocPOForODOO.POQty), 0) 
+                                                    AS OrderedQty, ODOOGPOMaster.POLineID, ODOOGPOMaster.IsClosed
                           FROM            ODOOGPOMaster LEFT OUTER JOIN
                                                     StocPOForODOO ON ODOOGPOMaster.POId = StocPOForODOO.POId AND ODOOGPOMaster.POLineID = StocPOForODOO.POLineID
-                          GROUP BY ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, ODOOGPOMaster.POLineID) 
-                         AS tt
-WHERE        (Qty - OrderedQty &gt; 0)"></asp:SqlDataSource>
+                          GROUP BY ODOOGPOMaster.PONum, ODOOGPOMaster.POId, ODOOGPOMaster.Description, ODOOGPOMaster.Qty, ODOOGPOMaster.PO_Date, ODOOGPOMaster.Odoo_UOM, ODOOGPOMaster.POLineID, 
+                                                    ODOOGPOMaster.IsClosed) AS tt
+WHERE        (Qty - OrderedQty > 0) AND (IsClosed IS NULL)"></asp:SqlDataSource>
                            
                         </td>
                         <td class="smallgridtable">
                             &nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="smallgridtable">
+                        <td class="auto-style1">
                             <asp:Button ID="Button1" runat="server" Text="Order Now" OnClick="Button1_Click" />
                            
                         </td>
+
+                          <td class="auto-style1">
+                            <asp:Button ID="btn_closeipo" runat="server" Text="CLOSE IPO" OnClick="btn_closeipo_Click" />
+                           
+                        </td>
+                       <%-- <td class="smallgridtable">
+                             <asp:Button ID="btn_closeipo" runat="server" Text="CLOSE IPO" />
+                             <td class="auto-style1">
+                                 &nbsp;</td>
                         <td class="smallgridtable">
-                            &nbsp;</td>
+                            &nbsp;</td>--%>
                     </tr>
                     <tr>
-                        <td class="RedHeadding">Pending Receipt</td>
+                        <td class="RedHeadding" colspan="2">Pending Receipt</td>
                         <td class="RedHeadding">&nbsp;</td>
                     </tr>
-                   
+                    <div id="Messaediv" runat="server">
+                                                    <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+                                                </div>
                     <tr>
-                        <td class="smallgridtable">
+                        <td class="smallgridtable" colspan="2">
 
                             <div>
 

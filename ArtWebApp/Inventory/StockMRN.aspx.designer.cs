@@ -148,6 +148,24 @@ namespace ArtWebApp.Inventory {
         protected global::System.Web.UI.WebControls.TextBox txt_deliverynote;
         
         /// <summary>
+        /// drp_sadn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen drp_sadn;
+        
+        /// <summary>
+        /// btn_sdn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_sdn;
+        
+        /// <summary>
         /// lbl_potype control.
         /// </summary>
         /// <remarks>

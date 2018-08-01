@@ -579,12 +579,15 @@ ORDER BY tt.RollNum ";
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = @"SELECT        tt.Roll_PK, tt.RollNum, tt.ASN, tt.PONum, tt.itemDescription, tt.WidthGroup, tt.ShadeGroup, tt.ShrinkageGroup, tt.AYard, tt.AtcNum, tt.InventoryItem_PK, tt.Location_PK, RollInventoryMaster.IsPresent, 
-                         RollInventoryMaster.Location_Pk AS Expr1, tt.MarkerType, tt.AWidth, tt.AShrink, tt.AShade,ISNULL( tt.SWeight,'NA') as SWeight
+                         RollInventoryMaster.Location_Pk AS Expr1, tt.MarkerType, tt.AWidth, tt.AShrink, tt.AShade,ISNULL( tt.SWeight,'NA') as SWeight,RACK_NAME
 FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
                          ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
                          + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
                          FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, InventoryMaster.InventoryItem_PK, InventoryMaster.Location_PK, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
-                         FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, CutPlanRollDetails.IsDeleted
+                         FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, CutPlanRollDetails.IsDeleted,ISNULL( (SELECT        RackMaster.Rack_name
+FROM            RackMaster INNER JOIN
+                         RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RACK_NAME
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
@@ -730,6 +733,7 @@ ORDER BY tt.RollNum ";
                     fbmstr.Po_PK = rolldata.PO_PK;
                     fbmstr.IsSaved = "N";
                     fbmstr.IsDelivered = "N";
+                    fbmstr.RackAllocated = "N";
                     fbmstr.SGsm = rolldata.SGSM;
                     fbmstr.SWeight = rolldata.Sweight;
                     fbmstr.SupplierDoc_pk = rolldata.SUpplierDoc_PK;
@@ -1823,7 +1827,11 @@ WHERE        (FabricRollmaster.SupplierDoc_pk = @asn_pk) AND (MrnDetails.MrnDet_
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, RollInventoryMaster.RollInventory_PK, FabricRollmaster.RollNum, RollInventoryMaster.DocumentNum, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
-                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK
+                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK,
+ISNULL( (SELECT        RackMaster.Rack_name
+FROM            RackMaster INNER JOIN
+                         RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RackName 
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
 WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @lctn_pk) AND (FabricRollmaster.IsDelivered = N'N') AND (FabricRollmaster.SkuDet_PK = @skudet_pk)";
@@ -1839,7 +1847,11 @@ WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Loc
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, RollInventoryMaster.RollInventory_PK, FabricRollmaster.RollNum, RollInventoryMaster.DocumentNum, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
-                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK, RollInventoryMaster.AddedVia
+                         FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK, RollInventoryMaster.AddedVia,
+ISNULL( (SELECT        RackMaster.Rack_name
+FROM            RackMaster INNER JOIN
+                         RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RackName
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
 WHERE        (RollInventoryMaster.IsPresent = N'W') AND (RollInventoryMaster.Location_Pk = @lctn_pk) AND (FabricRollmaster.IsDelivered = N'N')  AND 
@@ -1865,7 +1877,10 @@ WHERE        (RollInventoryMaster.IsPresent = N'W') AND (RollInventoryMaster.Loc
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, RollInventoryMaster.RollInventory_PK, FabricRollmaster.RollNum, RollInventoryMaster.DocumentNum, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
                          FabricRollmaster.ShrinkageGroup, RollInventoryMaster.IsPresent, FabricRollmaster.AYard, RollInventoryMaster.Location_Pk, FabricRollmaster.IsDelivered, FabricRollmaster.SkuDet_PK, 
-                         DeliveryReceiptMaster.DOR_PK
+                         DeliveryReceiptMaster.DOR_PK,ISNULL( (SELECT        RackMaster.Rack_name
+FROM            RackMaster INNER JOIN
+                         RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RackName
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
                          DeliveryOrderMaster ON RollInventoryMaster.DocumentNum = DeliveryOrderMaster.DONum INNER JOIN

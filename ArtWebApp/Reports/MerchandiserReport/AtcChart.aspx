@@ -379,6 +379,7 @@ body
                                                  <asp:BoundField DataField="Qty" HeaderText="Qty" />
                                                   <asp:BoundField DataField="ExtraQty" HeaderText="Extra" />                                                 
                                                   <asp:BoundField DataField="ADNType" HeaderText="ADNType" />
+                                                  <asp:BoundField DataField="AddedDate" HeaderText="Addeddate" />
                                         
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />

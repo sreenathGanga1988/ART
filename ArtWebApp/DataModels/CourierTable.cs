@@ -32,5 +32,9 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
         public Nullable<System.DateTime> Addeddate { get; set; }
         public string AddedBY { get; set; }
+        public string CouDocNum { get; set; }
+        public string Country { get; set; }
+        public string IsUploaded { get; set; }
+        public string Couriertype { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace ArtWebApp.DataModels
         public string DeliveredVia { get; set; }
         public Nullable<decimal> NewRollInventory_PK { get; set; }
         public Nullable<decimal> FactId { get; set; }
+        public Nullable<decimal> Rack_PK { get; set; }
     
         public virtual FabricRollmaster FabricRollmaster { get; set; }
     }

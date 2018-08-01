@@ -43,6 +43,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
             mstr.IsProjectionApproved = "N";
             mstr.ProductionCountryID= int.Parse(cmb_prodcountry.SelectedValue.ToString());
             mstr.IsAtcWord = "Y";
+            mstr.IsShipmentCompleted = "N";
             enty.AtcMasters.Add(mstr);     
                      
            
@@ -61,7 +62,7 @@ public partial class Merchandiser_AtcCreation : System.Web.UI.Page
                 if (GridView1.Rows.Count < 1)
                 {
 
-                    DataTable dt = createdatatable(int.Parse(txt_stylenum.Text), atcnum, atcid, dtp_shipStartdate.Date);
+                    DataTable dt = createdatatable(int.Parse(txt_stylenum.Text), atcnum, atcid, dtp_housedate.Date);
 
                    atctran. insertourstyle(dt);
 

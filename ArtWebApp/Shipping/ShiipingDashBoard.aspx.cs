@@ -33,6 +33,7 @@ namespace ArtWebApp.Shipping
         protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             String refnum = GridView2.Rows[int.Parse(e.CommandArgument.ToString())].Cells[0].Text;
+            string reff = refnum;
             if (e.CommandName == "Show")
             {
 

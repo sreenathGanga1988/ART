@@ -503,10 +503,10 @@ namespace ArtWebApp.Merchandiser.ASQ
                     pdata.atcid = int.Parse((row.FindControl("lbl_atcid") as Label).Text);
 
 
-                   
-                   // pdata.AllocatePO(popackid, ourstyleid, factid);
-                 pdata.AllocatePONew(popackid, ourstyleid, factid);
-                //    pdata.AllocatePOinDubaionly(popackid, ourstyleid, factid);
+
+                    //pdata.AllocatePO(popackid, ourstyleid, factid);
+                    pdata.AllocatePONew(popackid, ourstyleid, factid);
+                    //pdata.AllocatePOinDubaionly(popackid, ourstyleid, factid);
                     
                     k++;
 

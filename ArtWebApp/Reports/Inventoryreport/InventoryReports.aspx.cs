@@ -166,6 +166,7 @@ namespace ArtWebApp.Reports.Inventoryreport
             String Reportheading = "Inventory Report  As  of " + DateTime.Now.Date.ToString("dd/MM/yyyy");
             if (LocArraylist.Count > 0 && LocArraylist != null)
             {
+
                 DBTransaction.InventoryTransaction.InventoryReportTransaction invtran = new DBTransaction.InventoryTransaction.InventoryReportTransaction();
                 DataTable dt = invtran.GetInventoryofLocList(LocArraylist);
 

@@ -96,13 +96,26 @@ FROM            ODOOGPOMaster INNER JOIN
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(@"SELECT        tt.SPODetails_PK, tt.SPO_Pk, tt.SPONum, tt.SupplierName, tt.Unitprice, tt.CurrencyCode, tt.Description, tt.Remark, tt.POQty, tt.ReceivedQty, tt.UomName, FORMAT(tt.AddedDate, 'dd/MMM/yyyy', 'en-us') AS AddedDate, 
-                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy
+                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.MRNDetails,tt.Sales_DO
 FROM            ODOOGPOMaster INNER JOIN
                          StocPOForODOO ON ODOOGPOMaster.POId = StocPOForODOO.POId AND ODOOGPOMaster.POLineID = StocPOForODOO.POLineID RIGHT OUTER JOIN
                              (SELECT        StockPODetails.SPODetails_PK, StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, ISNULL(Template_Master.Description, '') 
                                                          + ' ' + ISNULL(StockPODetails.Composition, '') + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
                                                          + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, '') AS Description, StockPOMaster.Remark, StockPODetails.POQty, SUM(StockMRNDetails.ReceivedQty) 
-                                                         AS ReceivedQty, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.IsApproved, StockPODetails.CUrate, StockPODetails.Unitprice, StockPOMaster.AddedBy
+                                                         AS ReceivedQty, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.IsApproved, StockPODetails.CUrate, StockPODetails.Unitprice, StockPOMaster.AddedBy,
+														 
+(select STUFF ((select ',' + mrn from (
+SELECT        (StockMrnMaster.SMrnNum +'('+convert(varchar,(sum(StockMRNDetails.ReceivedQty)+ sum(StockMRNDetails.ExtraQty)))+')') as mrn
+FROM            StockMrnMaster INNER JOIN
+                         StockMRNDetails ON StockMrnMaster.SMrn_PK = StockMRNDetails.SMRN_Pk
+WHERE        (StockMRNDetails.SPODetails_PK = StockPODetails.SPODetails_PK) group by StockMrnMaster.SMrnNum)as tt for xml path('')),1,1,'')as txt) as MRNDetails,
+(select STUFF ((select ',' + Sales_DO from (
+SELECT        (InventorySalesMaster.SalesDONum+'( '+ convert(varchar, (sum(InventorySalesDetail.DeliveryQty)))+')') as Sales_DO
+FROM            InventorySalesMaster INNER JOIN
+                         InventorySalesDetail ON InventorySalesMaster.SalesDO_PK = InventorySalesDetail.SalesDO_PK INNER JOIN
+                         StockInventoryMaster ON InventorySalesDetail.SInventoryItem_PK = StockInventoryMaster.SInventoryItem_PK INNER JOIN
+                         StockMRNDetails ON StockInventoryMaster.SMRNDet_Pk = StockMRNDetails.SMRNDet_Pk
+WHERE        (StockMRNDetails.SPODetails_PK = StockPODetails.SPODetails_PK) group by InventorySalesMaster.SalesDONum)as tt for xml path('')),1,1,'')as txt) as Sales_DO
                                FROM            StockPOMaster INNER JOIN
                                                          StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN
                                                          CurrencyMaster ON StockPOMaster.CurrencyID = CurrencyMaster.CurrencyID INNER JOIN

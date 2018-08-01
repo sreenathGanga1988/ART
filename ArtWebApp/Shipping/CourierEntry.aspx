@@ -32,6 +32,19 @@
                 <td class="auto-style7">
                     <table class="DataEntryTable" >
                         <tr>
+                            <td class="auto-style11" >Courier Type</td>
+                            <td class="NormalTD">
+                            <ucc:DropDownListChosen ID="drp_couriertype" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                <asp:ListItem>Document</asp:ListItem>
+                                <asp:ListItem>Goods</asp:ListItem>
+                                <asp:ListItem>others/Samples</asp:ListItem>                                
+                            </ucc:DropDownListChosen>
+                        </td>
+                            <td class="auto-style9" >
+                                AWB NUM</td>
+                            <td class="auto-style8" ><asp:TextBox ID="txt_awbnum" runat="server"></asp:TextBox></td>
+                        </tr>
+                        <tr>
                             <td class="auto-style11" >COURIER DATE</td>
                             <td class="auto-style8" >
                                 <%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -144,27 +157,23 @@
                             <td class="auto-style8" >
                                 <asp:TextBox ID="txt_remark" runat="server" Height="16px" Width="153px"></asp:TextBox>
                             </td>
-                            <td class="auto-style9" >
-                                ADDEDDATE</td>
-                            <td class="auto-style8" >
-                                <asp:TextBox ID="txt_addeddate" runat="server" ReadOnly="true"></asp:TextBox>
-
-
-
-  
-<cc1:CalendarExtender ID="CalendarExtender1" PopupButtonID="imgPopup" runat="server" TargetControlID="txt_addeddate"
-    Format="dd/MMM/yyyy" >
-</cc1:CalendarExtender>       
-
-                            </td>
+                            <td class="auto-style9" ></td>
+                            <td class="auto-style8" ></td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                &nbsp;</td>
+                            <td class="NormalTD">Country : </td>
+                        <td class="NormalTD">
+                            <ucc:DropDownListChosen ID="drp_country" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                <asp:ListItem>Kenya</asp:ListItem>
+                                <asp:ListItem>Ethiopia</asp:ListItem>
+                                <asp:ListItem>Dubai</asp:ListItem>
+                                <asp:ListItem>Other</asp:ListItem>
+                            </ucc:DropDownListChosen>
+                        </td>
                             <td class="auto-style9">
-                                awb num</td>
+                                </td>
                             <td class="auto-style8">
-                                <asp:TextBox ID="txt_awbnum" runat="server"></asp:TextBox>
+                                
                             </td>
                         </tr>
                         <tr>

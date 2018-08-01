@@ -50,7 +50,24 @@ namespace ArtWebApp.Areas.Inventory
 
             return dt;
         }
+        public DataTable GetSROPending(DateTime fromdate, DateTime todate, int Location_pk)
+        {
+            DataTable dt = new DataTable();
 
+
+            using (SqlCommand cmd = new SqlCommand(@"GetPENDINGStockROBetweenDates_SP"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                cmd.Parameters.AddWithValue("@todate", todate);
+                cmd.Parameters.AddWithValue("@Location_pk", Location_pk);
+                dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+            }
+
+
+
+            return dt;
+        }
 
 
 

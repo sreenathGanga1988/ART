@@ -70,6 +70,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> GroupedDate { get; set; }
         public Nullable<System.DateTime> ValidatedDate { get; set; }
         public Nullable<System.DateTime> InspectedDate { get; set; }
+        public string RackAllocated { get; set; }
     
         public virtual ICollection<CutPlanRollDetail> CutPlanRollDetails { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }

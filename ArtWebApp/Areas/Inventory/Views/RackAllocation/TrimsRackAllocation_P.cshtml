@@ -1,10 +1,10 @@
 ﻿@model ArtWebApp.Areas.Inventory.ViewModel.AllocateRack
 @using System.Data;
 
-<script src="~/Plugin/MyDataTable.js"></script>
+@*<script src="~/Plugin/MyDataTable.js"></script>*@
 
 
-<h2>Fabric Details</h2>
+<h2>Trims Details</h2>
 
 <div id="printfcr">
     <table id="Dataentry" class="table table-striped table-bordered MyDataTable Dataentry" cellspacing="0" width="100" style="border-color:black">
@@ -21,6 +21,9 @@
                 <th>SupplierSize</th>
                 <th>SupplierColor</th>
                 <th>ReceivedQty</th>
+                <th>OnHandQty</th>
+                <th>BalanceQty</th>
+                <th>AllocateQty</th>
                 <th>Rack_PK</th>
             </tr>
         </thead>
@@ -40,6 +43,12 @@
                 <td class="SupplierSize">@row["SupplierSize"]</td>
                 <td class="SupplierColor">@row["SupplierColor"]</td>
                 <td class="ReceivedQty">@row["ReceivedQty"]</td>
+                <td class="OnhandQty">@row["OnhandQty"]</td>
+                <td class="BalanceQty">                    
+
+                    @(Decimal.Parse(row["OnhandQty"].ToString()) - Decimal.Parse(row["AllocatedQty"].ToString()))
+                </td>
+                <td class="AllocateQty">@Html.TextBox("AllocateQty", "", new { @class = "AllocateQty", style = "width:250px; height:30px" })</td>
                 <td class="Rack_PK">@row["Rack_PK"]</td>
 
             </tr>
@@ -57,50 +66,71 @@
 </div>
 <script>
     $(document).ready(function () {
-
         $('.Dataentry').DataTable();
-
-
+        var isok = true;
         $('#Submit').click(function (e, params) {
+            var things = [];
+            var list = [];
+            
             $('.Dataentry tr.FabricTableRow').each(function (i, row) {
                 $(this).find('td input:checked').each(function () {
-                    var $tr = $(this).closest('tr');
-                    var InventoryItem_PK = parseFloat($tr.find('.InventoryItem_PK').val());                    
-                    var Rack_PK = parseFloat($tr.find('.Rack_PK').val());                    
-                    var Approvedata = {
-                        ID: InventoryItem_PK, Rack_PK: Rack_PK
+                    var row = $(this).closest('tr');
+                    
+                    var InventoryItem_PK = parseFloat(row.find('.InventoryItem_PK').text());                    
+                    var Rack_PK = parseFloat(row.find('.Rack_PK').text());                    
+                    var AllocateQty = row.find('td:eq(13) input').val();
+                    var mrnqty = parseFloat(row.find('.ReceivedQty').text());
+                    var OnhandQty = parseFloat(row.find('.OnhandQty').text());
+                    var BalanceQty = parseFloat(row.find('.BalanceQty').text());                    
+                    
+                    if (parseFloat(AllocateQty.toString()) > parseFloat(BalanceQty.toString())) {
+                        isok = false;
                     }
-                    things.push(Approvedata);
+                    
+                    var Approvedata = {
+                        InventoryItem_PK: InventoryItem_PK, Rack_PK: Rack_PK, AllocateQty: AllocateQty, mrnqty: OnhandQty, BalanceQty: BalanceQty
+                    }
+                    list.push(Approvedata);
 
                 });
             });
-            $.ajax({
-                contentType: "application/json; charset=utf-8",
-                type: "Post",
-                url: "@Url.Action("ApproveRequest", "CMLock")",
-                data: JSON.stringify(things),
-                contentType: 'application/json',
-
+            
+            var things = JSON.stringify({ 'things': list });
+            if (isok == true) {
+                 $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ApproveRequest", "RackAllocation")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 success: function (data) {
-                    if (data.ok) {
-                        newloc = data.newurl;
-                    }
+                    if (data.status) {
+                        alert('Successfully saved');
+                        $("#Submit").prop('disabled', true);
 
+                    }
                     else {
-                        window.alert(data.message);
+                        alert('Error');
                     }
-
-
                 },
-                error: function (xhr, status, errorThrown) {
-                    //...
+                error: function (error) {
+                    console.log(error);
+
                 }
-            });
-            alert("Allocation Done");
+                });
+                
+
+            }
+            else {
+                alert("The Allocate Qty is more than Balance Qty");
+            }
+             
 
         });
 
     });
+
+  
 
     $('#SelectAll').change(function () {
         if (this.checked) {

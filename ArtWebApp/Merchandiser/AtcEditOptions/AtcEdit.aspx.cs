@@ -134,9 +134,10 @@ namespace ArtWebApp.Merchandiser
                 try
                 {
                     TextBox dtp_deliverydate = (row.FindControl("dtp_deliverydate") as TextBox);
-                    string s = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
+                    string s1 = DateTime.Parse(Request.Form[dtp_deliverydate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
+                    //string s = DateTime.Parse(Request.Form[dtp_housedate.UniqueID].ToString()).ToString("dd/MMM/yyyy", CultureInfo.InvariantCulture);
 
-                    ourstyledata.MerchantPCD = DateTime.Parse(s);
+                    ourstyledata.MerchantPCD = DateTime.Parse(s1);
                 }
                 catch (Exception)
                 {
@@ -260,6 +261,7 @@ namespace ArtWebApp.Merchandiser
                 ourstyledata.Catid = int.Parse(garmentcategory.SelectedValue.ToString());
 
                 ourstyledata.Fob = decimal.Parse(fobtxt.Text);
+                
                 ourstyledata.OURSTYLE_group= ddl_group.SelectedItem.Text; ;
                 Boolean isfobchanged = ourstyledata.UpdateOurStyle(ourstyledata);
 

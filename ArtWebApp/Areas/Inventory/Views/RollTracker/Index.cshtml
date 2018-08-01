@@ -204,6 +204,28 @@
                             $('#loadingmessage').hide();
                         }
                         });
+            });
+
+
+             $("#PENDINGSRO").click(function (e, params) {
+                $('#loadingmessage').show();
+                  var fromdate = $("#locFromDateSRO").val();
+                  var todate = $("#locTodateSRO").val();
+                  var Location_pk = $("#Location_pk").val();
+                  alert(todate);
+                    $.ajax({
+                        url: "@Url.Action("GetPendingSRO", "RollTracker")",
+                        traditional: true,
+                        type: "GET",
+                        data: { 'fromdate': fromdate, 'todate': todate, 'Location_pk': Location_pk},
+                        success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#output").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
                         });
 
 
@@ -513,7 +535,7 @@
         </div>
         <div class="col-sm-2">
             To date
-        </div> 
+        </div>
         <div class="col-sm-2">
             @Html.TextBox("locTodateRO", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
         </div>
@@ -543,7 +565,55 @@
 
 
 
+<button data-toggle="collapse" class="btn btn-info" data-target="#demo9">Between Pending SRO Reports of Location </button>
 
+<div id="demo9" class="container collapse">
+    <div class="container-fluid jumbotron">
+
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                Location :
+
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+
+        </div>
+        <div class="col-sm-2">
+            From Date :
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBox("locFromDateSRO", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+        </div>
+        <div class="col-sm-2">
+            To date
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBox("locTodateSRO", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row top-buffer" style="background-color:greenyellow;">
+        <div class="col-sm-8">
+            <input id="PENDINGSRO" type="button" value="Show Pending SRO Report of Bewtween Date" data-toggle="tooltip" data-placement="top" title="Shows Pending SRO" class="btn btn-default show" />
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-3">
+        </div>
+
+    </div>
+</div>
 
 
 

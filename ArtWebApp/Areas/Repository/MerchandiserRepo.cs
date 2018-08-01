@@ -667,6 +667,7 @@ WHERE        (BEOfmonth.Month = @Param1)");
 
             foreach(AtcClosingModel atcClosingModel in atcClosingModelList.atcClosingModels)
             {
+                
                 using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities())
                 {
                     using (ArtEntitiesnew enty = new ArtEntitiesnew())
@@ -701,7 +702,66 @@ WHERE        (BEOfmonth.Month = @Param1)");
                             artAtcClosingMaster.AtcId = atcid;
                             artAtcClosingMaster.AtcNum = ourstyle.AtcMaster.AtcNum;
                             artAtcClosingMaster.OurstyleId = ourstyle.OurStyleID;
-                            artAtcClosingMaster.Ourstyle = ourstyle.OurStyle;
+                            artAtcClosingMaster.Ourstyle = ourstyle.OurStyle.Trim();
+                            artAtcClosingMaster.IsClosed = "Y";
+                            artAtcClosingMaster.AddedBy = HttpContext.Current.Session["Username"].ToString();
+                            artAtcClosingMaster.AddedDate = DateTime.Now;
+                            atcenty.ArtAtcClosingMasters.Add(artAtcClosingMaster);
+                            atcenty.SaveChanges();
+                        }
+                    }
+                }
+
+
+            }
+
+
+        }
+
+
+
+        public void CloseAtcETH(AtcClosingModelList atcClosingModelList)
+        {
+
+
+            foreach (AtcClosingModel atcClosingModel in atcClosingModelList.atcClosingModels)
+            {
+                
+                using (AtcWorldEntities atcenty = new ArtWebApp.DataModelAtcWorld.AtcWorldEntities("Ethiopia"))
+                {
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                    {
+
+                        Decimal atcid = 0;
+                        var q = from atcmstr in enty.AtcMasters
+                                where atcmstr.AtcId == atcClosingModel.AtcId
+                                select atcmstr;
+                        foreach (var element in q)
+                        {
+                            //element.IsClosed = "Y";
+                            element.IsShipmentCompleted = "Y";
+                            atcid = Decimal.Parse(element.AtcId.ToString());
+
+                        }
+
+                        AtcAction atcAction = new AtcAction();
+                        atcAction.AtcID = atcClosingModel.AtcId;
+                        atcAction.ActionType = atcClosingModelList.Type;
+                        atcAction.ActionDoneDate = atcClosingModelList.Addeddate;
+                        atcAction.ActionDoneBy = atcClosingModelList.AddedBy;
+                        atcAction.Month = atcClosingModelList.Month;
+                        enty.AtcActions.Add(atcAction);
+                        enty.SaveChanges();
+                        var ourstyleids = from AtcDetail in enty.AtcDetails
+                                          where AtcDetail.AtcId == atcid
+                                          select AtcDetail;
+                        foreach (var ourstyle in ourstyleids)
+                        {
+                            ArtAtcClosingMaster artAtcClosingMaster = new ArtAtcClosingMaster();
+                            artAtcClosingMaster.AtcId = atcid;
+                            artAtcClosingMaster.AtcNum = ourstyle.AtcMaster.AtcNum;
+                            artAtcClosingMaster.OurstyleId = ourstyle.OurStyleID;
+                            artAtcClosingMaster.Ourstyle = ourstyle.OurStyle.Trim();
                             artAtcClosingMaster.IsClosed = "Y";
                             artAtcClosingMaster.AddedBy = HttpContext.Current.Session["Username"].ToString();
                             artAtcClosingMaster.AddedDate = DateTime.Now;

@@ -25,5 +25,9 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Rack_PK { get; set; }
         public string RefNum { get; set; }
         public string IsLast { get; set; }
+        public Nullable<decimal> MrnQty { get; set; }
+        public Nullable<decimal> ReceivedQty { get; set; }
+        public Nullable<decimal> DeliveredQty { get; set; }
+        public Nullable<decimal> BalanceQty { get; set; }
     }
 }

@@ -1916,7 +1916,8 @@ WHERE        (CutOrderMaster.AtcID = @ATCID)";
             {
 
 
-                cmd.CommandText = @"SELECT        DocMaster.DocNum, DocMaster.ContainerNum, DocDetails.Qty, ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, DocMaster.ADNType, DocDetails.ExtraQty,DocMaster.BOENum
+                cmd.CommandText = @"SELECT DocMaster.DocNum, DocMaster.ContainerNum, DocDetails.Qty, ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, DocMaster.ADNType, DocDetails.ExtraQty,DocMaster.BOENum,
+DocMaster.AddedDate
 FROM            DocMaster INNER JOIN
                          DocDetails ON DocMaster.Doc_Pk = DocDetails.Doc_Pk INNER JOIN
                          ProcurementDetails ON DocDetails.PODet_Pk = ProcurementDetails.PODet_PK INNER JOIN

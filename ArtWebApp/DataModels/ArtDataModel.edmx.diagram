@@ -580,6 +580,12 @@
         <EntityTypeShape EntityType="ArtModel.RackMaster" Width="1.5" PointX="10.5" PointY="160.375" />
         <AssociationConnector Association="ArtModel.FK_RackMaster_LocationMaster" />
         <EntityTypeShape EntityType="ArtModel.RackInventoryMaster" Width="1.5" PointX="5.375" PointY="27.75" />
+        <AssociationConnector Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster" />
+        <AssociationConnector Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" />
+        <AssociationConnector Association="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" />
+        <EntityTypeShape EntityType="ArtModel.LaySheetMasterHistory" Width="1.5" PointX="20.375" PointY="30.75" />
+        <EntityTypeShape EntityType="ArtModel.Cutplan_UnapproveHistory" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArtModel.TNA_OurstlyeList" Width="1.5" PointX="22.375" PointY="30.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
