@@ -18,8 +18,6 @@ namespace ArtWebApp.DataModels
         {
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
             this.CutPlanMasters = new HashSet<CutPlanMaster>();
-            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
-            this.DeliveryOrderMasters1 = new HashSet<DeliveryOrderMaster>();
             this.DeliveryOrderStockMasters = new HashSet<DeliveryOrderStockMaster>();
             this.DeliveryOrderStockMasters1 = new HashSet<DeliveryOrderStockMaster>();
             this.DeliveryReceiptMasters = new HashSet<DeliveryReceiptMaster>();
@@ -61,6 +59,10 @@ namespace ArtWebApp.DataModels
             this.PcdAlertMasters = new HashSet<PcdAlertMaster>();
             this.PcdAlertUserrights = new HashSet<PcdAlertUserright>();
             this.RackMasters = new HashSet<RackMaster>();
+            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
+            this.DeliveryOrderMasters1 = new HashSet<DeliveryOrderMaster>();
+            this.EndbitSalesMasters = new HashSet<EndbitSalesMaster>();
+            this.RequestOrderLoanMasters = new HashSet<RequestOrderLoanMaster>();
         }
     
         public decimal Location_PK { get; set; }
@@ -85,8 +87,6 @@ namespace ArtWebApp.DataModels
     
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
         public virtual ICollection<CutPlanMaster> CutPlanMasters { get; set; }
-        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
-        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters1 { get; set; }
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters { get; set; }
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters1 { get; set; }
         public virtual ICollection<DeliveryReceiptMaster> DeliveryReceiptMasters { get; set; }
@@ -128,5 +128,9 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<PcdAlertMaster> PcdAlertMasters { get; set; }
         public virtual ICollection<PcdAlertUserright> PcdAlertUserrights { get; set; }
         public virtual ICollection<RackMaster> RackMasters { get; set; }
+        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
+        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters1 { get; set; }
+        public virtual ICollection<EndbitSalesMaster> EndbitSalesMasters { get; set; }
+        public virtual ICollection<RequestOrderLoanMaster> RequestOrderLoanMasters { get; set; }
     }
 }

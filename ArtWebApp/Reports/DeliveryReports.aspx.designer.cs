@@ -94,6 +94,24 @@ namespace ArtWebApp.Reports {
         protected global::System.Web.UI.WebControls.Button Btn_showDORrpt;
         
         /// <summary>
+        /// DRP_EBITDO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::CustomDropDown.DropDownListChosen DRP_EBITDO;
+        
+        /// <summary>
+        /// BTN_EDOSHOW control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BTN_EDOSHOW;
+        
+        /// <summary>
         /// upl_rpt control.
         /// </summary>
         /// <remarks>

@@ -16,14 +16,14 @@ namespace ArtWebApp.DataModels
     {
         public DeliveryMethodMaster()
         {
-            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
             this.DeliveryOrderStockMasters = new HashSet<DeliveryOrderStockMaster>();
+            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
         }
     
         public decimal Deliverymethod_Pk { get; set; }
         public string DeliveryMethod { get; set; }
     
-        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
         public virtual ICollection<DeliveryOrderStockMaster> DeliveryOrderStockMasters { get; set; }
+        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿@model ArtWebApp.Areas.Inventory.ViewModel.DeliveryReceipt
-  
+
 @{
     ViewBag.Title = "DeliveryReceipt";
     Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
 }
 
 <h2>DeliveryReceipt</h2>
+<p>Using TempData: @TempData["shortMessage"] </p>
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
     listItems.Add(new SelectListItem
@@ -18,7 +19,7 @@
     listItems.Add(new SelectListItem
     {
         Text = "FABRIC",
-        Value = "F"        
+        Value = "F"
     });
     listItems.Add(new SelectListItem
     {
@@ -43,7 +44,7 @@
 
         $("#Atcid").change(function () {
 
-            var Id = $(this).find('option:selected').val();            
+            var Id = $(this).find('option:selected').val();
             $.ajax({
                 url: "@Url.Action("Get_Factory", "DeliveryReceipt")",
                 type: 'Get',
@@ -69,15 +70,15 @@
 
         $("#show_itemdetails").click(function (e, params) {
 
-            var Atcid = $("#Atcid").val();            
-            var DODate = $("#DODate").val();            
-            var DOType = $("#DOType").val();            
-            var container_no = $("#container_no").val();            
-            var FactId = $("#FactId").val();            
-            var boe_no = $("#boe_no").val();            
+            var Atcid = $("#Atcid").val();
+            var DODate = $("#DODate").val();
+            var DOType = $("#DOType").val();
+            var container_no = $("#container_no").val();
+            var FactId = $("#FactId").val();
+            var boe_no = $("#boe_no").val();
             var DOMethod = $("#DOMethod").val();
             alert(Atcid);
-            $("#output").empty();            
+            $("#output").empty();
             $.ajax({
                 url: "@Url.Action("GetItemDetails", "DeliveryReceipt")",
                 traditional: true,
@@ -96,10 +97,10 @@
 
         });
 
-      
+
 
     });
-    
+
 </script>
 <div class="container-fluid jumbotron">
     <div class="row top-buffer">
@@ -144,6 +145,6 @@
 </div>
 
 <div id="output">
-    
+
 
 </div>

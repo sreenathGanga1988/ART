@@ -24,7 +24,7 @@ namespace ArtWebApp.DataModels
     
         public virtual CutOrderMaster CutOrderMaster { get; set; }
         public virtual DeliveryOrderDetail DeliveryOrderDetail { get; set; }
-        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
         public virtual FabricRollmaster FabricRollmaster { get; set; }
+        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
     }
 }

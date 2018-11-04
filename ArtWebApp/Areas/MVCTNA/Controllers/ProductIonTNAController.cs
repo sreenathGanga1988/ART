@@ -39,6 +39,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
         public ActionResult TNAListIndex(ProductionTNAVModelMaster model = null)
         {
             ViewBag.Location_pk = new SelectList(db.LocationMasters.Where(u => u.LocType == "F"), "Location_PK", "LocationName");
+            ViewBag.AtcID = new SelectList(db.AtcMasters.Where(u => u.IsShipmentCompleted != "Y").ToList(), "AtcId", "AtcNum");
 
             if (model == null)
             {
@@ -105,12 +106,12 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
         
 
         [HttpGet]
-        public JsonResult PopulateOurStyle(int Id = 0)
+        public JsonResult PopulateOurStyle(int Id=0,int locpk=0)
         {
             
             ProductionTNARepo tnarept = new ProductionTNARepo();
             
-            DataTable mylist = tnarept.get_oursylelist();            
+            DataTable mylist = tnarept.get_oursylelist(Id,locpk);            
 
             SelectList ourstyleitem = MVCControls.DataTabletoSelectList("OurStyleID", "OurStyle", mylist, "");
 
@@ -355,8 +356,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         mailMessage.To.Add("sathish@ashton-apparel.com");
                         mailMessage.To.Add("mannan_kapasi@atraco.ae");
                         mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
-                        mailMessage.To.Add("bobby_charakanam@ashton-ethiopia.com");
-                        mailMessage.To.Add("Alberto_Mercedes@ashton-ethiopia.com");
+                        mailMessage.To.Add("bobby_charakanam@ashton-ethiopia.com");                        
                         mailMessage.To.Add("ronald.martis@ashton-ethiopia.com");
                         mailMessage.To.Add("mithilesh@ashton-ethiopia.com");
                         mailMessage.To.Add("avnish_choudhary@ashton-ethiopia.com");
@@ -389,6 +389,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         mailMessage.To.Add("mannan_kapasi@atraco.ae");
                         mailMessage.To.Add("sandeep.kalathil@ashton-apparel.com");
                         mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
+                        mailMessage.To.Add("rahul_powar@atraco.ae");
 
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
@@ -418,6 +419,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         mailMessage.To.Add("rajith@ashton-apparel.com");
                         mailMessage.To.Add("rhey_uson@ashton-apparel.com");
                         mailMessage.To.Add("siddu.hs@mombasa-apparel.com");
+                        mailMessage.To.Add("rahul_powar@atraco.ae");
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
                         mailMessage.Subject = subject;
@@ -445,6 +447,7 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         mailMessage.To.Add("mannan_kapasi@atraco.ae");
                         mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
                         mailMessage.To.Add("mohan@mombasa-apparel.com");
+                        mailMessage.To.Add("rahul_powar@atraco.ae");
 
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" + body;
@@ -471,12 +474,12 @@ namespace ArtWebApp.Areas.MVCTNA.Controllers
                         mailMessage.To.Add("Sathyapalan_mk@atraco.ae");
                         mailMessage.To.Add("bobby_charakanam@ashton-ethiopia.com");
                         mailMessage.To.Add("ronald.martis@ashton-ethiopia.com");
-                        mailMessage.To.Add("Alberto_Mercedes@ashton-ethiopia.com");
                         mailMessage.To.Add("mithilesh@ashton-ethiopia.com");
                         mailMessage.To.Add("avnish_choudhary@ashton-ethiopia.com");
                         mailMessage.To.Add("amarnath.karthick@ashton-ethiopia.com");
+                        mailMessage.To.Add("rahul_powar@atraco.ae");
 
-                        
+
                         mailMessage.IsBodyHtml = true;
                         mailMessage.Body = "<div><b>" + locationname + " " + merchant + " TNA upto Merchant PCD " + startdate.ToString("dd/mm/yyyy") + "</b></div><br/>" +  body;
                         mailMessage.Subject = subject;

@@ -27,6 +27,7 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                 mrnmstr.Location_Pk = Porcpt.mrnmstrdata.Location_Pk;
                 mrnmstr.Reciept_Pk = int.Parse(Porcpt.mrnmstrdata.Reciept_Pk.ToString ());
+                mrnmstr.MrnClosed = "N";
                 enty.MrnMasters.Add(mrnmstr);
                 enty.SaveChanges();
 

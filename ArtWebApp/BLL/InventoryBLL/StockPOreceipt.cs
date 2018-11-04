@@ -40,6 +40,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                     smrndetdb.Unitprice = mrnrdet.Unitprice;
                     smrndetdb.Uom_PK = mrnrdet.Uom_PK1;
                     smrndetdb.ExtraQty = mrnrdet.ExtraQty;
+                    smrndetdb.SDoc_PK = SpoRcpt.smrnmstrdata.SDoc_pk;
                     enty.StockMRNDetails.Add(smrndetdb);
 
                     enty.SaveChanges();
@@ -195,6 +196,7 @@ namespace ArtWebApp.BLL.InventoryBLL
                     smrndetdb.Unitprice = mrnrdet.Unitprice;
                     smrndetdb.Uom_PK = mrnrdet.Uom_PK1;
                     smrndetdb.ExtraQty = mrnrdet.ExtraQty;
+                    smrndetdb.SDoc_PK = SpoRcpt.smrnmstrdata.SDoc_pk; 
                     enty.StockMRNDetails.Add(smrndetdb);
 
                     enty.SaveChanges();
@@ -286,6 +288,7 @@ namespace ArtWebApp.BLL.InventoryBLL
         public Decimal Unitprice { get; set; }
         public Decimal ReceivedQty { get; set; }
         public Decimal ExtraQty { get; set; }
+        public int SDOC_PK { get; set; }
         private int Uom_PK;
 
 
@@ -349,6 +352,7 @@ namespace ArtWebApp.BLL.InventoryBLL
         public int Location_Pk { get; set; }
         public string SPoTYpe { get; set; }
         public int Reciept_Pk { get; set; }
+        public int SDoc_pk { get; set; }
 
 
 
@@ -582,8 +586,24 @@ namespace ArtWebApp.BLL.InventoryBLL
                         Construct = invitemdetail.Construct.ToString();
                         TemplateColor = invitemdetail.TemplateColor.ToString();
                         TemplateSize = invitemdetail.TemplateSize.ToString();
-                        TemplateWidth = invitemdetail.TemplateWidth.ToString();
-                        TemplateWeight = invitemdetail.TemplateWeight.ToString();
+                        try
+                        {
+                            TemplateWidth = invitemdetail.TemplateWidth.ToString();
+                        }
+                        catch (Exception exp)
+                        {
+
+                            TemplateWidth = "";
+                        }
+                        try
+                        {
+                            TemplateWeight = invitemdetail.TemplateWeight.ToString();
+                        }
+                        catch (Exception exp)
+                        {
+
+                            TemplateWeight="";
+                        }
                         Template_PK = int.Parse(invitemdetail.Template_PK.ToString());
                         SMRNDet_Pk = int.Parse(invitemdetail.SMRNDet_Pk.ToString());
                         SPODetails_PK = int.Parse(invitemdetail.SPODetails_PK.ToString());
@@ -867,9 +887,9 @@ namespace ArtWebApp.BLL.InventoryBLL
         public StockDeliveryRecieptData Domstrdata { get; set; }
         public List<StockDeliveryRecieptDetailsData> DeliveryOrderDetailsDataCollection { get; set; }
 
+       
 
-
-        public string insertStockDOR()
+            public string insertStockDOR()
         {
             String msg = "";
 
@@ -920,20 +940,23 @@ namespace ArtWebApp.BLL.InventoryBLL
 
                     foreach (var invitemdetail in q)
                     {
-
-                        Composition = invitemdetail.Composition.ToString();
-                        Construct = invitemdetail.Construct.ToString();
-                        TemplateColor = invitemdetail.TemplateColor.ToString();
-                        TemplateSize = invitemdetail.TemplateSize.ToString();
-                        TemplateWidth = invitemdetail.TemplateWidth.ToString();
-                        TemplateWeight = invitemdetail.TemplateWeight.ToString();
-                        Template_PK = int.Parse(invitemdetail.Template_PK.ToString());
-                        SMRNDet_Pk = int.Parse(invitemdetail.SMRNDet_Pk.ToString());
-                        SPODetails_PK = int.Parse(invitemdetail.SPODetails_PK.ToString());
-                        Unitprice = decimal.Parse(invitemdetail.Unitprice.ToString());
-                        curate = decimal.Parse(invitemdetail.CuRate.ToString());
                         
-                        uom_pk = int.Parse(invitemdetail.Uom_PK.ToString());
+                       
+                            Composition = invitemdetail.Composition.ToString();
+                            Construct = invitemdetail.Construct.ToString();
+                            TemplateColor = invitemdetail.TemplateColor.ToString();
+                            TemplateSize = invitemdetail.TemplateSize.ToString();
+                            TemplateWidth = invitemdetail.TemplateWidth.ToString();
+
+                            TemplateWeight = invitemdetail.TemplateWeight.ToString() ;
+                            Template_PK = int.Parse(invitemdetail.Template_PK.ToString());
+                            SMRNDet_Pk = int.Parse(invitemdetail.SMRNDet_Pk.ToString());
+                            SPODetails_PK = int.Parse(invitemdetail.SPODetails_PK.ToString());
+                            Unitprice = decimal.Parse(invitemdetail.Unitprice.ToString());
+                            curate = decimal.Parse(invitemdetail.CuRate.ToString());
+
+                            uom_pk = int.Parse(invitemdetail.Uom_PK.ToString());
+                       
                     }
 
                     var q1 = from godsintran in enty.StockGoodsInTransits

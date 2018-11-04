@@ -39,6 +39,9 @@ namespace ArtWebApp.DataModels
         public string ToLocation { get; set; }
         public string EstimatedCost { get; set; }
         public string PaymentTerm { get; set; }
+        public string IsClosed { get; set; }
+        public Nullable<System.DateTime> ClosedDate { get; set; }
+        public string ClosedBy { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual SupplierMaster SupplierMaster { get; set; }

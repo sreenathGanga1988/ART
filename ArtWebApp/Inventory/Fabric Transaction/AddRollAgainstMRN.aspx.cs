@@ -83,7 +83,7 @@ namespace ArtWebApp.Inventory.Fabric_Transaction
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
             {
                 var q = from ponmbr in entty.MrnMasters
-                        where ponmbr.Po_PK == poid && ponmbr.Location_Pk == lctnpk
+                        where ponmbr.Po_PK == poid && ponmbr.Location_Pk == lctnpk && ponmbr.MrnClosed=="N"
                         select new
                         {
                             name = ponmbr.MrnNum,

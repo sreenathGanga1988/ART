@@ -184,11 +184,14 @@
                                          <ItemTemplate>
                                              <asp:Label ID="Label1" runat="server" Width="70px"  Text='<%# Bind("ReceivedQty") %>'></asp:Label>
                                          </ItemTemplate>
+                                         
+                                         
       <%--                                   <FooterTemplate>
          <asp:TextBox ID="lbl_RcvdQty" runat="server" Text="0" Enabled="false" >0</asp:TextBox>
     </FooterTemplate>--%>
                                      </asp:TemplateField>
-                                     <asp:BoundField DataField="InvQty" HeaderText="InvQty" />
+                                    <asp:BoundField DataField="BalToRecv" HeaderText="BalToRecv" /> 
+                                    <asp:BoundField DataField="InvQty" HeaderText="InvQty" />
                                      
                                      <asp:TemplateField HeaderText="BaltoINV">
                                        

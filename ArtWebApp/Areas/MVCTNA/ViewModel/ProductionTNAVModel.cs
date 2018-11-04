@@ -61,6 +61,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String FACTORYPLANNEDPCD { get; set; }
         public String SYSTEMFILES { get; set; }
         public String SHRINKAGE { get; set; }
+        public String OBSUBMISSION { get; set; }
+        public String CMFINALIZATION { get; set; }
         
 
         public int IdFINALMARKER { get; set; }
@@ -79,6 +81,9 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int IdFACTORYPLANNEDPCD { get; set; }
         public int IdSYSTEMFILES { get; set; }
         public int IdSHRINKAGE { get; set; }
+        public int IdOBSUBMISSION { get; set; }
+        public int IdCMFINALIZATION { get; set; }
+
 
 
         public String ActualFINALMARKER { get; set; }
@@ -97,6 +102,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String ActualFACTORYPLANNEDPCD { get; set; }
         public String ActualSYSTEMFILES { get; set; }
         public String ActualSHRINKAGE { get; set; }
+        public String ActualOBSUBMISSION { get; set; }
+        public String ActualCMFINALIZATION { get; set; }
 
 
 
@@ -116,6 +123,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int  User_IDFACTORYPLANNEDPCD { get; set; }
         public int  User_IDSYSTEMFILES { get; set; }
         public int  User_IDSHRINKAGE { get; set; }
+        public int User_IDOBSUBMISSION { get; set; }
+        public int User_IDCMFINALIZATION { get; set; }
 
 
         public String UsrDdFINALMARKER { get; set; }
@@ -134,6 +143,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String UsrDFACTORYPLANNEDPCD { get; set; }
         public String UsrDSYSTEMFILES { get; set; }
         public String UsrDSHRINKAGE { get; set; }
+        public String UsrDOBSUBMISSION { get; set; }
+        public String UsrDCMFINALIZATION { get; set; }
                
               
         public String status_dFINALMARKER { get; set; }
@@ -152,6 +163,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public String status_FACTORYPLANNEDPCD { get; set; }
         public String status_SYSTEMFILES { get; set; }
         public String status_SHRINKAGE { get; set; }
+        public String status_CMFINALIZATION { get; set; }
+        public String status_OBSUBMISSION { get; set; }
 
 
 
@@ -171,6 +184,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int Alert_DFACTORYPLANNEDPCD { get; set; }
         public int Alert_DSYSTEMFILES { get; set; }
         public int Alert_DSHRINKAGE { get; set; }
+        public int Alert_DCMFINALIZATION { get; set; }
+        public int Alert_DOBSUBMISSION { get; set; }
 
         public int DaysFINALMARKER { get; set; }
         public int DaysFC1 { get; set; }
@@ -188,6 +203,8 @@ namespace ArtWebApp.Areas.MVCTNA.ViewModel
         public int DaysFACTORYPLANNEDPCD { get; set; }
         public int DaysSYSTEMFILES { get; set; }
         public int DaysSHRINKAGE { get; set; }
+        public int DaysOBSUBMISSION { get; set; }
+        public int DaysCMFINALIZATION { get; set; }
 
 
 

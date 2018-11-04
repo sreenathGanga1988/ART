@@ -57,5 +57,6 @@ namespace ArtWebApp.DataModelAtcWorld
         public string IsAtcWord { get; set; }
         public Nullable<decimal> PackLocation_PK { get; set; }
         public string OurStyleGroup { get; set; }
+        public Nullable<decimal> RevisedQty { get; set; }
     }
 }

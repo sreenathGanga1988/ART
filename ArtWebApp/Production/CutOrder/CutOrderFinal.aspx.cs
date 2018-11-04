@@ -133,14 +133,35 @@ namespace ArtWebApp.Production.CutOrder
         }
 
 
-
+        public void checkjob(int ourstyleid)
+        {
+            //int ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString().ToString());
+            int check = 0;
+            
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from ourstyle in enty.JobContractMasters  where ourstyle.OurStyleID == ourstyleid select ourstyle;
+                foreach (var element in q)
+                {
+                    check = check + 1;
+                }
+            }
+            if (check == 0)
+            {
+                MessgeboxUpdate("Error", "Jobcontract Not Yet Generate");
+            }
+            else
+            {
+                FillAllcutorder(ourstyleid);
+            }
+        }
 
         protected void btn_OURSTYLE_Click(object sender, EventArgs e)
         {
 
 
-            //  fillsizedata();
-            FillAllcutorder(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
+              checkjob(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
+            //FillAllcutorder(int.Parse(drp_ourstyle.SelectedValue.ToString().ToString()));
 
         }
         protected void btn_cutorder_Click(object sender, EventArgs e)
@@ -776,7 +797,16 @@ namespace ArtWebApp.Production.CutOrder
             {
                 MessageBoxShow("Enter the Fabric Quantity ");
             }
+            //else if(drp_ourstyle.SelectedValue.ToString ().Trim() != null)
+            //{
+            //    int ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
 
+            //    using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            //    {
+            //        var q = from ourstyle in entty.AtcDetails where ourstyle.IsCMLocked == "Y" && ourstyle.OurStyleID == ourstyleid select ourstyle;
+                    
+            //    }
+            //    }
             else
             {
                 sucess = true;

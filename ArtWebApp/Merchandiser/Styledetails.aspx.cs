@@ -99,7 +99,8 @@ public partial class Merchandiser_Styledetails : System.Web.UI.Page
                 clr.AtcId = int.Parse(cmb_atc .SelectedValue.ToString ());
 
                 enty.StyleColors.Add(clr);
-                enty.SaveChanges();
+                    enty.SaveChanges();
+                    
                 //  ColorDetailsData.DataBind();
                 grd_stylecolor.DataBind();
             }

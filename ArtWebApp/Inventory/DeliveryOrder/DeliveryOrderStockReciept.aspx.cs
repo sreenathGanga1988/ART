@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtWebApp.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -20,13 +21,28 @@ namespace ArtWebApp.Inventory.DeliveryOrder
         {
 
         }
-
-        protected void btn_DO_Click(object sender, EventArgs e)
+       
+            protected void btn_DO_Click(object sender, EventArgs e)
         {
             dtrans = new DBTransaction.DeliveryOrdertransaction();
             DataTable dt = dtrans.GetDetailsOfsTOCKDO(int.Parse(cmb_do.SelectedValue.ToString()));
+            int do_no = int.Parse(cmb_do.SelectedValue.ToString());
             tbl_InverntoryDetails.DataSource = dt;
-            tbl_InverntoryDetails.DataBind();
+            
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                var q = from exp in enty.ShippingDocumentStockDODetails where exp.SDO_PK == do_no select exp;
+                foreach(var element in q)
+                {
+                    var r = from exp1 in enty.ShippingDocumentMasters where exp1.ShipingDoc_PK == element.ShipingDoc_PK select exp1;
+                    foreach(var e1 in r)
+                    {
+                        txt_expno.Text = e1.ShipDocNum;
+                    }
+                }
+            }
+
+                tbl_InverntoryDetails.DataBind();
             btn_saveDOR.Enabled = true;
         }
 

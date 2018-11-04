@@ -26,7 +26,7 @@ namespace ArtWebApp.BLL.AccountsBLL
 FROM            AtcMaster INNER JOIN
                          ProcurementMaster ON AtcMaster.AtcId = ProcurementMaster.AtcId
 WHERE        (ProcurementMaster.Supplier_Pk = @supplier_pk)
-GROUP BY AtcMaster.AtcId, AtcMaster.AtcNum";
+GROUP BY AtcMaster.AtcId, AtcMaster.AtcNum order by AtcMaster.AtcId ";
                 cmd.Parameters.AddWithValue("@supplier_pk", supplier_pk);
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -147,7 +147,7 @@ FROM(SELECT    ProcurementMaster.Supplier_Pk, ProcurementMaster.PO_Pk, Procureme
 
 
 
-                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType,tt.LastMRNDATE
+                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , (POQty-isnull(ReceivedQty,0)) as BalToRecv,   ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType,tt.LastMRNDATE
 FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, ProcurementDetails.POUnitRate,  CurrencyMaster.CurrencyID, CurrencyMaster.CurrencyCode,

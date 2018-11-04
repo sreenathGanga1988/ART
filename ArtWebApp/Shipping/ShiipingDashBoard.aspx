@@ -212,7 +212,7 @@ HAVING        (DeliveryOrderMaster.DeliveryDate &gt; CONVERT(DATETIME, '2016-12-
                     </tr>
                     <tr>
                         <td class="RedHeadding">Pending Invoicing</td>
-                        <td>&nbsp;</td>
+                        <td class="RedHeadding">Pending Sales DO To Book</td>
                     </tr>
                     <tr>
                         <td>
@@ -244,7 +244,26 @@ HAVING        (ShipmentHandOverMaster.IsCompleted = N'N')) AS tt
 WHERE        (ShippedQty &lt;&gt; InvoiceQty)
 "></asp:SqlDataSource>
                         </td>
-                        <td>&nbsp;</td>
+                        <td><asp:GridView ID="GridView4" runat="server" AllowPaging="True" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingSalesDO" Font-Size="Smaller" HeaderStyle-CssClass="header" PageSize="25" OnPageIndexChanging="GridView2_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows">
+                                <Columns>
+                                    <asp:BoundField DataField="SDONo" HeaderText="SDONo" SortExpression="SDONo" />
+                                    <asp:BoundField DataField="AtcNum" HeaderText="AtcNum" SortExpression="AtcNum" />
+                                    <asp:BoundField DataField="OurStyle" HeaderText="OurStyle" SortExpression="OurStyle" />
+                                    <asp:BoundField DataField="BuyerStyle" HeaderText="BuyerStyle" SortExpression="BuyerStyle" />
+                                    <asp:BoundField DataField="ShipQty" HeaderText="Shipped Qty" ReadOnly="True" SortExpression="ShipQty" />
+                                </Columns>
+                                <HeaderStyle CssClass="header" />
+                                <PagerStyle CssClass="pager" />
+                                <RowStyle CssClass="rows" />
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="PendingSalesDO" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT        ATCWorldToArtShipData.SDONo, ATCWorldToArtShipData.OurStyleId, ATCWorldToArtShipData.BuyerStyle, SUM(ATCWorldToArtShipData.ShipQty) AS ShipQty, AtcDetails.OurStyle, AtcMaster.AtcNum
+FROM            ATCWorldToArtShipData INNER JOIN
+                         AtcDetails ON ATCWorldToArtShipData.OurStyleId = AtcDetails.OurStyleID INNER JOIN
+                         AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId
+WHERE        (ATCWorldToArtShipData.IsBooked IS NULL)
+GROUP BY ATCWorldToArtShipData.SDONo, ATCWorldToArtShipData.OurStyleId, ATCWorldToArtShipData.BuyerStyle, AtcDetails.OurStyle, AtcMaster.AtcNum
+ORDER BY ATCWorldToArtShipData.OurStyleId
+"></asp:SqlDataSource></td>
                     </tr>
                 </table>
             </td>

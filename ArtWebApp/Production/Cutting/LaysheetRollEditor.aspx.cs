@@ -205,10 +205,8 @@ namespace ArtWebApp.Production.Cutting
                 if (chkBx != null && chkBx.Checked)
                 {
 
-
-
-
                     int lbl_rollpk = int.Parse(((di.FindControl("lbl_rollpk") as Label).Text.ToString()));
+                    int sequence_no= int.Parse(((di.FindControl("txt_sequence") as TextBox).Text.ToString()));
                     Decimal lbl_ayard = Decimal.Parse(((di.FindControl("lbl_ayard") as Label).Text.ToString()));
                     String rollstatus = ((di.FindControl("lbl_rollstatus") as Label).Text.ToString());
                     CheckBox chk_cutable = (di.FindControl("chk_cutable") as CheckBox);
@@ -219,6 +217,7 @@ namespace ArtWebApp.Production.Cutting
                     lsdetdata.RollStatus = rollstatus;
                     lsdetdata.Roll_PK = lbl_rollpk;
                     lsdetdata.RollAyard = lbl_ayard;
+                    lsdetdata.sequence_no = sequence_no;
                     rk.Add(lsdetdata);
                 }
             }

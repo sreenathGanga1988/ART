@@ -39,5 +39,13 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> Skudet_pk { get; set; }
         public Nullable<decimal> Mcr_pk { get; set; }
         public string IsApproved { get; set; }
+        public string IsConfirm { get; set; }
+        public string ConfirmedBy { get; set; }
+        public Nullable<System.DateTime> ConfirmedDate { get; set; }
+        public Nullable<decimal> ActualReceive { get; set; }
+        public Nullable<decimal> ActualDiffQty { get; set; }
+        public string Packages { get; set; }
+        public string AlterUOM { get; set; }
+        public Nullable<decimal> AlterUOM_qty { get; set; }
     }
 }

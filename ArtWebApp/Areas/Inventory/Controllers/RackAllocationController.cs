@@ -44,6 +44,17 @@ namespace ArtWebApp.Areas.Inventory.Controllers
             return View();
         }
 
+        public ActionResult StockRackAllocationIndex()
+        {
+            int locpk = int.Parse(HttpContext.Session["UserLoc_pk"].ToString());
+            ViewBag.Mrn_PK = new SelectList(enty.StockMrnMasters , "SMrn_PK", "SMrnNum");
+            ViewBag.Rack_PK = new SelectList(enty.RackMasters.Where(u => u.Rack_type == "General" && u.Location_pk == locpk).ToList(), "Rack_PK", "Rack_name");
+            return View();
+        }
+
+
+
+
         [HttpGet]
         public PartialViewResult GetDetailsRackShuffle(int Rack_Pk)
         {
@@ -100,6 +111,22 @@ namespace ArtWebApp.Areas.Inventory.Controllers
             }
 
             return PartialView("RollRackAllocation_P", allocateRack);
+        }
+        [HttpGet]
+        public PartialViewResult GetStockInventoryItems(int mrn_pk, int Rack_PK)
+        {
+            int locpk = int.Parse(HttpContext.Session["UserLoc_pk"].ToString());
+            AllocateRack allocateRack = new AllocateRack();
+            InventoryRepo inventoryRepo = new InventoryRepo();
+            DataTable dt = inventoryRepo.GetStockInventoryItems(mrn_pk, Rack_PK, locpk);
+
+            if (dt != null)
+            {
+
+                allocateRack.GetMrnlist = dt;
+            }
+
+            return PartialView("StockRackAllocation_P", allocateRack);
         }
 
         [HttpPost]
@@ -203,6 +230,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                         rackInventoryMaster.RefNum = element.Refnum;
                         rackInventoryMaster.DeliveredQty = 0;
                         rackInventoryMaster.IsLast = "Y";
+                        rackInventoryMaster.AddedDate = DateTime.Now;
                         enty.RackInventoryMasters.Add(rackInventoryMaster);
                         //try
                         //{
@@ -300,6 +328,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                         rackInventoryMaster.RefNum = element.Refnum;
                         rackInventoryMaster.DeliveredQty = 0;
                         rackInventoryMaster.IsLast = "Y";
+                        rackInventoryMaster.AddedDate = DateTime.Now;
                         enty.RackInventoryMasters.Add(rackInventoryMaster);
                         var q1 = from rack in enty.RackInventoryMasters where rack.Inventoryitem_PK == element.InventoryItem_PK && rack.Rack_PK == rack_pk select rack;
                         foreach (var rackinv in q1)
@@ -321,6 +350,106 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                         {
                             rackinv.DeliveredQty += Decimal.Parse(item.AllocateQty.ToString());
                             rackinv.OnhandQty -= Decimal.Parse(item.AllocateQty.ToString());
+                        }
+                    }
+
+                }
+
+            }
+            try
+            {
+                enty.SaveChanges();
+                status = true;
+            }
+            catch (Exception exp)
+            {
+                status = false;
+                throw;
+            }
+
+            return new JsonResult { Data = new { status = status } };
+
+            //return this.Json(new { updateddata = things }, JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
+
+        [HttpPost]
+        public JsonResult StockRackAllocate(List<Approvedata> things)
+        {
+            bool status = false;
+            InventoryRepo inventoryRepo = new InventoryRepo();            
+            foreach (Approvedata item in things)
+            {
+                int inv_pk = int.Parse(item.InventoryItem_PK.ToString());
+                int rack_pk = int.Parse(item.Rack_PK.ToString());
+                var inv = from inventory in enty.StockInventoryMasters 
+                          where inventory.SInventoryItem_PK == inv_pk
+                          select inventory;
+
+                foreach (var element in inv)
+                {
+                    if (!enty.StockRackInventoryMasters.Any(f => f.SInventoryitem_PK== element.SInventoryItem_PK && f.Rack_PK == rack_pk))
+                    {
+
+                        StockRackInventoryMaster rackInventoryMaster = new StockRackInventoryMaster();
+
+                        rackInventoryMaster.SInventoryitem_PK= element.SInventoryItem_PK;
+                        rackInventoryMaster.SMRNDet_PK = element.SMRNDet_Pk;
+                        rackInventoryMaster.SPODetails_PK = element.SPODetails_PK;
+                        rackInventoryMaster.Template_PK = element.Template_PK;
+                        rackInventoryMaster.OnhandQty = Decimal.Parse(item.AllocateQty.ToString());
+                        rackInventoryMaster.MrnQty = Decimal.Parse(item.mrnqty.ToString());
+                        rackInventoryMaster.ReceivedQty = Decimal.Parse(item.AllocateQty.ToString());
+                        rackInventoryMaster.BalanceQty = Decimal.Parse(item.BalanceQty.ToString()) - Decimal.Parse(item.AllocateQty.ToString());
+                        rackInventoryMaster.ReceivedVia = element.ReceivedVia;
+                        rackInventoryMaster.Location_PK = element.Location_Pk;
+                        rackInventoryMaster.Rack_PK = int.Parse(item.Rack_PK.ToString());
+                        rackInventoryMaster.RefNum = element.Refnum;
+                        rackInventoryMaster.DeliveredQty = 0;
+                        rackInventoryMaster.IsLast = "Y";
+                        rackInventoryMaster.AddedDate = DateTime.Now;
+                        enty.StockRackInventoryMasters.Add(rackInventoryMaster);
+                        //try
+                        //{
+                        //    enty.SaveChanges();
+                        //}
+                        //catch (Exception e)
+                        //{
+                        //    Console.WriteLine(String.Concat(e.StackTrace, e.Message));
+
+                        //    if (e.InnerException != null)
+                        //    {
+                        //        Console.WriteLine("Inner Exception");
+                        //        Console.WriteLine(String.Concat(e.InnerException.StackTrace,
+                        //        e.InnerException.Message));
+                        //    }
+                        //    throw;
+                        //}
+                        if ((Decimal.Parse(item.BalanceQty.ToString()) - Decimal.Parse(item.AllocateQty.ToString())) == 0)
+                        {
+                            var mrn = from mrndet in enty.StockMRNDetails
+                                      where mrndet.SMRNDet_Pk == element.SMRNDet_Pk
+                                      select mrndet;
+                            foreach (var mrndet in mrn)
+                            {
+                                //mrndet.IsRackAllocateDone = "Y";
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+
+                        var q = from rack in enty.StockRackInventoryMasters where rack.SInventoryitem_PK== element.SInventoryItem_PK && rack.Rack_PK == rack_pk select rack;
+                        foreach (var rackinv in q)
+                        {
+                            rackinv.ReceivedQty += Decimal.Parse(item.AllocateQty.ToString());
+                            rackinv.OnhandQty += Decimal.Parse(item.AllocateQty.ToString());
+                            rackinv.BalanceQty -= Decimal.Parse(item.AllocateQty.ToString());
                         }
                     }
 

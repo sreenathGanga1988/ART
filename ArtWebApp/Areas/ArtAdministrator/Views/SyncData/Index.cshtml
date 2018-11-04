@@ -204,6 +204,7 @@
 
 
         });
+
         $("#Sync_jc_Optional").click(function (e, params) {
             var issucess=
             $("#output").empty();
@@ -271,6 +272,42 @@
               }
 
         });
+
+        $("#Sync_csfa").click(function (e, params) {
+            var issucess=
+            $("#output").empty();
+            $('#loadingmessage').show();
+
+           $("#output").append("<p><strong>Start Updating CSFA </strong></p>");
+              $.ajax({
+                url: "@Url.Action("UpdateCSFA", "SyncData")",
+                traditional: true,
+                type: "GET",
+                 success: function (fooBarHTML) {
+
+                     $("#output").append("<p><strong> Successfully Completed Updating CSFA in " + fooBarHTML.filename +"Ms  </strong></p>")
+                     totalcompleted = totalcompleted + 1;
+                     hideDiv(totalcompleted);
+                },
+                error: function (xhr, status, errorThrown) {
+                    $("#output").append("<p><strong>Error Updating CSFA </strong></p>")
+                    totalcompleted = totalcompleted + 1;
+                    hideDiv(totalcompleted);
+                }
+             });
+
+            
+
+      
+
+              hideDiv(totalcompleted);
+              if (totalcompleted >= 6) {
+                  $("#output").hide();
+              }
+
+        });
+
+
 
         $("#input_date_update").click(function (e, params) {
             var issucess=
@@ -380,6 +417,7 @@
 
 <button id="Sync_jc_Optional" type="button" class="btn btn-primary">JobContract Optional</button>
 <button id="input_date_update" type="button" class="btn btn-primary">Input Date</button>
+<button id="Sync_csfa" type="button" class="btn btn-primary">SYNC CSFA</button>
 
 
 <button id="BackUP" type="button" class="btn btn-primary">BackUP</button>

@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "MCRRollIndex";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MCR Roll Details</h2>
+
+
+<script>
+
+
+       $(document).ready(function () {
+
+
+            $("#Show_MCRSummary").click(function (e, params) {
+                $('#loadingmessage').show();
+                var Mcr_pk = $('#Mcr_pk').find('option:selected').val();
+                //var Atcid = $('#AtcID').find('option:selected').val();
+
+                $.ajax({
+                        url: "@Url.Action("GetRollDetails", "MCR")",
+                        traditional: true,
+                        type: "GET",
+                    data: { 'Mcr_pk': Mcr_pk,},
+                    success: function (fooBarHTML) {
+                            $('#loadingmessage').hide();
+                        $("#Summarydiv").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });
+            });
+
+        });
+
+
+
+
+</script>
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                MCRNo :
+            </div>
+            <div class="col-md-6">  @Html.DropDownList("Mcr_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>            
+
+            <div class="col-sm-4">
+                <input id="Show_MCRSummary" type="button" value="Show Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+
+
+<div id="Summarydiv"> </div>
+
+
+

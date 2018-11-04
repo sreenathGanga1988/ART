@@ -23,6 +23,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ReceivedQty { get; set; }
         public Nullable<decimal> Uom_PK { get; set; }
         public Nullable<decimal> ExtraQty { get; set; }
+        public Nullable<decimal> SDoc_PK { get; set; }
     
         public virtual StockPODetail StockPODetail { get; set; }
         public virtual StockPOMaster StockPOMaster { get; set; }

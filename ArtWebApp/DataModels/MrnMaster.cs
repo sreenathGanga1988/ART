@@ -29,6 +29,9 @@ namespace ArtWebApp.DataModels
         public string DoNumber { get; set; }
         public Nullable<decimal> Location_Pk { get; set; }
         public Nullable<decimal> Reciept_Pk { get; set; }
+        public string MrnClosed { get; set; }
+        public string MrnClosedBy { get; set; }
+        public Nullable<System.DateTime> MrnClosedDate { get; set; }
     
         public virtual LocationMaster LocationMaster { get; set; }
         public virtual ICollection<MrnDetail> MrnDetails { get; set; }

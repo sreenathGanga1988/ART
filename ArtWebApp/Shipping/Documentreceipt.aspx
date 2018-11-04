@@ -34,9 +34,7 @@
                             <asp:RadioButton ID="rbt_directgenitem" runat="server" GroupName="A" Text="DIRECT from Supplier (Stock ADN)" />
                         </td>
                         <td class="NormalTD" >
-
-<%--                             <ucc:DropDownListChosen ID="drp_rcpt" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
-                                    </ucc:DropDownListChosen>--%>
+                            <asp:RadioButton ID="rbt_generalstockdo" runat="server" GroupName="A" Text="INDIRECT VIA ATRACO(STOCK DO GENERAL)" />
                         </td>
                         <td class="ButtonTD" >
                             &nbsp;</td>
@@ -393,7 +391,49 @@
                                         <SortedDescendingHeaderStyle BackColor="#7E0000" />
                                     </asp:GridView>
 
-
+                                    <asp:GridView ID="tbl_salesdo" runat="server" AutoGenerateColumns="False" 
+                                        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" 
+                                        CellPadding="4" 
+                                        style="font-size: small; font-family: Calibri" Width="90%" 
+                                        DataKeyNames="SDO_PK">
+                                        <Columns>
+                                                       <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>  
+                                             <asp:TemplateField HeaderText="SDoc_Pk" InsertVisible="False" SortExpression="SDO_PK">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lbl_SDO_PK" runat="server" Text='<%# Bind("SDO_PK") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>
+                                           
+                                            <asp:BoundField DataField="SDONum" HeaderText="SDONum" 
+                                                SortExpression="SDONum" />
+                                            <asp:BoundField DataField="DeliveryDate" HeaderText="DeliveryDate" 
+                                                SortExpression="DeliveryDate" />                                                                                        
+                                            <asp:BoundField DataField="ContainerNumber" HeaderText="ContainerNumber" SortExpression="ContainerNumber" />
+                                            <asp:BoundField DataField="From" HeaderText="From" 
+                                                SortExpression="From" />
+                                              <asp:BoundField DataField="TO Location" HeaderText="TO Location" SortExpression="TO Location" />
+                                              <asp:BoundField DataField="AddedBy" HeaderText="AddedBy" SortExpression="AddedBy" />
+                                              <asp:BoundField DataField="AddedDate" HeaderText="AddedDate" SortExpression="AddedDate" />
+                                              <asp:BoundField DataField="DoType" HeaderText="DoType" SortExpression="DoType" />
+                                        </Columns>
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                    </asp:GridView>
                                 </ContentTemplate>
                             </asp:UpdatePanel></td>
         </tr>

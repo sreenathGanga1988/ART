@@ -17,7 +17,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/StockPOFreightCharge
         public ActionResult Index()
         {
-            return View(db.StockFreightRequestMasters.ToList());
+            return View(db.StockFreightRequestMasters.Where(u => u.IsPosted == null && u.IsDeleted=="N").ToList());
         }
 
         // GET: ArtMVCMerchandiser/SeaFreightRequests/Details/5

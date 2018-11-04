@@ -16,7 +16,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/LabChargeRequest
         public ActionResult Index()
         {
-            return View(db.LabRequestMasters.ToList());
+            return View(db.LabRequestMasters.Where(u=> u.IsPosted==null) .ToList());
 
         }
         public ActionResult Edit(decimal id)

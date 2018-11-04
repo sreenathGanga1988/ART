@@ -19,7 +19,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> TransitQty { get; set; }
         public Nullable<decimal> DO_PK { get; set; }
     
-        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
         public virtual InventoryMaster InventoryMaster { get; set; }
+        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
     }
 }

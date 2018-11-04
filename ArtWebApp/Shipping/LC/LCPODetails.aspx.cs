@@ -11,6 +11,7 @@ namespace ArtWebApp.Shipping.LC
 {
     public partial class LCPODetails : System.Web.UI.Page
     {
+        private ArtEntitiesnew enty = new ArtEntitiesnew();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -112,33 +113,42 @@ namespace ArtWebApp.Shipping.LC
             ArrayList povaluelist = new ArrayList();
             ArrayList ponumlist = new ArrayList();
             List<Infragistics.Web.UI.ListControls.DropDownItem> items = drp_po.SelectedItems;
-           
-            if(items.Count>0)
+            BLL.ShippingBLL.LCdata lcdata = new BLL.ShippingBLL.LCdata();
+            if (items.Count>0)
             {
-                BLL.ShippingBLL.LCdata lcdata = new BLL.ShippingBLL.LCdata();
+                
                 lcdata.LCDetailsDetailsDataCollection = lcdata.GetPOData(items, drp_Potype.SelectedItem.Text.Trim(), int.Parse(Session["lc_pk"].ToString ()));
                 lcdata.insertProductionbReport();
             }
+            Session["lc_pk"] = int.Parse(drp_lc.SelectedItem.Value.ToString());            
+            tbl_podetails.DataSource = lcdata.getlcdata(int.Parse(drp_lc.SelectedItem.Value.ToString()));
+            tbl_podetails.DataBind();
         }
 
         protected void button_showLCData_Click(object sender, EventArgs e)
         {
             Session["lc_pk"] = int.Parse(drp_lc.SelectedItem.Value.ToString());
             BLL.ShippingBLL.LCdata lcdata = new BLL.ShippingBLL.LCdata();
+            int lcpk = int.Parse(drp_lc.SelectedItem.Value.ToString());
+            Decimal lcvalue = 0; 
+            var q = from lc in enty.LCMasters where lc.LC_PK == lcpk select lc;
+            foreach(var element in q)
+            {
+                lcvalue = decimal.Parse(element.Value.ToString());
+            }
+            txt_lcvalue.Text = lcvalue.ToString();
             tbl_podetails.DataSource = lcdata.getlcdata(int.Parse(drp_lc.SelectedItem.Value.ToString()));
             tbl_podetails.DataBind();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            Decimal totvalue = 0;
             foreach (GridViewRow di in tbl_podetails.Rows)
             {
-
                 int lcdetpk_pk = int.Parse(((di.FindControl("lbl_lcdetpk") as Label).Text.ToString()));
-
                 Decimal lcvalue = Decimal.Parse(((di.FindControl("txt_lcvalue") as TextBox).Text.ToString()));
-
-
+                totvalue += Decimal.Parse(((di.FindControl("txt_lcvalue") as TextBox).Text.ToString()));
                 String invoicenum = ((di.FindControl("txt_invoicenum") as TextBox).Text.ToString());
                 BLL.ShippingBLL.LCDetailData shpdet = new BLL.ShippingBLL.LCDetailData();
                 shpdet.LCDet_PK = lcdetpk_pk;
@@ -146,10 +156,10 @@ namespace ArtWebApp.Shipping.LC
                 shpdet.InvoiceNUM = invoicenum.Trim ();
                 shpdet.AddedBy = Session["Username"].ToString().Trim();
                 shpdet.AddedDate = DateTime.Now;
-
                 shpdet.updatelcdet();
                
             }
+
         }
   
     

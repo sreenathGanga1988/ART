@@ -188,7 +188,15 @@
         </tr>
         <tr>
             <td>
-                &nbsp;</td>
+                <div id="Messaediv" runat="server">
+                 
+
+
+                           <asp:Label ID="lbl_msg" runat="server" Text="*"></asp:Label>
+
+
+                     
+               </div></td>
         </tr>
     </table>
 </asp:Content>

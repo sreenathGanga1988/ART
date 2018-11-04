@@ -40,14 +40,15 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         [HttpPost]
         public ActionResult RollPropertyChage(RollPropertyJson Model)
         {
-
+            bool status = false;
             InventoryRepo inventoryRepo = new InventoryRepo();
 
 
 
-            inventoryRepo.insertRollProperty(Model);
+            status=inventoryRepo.insertRollProperty(Model);
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return new JsonResult { Data = new { status = status } }; ;
         }
 
 

@@ -499,7 +499,14 @@
                                               </FooterTemplate>
                                              </asp:TemplateField>
 
-
+                                        <asp:TemplateField HeaderText="Sequence_NO" SortExpression="Sequence_No">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:TextBox ID="txt_sequence"  onkeypress="return isNumberKey(event,this)"  Text="0"  runat="server"></asp:TextBox>
+                                                 </ItemTemplate>
+                                                 <FooterTemplate>
+                                              </FooterTemplate>
+                                             </asp:TemplateField>
                                          
                                                                             
                                              <asp:TemplateField HeaderText="Plies" Visible="False">

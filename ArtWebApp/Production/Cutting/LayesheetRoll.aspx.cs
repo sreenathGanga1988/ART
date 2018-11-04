@@ -105,6 +105,7 @@ namespace ArtWebApp.Production.Cutting
                 lblmstr.NoofPlies = int.Parse(txt_newplies.Text);
                 lblmstr.markernum = drp_markernum.SelectedItem.Text.ToString();
                 lblmstr.Location_PK = int.Parse(drp_fact.SelectedValue.ToString());
+                
 
                 if (lblmstr.NoofPlies > float.Parse(txt_balplies.Text))
                 {
@@ -172,13 +173,14 @@ namespace ArtWebApp.Production.Cutting
                     Decimal lbl_ayard = Decimal.Parse(((di.FindControl("lbl_ayard") as Label).Text.ToString()));
                     String rollstatus = ((di.FindControl("lbl_rollstatus") as Label).Text.ToString());
                     CheckBox chk_cutable = (di.FindControl("chk_cutable") as CheckBox);
-
+                    int sequence = int.Parse(((di.FindControl("txt_sequence") as TextBox).Text.ToString()));
 
                     BLL.ProductionBLL.LaysheetDetaolsData lsdetdata = new BLL.ProductionBLL.LaysheetDetaolsData();
 
                     lsdetdata.RollStatus = rollstatus;
                     lsdetdata.Roll_PK = lbl_rollpk;
                     lsdetdata.RollAyard = lbl_ayard;
+                    lsdetdata.sequence_no = sequence;
                     rk.Add(lsdetdata);
                 }
             }
@@ -1359,8 +1361,16 @@ namespace ArtWebApp.Production.Cutting
 
             txt_balplies.Text = balanceplies.ToString();
             upd_balplies.Update();
-            tbl_RollDetails.DataSource = dt;
-            tbl_RollDetails.DataBind();
+            try
+            {
+                tbl_RollDetails.DataSource = dt;
+                tbl_RollDetails.DataBind();
+            }
+            catch (Exception exp)
+            {
+
+                throw;
+            }
             upd_grid.Update();
             //GenerateTable(fillsizedata());
             showlaylength(int.Parse(drp_markernum.SelectedValue.ToString()));

@@ -19,7 +19,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/FreightRequestMasters
         public ActionResult Index()
         {
-            List<FreightRequestMaster> freightRequestMasterlist = db.FreightRequestMasters.Where(u => u.ShipementType == "Air").ToList();
+            List<FreightRequestMaster> freightRequestMasterlist = db.FreightRequestMasters.Where(u => u.ShipementType == "Air" && u.IsDeleted =="N" && u.IsPosted == null).ToList();
 
             return View(CalculateAllowedvalue(freightRequestMasterlist));
            

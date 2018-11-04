@@ -409,20 +409,53 @@ namespace ArtWebApp.BLL.CutOrderBLL
         }
 
 
-
-
-        public int GetbalanceQty(int cutid)
+        public int GetDeliverYdsQty(int cutid)
         {
+            int balqty = 0;
+            decimal bal = 0.0M;
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = @"select isnull(tt.FabQty-tt.DeliveredQty,0) as balQty from 
-(SELECT        CutOrderMaster.CutID, MAX(CutOrderMaster.FabQty) AS FabQty, SUM(ISNULL(CutOrderDO.DeliveryQty, 0)) AS DeliveredQty
+            cmd.CommandText = @"select round(isnull(tt.DeliveredQty,0),0 ) as balQty from 
+(SELECT        CutOrderMaster.CutID, MAX(CutOrderMaster.FabQty) AS FabQty, SUM(ISNULL(CutOrderDO.RollYard , CutOrderDO.DeliveryQty )) AS DeliveredQty
 FROM            CutOrderMaster LEFT OUTER JOIN
                          CutOrderDO ON CutOrderMaster.CutID = CutOrderDO.CutID where        (CutOrderMaster.CutID =@param1)
 GROUP BY CutOrderMaster.CutID)tt";
             cmd.Parameters.AddWithValue("@param1", cutid);
-            int balqty = int.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
 
-            return balqty;
+                bal = decimal.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+                balqty = Convert.ToInt32(bal);
+                return balqty;
+            
+
+
+        }
+
+        public int GetbalanceQty(int cutid)
+        {
+            int balqty = 0;
+            decimal bal = 0.0M;
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"select round(isnull(tt.FabQty-isnull(tt.DeliveredQty,0),0),0 )as balQty from 
+(SELECT        CutOrderMaster.CutID, MAX(CutOrderMaster.FabQty) AS FabQty, SUM(ISNULL(CutOrderDO.RollYard , CutOrderDO.DeliveryQty )) AS DeliveredQty
+FROM            CutOrderMaster LEFT OUTER JOIN
+                         CutOrderDO ON CutOrderMaster.CutID = CutOrderDO.CutID where        (CutOrderMaster.CutID =@param1)
+GROUP BY CutOrderMaster.CutID)tt";
+            cmd.Parameters.AddWithValue("@param1", cutid);
+
+            try
+            {
+
+                bal = decimal.Parse(QueryFunctions.ReturnQueryValue(cmd).ToString());
+                balqty = Convert.ToInt32(bal);
+                return balqty;
+            }
+            catch (Exception exp)
+            {
+
+                throw;
+            }
+           
+
+           
         }
 
 

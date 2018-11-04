@@ -165,6 +165,7 @@
           <Property Name="IsAtcWord" Type="nchar" MaxLength="10" />
           <Property Name="PackLocation_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="OurStyleGroup" Type="nchar" MaxLength="10" />
+          <Property Name="RevisedQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ASQShuffleDetailsAtc">
           <Key>
@@ -779,6 +780,7 @@
           <Property Name="IsAtcWord" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PackLocation_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="OurStyleGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RevisedQty" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="ArtJobContractOptionalMaster">
           <Key>
@@ -1087,6 +1089,7 @@
           <EntitySetMapping Name="ASQAllocationMaster_tbl">
             <EntityTypeMapping TypeName="AtcModelModel.ASQAllocationMaster_tbl">
               <MappingFragment StoreEntitySet="ASQAllocationMaster_tbl">
+                <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
                 <ScalarProperty Name="OurStyleGroup" ColumnName="OurStyleGroup" />
                 <ScalarProperty Name="PackLocation_PK" ColumnName="PackLocation_PK" />
                 <ScalarProperty Name="IsAtcWord" ColumnName="IsAtcWord" />

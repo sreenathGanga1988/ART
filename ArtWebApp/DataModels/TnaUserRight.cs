@@ -34,6 +34,8 @@ namespace ArtWebApp.DataModels
         public Nullable<bool> IsSystemFile { get; set; }
         public Nullable<bool> IsShrinkage { get; set; }
         public Nullable<decimal> Location_PK { get; set; }
+        public Nullable<bool> IsObSubmission { get; set; }
+        public Nullable<bool> IsCmFinalization { get; set; }
     
         public virtual UserMaster UserMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }

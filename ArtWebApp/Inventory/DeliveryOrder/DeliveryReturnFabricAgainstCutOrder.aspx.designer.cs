@@ -58,6 +58,15 @@ namespace ArtWebApp.Inventory.DeliveryOrder {
         protected global::System.Web.UI.WebControls.TextBox txt_containernum;
         
         /// <summary>
+        /// chk_endbit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_endbit;
+        
+        /// <summary>
         /// drp_ToWarehouse control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,105 @@ namespace ArtWebApp.Inventory.DeliveryOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tbl_InverntoryDetails;
+        
+        /// <summary>
+        /// Upd_roll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Upd_roll;
+        
+        /// <summary>
+        /// ModalPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ModalPanel;
+        
+        /// <summary>
+        /// upd_shade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_shade;
+        
+        /// <summary>
+        /// drp_shade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.ListControls.WebDropDown drp_shade;
+        
+        /// <summary>
+        /// lbl_shringagegroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_shringagegroup;
+        
+        /// <summary>
+        /// lbl_widthgroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_widthgroup;
+        
+        /// <summary>
+        /// lbl_markerType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_markerType;
+        
+        /// <summary>
+        /// tbl_rolldata control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tbl_rolldata;
+        
+        /// <summary>
+        /// btn_confirmRolls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_confirmRolls;
+        
+        /// <summary>
+        /// upd_totalyds control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upd_totalyds;
+        
+        /// <summary>
+        /// lbl_totalyds control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_totalyds;
         
         /// <summary>
         /// btn_saveDO control.

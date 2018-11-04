@@ -66,21 +66,6 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
                         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     }
                 }
 
@@ -242,7 +227,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     DataTable dt1 = new DataTable();
                     cmd.Parameters.Clear();                    
 
-                    cmd.CommandText = @"[ProductionTNAMerchantwise_sp]";
+                    cmd.CommandText = @"[ProductionTNAOurstyletwise_sp]";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@fromdate", fromdate);
@@ -264,7 +249,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     cmd.Parameters.Clear();
                     Ourstyle_id = int.Parse(oursytle.ToString());
 
-                    cmd.CommandText = @"[ProductionTNAMerchantwise_sp]";
+                    cmd.CommandText = @"[ProductionTNAOurstyletwise_sp]";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@fromdate", fromdate);
@@ -526,6 +511,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 }
                 else if (element.CompName.Trim() == "FINAL MARKER")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.FINALMARKER = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -536,16 +522,21 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if(actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                        productionTNAVModel.DaysFINALMARKER = DoneDays;
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date  ).TotalDays.ToString());
+                        productionTNAVModel.DaysFINALMARKER = DoneDays;
                     }
-                    int DoneDays= int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
-                    productionTNAVModel.DaysFINALMARKER = DoneDays;
+                    
+                    
                 }
                 else if (element.CompName.Trim() == "FC1")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.FC1 = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -556,17 +547,20 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysFC1 = DoneDays;
 
                 }
                 else if (element.CompName.Trim() == "PP MEETING")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.PPMEETING = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -577,17 +571,20 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysPPMEETING = DoneDays;
 
                 }
                 else if (element.CompName.Trim() == "SIZE SET")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.SIZESET = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy"); ;
@@ -598,68 +595,72 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysSIZESET= DoneDays;
 
                 }
                 else if (element.CompName.Trim() == "SEWING TRIM")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.SEWINGTRIM = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdSEWINGTRIM = int.Parse(element.ProductionTNACompID.ToString());
-
-                    productionTNAVModel.ActualSEWINGTRIM = actualdate;
-                    
+                    productionTNAVModel.ActualSEWINGTRIM = actualdate;                    
                     productionTNAVModel.status_SEWINGTRIM = CalculateStatus(productionTNAVModel.ActualSEWINGTRIM,DateTime.Parse(productionTNAVModel.SEWINGTRIM.ToString()), alertdays);
-
                     DateTime donedate = DateTime.Parse(productionTNAVModel.SEWINGTRIM.ToString());
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysSEWINGTRIM = DoneDays;
                 }
                 else if (element.CompName.Trim() == "BULK FABRIC")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.BULKFABRIC = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdBULKFABRIC = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualBULKFABRIC = actualdate;
-
                     productionTNAVModel.status_BULKFABRIC = CalculateStatus(productionTNAVModel.ActualBULKFABRIC,DateTime.Parse(productionTNAVModel.BULKFABRIC.ToString()), alertdays);
 
                     DateTime donedate = DateTime.Parse(productionTNAVModel.BULKFABRIC.ToString());
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysBULKFABRIC = DoneDays;
                 }
                 else if (element.CompName.Trim() == "RECEIPT OF ORGINAL DOCUMENT")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.RECEIPTOFORGINALDOCUMENT = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdRECEIPTOFORGINALDOCUMENT = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualRECEIPTOFORGINALDOCUMENT = actualdate;
-
                     productionTNAVModel.status_RECEIPTOFORGINALDOCUMENT = CalculateStatus(productionTNAVModel.ActualRECEIPTOFORGINALDOCUMENT,
                     DateTime.Parse(productionTNAVModel.RECEIPTOFORGINALDOCUMENT.ToString()), alertdays);
 
@@ -667,22 +668,24 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysRECEIPTOFORGINALDOCUMENT = DoneDays;
                 }
                 else if (element.CompName.Trim() == "GRADDED PATTERN")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.GRADDEDPATTERN = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdGRADDEDPATTERN = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualGRADDEDPATTERN = actualdate;
-
                     productionTNAVModel.status_GRADDEDPATTERN = CalculateStatus(productionTNAVModel.ActualGRADDEDPATTERN,
                    DateTime.Parse(productionTNAVModel.GRADDEDPATTERN.ToString()), alertdays);
 
@@ -690,22 +693,24 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysGRADDEDPATTERN = DoneDays;
                 }
                 else if (element.CompName.Trim() == "SAMPLE YARDAGES")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.SAMPLEYARDAGES = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdSAMPLEYARDAGES = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualSAMPLEYARDAGES = actualdate;
-
                     productionTNAVModel.status_SAMPLEYARDAGES = CalculateStatus(productionTNAVModel.ActualSAMPLEYARDAGES,
                  DateTime.Parse(productionTNAVModel.SAMPLEYARDAGES.ToString()), alertdays);
 
@@ -713,16 +718,19 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysSAMPLEYARDAGES = DoneDays;
                 }
                 else if (element.CompName.Trim() == "PP APPROVAL")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.PPAPPROVAL = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -736,22 +744,24 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysPPAPPROVAL = DoneDays;
                 }
                 else if (element.CompName.Trim() == "PP SUBMISSION DATE MERCHANT")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.PPSUBMISSIONDATEMERCHANT = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPPSUBMISSIONDATEMERCHANT = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPPSUBMISSIONDATEMERCHANT = actualdate;
-
                     productionTNAVModel.status_PPSUBMISSIONDATEMERCHANT = CalculateStatus(productionTNAVModel.ActualPPSUBMISSIONDATEMERCHANT,
                DateTime.Parse(productionTNAVModel.PPSUBMISSIONDATEMERCHANT.ToString()), alertdays);
 
@@ -759,18 +769,21 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysPPSUBMISSIONDATEMERCHANT = DoneDays;
                 }
 
 
                 else if (element.CompName.Trim() == "INPUT")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.INPUT = DateTime.Parse(productionTNAVModel.FACTORYPLANNEDPCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -783,22 +796,24 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysINPUT = DoneDays;
                 }
                 else if (element.CompName.Trim() == "PACKING TRIMS")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.PACKINGTRIMS = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
                     productionTNAVModel.IdPACKINGTRIMS = int.Parse(element.ProductionTNACompID.ToString());
                     productionTNAVModel.ActualPACKINGTRIMS = actualdate;
-
                     productionTNAVModel.status_PACKINGTRIMS = CalculateStatus(productionTNAVModel.ActualPACKINGTRIMS,
           DateTime.Parse(productionTNAVModel.PACKINGTRIMS.ToString()), alertdays);
 
@@ -806,16 +821,19 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysPACKINGTRIMS = DoneDays;
                 }
                 else if (element.CompName.Trim() == "SYSTEM FILES")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.SYSTEMFILES = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -828,16 +846,19 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysSYSTEMFILES = DoneDays;
                 }
                 else if (element.CompName.Trim() == "SHRINKAGE")
                 {
+                    int DoneDays = 0;
                     alloweddays = int.Parse(element.DaystoAdjust.ToString());
                     alertdays = int.Parse(element.Alertdays.ToString());
                     productionTNAVModel.SHRINKAGE = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
@@ -845,18 +866,67 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     productionTNAVModel.ActualSHRINKAGE = actualdate;
                     productionTNAVModel.status_SHRINKAGE = CalculateStatus(productionTNAVModel.ActualSHRINKAGE,
     DateTime.Parse(productionTNAVModel.SHRINKAGE.ToString()), alertdays);
-
                     DateTime donedate = DateTime.Parse(productionTNAVModel.SHRINKAGE.ToString());
                     if (actualdate != "")
                     {
                         actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     }
                     else
                     {
                         actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
                     }
-                    int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
                     productionTNAVModel.DaysSHRINKAGE = DoneDays;
+                }
+                else if (element.CompName.Trim() == "OB SUBMISSION")
+                {
+                    int DoneDays = 0;
+                    alloweddays = int.Parse(element.DaystoAdjust.ToString());
+                    alertdays = int.Parse(element.Alertdays.ToString());
+                    productionTNAVModel.OBSUBMISSION  = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.IdOBSUBMISSION = int.Parse(element.ProductionTNACompID.ToString());
+                    productionTNAVModel.ActualOBSUBMISSION = actualdate;
+                    productionTNAVModel.status_OBSUBMISSION= CalculateStatus(productionTNAVModel.ActualOBSUBMISSION,
+    DateTime.Parse(productionTNAVModel.OBSUBMISSION .ToString()), alertdays);
+                    DateTime donedate = DateTime.Parse(productionTNAVModel.OBSUBMISSION .ToString());
+                    if (actualdate != "")
+                    {
+                        actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    }
+                    else
+                    {
+                        actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
+                    }
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    productionTNAVModel.DaysOBSUBMISSION = DoneDays;
+                }
+                else if (element.CompName.Trim() == "CM FINALIZATION")
+                {
+                    int DoneDays = 0;
+                    alloweddays = int.Parse(element.DaystoAdjust.ToString());
+                    alertdays = int.Parse(element.Alertdays.ToString());
+                    productionTNAVModel.CMFINALIZATION = DateTime.Parse(productionTNAVModel.PCD.ToString()).AddDays(alloweddays).ToString("MMMM dd,yyyy");
+                    productionTNAVModel.IdCMFINALIZATION = int.Parse(element.ProductionTNACompID.ToString());
+                    productionTNAVModel.ActualCMFINALIZATION = actualdate;
+                    productionTNAVModel.status_CMFINALIZATION = CalculateStatus(productionTNAVModel.ActualCMFINALIZATION,
+    DateTime.Parse(productionTNAVModel.CMFINALIZATION.ToString()), alertdays);
+                    DateTime donedate = DateTime.Parse(productionTNAVModel.CMFINALIZATION.ToString());
+                    if (actualdate != "")
+                    {
+                        actdate = DateTime.Parse(actualdate.ToString());
+                        DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    }
+                    else
+                    {
+                        actdate = DateTime.Now;
+                        DoneDays = int.Parse((donedate.Date - actdate.Date).TotalDays.ToString());
+                    }
+                    //int DoneDays = int.Parse((actdate.Date - donedate.Date).TotalDays.ToString());
+                    productionTNAVModel.DaysCMFINALIZATION = DoneDays;
                 }
                 else if (element.CompName.Trim() == " FACTORY PLANNED PCD")
                 {
@@ -1107,6 +1177,28 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                     productionTNAVModel.UsrDSHRINKAGE = "";
                 }
 
+                try
+                {
+                    var q = tnaUserrightlisttemp.Where(u => u.IsObSubmission  == true).LastOrDefault();
+                    productionTNAVModel.User_IDOBSUBMISSION= int.Parse(q.User_PK.ToString());
+                    productionTNAVModel.UsrDOBSUBMISSION= q.UserMaster.UserName;
+                }
+                catch (Exception)
+                {
+
+                    productionTNAVModel.UsrDOBSUBMISSION= "";
+                }
+                try
+                {
+                    var q = tnaUserrightlisttemp.Where(u => u.IsCmFinalization== true).LastOrDefault();
+                    productionTNAVModel.User_IDCMFINALIZATION= int.Parse(q.User_PK.ToString());
+                    productionTNAVModel.UsrDCMFINALIZATION= q.UserMaster.UserName;
+                }
+                catch (Exception)
+                {
+
+                    productionTNAVModel.UsrDCMFINALIZATION= "";
+                }
 
 
 
@@ -1128,6 +1220,9 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
                 productionTNAVModel.UsrDFACTORYPLANNEDPCD = "";
                 productionTNAVModel.UsrDSYSTEMFILES = "";
                 productionTNAVModel.UsrDSHRINKAGE = "";
+                productionTNAVModel.UsrDOBSUBMISSION = "";
+                productionTNAVModel.UsrDCMFINALIZATION = "";
+                
             }
           
 
@@ -1140,7 +1235,7 @@ namespace ArtWebApp.Areas.MVCTNA.TNAREpo
 
 
 
-        public DataTable get_oursylelist()
+        public DataTable get_oursylelist(int atcid,int locpk)
         {
             DataTable dt = new DataTable();
 
@@ -1150,11 +1245,12 @@ FROM            AtcDetails INNER JOIN
                          AtcMaster ON AtcDetails.AtcId = AtcMaster.AtcId AND AtcDetails.OurStyleID NOT IN
                              (SELECT        Ourstyle_id
                                FROM            TNA_OurstlyeList
-                               WHERE        (IsDeleted = 'N'))
-WHERE        (AtcMaster.IsShipmentCompleted = N'N') ");
+                               WHERE        (IsDeleted = 'N') and location_pk=@locpk)
+WHERE        (AtcMaster.IsShipmentCompleted = N'N')and AtcMaster.AtcId =@atcid ");
 
 
-            //cmd.Parameters.AddWithValue("@cutplanpk", cutplanpk);
+            cmd.Parameters.AddWithValue("@atcid", atcid);
+            cmd.Parameters.AddWithValue("@locpk", locpk);
 
             return QueryFunctions.ReturnQueryResultDatatable(cmd); ;
         }

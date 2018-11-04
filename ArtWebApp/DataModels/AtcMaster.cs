@@ -18,7 +18,6 @@ namespace ArtWebApp.DataModels
         {
             this.AtcRawMaterialMasters = new HashSet<AtcRawMaterialMaster>();
             this.CutOrderMasters = new HashSet<CutOrderMaster>();
-            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
             this.ExtDeliveryTokens = new HashSet<ExtDeliveryToken>();
             this.FreightChargeDetails = new HashSet<FreightChargeDetail>();
             this.JobContractMasters = new HashSet<JobContractMaster>();
@@ -33,6 +32,9 @@ namespace ArtWebApp.DataModels
             this.SubConExtraRequests = new HashSet<SubConExtraRequest>();
             this.AtcDetails = new HashSet<AtcDetail>();
             this.PcdAlertMasters = new HashSet<PcdAlertMaster>();
+            this.DeliveryOrderMasters = new HashSet<DeliveryOrderMaster>();
+            this.PrePackMasters = new HashSet<PrePackMaster>();
+            this.RequestOrderLoanMasters = new HashSet<RequestOrderLoanMaster>();
         }
     
         public decimal AtcId { get; set; }
@@ -62,7 +64,6 @@ namespace ArtWebApp.DataModels
         public virtual CountryMaster CountryMaster1 { get; set; }
         public virtual ICollection<AtcRawMaterialMaster> AtcRawMaterialMasters { get; set; }
         public virtual ICollection<CutOrderMaster> CutOrderMasters { get; set; }
-        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
         public virtual ICollection<ExtDeliveryToken> ExtDeliveryTokens { get; set; }
         public virtual ICollection<FreightChargeDetail> FreightChargeDetails { get; set; }
         public virtual ICollection<JobContractMaster> JobContractMasters { get; set; }
@@ -77,5 +78,8 @@ namespace ArtWebApp.DataModels
         public virtual ICollection<SubConExtraRequest> SubConExtraRequests { get; set; }
         public virtual ICollection<AtcDetail> AtcDetails { get; set; }
         public virtual ICollection<PcdAlertMaster> PcdAlertMasters { get; set; }
+        public virtual ICollection<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
+        public virtual ICollection<PrePackMaster> PrePackMasters { get; set; }
+        public virtual ICollection<RequestOrderLoanMaster> RequestOrderLoanMasters { get; set; }
     }
 }

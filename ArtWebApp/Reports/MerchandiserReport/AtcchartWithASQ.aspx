@@ -692,6 +692,8 @@ body
                                                  <asp:BoundField DataField="LocationPrefix" HeaderText="Store" />
                                                 <asp:BoundField DataField="Cut_NO" HeaderText="Cut_NO" />
                                                  <asp:BoundField DataField="FabQty" HeaderText="FabQty" />
+                                                 <asp:BoundField DataField="CutQty" HeaderText="CutQty" />
+                                                 <asp:BoundField DataField="ActualConsumption" HeaderText="Cutorder Consumption" />
                                           
                                              </Columns>
                                              <FooterStyle BackColor="#F7DFB5" ForeColor="Black" />

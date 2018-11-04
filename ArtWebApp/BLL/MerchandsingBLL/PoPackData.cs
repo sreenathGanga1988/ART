@@ -74,6 +74,7 @@ namespace ArtWebApp.BLL
                 pomstr.PoGroup = pomdata.POGroup;
                 pomstr.TagGroup = pomdata.POTag;
                 pomstr.ExpectedLocation_PK = pomdata.location_PK;
+                pomstr.PackingInstruction = pomdata.PackingInstruction;
                
                 enty.PoPackMasters.Add(pomstr);
 
@@ -892,7 +893,7 @@ FROM            PoPackMaster INNER JOIN
                                 pcpkdet.ColorId = newpopackdetdata.coloid; 
                                 pcpkdet.SizeID= newpopackdetdata.sizeid;
                                 pcpkdet.PoQty = newpopackdetdata.Poqty;
-
+                                pcpkdet.RevisedQty= newpopackdetdata.Poqty;
                                 pcpkdet.CombinationCode = newpopackdetdata.PoPackId.ToString().Trim() + "/" + newpopackdetdata.Ourstyleid.ToString().Trim();
                                 pcpkdet.IsCutable = "N";
                                 pcpkdet.IsHidden = "N";
@@ -924,9 +925,11 @@ FROM            PoPackMaster INNER JOIN
                                     popackDetailsHistory.AddedDate = element.AddedDate;
                                     popackDetailsHistory.Qty = element.PoQty;
                                     enty.PopackDetailsHistories.Add(popackDetailsHistory);
-
-
+                                    //int diffqty = int.Parse(element.RevisedQty.ToString()) - int.Parse(newpopackdetdata.Poqty.ToString());
+                                    //element.PoQty = element.PoQty - diffqty;
+                                    
                                     element.PoQty = newpopackdetdata.Poqty;
+                                    element.RevisedQty= newpopackdetdata.Poqty;
                                     element.AddedDate = DateTime.Now;
                                     element.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                                 }

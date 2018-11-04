@@ -187,6 +187,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                             foreach (var frompopack in frompopackdetupdate)
                             {
                                 frompopack.PoQty = frompopack.PoQty - element.AddedQty;
+                                frompopack.RevisedQty = frompopack.RevisedQty - element.AddedQty;
                             }
 
                             var topopackupdate = from Pckdet in enty.POPackDetails
@@ -196,6 +197,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                             foreach (var topopack in topopackupdate)
                             {
                                 topopack.PoQty = element.revisedQtyofToPOPackDet_PK;
+                                topopack.RevisedQty = element.revisedQtyofToPOPackDet_PK;
                             }
 
 
@@ -206,6 +208,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                             foreach (var frompopackatcworld in updateatcworldkenyafrom)
                             {
                                 frompopackatcworld.Qty = frompopackatcworld.Qty - element.AddedQty;
+                                frompopackatcworld.RevisedQty = frompopackatcworld.RevisedQty - element.AddedQty;
                             }
 
                             var updateatcworldkenyato = from Pckdet in enttty.ASQAllocationMaster_tbl
@@ -214,6 +217,7 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
                             foreach (var frompopackatcworld in updateatcworldkenyato)
                             {
                                 frompopackatcworld.Qty = element.revisedQtyofToPOPackDet_PK;
+                                frompopackatcworld.RevisedQty = element.revisedQtyofToPOPackDet_PK;
                             }
 
                             enttty.SaveChanges();
@@ -247,11 +251,12 @@ HAVING(AtcDetails.AtcId = "+ atcid + ")";
 
                         enttty.SaveChanges();
                     }
+
                     catch (Exception exp)
-                    {  
+                    {
 
                         Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
-                        
+
                     }
                 }
              

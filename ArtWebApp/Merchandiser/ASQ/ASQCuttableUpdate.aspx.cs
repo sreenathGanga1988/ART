@@ -8,6 +8,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ArtWebApp.DataModelAtcWorld;
+using System.Data.SqlClient;
+
 namespace ArtWebApp.Merchandiser.ASQ
 {
     public partial class ASQCuttableUpdate : System.Web.UI.Page
@@ -391,32 +394,54 @@ namespace ArtWebApp.Merchandiser.ASQ
         {
             string msg = "";
             int k = 0;
+            int cut = 0;
+            int poid = 0;
             foreach (GridViewRow row in tbl_podata.Rows)
             {
 
                 CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                ArtWebApp.BLL.MerchandsingBLL.AllocationBLL pdata = new ArtWebApp.BLL.MerchandsingBLL.AllocationBLL();
                 if (chkBx.Checked == true)
                 {
+                    int checkpopackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                    AtcWorldEntities enty = new AtcWorldEntities();
+                    DataTable dt = pdata.GetPopackid(checkpopackid);
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row1 in dt.Rows)
+                        {
+                            poid = int.Parse(row1["count"].ToString());
 
-                    ArtWebApp.BLL.MerchandsingBLL.AllocationBLL pdata = new ArtWebApp.BLL.MerchandsingBLL.AllocationBLL();
+                        }
+                        if (poid > 0)
+                        {
+                            cut = 1;
+                        }
+                    }
 
-                    int ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
-                    int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
-
-                  
-
-                    msg=pdata.MarknonCutable(popackid,ourstyleid);
-
-                    k++;
 
                 }
+                if (cut == 0) { 
+                    if (chkBx.Checked == true)
+                    {
+                        int ourstyleid = int.Parse((row.FindControl("lbl_ourstyleid") as Label).Text);
+                        int popackid = int.Parse((row.FindControl("lbl_popackid") as Label).Text);
+                        msg=pdata.MarknonCutable(popackid,ourstyleid);
+                        k++;
+                    }
 
+                }
             }
             if (k > 0)
             {
                 tbl_podata.DataSource = null;
                 tbl_podata.DataBind();
                 //msg = " Marked Uncut Sucessfully ";
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+            }
+            if (k == 0)
+            {
+                msg = " Packing list Created. Check with kenya IT";
                 ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
             }
         }
@@ -501,5 +526,7 @@ namespace ArtWebApp.Merchandiser.ASQ
 
           
         }
+
+       
     }
 }

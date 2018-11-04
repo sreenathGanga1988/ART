@@ -64,9 +64,10 @@
                         
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>LC Amount</td>
                         <td>
-                            &nbsp;</td>
+                            <asp:TextBox ID="txt_lcvalue" runat="server" Width="189px"></asp:TextBox>
+                        </td>
                         <td>
                             &nbsp;</td>
                         <td>

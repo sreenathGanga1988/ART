@@ -127,11 +127,14 @@
                           &nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="NormalTD">&nbsp;</td>
+                    <td class="NormalTD">EN BIT DO</td>
                     <td class="NormalTD">
 
-                        &nbsp;</td>
-                    <td>&nbsp;</td>
+                       <ucc:DropDownListChosen ID="DRP_EBITDO" runat="server" DataTextField="name" DataValueField="pk" Width="200px">
+                                    </ucc:DropDownListChosen>
+                    <td>
+                        <asp:Button ID="BTN_EDOSHOW" runat="server" OnClick="Btn_showedo_Click" Text="SHOW END BIT REPORT" Width="185px" />
+                    </td>
                     <td class="NormalTD">
 
                         &nbsp;</td>

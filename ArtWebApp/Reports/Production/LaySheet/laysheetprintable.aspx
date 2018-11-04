@@ -321,7 +321,7 @@
 FROM            LaySheetDetails INNER JOIN
                          FabricRollmaster ON LaySheetDetails.Roll_PK = FabricRollmaster.Roll_PK INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
-                         LaySheetRollDetails ON LaySheetDetails.LaySheetRoll_Pk = LaySheetRollDetails.LaySheetRoll_Pk WHERE (LaySheetDetails.LaySheet_PK = @Param1) ORDER BY FabricRollmaster.ShadeGroup">
+                         LaySheetRollDetails ON LaySheetDetails.LaySheetRoll_Pk = LaySheetRollDetails.LaySheetRoll_Pk WHERE (LaySheetDetails.LaySheet_PK = @Param1) ORDER BY FabricRollmaster.ShadeGroup,LaySheetDetails.LaySheetRoll_Pk">
                                             <SelectParameters>
                                                 <asp:QueryStringParameter Name="Param1" QueryStringField="laysheetpk" />
                                             </SelectParameters>

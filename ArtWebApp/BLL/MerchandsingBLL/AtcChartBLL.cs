@@ -304,6 +304,7 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
                 dcmstr.Currency_PK = int.Parse(docreptmstr.currency_Pk.ToString());
                 dcmstr.DocValue = docreptmstr.docvalue;
                 dcmstr.ADNType = docreptmstr.DocType;
+                dcmstr.IsClosed = "N";
                 entry.DocMasters.Add(dcmstr);
 
                 entry.SaveChanges();
@@ -568,7 +569,14 @@ FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Temp
             return dt;
 
         }
+        public DataTable getStockDOData(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            DBTransaction.ShippingTransaction.DocumentTransaction shptran = new DBTransaction.ShippingTransaction.DocumentTransaction();
+            dt = shptran.GetStockDOList(shpdetlist);
+            return dt;
 
+        }
 
         public string isADNMRNmakable(int adn_pk)
         {

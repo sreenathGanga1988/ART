@@ -18,7 +18,7 @@
                         <td class="NormalTD">
                            
 
-                            <ucc:DropDownListChosen ID="drp_ro" Width="200px"  runat="server" DataSourceID="Rodata" DataTextField="RONum" DataValueField="SRO_Pk" DisableSearchThreshold="10" Height="16px"   >
+                            <ucc:DropDownListChosen ID="drp_ro" Width="200px"  runat="server" DataSourceID="rodetailsdata" DataTextField="RONum" DataValueField="SRO_Pk" DisableSearchThreshold="10" Height="16px"   >
                                         </ucc:DropDownListChosen>
                         </td>
                         <td>

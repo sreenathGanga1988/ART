@@ -58,6 +58,15 @@ namespace ArtWebApp.Shipping {
         protected global::System.Web.UI.WebControls.RadioButton rbt_directgenitem;
         
         /// <summary>
+        /// rbt_generalstockdo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbt_generalstockdo;
+        
+        /// <summary>
         /// drp_ToWarehouse control.
         /// </summary>
         /// <remarks>
@@ -299,6 +308,15 @@ namespace ArtWebApp.Shipping {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tbl_stockDO;
+        
+        /// <summary>
+        /// tbl_salesdo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tbl_salesdo;
         
         /// <summary>
         /// btn_sumbit control.

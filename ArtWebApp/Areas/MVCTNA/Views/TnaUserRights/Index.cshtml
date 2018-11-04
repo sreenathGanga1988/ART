@@ -55,6 +55,12 @@
             @Html.DisplayNameFor(model => model.IsPackingTrimDate)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.IsObSubmission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCmFinalization)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.UserMaster.UserName)
         </th>
         <th></th>
@@ -105,12 +111,18 @@
             @Html.DisplayFor(modelItem => item.IsPackingTrimDate)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.IsObSubmission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCmFinalization)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.UserMaster.UserName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TNAUserRightID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TNAUserRightID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TNAUserRightID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.TNAUserRightID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TNAUserRightID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TNAUserRightID })
         </td>
     </tr>
 }

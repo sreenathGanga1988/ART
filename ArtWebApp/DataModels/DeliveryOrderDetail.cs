@@ -28,9 +28,9 @@ namespace ArtWebApp.DataModels
         public string Remark { get; set; }
     
         public virtual ICollection<CutOrderDO> CutOrderDOes { get; set; }
-        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
         public virtual InventoryMaster InventoryMaster { get; set; }
         public virtual ICollection<DeliveryReceiptDetail> DeliveryReceiptDetails { get; set; }
         public virtual ICollection<DORollDetail> DORollDetails { get; set; }
+        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
     }
 }

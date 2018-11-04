@@ -14,6 +14,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 {
     public partial class DeliveryReturnFabricAgainstCutOrder : System.Web.UI.Page
     {
+        private ArtEntitiesnew enty = new ArtEntitiesnew();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -85,8 +86,98 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             }
         }
 
+        protected void btn_confirmRolls_Click(object sender, EventArgs e)
+        {
+
+            GetRollDetailsData();
+
+            //fillrollsum();
+            lbl_totalyds.Text = "0";
+            lbl_totalyds .Text = calculategridQty().ToString();
+            upd_totalyds .Update();
+
+            tbl_rolldata.DataSource = null;
+            tbl_rolldata.DataBind();
+            // Upd_roll.Update();
+            ModalPanel.Visible = false;
+
+        }
+        public float calculategridQty()
+        {
+            float Invqty = 0;
+            for (int i = 0; i < tbl_rolldata.Rows.Count; i++)
+            {
+                GridViewRow currentRow = tbl_rolldata.Rows[i];
+                CheckBox chkBx = (CheckBox)currentRow.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+                    try
+                    {
+                        if (chk_endbit.Checked == true)
+                        {
+                            float text = float.Parse(((tbl_rolldata.Rows[i].FindControl("lbl_EndBit") as Label).Text.ToString()));
+                            Invqty = Invqty + float.Parse(((tbl_rolldata.Rows[i].FindControl("lbl_EndBit") as Label).Text.ToString()));
+                        }
+                        else
+                        {
+                            Invqty = Invqty + float.Parse(((tbl_rolldata.Rows[i].FindControl("lbl_AYard") as Label).Text.ToString()));
+                        }
+                        
+                    }
+                    catch (Exception exp)
+                    {
+
+                    }
+                }
+            }
+            return Invqty;
+        }
+
+        public void GetRollDetailsData()
+        {
+
+            decimal Endbit = 0;
+            DataTable dt = (DataTable)ViewState["Rolldata"];
+
+            if (dt == null)
+            {
+                dt = new DataTable();
+            }
+
+
+            foreach (GridViewRow di in tbl_rolldata.Rows)
+            {
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+                    
+                    int roll_PK = int.Parse(((di.FindControl("lbl_Roll_PK") as Label).Text.ToString()));
+                    if (chk_endbit.Checked == true)
+                    {
+                        Endbit = decimal.Parse(((di.FindControl("lbl_EndBit") as Label).Text.ToString()));
+                    }
+                    else
+                    {
+                        Endbit = decimal.Parse(((di.FindControl("lbl_AYard") as Label).Text.ToString()));
+                    }
+                    
+                    int cutid = int.Parse(Session["cutid"].ToString());
+                    int InventoryItem_PK = int.Parse(Session["InventoryItem_PK"].ToString());
+
+                    dt.Rows.Add(InventoryItem_PK, roll_PK, cutid, Endbit);
+
+
+                }
+            }
+            ViewState["Rolldata"] = dt;
+
+
+        }
         protected void btn_saveDO_Click(object sender, EventArgs e)
         {
+            
             if (checkdatagridValue(tbl_InverntoryDetails, "lbl_balacetocut", "txt_deliveryQty"))
             {
                 if (checkdatagridValue(tbl_InverntoryDetails, "lbl_OnhandQty", "txt_deliveryQty"))
@@ -96,6 +187,10 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                     MessgeboxUpdate("sucess", msg);
                 }
 
+            }
+            else
+            {
+                MessgeboxUpdate("Error", "Check the Entry");
             }
 
         }
@@ -158,19 +253,48 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
             BLL.InventoryBLL.DeliveryOrder dodata = new BLL.InventoryBLL.DeliveryOrder();
+            decimal totalyds = decimal.Parse (lbl_totalyds.Text.ToString());
+            decimal deliveryqty = 0;
+            Boolean isok = true;
+            String msg = "";
+            //foreach (GridViewRow di in tbl_InverntoryDetails.Rows)
+            //{
+            //    CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
 
-            dodata.Domstrdata = GetDoMasterData();
+            //    if (chkBx != null && chkBx.Checked)
+            //    {
+            //        deliveryqty = decimal.Parse(((di.FindControl("txt_deliveryQty") as TextBox).Text.ToString()));
+            //    }
+            //    if (deliveryqty > totalyds)
+            //    {
+            //        isok = false;
+            //    }
+            //}
+            if(isok==true) { 
+                    dodata.Domstrdata = GetDoMasterData();
             dodata.DeliveryOrderDetailsDataCollection = GetDeliveryOrderDetailsData();
             dodata.DeliveryRollDetailsData = (DataTable)(ViewState["Rolldata"]);
             //String donum = dodata.insertFactoryFabricROLLDO(dodata);
-
-            String donum = dodata.insertFactoryReturnDOForFabric(dodata);
+            String donum = "";
+            if (chk_endbit.Checked == true)
+            {
+                donum = dodata.insertFactoryReturnEndbit(dodata);
+            }
+            else
+            {
+                donum = dodata.insertFactoryReturnDOForFabric(dodata);
+            }
+            
 
             tbl_InverntoryDetails.DataSource = null;
             tbl_InverntoryDetails.DataBind();
 
-            String msg = "DO # : " + donum + " is generated Successfully";
-
+            msg= "DO # : " + donum + " is generated Successfully";
+            }
+            if (isok == false)
+            {
+                msg = "Delivery Qty and Total Roll Yards not Match";
+            }
             ViewState["Rolldata"] = null;
 
             return msg;
@@ -230,7 +354,95 @@ namespace ArtWebApp.Inventory.DeliveryOrder
 
 
 
+        protected void tbl_InverntoryDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int skudet_pk = 0;
+            GridViewRow row = tbl_InverntoryDetails.Rows[index];
+            if (e.CommandName == "ShowRoll")
+            {
 
+                CheckBox chkBx = (CheckBox)row.FindControl("chk_select");
+                
+                if (chkBx.Checked == true)
+                {
+                    int InventoryItem_PK = int.Parse((row.FindControl("lblInventoryItem_PK") as Label).Text);
+                    Session["InventoryItem_PK"] = InventoryItem_PK;
+
+                    try
+                    {
+                        var q1 = from inv in enty.InventoryMasters where inv.InventoryItem_PK == InventoryItem_PK select inv;
+                        foreach(var element in q1)
+                        {
+                            skudet_pk = int.Parse (element.SkuDet_Pk.ToString ());
+                        }
+                        int cutid = int.Parse(((row.FindControl("ddl_cutorder") as DropDownList).SelectedValue.ToString()));
+                        Session["cutid"] = cutid;
+                        DataTable dt = new DataTable();
+                        if (chk_endbit.Checked == true) {
+                            dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofDeliveryReturn(skudet_pk, cutid, int.Parse(Session["UserLoc_pk"].ToString()));
+                        }
+                        else
+                        {
+                            dt = BLL.InventoryBLL.RollTransactionBLL.getFabricRollofDeliveryReturnLocation(skudet_pk, int.Parse(Session["UserLoc_pk"].ToString()));
+                        }
+                        
+
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataView view = new DataView(dt);
+                            DataTable shadetable = view.ToTable(true, "ShadeGroup");
+                            drp_shade.DataSource = shadetable;
+
+                            drp_shade.DataBind();
+
+
+                            ViewState["rolldatafordo"] = null;
+
+
+                            ViewState["rolldatafordo"] = dt;
+
+
+
+                            //if (dt.Rows.Count > 0)
+                            //{
+                            //    String shrinkagegrpe = dt.Rows[0]["ShrinkageGroup"].ToString();
+                            //    String WidthGroup = dt.Rows[0]["WidthGroup"].ToString();
+                            //    String MarkerType = dt.Rows[0]["MarkerType"].ToString();
+
+
+                            //    lbl_shringagegroup.Text = shrinkagegrpe;
+                            //    lbl_markerType.Text = MarkerType;
+                            //    lbl_widthgroup.Text = WidthGroup;
+                            //}
+
+
+
+                            tbl_rolldata.DataSource = dt;
+                            tbl_rolldata.DataBind();
+                            Upd_roll.Update();
+                            upd_shade.Update();
+                            ModalPanel.Visible = true;
+                        }
+                        else
+                        {
+                            ModalPanel.Visible = false;
+                            MessgeboxUpdate("error", "No Roll Data Found");
+                        }
+
+                    }
+                    catch (Exception exp)
+                    {
+
+
+                    }
+
+                }
+
+            }
+           
+        }
 
 
 
@@ -264,6 +476,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
         {
 
             Boolean isQtyok = true;
+            float totalyds = float.Parse(lbl_totalyds.Text.ToString());
             for (int i = 0; i < tblgrid.Rows.Count; i++)
             {
                 GridViewRow currentRow = tblgrid.Rows[i];
@@ -275,13 +488,23 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                     {
 
                         float AllowedQty = float.Parse(((tblgrid.Rows[i].FindControl(lbl_Qty1) as Label).Text.ToString()));
-                        float Enterqty = float.Parse(((tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).Text.ToString()));
+                        float Enterqty = float.Parse(((tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).Text.ToString()));                        
+                        
                         if (!QuantityValidator.ISFloatQuantityLesser(AllowedQty, Enterqty))
                         {
                             isQtyok = false;
                             (tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).BackColor = System.Drawing.Color.Red;
 
 
+                        }
+                        else if(Enterqty <0){
+                            isQtyok = false;
+
+                        }
+                        else if(Enterqty  > totalyds)
+                        {
+                            isQtyok = false;
+                            (tblgrid.Rows[i].FindControl(txt_Qty2) as TextBox).BackColor = System.Drawing.Color.Red;
                         }
                         else
                         {
@@ -317,49 +540,10 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             ClientScript.RegisterStartupScript(this.GetType(), "key", "launchModal();", true);
         }
 
-        protected void tbl_InverntoryDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = tbl_InverntoryDetails.Rows[index];
-            if (e.CommandName == "ShowRoll")
-            {
 
-
-
-
-
-
-
-
-
-
-               
-
-
-
-            }
-            else if (e.CommandName == "DeleteRoll")
-            {
-             
-            }
         }
-
-
-      
-
-
-
-
-
-
-
-
-     
-
- 
-   
-
-   
     }
 
 }

@@ -46,6 +46,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> MarkedCuttabledate { get; set; }
         public string CombinationCode { get; set; }
         public string IsInterChangable { get; set; }
+        public Nullable<decimal> RevisedQty { get; set; }
     
         public virtual ICollection<ASQAllocationMaster> ASQAllocationMasters { get; set; }
         public virtual AtcDetail AtcDetail { get; set; }

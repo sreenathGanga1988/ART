@@ -11,6 +11,7 @@
 <table class="table table-responsive table-bordered table-striped MyDataTable">
     <thead>
         <tr>
+            <th>ReqID</th>
             <th>Roll_PK</th>
             <th>RollNum</th>
             <th>LocationName</th>
@@ -44,6 +45,7 @@
         @foreach (var item in Model.RollPropertApprovalModellist)
         {
         <tr>
+            <td> @Html.DisplayFor(modelItem => item.FabricRollChangeID)</td>
             <td> @Html.DisplayFor(modelItem => item.Roll_PK)</td>
             <td> @Html.DisplayFor(modelItem => item.RollNum)</td>
             <td> @Html.DisplayFor(modelItem => item.LocationName)</td>
@@ -74,7 +76,7 @@
             <td> @Html.DisplayFor(modelItem => item.itemDescription1)</td>
 
             <td>
-                @Html.ActionLink("Approve", "Approve", new { id = item.Roll_PK }) |
+                @Html.ActionLink("Approve", "Approve", new { id = item.FabricRollChangeID }) |
                 @Html.ActionLink("Cancel", "Cancel", new { id = item.Roll_PK })
             </td>
         </tr>}

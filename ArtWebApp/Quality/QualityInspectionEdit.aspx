@@ -177,6 +177,7 @@
                                                     <asp:ListItem Selected="True">REG</asp:ListItem>
                                                     <asp:ListItem>RSV</asp:ListItem>
                                                     <asp:ListItem>CSV</asp:ListItem>
+                                                    <asp:ListItem>ONHOLD</asp:ListItem>
                                        <asp:ListItem>GRYSL</asp:ListItem>
                                                 </asp:DropDownList></td>
                                   <td class="ButtonTD">

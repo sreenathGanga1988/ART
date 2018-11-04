@@ -37,7 +37,8 @@
         sender.behavior.set_zIndex(200000);
       }
     
-
+       
+     
 
 
   
@@ -110,6 +111,7 @@
                     <td  >
                         <asp:TextBox ID="txt_containernum" runat="server" Height="20px" Width="164px" CssClass="NormalTD0"></asp:TextBox></td>
                     <td  >
+                        <asp:CheckBox ID="chk_endbit" runat="server" Text="ENDBIT" />
                         </td>
                     <td class="NormalTD">
                         </td>
@@ -219,12 +221,12 @@
                                             <ItemTemplate>
                                                  <asp:UpdatePanel ID="upd_deliveryQty" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
-                                                <asp:TextBox ID="txt_deliveryQty" runat="server" Height="17px" Width="67px"></asp:TextBox>
+                                                <asp:TextBox ID="txt_deliveryQty" CssClass="txtdeliveryqty" runat="server"  Height="17px" Width="67px"></asp:TextBox>
                                                    </ContentTemplate>
                                             </asp:UpdatePanel>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                       
+                                       <asp:ButtonField  Text="Add  Roll" CommandName="ShowRoll" />
                                        
                                     </Columns>
                                     <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
@@ -249,10 +251,171 @@
                 </tr>
                 <tr class="ButtonTR">
                     <td colspan="9" >
-                   
+                         <asp:UpdatePanel ID="Upd_roll"  UpdateMode="Conditional"  runat="server">
+                            <ContentTemplate>
+    <asp:Panel ID="ModalPanel" runat="server" Visible="false">
+             <table class="FullTable">
+                 <tr>
+                     <td>
+                         
+                         
+                         Availbale Fabric Rolls</td>
+                 </tr>
+                 <tr class="DataEntryTable">
+                     <td>
+    
+  
+     
+                <table  >
+                    <tr>
+                        <td>ShadeGroup</td>
+                        <td class="NormalTD">   <asp:UpdatePanel ID="upd_shade" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <ig:WebDropDown ID="drp_shade" runat="server" EnableMultipleSelection="True" TextField="name" ValueField="pk" Width="200px" EnableDropDownAsChild="false">
+                    <ClientEvents Initialize="initDropDown" />
 
-             
+                    <DropDownItemBinding TextField="ShadeGroup" ValueField="ShadeGroup" />
+                </ig:WebDropDown>
+                            </ContentTemplate>
+        </asp:UpdatePanel>
+                </td>
 
+
+
+                      <%--  <td><asp:Button ID="Button1" runat="server" Text="S" OnClick="Button1_Click1" /></td>--%>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                      
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                       
+                    </tr>
+                       <tr>
+                        <td class="NormalTD">Shrinkage group</td>
+                         <td class="NormalTD">
+                             <strong>
+                             <asp:Label ID="lbl_shringagegroup" runat="server" Text="0"></asp:Label>
+                             </strong>
+                           </td>
+                      <td class="NormalTD">Width group</td>
+                       <td class="NormalTD"><strong>
+                           <asp:Label ID="lbl_widthgroup" runat="server" Text="0"></asp:Label>
+                           </strong></td>
+                        <td class="NormalTD">MarkerType</td>
+                        <td class="NormalTD"><strong>
+                            <asp:Label ID="lbl_markerType" runat="server" Text="0"></asp:Label>
+                            </strong></td>
+                      
+                    </tr>
+                </table>
+
+                        
+   
+</td>
+                 </tr>
+                 <tr>
+                     <td>
+                         
+                     <asp:GridView ID="tbl_rolldata" runat="server" AutoGenerateColumns="False"  ShowFooter="true" ShowHeaderWhenEmpty="True" style="font-size: small; font-family: Calibri; font-weight: 400;" Width="100%" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Roll_PK">
+                                    <Columns>
+                                       
+
+
+
+                                          <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        <asp:CheckBox ID="checkAll" runat="server" onclick="OnSelectAllClick(this)" />
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Onselection(this)" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>   
+
+
+
+
+                                        <asp:TemplateField HeaderText="Roll_PK">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_Roll_PK" runat="server" Text='<%# Bind("Roll_PK") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                  
+                                        <asp:BoundField DataField="Roll_PK" HeaderText="RollNum" SortExpression="RollNum" />
+                                        <asp:BoundField DataField="RollNum" HeaderText="Rack" SortExpression="RollNum" />
+                                         <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
+                                        <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
+                                        <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />
+                                         
+                                        <asp:TemplateField HeaderText="AYard">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_AYard" runat="server"  CssClass="lbl_yard" Text='<%# Bind("AYard") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:BoundField DataField="SkuDet_PK" HeaderText="SkuDet_PK" SortExpression="SkuDet_PK" />
+                                        
+                                         <asp:TemplateField HeaderText="EndBit">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lbl_EndBit" runat="server"  CssClass="lbl_yard" Text='<%# Bind("EndBit") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                     
+                                    </Columns>
+                                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="White" ForeColor="#330099" />
+                                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                </asp:GridView>
+                         </td>
+                 </tr>
+                 <tr>
+                     <td>
+                 <asp:Button ID="btn_confirmRolls" runat="server" OnClick="btn_confirmRolls_Click" Text="Confirm" />
+  <%-- <asp:Button ID="btn_cancel" runat="server" OnClick="btn_cancel_Click" Text="Cancel" />--%>
+                     </td>
+                 </tr>
+             </table>
+          </asp:Panel>
+             </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="NormalTD">
+                        Total Yards</td>
+                    <td class="NormalTD">
+                       <asp:UpdatePanel ID="upd_totalyds" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                    <asp:Label ID="lbl_totalyds" runat="server" Text="0"></asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel></td>
+                    <td class="auto-style7" >
+
+                        
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
                         &nbsp;</td>
                 </tr>
 

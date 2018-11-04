@@ -27,6 +27,7 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
         public System.String LaysheetNUM { get; set; }
         public System.String CutPlanNUM { get; set; }
         public System.String itemDescription { get; set; }
+        public System.Decimal FabricRollChangeID { get; set; }
     }
 
     public class RollPropertyViewModelMaster
@@ -76,6 +77,7 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
         public System.String LaysheetNUM { get; set; }
         public System.String CutPlanNUM { get; set; }
         public System.String itemDescription1 { get; set; }
+        
     }
 
 

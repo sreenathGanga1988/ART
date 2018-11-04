@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ArtMVC/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+
+        $(document).ready(function () {
+
+
+            $("#Show_atcsummary").click(function (e, params) {                
+                var Atcid = $('#AtcID').find('option:selected').val();
+                var GoodPcsRate = $("#GoodPcs").val();
+                var RejectedPcsRate = $("#RejectPcs").val();
+                //var GoodPcsRate = document.getElementById("GoodPcsRate").value;
+                //var RejectedPcsRate = document.getElementById("RejectedPcsRate").value;
+                alert(RejectedPcsRate);
+                alert(GoodPcsRate);
+                $.ajax({
+                        url: "@Url.Action("ShowATCPerformance", "ATCPerformance")",
+                        traditional: true,
+                        type: "GET",
+                    data: {
+                        'atcid': Atcid, 'RejectedPcsRate': RejectedPcsRate, 'GoodPcsRate': GoodPcsRate
+                    },
+                    success: function (fooBarHTML) {                            
+                        $("#Summarydiv").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            
+                        }
+                });
+            });
+
+        });
+
+
+
+
+
+</script>
+<h2>ATC Performance</h2>
+<div class="container">
+
+    <div class="container-fluid jumbotron">
+        <div class="row top-buffer">
+            <div class="col-md-2">Atc #:</div>
+            <div class="col-md-6">  @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+        </div>
+        
+        <div class="row top-buffer">
+            <div class="col-md-3">
+                Good Pcs Rate
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" placeholder="GoodPcsRate" name="GoodPcs" id="GoodPcs" type="text">
+            </div>
+            <div class="col-md-3">
+                RejectedPcsRate
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" placeholder="RejectPcsRate" name="RejectPcs" id="RejectPcs" type="text">
+            </div>
+        </div>
+
+
+        <div class="row top-buffer">
+            <div class="col-md-12">
+                <input id="Show_atcsummary" type="button" value="Get Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id='loadingmessage' style='display:none'>
+    <img src='~/Image/ajax-loader.gif' />
+</div>
+<div id="Summarydiv"> </div>
+

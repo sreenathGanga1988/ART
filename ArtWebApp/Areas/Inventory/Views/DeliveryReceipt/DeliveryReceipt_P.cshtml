@@ -143,7 +143,6 @@
             var containerno = $('#containerno').val();
             var toloc = $('#toloc').val();
              var boe = $('#boe').val();
-             alert(deliverymethod);
              $('.Dataentry tr.TrimsTableRow').each(function (i, row) {                 
                 $(this).find('td input:checked').each(function () {
                     
@@ -152,7 +151,10 @@
                     var RackInventory_PK = parseFloat(row.find('.RackInventory_PK').text());                    
                     var Rack_PK = parseFloat(row.find('.Rack_PK').text());                    
                     var DeliveryQty = row.find('td:eq(15) input').val();                    
-                    var OnhandQty = parseFloat(row.find('.OnhandQty').text());                    
+                    var OnhandQty = parseFloat(row.find('.OnhandQty').text());
+                    alert(DeliveryQty);
+                    alert(OnhandQty);
+
                     if (parseFloat(DeliveryQty.toString()) > parseFloat(OnhandQty.toString())) {                        
                         isok = false;
                     }
@@ -163,7 +165,7 @@
                         RackInventory_PK: RackInventory_PK, dotype: deliverymethod,itemgroup:2
                     }
                     list.push(Approvedata);
-                    
+                    alert(isok);
 
                 });
              });
@@ -174,10 +176,13 @@
                      var InventoryItem_PK = parseFloat(row.find('.FInventoryItem_PK').text());
                      var DeliveryQty = row.find('td:eq(14) input').val();
                      var OnhandQty = parseFloat(row.find('.FOnhandQty').text());
+                     alert(DeliveryQty);
+                     if (parseFloat(DeliveryQty.toString()) > 0)
+                     {
                      if (parseFloat(DeliveryQty.toString()) > parseFloat(OnhandQty.toString())) {
                          isok = false;
                      }
-
+                     }
                      var Approvedata = {
                          AtcId: AtcId, toloc: toloc, DoDate: DoDate, containerno: containerno, boe: boe,
                          InventoryItem_PK: InventoryItem_PK, DeliveryQty: DeliveryQty, Rack_PK: 0,
@@ -197,15 +202,16 @@
                     data: things,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
-                success: function (data) {
-                    if (data.status) {
-                        alert('Successfully saved');
-                        $("#submit_details").prop('disabled', true);
+                    success: function (data) {
+                        alert(data.status );
+                    //if (data.status) {
+                    //    alert('Successfully saved ' + );
+                    //    $("#submit_details").prop('disabled', true);
 
-                    }
-                    else {
-                        alert('Error');
-                    }
+                    //}
+                    //else {
+                    //    alert('Error');
+                    //}
                 },
                 error: function (error) {
                     console.log(error);

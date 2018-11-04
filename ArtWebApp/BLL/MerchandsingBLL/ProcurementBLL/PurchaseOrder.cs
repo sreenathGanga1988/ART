@@ -165,11 +165,119 @@ namespace ArtWebApp.BLL.MerchandsingBLL.ProcurementBLL
         }
 
 
+        public String insertLoanPoData(ProcurementMasterData Pmmstr)
+        {
+            String ponum = "";
+
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                using (var dbContextTransaction = entty.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+
+                        try
+                        {
+                            RequestOrderLoanMaster romstrdb = new RequestOrderLoanMaster();
+                            romstrdb.AddedBy = HttpContext.Current.Session["Username"].ToString().Trim();
+                            romstrdb.CreatedDate = DateTime.Now;
+                            romstrdb.IsApproved = "N";
+                            romstrdb.IsDeleted = "N";
+                            romstrdb.IsCompleted = "N";
+                            romstrdb.AtcID = Pmmstr.AtcId;
+                            romstrdb.Location_PK = Pmmstr.Location_PK;
+                            romstrdb.SupplierPk = Pmmstr.Supplier_Pk;
+
+                            entty.RequestOrderLoanMasters.Add(romstrdb);
+                            entty.SaveChanges();
+                            romstrdb.LRONum= "LRO" + romstrdb.LRO_Pk.ToString();
+
+                            ProcurementMaster POmstr = new ProcurementMaster();
+                            POmstr.Supplier_Pk = Pmmstr.Supplier_Pk;
+                            POmstr.DeliveryTerms_Pk = 1;
+                            POmstr.PaymentTermID = 3;
+                            POmstr.DeliveryMethod_Pk = Pmmstr.DeliveryMethod_Pk;
+                            POmstr.CurrencyID = Pmmstr.CurrencyID;
+                            POmstr.Location_PK = Pmmstr.Location_PK;
+                            POmstr.AtcId = Pmmstr.AtcId;
+                            POmstr.AddedBy = Pmmstr.AddedBy;
+                            POmstr.AddedDate = DateTime.Now;
+                            POmstr.IsApproved = "N";
+                            POmstr.IsDeleted = "N";                            
+                            POmstr.POType = Pmmstr.PoType;
+                            POmstr.DeliveryDate = Pmmstr.Deliverydate;
+                            POmstr.Remark = "Po against LoanRO"; ;
+                            POmstr.IsNormal = "N";
+                            POmstr.FreightCharge =0;
+                            POmstr.FreightType = "No Charges";
+                            POmstr.IsFreightChargeApproved = "N";
+                            POmstr.PONum = romstrdb.LRONum;
+                            entty.ProcurementMasters.Add(POmstr);
+                            entty.SaveChanges();
+                            romstrdb.PO_PK = POmstr.PO_Pk;
+
+
+                            foreach (ProcurementDetails rdet in Pmmstr.ProcurementDetailsCollection)
+                            {
+                                RequestOrderLoanDetail  rodetdb = new RequestOrderLoanDetail();
+
+                                rodetdb.LRO_Pk = romstrdb.LRO_Pk;
+                                rodetdb.SkuDet_PK = rdet.SkuDet_PK;                                
+                                rodetdb.Qty = rdet.POQty;                                
+                                rodetdb.CUnitPrice = float.Parse(rdet.CURate.ToString());
+
+                                entty.RequestOrderLoanDetails.Add(rodetdb);
+                                
+                                ProcurementDetail pddetails = new ProcurementDetail();
+                                pddetails.SkuDet_PK = rdet.SkuDet_PK;
+                                pddetails.POQty = rdet.POQty;
+                                pddetails.POUnitRate = Convert.ToDecimal(rdet.POUnitRate);
+                                pddetails.SupplierColor = rdet.SupplierColor;
+                                pddetails.SupplierSize = rdet.SupplierSize;
+                                pddetails.PO_Pk = POmstr.PO_Pk;
+                                pddetails.Uom_PK = rdet.Uom_PK;
+                                pddetails.CURate = Convert.ToDecimal(rdet.CURate);
+                                entty.ProcurementDetails.Add(pddetails);
+                                entty.SaveChanges();
+                                rodetdb.PODet_PK = pddetails.PODet_PK;
+                            }
+
+
+                            ponum = POmstr.PONum;
+
+                        }
+                        catch (Exception EXP)
+                        {
+
+
+                        }
+
+
+
+                        entty.SaveChanges();
 
 
 
 
-       
+
+
+                        dbContextTransaction.Commit();
+
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            }
+            return ponum;
+
+        }
+
+
+
+
         public String AddnewContenttoPO(ProcurementMasterData Pmmstr)
         {
             String ponum = "";

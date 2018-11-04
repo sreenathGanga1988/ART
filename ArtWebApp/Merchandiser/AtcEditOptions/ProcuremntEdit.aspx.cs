@@ -48,7 +48,7 @@ namespace ArtWebApp.Merchandiser
             {
                 var q = from ponmbr in entty.ProcurementMasters
                         where ponmbr.AtcId == atcid
-                        where ponmbr.IsApproved=="N"
+                        where ponmbr.IsApproved=="N" && ponmbr.IsDeleted=="N"
                         select new
                         {
                             name = ponmbr.PONum,

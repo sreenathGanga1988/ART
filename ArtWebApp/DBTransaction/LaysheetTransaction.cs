@@ -60,7 +60,13 @@ namespace ArtWebApp.DBTransaction
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, FabricRollmaster.AYard, RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent,'New' as RollStatus,CutOrderMaster.Cut_No
+                         FabricRollmaster.SYard, FabricRollmaster.AYard, RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent,'New' as RollStatus,(SELECT STUFF((SELECT ',' + cutno 
+            FROM (SELECT distinct(CutOrderMaster.Cut_NO)as cutno
+FROM            DORollDetails INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID INNER JOIN
+                         CutOrderDO ON CutOrderMaster.CutID = CutOrderDO.CutID
+						 where  CutOrderMaster.ToLoc=@factid and DORollDetails.Roll_PK =FabricRollmaster.Roll_PK )tt
+            FOR XML PATH('')) ,1,1,'') AS Txt) as Cut_No
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
@@ -78,7 +84,13 @@ Union
 
 SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, LaySheetRollDetails.balanceyardage as AYard , RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent ,'ReCut' as RollStatus,CutOrderMaster.Cut_No
+                         FabricRollmaster.SYard, LaySheetRollDetails.balanceyardage as AYard , RollInventoryMaster.FactId, CutOrderMaster.CutID, RollInventoryMaster.IsPresent ,'ReCut' as RollStatus,(SELECT STUFF((SELECT ',' + cutno 
+            FROM (SELECT distinct(CutOrderMaster.Cut_NO)as cutno
+FROM            DORollDetails INNER JOIN
+                         CutOrderMaster ON DORollDetails.CutID = CutOrderMaster.CutID INNER JOIN
+                         CutOrderDO ON CutOrderMaster.CutID = CutOrderDO.CutID
+						 where  CutOrderMaster.ToLoc=@factid and DORollDetails.Roll_PK =LaySheetRollDetails.Roll_PK )tt
+            FOR XML PATH('')) ,1,1,'') AS Txt) as Cut_No
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK INNER JOIN
@@ -164,11 +176,11 @@ WHERE        (DORollDetails.CutID = @cutid) AND (FabricRollmaster.Roll_PK NOT IN
             {
                 cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, FabricRollmaster.SShade, FabricRollmaster.AShade, 
                          FabricRollmaster.ShadeGroup, FabricRollmaster.SWidth, FabricRollmaster.AWidth, FabricRollmaster.WidthGroup, FabricRollmaster.SShrink, FabricRollmaster.AShrink, FabricRollmaster.ShrinkageGroup, 
-                         FabricRollmaster.SYard, LaySheetRollDetails.Yardage as Ayard, LaySheetRollDetails.IsUsed, LaySheetRollDetails.LayRollRef, LaySheetRollDetails.LaySheetRoll_Pk, LaySheetRollDetails.IsDeleted
+                         FabricRollmaster.SYard, LaySheetRollDetails.Yardage as Ayard, LaySheetRollDetails.IsUsed, LaySheetRollDetails.LayRollRef, LaySheetRollDetails.LaySheetRoll_Pk, LaySheetRollDetails.IsDeleted,LaySheetRollDetails.Sequence
 FROM            SupplierDocumentMaster INNER JOIN
                          FabricRollmaster ON SupplierDocumentMaster.SupplierDoc_pk = FabricRollmaster.SupplierDoc_pk INNER JOIN
                          LaySheetRollDetails ON FabricRollmaster.Roll_PK = LaySheetRollDetails.Roll_PK
-WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref) AND (LaySheetRollDetails.IsDeleted = N'N') ORDER BY FabricRollmaster.ShadeGroup ";
+WHERE        (LaySheetRollDetails.IsUsed = N'W') AND (LaySheetRollDetails.LayRollRef = @Laysheetref) AND (LaySheetRollDetails.IsDeleted = N'N') ORDER BY LaySheetRollDetails.Sequence ";
                 cmd.Parameters.AddWithValue("@Laysheetref", Laysheetref);
 
                 return QueryFunctions.ReturnQueryResultDatatable(cmd);

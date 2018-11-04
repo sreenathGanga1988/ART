@@ -1,0 +1,151 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.AllocateRack
+@using System.Data;
+
+<h2>Stock Details</h2>
+
+<div id="printfcr">
+    <table id="Dataentry" class="table table-striped table-bordered MyDataTable Dataentry" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>@Html.CheckBox("SelectAll")</th>
+                <th>InventoryItem_PK</th>
+                <th>Description</th>
+                <th>Composition</th>
+                <th>Construct</th>
+                <th>Template Color</th>
+                <th>Template Size</th>
+                <th>Width</th>
+                <th>UnitPrice</th>
+                <th>ReceivedQty</th>
+                <th>OnHandQty</th>
+                <th>BalanceQty</th>
+                <th>AllocateQty</th>
+                <th>Rack_PK</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.GetMrnlist.Rows)
+            {
+                <tr class="FabricTableRow" style="border-color:black">
+                    <td class="IsSelected">@Html.CheckBox("IsSelected")</td>
+                    <td class="SInventoryItem_PK">@row["SInventoryItem_PK"]</td>
+                    <td class="Description">@row["Description"]</td>
+                    <td class="Composition">@row["Composition"]</td>
+                    <td class="Construct">@row["Construct"]</td>
+                    <td class="TemplateColor">@row["TemplateColor"]</td>
+                    <td class="TemplateSize">@row["TemplateSize"]</td>
+                    <td class="width">@row["width"]</td>
+                    <td class="Unitprice">@row["Unitprice"]</td>
+                    <td class="ReceivedQty">@row["ReceivedQty"]</td>
+                    <td class="OnhandQty">@row["OnhandQty"]</td>
+                    <td class="BalanceQty">
+
+                        @(Decimal.Parse(row["OnhandQty"].ToString()) - Decimal.Parse(row["AllocatedQty"].ToString()))
+                    </td>
+                    <td class="AllocateQty">@Html.TextBox("AllocateQty", "", new { @class = "AllocateQty", style = "width:250px; height:30px" })</td>
+                    <td class="Rack_PK">@row["Rack_PK"]</td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="Submit" type="button" value="Submit" class="btn btn-default show" />
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.Dataentry').DataTable();
+        var isok = true;
+        $('#Submit').click(function (e, params) {
+            var things = [];
+            var list = [];
+            
+            $('.Dataentry tr.FabricTableRow').each(function (i, row) {
+                $(this).find('td input:checked').each(function () {
+                    var row = $(this).closest('tr');
+
+                    var InventoryItem_PK = parseFloat(row.find('.SInventoryItem_PK').text());
+                    var Rack_PK = parseFloat(row.find('.Rack_PK').text());
+                    var AllocateQty = row.find('td:eq(12) input').val();
+                    var mrnqty = parseFloat(row.find('.ReceivedQty').text());
+                    var OnhandQty = parseFloat(row.find('.OnhandQty').text());
+                    var BalanceQty = parseFloat(row.find('.BalanceQty').text());
+
+                    if (parseFloat(AllocateQty.toString()) > parseFloat(BalanceQty.toString())) {
+                        isok = false;
+                    }
+                    alert('Hi');
+                    var Approvedata = {
+                        InventoryItem_PK: InventoryItem_PK, Rack_PK: Rack_PK, AllocateQty: AllocateQty, mrnqty: OnhandQty, BalanceQty: BalanceQty
+                    }
+                    list.push(Approvedata);
+
+                });
+            });
+            alert(list);
+            var things = JSON.stringify({ 'things': list });
+            if (isok == true) {
+                 $.ajax({
+                type: 'POST',
+                url: "@Url.Action("StockRackAllocate", "RackAllocation")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        $("#Submit").prop('disabled', true);
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+                });
+
+
+            }
+            else {
+                alert("The Allocate Qty is more than Balance Qty");
+            }
+
+
+        });
+
+    });
+
+
+
+    $('#SelectAll').change(function () {
+        if (this.checked) {
+            var parenttable = $(this).closest('table');
+            parenttable.children('tbody,tr,td').css('background-color', '#8AE1E9');
+            $("[id$=IsSelected]").prop('checked', true);
+
+        } else {
+            if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+                $("[id$=IsSelected]").prop('checked', false);
+            }
+            parenttable.children('tbody,tr,td').css('background-color', '#F5F5F7');
+        }
+    });
+    $("[id$=IsSelected]").change(function () {
+        if (this.checked) {
+            $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+        }
+        else {
+            $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+        }
+    });
+</script>

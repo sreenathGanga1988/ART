@@ -37,6 +37,28 @@
                     }
                     });
         });
+        $("#SHOWSPOEXP").click(function (e, params) {
+
+       
+                $('#loadingmessage').show();
+                var fromdate = $("#FromDate").val();
+                var todate = $("#Todate").val();
+           
+                $.ajax({
+                    url: "@Url.Action("GETEXPWISE", "EXPADN")",
+                    traditional: true,
+                    type: "GET",
+                    data: { 'fromdate': fromdate, 'todate': todate },
+                    success: function (fooBarHTML) {
+                        $('#loadingmessage').hide();
+                    $("#output").html(fooBarHTML);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        $('#loadingmessage').hide();
+                    }
+                    });
+        });
+
     });
 
 
@@ -70,32 +92,68 @@
         </div>
 
         @*<div class="row top-buffer" style="background-color:greenyellow;">
-            <div class="col-sm-3">
-                <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
+                <div class="col-sm-3">
+                    <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
 
-            </div>
-         
-         
-            <div class="col-sm-3">
-            </div>
+                </div>
 
-        </div>*@
+
+                <div class="col-sm-3">
+                </div>
+
+            </div>*@
     </div>
-</div>
+    <div id="demo2" class="container collapse">
+        <div class="container-fluid jumbotron">
 
-<div id="tabs">
-    <ul>
-        <li><a href="#tabs-1">Details</a></li>        
+            <div class="row top-buffer">
+                <div class="col-sm-2">
+                    From Date :
 
-    </ul>
-    <div id="tabs-1">
-        <p>
-            <div id='output' class="">
-                <!-- Output goes here -->
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBox("SpoFromDate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+                </div>
+                <div class="col-sm-2">
+                    To date
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBox("SpoTodate", null, htmlAttributes: new { @style = "width: 250px;", @class = "datepicker form-control" })
+                </div>
+                <div class="col-sm-2">
+                    <input id="SHOWSPOEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Load EXP WISE REPORT" class="btn btn-default show" />
+
+                </div>
+
             </div>
 
+            @*<div class="row top-buffer" style="background-color:greenyellow;">
+                    <div class="col-sm-3">
+                        <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
 
-        </p>
+                    </div>
+
+
+                    <div class="col-sm-3">
+                    </div>
+
+                </div>*@
+        </div>
     </div>
 
-</div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Details</a></li>
+
+        </ul>
+        <div id="tabs-1">
+            <p>
+                <div id='output' class="">
+                    <!-- Output goes here -->
+                </div>
+
+
+            </p>
+        </div>
+
+    </div>

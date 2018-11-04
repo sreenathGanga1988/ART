@@ -22,5 +22,16 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string ApprovedBy { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
+        public string TransferBy { get; set; }
+        public Nullable<System.DateTime> TransferDate { get; set; }
+        public string ReceivedBy { get; set; }
+        public Nullable<System.DateTime> ReceivedDate { get; set; }
+        public string ConfirmBy { get; set; }
+        public Nullable<System.DateTime> ConfirmDate { get; set; }
+        public string IsTransfer { get; set; }
+        public string IsReceived { get; set; }
+        public string IsApproved { get; set; }
+        public string IsConfirmed { get; set; }
+        public Nullable<decimal> ToLocation_pk { get; set; }
     }
 }

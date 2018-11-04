@@ -255,9 +255,33 @@ WHERE        (ProcurementMaster.PONum = @param1)", con);
         }
 
 
+        public DataTable GetMCRData(int @Mcr_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+
+                con.Open();
 
 
-       
+
+
+                SqlCommand cmd = new SqlCommand(@"GetMCR_SP", con);
+                cmd.Parameters.AddWithValue("@Mcr_pk", @Mcr_pk);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
 
         /// <summary>
         /// Get the items withion a PO
@@ -813,7 +837,7 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
             }
             return dt;
         }
-        public DataTable GetSpoDetails(int spo_pk)
+        public DataTable GetSpoDetails(int spo_pk,int adn_pk)
         {
             DataTable dt = new DataTable();
 
@@ -822,19 +846,21 @@ WHERE        (ServicePOMaster.ServicePO_PK = @Param1)";
                 con.Open();
 
 
-                SqlCommand cmd = new SqlCommand(@"SELECT        SPODetails_PK, Template_PK, Composition, Construct, TemplateColor, TemplateSize, TemplateWidth, TemplateWeight, POQty, UomCode, Unitprice, ReceivedQty, (POQty-ReceivedQty) as BalanceQty
-FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Template_PK, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateSize, 
-                                                    StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, StockPODetails.POQty, UOMMaster.UomCode, StockPODetails.Unitprice, ISNULL
-                                                        ((SELECT        SUM(ReceivedQty) AS Expr1
-                                                            FROM            StockMRNDetails
-                                                            GROUP BY SPODetails_PK
-                                                            HAVING        (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ReceivedQty, 0 AS BalanceQty
-                          FROM            StockPODetails INNER JOIN
-                                                    UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK
-                          WHERE        (StockPODetails.SPO_PK = @spo_pk)) AS tt", con);
+                SqlCommand cmd = new SqlCommand(@"SELECT        SPODetails_PK, Template_PK, Composition, Construct, TemplateColor, TemplateSize, TemplateWidth, TemplateWeight, POQty, UomCode, Unitprice, ReceivedQty, (ADNQTY-ReceivedQty) as BalanceQty
+FROM            (SELECT        StockPODetails.SPODetails_PK, StockPODetails.Template_PK, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateSize, StockPODetails.TemplateWidth, 
+                         StockPODetails.TemplateWeight, StockPODetails.POQty, UOMMaster.UomCode, StockPODetails.Unitprice, ISNULL
+                             ((SELECT        SUM(ReceivedQty) AS Expr1
+                                 FROM            StockMRNDetails
+                                 GROUP BY SPODetails_PK
+                                 HAVING        (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ReceivedQty, 0 AS BalanceQty, SDocDetails.SDoc_Pk, SDocDetails.Qty AS ADNQTY
+FROM            StockPODetails INNER JOIN
+                         UOMMaster ON StockPODetails.Uom_PK = UOMMaster.Uom_PK INNER JOIN
+                         SDocDetails ON StockPODetails.SPODetails_PK = SDocDetails.SPODet_Pk
+                          WHERE      SDocDetails.SDoc_Pk =@adn_pk and StockPODetails.SPO_PK=@spo_pk ) AS tt", con);
 
 
                 cmd.Parameters.AddWithValue("@spo_pk", spo_pk);
+                cmd.Parameters.AddWithValue("@adn_pk", adn_pk);
 
                 SqlDataReader rdr = cmd.ExecuteReader();
 

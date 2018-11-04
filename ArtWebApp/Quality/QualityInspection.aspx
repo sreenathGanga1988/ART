@@ -178,6 +178,7 @@
                                                     <asp:ListItem>RSV</asp:ListItem>
                                                     <asp:ListItem>CSV</asp:ListItem>
                                                     <asp:ListItem>GRYSL</asp:ListItem>
+                                                    <asp:ListItem>ONHOLD</asp:ListItem>
                                                 </asp:DropDownList>
                                   <td class="ButtonTD">
                                       <asp:UpdatePanel ID="UpdatePanel9" UpdateMode="Conditional" runat="server">

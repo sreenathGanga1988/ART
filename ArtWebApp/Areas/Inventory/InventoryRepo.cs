@@ -54,7 +54,7 @@ namespace ArtWebApp.Areas.Inventory
                 return dt;
             }
 
-        public DataTable GetATCwiseFabricInventory(int Locid, int Atcid)
+        public DataTable GetATCwiseFabricInventory(int Locid, int Atcid,int ToLocid)
         {
             DataTable dt = new DataTable();
             
@@ -63,7 +63,7 @@ namespace ArtWebApp.Areas.Inventory
                 SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                  ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, InventoryMaster.OnhandQty as PhysicalQty,
                 LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,AtcMaster.AtcID,LocationMaster.Location_PK,
-                0 as DiffQty,InventoryMaster.CURate as ActualRate
+                0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages, @ToLocid as ToLocid
                 FROM            MrnMaster INNER JOIN
                 MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
                 Template_Master INNER JOIN
@@ -83,13 +83,14 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                   ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             cmd.Parameters.AddWithValue("@Locid", Locid);
             cmd.Parameters.AddWithValue("@Atcid", Atcid);
+            cmd.Parameters.AddWithValue("@ToLocid", ToLocid);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
 
             return dt;
         }
-        public DataTable GetATCwiseTrimsInventory(int Locid, int Atcid)
+        public DataTable GetATCwiseTrimsInventory(int Locid, int Atcid,int ToLocid)
         {
             DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand();
@@ -98,7 +99,7 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
                 SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty,
 InventoryMaster.OnhandQty as PhysicalQty,
                 AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,
-AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate as ActualRate
+AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages,@ToLocid as ToLocid
                 FROM            MrnMaster INNER JOIN
                 MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
                 Template_Master INNER JOIN
@@ -116,6 +117,7 @@ AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate a
                   ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             cmd.Parameters.AddWithValue("@Locid", Locid);
             cmd.Parameters.AddWithValue("@Atcid", Atcid);
+            cmd.Parameters.AddWithValue("@ToLocid", ToLocid);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -123,6 +125,77 @@ AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate a
             return dt;
         }
 
+        public DataTable FabricInventoryEdit(int Locid, int Atcid,int mcr_pk)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                 ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, InventoryMaster.OnhandQty as PhysicalQty,
+                LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,AtcMaster.AtcID,LocationMaster.Location_PK,
+                0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages,@mcr_pk as mcr_pk
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Fabric')
+                 AND (InventoryMaster.OnhandQty > 0) 
+and InventoryMaster.InventoryItem_PK not in(select InventoryItem_PK from MCRDetails where Mcr_pk =@mcr_pk)
+ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+            cmd.Parameters.AddWithValue("@mcr_pk", mcr_pk);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable TrimsInventoryEdit(int Locid, int Atcid,int mcr_pk)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        InventoryMaster.InventoryItem_PK, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize, ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty,
+InventoryMaster.OnhandQty as PhysicalQty,
+                AtcMaster.AtcNum, LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,
+AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages,@mcr_pk as mcr_pk
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Trims')
+                 AND (InventoryMaster.OnhandQty > 0) and InventoryMaster.InventoryItem_PK not in(select InventoryItem_PK from MCRDetails where Mcr_pk =@mcr_pk) ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode";
+            cmd.Parameters.AddWithValue("@Locid", Locid);
+            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+            cmd.Parameters.AddWithValue("@mcr_pk", mcr_pk);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
 
         public DataTable GetDeliveryItemDetails(int Locid, int Atcid)
         {
@@ -158,6 +231,38 @@ ORDER BY RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, U
 
             return dt;
         }
+        public  DataTable getFabricRollofAItemPK(string Condition, int location_pk, int mcrpk)
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = @"SELECT        tt.Roll_PK, tt.RollNum, tt.ASN, tt.PONum, tt.itemDescription, tt.WidthGroup, tt.ShadeGroup, tt.ShrinkageGroup, tt.AYard, tt.AtcNum, tt.InventoryItem_PK, tt.Location_PK, RollInventoryMaster.IsPresent, 
+                         RollInventoryMaster.Location_Pk AS Expr1, tt.MarkerType, tt.AWidth, tt.AShrink, tt.AShade,ISNULL( tt.SWeight,'NA') as SWeight,RACK_NAME,@mcrpk as mcrpk
+FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
+                         ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
+                         + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, InventoryMaster.InventoryItem_PK, InventoryMaster.Location_PK, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
+                         FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight, ISNULL( (SELECT        RackMaster.Rack_name
+FROM            RackMaster INNER JOIN
+                         RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK ) and  (RollInventoryMaster.Location_Pk = @location_pk ) and  (RollInventoryMaster.IsPresent ='Y') ) ,0) AS RACK_NAME
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
+                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN
+                         SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster.Supplier_PK INNER JOIN
+                         InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk INNER JOIN
+                         CurrencyMaster ON SupplierMaster.CurrencyID = CurrencyMaster.CurrencyID 
+WHERE         (InventoryMaster.MrnDet_PK =FabricRollmaster.MRnDet_PK) and (FabricRollmaster.IsDelivered <> N'Y') " + Condition+ " ) AS tt INNER JOIN RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK WHERe (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_PK = @location_pk) and tt.Roll_PK not in(select Roll_PK from MCRRollDetails where Mcr_pk =@mcrpk)  ORDER BY tt.InventoryItem_PK ";
+                cmd.Parameters.AddWithValue("@Condition", Condition);
+                cmd.Parameters.AddWithValue("@location_pk", location_pk);
+                cmd.Parameters.AddWithValue("@mcrpk", mcrpk);
+                return QueryFunctions.ReturnQueryResultDatatable(cmd);
+            }
+        }
+
         public DataTable GetFabricStockDetails(int Locid, int Atcid)
         {
             DataTable dt = new DataTable();
@@ -359,9 +464,9 @@ FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNu
                                                     InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk AND FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk AND 
                                                     FabricRollmaster.MRnDet_PK = InventoryMaster.MrnDet_PK inner join
 													MrnDetails on MrnDetails.MrnDet_PK=FabricRollmaster.MRnDet_PK and MrnDetails.Mrn_PK =@MRN_PK
-                          WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (InventoryMaster.OnhandQty > 0) AND (FabricRollmaster.IsDelivered <> N'Y') AND (FabricRollmaster.RackAllocated IS NULL)) AS tt INNER JOIN
+                          WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (InventoryMaster.OnhandQty > 0) AND (FabricRollmaster.IsDelivered <> N'Y') AND (FabricRollmaster.RackAllocated ='N')) AS tt INNER JOIN
                          RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK
-WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locpk) AND (tt.AYard > 0)
+WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locpk)  and RollInventoryMaster.Location_Pk =@locpk
 ORDER BY tt.RollNum ";
             cmd.Parameters.AddWithValue("@MRN_PK", MRN_PK);
             cmd.Parameters.AddWithValue("@Rack_PK", Rack_PK);
@@ -386,11 +491,11 @@ FROM            (SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNu
                                                     SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                                                     ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
                                                     AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN
-                                                    InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk AND FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk AND 
+                                                    InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk  AND 
                                                     FabricRollmaster.MRnDet_PK = InventoryMaster.MrnDet_PK
-                          WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (InventoryMaster.OnhandQty > 0) AND (FabricRollmaster.IsDelivered <> N'Y') AND (FabricRollmaster.RackAllocated IS NULL)) AS tt INNER JOIN
+                          WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (InventoryMaster.OnhandQty > 0) AND (FabricRollmaster.IsDelivered <> N'Y') AND (FabricRollmaster.RackAllocated='N')) AS tt INNER JOIN
                          RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK
-WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locpk) AND (tt.AYard > 0)
+WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (tt.Location_PK = @locpk)  and RollInventoryMaster.Location_Pk =@locpk
 ORDER BY tt.RollNum
  ";
             
@@ -402,18 +507,70 @@ ORDER BY tt.RollNum
 
             return dt;
         }
+        public DataTable GetStockInventoryItems(int MRN_PK, int Rack_PK,int locpk)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand();
+            if (MRN_PK > 0)
+            {                            
+            cmd.CommandText = @"SELECT        SInventoryItem_PK, Description, Composition, Construct, TemplateColor, TemplateSize, width, Unitprice, ReceivedQty, OnHandQty, UomName, Location_Pk, deliveryqty, CuRate, AllocatedQty,
+SMRNDet_Pk,SPODetails_PK,Template_PK,MRNQty,ReceivedVia,Refnum,@Rack_PK as Rack_PK
+FROM            (SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, 
+                    StockInventoryMaster.TemplateSize, StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.Unitprice, StockInventoryMaster.ReceivedQty, 
+                    StockInventoryMaster.OnHandQty, UOMMaster.UomName, StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty, StockInventoryMaster.CuRate,
+					isnull((select sum(onhandqty) from StockRackInventoryMaster where StockInventoryMaster.SInventoryItem_PK=StockRackInventoryMaster.SInventoryitem_PK),0)as AllocatedQty ,
+					StockMRNDetails.SMRNDet_Pk ,StockPODetails.SPODetails_PK,StockInventoryMaster.Template_PK,(StockMRNDetails.ReceivedQty+ISNULL (StockMRNDetails.ExtraQty ,0)) as MRNQty,
+					StockInventoryMaster.ReceivedVia,StockInventoryMaster.Refnum 								
 
-        public DataTable MCRFabricInventory(int Locid, int Atcid)
+                          FROM            StockInventoryMaster INNER JOIN
+                                                    Template_Master ON StockInventoryMaster.Template_PK = Template_Master.Template_PK INNER JOIN
+                                                    UOMMaster ON StockInventoryMaster.Uom_PK = UOMMaster.Uom_PK inner join
+													StockMRNDetails on StockMRNDetails .SMRNDet_Pk =StockInventoryMaster.SMRNDet_Pk inner join
+													StockPODetails on StockPODetails .SPODetails_PK =StockInventoryMaster.SPODetails_PK 
+                          WHERE        (StockInventoryMaster.Location_Pk = @locpk) AND (StockInventoryMaster.OnHandQty > 0)) AS tt where (OnHandQty -AllocatedQty )>0 ";
+            cmd.Parameters.AddWithValue("@MRN_PK", MRN_PK);
+            cmd.Parameters.AddWithValue("@Rack_PK", Rack_PK);
+            cmd.Parameters.AddWithValue("@locpk", locpk);
+            }
+            else
+            {
+
+            cmd.CommandText = @"SELECT        SInventoryItem_PK, Description, Composition, Construct, TemplateColor, TemplateSize, width, Unitprice, ReceivedQty, OnHandQty, UomName, Location_Pk, deliveryqty, CuRate, AllocatedQty,
+SMRNDet_Pk,SPODetails_PK,Template_PK,MRNQty,ReceivedVia,Refnum,@Rack_PK as Rack_PK
+FROM            (SELECT        StockInventoryMaster.SInventoryItem_PK, Template_Master.Description, StockInventoryMaster.Composition, StockInventoryMaster.Construct, StockInventoryMaster.TemplateColor, 
+                    StockInventoryMaster.TemplateSize, StockInventoryMaster.TemplateWidth + ' ' + StockInventoryMaster.TemplateWeight AS width, StockInventoryMaster.Unitprice, StockInventoryMaster.ReceivedQty, 
+                    StockInventoryMaster.OnHandQty, UOMMaster.UomName, StockInventoryMaster.Location_Pk, 0.0 AS deliveryqty, StockInventoryMaster.CuRate,
+					isnull((select sum(onhandqty) from StockRackInventoryMaster where StockInventoryMaster.SInventoryItem_PK=StockRackInventoryMaster.SInventoryitem_PK),0)as AllocatedQty ,
+					StockMRNDetails.SMRNDet_Pk ,StockPODetails.SPODetails_PK,StockInventoryMaster.Template_PK,(StockMRNDetails.ReceivedQty+ISNULL (StockMRNDetails.ExtraQty ,0)) as MRNQty,
+					StockInventoryMaster.ReceivedVia,StockInventoryMaster.Refnum 								
+
+                          FROM            StockInventoryMaster INNER JOIN
+                                                    Template_Master ON StockInventoryMaster.Template_PK = Template_Master.Template_PK INNER JOIN
+                                                    UOMMaster ON StockInventoryMaster.Uom_PK = UOMMaster.Uom_PK inner join
+													StockMRNDetails on StockMRNDetails .SMRNDet_Pk =StockInventoryMaster.SMRNDet_Pk inner join
+													StockPODetails on StockPODetails .SPODetails_PK =StockInventoryMaster.SPODetails_PK 
+                          WHERE        (StockInventoryMaster.Location_Pk = @locpk) AND (StockInventoryMaster.OnHandQty > 0)) AS tt where (OnHandQty -AllocatedQty )>0
+ ";
+            
+            cmd.Parameters.AddWithValue("@Rack_PK", Rack_PK);
+            cmd.Parameters.AddWithValue("@locpk", locpk);
+
+            }
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable MCRFabricInventory(int Mcr_pk)
         {
             DataTable dt = new DataTable();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
-                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk
 FROM            MCRDetails
-WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F') and (IsApproved is NULL)";
-            cmd.Parameters.AddWithValue("@Locid", Locid);
-            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+WHERE        (Mcr_pk = @Mcr_pk) AND (type = 'F') ";
+            cmd.Parameters.AddWithValue("@Mcr_pk", Mcr_pk);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -421,17 +578,16 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F') and (I
             return dt;
         }
 
-        public DataTable MCRTrimsInventory(int Locid, int Atcid)
+        public DataTable MCRTrimsInventory(int Mcr_pk)
         {
             DataTable dt = new DataTable();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
-                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk
 FROM            MCRDetails
-WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T') and (IsApproved is NULL)";
-            cmd.Parameters.AddWithValue("@Locid", Locid);
-            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+WHERE        (Mcr_pk = @Mcr_pk) AND (type = 'T') ";
+            cmd.Parameters.AddWithValue("@Mcr_pk", Mcr_pk);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -439,17 +595,45 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T') and (I
             return dt;
         }
 
-        public DataTable ApprovedMCRFabricInventory(int Locid, int Atcid)
+
+        public DataTable MCRTransferRollInventory(int mcr_pk)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        FabricRollmaster.Roll_PK, FabricRollmaster.RollNum, SupplierDocumentMaster.SupplierDocnum + ' /' + SupplierDocumentMaster.AtracotrackingNum AS ASN, ProcurementMaster.PONum, 
+                         ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
+                         + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, FabricRollmaster.WidthGroup, FabricRollmaster.ShadeGroup, 
+                         FabricRollmaster.ShrinkageGroup, FabricRollmaster.AYard, AtcMaster.AtcNum, InventoryMaster.InventoryItem_PK, InventoryMaster.Location_PK, FabricRollmaster.MarkerType, FabricRollmaster.AWidth, 
+                         FabricRollmaster.AShrink, FabricRollmaster.AShade, FabricRollmaster.SWeight,@mcr_pk as mcr_pk,0 as ReceiveYard,0 as ACT_R_Yard,0 as Mcr_kg
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         FabricRollmaster ON SkuRawmaterialDetail.SkuDet_PK = FabricRollmaster.SkuDet_PK INNER JOIN
+                         ProcurementDetails ON FabricRollmaster.podet_pk = ProcurementDetails.PODet_PK INNER JOIN
+                         SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN
+                         SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster.Supplier_PK INNER JOIN
+                         InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk inner join
+						 MCRRollDetails on MCRRollDetails.Mcr_pk =@mcr_pk and MCRRollDetails.Inventoryitem_pk=InventoryMaster.InventoryItem_PK 
+WHERE MCRRollDetails.Mcr_pk =@mcr_pk  and MCRRollDetails.Roll_pk =FabricRollmaster.Roll_PK and MCRRollDetails.IsReceived ='N'";
+            cmd.Parameters.AddWithValue("@mcr_pk", mcr_pk);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+        public DataTable MCRTransferFabricInventory(int mcr_pk)
         {
             DataTable dt = new DataTable();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
-                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk,PhysicalQty as ActualReceive,isnull(ActualDiffQty,0) as ActualDiffQty
 FROM            MCRDetails
-WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F') and (Isapproved='Y')";
-            cmd.Parameters.AddWithValue("@Locid", Locid);
-            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+WHERE       (Mcr_pk = @mcr_pk) AND (type = 'F')";
+            cmd.Parameters.AddWithValue("@mcr_pk", mcr_pk);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -457,17 +641,51 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'F') and (I
             return dt;
         }
 
-        public DataTable ApprovedMCRTrimsInventory(int Locid, int Atcid)
+        public DataTable MCRTransferTrimsInventory(int mcr_pk)
         {
             DataTable dt = new DataTable();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
-                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk,PhysicalQty as ActualReceive,isnull(ActualDiffQty,0) as ActualDiffQty
 FROM            MCRDetails
-WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')  and (Isapproved='Y')";
-            cmd.Parameters.AddWithValue("@Locid", Locid);
-            cmd.Parameters.AddWithValue("@Atcid", Atcid);
+WHERE        (Mcr_pk = @mcr_pk) AND (type = 'T')";
+            cmd.Parameters.AddWithValue("@mcr_pk", mcr_pk);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+       
+        public DataTable ApprovedMCRFabricInventory(int Mcr_pk)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk
+FROM            MCRDetails
+WHERE        (Mcr_pk = @Mcr_pk) AND (type = 'F') ";
+            cmd.Parameters.AddWithValue("@Mcr_pk", Mcr_pk);
+
+
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+            return dt;
+        }
+
+        public DataTable ApprovedMCRTrimsInventory(int Mcr_pk)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        Atcid,InventoryItem_pk, Location_pk, ReceivedQty, McrDetails_pk, DeliveredQty, Onhandqty, PhysicalQty, DiffQty, AddedDate, Addedby, ApprovedBy, ApprovedDate, RMNum, Description, 
+                         ItemColor, SupplierColor, UOM, CU_Rate, ActualCU_Rate, type,Mcr_pk
+FROM            MCRDetails
+WHERE        (Mcr_pk = @Mcr_pk) AND (type = 'T') ";
+            cmd.Parameters.AddWithValue("@Mcr_pk", Mcr_pk);
 
 
             dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
@@ -525,8 +743,9 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')  and (
         }
 
 
-        public void insertRollProperty(RollPropertyJson Model)
+        public Boolean   insertRollProperty(RollPropertyJson Model)
         {
+            bool status = false;
             using (ArtWebApp.DataModels.ArtEntitiesnew entymew = new DataModels.ArtEntitiesnew())
             {
                 String OldMarkerType = "";
@@ -569,7 +788,10 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')  and (
                 rollPropertyChangeMaster.IsApproved = "N";
                 entymew.RollPropertyChangeMasters.Add(rollPropertyChangeMaster);
                 entymew.SaveChanges();
+                status = true;
             }
+
+            return status;
 
         }
 
@@ -586,6 +808,7 @@ WHERE        (Atcid = @Atcid) AND (Location_pk = @Locid) AND (type = 'T')  and (
             {
                 RollPropertApprovalModel rollPropertApprovalModel = new RollPropertApprovalModel();
                 rollPropertApprovalModel.Roll_PK = System.Decimal.Parse(datatable.Rows[i]["Roll_PK"].ToString());
+                rollPropertApprovalModel.FabricRollChangeID = System.Decimal.Parse(datatable.Rows[i]["FabricRollChangeID"].ToString());
                 rollPropertApprovalModel.RollNum = datatable.Rows[i]["RollNum"].ToString();
                 rollPropertApprovalModel.LocationName = datatable.Rows[i]["LocationName"].ToString();
                 rollPropertApprovalModel.DocumentNum = datatable.Rows[i]["DocumentNum"].ToString();

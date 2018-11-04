@@ -37,7 +37,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         join bymstr in entty.BuyerMasters on atcmstr.Buyer_ID equals bymstr.BuyerID
                         join lctnmstr in entty.LocationMasters on lymstr.Location_PK equals lctnmstr.Location_PK
                         join ctplnmst in entty.CutPlanMasters on cutplanmarkerdet.CutPlan_PK equals ctplnmst.CutPlan_PK
-                        where lymstr.LaySheet_PK == laysheetpk
+                        where lymstr.LaySheet_PK == laysheetpk  
                         select new
                         {
                             lymstr.LaySheetNum,

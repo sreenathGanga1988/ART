@@ -95,6 +95,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         {
             bool status = false;
             string Donum = "";
+            string shotmes = "";
             int atcid = 0;
             string dodate="";
             string container = "";
@@ -144,7 +145,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                 foreach(var rackinv in ra)
                 {
                     rackinv.DeliveredQty = rackinv.DeliveredQty + item.DeliveryQty;
-                    rackinv.OnhandQty = rackinv.OnhandQty - rackinv.DeliveredQty;
+                    rackinv.OnhandQty = rackinv.OnhandQty - item.DeliveryQty;
                 }
                 // Reduce Goods in Inventory
                 var q = from invitem in db.InventoryMasters
@@ -196,15 +197,18 @@ namespace ArtWebApp.Areas.Inventory.Controllers
             {
                 db.SaveChanges();
                 status = true;
+                shotmes = "Delivery Order# " + Donum + "  Created Successfully";
             }
             catch (Exception exp)
             {
+                shotmes = "Delivery Order not created";
                 status = false;
                 throw;
+
             }
 
 
-            return new JsonResult { Data = new { status = status } };
+            return new JsonResult { Data = new { status = shotmes } };
         }
     }
 }

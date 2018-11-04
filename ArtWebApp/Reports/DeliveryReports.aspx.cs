@@ -84,6 +84,31 @@ namespace ArtWebApp.Reports
 
             }
         }
+
+
+
+        public void FillEDORCombo()
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                var q = from edo in entty.EndbitDoMasters
+                        select new
+                        {
+                            name = edo.DoNum,
+                            pk = edo.Do_pk
+                        };
+
+                // Create a table from the query.
+                DRP_EBITDO.DataSource = q.ToList();
+                DRP_EBITDO.DataBind();
+               
+
+            }
+        }
+
+
+
+
         public void FillDORComboofAtc(int atcid)
         {
             using (ArtEntitiesnew entty = new ArtEntitiesnew())
@@ -108,6 +133,7 @@ namespace ArtWebApp.Reports
             {
                 FillDOCombo(int.Parse(drp_Atc.SelectedValue.ToString()));
                 FillDORComboofAtc(int.Parse(drp_Atc.SelectedValue.ToString()));
+                FillEDORCombo();
             }
             catch (Exception)
             {
@@ -228,5 +254,28 @@ namespace ArtWebApp.Reports
 
 
         }
+
+        protected void Btn_showedo_Click(object sender, EventArgs e)
+        {
+
+
+            DBTransaction.ReportTransactions.ReporterTrans rpttran = new DBTransaction.ReportTransactions.ReporterTrans();
+            DataTable dt = rpttran.Getendbit(int.Parse(DRP_EBITDO.SelectedItem.Value.Trim()));
+            //DeliveryDataTableAdapter adapt = new DeliveryDataTableAdapter();
+            ////  adapt.Connection.ConnectionString = Program.ConnStr;
+            //DataTable dt = adapt.GetDataby(int.Parse( drp_do.SelectedItem.Value.Trim()));
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+            //this.reportViewer1.LocalReport.ReportEmbeddedResource = "D:\\report1.rdlc";
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\EndBitDO.rdlc";
+
+
+
+
+
+        }
+
+
     }
 }

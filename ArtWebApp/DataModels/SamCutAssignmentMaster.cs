@@ -39,6 +39,7 @@ namespace ArtWebApp.DataModels
         public string IsPatternCompleted { get; set; }
         public Nullable<System.DateTime> Samplingcommiteddate { get; set; }
         public Nullable<System.DateTime> NewCommitedDate { get; set; }
+        public string Accessories { get; set; }
     
         public virtual PatternMaster PatternMaster { get; set; }
         public virtual SampCutReqMaster SampCutReqMaster { get; set; }

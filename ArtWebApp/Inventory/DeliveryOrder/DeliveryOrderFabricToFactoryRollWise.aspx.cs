@@ -232,15 +232,20 @@ namespace ArtWebApp.Inventory.DeliveryOrder
             DropDownList dll_cutorder = (DropDownList)sender;
             GridViewRow currentRow = dll_cutorder.ClosestContainer<GridViewRow>();
             Label lbl_balacetocut = currentRow.FindControl("lbl_balacetocut") as Label;
+            Label lbl_delqtyyds = currentRow.FindControl("lbl_delqtyyds") as Label;
+            UpdatePanel upd_delqtyyds = currentRow.FindControl("upd_delqtyyds") as UpdatePanel;
             UpdatePanel upd_balacetocut = currentRow.FindControl("upd_balacetocut") as UpdatePanel;
             if (dll_cutorder.Text != "Select Cut#")
             {
                 int cutid = int.Parse(dll_cutorder.SelectedValue.ToString());
 
                 int balqty = cdata.GetbalanceQty(cutid);
+                int delqty = cdata.GetDeliverYdsQty(cutid);
 
                 lbl_balacetocut.Text = balqty.ToString();
+                lbl_delqtyyds.Text = delqty.ToString();
                 upd_balacetocut.Update();
+                upd_delqtyyds.Update();
                 UpdatePanel1.Update();
 
             }
@@ -410,7 +415,7 @@ namespace ArtWebApp.Inventory.DeliveryOrder
                         }
 
                     }
-                    catch (Exception)
+                    catch (Exception exp)
                     {
 
                        

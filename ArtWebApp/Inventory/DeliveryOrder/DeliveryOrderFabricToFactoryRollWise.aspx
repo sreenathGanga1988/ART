@@ -223,6 +223,18 @@
                                         </ItemTemplate>
                                     
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="DelQty(Yds)">
+                                           
+                                            <ItemTemplate>
+
+                                                <asp:UpdatePanel ID="upd_delqtyyds" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                      <asp:Label ID="lbl_delqtyyds" runat="server"></asp:Label>
+                                                      </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="BalCutQty">
                                            
                                             <ItemTemplate>
@@ -501,7 +513,7 @@
         
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" 
-                    SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') ORDER BY AtcNum, AtcId">
+                    SelectCommand="SELECT DISTINCT AtcNum, AtcId FROM AtcMaster WHERE (IsClosed = N'N') AND (IsMCRDone IS NULL) ORDER BY AtcNum, AtcId">
                 </asp:SqlDataSource>
                     
                

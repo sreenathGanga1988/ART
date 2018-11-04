@@ -24,7 +24,8 @@ namespace ArtWebApp.Shipping.LC
             lcmstr.Supplier_pk = int.Parse (drp_supplier.SelectedItem.Value.ToString ());
             lcmstr.Bank_PK = int.Parse(drp_bank.SelectedItem.Value.ToString()); 
             lcmstr.Issuedate = DateTime.Parse(dtp_issuedate.Value.ToString());
-            lcmstr.ExpiryDate = DateTime.Parse(dtp_expirydate.Value.ToString()); 
+            lcmstr.ExpiryDate = DateTime.Parse(dtp_expirydate.Value.ToString());
+            lcmstr.value = decimal.Parse(TextBox2.Text.ToString());
            lcmstr.InsertLC ();
            MessgeboxUpdate("sucess", lcmstr.LCNum+"  Added Sucessfully");
            tbl_podetails.DataBind();

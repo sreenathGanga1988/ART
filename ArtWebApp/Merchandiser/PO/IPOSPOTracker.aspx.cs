@@ -59,7 +59,7 @@ FROM            ODOOGPOMaster INNER JOIN
                 {
                     cmd.Connection = con;
                     sda.SelectCommand = cmd;
-
+                    
                     using (DataTable dt = new DataTable())
                     {
                         sda.Fill(dt);
@@ -126,12 +126,16 @@ WHERE        (StockMRNDetails.SPODetails_PK = StockPODetails.SPODetails_PK) grou
                                GROUP BY CurrencyMaster.CurrencyCode, StockPOMaster.SPONum, UOMMaster.UomName, StockPOMaster.AddedDate, StockPOMaster.Remark, StockPOMaster.IsApproved, ISNULL(Template_Master.Description, '') 
                                                          + ' ' + ISNULL(StockPODetails.Composition, '') + ' ' + ISNULL(StockPODetails.Construct, '') + ' ' + ISNULL(StockPODetails.TemplateColor, '') + ' ' + ISNULL(StockPODetails.TemplateSize, '') 
                                                          + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, ''), StockPODetails.POQty, StockPOMaster.SPO_Pk, SupplierMaster.SupplierName, 
-                                                         StockPODetails.SPODetails_PK, StockPODetails.CUrate, StockPODetails.Unitprice, StockPOMaster.AddedBy) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND StocPOForODOO.SPoDet_PK = tt.SPODetails_PK"))
+                                                         StockPODetails.SPODetails_PK, StockPODetails.CUrate, StockPODetails.Unitprice, StockPOMaster.AddedBy) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND StocPOForODOO.SPoDet_PK = tt.SPODetails_PK
+group by  tt.SPODetails_PK, tt.SPO_Pk, tt.SPONum, tt.SupplierName, tt.Unitprice, tt.CurrencyCode, tt.Description, tt.Remark, tt.POQty, tt.ReceivedQty, tt.UomName,  AddedDate, 
+tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.MRNDetails,tt.Sales_DO"))
                           
 
                     using (SqlDataAdapter sda = new SqlDataAdapter())
                     {
                         cmd.Connection = con;
+
+                        cmd.CommandTimeout = 0;
                         sda.SelectCommand = cmd;
 
                        

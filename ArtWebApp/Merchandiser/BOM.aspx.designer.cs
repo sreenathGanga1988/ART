@@ -85,6 +85,15 @@ namespace ArtWebApp.Merchandiser {
         protected global::System.Web.UI.WebControls.Button btn_RO;
         
         /// <summary>
+        /// btn_loan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_loan;
+        
+        /// <summary>
         /// upProgClaimantSearch control.
         /// </summary>
         /// <remarks>

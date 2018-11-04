@@ -997,6 +997,9 @@ namespace ArtWebApp.Production.CutOrder
         protected void btn_shostyle_Click(object sender, EventArgs e)
         {
 
+            int locationpk = 0;
+            locationpk = int.Parse(Session["UserLoc_pk"].ToString());
+
 
             drp_fabcolor.DataSource = BLL.CutOrderBLL.CutPlan.fillFabColor(int.Parse(drp_ourstyle.SelectedValue.ToString()), "");
             drp_fabcolor.DataBind();
@@ -1178,13 +1181,35 @@ namespace ArtWebApp.Production.CutOrder
             }
             filltable();
         }
+        public void checkjob()
+        {
+            int ourstyleid = int.Parse(drp_ourstyle.SelectedValue.ToString());
+            int check = 0;
+            //ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "sucess", msg);
+            using (ArtEntitiesnew enty =new ArtEntitiesnew())
+            {
+                var q = from ourstyle in enty.JobContractMasters   where ourstyle.OurStyleID == ourstyleid select ourstyle;
+                foreach(var element in q)
+                {
+                    check = check + 1;
+                }
+            }
+            if (check == 0)
+            {
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv1, "Error", "Jobcontract Not Made for this Ourstyle ");
+            }
+            else
+            {
+                fillgrid();
+            }
+        }
 
         protected void btn_cutorder_Click(object sender, EventArgs e)
         {
             try
             {
-
-                fillgrid();
+                checkjob();
+                //fillgrid();
             }
             catch (Exception ex)
             {

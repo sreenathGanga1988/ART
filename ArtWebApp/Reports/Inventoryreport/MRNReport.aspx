@@ -115,11 +115,14 @@
                     <td ></td>
                 </tr>
                 <tr>
-                    <td >&nbsp;</td>
+                    <td >MCR NUM</td>
                     <td >
-                        &nbsp;</td>
+                        <asp:DropDownList ID="drp_mcrno" runat="server" Height="25px" Width="177px">
+                        </asp:DropDownList>
+                    </td>
                     <td>
-                        &nbsp;</td>
+                        <asp:Button ID="btn_mcr" runat="server" Text="Show MCR " Width="155px"  OnClick="btn_mcr_click"/>
+                    </td>
                     <td>&nbsp;</td>
                     <td >&nbsp;</td>
                     <td >&nbsp;</td>

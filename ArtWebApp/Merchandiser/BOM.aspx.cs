@@ -70,17 +70,6 @@ namespace ArtWebApp.Merchandiser
                         skulist.Add(skudetpk);
                     }
 
-
-
-                  
-
-                    
-
-
-
-
-
-
                 }
             }
 
@@ -122,6 +111,12 @@ namespace ArtWebApp.Merchandiser
                         
                         Response.Redirect("~/Merchandiser/PO/POAppend.aspx");
                     }
+                    else if (POtype.Trim() == "LRO")
+                    {
+                        
+                        Response.Redirect("~/Merchandiser/PO/LoanPO.aspx");
+                    }
+
                 }
 
             }
@@ -363,6 +358,19 @@ namespace ArtWebApp.Merchandiser
             }
         }
 
+
+        protected void btn_loan_Click(object sender, EventArgs e)
+        {
+            if (IsMultipleRowselected())
+            {
+                Session["atcid"] = int.Parse(cmb_atc.SelectedValue.ToString());
+                GeneratePO1("LRO");
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('Only one item can be selected for  RO at once');", true);
+            }
+        }
 
 
 

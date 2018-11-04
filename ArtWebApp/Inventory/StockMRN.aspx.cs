@@ -70,13 +70,17 @@ namespace ArtWebApp.Inventory
             BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
             lbl_potype.Text=prrrcpt.ShowPOType(int.Parse(drp_Po.SelectedValue.ToString()));
             fillSADN(int.Parse(drp_Po.SelectedValue.ToString()));
-            tbl_Podetails.DataSource = spdata.GetSpoData(int.Parse(drp_Po.SelectedValue.ToString()));
-            tbl_Podetails.DataBind();
+            //tbl_Podetails.DataSource = spdata.GetSpoData(int.Parse(drp_Po.SelectedValue.ToString()));
+            //tbl_Podetails.DataBind();
         }
+
 
         protected void btn_sdn_Click(object sender, EventArgs e)
         {
-            
+            BLL.ProcurementBLL.StockPODetailsdata spdata = new BLL.ProcurementBLL.StockPODetailsdata();
+            BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
+            tbl_Podetails.DataSource = spdata.GetSpoData(int.Parse(drp_Po.SelectedValue.ToString()),int.Parse(drp_sadn.SelectedValue.ToString()) );
+            tbl_Podetails.DataBind();
         }
 
         public void fillSADN(int popk)
@@ -168,7 +172,8 @@ namespace ArtWebApp.Inventory
             smrnmstr.SPo_PK = int.Parse(drp_Po.SelectedValue.ToString());
             smrnmstr.Location_Pk = int.Parse(Session["UserLoc_pk"].ToString());
             smrnmstr.Reciept_Pk = int.Parse(drp_rcpt.SelectedValue.ToString());
-
+            smrnmstr.SDoc_pk = int.Parse(drp_sadn.SelectedValue.ToString());
+            
             return smrnmstr;
         }
         public List<BLL.InventoryBLL.StockMRNDetailsData> GetMRnDetailsData()
@@ -184,6 +189,7 @@ namespace ArtWebApp.Inventory
                     int SPODetails_PK = int.Parse(((di.FindControl("lbl_SPODetails_PK") as Label).Text.ToString()));
                     int SPO_PK = int.Parse(drp_Po.SelectedItem.Value.ToString());
                     int Template_PK = int.Parse(((di.FindControl("lbl_Template_PK") as Label).Text.ToString()));
+                          
 
                     String composition = ((di.FindControl("lbl_composition") as Label).Text).Trim();
                     String construct = ((di.FindControl("lbl_construct") as Label).Text).Trim();
@@ -217,6 +223,7 @@ namespace ArtWebApp.Inventory
                     mrndetdata.TemplateSize = size;
                     mrndetdata.TemplateWidth = width;
                     mrndetdata.TemplateWeight = weight;
+                    
 
 
                     rk.Add(mrndetdata);

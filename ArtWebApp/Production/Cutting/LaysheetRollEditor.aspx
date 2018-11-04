@@ -312,7 +312,24 @@
 
                                               </FooterTemplate>
                                              </asp:TemplateField>
-                                         
+                                          <asp:TemplateField HeaderText="Cut_NO" SortExpression="Cut_NO">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:Label ID="lblCutNO" CssClass="txtaCutNO" runat="server" Text='<%# Bind("Cut_NO") %>'></asp:Label>
+                                                 </ItemTemplate>
+                                                 <FooterTemplate>
+                                            <%--      <asp:TextBox ID="txt_totalyard" Width="70px" CssClass="totalyardfooter" runat="server"></asp:TextBox>--%>
+
+                                              </FooterTemplate>
+                                             </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Sequence_NO" SortExpression="Sequence_No">
+                                                
+                                                 <ItemTemplate>
+                                                     <asp:TextBox ID="txt_sequence"  onkeypress="return isNumberKey(event,this)"  Text="0"  runat="server"></asp:TextBox>
+                                                 </ItemTemplate>
+                                                 <FooterTemplate>
+                                              </FooterTemplate>
+                                             </asp:TemplateField>
                                                                             
                                              <asp:TemplateField HeaderText="Plies" Visible="False">
                                                  
@@ -432,6 +449,7 @@
                                     <asp:TextBox ID="txt_totalyard" runat="server" CssClass="totalyardfooter" Width="70px"></asp:TextBox>
                                 </FooterTemplate>
                             </asp:TemplateField>
+                            <asp:BoundField DataField="Sequence" HeaderText="Sequence" SortExpression="Sequence" />
                         </Columns>
                         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
                         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />

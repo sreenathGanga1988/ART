@@ -112,8 +112,8 @@ namespace ArtWebApp
 
                returnValue = cmd.ExecuteScalar();
            }
-                           
-             return returnValue;
+
+            return returnValue;
            }
 
 
@@ -150,8 +150,12 @@ namespace ArtWebApp
                {
                    cmd.CommandType = CommandType.Text;
                    cmd.Connection = con;
+                cmd.CommandTimeout = 500;
                    con.Open();
 
+                //SqlDataReader rdr = cmd.ExecuteReader();
+
+                //dt.Load(rdr);
                 try
                 {
                     using (SqlDataReader rdr = cmd.ExecuteReader())
@@ -165,8 +169,8 @@ namespace ArtWebApp
                     throw;
                 }
 
-                   
-               }
+
+            }
 
                return dt;
            }

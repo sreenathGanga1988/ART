@@ -517,7 +517,7 @@ namespace ArtWebApp.Areas.ArtAdministrator
                         
                         var atclocation_pk = artenty.LocationMasters.Where(u => u.AtcWorldlocation_PK == Location_PK).Select(u => u.Location_PK).FirstOrDefault();
 
-
+                       
 
                         if (!artenty.OurStyleDeptCMs.Any(f => f.OurStyleID == OurStyleId && f.DeptID == DeptID_Pk && f.AtcWorldLocation_PK == Location_PK && f.effDate== effDate))
                         {
@@ -780,6 +780,7 @@ GROUP BY SewInput_Tbl.Location_PK,LocationMaster_tbl.ArtLocation_PK,LocationMast
             return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);
 
         }
+
         public static DataTable GetCSFA()
         {
             String Qry = @"
@@ -804,7 +805,7 @@ GROUP BY Location_PK, DeptID_Pk, DeptName, OurStyleId, DeptSAM, [DeptCM/Cent], e
 HAVING        (effDate > '25 jan 2018')
 )ProdCm
 on Final.Location_pk = ProdCm.Location_PK and Final.DeptID_Pk = ProdCm.DeptID_Pk
-and final.OurStyleId = ProdCm.OurStyleId
+and final.OurStyleId = ProdCm.OurStyleId 
 ORDER BY final.Location_PK, final.OurStyleId, final.DeptID_Pk
 ";
             return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(Qry);

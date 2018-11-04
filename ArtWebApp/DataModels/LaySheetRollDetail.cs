@@ -32,6 +32,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> BalanceYardage { get; set; }
         public string Status { get; set; }
         public string IsDeleted { get; set; }
+        public Nullable<decimal> Sequence { get; set; }
     
         public virtual CutOrderDetail CutOrderDetail { get; set; }
         public virtual CutOrderMaster CutOrderMaster { get; set; }

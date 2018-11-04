@@ -268,8 +268,88 @@ ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor
             return dt;
         }
 
+        public DataTable GetMrnDetails(int Location_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
 
 
+
+
+                SqlCommand cmd = new SqlCommand(@"
+SELECT        AtcMaster.AtcNum, ProcurementMaster.PONum, MrnMaster.MrnNum, ProcurementDetails.POQty, MrnDetails.Mrn_PK, MrnDetails.ReceiptQty, MrnDetails.ExtraQty, MrnDetails.SkuDet_PK, MrnDetails.MrnDet_PK,
+                             (SELECT        SUM(AYard) AS fabricyard
+                               FROM            FabricRollmaster
+                               WHERE        (MRnDet_PK = MrnDetails.MrnDet_PK)) AS FabRecv,
+                             (SELECT        COUNT(Roll_PK) AS Expr1
+                               FROM            FabricRollmaster AS FabricRollmaster_1
+                               WHERE        (MRnDet_PK = MrnDetails.MrnDet_PK)) AS RollCount, ISNULL(SkuRawMaterialMaster.Composition, '') + '' + ISNULL(SkuRawMaterialMaster.Construction, '') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') 
+                         + ' ' + ISNULL(SkuRawMaterialMaster.Width, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') AS Description, SupplierMaster.SupplierName,SkuRawmaterialDetail.ItemColor
+FROM            MrnDetails INNER JOIN
+                         MrnMaster ON MrnDetails.Mrn_PK = MrnMaster.Mrn_PK INNER JOIN
+                         SkuRawmaterialDetail ON MrnDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         ProcurementMaster ON MrnMaster.Po_PK = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId INNER JOIN
+                         ProcurementDetails ON MrnDetails.PODet_PK = ProcurementDetails.PODet_PK INNER JOIN
+                         SupplierMaster ON ProcurementMaster.Supplier_Pk = SupplierMaster.Supplier_PK
+WHERE        (MrnMaster.MrnClosed ='N') AND (ProcurementMaster.POType = 'F') and ( MrnMaster.Location_Pk =@loc_pk) order by ProcurementDetails.PODet_PK ", con);
+                
+                cmd.Parameters.AddWithValue("@loc_pk", Location_pk);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+        public DataTable GetADNDetails(int Location_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        MrnDetails.Doc_Pk, DocMaster.DocNum, DocDetails.Qty AS DOC_Qty, DocDetails.ExtraQty, MrnDetails.ReceiptQty AS MRN_Qty, MrnDetails.ExtraQty AS MRNExtraQty, MrnMaster.MrnNum, MrnMaster.MrnClosed, 
+                         DocDetails.PODet_Pk, DocDetails.DocDet_Pk, ProcurementMaster.PONum,
+                             (SELECT        SUM(AYard) AS fabricyard
+                               FROM            FabricRollmaster
+                               WHERE        (MRnDet_PK = MrnDetails.MrnDet_PK)) AS FabRecv,
+                             (SELECT        COUNT(Roll_PK) AS Expr1
+                               FROM            FabricRollmaster AS FabricRollmaster_1
+                               WHERE        (MRnDet_PK = MrnDetails.MrnDet_PK)) AS RollCount, ISNULL(SkuRawMaterialMaster.Composition, '') + '' + ISNULL(SkuRawMaterialMaster.Construction, '') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, '') 
+                         + ' ' + ISNULL(SkuRawMaterialMaster.Width, '') + ' ' + ISNULL(SkuRawmaterialDetail.ItemColor, '') AS Description, AtcMaster.AtcNum
+FROM            MrnDetails INNER JOIN
+                         DocMaster INNER JOIN
+                         DocDetails ON DocMaster.Doc_Pk = DocDetails.Doc_Pk ON MrnDetails.Doc_Pk = DocMaster.Doc_Pk AND MrnDetails.PODet_PK = DocDetails.PODet_Pk INNER JOIN
+                         MrnMaster ON MrnDetails.Mrn_PK = MrnMaster.Mrn_PK INNER JOIN
+                         ProcurementMaster ON MrnMaster.Po_PK = ProcurementMaster.PO_Pk INNER JOIN
+                         SkuRawmaterialDetail ON MrnDetails.SkuDet_PK = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId
+WHERE        (MrnMaster.MrnClosed = N'Y') AND (DocMaster.IsClosed = 'N')
+ ", con);
+
+                cmd.Parameters.AddWithValue("@loc_pk", Location_pk);
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
 
 
 

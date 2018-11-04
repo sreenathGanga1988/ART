@@ -118,6 +118,7 @@
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="RollNum" HeaderText="RollNum" SortExpression="RollNum" />
                                         <asp:BoundField DataField="DocumentNum" HeaderText="DocumentNum" SortExpression="DocumentNum" />
+                                        <asp:BoundField DataField="ItemColor" HeaderText="ItemColor" SortExpression="ItemColor" />
                                         <asp:BoundField DataField="WidthGroup" HeaderText="WidthGroup" SortExpression="WidthGroup" />
                                         <asp:BoundField DataField="ShadeGroup" HeaderText="ShadeGroup" SortExpression="ShadeGroup" />
                                         <asp:BoundField DataField="ShrinkageGroup" HeaderText="ShrinkageGroup" SortExpression="ShrinkageGroup" />

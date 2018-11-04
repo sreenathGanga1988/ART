@@ -18,15 +18,36 @@ namespace ArtWebApp.Reports.Inventoryreport
             if (!IsPostBack)
             {
                 FillAtcCombo();
+                FillMcrNum();
             }
         }
 
-       
 
-   
 
-    
 
+
+        public void FillMcrNum()
+        {
+            using (ArtEntitiesnew entty = new ArtEntitiesnew())
+            {
+                entty.Configuration.AutoDetectChangesEnabled = false;
+                var q = from atcorder in entty.MCR_Master
+                        select new
+                        {
+                            name = atcorder.MCR_no,
+                            pk = atcorder.MCR_Pk
+                        };
+
+                // Create a table from the query.
+                drp_mcrno.DataSource = q.ToList();
+                drp_mcrno.DataTextField = "name";
+                drp_mcrno.DataValueField = "pk";
+                drp_mcrno.DataBind();
+
+
+
+            }
+        }
 
         public void FillAtcCombo()
         {
@@ -318,7 +339,25 @@ namespace ArtWebApp.Reports.Inventoryreport
 
 
             }
+
+
         }
+
+            protected void btn_mcr_click(object sender, EventArgs e)
+            {
+                try
+                {
+                    if (drp_mcrno.SelectedItem.Value != null)
+                    {
+                    loadMCRreport();
+                    }
+                }
+                catch (Exception exp)
+                {
+
+
+                }
+            }
 
 
 
@@ -338,6 +377,24 @@ namespace ArtWebApp.Reports.Inventoryreport
            
                 this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\PHYSICAL PO.rdlc";
             
+
+        }
+
+        public void loadMCRreport()
+        {
+
+
+
+            DBTransaction.ProcurementTransaction potrsans = new DBTransaction.ProcurementTransaction();
+
+            DataTable dt = potrsans.GetMCRData(int.Parse(drp_mcrno.SelectedValue.ToString()));
+
+            ReportDataSource datasource = new ReportDataSource("DataSet1", dt);
+            this.ReportViewer1.LocalReport.DataSources.Clear();
+            this.ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            this.ReportViewer1.LocalReport.ReportPath = @"Reports\RDLC\GetMCR.rdlc";
+
 
         }
 

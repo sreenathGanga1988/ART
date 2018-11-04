@@ -103,6 +103,15 @@ namespace ArtWebApp.Production.JobContractNew {
         protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
+        /// txt_remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_remarks;
+        
+        /// <summary>
         /// upd_grid control.
         /// </summary>
         /// <remarks>

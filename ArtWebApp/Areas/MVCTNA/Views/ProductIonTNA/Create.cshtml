@@ -165,21 +165,22 @@
                                                 </div>
                                                 <div class="panel-body"> <div>Plan : @item.PPSUBMISSIONDATEMERCHANT </div><div class="Actual">Actual  : @item.ActualPPSUBMISSIONDATEMERCHANT </div></div>
 
-                                                
+
                                                 @try
-    {
-        if (Model.tnaUserRight.IsPPSumbissionDate == true && item.ActualPPSUBMISSIONDATEMERCHANT.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsPPSumbissionDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdPPSUBMISSIONDATEMERCHANT</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsPPSumbissionDate == true && item.ActualPPSUBMISSIONDATEMERCHANT.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsPPSumbissionDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdPPSUBMISSIONDATEMERCHANT</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
 
 
                                             </div>
+
                                             <div class="panel panel-success">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">PP APPROVAL</h3>
@@ -189,15 +190,17 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsPPApprovalDate == true && item.ActualPPAPPROVAL.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsPPApprovalDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdPPAPPROVAL</p>
-                                            </div>
+            {
+                if (Model.tnaUserRight.IsPPApprovalDate == true && item.ActualPPAPPROVAL.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsPPApprovalDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdPPAPPROVAL</p>
+                                    </div>
 
-}}catch (Exception ex) { }
+}
+}
+catch (Exception ex) { }
                                             </div>
                                             <div class="panel panel-info">
                                                 <div class="panel-heading">
@@ -208,16 +211,16 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsSampleYardagesDate == true & item.ActualSAMPLEYARDAGES.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IdSAMPLEYARDAGES" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSAMPLEYARDAGES</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsSampleYardagesDate == true & item.ActualSAMPLEYARDAGES.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IdSAMPLEYARDAGES" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSAMPLEYARDAGES</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
 
                                             <div class="panel panel-info">
@@ -229,16 +232,16 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsSystemFile == true & item.ActualSYSTEMFILES.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsSampleYardagesDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSYSTEMFILES</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsSystemFile == true & item.ActualSYSTEMFILES.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsSampleYardagesDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSYSTEMFILES</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
 
                                         </div>
@@ -254,16 +257,16 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsGradedPatternDate == true & item.ActualGRADDEDPATTERN.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsGradedPatternDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdGRADDEDPATTERN</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsGradedPatternDate == true & item.ActualGRADDEDPATTERN.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsGradedPatternDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdGRADDEDPATTERN</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
                                             <div class="panel panel-danger">
                                                 <div class="panel-heading">
@@ -274,16 +277,16 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsSewingTrimDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsSewingTrimDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading">
@@ -294,17 +297,17 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsSewingTrimDate2" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
-                                            </div>
+            {
+                if (Model.tnaUserRight.IsSewingTrimDate == true & item.ActualSEWINGTRIM.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsSewingTrimDate2" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSEWINGTRIM</p>
+                                    </div>
 
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+}
+}
+catch (Exception ex) { }
                                             </div>
 
                                             <div class="panel panel-info">
@@ -316,17 +319,17 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsShrinkage == true & item.ActualSHRINKAGE.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IdSHRINKAGE" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSHRINKAGE</p>
-                                            </div>
+            {
+                if (Model.tnaUserRight.IsShrinkage == true & item.ActualSHRINKAGE.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IdSHRINKAGE" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSHRINKAGE</p>
+                                    </div>
 
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+}
+}
+catch (Exception ex) { }
                                             </div>
                                         </div>
 
@@ -343,17 +346,17 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsSizeSetDate == true & item.ActualSIZESET.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsSizeSetDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdSIZESET</p>
-                                            </div>
+            {
+                if (Model.tnaUserRight.IsSizeSetDate == true & item.ActualSIZESET.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsSizeSetDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdSIZESET</p>
+                                    </div>
 
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+}
+}
+catch (Exception ex) { }
                                             </div>
                                             <div class="panel panel-danger">
                                                 <div class="panel-heading">
@@ -364,17 +367,17 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsPPMeetingDate == true & item.ActualPPMEETING.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsPPMeetingDate" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdPPMEETING</p>
-                                            </div>
+            {
+                if (Model.tnaUserRight.IsPPMeetingDate == true & item.ActualPPMEETING.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsPPMeetingDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdPPMEETING</p>
+                                    </div>
 
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+}
+}
+catch (Exception ex) { }
                                             </div>
                                             <div class="panel panel-warning">
                                                 <div class="panel-heading">
@@ -385,20 +388,20 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsFC1Date == true & item.ActualFC1.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsFC1Date" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdFC1</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsFC1Date == true & item.ActualFC1.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsFC1Date" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdFC1</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
 
 
-                                                <div class="panel panel-warning">
+                                            <div class="panel panel-warning">
                                                 <div class="panel-heading">
                                                     <h3 class="panel-title">BULKFABRIC</h3>
                                                 </div>
@@ -407,16 +410,16 @@
 
                                                 </div>
                                                 @try
-    {
-        if (Model.tnaUserRight.IsBulkFabricDate == true & item.ActualBULKFABRIC.Trim() == "")
-        {
-                                            <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                                <label><input type="checkbox" id="IsBULKFABRIC" value="">Mark Today</label>
-                                                <p class="hidden idfeild">@item.IdBULKFABRIC</p>
-                                            </div>
-                                                    }
-                                                }
-                                                catch (Exception ex) { }
+            {
+                if (Model.tnaUserRight.IsBulkFabricDate == true & item.ActualBULKFABRIC.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsBULKFABRIC" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdBULKFABRIC</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
                                             </div>
 
 
@@ -433,13 +436,13 @@
 
                                                 </div>
                                                 @try
-        {
-            if (Model.tnaUserRight.IsFinalMarkerDate == true & item.ActualFINALMARKER.Trim() == "")
             {
-                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                            <label><input type="checkbox" id="IsFinalMarkerDate" value="">Mark Today</label>
-                                            <p class="hidden idfeild">@item.IdFINALMARKER</p>
-                                        </div>
+                if (Model.tnaUserRight.IsFinalMarkerDate == true & item.ActualFINALMARKER.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsFinalMarkerDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdFINALMARKER</p>
+                                    </div>
 }
 }
 catch (Exception ex) { }
@@ -453,13 +456,13 @@ catch (Exception ex) { }
 
                                                 </div>
                                                 @try
-        {
-            if (Model.tnaUserRight.IsInputDate == true & item.ActualINPUT.Trim() == "")
             {
-                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                            <label><input type="checkbox" id="IsInputDate" value="">Mark Today</label>
-                                            <p class="hidden idfeild">@item.IdINPUT</p>
-                                        </div>
+                if (Model.tnaUserRight.IsInputDate == true & item.ActualINPUT.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsInputDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdINPUT</p>
+                                    </div>
 }
 }
 catch (Exception ex) { }
@@ -473,24 +476,17 @@ catch (Exception ex) { }
 
                                                 </div>
                                                 @try
-        {
-            if (Model.tnaUserRight.IsPackingTrimDate == true & item.ActualPACKINGTRIMS.Trim() == "")
             {
-                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                            <label><input type="checkbox" id="IsPackingTrimDate" value="">Mark Today</label>
-                                            <p class="hidden idfeild">@item.IdPACKINGTRIMS</p>
-                                        </div>
+                if (Model.tnaUserRight.IsPackingTrimDate == true & item.ActualPACKINGTRIMS.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsPackingTrimDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdPACKINGTRIMS</p>
+                                    </div>
 }
 }
 catch (Exception ex) { }
                                             </div>
-
-
-
-
-
-
-
 
                                             <div class="panel panel-warning">
                                                 <div class="panel-heading">
@@ -501,34 +497,115 @@ catch (Exception ex) { }
 
                                                 </div>
                                                 @try
-        {
-            if ( item.ActualRECEIPTOFORGINALDOCUMENT.Trim() == "")
             {
-                                        <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
-                                            <label><input type="checkbox" id="IsRECEIPTOFORGINALDOCUMENT" value="">Mark Today</label>
-                                            <p class="hidden idfeild">@item.IdRECEIPTOFORGINALDOCUMENT</p>
-                                        </div>
+                if (item.ActualRECEIPTOFORGINALDOCUMENT.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsRECEIPTOFORGINALDOCUMENT" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdRECEIPTOFORGINALDOCUMENT</p>
+                                    </div>
 }
 }
 catch (Exception ex) { }
                                             </div>
 
 
+                                        </div>
+
+
+                                        <div class="col-md-3">
+
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">OB SUBMISSION</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.OBSUBMISSION   </div><div class="Actual">Actual  : @item.ActualOBSUBMISSION</div>
+
+                                                </div>
+                                                @try
+            {
+                if (Model.tnaUserRight.IsObSubmission== true & item.ActualOBSUBMISSION.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsObSubmission" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdOBSUBMISSION</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
+                                            </div>
+                                            <div class="panel panel-danger">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">CM FINALIZATION</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.CMFINALIZATION </div><div class="Actual">Actual  : @item.ActualCMFINALIZATION</div>
+
+                                                </div>
+                                                @try
+            {
+                if (Model.tnaUserRight.IsCmFinalization== true & item.ActualCMFINALIZATION.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsCmFinalization" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdCMFINALIZATION</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
+                                            </div>
+
+                                            @*<div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">PACKING TRIM</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.PACKINGTRIMS </div><div class="Actual">Actual  : @item.ActualPACKINGTRIMS </div>
+
+                                                </div>
+                                                @try
+            {
+                if (Model.tnaUserRight.IsPackingTrimDate == true & item.ActualPACKINGTRIMS.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsPackingTrimDate" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdPACKINGTRIMS</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
+                                            </div>
+
+                                            <div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Orginal Document</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div>Plan : @item.RECEIPTOFORGINALDOCUMENT </div><div class="Actual">Actual  : @item.ActualRECEIPTOFORGINALDOCUMENT </div>
+
+                                                </div>
+                                                @try
+            {
+                if (item.ActualRECEIPTOFORGINALDOCUMENT.Trim() == "")
+                {
+                                    <div class="checkbox" style="padding-bottom:20px;padding-left:10px">
+                                        <label><input type="checkbox" id="IsRECEIPTOFORGINALDOCUMENT" value="">Mark Today</label>
+                                        <p class="hidden idfeild">@item.IdRECEIPTOFORGINALDOCUMENT</p>
+                                    </div>
+}
+}
+catch (Exception ex) { }
+                                            </div>*@
 
 
                                         </div>
 
+
+
+
                                     </div>
-
-
-
-
-
-
-
-
-
-
+                                    
 
 
                                 </td>

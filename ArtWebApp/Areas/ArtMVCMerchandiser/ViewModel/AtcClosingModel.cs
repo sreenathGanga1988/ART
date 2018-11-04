@@ -55,4 +55,19 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel
     };
     }
 
+    public class AtcPerformance
+    {
+        
+        public String AtcNum { get; set; }
+        public String Generateddate { get; set; }
+        public DataTable ATCDatatable { get; set; }
+        public DataTable ATCFabricDatatable { get; set; }
+        public DataTable ATCTrimDatatable { get; set; }
+        public DataTable InventoryMisplace { get; set; }
+        public DataTable charges{ get; set; }
+        public DataTable Creditnotes{ get; set; }
+        public DataTable atcpl{ get; set; }
+
+    }
+
  }

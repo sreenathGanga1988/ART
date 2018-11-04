@@ -346,6 +346,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                 asqmstr.OurStyleId = element.OurStyleID;
                                 asqmstr.POPackID = element.POPackId;
                                 asqmstr.Qty = element.PoQty;
+                                asqmstr.RevisedQty = element.RevisedQty;
                                 asqmstr.SizeName = element.SizeName;
                                 asqmstr.ColorName = element.ColorName;
                                 asqmstr.ArtLocaion_PK = location_pk;
@@ -383,30 +384,30 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                                 asqmstr.IsInterChangable = element.PoPackMaster.IsShuffulable;
                                 asqmstr.OurStyleGroup = element.AtcDetail.OurstyleGroup;
                                 enty.ASQAllocationMaster_tbl.Add(asqmstr);
-                                enty.SaveChanges();
+                                //enty.SaveChanges();
 
 
-                                //try
-                                //{
-                                //    enty.SaveChanges();
+                                try
+                                {
+                                    enty.SaveChanges();
 
-                                //}
-                                //catch (DbEntityValidationException ex)
-                                //{
-                                //    // Retrieve the error messages as a list of strings.
-                                //    var errorMessages = ex.EntityValidationErrors
-                                //            .SelectMany(x => x.ValidationErrors)
-                                //            .Select(x => x.ErrorMessage);
+                                }
+                                catch (DbEntityValidationException ex)
+                                {
+                                    // Retrieve the error messages as a list of strings.
+                                    var errorMessages = ex.EntityValidationErrors
+                                            .SelectMany(x => x.ValidationErrors)
+                                            .Select(x => x.ErrorMessage);
 
-                                //    // Join the list to a single string.
-                                //    var fullErrorMessage = string.Join("; ", errorMessages);
+                                    // Join the list to a single string.
+                                    var fullErrorMessage = string.Join("; ", errorMessages);
 
-                                //    // Combine the original exception message with the new one.
-                                //    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                                    // Combine the original exception message with the new one.
+                                    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
 
-                                //    // Throw a new DbEntityValidationException with the improved exception message.
-                                //    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
-                                //}
+                                    // Throw a new DbEntityValidationException with the improved exception message.
+                                    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                                }
                             }
                             catch (DbEntityValidationException exp)
                             {
@@ -441,9 +442,12 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
                                     atcwordelement.ArtLocaion_PK = location_pk;
                                     atcwordelement.Qty = element.PoQty;
+                                    atcwordelement.RevisedQty = element.RevisedQty;
                                     atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
                                     atcwordelement.DeliveryDate = this.DeliveryDate;                                    
                                     atcwordelement.HandOverDate = this.HandoverDate;
+                                    atcwordelement.BuyerStyle = this.BuyerStyle;
+                                    atcwordelement.BuyerPO = this.BuyerPO; 
 
                                 }
 
@@ -524,6 +528,7 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             asqmstr.OurStyleId = element.OurStyleID;
                             asqmstr.POPackID = element.POPackId;
                             asqmstr.Qty = element.PoQty;
+                            asqmstr.RevisedQty = element.RevisedQty;
                             asqmstr.SizeName = element.SizeName;
                             asqmstr.ColorName = element.ColorName;
                             asqmstr.ArtLocaion_PK = location_pk;
@@ -570,13 +575,25 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                             var atcworld = from asqatcwordmstr in enty.ASQAllocationMaster_tbl
                                            where asqatcwordmstr.OurStyleId == ourstyleid && asqatcwordmstr.POPackID == popackid && asqatcwordmstr.PoPack_Detail_PK == element.PoPack_Detail_PK
                                            select asqatcwordmstr;
-                            foreach (var atcwordelement in atcworld.ToList())
+                            try
+                            {
+                                foreach (var atcwordelement in atcworld.ToList())
+                                {
+
+                                    atcwordelement.ArtLocaion_PK = location_pk;
+                                    atcwordelement.Qty = element.PoQty;
+                                    atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
+                                    atcwordelement.DeliveryDate = this.DeliveryDate;
+                                    atcwordelement.RevisedQty = element.RevisedQty;
+                                    //atcwordelement.HandOverDate = this.HandoverDate;
+                                    //atcwordelement.BuyerStyle = this.BuyerStyle;
+
+                                }
+                            }
+                            catch (Exception exp)
                             {
 
-                                atcwordelement.ArtLocaion_PK = location_pk;
-                                atcwordelement.Qty = element.PoQty;
-                                atcwordelement.Location_PK = int.Parse(atclocation_pk.ToString());
-
+                                throw;
                             }
 
 
@@ -596,8 +613,15 @@ namespace ArtWebApp.BLL.MerchandsingBLL
 
                             }
 
-                            enty.SaveChanges();
-                            artentty.SaveChanges();
+                            try
+                            {
+                                enty.SaveChanges();
+                                artentty.SaveChanges();
+                            }
+                            catch (Exception exp)
+                            {
+                                Elmah.ErrorSignal.FromCurrentContext().Raise(exp);
+                            }
 
 
 
@@ -668,8 +692,8 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 using (ArtEntitiesnew artentty = new DataModels.ArtEntitiesnew())
                 {
                     
-                if (!artentty.CutPlanASQDetails .Any(f => f.PoPackId == popackid && f.OurStyleId == ourstyleid && f.IsDeleted == "N"))
-                {
+                //if (!artentty.CutPlanASQDetails .Any(f => f.PoPackId == popackid && f.OurStyleId == ourstyleid && f.IsDeleted == "N"))
+                //{
 
                
 
@@ -699,11 +723,11 @@ namespace ArtWebApp.BLL.MerchandsingBLL
                 artentty.SaveChanges();
 
                     msg = "Marked Uncut Sucessfully ";
-                }
-                else
-                {
-                    msg = "Cutplan already created";
-                }
+                //}
+                //else
+                //{
+                //    msg = "Cutplan already created";
+                //}
             }
 
             return msg;
@@ -736,6 +760,17 @@ namespace ArtWebApp.BLL.MerchandsingBLL
         }
 
 
+        public DataTable GetPopackid(int popackid)
+        {
+            String Qry = @"select count (popackid) as count from PackListMasterAtcworld where popackid=@popackid ";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = Qry;
+
+
+            sqlCommand.Parameters.AddWithValue("@popackid", popackid);
+            return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(sqlCommand);
+
+        }
 
         public DataTable GetPOPACKMasterofList(ArrayList Popackdetlist)
         {

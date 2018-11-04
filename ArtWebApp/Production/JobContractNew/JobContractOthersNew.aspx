@@ -81,9 +81,9 @@
         </tr>
         <tr>
             <td>
-                oPTIONAL cOMPONENTS</td>
+            </td>
             <td>
-                 <asp:UpdatePanel ID="udp_optionalcombo"  UpdateMode="Conditional" runat="server">
+                oPTIONAL cOMPONENTS<asp:UpdatePanel ID="udp_optionalcombo"  UpdateMode="Conditional" runat="server">
                                         <ContentTemplate>
                                             <ig:WebDropDown ID="drp_optionalcomb" runat="server" Width="200px" EnableClosingDropDownOnSelect="False" EnableMultipleSelection="True" TextField="ComponentName" ValueField="CostComp_PK">
                                                 <DropDownItemBinding TextField="ComponentName" ValueField="CostComp_PK" />
@@ -103,6 +103,13 @@
 
 
         </tr>
+                 <tr>
+                     <td>Remarks</td>
+                     <td>
+                         <asp:TextBox ID="txt_remarks" runat="server" Height="88px" TextMode="MultiLine" Width="197px"></asp:TextBox>
+                     </td>
+                     <td aria-disabled="True">&nbsp;</td>
+                 </tr>
     </table>
          </ContentTemplate>
      </asp:UpdatePanel>

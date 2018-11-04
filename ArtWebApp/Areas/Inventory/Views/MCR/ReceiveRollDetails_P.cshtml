@@ -1,0 +1,174 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.GetMcrInventory
+@using System.Data;
+
+
+<h2>Roll Details</h2>
+
+<div id="printfcr">
+    <table id="Dataentry" class="table table-striped table-bordered MyDataTable Dataentry" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>@Html.CheckBox("SelectAll")</th>
+                @*<th style="display:none">AtcID</th>*@
+                <th>RollPK</th>
+                <th>RollNum</th>
+                <th>InventoryItem_PK</th>
+                <th>ASN</th>
+                <th>Description</th>
+                <th>WidthGroup</th>
+                <th>ShadeGroup</th>
+                <th>ShrinkageGroup</th>
+                <th>AYard</th>
+                <th>ReceivedYard</th>
+                <th>KGS</th>
+                <th>MarkerType</th>
+                <th>AWidth</th>
+                <th>AShrink</th>
+                <th>AShade</th>
+                <th>SWeight</th>
+                <th>MCR_PK</th>
+
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.rolldetails.Rows)
+            {
+            <tr class="FabricTableRow" style="border-color:black">
+                <td class="IsSelected">@Html.CheckBox("IsSelected")</td>
+
+                @*<td style="display:none" class="AtcID">@row["AtcID"]</td>*@
+                <td><span class="Roll_PK">@row["Roll_PK"]</span></td>
+                <td><span class="RollNum">@row["RollNum"]</span></td>
+                <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+                <td><span class="ASN">@row["ASN"]</span></td>
+                <td><span class="itemDescription">@row["itemDescription"]</span></td>
+                <td><span class="WidthGroup">@row["WidthGroup"]</span></td>
+                <td><span class="ShadeGroup">@row["ShadeGroup"]</span></td>
+                <td><span class="ShrinkageGroup">@row["ShrinkageGroup"]</span></td>
+                <td><span class="AYard">@row["AYard"]</span></td>
+                <td> <span class="Ryard"> @Html.TextBox("ReceiveYard", @row["ReceiveYard"].ToString(), new { @class = "ReceiveYard", style = "width:80px" })</span></td>
+                <td> <span class="Mcr_kg"> @Html.TextBox("Mcr_kg", @row["Mcr_kg"].ToString(), new { @class = "Mcr_kg", style = "width:80px" })</span></td>
+                <td><span class="MarkerType">@row["MarkerType"]</span></td>
+                <td><span class="AWidth">@row["AWidth"]</span></td>
+                <td><span class="AShrink">@row["AShrink"]</span></td>
+                <td><span class="AShade">@row["AShade"]</span></td>
+                <td><span class="SWeight">@row["SWeight"]</span></td>
+                <td><span class="mcrpk">@row["mcr_pk"]</span></td>
+            </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="Submitroll" type="button" value="Confirm Roll Details" class="btn btn-default show" />
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+       
+
+
+
+
+        $('.Dataentry').DataTable();
+        var isok = true;
+        $('#Submitroll').click(function (e, params) {
+            var things = [];
+            var list = [];
+
+            $('.Dataentry tr.FabricTableRow').each(function (i, row) {
+                $(this).find('td input:checked').each(function () {
+                    var row = $(this).closest('tr');
+
+                    var Roll_PK = parseFloat(row.find('.Roll_PK').text());
+                    var MCR_pk = parseFloat(row.find('.mcrpk').text());
+                    var InventoryItem_Pk = parseFloat(row.find('.InventoryItem_PK').text());
+                    var DiffQty = row.find("td input[class='ReceiveYard']").first().val();
+                    var Mcr_kg = row.find("td input[class='Mcr_kg']").first().val();
+                    
+                    
+
+                    var rolllist = {
+                        Roll_pk: Roll_PK, MCR_pk: MCR_pk, InventoryItem_Pk: InventoryItem_Pk, RYard: DiffQty, Mcr_kg: Mcr_kg
+                    }
+                    list.push(rolllist);
+
+                });
+            });
+            alert(list);
+            var things = JSON.stringify({ 'things': list });
+            if (isok == true) {
+                 $.ajax({
+                type: 'POST',
+                url: "@Url.Action("UpdateReceiveRolls", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        $("#Submit").prop('disabled', true);
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+                });
+
+
+            }
+            else {
+                alert("The Allocate Qty is more than Balance Qty");
+            }
+
+
+        });
+
+    });
+
+
+
+    $('#SelectAll').change(function () {
+        if (this.checked) {
+            var parenttable = $(this).closest('table');
+            parenttable.children('tbody,tr,td').css('background-color', '#8AE1E9');
+            $("[id$=IsSelected]").prop('checked', true);
+
+        } else {
+            if ($('[id$=IsSelected]:checked').length == $('[id$=IsSelected]').length) {
+                $("[id$=IsSelected]").prop('checked', false);
+            }
+            parenttable.children('tbody,tr,td').css('background-color', '#F5F5F7');
+        }
+    });
+    $("[id$=IsSelected]").change(function () {
+        if (this.checked) {
+            $(this).closest('tr').children('td,th').css('background-color', '#8AE1E9');
+        }
+        else {
+            $(this).closest('tr').children('td,th').css('background-color', '#F5F5F7');
+        }
+    });
+</script>
+
+
+
+

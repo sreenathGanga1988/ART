@@ -81,7 +81,6 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<DeletedCutPlan> DeletedCutPlans { get; set; }
         public virtual DbSet<DeliveryMethodMaster> DeliveryMethodMasters { get; set; }
         public virtual DbSet<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
-        public virtual DbSet<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
         public virtual DbSet<DeliveryOrderStockDetail> DeliveryOrderStockDetails { get; set; }
         public virtual DbSet<DeliveryOrderStockMaster> DeliveryOrderStockMasters { get; set; }
         public virtual DbSet<DeliveryReceiptDetail> DeliveryReceiptDetails { get; set; }
@@ -313,6 +312,20 @@ namespace ArtWebApp.DataModels
         public virtual DbSet<LaySheetMasterHistory> LaySheetMasterHistories { get; set; }
         public virtual DbSet<Cutplan_UnapproveHistory> Cutplan_UnapproveHistory { get; set; }
         public virtual DbSet<TNA_OurstlyeList> TNA_OurstlyeList { get; set; }
+        public virtual DbSet<StockRackInventoryMaster> StockRackInventoryMasters { get; set; }
+        public virtual DbSet<MCRRollDetail> MCRRollDetails { get; set; }
+        public virtual DbSet<DeliveryOrderMaster> DeliveryOrderMasters { get; set; }
+        public virtual DbSet<EndbitDoDetail> EndbitDoDetails { get; set; }
+        public virtual DbSet<EndbitInventory> EndbitInventories { get; set; }
+        public virtual DbSet<EndbitDoMaster> EndbitDoMasters { get; set; }
+        public virtual DbSet<EndbitSalesDetail> EndbitSalesDetails { get; set; }
+        public virtual DbSet<EndbitSalesMaster> EndbitSalesMasters { get; set; }
+        public virtual DbSet<PrePackDetail> PrePackDetails { get; set; }
+        public virtual DbSet<PrePackMaster> PrePackMasters { get; set; }
+        public virtual DbSet<PrePackShuffleDetail> PrePackShuffleDetails { get; set; }
+        public virtual DbSet<PrePackShuffleMaster> PrePackShuffleMasters { get; set; }
+        public virtual DbSet<RequestOrderLoanDetail> RequestOrderLoanDetails { get; set; }
+        public virtual DbSet<RequestOrderLoanMaster> RequestOrderLoanMasters { get; set; }
     
         public virtual int CalculateCostingMasterData_sp(Nullable<int> costingPK)
         {

@@ -23,10 +23,15 @@
                 <th>OnhandQty</th>
                 <th>PhysicalQty</th>
                 <th>DiffQty</th>
+                <th>Packages</th>                
+                <th>AlterUOM</th>                
+                <th>UOMQty</th>                
                 <th style="display:none">ActualRate</th>
                 <th style="display:none">CU Rate</th>
                 <th style="display:none">Template PK</th>
                 <th style="display:none">SkuDetPk</th>
+                <th style="display:none">Packages</th>
+                <th style="display:none">TOLocation</th>
                 @*@foreach (DataColumn col in Model.InventoryDetails.Columns)
         {
             <th class="@col.ColumnName" style="border-color:black">
@@ -57,14 +62,22 @@
                 <td><span class="DeliveredQty">@row["DeliveredQty"]</span></td>
                 <td><span class="OnhandQty">@row["OnhandQty"] </span></td>
                 <td class="PhysicalQty">
-                
-                @Html.TextBox("PhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "PhysicalQty", style = "width:80px" })</td>
+
+                    @Html.TextBox("PhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "PhysicalQty", style = "width:80px" })
+                </td>
                 @*<td><div class="DiffQty"></div></td>*@
                 <td class="DiffQty"> @row["DiffQty"]</td>
+                <td class="Packages">
+                    @Html.TextBox("Packages", @row["Packages"].ToString(), new { @class = "Packages", style = "width:80px" })
+                </td>
+                <td class="AlterUOM"> @row["AlterUOM"] </td>
+                <td class="UOMQty">@row["UOMQty"] </td>
                 <td style="display:none"><span class="ActualRate">@row["ActualRate"] </span></td>
                 <td style="display:none"><span class="CURate">@row["CURate"] </span></td>
                 <td style="display:none"><span class="Template_pk">@row["Template_pk"] </span></td>
                 <td style="display:none"><span class="SkuDet_Pk">@row["SkuDet_Pk"] </span></td>
+                <td style="display:none" class="Packages1">@row["Packages"] </td>
+                <td style="display:none" class="ToLocid">@row["ToLocid"] </td>
             </tr>
 
             }
@@ -91,10 +104,13 @@
                 <th>OnhandQty</th>
                 <th>PhysicalQty</th>
                 <th>DiffQty</th>
+                <th>Packages</th>
                 <th style="display:none">ActualRate</th>
                 <th style="display:none">CU Rate</th>
                 <th style="display:none">Template PK</th>
                 <th style="display:none">SkuDetPk</th>
+                <th style="display:none">Packages</th>
+                <th style="display:none">ToLocation</th>
             </tr>
 
 
@@ -118,10 +134,15 @@
                 <td><span class="TrimsOnhandQty">@row["OnhandQty"] </span></td>
                 <td> <span class="TPhysicalQty"> @Html.TextBox("TrimsPhysicalQty", @row["PhysicalQty"].ToString(), new { @class = "TrimsPhysicalQty", style = "width:80px" })</span></td>
                 <td class="TrimsDiffQty"> @row["DiffQty"]</td>
+                <td class="TrimsPackages">
+                    @Html.TextBox("TrimsPackages", @row["Packages"], new { @class = "TrimsPackages", style = "width:80px" })
+                </td>
                 <td style="display:none"><span class="TrimsActualRate">@row["ActualRate"] </span></td>
                 <td style="display:none"><span class="TrimsCURate">@row["CURate"] </span></td>
                 <td style="display:none"><span class="TrTemplate_pk">@row["Template_pk"] </span></td>
                 <td style="display:none"><span class="TrSkuDet_Pk">@row["SkuDet_Pk"] </span></td>
+                <td style="display:none" class="TrPackages1">@row["Packages"] </td>
+                <td style="display:none" class="TrToLocid">@row["ToLocid"] </td>
 
             </tr>
 
@@ -149,14 +170,34 @@
             var $tr = $(this).closest("tr");
             var $td = $(this).closest("td");            
 
+            
+
             $(".PhysicalQty").each(function () {
 
                 var $currentrow = $(this).closest("tr");
-                var OnhandQty= $currentrow.find("td span[class='OnhandQty']").first().text();
+                var OnhandQty = $currentrow.find("td span[class='OnhandQty']").first().text();
                 var newvalue1 = $currentrow.find("td input[class='PhysicalQty']").first().val();
-                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());               
-                $currentrow.find('td:eq(12)').html(diffvalue);               
+                var diffvalue = parseFloat(newvalue1.toString()) - parseFloat(OnhandQty.toString());
+                $currentrow.find('td:eq(12)').html(diffvalue);
             });
+        });
+        $('body').on('change', '.Packages', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            $(".Packages").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var newvalue1 = $currentrow.find("td input[class='Packages']").first().val();
+                
+                $currentrow.find('td:eq(20)').html(newvalue1);
+            });
+
+            
         });
 
         $('body').on('change', '.TrimsPhysicalQty', function () {
@@ -176,17 +217,34 @@
                 $currentrow.find('td:eq(12)').html(diffvalue);
             });
         });
+        $('body').on('change', '.TrimsPackages', function () {
+            //validateAllSize();
+            var totalvalue = 0;
+
+            var isok = true;
+            var $tr = $(this).closest("tr");
+            var $td = $(this).closest("td");
+
+            $(".TrimsPackages").each(function () {
+
+                var $currentrow = $(this).closest("tr");
+                var newvalue1 = $currentrow.find("td input[class='TrimsPackages']").first().val();
+
+                $currentrow.find('td:eq(18)').html(newvalue1);
+            });
+        });
 
    
 
         $("#Submit").click(function (e, params) {
             var list = [];
-            
 
+            debugger;
             var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
             var Sizename = 0;
             for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {
-                var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];                
+                var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];
+                
                 var InventoryItem_PK = currenttable.getElementsByClassName("InventoryItem_PK")[0].innerHTML;
                 var RMNum = currenttable.getElementsByClassName("RMNum")[0].innerHTML;
                 var Description = currenttable.getElementsByClassName("Description")[0].innerHTML;
@@ -198,27 +256,33 @@
                 var OnhandQty = currenttable.getElementsByClassName("OnhandQty")[0].innerHTML;
                 //var PhysicalQty = currenttable.getElementsByClassName("PhysicalQty")[0];
                 var checkqty = currenttable.getElementsByClassName("PhysicalQty")[0].innerHTML;
-                var DiffQty = currenttable.getElementsByClassName("DiffQty")[0].innerHTML;
+                var DiffQty = currenttable.getElementsByClassName("DiffQty")[0].innerHTML;                
                 var AtcID = currenttable.getElementsByClassName("AtcID")[0].innerHTML;
                 var Location_PK = currenttable.getElementsByClassName("Location_PK")[0].innerHTML;
                 var ActualRate = currenttable.getElementsByClassName("ActualRate")[0].innerHTML;
                 var CURate = currenttable.getElementsByClassName("CURate")[0].innerHTML;
                 var TemplatePK = currenttable.getElementsByClassName("Template_pk")[0].innerHTML;
                 var SkuDet_Pk = currenttable.getElementsByClassName("SkuDet_Pk")[0].innerHTML;
+                var ToLocid = currenttable.getElementsByClassName("ToLocid")[0].innerHTML;
+
+                var Packages = currenttable.getElementsByClassName("Packages1")[0].innerHTML;
+                
+                var AlterUOM = currenttable.getElementsByClassName("AlterUOM")[0].innerHTML;
+                var UOMQty = currenttable.getElementsByClassName("UOMQty")[0].innerHTML;
                 
                 var PhysicalQty = parseFloat(OnhandQty.toString()) + parseFloat(DiffQty.toString());
                 var ASQMAster = {
                     InventoryItem_PK: InventoryItem_PK, RMNum: RMNum, Description: Description, ItemColor: ItemColor, SupplierColor: SupplierColor, UomCode: UomCode,Type:"F",
                     ReceivedQty: ReceivedQty, DeliveredQty: DeliveredQty, OnhandQty: OnhandQty, PhysicalQty: PhysicalQty, DiffQty: DiffQty, AtcID: AtcID, Location: Location_PK,
-                    ActualCURate: ActualRate, CURate: CURate, Template_Pk: TemplatePK, Skudet_Pk: SkuDet_Pk};
+                    ActualCURate: ActualRate, CURate: CURate, Template_Pk: TemplatePK, Skudet_Pk: SkuDet_Pk, Packages: Packages, AlterUOM: AlterUOM, AlterUOM_Qty: UOMQty, ToLocid: ToLocid};
 
-                list.push(ASQMAster);
+                list.push(ASQMAster);                
             }
-            //alert(list);
+            
             
             var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];
             
-            alert(asqtablemaster1.rows.length);
+            
             for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {                
                 var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];                
                 var TrInventoryItem_PK = currenttable.getElementsByClassName("TrInventoryItem_PK")[0].innerHTML;                
@@ -238,31 +302,36 @@
                 var TrCURate = currenttable.getElementsByClassName("TrimsCURate")[0].innerHTML;
                 var TrTemplatePK = currenttable.getElementsByClassName("TrTemplate_pk")[0].innerHTML;
                 var TrSkuDet_Pk = currenttable.getElementsByClassName("TrSkuDet_Pk")[0].innerHTML;
+                var TrToLocid= currenttable.getElementsByClassName("TrToLocid")[0].innerHTML;
                 var TrPhysicalQty = parseFloat(TrOnhandQty.toString()) + parseFloat(TrDiffQty.toString());
-                var ASQMAster = {
-                    InventoryItem_PK: TrInventoryItem_PK, RMNum: TrRMNum, Description: TrDescription, ItemColor: TrItemColor, SupplierColor: TrSupplierColor, UomCode: TrUomCode, Type: "T",
-                    ReceivedQty: TrReceivedQty, DeliveredQty: TrDeliveredQty, OnhandQty: TrOnhandQty, PhysicalQty: TrPhysicalQty, DiffQty: TrDiffQty, AtcID: TrAtcID, Location: TrLocation_PK,
-                    ActualCURate: TrActualRate, CURate: TrCURate, Template_Pk: TrTemplatePK, Skudet_Pk: TrSkuDet_Pk};
+                
+                var TrPackages = currenttable.getElementsByClassName("TrPackages1")[0].innerHTML;
+                if (TrInventoryItem_PK > 0) {
+                    var ASQMAster = {
+                        InventoryItem_PK: TrInventoryItem_PK, RMNum: TrRMNum, Description: TrDescription, ItemColor: TrItemColor, SupplierColor: TrSupplierColor, UomCode: TrUomCode, Type: "T",
+                        ReceivedQty: TrReceivedQty, DeliveredQty: TrDeliveredQty, OnhandQty: TrOnhandQty, PhysicalQty: TrPhysicalQty, DiffQty: TrDiffQty, AtcID: TrAtcID, Location: TrLocation_PK,
+                        ActualCURate: TrActualRate, CURate: TrCURate, Template_Pk: TrTemplatePK, Skudet_Pk: TrSkuDet_Pk, Packages: TrPackages, ToLocid: TrToLocid
+                    };
 
-                list.push(ASQMAster);
+                    list.push(ASQMAster);
+                }
+                
             }
-            var things = JSON.stringify({ 'things': list,  });
+            
+            var things = JSON.stringify({ 'things': list, });
+
+            
             $.ajax({
+                async: false,
                 type: 'POST',
                 url: "@Url.Action("Create", "MCR")",
-                data: things,
+
+                data: things,               
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.status) {
-                        alert('Successfully saved');
-                        $("#Submit").prop('disabled', true);
-                      
-
-                    }
-                    else {
-                        alert('Error');
-                    }
+                    alert(data.status);
+                    $("#Submit").prop('disabled', true);
 
                 },
                 error: function (error) {

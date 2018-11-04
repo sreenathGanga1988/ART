@@ -18,7 +18,7 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
         // GET: ArtMVCMerchandiser/SeaFreightRequests
         public ActionResult Index()
         {
-            return View(db.FreightRequestMasters.Where(u => u.ShipementType == "Sea").ToList());
+            return View(db.FreightRequestMasters.Where(u => u.ShipementType == "Sea" && u.IsDeleted == "N" && u.IsPosted == null).ToList());
         }
 
         // GET: ArtMVCMerchandiser/SeaFreightRequests/Details/5

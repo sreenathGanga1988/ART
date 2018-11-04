@@ -1,0 +1,222 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.GetMcrInventory
+@using System.Data;
+
+<script src="~/Plugin/MyDataTable.js"></script>
+
+
+<h2>Fabric Details</h2>
+
+<div id="printfcr">
+    <table id="FabricTable" class="FabricTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>MCR_PK</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>DeliveredQty</th>
+
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.InventoryDetails.Rows)
+            {
+                <tr class="FabricTableRow" style="border-color:black">
+
+                    <td class="McrDetails_pk">@row["Mcr_pk"]</td>
+                    <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+                    <td><span class="RMNum">@row["RMNum"]</span></td>
+                    <td><span class="Description">@row["Description"]</span></td>
+                    <td><span class="ItemColor">@row["ItemColor"]</span></td>
+                    <td><span class="SupplierColor">@row["SupplierColor"]</span></td>
+                    <td><span class="UomCode">@row["UOM"]</span></td>
+                    <td><span class="PhysicalQty">@row["PhysicalQty"] </span></td>
+                    
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<h2>Trims Details</h2>
+<div id="printfcr1">
+    <table id="TrimTable" class="TrimTable table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>MCR_PK</th>
+                <th>InventoryItemPK</th>
+                <th>RMNum</th>
+                <th>Description</th>
+                <th>ItemColor</th>
+                <th>SupplierColor</th>
+                <th>UomCode</th>
+                <th>DeliveredQty</th>
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.TrimsInventoryDetails.Rows)
+            {
+                <tr class="TrimTableRow" style="border-color:black">
+                    <td class="TrMcrDetails_pk">@row["Mcr_pk"]</td>
+                    <td class="TrInventoryItem_PK">@row["InventoryItem_PK"]</td>
+                    <td class="TrRMNum">@row["RMNum"]</td>
+                    <td class="TrDescription">@row["Description"]</td>
+                    <td class="TrItemColor">@row["ItemColor"]</td>
+                    <td class="TrSupplierColor">@row["SupplierColor"]</td>
+                    <td class="TrUomCode">@row["UOM"]</td>
+                    <td class="TPhysicalQty">@row["PhysicalQty"]</td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-6">
+        <input id="Submit" type="button" value="Confirm" class="btn btn-default show" />
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+
+        $("#Submit").click(function (e, params) {
+            var list = [];
+            var check = 0;
+            var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
+            var Sizename = 0;
+            for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {
+                var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];
+                var McrDetails_pk = currenttable.getElementsByClassName("McrDetails_pk")[0].innerHTML;
+
+                var ASQMAster = {McrDetails_pk: McrDetails_pk,};
+
+                list.push(ASQMAster);
+            }
+            var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];
+
+            for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {
+                var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];
+
+                var TrMcrDetails_pk = currenttable.getElementsByClassName("TrMcrDetails_pk")[0].innerHTML;
+                var ASQMAster = {McrDetails_pk: TrMcrDetails_pk,};
+
+                list.push(ASQMAster);
+            }
+            var things = JSON.stringify({ 'things': list });
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Transfer", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully Updated');
+                        $("#Submit").prop('disabled', true);
+
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+
+            });
+
+        });
+
+
+        $("#Approve").click(function (e, params) {
+
+            var check = 0;
+
+            if (confirm('Are you sure you want to Approve?')) {
+                var list = [];
+                var asqtablemaster = document.getElementsByClassName("FabricTable")[0];
+                var Sizename = 0;
+                for (var i = 0; i < asqtablemaster.rows.length - 1; i++) {
+                    var currenttable = asqtablemaster.getElementsByClassName("FabricTableRow")[i];
+                    var McrDetails_pk = currenttable.getElementsByClassName("McrDetails_pk")[0].innerHTML;
+                    var ASQMAster = {McrDetails_pk: McrDetails_pk };
+
+                    list.push(ASQMAster);
+                }
+
+                var asqtablemaster1 = document.getElementsByClassName("TrimTable")[0];
+                for (var i = 0; i < asqtablemaster1.rows.length - 1; i++) {
+                    var currenttable = asqtablemaster1.getElementsByClassName("TrimTableRow")[i];
+                    var TrOnhandQty = currenttable.getElementsByClassName("TrimsOnhandQty")[0].innerHTML;
+                    //var TrPhysicalQty = currenttable.getElementsByClassName("TPhysicalQty")[0].childNodes[0].v
+
+
+                    var TrDiffQty = currenttable.getElementsByClassName("TrimsDiffQty")[0].innerHTML;
+
+                    var TrMcrDetails_pk = currenttable.getElementsByClassName("TrMcrDetails_pk")[0].innerHTML;
+                    var TrActualRate = currenttable.getElementsByClassName("TrimsActualRate")[0].innerHTML;
+                    var TrCURate = currenttable.getElementsByClassName("TrimsCURate")[0].innerHTML;
+                    var TrPhysicalQty = parseFloat(TrOnhandQty.toString()) + parseFloat(TrDiffQty.toString());
+                    var ASQMAster = {McrDetails_pk: TrMcrDetails_pk};
+
+                    list.push(ASQMAster);
+                }
+                alert(list);
+                var things = JSON.stringify({ 'things': list });
+
+                $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ApproveMCR", "MCR")",
+                data: things,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        alert('Successfully saved');
+                        check = 1;
+                    }
+                    else {
+                        alert('Error');
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+            });
+
+
+            }
+            if (check == 1) {
+                $("#Approve").hide();
+            }
+
+
+        });
+
+
+    });
+
+
+</script>

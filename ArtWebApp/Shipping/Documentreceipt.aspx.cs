@@ -138,6 +138,8 @@ namespace ArtWebApp.Shipping
                     tbl_StockAdn.DataBind();
                     tbl_stockDO.DataSource = null;
                     tbl_stockDO.DataBind();
+                    tbl_salesdo.DataSource = null;
+                    tbl_salesdo.DataBind();
                 }
                 else if (RadioButton2.Checked == true)
                 {
@@ -147,6 +149,8 @@ namespace ArtWebApp.Shipping
                     tbl_Podetails.DataBind();
                     tbl_StockAdn.DataSource = null;
                     tbl_StockAdn.DataBind();
+                    tbl_salesdo.DataSource = null;
+                    tbl_salesdo.DataBind();
                 }
                 else if (rbt_viageneralitem.Checked == true)
                 {
@@ -159,6 +163,8 @@ namespace ArtWebApp.Shipping
                     tbl_StockAdn.DataBind();
                     tbl_dodetails.DataSource = null;
                     tbl_dodetails.DataBind();
+                    tbl_salesdo.DataSource = null;
+                    tbl_salesdo.DataBind();
                 }
                 else if (rbt_directgenitem.Checked == true)
                 {
@@ -172,7 +178,24 @@ namespace ArtWebApp.Shipping
                   
                     tbl_dodetails.DataSource = null;
                     tbl_dodetails.DataBind();
+                    tbl_salesdo.DataSource = null;
+                    tbl_salesdo.DataBind();
 
+                }
+                else if (rbt_generalstockdo.Checked == true)
+                {
+                    tbl_salesdo.DataSource = docrcptdat.getStockDOData(doclist);
+                    tbl_salesdo.DataBind();
+                    tbl_StockAdn.DataSource = null;
+                    tbl_StockAdn.DataBind();
+
+                    tbl_stockDO.DataSource = null;
+                    tbl_stockDO.DataBind();
+                    tbl_Podetails.DataSource = null;
+                    tbl_Podetails.DataBind();
+
+                    tbl_dodetails.DataSource = null;
+                    tbl_dodetails.DataBind();
                 }
 
                 upd_grid.Update();
@@ -208,7 +231,10 @@ namespace ArtWebApp.Shipping
                     drp_rcpt.DataSource = shmpmstr.GetStockADNList();
                   
                 }
-
+                else if(rbt_generalstockdo.Checked==true)
+                {
+                    drp_rcpt.DataSource = shmpmstr.GetStockDOList();
+                }
                 drp_rcpt.DataBind();
 
             }
@@ -302,6 +328,41 @@ namespace ArtWebApp.Shipping
             shpdocmstr.ShippingDocumentDODetailsDataCollection = ShippingDocumentDetailDOData();
             return shpdocmstr;
         }
+        public BLL.ShippingBLL.ShippingDocumentMasterData GetStockDOData()
+        {
+            BLL.ShippingBLL.ShippingDocumentMasterData shpdocmstr = new BLL.ShippingBLL.ShippingDocumentMasterData();
+            shpdocmstr.AddedBY = Session["Username"].ToString().Trim();
+            shpdocmstr.AddedDate = DateTime.Now; ;
+            shpdocmstr.ShipperName = txt_shipper.Text;
+            shpdocmstr.ExporterName = txt_exporter.Text;
+            shpdocmstr.ShipperInv = txt_shiperinv.Text;
+            shpdocmstr.Description = txt_description.Text; ;
+            shpdocmstr.NOofctnRoll = txt_noctn.Text; ;
+            shpdocmstr.Packagetype = txt_ctnroll.Text; ;
+            shpdocmstr.Weight = txt_weight.Text;
+            shpdocmstr.Type = txt_type.Text;
+            shpdocmstr.InvoiceValue = txt_invvalue.Text;
+            shpdocmstr.Vessel = txt_vessel.Text;
+            shpdocmstr.Conatianer = txt_container.Text; ;
+            shpdocmstr.ContsainerType = txt_containertype.Text; ;
+            shpdocmstr.BL = txtBL.Text;
+            shpdocmstr.DocType = "Via";
+            shpdocmstr.Mode = drp_deliverymode.SelectedItem.Text;
+            shpdocmstr.countryname = drp_country.SelectedItem.Text;
+            try
+            {
+                string et = Request.Form[dtp_deliverydate.UniqueID].ToString();
+
+                shpdocmstr.ETA = DateTime.Parse(et);
+            }
+            catch (Exception)
+            {
+                shpdocmstr.ETA = DateTime.Now; ;
+
+            }
+            shpdocmstr.ShippingDocumentStockDODetailsDataCollection = shippingDocumentStockDODetails();
+            return shpdocmstr;
+        }
 
         public List<BLL.ShippingBLL.ShippingDocumentDetailsData> ShippingDocumentDetailsData()
         {
@@ -319,7 +380,7 @@ namespace ArtWebApp.Shipping
 
 
 
-                    int doc_pk = int.Parse(((di.FindControl("lbl_doc_pk") as Label).Text.ToString()));
+                    int doc_pk = int.Parse(((di.FindControl("lbl_doc_PK") as Label).Text.ToString()));
 
 
 
@@ -361,6 +422,42 @@ namespace ArtWebApp.Shipping
 
 
                     invdata.DO_PK = doc_pk;
+
+
+
+                    rk.Add(invdata);
+                }
+            }
+            return rk;
+
+
+        }
+        
+        public List<BLL.ShippingBLL.ShippingDocumentStockDODetailsData> shippingDocumentStockDODetails()
+        {
+
+            List<BLL.ShippingBLL.ShippingDocumentStockDODetailsData> rk = new List<BLL.ShippingBLL.ShippingDocumentStockDODetailsData>();
+
+
+            foreach (GridViewRow di in tbl_salesdo.Rows)
+            {
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+
+
+
+
+                    int doc_pk = int.Parse(((di.FindControl("lbl_SDO_PK") as Label).Text.ToString()));
+
+
+
+                    BLL.ShippingBLL.ShippingDocumentStockDODetailsData invdata = new BLL.ShippingBLL.ShippingDocumentStockDODetailsData();
+
+
+                    
+                    invdata.SDO_PK = doc_pk;
 
 
 
@@ -605,6 +702,24 @@ namespace ArtWebApp.Shipping
                 {
                     BLL.ShippingBLL.ShippingDocumentMasterData Docmstrdata = GetINVMasterDataForVia();
                     docnum = Docmstrdata.InsertShippingDocumentDataViaGeneral();
+                    tbl_dodetails.DataSource = null;
+                    tbl_dodetails.DataBind();
+                    docnum = docnum + " is  created Sucessfully";
+
+                }
+                else
+                {
+                    string Msg = "alert('Please select the Documents to be added in this Inbound ')";
+                    ScriptManager.RegisterClientScriptBlock((sender as Control), this.GetType(), "alert", Msg, true);
+                }
+
+            }
+            else if (rbt_generalstockdo.Checked == true && tbl_salesdo.Rows.Count > 0)
+            {
+                if (ArtWebApp.Controls.Gridviewvalidation.countofRowselected(tbl_salesdo, "chk_select") > 0)
+                {
+                    BLL.ShippingBLL.ShippingDocumentMasterData Docmstrdata = GetStockDOData();
+                    docnum = Docmstrdata.InsertShippingDocumentDataStockDo();
                     tbl_dodetails.DataSource = null;
                     tbl_dodetails.DataBind();
                     docnum = docnum + " is  created Sucessfully";

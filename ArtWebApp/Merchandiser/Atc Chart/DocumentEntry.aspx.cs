@@ -105,6 +105,7 @@ namespace ArtWebApp.Merchandiser.Atc_Chart
                 rcptmstrdata.currency_Pk = int.Parse(drp_supplier.SelectedValue.ToString());
                 rcptmstrdata.docvalue = decimal.Parse(txt_docvalue.Text);
                 rcptmstrdata.DocType = ddl_adnType.SelectedValue.Trim();
+                
                 rcptnum = rcptmstrdata.InsertReciptMstr(rcptmstrdata);
                 msg = "Doc # : " + rcptnum + " is generated Sucessfully";
 

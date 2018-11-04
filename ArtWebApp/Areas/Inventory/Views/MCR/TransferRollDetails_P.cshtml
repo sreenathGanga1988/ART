@@ -1,0 +1,63 @@
+﻿@model ArtWebApp.Areas.Inventory.ViewModel.GetMcrInventory
+@using System.Data;
+
+
+
+
+<h2>Roll Details</h2>
+
+<div id="printfcr">
+    <table id="Dataentry" class="table table-striped table-bordered MyDataTable Dataentry" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th>RollPK</th>
+                <th>RollNum</th>
+                <th>InventoryItem_PK</th>
+                <th>ASN</th>
+                <th>Description</th>
+                <th>WidthGroup</th>
+                <th>ShadeGroup</th>
+                <th>ShrinkageGroup</th>
+                <th>AYard</th>
+                <th>MarkerType</th>
+                <th>AWidth</th>
+                <th>AShrink</th>
+                <th>AShade</th>
+                <th>SWeight</th>
+
+            </tr>
+
+
+
+        </thead>
+
+        <tbody>
+            @foreach (DataRow row in Model.rolldetails.Rows)
+            {
+                <tr class="FabricTableRow" style="border-color:black">
+                    <td><span class="Roll_PK">@row["Roll_PK"]</span></td>
+                    <td><span class="RollNum">@row["RollNum"]</span></td>
+                    <td><span class="InventoryItem_PK">@row["InventoryItem_PK"]</span></td>
+                    <td><span class="ASN">@row["ASN"]</span></td>
+                    <td><span class="itemDescription">@row["itemDescription"]</span></td>
+                    <td><span class="WidthGroup">@row["WidthGroup"]</span></td>
+                    <td><span class="ShadeGroup">@row["ShadeGroup"]</span></td>
+                    <td><span class="ShrinkageGroup">@row["ShrinkageGroup"]</span></td>
+                    <td><span class="AYard">@row["AYard"]</span></td>
+                    <td><span class="MarkerType">@row["MarkerType"]</span></td>
+                    <td><span class="AWidth">@row["AWidth"]</span></td>
+                    <td><span class="AShrink">@row["AShrink"]</span></td>
+                    <td><span class="AShade">@row["AShade"]</span></td>
+                    <td><span class="SWeight">@row["SWeight"]</span></td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+

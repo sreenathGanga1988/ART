@@ -1890,7 +1890,7 @@ HAVING        (AtcMaster.AtcId = @ATCID)";
             {
 
 
-                cmd.CommandText = @"SELECT        CutOrderMaster.Cut_NO, CutOrderMaster.FabQty, LocationMaster.LocationPrefix, CutOrderMaster.SkuDet_pk
+                cmd.CommandText = @"SELECT        CutOrderMaster.Cut_NO, CutOrderMaster.FabQty, LocationMaster.LocationPrefix, CutOrderMaster.SkuDet_pk,CutOrderMaster.CutQty,CutOrderMaster.ActualConsumption 
 FROM            CutOrderMaster INNER JOIN
                          LocationMaster ON CutOrderMaster.ToLoc = LocationMaster.Location_PK
 WHERE        (CutOrderMaster.AtcID = @ATCID)";
@@ -2059,7 +2059,7 @@ WHERE        (PoPackMaster.AtcId = @ATCID)";
             {
 
 
-                cmd.CommandText = @"SELECT        PoPackMaster.PoPackId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty, PoPackMaster.AtcId, PoPackMaster.ExpectedLocation_PK, PoPackMaster.SeasonName, 
+                cmd.CommandText = @"SELECT        PoPackMaster.PoPackId, POPackDetails.ColorName, POPackDetails.SizeName, POPackDetails.PoQty,POPackDetails.RevisedQty, PoPackMaster.AtcId, PoPackMaster.ExpectedLocation_PK, PoPackMaster.SeasonName, 
                          POPackDetails.OurStyleID, StyleSize.Orderof
 FROM            PoPackMaster INNER JOIN
                          POPackDetails ON PoPackMaster.PoPackId = POPackDetails.POPackId INNER JOIN
@@ -2230,9 +2230,139 @@ WHERE        (PoPackMaster.AtcId = @ATCID)";
             return addColumntotal(dt);
         }
 
+        public static DataTable createdatatablebuyerpo(DataTable AsqData)
+        {
+
+
+            DataTable UniqueSizeunsorted = AsqData.DefaultView.ToTable(true, "SizeName", "Orderof");
+
+
+            DataView dv = UniqueSizeunsorted.DefaultView;
+            dv.Sort = "Orderof ASC";
+            DataTable UniqueSize = dv.ToTable();
+
+
+            UniqueSize = UniqueSize.DefaultView.ToTable(true, "SizeName");
+            DataTable UniqueColor = AsqData.DefaultView.ToTable(true, "ColorName");
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Color", typeof(String));
+
+
+            for (int i = 0; i < UniqueSize.Rows.Count; i++)
+            {
+                dt.Columns.Add(UniqueSize.Rows[i][0].ToString(), typeof(String));
+            }
 
 
 
+            for (int i = 0; i < UniqueColor.Rows.Count; i++)
+            {
+                dt.Rows.Add();
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+
+
+                    if (j == 0)
+                    {
+                        dt.Rows[i][j] = UniqueColor.Rows[i][0].ToString();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            object poqty = AsqData.Compute("Sum(RevisedQty)", "ColorName= '" + dt.Rows[i][0].ToString() + "' and  SizeName ='" + dt.Columns[j].ColumnName.ToString() + "'");
+
+                            if (poqty.ToString().Trim() == "")
+                            {
+                                poqty = "0";
+                            }
+
+                            dt.Rows[i][j] = poqty.ToString();
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+
+            return addColumntotal(dt);
+        }
+
+        public static DataTable createdatatablebuyerpo(DataTable AsqData, int popackid, int ourstyleid)
+        {
+            AsqData = AsqData.Select("PoPackId=" + popackid + "and  OurStyleID=" + ourstyleid + "").CopyToDataTable();
+
+            DataTable UniqueSizeunsorted = AsqData.DefaultView.ToTable(true, "SizeName", "Orderof");
+
+
+            DataView dv = UniqueSizeunsorted.DefaultView;
+            dv.Sort = "Orderof ASC";
+            DataTable UniqueSize = dv.ToTable();
+
+
+            UniqueSize = UniqueSize.DefaultView.ToTable(true, "SizeName");
+            DataTable UniqueColor = AsqData.DefaultView.ToTable(true, "ColorName");
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Color", typeof(String));
+
+
+            for (int i = 0; i < UniqueSize.Rows.Count; i++)
+            {
+                dt.Columns.Add(UniqueSize.Rows[i][0].ToString(), typeof(String));
+            }
+
+
+
+            for (int i = 0; i < UniqueColor.Rows.Count; i++)
+            {
+                dt.Rows.Add();
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+
+
+                    if (j == 0)
+                    {
+                        dt.Rows[i][j] = UniqueColor.Rows[i][0].ToString();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            object poqty = AsqData.Compute("Sum(RevisedQty)", "ColorName= '" + dt.Rows[i][0].ToString() + "' and  SizeName ='" + dt.Columns[j].ColumnName.ToString() + "'");
+
+                            if (poqty.ToString().Trim() == "")
+                            {
+                                poqty = "0";
+                            }
+
+                            dt.Rows[i][j] = poqty.ToString();
+                        }
+                        catch
+                        {
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+
+            return addColumntotal(dt);
+        }
 
 
 

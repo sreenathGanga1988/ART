@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 namespace ArtWebApp.BLL.ProcurementBLL
 {
     public class ServicePOData
@@ -441,10 +442,18 @@ namespace ArtWebApp.BLL.ProcurementBLL
             return currencypk;
         }
 
-        public DataTable GetSpoData(int spopk)
+        public DataTable GetSpoData(int spopk,int adn_pk)
         {
-            DBTransaction.ProcurementTransaction pktrans = new DBTransaction.ProcurementTransaction();
-            return pktrans.GetSpoDetails(spopk);
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand(@"GetDataforSMRN_SP");
+            cmd.Parameters.AddWithValue("@po_pk", spopk);
+            cmd.Parameters.AddWithValue("@Doc_PK", adn_pk);
+            cmd.CommandType = CommandType.StoredProcedure;
+            return QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+
+            //DBTransaction.ProcurementTransaction pktrans = new DBTransaction.ProcurementTransaction();
+            //return pktrans.GetSpoDetails(spopk, adn_pk);
         }
         public DataTable GetSpoItemList(int spopk)
         {

@@ -1,0 +1,266 @@
+﻿@model ArtWebApp.Areas.ArtMVCMerchandiser.ViewModel.AtcPerformance 
+@using System.Data;
+
+<div> <h2>Atc : @Model.AtcNum </h2></div>
+<style>
+    .locationID {
+        display: none;
+    }
+
+    .AtcID {
+        display: none;
+    }
+
+    .SkudDetPk {
+        display: none;
+    }
+</style>
+<script src="~/Plugin/MyDataTable.js"></script>
+
+
+@*<input id="printsummary" type="button" onclick="PrintRadGrid()" value="Close FCR" class="btn btn-default show" />*@
+
+<div id="printfcr">
+    <table id="MyDataTable" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="Garments" style="border-color:black">
+                    Garments
+                </th>
+                <th class="Garmentqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="Garmentsvalue" style="border-color:black">
+                    Value
+                </th>
+                @*foreach (DataColumn col in Model.ATCDatatable.Columns)
+                        {
+                                <th class="@col.ColumnName" style="border-color:black">
+                                    @col.ColumnName
+                                </th>
+                    }*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.ATCDatatable.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.ATCDatatable.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    <table id="MyDataTable1" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="Fabric" style="border-color:black">
+                    Fabric
+                </th>
+                <th class="Fabqqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="FabValue" style="border-color:black">
+                    Value
+                </th>
+                @*foreach (DataColumn col in Model.ATCDatatable.Columns)
+                        {
+                                <th class="@col.ColumnName" style="border-color:black">
+                                    @col.ColumnName
+                                </th>
+                    }*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.ATCFabricDatatable.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.ATCFabricDatatable.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+    <table id="MyDataTable2" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="Trims" style="border-color:black">
+                    Trims
+                </th>
+                <th class="Trimqqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="TrimValue" style="border-color:black">
+                    Value
+                </th>
+                @*foreach (DataColumn col in Model.ATCDatatable.Columns)
+                        {
+                                <th class="@col.ColumnName" style="border-color:black">
+                                    @col.ColumnName
+                                </th>
+                    }*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.ATCTrimDatatable.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.ATCTrimDatatable.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    <table id="MyDataTable4" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="DebitNotes" style="border-color:black">
+                    Charges
+                </th>
+                <th class="misplaceqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="Misplacevalue" style="border-color:black">
+                    Value
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.charges.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.charges.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+
+    <table id="MyDataTable3" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="DebitNotes" style="border-color:black">
+                    Debit Notes
+                </th>
+                <th class="misplaceqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="Misplacevalue" style="border-color:black">
+                    Value
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.InventoryMisplace.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.InventoryMisplace.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    <table id="MyDataTable5" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        <thead>
+            <tr style="border-color:black">
+                <th class="DebitNotes" style="border-color:black">
+                    Credit Notes
+                </th>
+                <th class="misplaceqty" style="border-color:black">
+                    Qty
+                </th>
+                <th class="Misplacevalue" style="border-color:black">
+                    Value
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Creditnotes.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.Creditnotes.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    <table id="MyDataTable6" class=" table table-striped table-bordered" cellspacing="0" width="100" style="border-color:black">
+        
+        <tbody>
+            @foreach (DataRow row in Model.atcpl.Rows)
+            {
+                <tr style="border-color:black">
+
+                    @foreach (DataColumn col in Model.atcpl.Columns)
+                    {
+                        <td class="@col.ColumnName" style="border-color:black">
+                            @row[@col.ColumnName]
+
+                        </td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+
+

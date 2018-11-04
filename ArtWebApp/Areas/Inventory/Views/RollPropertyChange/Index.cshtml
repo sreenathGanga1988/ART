@@ -38,7 +38,7 @@
 
             debugger;
             var id = $("#srch-term").val();
-            
+            $("#Submit").prop('disabled', false);
             if (id != null)
             {
                 alert(id);
@@ -69,21 +69,6 @@
 
 
 
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         $('#Submit').click(function () {
 
@@ -102,7 +87,7 @@
 
                 }
 
-                $(this).val('Please wait...');
+               // $(this).val('Please wait...');
 
                 $.ajax({
                     type: 'POST',
@@ -111,19 +96,19 @@
                     contentType: 'application/json',
                     success: function (data) {
                         if (data.status) {
-                            alert('Successfully saved ' + data.Reqnum);
+                            alert('Successfully saved ');
                             //here we will clear the form
-
+                            $("#Submit").prop('disabled', true);
 
                         }
                         else {
                             alert('Error');
                         }
-                        $('#submit').val('Save');
+                        $('#Submit').val('Save');
                     },
                     error: function (error) {
                         console.log(error);
-                        $('#submit').val('Save');
+                        $('#Submit').val('Save');
                     }
                 });
             }
@@ -134,9 +119,9 @@
         });
 
 
-        $("#Submit").on("click", function () {
-            alert("The paragraph was clicked.");
-        });
+        //$("#Submit").on("click", function () {
+        //    alert("The paragraph was clicked.");
+        //});
 
 
 

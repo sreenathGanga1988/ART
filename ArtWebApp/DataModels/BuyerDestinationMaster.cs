@@ -17,6 +17,7 @@ namespace ArtWebApp.DataModels
         public BuyerDestinationMaster()
         {
             this.PoPackMasters = new HashSet<PoPackMaster>();
+            this.PrePackMasters = new HashSet<PrePackMaster>();
         }
     
         public decimal BuyerDestination_PK { get; set; }
@@ -25,5 +26,6 @@ namespace ArtWebApp.DataModels
     
         public virtual BuyerMaster BuyerMaster { get; set; }
         public virtual ICollection<PoPackMaster> PoPackMasters { get; set; }
+        public virtual ICollection<PrePackMaster> PrePackMasters { get; set; }
     }
 }

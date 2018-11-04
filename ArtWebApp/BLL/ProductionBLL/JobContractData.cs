@@ -365,6 +365,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                     jcmstr.AddedBy = jcdata.JCmstrdata.AddedBy;
                     jcmstr.Location_Pk = jcdata.JCmstrdata.Location_Pk;
                     jcmstr.OurStyleID = jcdata.JCmstrdata.OurStyleID;
+                    jcmstr.Remarks = jcdata.JCmstrdata.Remarks;
                     enty.JobContractOptionalMasters.Add(jcmstr);
 
 
@@ -386,6 +387,7 @@ namespace ArtWebApp.BLL.ProductionBLL
                         jcdetdata.FabCommision = di.FabComission;
                         jcdetdata.GarmentComission = di.GarCommision;
                         jcdetdata.Printing = di.printing;
+                        
                         enty.JobContractOptionalDetails.Add(jcdetdata);
                         
                     }
@@ -461,6 +463,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public string remark { get; set; }
         public int Ourstyleid { get; set; }
         public string Atcnum { get; set; }
+        public string Remarks { get; set; }
         public Decimal CMCost { get; set; }
 
 
@@ -475,6 +478,7 @@ namespace ArtWebApp.BLL.ProductionBLL
         public int PoPackID { get; set; }
         public int OurStyleID { get; set; }
         public float CMvalue { get; set; }
+        public string remarks { get; set; }
 
 
 

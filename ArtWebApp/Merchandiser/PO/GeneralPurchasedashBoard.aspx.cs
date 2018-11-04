@@ -79,5 +79,40 @@ namespace ArtWebApp.Merchandiser.PO
 
 
             }
+        protected void btn_closespo_Click(object sender, EventArgs e)
+        {
+
+            string selectedspoid = "";
+            foreach (GridViewRow gdrow in tbl_pendingtoreceive.Rows)
+            {
+                CheckBox chkBx = (CheckBox)gdrow.FindControl("chk_select");
+                if (chkBx.Checked == true)
+                {
+                    int polineid = int.Parse((gdrow.FindControl("lbl_SPO_Pk") as Label).Text);
+                    using (ArtEntitiesnew enty = new ArtEntitiesnew())
+                    {
+
+                        var q1 = from spo in enty.StockPOMasters where spo.SPO_Pk == polineid select spo;
+
+                        foreach (var element in q1)
+                        {
+                            element.IsClosed  = "Y";
+                            element.ClosedBy= Session["Username"].ToString().Trim();
+                            element.ClosedDate= DateTime.Now;
+
+                        }
+                        enty.SaveChanges();
+                    }
+                    String msg = " SPO Closed Sucessfully ";
+
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+
+                }
+
+            }
+
+
+
+        }
     }
 }

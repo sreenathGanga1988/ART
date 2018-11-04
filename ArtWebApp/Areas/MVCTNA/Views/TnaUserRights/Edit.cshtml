@@ -199,6 +199,25 @@
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsObSubmission, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsObSubmission)
+                @Html.ValidationMessageFor(model => model.IsObSubmission, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsCmFinalization, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsCmFinalization)
+                @Html.ValidationMessageFor(model => model.IsCmFinalization, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
 
 
 

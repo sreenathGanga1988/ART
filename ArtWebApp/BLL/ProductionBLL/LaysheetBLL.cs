@@ -662,6 +662,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
         public int cutid { get; set; }
         public String markernum { get; set; }
 
+
         public List<LaysheetDetaolsData> LaysheetDetaolsDataCollection { get; set; }
 
 
@@ -973,6 +974,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.AddedDate = DateTime.Now;
                         lcdet.Status = di.RollStatus;
                         lcdet.IsDeleted = "N";
+                        lcdet.Sequence = di.sequence_no;
                         enty.LaySheetRollDetails.Add(lcdet);
                     }
                     else
@@ -998,6 +1000,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
                         lcdet.IsDeleted = "N";
+                        lcdet.Sequence = di.sequence_no;
                         enty.LaySheetRollDetails.Add(lcdet);
 
                     }
@@ -1082,6 +1085,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
                         lcdet.IsDeleted = "N";
+                        lcdet.Sequence = di.sequence_no;
                         enty.LaySheetRollDetails.Add(lcdet);
                     }
                     else
@@ -1107,6 +1111,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
                         lcdet.LaysheetRollmaster_Pk = this.LaysheetRollmaster_Pk;
                         lcdet.AddedBy = HttpContext.Current.Session["Username"].ToString();
                         lcdet.AddedDate = DateTime.Now;
+                        lcdet.Sequence = di.sequence_no;
 
                         enty.LaySheetRollDetails.Add(lcdet);
 
@@ -1290,7 +1295,7 @@ HAVING        (LaySheetMaster.LaySheet_PK =@laysheetpk)";
         public String IsRecuttable { get; set; }
         public decimal RollAyard { get; set; }
         public String RollStatus { get; set; }
-
+        public int sequence_no { get; set; }
     }
 
 }

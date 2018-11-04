@@ -26,6 +26,7 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> FabCommision { get; set; }
         public Nullable<decimal> GarmentComission { get; set; }
         public Nullable<decimal> Printing { get; set; }
+        public string remarks { get; set; }
     
         public virtual AtcDetail AtcDetail { get; set; }
         public virtual JobContractOptionalMaster JobContractOptionalMaster { get; set; }

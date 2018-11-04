@@ -424,13 +424,22 @@
                                 <td colspan="6">
                                     <table class="auto-style1">
                                         <tr>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                &nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
                                             <td>Group</td>
                                             <td>
                                                 <asp:UpdatePanel ID="upd_groupname" runat="server" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                                <asp:Label ID="lbl_group" runat="server" Text="Label"></asp:Label>
-                                            </ContentTemplate>
-                                                    </asp:UpdatePanel>
+                                                    <ContentTemplate>
+                                                        <asp:Label ID="lbl_group" runat="server" Text="Label"></asp:Label>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                             </td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>

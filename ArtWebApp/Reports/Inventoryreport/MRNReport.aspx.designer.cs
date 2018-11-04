@@ -121,6 +121,24 @@ namespace ArtWebApp.Reports.Inventoryreport {
         protected global::System.Web.UI.WebControls.Button Btn_mrnshowreport;
         
         /// <summary>
+        /// drp_mcrno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drp_mcrno;
+        
+        /// <summary>
+        /// btn_mcr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_mcr;
+        
+        /// <summary>
         /// upl_rpt control.
         /// </summary>
         /// <remarks>

@@ -76,7 +76,7 @@ namespace ArtWebApp.Accounts
                 decimal total = dt.AsEnumerable().Sum(row => row.Field<decimal>("BaltoINV"));
                 decimal POQty = dt.AsEnumerable().Sum(row => row.Field<decimal>("POQty"));
                 decimal ReceivedQty = dt.AsEnumerable().Sum(row => row.Field<decimal>("ReceivedQty"));
-                tbl_Podetails.FooterRow.Cells[14].Text = total.ToString("N2");
+                tbl_Podetails.FooterRow.Cells[15].Text = total.ToString("N2");
                 tbl_Podetails.FooterRow.Cells[8].Text = POQty.ToString("N2");
                 tbl_Podetails.FooterRow.Cells[12].Text = ReceivedQty.ToString("N2");
                 upd_Grid.Update();

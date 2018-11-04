@@ -17,11 +17,13 @@ namespace ArtWebApp.DataModels
         public ChannelMaster()
         {
             this.PoPackMasters = new HashSet<PoPackMaster>();
+            this.PrePackMasters = new HashSet<PrePackMaster>();
         }
     
         public decimal ChannelID { get; set; }
         public string ChannelName { get; set; }
     
         public virtual ICollection<PoPackMaster> PoPackMasters { get; set; }
+        public virtual ICollection<PrePackMaster> PrePackMasters { get; set; }
     }
 }

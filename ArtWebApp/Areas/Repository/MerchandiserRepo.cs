@@ -470,7 +470,212 @@ GROUP BY  AtcId", con);
     }
 
 
+    public class AtcperformanceRepo
+    {
+        public DataTable GetGarmentdetails(int Atcid)
+        {
+           SqlCommand cmd =new SqlCommand ( @"select Atc_id, GoodPcs, RejectPcs from OCRATCWise_VW where atc_id=@Atcid");
+            cmd.Parameters.AddWithValue("@AtcId", Atcid);
+            return QueryFunctions.ReturnQueryResultDatatablefromAtcWorldkENYA(cmd);
+        }
 
+        public DataTable getShippedQty(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@"select InvoiceQty,( InvoiceQty *FOB ) as price from InvoiceDetail where OurStyleID in(select OurStyleID  from AtcDetails  where AtcId =@AtcId)");
+
+            SqlCommand cmd2 = new SqlCommand(@" 
+            SELECT        AtcDetails.AtcId, ShipmentHandOverDetails.ShippedQty, ShipmentHandOverDetails.FCM
+            FROM            ShipmentHandOverDetails INNER JOIN
+                                     AtcDetails ON ShipmentHandOverDetails.OurStyleID = AtcDetails.OurStyleID
+            WHERE        (AtcDetails.AtcId = @AtcId)");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+
+        public DataTable getfabricdetails(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" SELECT        AtcMaster.AtcNum, ProcurementDetails.CURate, MrnDetails.ReceiptQty, MrnDetails.ExtraQty, ProcurementMaster.POType, MrnDetails.ReceiptQty + MrnDetails.ExtraQty AS TotalQTY, 
+                         (MrnDetails.ReceiptQty + MrnDetails.ExtraQty) * ProcurementDetails.CURate AS PurchaseValue, Template_Master.ItemGroup_PK
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         MrnMaster INNER JOIN
+                         MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                         ProcurementDetails ON MrnDetails.PODet_PK = ProcurementDetails.PODet_PK INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId ON SkuRawmaterialDetail.SkuDet_PK = MrnDetails.SkuDet_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+WHERE        (AtcMaster.AtcId = @AtcId) and Template_Master.ItemGroup_PK =1");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+
+        public DataTable getTrimsdetails(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" SELECT        AtcMaster.AtcNum, ProcurementDetails.CURate, MrnDetails.ReceiptQty, MrnDetails.ExtraQty, ProcurementMaster.POType, MrnDetails.ReceiptQty + MrnDetails.ExtraQty AS TotalQTY, 
+                         (MrnDetails.ReceiptQty + MrnDetails.ExtraQty) * ProcurementDetails.CURate AS PurchaseValue, Template_Master.ItemGroup_PK
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         MrnMaster INNER JOIN
+                         MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                         ProcurementDetails ON MrnDetails.PODet_PK = ProcurementDetails.PODet_PK INNER JOIN
+                         ProcurementMaster ON ProcurementDetails.PO_Pk = ProcurementMaster.PO_Pk INNER JOIN
+                         AtcMaster ON ProcurementMaster.AtcId = AtcMaster.AtcId ON SkuRawmaterialDetail.SkuDet_PK = MrnDetails.SkuDet_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK
+WHERE        (AtcMaster.AtcId = @AtcId) and Template_Master.ItemGroup_PK =2");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getFreightCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" select isnull(sum(FreightCharge ),0)as FreightCharge from FreightChargeDetail a , FreightRequestMaster b where
+    a.FreightRequestID =b.FreightRequestID and b.IsApproved ='Y' and a.AtcID =@AtcId");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getEmbroideryCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" select b.shippedqty,  (b.ShippedQty*a.EmbroidaryPrinting )as charge  from JobContractOptionalDetail a, ShipmentHandOverDetails  b ,AtcDetails c
+where a.OurStyleID =b.OurStyleID and c.AtcId =@AtcId and c.OurStyleID =b.OurStyleID and a.EmbroidaryPrinting  >0");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getWashingCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" select b.shippedqty,  (b.ShippedQty*a.Wash )as charge  from JobContractOptionalDetail a, ShipmentHandOverDetails  b ,AtcDetails c
+where a.OurStyleID =b.OurStyleID and c.AtcId =@AtcId and c.OurStyleID =b.OurStyleID and a.Wash  >0");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getPrintingCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" select b.shippedqty,  (b.ShippedQty*a.Printing )as charge  from JobContractOptionalDetail a, ShipmentHandOverDetails  b ,AtcDetails c
+where a.OurStyleID =b.OurStyleID and c.AtcId =@AtcId and c.OurStyleID =b.OurStyleID and a.Printing  >0");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getFactoryLogisticCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" select b.shippedqty,  (b.ShippedQty*a.FactoryLogistic )as charge  from JobContractOptionalDetail a, ShipmentHandOverDetails  b ,AtcDetails c
+where a.OurStyleID =b.OurStyleID and c.AtcId =@AtcId and c.OurStyleID =b.OurStyleID and a.FactoryLogistic  >0");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+
+        public DataTable getCMCharge(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@"select b.shippedqty,  (b.ShippedQty*a.CM  )as charge  from JobContractMaster a, ShipmentHandOverDetails  b ,AtcDetails c
+where a.OurStyleID =b.OurStyleID and c.AtcId =@AtcId and c.OurStyleID =b.OurStyleID and a.CM   >0");
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+
+
+        public DataTable getInventoryMisplaced(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" 
+SELECT        InventoryMissingDetails.Qty, InventoryMaster.CURate
+FROM            InventoryMissingDetails INNER JOIN
+                         InventoryMissingRequest ON InventoryMissingDetails.MisplaceApp_PK = InventoryMissingRequest.MisplaceApp_pk INNER JOIN
+                         InventoryMaster ON InventoryMissingDetails.InventoryItem_PK = InventoryMaster.InventoryItem_PK
+WHERE        (InventoryMissingRequest.Atc_id = @AtcId) and  (InventoryMissingRequest.IsApproved ='Y')");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable getShortShipment(int AtcId)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd1 = new SqlCommand(@"select sum(a.PoQty )as POQty, sum(a.PoQty*b.FOB  )as POValue,0 as shipqty,0 as shipvalue from POPackDetails a, AtcDetails b where a.OurStyleID =b.OurStyleID and b.AtcId =@AtcId group by b.FOB 
+union 
+select 0 as POQty, 0 as POValue, sum(a.invoiceqty) as shipqty, sum(a.invoiceqty*a.fob)as shipvalue from InvoiceDetail a, AtcDetails b where a.OurStyleID =b.OurStyleID and b.AtcId =@AtcId group by a.FOB");
+
+            SqlCommand cmd = new SqlCommand(@" SELECT 
+                MAX(CASE WHEN poqty>0 THEN poqty ELSE 0 END) as POQty,
+                MAX(CASE WHEN POValue>0 THEN POValue ELSE 0 END) as POValue,
+                MAX(CASE WHEN shipqty>0 THEN shipqty ELSE 0 END) as shipqty,
+                MAX(CASE WHEN shipvalue>0 THEN shipvalue ELSE 0 END) as shipvalue
+                from(
+                select sum(a.PoQty )as POQty, sum(a.PoQty*b.FOB  )as POValue,0 as shipqty,0 as shipvalue from POPackDetails a, AtcDetails b where a.OurStyleID =b.OurStyleID and b.AtcId =@AtcId
+                union 
+                select 0 as POQty,0 as POValue, sum(a.ShippedQty )as shipqty, sum(a.ShippedQty*b.FOB ) as shipvalue From ShipmentHandOverDetails a, AtcDetails b where a.OurStyleID =b.OurStyleID and b.AtcId =@AtcId 
+                )as t");
+
+
+            cmd1.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd1);
+        }
+        public DataTable GetFabricLeftover(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" 
+SELECT        InventoryMaster.InventoryItem_PK, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                 ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, InventoryMaster.OnhandQty as PhysicalQty,
+                LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,AtcMaster.AtcID,LocationMaster.Location_PK,
+                0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@AtcId  and (ItemGroupMaster.ItemGroupName = N'Fabric')
+                 AND (InventoryMaster.OnhandQty > 0) and LocationMaster. Location_PK in(2,3,4,5,6,10,13,15,16,17,22,30,37)
+ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+        public DataTable GetTrimsLeftover(int AtcId)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(@" 
+SELECT        InventoryMaster.InventoryItem_PK, AtcMaster.AtcNum, SkuRawMaterialMaster.RMNum, InventoryMaster.SkuDet_Pk,SkuRawMaterialMaster.Template_pk,
+                SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
+                 ProcurementDetails.SupplierColor, UOMMaster.UomCode, InventoryMaster.ReceivedQty, InventoryMaster.DeliveredQty, InventoryMaster.OnhandQty, InventoryMaster.OnhandQty as PhysicalQty,
+                LocationMaster.LocationName, InventoryMaster.ReceivedVia, InventoryMaster.Refnum, InventoryMaster.CURate, InventoryMaster.CURate * InventoryMaster.OnhandQty AS Value,AtcMaster.AtcID,LocationMaster.Location_PK,
+                0 as DiffQty,InventoryMaster.CURate as ActualRate,0 as Packages
+                FROM            MrnMaster INNER JOIN
+                MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+                Template_Master INNER JOIN
+                AtcMaster INNER JOIN
+                SkuRawMaterialMaster INNER JOIN
+                SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK ON AtcMaster.AtcId = SkuRawMaterialMaster.Atc_id ON 
+                Template_Master.Template_PK = SkuRawMaterialMaster.Template_pk INNER JOIN
+                ItemGroupMaster ON Template_Master.ItemGroup_PK = ItemGroupMaster.ItemGroupID INNER JOIN
+                LocationMaster INNER JOIN
+                UOMMaster INNER JOIN
+                InventoryMaster INNER JOIN
+                ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
+                SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@AtcId  and (ItemGroupMaster.ItemGroupName = N'Trims')
+                 AND (InventoryMaster.OnhandQty > 0) and LocationMaster .Location_PK in(2,3,4,5,6,10,13,15,16,17,22,30,37)
+ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                  ProcurementDetails.SupplierColor, UOMMaster.UomCode");
+
+
+            cmd.Parameters.AddWithValue("@AtcId", AtcId); return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+    }
     public class AtcClosingRepo
     {
 

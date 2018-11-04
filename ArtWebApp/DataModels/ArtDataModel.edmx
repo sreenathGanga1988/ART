@@ -900,6 +900,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="DoType" Type="nchar" MaxLength="10" />
           <Property Name="ExportContainer" Type="nvarchar(max)" />
           <Property Name="ContentType" Type="nvarchar" MaxLength="20" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DeliveryOrderStockDetails">
           <Key>
@@ -1050,6 +1051,9 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ToLocation" Type="nvarchar" MaxLength="50" />
           <Property Name="EstimatedCost" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentTerm" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="1" />
+          <Property Name="ClosedDate" Type="datetime" />
+          <Property Name="ClosedBy" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="DORollDetails">
           <Key>
@@ -1089,6 +1093,89 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="OdooID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" />
           <Property Name="DOJ" Type="date" />
+        </EntityType>
+        <EntityType Name="EndbitDoDetails">
+          <Key>
+            <PropertyRef Name="Dodet_pk" />
+          </Key>
+          <Property Name="Dodet_pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Do_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Roll_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Skudet_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Inventoryitem_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Endbit" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="weight" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="EndbitDoMaster">
+          <Key>
+            <PropertyRef Name="Do_pk" />
+          </Key>
+          <Property Name="Do_pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoNum" Type="nvarchar" MaxLength="30" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FromLocation" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToLocation" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DeliveryDate" Type="date" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="TotalYds" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="TotalWeight" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="EndbitInventory">
+          <Key>
+            <PropertyRef Name="Endbit_Pk" />
+          </Key>
+          <Property Name="Endbit_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Roll_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Skudet_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Inventoryitem_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OnHandQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="ReceivedQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="DeliveredQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="RefNum" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="EndbitSalesDetail">
+          <Key>
+            <PropertyRef Name="SalesDODet_PK" />
+          </Key>
+          <Property Name="SalesDODet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesDO_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Endbit_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="DeliveryQty" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Unitprice" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="CuRate" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="10" />
+          <Property Name="AgreedCurRate" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="CuRateUpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurateUpdatedDate" Type="datetime" />
+          <Property Name="IsInvoiced" Type="bit" />
+          <Property Name="InvoiceNum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EndbitSalesMaster">
+          <Key>
+            <PropertyRef Name="SalesDO_PK" />
+          </Key>
+          <Property Name="SalesDO_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesDONum" Type="nvarchar" MaxLength="30" />
+          <Property Name="SalesDate" Type="datetime" />
+          <Property Name="FromLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SalesDODate" Type="datetime" />
+          <Property Name="Weight" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ContainerNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="BoeNum" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Deliverymethod_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="DoType" Type="nchar" MaxLength="10" />
+          <Property Name="ISApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBY" Type="nvarchar" MaxLength="20" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="10" />
+          <Property Name="IsDebited" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="EtaDate">
           <Key>
@@ -1346,6 +1433,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ValidatedDate" Type="date" />
           <Property Name="InspectedDate" Type="date" />
           <Property Name="RackAllocated" Type="nchar" MaxLength="10" />
+          <Property Name="McrYard" Type="numeric" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="FactoryType">
           <Key>
@@ -1684,6 +1772,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="FabCommision" Type="numeric" Precision="18" Scale="3" />
           <Property Name="GarmentComission" Type="numeric" Precision="18" Scale="3" />
           <Property Name="Printing" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="remarks" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="JobContractOptionalMaster">
           <Key>
@@ -1698,6 +1787,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
           <Property Name="IsApproved" Type="nchar" MaxLength="1" />
           <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="LabChargeDetail">
           <Key>
@@ -1757,6 +1847,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
           <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Deleteddate" Type="datetime" />
+          <Property Name="IsReturned" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="LaySheetMaster">
           <Key>
@@ -1820,6 +1911,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="BalanceYardage" Type="numeric" Precision="18" Scale="3" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="IsDeleted" Type="nchar" MaxLength="1" />
+          <Property Name="Sequence" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="LaySheetRollMaster">
           <Key>
@@ -1886,8 +1978,10 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="TrValue" Type="numeric" Precision="18" Scale="3" />
           <Property Name="Docnum" Type="nvarchar" MaxLength="50" />
           <Property Name="AddedDate" Type="datetime" />
-          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="30" />
           <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="LCDetails">
           <Key>
@@ -2058,11 +2152,22 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="MCR_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MCR_no" Type="nchar" MaxLength="20" />
           <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToLocation_pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Atc_Id" Type="numeric" Precision="18" Scale="0" />
           <Property Name="AddedBy" Type="nchar" MaxLength="20" />
           <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsTransfer" Type="nchar" MaxLength="10" />
+          <Property Name="TransferBy" Type="nchar" MaxLength="20" />
+          <Property Name="TransferDate" Type="datetime" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="10" />
+          <Property Name="ReceivedBy" Type="nchar" MaxLength="20" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
           <Property Name="ApprovedBy" Type="nchar" MaxLength="20" />
           <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="IsConfirmed" Type="nchar" MaxLength="10" />
+          <Property Name="ConfirmBy" Type="nchar" MaxLength="20" />
+          <Property Name="ConfirmDate" Type="datetime" />
         </EntityType>
         <EntityType Name="MCRDetails">
           <Key>
@@ -2078,21 +2183,48 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="Onhandqty" Type="numeric" Precision="18" Scale="6" />
           <Property Name="PhysicalQty" Type="numeric" Precision="18" Scale="6" />
           <Property Name="DiffQty" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="ActualReceive" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="ActualDiffQty" Type="numeric" Precision="18" Scale="6" />
           <Property Name="AddedDate" Type="datetime" />
           <Property Name="Addedby" Type="nvarchar" MaxLength="10" />
           <Property Name="IsApproved" Type="nchar" MaxLength="5" />
           <Property Name="ApprovedBy" Type="nchar" MaxLength="10" />
           <Property Name="ApprovedDate" Type="datetime" />
-          <Property Name="RMNum" Type="nchar" MaxLength="10" />
+          <Property Name="RMNum" Type="nchar" MaxLength="50" />
           <Property Name="Description" Type="nchar" MaxLength="100" />
           <Property Name="ItemColor" Type="nchar" MaxLength="50" />
           <Property Name="SupplierColor" Type="nchar" MaxLength="50" />
-          <Property Name="UOM" Type="nchar" MaxLength="20" />
+          <Property Name="Packages" Type="nchar" MaxLength="30" />
+          <Property Name="UOM" Type="nchar" MaxLength="30" />
+          <Property Name="AlterUOM" Type="nchar" MaxLength="30" />
+          <Property Name="AlterUOM_qty" Type="numeric" Precision="18" Scale="6" />
           <Property Name="type" Type="nchar" MaxLength="10" />
           <Property Name="ActualCU_Rate" Type="numeric" Precision="18" Scale="6" />
           <Property Name="CU_Rate" Type="numeric" Precision="18" Scale="6" />
           <Property Name="Template_pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Skudet_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsConfirm" Type="nchar" MaxLength="10" />
+          <Property Name="ConfirmedBy" Type="nchar" MaxLength="10" />
+          <Property Name="ConfirmedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MCRRollDetails">
+          <Key>
+            <PropertyRef Name="MCRRoll_pk" />
+          </Key>
+          <Property Name="MCRRoll_pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mcr_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Roll_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RollNum" Type="nchar" MaxLength="30" />
+          <Property Name="Inventoryitem_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Mrndet_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nchar" MaxLength="20" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsReceived" Type="nchar" MaxLength="2" />
+          <Property Name="IsConfirm" Type="nchar" MaxLength="2" />
+          <Property Name="AYard" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="McrYard" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Mcr_kg" Type="numeric" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="MerchandiserMaster">
           <Key>
@@ -2143,6 +2275,9 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="DoNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Location_Pk" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Reciept_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MrnClosed" Type="nchar" MaxLength="10" />
+          <Property Name="MrnClosedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="MrnClosedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ODOOGPOMaster">
           <Key>
@@ -2416,6 +2551,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="MarkedCuttabledate" Type="datetime" />
           <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
           <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
+          <Property Name="RevisedQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PopackDetailsHistory">
           <Key>
@@ -2478,6 +2614,95 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
           <Property Name="IsShuffulable" Type="nchar" MaxLength="10" />
           <Property Name="SalesHandoverDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PrePackDetails">
+          <Key>
+            <PropertyRef Name="PrePack_Detail_PK" />
+          </Key>
+          <Property Name="PrePack_Detail_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrePackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPackID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPackDetailID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ColorCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SIzeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsCutable" Type="nchar" MaxLength="10" />
+          <Property Name="IsPackable" Type="nchar" MaxLength="10" />
+          <Property Name="ColorId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsShortClosed" Type="nchar" MaxLength="10" />
+          <Property Name="CutQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsHidden" Type="nchar" MaxLength="10" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="ShortClosedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkedCuttableBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortClosedDate" Type="datetime" />
+          <Property Name="MarkedCuttabledate" Type="datetime" />
+          <Property Name="CombinationCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsInterChangable" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PrePackMaster">
+          <Key>
+            <PropertyRef Name="PrePackId" />
+          </Key>
+          <Property Name="PrePackId" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrePacknum" Type="nvarchar" MaxLength="10" />
+          <Property Name="AtcId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoPackId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerPO" Type="nvarchar" MaxLength="50" />
+          <Property Name="PackingInstruction" Type="nvarchar(max)" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="Inhousedate" Type="datetime" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="ChannelID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BuyerDestination_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PoGroup" Type="nvarchar" MaxLength="20" />
+          <Property Name="TagGroup" Type="nvarchar" MaxLength="20" />
+          <Property Name="SeasonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCutable" Type="nchar" MaxLength="10" />
+          <Property Name="FirstDeliveryDate" Type="datetime" />
+          <Property Name="HandoverDate" Type="datetime" />
+          <Property Name="ExpectedLocation_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="10" />
+          <Property Name="IsShuffulable" Type="nchar" MaxLength="10" />
+          <Property Name="SalesHandoverDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PrePackShuffleDetails">
+          <Key>
+            <PropertyRef Name="PrePackShuffleDet_PK" />
+          </Key>
+          <Property Name="PrePackShuffleDet_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrePackShuffle_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="FromPrePackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ToPrePackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPrePackDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="revisedQtyofToPrePackDet_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PrePackShuffleMaster">
+          <Key>
+            <PropertyRef Name="PrePackShuffle_PK" />
+          </Key>
+          <Property Name="PrePackShuffle_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromPrePackID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrePackShuffleNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="PrePackShuffleGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="RevisedFromQty" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PrinterDetails">
           <Key>
@@ -2725,6 +2950,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="Rack_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="RefNum" Type="nchar" MaxLength="15" />
           <Property Name="IsLast" Type="nchar" MaxLength="2" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="RackMaster">
           <Key>
@@ -2836,6 +3062,41 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="Qty" Type="numeric" Precision="18" Scale="4" />
           <Property Name="CUnitPrice" Type="float" />
           <Property Name="InventoryItem_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="RequestOrderLoanDetails">
+          <Key>
+            <PropertyRef Name="LRODet_Pk" />
+          </Key>
+          <Property Name="LRODet_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LRO_Pk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SkuDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="CUnitPrice" Type="float" />
+          <Property Name="InventoryItem_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="PODet_PK" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="RequestOrderLoanMaster">
+          <Key>
+            <PropertyRef Name="LRO_Pk" />
+          </Key>
+          <Property Name="LRO_Pk" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LRONum" Type="nvarchar" MaxLength="20" />
+          <Property Name="AtcID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SupplierPk" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsApproved" Type="nchar" MaxLength="1" />
+          <Property Name="IsDeleted" Type="nchar" MaxLength="1" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="Approveddate" Type="datetime" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LROType" Type="nchar" MaxLength="10" />
+          <Property Name="IsForwarded" Type="nchar" MaxLength="10" />
+          <Property Name="ForwardedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="PO_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsCompleted" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RequestOrderMaster">
           <Key>
@@ -3019,6 +3280,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="MarkedCompletedBY" Type="nvarchar" MaxLength="50" />
           <Property Name="PatternReqDate" Type="datetime" />
+          <Property Name="Accessories" Type="nvarchar(max)" />
           <Property Name="PatternCompletedDate" Type="datetime" />
           <Property Name="SamplingStatus_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CompletedQty" Type="numeric" Precision="18" Scale="0" />
@@ -3689,6 +3951,7 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ReceivedQty" Type="numeric" Precision="18" Scale="3" />
           <Property Name="Uom_PK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ExtraQty" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="SDoc_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="StockMrnMaster">
           <Key>
@@ -3755,6 +4018,30 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="ForwardedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="MarkCompleted" Type="nchar" MaxLength="1" />
           <Property Name="DeptPK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="IsClosed" Type="nchar" MaxLength="1" />
+          <Property Name="ClosedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="ClosedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="StockRackInventoryMaster">
+          <Key>
+            <PropertyRef Name="SRackInventory_PK" />
+          </Key>
+          <Property Name="SRackInventory_PK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SInventoryitem_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SMRNDet_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SPODetails_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Template_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MrnQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="OnhandQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="ReceivedQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="DeliveredQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="BalanceQty" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="ReceivedVia" Type="nvarchar" MaxLength="10" />
+          <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Rack_PK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="RefNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsLast" Type="nchar" MaxLength="10" />
+          <Property Name="AddedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="StockRecieptMaster">
           <Key>
@@ -4227,6 +4514,8 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
           <Property Name="IsSewingSet" Type="bit" />
           <Property Name="IsSystemFile" Type="bit" />
           <Property Name="IsShrinkage" Type="bit" />
+          <Property Name="IsObSubmission" Type="bit" />
+          <Property Name="IsCmFinalization" Type="bit" />
           <Property Name="Location_PK" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="TransferToGstockDetails">
@@ -5260,6 +5549,18 @@ warning 6002: The table/view 'Art.dbo.Countries' does not have a primary key def
             </Principal>
             <Dependent Role="DORollDetails">
               <PropertyRef Name="Roll_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EndbitSalesMaster_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="EndbitSalesMaster" Type="Self.EndbitSalesMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="EndbitSalesMaster">
+              <PropertyRef Name="FromLocation_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6334,6 +6635,45 @@ warning 6035: The relationship 'FK_POPackDetails_ColorMaster' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_PrePackDetails_ColorMaster' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_PrePackDetails_ColorMaster" />-->
+        <Association Name="FK_PrePackMaster_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="PrePackMaster" Type="Self.PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePackMaster_BuyerDestinationMaster">
+          <End Role="BuyerDestinationMaster" Type="Self.BuyerDestinationMaster" Multiplicity="0..1" />
+          <End Role="PrePackMaster" Type="Self.PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuyerDestinationMaster">
+              <PropertyRef Name="BuyerDestination_PK" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="BuyerDestination_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePackMaster_ChannelMaster">
+          <End Role="ChannelMaster" Type="Self.ChannelMaster" Multiplicity="0..1" />
+          <End Role="PrePackMaster" Type="Self.PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChannelMaster">
+              <PropertyRef Name="ChannelID" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="ChannelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProcurementDetails_ProcurementMaster">
           <End Role="ProcurementMaster" Type="Self.ProcurementMaster" Multiplicity="0..1" />
           <End Role="ProcurementDetails" Type="Self.ProcurementDetails" Multiplicity="*" />
@@ -6547,6 +6887,42 @@ warning 6035: The relationship 'FK_POPackDetails_ColorMaster' has columns that a
             </Principal>
             <Dependent Role="RequestOrderDetails">
               <PropertyRef Name="RO_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestOrderLoanDetails_RequestOrderMaster">
+          <End Role="RequestOrderLoanMaster" Type="Self.RequestOrderLoanMaster" Multiplicity="0..1" />
+          <End Role="RequestOrderLoanDetails" Type="Self.RequestOrderLoanDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestOrderLoanMaster">
+              <PropertyRef Name="LRO_Pk" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanDetails">
+              <PropertyRef Name="LRO_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestOrderLoanMaster_AtcMaster">
+          <End Role="AtcMaster" Type="Self.AtcMaster" Multiplicity="0..1" />
+          <End Role="RequestOrderLoanMaster" Type="Self.RequestOrderLoanMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestOrderLoanMaster_LocationMaster">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="RequestOrderLoanMaster" Type="Self.RequestOrderLoanMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanMaster">
+              <PropertyRef Name="Location_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8172,6 +8548,11 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="DORollDetails" EntityType="Self.DORollDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndbitDoDetails" EntityType="Self.EndbitDoDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndbitDoMaster" EntityType="Self.EndbitDoMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndbitInventory" EntityType="Self.EndbitInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndbitSalesDetail" EntityType="Self.EndbitSalesDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EndbitSalesMaster" EntityType="Self.EndbitSalesMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EtaDate" EntityType="Self.EtaDate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EthiopiaToARTShip_Tbl" EntityType="Self.EthiopiaToARTShip_Tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionAtcList" EntityType="Self.ExceptionAtcList" Schema="dbo" store:Type="Tables" />
@@ -8238,6 +8619,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="MarqueeMaster" EntityType="Self.MarqueeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MCR_Master" EntityType="Self.MCR_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MCRDetails" EntityType="Self.MCRDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MCRRollDetails" EntityType="Self.MCRRollDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MerchandiserMaster" EntityType="Self.MerchandiserMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MrnDetails" EntityType="Self.MrnDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MrnFileUpload" EntityType="Self.MrnFileUpload" Schema="dbo" store:Type="Tables" />
@@ -8263,6 +8645,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="PopackDetailsHistory" EntityType="Self.PopackDetailsHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PoPackMaster" EntityType="Self.PoPackMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PoPackMasterHistory" EntityType="Self.PoPackMasterHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrePackDetails" EntityType="Self.PrePackDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrePackMaster" EntityType="Self.PrePackMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrePackShuffleDetails" EntityType="Self.PrePackShuffleDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrePackShuffleMaster" EntityType="Self.PrePackShuffleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrinterDetails" EntityType="Self.PrinterDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcurementDetails" EntityType="Self.ProcurementDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcurementMaster" EntityType="Self.ProcurementMaster" Schema="dbo" store:Type="Tables" />
@@ -8285,6 +8671,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="RejectReqDetails" EntityType="Self.RejectReqDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RejectReqMaster" EntityType="Self.RejectReqMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestOrderDetails" EntityType="Self.RequestOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestOrderLoanDetails" EntityType="Self.RequestOrderLoanDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestOrderLoanMaster" EntityType="Self.RequestOrderLoanMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestOrderMaster" EntityType="Self.RequestOrderMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestOrderStockDetails" EntityType="Self.RequestOrderStockDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestOrderStockMaster" EntityType="Self.RequestOrderStockMaster" Schema="dbo" store:Type="Tables" />
@@ -8339,6 +8727,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="StockMrnMaster" EntityType="Self.StockMrnMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockPODetails" EntityType="Self.StockPODetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockPOMaster" EntityType="Self.StockPOMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockRackInventoryMaster" EntityType="Self.StockRackInventoryMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockRecieptMaster" EntityType="Self.StockRecieptMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockSDocMaster" EntityType="Self.StockSDocMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StocPOForODOO" EntityType="Self.StocPOForODOO" Schema="dbo" store:Type="Tables" />
@@ -8682,6 +9071,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_DORollDetails_FabricRollmaster" Association="Self.FK_DORollDetails_FabricRollmaster">
             <End Role="FabricRollmaster" EntitySet="FabricRollmaster" />
             <End Role="DORollDetails" EntitySet="DORollDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EndbitSalesMaster_LocationMaster" Association="Self.FK_EndbitSalesMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="EndbitSalesMaster" EntitySet="EndbitSalesMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_ExtDeliveryToken_AtcMaster" Association="Self.FK_ExtDeliveryToken_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMaster" />
@@ -9039,6 +9432,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="ChannelMaster" EntitySet="ChannelMaster" />
             <End Role="PoPackMaster" EntitySet="PoPackMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK_PrePackMaster_AtcMaster" Association="Self.FK_PrePackMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="PrePackMaster" EntitySet="PrePackMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePackMaster_BuyerDestinationMaster" Association="Self.FK_PrePackMaster_BuyerDestinationMaster">
+            <End Role="BuyerDestinationMaster" EntitySet="BuyerDestinationMaster" />
+            <End Role="PrePackMaster" EntitySet="PrePackMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePackMaster_ChannelMaster" Association="Self.FK_PrePackMaster_ChannelMaster">
+            <End Role="ChannelMaster" EntitySet="ChannelMaster" />
+            <End Role="PrePackMaster" EntitySet="PrePackMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProcurementDetails_ProcurementMaster" Association="Self.FK_ProcurementDetails_ProcurementMaster">
             <End Role="ProcurementMaster" EntitySet="ProcurementMaster" />
             <End Role="ProcurementDetails" EntitySet="ProcurementDetails" />
@@ -9110,6 +9515,18 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_RequestOrderDetails_RequestOrderMaster" Association="Self.FK_RequestOrderDetails_RequestOrderMaster">
             <End Role="RequestOrderMaster" EntitySet="RequestOrderMaster" />
             <End Role="RequestOrderDetails" EntitySet="RequestOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestOrderLoanDetails_RequestOrderMaster" Association="Self.FK_RequestOrderLoanDetails_RequestOrderMaster">
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMaster" />
+            <End Role="RequestOrderLoanDetails" EntitySet="RequestOrderLoanDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestOrderLoanMaster_AtcMaster" Association="Self.FK_RequestOrderLoanMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMaster" />
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestOrderLoanMaster_LocationMaster" Association="Self.FK_RequestOrderLoanMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_RequestOrderMaster_AtcMaster" Association="Self.FK_RequestOrderMaster_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMaster" />
@@ -9752,7 +10169,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="DeletedCutPlans" EntityType="ArtModel.DeletedCutPlan" />
           <EntitySet Name="DeliveryMethodMasters" EntityType="ArtModel.DeliveryMethodMaster" />
           <EntitySet Name="DeliveryOrderDetails" EntityType="ArtModel.DeliveryOrderDetail" />
-          <EntitySet Name="DeliveryOrderMasters" EntityType="ArtModel.DeliveryOrderMaster" />
           <EntitySet Name="DeliveryOrderStockDetails" EntityType="ArtModel.DeliveryOrderStockDetail" />
           <EntitySet Name="DeliveryOrderStockMasters" EntityType="ArtModel.DeliveryOrderStockMaster" />
           <EntitySet Name="DeliveryReceiptDetails" EntityType="ArtModel.DeliveryReceiptDetail" />
@@ -10038,10 +10454,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="AtcMaster" EntitySet="AtcMasters" />
             <End Role="CutOrderMaster" EntitySet="CutOrderMasters" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderMaster_AtcMaster" Association="ArtModel.FK_DeliveryOrderMaster_AtcMaster">
-            <End Role="AtcMaster" EntitySet="AtcMasters" />
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
           <AssociationSet Name="FK_ExtDeliveryToken_AtcMaster" Association="ArtModel.FK_ExtDeliveryToken_AtcMaster">
             <End Role="AtcMaster" EntitySet="AtcMasters" />
             <End Role="ExtDeliveryToken" EntitySet="ExtDeliveryTokens" />
@@ -10282,17 +10694,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             <End Role="FabricRollmaster" EntitySet="FabricRollmasters" />
             <End Role="CutPlanRollDetail" EntitySet="CutPlanRollDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderMaster_DeliveryMethodMaster" Association="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster">
-            <End Role="DeliveryMethodMaster" EntitySet="DeliveryMethodMasters" />
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
           <AssociationSet Name="FK_DeliveryOrderStockMaster_DeliveryMethodMaster" Association="ArtModel.FK_DeliveryOrderStockMaster_DeliveryMethodMaster">
             <End Role="DeliveryMethodMaster" EntitySet="DeliveryMethodMasters" />
             <End Role="DeliveryOrderStockMaster" EntitySet="DeliveryOrderStockMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderDetails_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster">
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-            <End Role="DeliveryOrderDetail" EntitySet="DeliveryOrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryOrderDetails_InventoryMaster" Association="ArtModel.FK_DeliveryOrderDetails_InventoryMaster">
             <End Role="InventoryMaster" EntitySet="InventoryMasters" />
@@ -10305,30 +10709,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <AssociationSet Name="FK_DORollDetails_DeliveryOrderDetails" Association="ArtModel.FK_DORollDetails_DeliveryOrderDetails">
             <End Role="DeliveryOrderDetail" EntitySet="DeliveryOrderDetails" />
             <End Role="DORollDetail" EntitySet="DORollDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderMaster_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster">
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-            <End Role="DeliveryOrderMaster1" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderMaster_LocationMaster" Association="ArtModel.FK_DeliveryOrderMaster_LocationMaster">
-            <End Role="LocationMaster" EntitySet="LocationMasters" />
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderMaster_LocationMaster1" Association="ArtModel.FK_DeliveryOrderMaster_LocationMaster1">
-            <End Role="LocationMaster" EntitySet="LocationMasters" />
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryOrderReceipt_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster">
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-            <End Role="DeliveryReceiptMaster" EntitySet="DeliveryReceiptMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DORollDetails_DeliveryOrderMaster" Association="ArtModel.FK_DORollDetails_DeliveryOrderMaster">
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-            <End Role="DORollDetail" EntitySet="DORollDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsInTransit_DeliveryOrderMaster" Association="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster">
-            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
-            <End Role="GoodsInTransit" EntitySet="GoodsInTransits" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryOrderStockDetails_DeliveryOrderStockDetails" Association="ArtModel.FK_DeliveryOrderStockDetails_DeliveryOrderStockDetails">
             <End Role="DeliveryOrderStockDetail" EntitySet="DeliveryOrderStockDetails" />
@@ -11196,6 +11576,84 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySet Name="LaySheetMasterHistories" EntityType="ArtModel.LaySheetMasterHistory" />
           <EntitySet Name="Cutplan_UnapproveHistory" EntityType="ArtModel.Cutplan_UnapproveHistory" />
           <EntitySet Name="TNA_OurstlyeList" EntityType="ArtModel.TNA_OurstlyeList" />
+          <EntitySet Name="StockRackInventoryMasters" EntityType="ArtModel.StockRackInventoryMaster" />
+          <EntitySet Name="MCRRollDetails" EntityType="ArtModel.MCRRollDetail" />
+          <EntitySet Name="DeliveryOrderMasters" EntityType="ArtModel.DeliveryOrderMaster" />
+          <AssociationSet Name="FK_DeliveryOrderMaster_AtcMaster" Association="ArtModel.FK_DeliveryOrderMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderMaster_DeliveryMethodMaster" Association="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster">
+            <End Role="DeliveryMethodMaster" EntitySet="DeliveryMethodMasters" />
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderDetails_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster">
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+            <End Role="DeliveryOrderDetail" EntitySet="DeliveryOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderMaster_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster">
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+            <End Role="DeliveryOrderMaster1" EntitySet="DeliveryOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderMaster_LocationMaster" Association="ArtModel.FK_DeliveryOrderMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderMaster_LocationMaster1" Association="ArtModel.FK_DeliveryOrderMaster_LocationMaster1">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryOrderReceipt_DeliveryOrderMaster" Association="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster">
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+            <End Role="DeliveryReceiptMaster" EntitySet="DeliveryReceiptMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DORollDetails_DeliveryOrderMaster" Association="ArtModel.FK_DORollDetails_DeliveryOrderMaster">
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+            <End Role="DORollDetail" EntitySet="DORollDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsInTransit_DeliveryOrderMaster" Association="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster">
+            <End Role="DeliveryOrderMaster" EntitySet="DeliveryOrderMasters" />
+            <End Role="GoodsInTransit" EntitySet="GoodsInTransits" />
+          </AssociationSet>
+          <EntitySet Name="EndbitDoDetails" EntityType="ArtModel.EndbitDoDetail" />
+          <EntitySet Name="EndbitInventories" EntityType="ArtModel.EndbitInventory" />
+          <EntitySet Name="EndbitDoMasters" EntityType="ArtModel.EndbitDoMaster" />
+          <EntitySet Name="EndbitSalesDetails" EntityType="ArtModel.EndbitSalesDetail" />
+          <EntitySet Name="EndbitSalesMasters" EntityType="ArtModel.EndbitSalesMaster" />
+          <AssociationSet Name="FK_EndbitSalesMaster_LocationMaster" Association="ArtModel.FK_EndbitSalesMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="EndbitSalesMaster" EntitySet="EndbitSalesMasters" />
+          </AssociationSet>
+          <EntitySet Name="PrePackDetails" EntityType="ArtModel.PrePackDetail" />
+          <EntitySet Name="PrePackMasters" EntityType="ArtModel.PrePackMaster" />
+          <EntitySet Name="PrePackShuffleDetails" EntityType="ArtModel.PrePackShuffleDetail" />
+          <EntitySet Name="PrePackShuffleMasters" EntityType="ArtModel.PrePackShuffleMaster" />
+          <AssociationSet Name="FK_PrePackMaster_AtcMaster" Association="ArtModel.FK_PrePackMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="PrePackMaster" EntitySet="PrePackMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePackMaster_BuyerDestinationMaster" Association="ArtModel.FK_PrePackMaster_BuyerDestinationMaster">
+            <End Role="BuyerDestinationMaster" EntitySet="BuyerDestinationMasters" />
+            <End Role="PrePackMaster" EntitySet="PrePackMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrePackMaster_ChannelMaster" Association="ArtModel.FK_PrePackMaster_ChannelMaster">
+            <End Role="ChannelMaster" EntitySet="ChannelMasters" />
+            <End Role="PrePackMaster" EntitySet="PrePackMasters" />
+          </AssociationSet>
+          <EntitySet Name="RequestOrderLoanDetails" EntityType="ArtModel.RequestOrderLoanDetail" />
+          <EntitySet Name="RequestOrderLoanMasters" EntityType="ArtModel.RequestOrderLoanMaster" />
+          <AssociationSet Name="FK_RequestOrderLoanMaster_AtcMaster" Association="ArtModel.FK_RequestOrderLoanMaster_AtcMaster">
+            <End Role="AtcMaster" EntitySet="AtcMasters" />
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestOrderLoanMaster_LocationMaster" Association="ArtModel.FK_RequestOrderLoanMaster_LocationMaster">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestOrderLoanDetails_RequestOrderMaster" Association="ArtModel.FK_RequestOrderLoanDetails_RequestOrderMaster">
+            <End Role="RequestOrderLoanMaster" EntitySet="RequestOrderLoanMasters" />
+            <End Role="RequestOrderLoanDetail" EntitySet="RequestOrderLoanDetails" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetApprovedCostingDetailsofOurstyle_SP_Result">
           <Property Type="Decimal" Name="OurStyleID" Nullable="false" Precision="18" Scale="0" />
@@ -11663,6 +12121,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LaySheetDetails" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetRollDetail" ToRole="LaySheetDetail" />
           <NavigationProperty Name="LaySheetRollMaster" Relationship="ArtModel.FK_LaySheetRollDetails_LaySheetRollMaster" FromRole="LaySheetRollDetail" ToRole="LaySheetRollMaster" />
           <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Sequence" Type="Decimal" Precision="18" Scale="0" />
           </EntityType>
         <EntityType Name="AltUOMMaster">
           <Key>
@@ -11841,7 +12300,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="CountryMaster1" Relationship="ArtModel.FK_AtcMaster_CountryMaster1" FromRole="AtcMaster" ToRole="CountryMaster" />
           <NavigationProperty Name="AtcRawMaterialMasters" Relationship="ArtModel.FK_AtcRawMaterialMaster_tbl_AtcMaster" FromRole="AtcMaster" ToRole="AtcRawMaterialMaster" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="CutOrderMaster" />
-          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="ExtDeliveryTokens" Relationship="ArtModel.FK_ExtDeliveryToken_AtcMaster" FromRole="AtcMaster" ToRole="ExtDeliveryToken" />
           <NavigationProperty Name="FreightChargeDetails" Relationship="ArtModel.FK_FreightChargeDetail_AtcMaster" FromRole="AtcMaster" ToRole="FreightChargeDetail" />
           <NavigationProperty Name="JobContractMasters" Relationship="ArtModel.FK_JobContractMaster_AtcMaster" FromRole="AtcMaster" ToRole="JobContractMaster" />
@@ -11858,6 +12316,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="PcdAlertMasters" Relationship="ArtModel.FK_PcdAlertMaster_AtcMaster" FromRole="AtcMaster" ToRole="PcdAlertMaster" />
           <Property Name="IsShipmentCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsMCRDone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="AtcMaster" ToRole="DeliveryOrderMaster" />
+          <NavigationProperty Name="PrePackMasters" Relationship="ArtModel.FK_PrePackMaster_AtcMaster" FromRole="AtcMaster" ToRole="PrePackMaster" />
+          <NavigationProperty Name="RequestOrderLoanMasters" Relationship="ArtModel.FK_RequestOrderLoanMaster_AtcMaster" FromRole="AtcMaster" ToRole="RequestOrderLoanMaster" />
         </EntityType>
         <EntityType Name="AtcRawMaterialMaster">
           <Key>
@@ -11991,6 +12452,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="BuyerID" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="BuyerMaster" Relationship="ArtModel.FK_BuyerDestinationMaster_BuyerMaster" FromRole="BuyerDestinationMaster" ToRole="BuyerMaster" />
           <NavigationProperty Name="PoPackMasters" Relationship="ArtModel.FK_PoPackMaster_BuyerDestinationMaster" FromRole="BuyerDestinationMaster" ToRole="PoPackMaster" />
+          <NavigationProperty Name="PrePackMasters" Relationship="ArtModel.FK_PrePackMaster_BuyerDestinationMaster" FromRole="BuyerDestinationMaster" ToRole="PrePackMaster" />
         </EntityType>
         <EntityType Name="BuyerMaster">
           <Key>
@@ -12068,6 +12530,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ChannelID" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ChannelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PoPackMasters" Relationship="ArtModel.FK_PoPackMaster_ChannelMaster" FromRole="ChannelMaster" ToRole="PoPackMaster" />
+          <NavigationProperty Name="PrePackMasters" Relationship="ArtModel.FK_PrePackMaster_ChannelMaster" FromRole="ChannelMaster" ToRole="PrePackMaster" />
         </EntityType>
         <EntityType Name="CityMaster">
           <Key>
@@ -12568,8 +13031,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           </Key>
           <Property Name="Deliverymethod_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeliveryMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster" FromRole="DeliveryMethodMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="DeliveryOrderStockMasters" Relationship="ArtModel.FK_DeliveryOrderStockMaster_DeliveryMethodMaster" FromRole="DeliveryMethodMaster" ToRole="DeliveryOrderStockMaster" />
+          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster" FromRole="DeliveryMethodMaster" ToRole="DeliveryOrderMaster" />
         </EntityType>
         <EntityType Name="DeliveryOrderDetail">
           <Key>
@@ -12581,40 +13044,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CutOrderDOes" Relationship="ArtModel.FK_CutOrderDO_DeliveryOrderDetails" FromRole="DeliveryOrderDetail" ToRole="CutOrderDO" />
-          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster" FromRole="DeliveryOrderDetail" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="InventoryMaster" Relationship="ArtModel.FK_DeliveryOrderDetails_InventoryMaster" FromRole="DeliveryOrderDetail" ToRole="InventoryMaster" />
           <NavigationProperty Name="DeliveryReceiptDetails" Relationship="ArtModel.FK_DeliveryReceiptDetail_DeliveryOrderDetails" FromRole="DeliveryOrderDetail" ToRole="DeliveryReceiptDetail" />
           <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderDetails" FromRole="DeliveryOrderDetail" ToRole="DORollDetail" />
-        </EntityType>
-        <EntityType Name="DeliveryOrderMaster">
-          <Key>
-            <PropertyRef Name="DO_PK" />
-          </Key>
-          <Property Name="DO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DONum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="FromLocation_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToLocation_PK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DODate" Type="DateTime" Precision="3" />
-          <Property Name="ContainerNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BoeNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Deliverymethod_Pk" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="DoType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ExportContainer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="DeliveryOrderMaster" ToRole="AtcMaster" />
-          <NavigationProperty Name="DeliveryMethodMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryMethodMaster" />
-          <NavigationProperty Name="DeliveryOrderDetails" Relationship="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryOrderDetail" />
-          <NavigationProperty Name="DeliveryOrderMaster1" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryOrderMaster1" />
-          <NavigationProperty Name="DeliveryOrderMaster2" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster" FromRole="DeliveryOrderMaster1" ToRole="DeliveryOrderMaster" />
-          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster" FromRole="DeliveryOrderMaster" ToRole="LocationMaster" />
-          <NavigationProperty Name="LocationMaster1" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster1" FromRole="DeliveryOrderMaster" ToRole="LocationMaster" />
-          <NavigationProperty Name="DeliveryReceiptMasters" Relationship="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryReceiptMaster" />
-          <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DORollDetail" />
-          <NavigationProperty Name="GoodsInTransits" Relationship="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="GoodsInTransit" />
-          <Property Name="ContentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster" FromRole="DeliveryOrderDetail" ToRole="DeliveryOrderMaster" />
         </EntityType>
         <EntityType Name="DeliveryOrderStockDetail">
           <Key>
@@ -12680,8 +13113,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="DOReceiptType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster" FromRole="DeliveryReceiptMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DeliveryOrderReceipt_LocationMaster" FromRole="DeliveryReceiptMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster" FromRole="DeliveryReceiptMaster" ToRole="DeliveryOrderMaster" />
         </EntityType>
         <EntityType Name="DeliveryReceiptStockDetail">
           <Key>
@@ -12797,6 +13230,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DocMaster_LocationMaster" FromRole="DocMaster" ToRole="LocationMaster" />
           <NavigationProperty Name="SupplierMaster" Relationship="ArtModel.FK_DocMaster_SupplierMaster" FromRole="DocMaster" ToRole="SupplierMaster" />
           <NavigationProperty Name="ShippingDocumentDetails" Relationship="ArtModel.FK_ShippingDocumentDetails_DocMaster" FromRole="DocMaster" ToRole="ShippingDocumentDetail" />
+          <Property Name="IsClosed" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="ClosedDate" Type="DateTime" Precision="3" />
+          <Property Name="ClosedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DORollDetail">
           <Key>
@@ -12810,9 +13246,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsRollReturned" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="CutOrderMaster" Relationship="ArtModel.FK_DORollDetails_CutOrderMaster" FromRole="DORollDetail" ToRole="CutOrderMaster" />
           <NavigationProperty Name="DeliveryOrderDetail" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderDetails" FromRole="DORollDetail" ToRole="DeliveryOrderDetail" />
-          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DORollDetail" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="FabricRollmaster" Relationship="ArtModel.FK_DORollDetails_FabricRollmaster" FromRole="DORollDetail" ToRole="FabricRollmaster" />
           <Property Name="AYard" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DORollDetail" ToRole="DeliveryOrderMaster" />
         </EntityType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -13029,6 +13465,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="RollInventoryMasters" Relationship="ArtModel.FK_RollInventoryMaster_FabricRollmaster" FromRole="FabricRollmaster" ToRole="RollInventoryMaster" />
           <NavigationProperty Name="RollPropertyChangeMasters" Relationship="ArtModel.FK_RollPropertyChangeMaster_FabricRollmaster" FromRole="FabricRollmaster" ToRole="RollPropertyChangeMaster" />
           <Property Name="RackAllocated" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="McrYard" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="FactoryType">
           <Key>
@@ -13137,8 +13574,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="InventoryItem_PK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="TransitQty" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="DO_PK" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster" FromRole="GoodsInTransit" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="InventoryMaster" Relationship="ArtModel.FK_GoodsInTransit_InventoryMaster" FromRole="GoodsInTransit" ToRole="InventoryMaster" />
+          <NavigationProperty Name="DeliveryOrderMaster" Relationship="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster" FromRole="GoodsInTransit" ToRole="DeliveryOrderMaster" />
         </EntityType>
         <EntityType Name="GroupDependantItem">
           <Key>
@@ -13409,6 +13846,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Printing" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="AtcDetail" Relationship="ArtModel.FK_JobContractOptionalDetail_AtcDetails" FromRole="JobContractOptionalDetail" ToRole="AtcDetail" />
           <NavigationProperty Name="JobContractOptionalMaster" Relationship="ArtModel.FK_JobContractOptionalDetail_JobContractOptionalMaster" FromRole="JobContractOptionalDetail" ToRole="JobContractOptionalMaster" />
+          <Property Name="remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="JobContractOptionalMaster">
           <Key>
@@ -13426,6 +13864,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_JobContractOptionalMaster_JobContractOptionalMaster" FromRole="JobContractOptionalMaster" ToRole="LocationMaster" />
           <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LabChargeDetail">
           <Key>
@@ -13493,6 +13932,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="LaySheetRollDetail" Relationship="ArtModel.FK_LaySheetDetails_LaySheetRolls" FromRole="LaySheetDetail" ToRole="LaySheetRollDetail" />
           <NavigationProperty Name="LayShortageDetails" Relationship="ArtModel.FK_LayShortageDetail_LaySheetDetails" FromRole="LaySheetDetail" ToRole="LayShortageDetail" />
           <Property Name="AYard" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="IsReturned" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="LaySheetMaster">
           <Key>
@@ -13595,9 +14035,11 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="TrValue" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Docnum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="LCDetail" Relationship="ArtModel.FK_LCBankAdviceDetails_LCDetails" FromRole="LCBankAdviceDetail" ToRole="LCDetail" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LCDetail">
           <Key>
@@ -13692,8 +14134,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CutOrderMasters" Relationship="ArtModel.FK_CutOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="CutOrderMaster" />
           <NavigationProperty Name="CutPlanMasters" Relationship="ArtModel.FK_CutPlanMaster_LocationMaster" FromRole="LocationMaster" ToRole="CutPlanMaster" />
-          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
-          <NavigationProperty Name="DeliveryOrderMasters1" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster1" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
           <NavigationProperty Name="DeliveryOrderStockMasters" Relationship="ArtModel.FK_DeliveryOrderStockMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryOrderStockMaster" />
           <NavigationProperty Name="DeliveryOrderStockMasters1" Relationship="ArtModel.FK_DeliveryOrderStockMaster_LocationMaster1" FromRole="LocationMaster" ToRole="DeliveryOrderStockMaster" />
           <NavigationProperty Name="DeliveryReceiptMasters" Relationship="ArtModel.FK_DeliveryOrderReceipt_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryReceiptMaster" />
@@ -13737,6 +14177,10 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="PcdAlertMasters" Relationship="ArtModel.FK_PcdAlertMaster_LocationMaster" FromRole="LocationMaster" ToRole="PcdAlertMaster" />
           <NavigationProperty Name="PcdAlertUserrights" Relationship="ArtModel.FK_PcdAlert_Userrights_LocationMaster" FromRole="LocationMaster" ToRole="PcdAlertUserright" />
           <NavigationProperty Name="RackMasters" Relationship="ArtModel.FK_RackMaster_LocationMaster" FromRole="LocationMaster" ToRole="RackMaster" />
+          <NavigationProperty Name="DeliveryOrderMasters" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
+          <NavigationProperty Name="DeliveryOrderMasters1" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster1" FromRole="LocationMaster" ToRole="DeliveryOrderMaster" />
+          <NavigationProperty Name="EndbitSalesMasters" Relationship="ArtModel.FK_EndbitSalesMaster_LocationMaster" FromRole="LocationMaster" ToRole="EndbitSalesMaster" />
+          <NavigationProperty Name="RequestOrderLoanMasters" Relationship="ArtModel.FK_RequestOrderLoanMaster_LocationMaster" FromRole="LocationMaster" ToRole="RequestOrderLoanMaster" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -13873,6 +14317,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="MrnMaster1" Relationship="ArtModel.FK_MrnMaster_MrnMaster" FromRole="MrnMaster" ToRole="MrnMaster1" />
           <NavigationProperty Name="MrnMaster2" Relationship="ArtModel.FK_MrnMaster_MrnMaster" FromRole="MrnMaster1" ToRole="MrnMaster" />
           <NavigationProperty Name="RecieptMaster" Relationship="ArtModel.FK_MrnMaster_RecieptMaster" FromRole="MrnMaster" ToRole="RecieptMaster" />
+          <Property Name="MrnClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MrnClosedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MrnClosedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ODOOGPOMaster">
           <Key>
@@ -14079,6 +14526,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="PoPackMaster" Relationship="ArtModel.FK_POPackDetails_PoPackMaster" FromRole="POPackDetail" ToRole="PoPackMaster" />
           <NavigationProperty Name="RejectionExtraFabbReqs" Relationship="ArtModel.FK_RejectionExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionExtraFabbReq" />
           <NavigationProperty Name="RejectionPanelExtraFabbReqs" Relationship="ArtModel.FK_RejectionPanelExtraFabbReq_POPackDetails" FromRole="POPackDetail" ToRole="RejectionPanelExtraFabbReq" />
+          <Property Name="RevisedQty" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PopackDetailsHistory">
           <Key>
@@ -14676,6 +15124,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="SamCutAssignmentMaster3" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster1" FromRole="SamCutAssignmentMaster1" ToRole="SamCutAssignmentMaster" />
           <NavigationProperty Name="SamCutAssignmentMaster12" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" FromRole="SamCutAssignmentMaster" ToRole="SamCutAssignmentMaster1" />
           <NavigationProperty Name="SamCutAssignmentMaster4" Relationship="ArtModel.FK_SamCutAssignmentMaster_SamCutAssignmentMaster2" FromRole="SamCutAssignmentMaster1" ToRole="SamCutAssignmentMaster" />
+          <Property Name="Accessories" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SamCutPlanPriority">
           <Key>
@@ -15277,6 +15726,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StockPODetail" Relationship="ArtModel.FK_StockReceiptDetails_StockPODetails" FromRole="StockMRNDetail" ToRole="StockPODetail" />
           <NavigationProperty Name="StockPOMaster" Relationship="ArtModel.FK_StockReceiptDetails_StockPOMaster" FromRole="StockMRNDetail" ToRole="StockPOMaster" />
           <NavigationProperty Name="Template_Master" Relationship="ArtModel.FK_StockReceiptDetails_Template_Master" FromRole="StockMRNDetail" ToRole="Template_Master" />
+          <Property Name="SDoc_PK" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="StockMrnMaster">
           <Key>
@@ -15362,6 +15812,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <NavigationProperty Name="StockFreightChargeDetails" Relationship="ArtModel.FK_StockFreightChargeDetail_StockPOMaster" FromRole="StockPOMaster" ToRole="StockFreightChargeDetail" />
           <Property Name="DeptPK" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="DepartmentMaster" Relationship="ArtModel.FK_StockPOMaster_DepartmentMaster" FromRole="StockPOMaster" ToRole="DepartmentMaster" />
+          <Property Name="IsClosed" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="ClosedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ClosedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StockRecieptMaster">
           <Key>
@@ -15872,6 +16325,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsShrinkage" Type="Boolean" />
           <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_TnaUserRight_LocationMaster" FromRole="TnaUserRight" ToRole="LocationMaster" />
+          <Property Name="IsObSubmission" Type="Boolean" />
+          <Property Name="IsCmFinalization" Type="Boolean" />
         </EntityType>
         <EntityType Name="TransferToGstockDetail">
           <Key>
@@ -16293,18 +16748,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               <PropertyRef Name="AtcId" />
             </Principal>
             <Dependent Role="CutOrderMaster">
-              <PropertyRef Name="AtcID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderMaster_AtcMaster">
-          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtcMaster">
-              <PropertyRef Name="AtcId" />
-            </Principal>
-            <Dependent Role="DeliveryOrderMaster">
               <PropertyRef Name="AtcID" />
             </Dependent>
           </ReferentialConstraint>
@@ -17029,18 +17472,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeliveryOrderMaster_DeliveryMethodMaster">
-          <End Type="ArtModel.DeliveryMethodMaster" Role="DeliveryMethodMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryMethodMaster">
-              <PropertyRef Name="Deliverymethod_Pk" />
-            </Principal>
-            <Dependent Role="DeliveryOrderMaster">
-              <PropertyRef Name="Deliverymethod_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DeliveryOrderStockMaster_DeliveryMethodMaster">
           <End Type="ArtModel.DeliveryMethodMaster" Role="DeliveryMethodMaster" Multiplicity="0..1" />
           <End Type="ArtModel.DeliveryOrderStockMaster" Role="DeliveryOrderStockMaster" Multiplicity="*" />
@@ -17050,18 +17481,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="DeliveryOrderStockMaster">
               <PropertyRef Name="Deliverymethod_Pk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderDetails_DeliveryOrderMaster">
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryOrderDetail" Role="DeliveryOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryOrderMaster">
-              <PropertyRef Name="DO_PK" />
-            </Principal>
-            <Dependent Role="DeliveryOrderDetail">
-              <PropertyRef Name="DO_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -17098,78 +17517,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
             </Principal>
             <Dependent Role="DORollDetail">
               <PropertyRef Name="DODet_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderMaster_DeliveryOrderMaster">
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="1" />
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryOrderMaster">
-              <PropertyRef Name="DO_PK" />
-            </Principal>
-            <Dependent Role="DeliveryOrderMaster1">
-              <PropertyRef Name="DO_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderMaster_LocationMaster">
-          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="DeliveryOrderMaster">
-              <PropertyRef Name="FromLocation_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderMaster_LocationMaster1">
-          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationMaster">
-              <PropertyRef Name="Location_PK" />
-            </Principal>
-            <Dependent Role="DeliveryOrderMaster">
-              <PropertyRef Name="ToLocation_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryOrderReceipt_DeliveryOrderMaster">
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DeliveryReceiptMaster" Role="DeliveryReceiptMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryOrderMaster">
-              <PropertyRef Name="DO_PK" />
-            </Principal>
-            <Dependent Role="DeliveryReceiptMaster">
-              <PropertyRef Name="DO_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DORollDetails_DeliveryOrderMaster">
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.DORollDetail" Role="DORollDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryOrderMaster">
-              <PropertyRef Name="DO_PK" />
-            </Principal>
-            <Dependent Role="DORollDetail">
-              <PropertyRef Name="DO_PK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsInTransit_DeliveryOrderMaster">
-          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
-          <End Type="ArtModel.GoodsInTransit" Role="GoodsInTransit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryOrderMaster">
-              <PropertyRef Name="DO_PK" />
-            </Principal>
-            <Dependent Role="GoodsInTransit">
-              <PropertyRef Name="DO_PK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -20093,11 +20440,11 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Addedby" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedBy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="RMNum" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RMNum" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="ItemColor" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="SupplierColor" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="UOM" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="UOM" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ActualCU_Rate" Type="Decimal" Precision="18" Scale="6" />
           <Property Name="CU_Rate" Type="Decimal" Precision="18" Scale="6" />
@@ -20105,6 +20452,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="Skudet_pk" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Mcr_pk" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="IsApproved" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="IsConfirm" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmedBy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmedDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualReceive" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ActualDiffQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Packages" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="AlterUOM" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="AlterUOM_qty" Type="Decimal" Precision="18" Scale="6" />
         </EntityType>
         <EntityType Name="MCR_Master">
           <Key>
@@ -20118,6 +20473,17 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="ApprovedBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="TransferBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="TransferDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceivedBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmDate" Type="DateTime" Precision="3" />
+          <Property Name="IsTransfer" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsConfirmed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToLocation_pk" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="RackMaster">
           <Key>
@@ -20163,6 +20529,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="ReceivedQty" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="DeliveredQty" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="BalanceQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_SamCutAssignmentMaster_SamCutAssignmentMaster">
           <End Type="ArtModel.SamCutAssignmentMaster" Role="SamCutAssignmentMaster" Multiplicity="1" />
@@ -20246,6 +20613,484 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Ourstyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="StockRackInventoryMaster">
+          <Key>
+            <PropertyRef Name="SRackInventory_PK" />
+          </Key>
+          <Property Name="SRackInventory_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SInventoryitem_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SMRNDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SPODetails_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Template_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MrnQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="OnhandQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ReceivedQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="DeliveredQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="BalanceQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ReceivedVia" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Rack_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsLast" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MCRRollDetail">
+          <Key>
+            <PropertyRef Name="MCRRoll_pk" />
+          </Key>
+          <Property Name="MCRRoll_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mcr_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Roll_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RollNum" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Inventoryitem_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Mrndet_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsReceived" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="IsConfirm" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="AYard" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="McrYard" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Mcr_kg" Type="Decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="DeliveryOrderMaster">
+          <Key>
+            <PropertyRef Name="DO_PK" />
+          </Key>
+          <Property Name="DO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DONum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="FromLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DODate" Type="DateTime" Precision="3" />
+          <Property Name="ContainerNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BoeNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deliverymethod_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="DoType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ExportContainer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_AtcMaster" FromRole="DeliveryOrderMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="DeliveryMethodMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryMethodMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryMethodMaster" />
+          <NavigationProperty Name="DeliveryOrderDetails" Relationship="ArtModel.FK_DeliveryOrderDetails_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryOrderDetail" />
+          <NavigationProperty Name="DeliveryOrderMaster1" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryOrderMaster1" />
+          <NavigationProperty Name="DeliveryOrderMaster2" Relationship="ArtModel.FK_DeliveryOrderMaster_DeliveryOrderMaster" FromRole="DeliveryOrderMaster1" ToRole="DeliveryOrderMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster" FromRole="DeliveryOrderMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="LocationMaster1" Relationship="ArtModel.FK_DeliveryOrderMaster_LocationMaster1" FromRole="DeliveryOrderMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="DeliveryReceiptMasters" Relationship="ArtModel.FK_DeliveryOrderReceipt_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DeliveryReceiptMaster" />
+          <NavigationProperty Name="DORollDetails" Relationship="ArtModel.FK_DORollDetails_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="DORollDetail" />
+          <NavigationProperty Name="GoodsInTransits" Relationship="ArtModel.FK_GoodsInTransit_DeliveryOrderMaster" FromRole="DeliveryOrderMaster" ToRole="GoodsInTransit" />
+        </EntityType>
+        <Association Name="FK_DeliveryOrderMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="DeliveryOrderMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderMaster_DeliveryMethodMaster">
+          <End Type="ArtModel.DeliveryMethodMaster" Role="DeliveryMethodMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryMethodMaster">
+              <PropertyRef Name="Deliverymethod_Pk" />
+            </Principal>
+            <Dependent Role="DeliveryOrderMaster">
+              <PropertyRef Name="Deliverymethod_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderDetails_DeliveryOrderMaster">
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryOrderDetail" Role="DeliveryOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryOrderMaster">
+              <PropertyRef Name="DO_PK" />
+            </Principal>
+            <Dependent Role="DeliveryOrderDetail">
+              <PropertyRef Name="DO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderMaster_DeliveryOrderMaster">
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="1" />
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryOrderMaster">
+              <PropertyRef Name="DO_PK" />
+            </Principal>
+            <Dependent Role="DeliveryOrderMaster1">
+              <PropertyRef Name="DO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="DeliveryOrderMaster">
+              <PropertyRef Name="FromLocation_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderMaster_LocationMaster1">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="DeliveryOrderMaster">
+              <PropertyRef Name="ToLocation_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryOrderReceipt_DeliveryOrderMaster">
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DeliveryReceiptMaster" Role="DeliveryReceiptMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryOrderMaster">
+              <PropertyRef Name="DO_PK" />
+            </Principal>
+            <Dependent Role="DeliveryReceiptMaster">
+              <PropertyRef Name="DO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DORollDetails_DeliveryOrderMaster">
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.DORollDetail" Role="DORollDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryOrderMaster">
+              <PropertyRef Name="DO_PK" />
+            </Principal>
+            <Dependent Role="DORollDetail">
+              <PropertyRef Name="DO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsInTransit_DeliveryOrderMaster">
+          <End Type="ArtModel.DeliveryOrderMaster" Role="DeliveryOrderMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.GoodsInTransit" Role="GoodsInTransit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryOrderMaster">
+              <PropertyRef Name="DO_PK" />
+            </Principal>
+            <Dependent Role="GoodsInTransit">
+              <PropertyRef Name="DO_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EndbitDoDetail">
+          <Key>
+            <PropertyRef Name="Dodet_pk" />
+          </Key>
+          <Property Name="Dodet_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Do_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Roll_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Skudet_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Endbit" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Inventoryitem_pk" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="EndbitInventory">
+          <Key>
+            <PropertyRef Name="Endbit_Pk" />
+          </Key>
+          <Property Name="Endbit_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Roll_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Skudet_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location_pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OnHandQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ReceivedQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="DeliveredQty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="RefNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Inventoryitem_pk" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="EndbitDoMaster">
+          <Key>
+            <PropertyRef Name="Do_pk" />
+          </Key>
+          <Property Name="Do_pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoNum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromLocation" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToLocation" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TotalYds" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotalWeight" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="EndbitSalesDetail">
+          <Key>
+            <PropertyRef Name="SalesDODet_PK" />
+          </Key>
+          <Property Name="SalesDODet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesDO_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Endbit_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Unitprice" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CuRate" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AgreedCurRate" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="CuRateUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurateUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsInvoiced" Type="Boolean" />
+          <Property Name="InvoiceNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EndbitSalesMaster">
+          <Key>
+            <PropertyRef Name="SalesDO_PK" />
+          </Key>
+          <Property Name="SalesDO_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesDONum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SalesDate" Type="DateTime" Precision="3" />
+          <Property Name="FromLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SalesDODate" Type="DateTime" Precision="3" />
+          <Property Name="ContainerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BoeNum" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Deliverymethod_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="DoType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ISApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsReceived" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDebited" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_EndbitSalesMaster_LocationMaster" FromRole="EndbitSalesMaster" ToRole="LocationMaster" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_EndbitSalesMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.EndbitSalesMaster" Role="EndbitSalesMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="EndbitSalesMaster">
+              <PropertyRef Name="FromLocation_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PrePackDetail">
+          <Key>
+            <PropertyRef Name="PrePack_Detail_PK" />
+          </Key>
+          <Property Name="PrePack_Detail_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrePackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPackDetailID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ColorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SIzeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCutable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsPackable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ColorId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsShortClosed" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CutQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsHidden" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ShortClosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkedCuttableBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortClosedDate" Type="DateTime" Precision="3" />
+          <Property Name="MarkedCuttabledate" Type="DateTime" Precision="3" />
+          <Property Name="CombinationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsInterChangable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PrePackMaster">
+          <Key>
+            <PropertyRef Name="PrePackId" />
+          </Key>
+          <Property Name="PrePackId" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrePacknum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AtcId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoPackId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerPO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PackingInstruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="Inhousedate" Type="DateTime" Precision="3" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuyerDestination_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PoGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TagGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SeasonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCutable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="FirstDeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="HandoverDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpectedLocation_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsDeleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsShuffulable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SalesHandoverDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_PrePackMaster_AtcMaster" FromRole="PrePackMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="BuyerDestinationMaster" Relationship="ArtModel.FK_PrePackMaster_BuyerDestinationMaster" FromRole="PrePackMaster" ToRole="BuyerDestinationMaster" />
+          <NavigationProperty Name="ChannelMaster" Relationship="ArtModel.FK_PrePackMaster_ChannelMaster" FromRole="PrePackMaster" ToRole="ChannelMaster" />
+        </EntityType>
+        <EntityType Name="PrePackShuffleDetail">
+          <Key>
+            <PropertyRef Name="PrePackShuffleDet_PK" />
+          </Key>
+          <Property Name="PrePackShuffleDet_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrePackShuffle_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPOPackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FromPrePackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPrePackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RevisedQtyofFromPrePackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="revisedQtyofToPrePackDet_PK" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="PrePackShuffleMaster">
+          <Key>
+            <PropertyRef Name="PrePackShuffle_PK" />
+          </Key>
+          <Property Name="PrePackShuffle_PK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromPrePackID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OurStyleID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AddedBY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrePackShuffleNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="PrePackShuffleGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RevisedFromQty" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_PrePackMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.PrePackMaster" Role="PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="AtcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePackMaster_BuyerDestinationMaster">
+          <End Type="ArtModel.BuyerDestinationMaster" Role="BuyerDestinationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.PrePackMaster" Role="PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuyerDestinationMaster">
+              <PropertyRef Name="BuyerDestination_PK" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="BuyerDestination_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrePackMaster_ChannelMaster">
+          <End Type="ArtModel.ChannelMaster" Role="ChannelMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.PrePackMaster" Role="PrePackMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChannelMaster">
+              <PropertyRef Name="ChannelID" />
+            </Principal>
+            <Dependent Role="PrePackMaster">
+              <PropertyRef Name="ChannelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RequestOrderLoanDetail">
+          <Key>
+            <PropertyRef Name="LRODet_Pk" />
+          </Key>
+          <Property Name="LRODet_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LRO_Pk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SkuDet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CUnitPrice" Type="Double" />
+          <Property Name="InventoryItem_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PODet_PK" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="RequestOrderLoanMaster" Relationship="ArtModel.FK_RequestOrderLoanDetails_RequestOrderMaster" FromRole="RequestOrderLoanDetail" ToRole="RequestOrderLoanMaster" />
+        </EntityType>
+        <EntityType Name="RequestOrderLoanMaster">
+          <Key>
+            <PropertyRef Name="LRO_Pk" />
+          </Key>
+          <Property Name="LRO_Pk" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LRONum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AtcID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SupplierPk" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="IsDeleted" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="Approveddate" Type="DateTime" Precision="3" />
+          <Property Name="Location_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LROType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsForwarded" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ForwardedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PO_PK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IsCompleted" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AtcMaster" Relationship="ArtModel.FK_RequestOrderLoanMaster_AtcMaster" FromRole="RequestOrderLoanMaster" ToRole="AtcMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="ArtModel.FK_RequestOrderLoanMaster_LocationMaster" FromRole="RequestOrderLoanMaster" ToRole="LocationMaster" />
+          <NavigationProperty Name="RequestOrderLoanDetails" Relationship="ArtModel.FK_RequestOrderLoanDetails_RequestOrderMaster" FromRole="RequestOrderLoanMaster" ToRole="RequestOrderLoanDetail" />
+        </EntityType>
+        <Association Name="FK_RequestOrderLoanMaster_AtcMaster">
+          <End Type="ArtModel.AtcMaster" Role="AtcMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.RequestOrderLoanMaster" Role="RequestOrderLoanMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtcMaster">
+              <PropertyRef Name="AtcId" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanMaster">
+              <PropertyRef Name="AtcID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestOrderLoanMaster_LocationMaster">
+          <End Type="ArtModel.LocationMaster" Role="LocationMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.RequestOrderLoanMaster" Role="RequestOrderLoanMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="Location_PK" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanMaster">
+              <PropertyRef Name="Location_PK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestOrderLoanDetails_RequestOrderMaster">
+          <End Type="ArtModel.RequestOrderLoanMaster" Role="RequestOrderLoanMaster" Multiplicity="0..1" />
+          <End Type="ArtModel.RequestOrderLoanDetail" Role="RequestOrderLoanDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestOrderLoanMaster">
+              <PropertyRef Name="LRO_Pk" />
+            </Principal>
+            <Dependent Role="RequestOrderLoanDetail">
+              <PropertyRef Name="LRO_Pk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20741,6 +21586,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetRollDetails">
             <EntityTypeMapping TypeName="ArtModel.LaySheetRollDetail">
               <MappingFragment StoreEntitySet="LaySheetRollDetails">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="BalanceYardage" ColumnName="BalanceYardage" />
@@ -21612,27 +22458,6 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryOrderMasters">
-            <EntityTypeMapping TypeName="ArtModel.DeliveryOrderMaster">
-              <MappingFragment StoreEntitySet="DeliveryOrderMaster">
-                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
-                <ScalarProperty Name="ExportContainer" ColumnName="ExportContainer" />
-                <ScalarProperty Name="DoType" ColumnName="DoType" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
-                <ScalarProperty Name="Deliverymethod_Pk" ColumnName="Deliverymethod_Pk" />
-                <ScalarProperty Name="BoeNum" ColumnName="BoeNum" />
-                <ScalarProperty Name="ContainerNumber" ColumnName="ContainerNumber" />
-                <ScalarProperty Name="DODate" ColumnName="DODate" />
-                <ScalarProperty Name="ToLocation_PK" ColumnName="ToLocation_PK" />
-                <ScalarProperty Name="FromLocation_PK" ColumnName="FromLocation_PK" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="DONum" ColumnName="DONum" />
-                <ScalarProperty Name="DO_PK" ColumnName="DO_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DeliveryOrderStockDetails">
             <EntityTypeMapping TypeName="ArtModel.DeliveryOrderStockDetail">
               <MappingFragment StoreEntitySet="DeliveryOrderStockDetails">
@@ -21772,6 +22597,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="DocMasters">
             <EntityTypeMapping TypeName="ArtModel.DocMaster">
               <MappingFragment StoreEntitySet="DocMaster">
+                <ScalarProperty Name="ClosedBy" ColumnName="ClosedBy" />
+                <ScalarProperty Name="ClosedDate" ColumnName="ClosedDate" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
                 <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
                 <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
@@ -21970,6 +22798,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="FabricRollmasters">
             <EntityTypeMapping TypeName="ArtModel.FabricRollmaster">
               <MappingFragment StoreEntitySet="FabricRollmaster">
+                <ScalarProperty Name="McrYard" ColumnName="McrYard" />
                 <ScalarProperty Name="RackAllocated" ColumnName="RackAllocated" />
                 <ScalarProperty Name="InspectedDate" ColumnName="InspectedDate" />
                 <ScalarProperty Name="ValidatedDate" ColumnName="ValidatedDate" />
@@ -22365,6 +23194,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="JobContractOptionalDetails">
             <EntityTypeMapping TypeName="ArtModel.JobContractOptionalDetail">
               <MappingFragment StoreEntitySet="JobContractOptionalDetail">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
                 <ScalarProperty Name="Printing" ColumnName="Printing" />
                 <ScalarProperty Name="GarmentComission" ColumnName="GarmentComission" />
                 <ScalarProperty Name="FabCommision" ColumnName="FabCommision" />
@@ -22383,6 +23213,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="JobContractOptionalMasters">
             <EntityTypeMapping TypeName="ArtModel.JobContractOptionalMaster">
               <MappingFragment StoreEntitySet="JobContractOptionalMaster">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
@@ -22441,6 +23272,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LaySheetDetails">
             <EntityTypeMapping TypeName="ArtModel.LaySheetDetail">
               <MappingFragment StoreEntitySet="LaySheetDetails">
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
                 <ScalarProperty Name="AYard" ColumnName="AYard" />
                 <ScalarProperty Name="Deleteddate" ColumnName="Deleteddate" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
@@ -22544,6 +23376,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="LCBankAdviceDetails">
             <EntityTypeMapping TypeName="ArtModel.LCBankAdviceDetail">
               <MappingFragment StoreEntitySet="LCBankAdviceDetail">
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
@@ -22771,6 +23605,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="MrnMasters">
             <EntityTypeMapping TypeName="ArtModel.MrnMaster">
               <MappingFragment StoreEntitySet="MrnMaster">
+                <ScalarProperty Name="MrnClosedDate" ColumnName="MrnClosedDate" />
+                <ScalarProperty Name="MrnClosedBy" ColumnName="MrnClosedBy" />
+                <ScalarProperty Name="MrnClosed" ColumnName="MrnClosed" />
                 <ScalarProperty Name="Reciept_Pk" ColumnName="Reciept_Pk" />
                 <ScalarProperty Name="Location_Pk" ColumnName="Location_Pk" />
                 <ScalarProperty Name="DoNumber" ColumnName="DoNumber" />
@@ -22953,6 +23790,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="POPackDetails">
             <EntityTypeMapping TypeName="ArtModel.POPackDetail">
               <MappingFragment StoreEntitySet="POPackDetails">
+                <ScalarProperty Name="RevisedQty" ColumnName="RevisedQty" />
                 <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
                 <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
                 <ScalarProperty Name="MarkedCuttabledate" ColumnName="MarkedCuttabledate" />
@@ -23520,6 +24358,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="SamCutAssignmentMasters">
             <EntityTypeMapping TypeName="ArtModel.SamCutAssignmentMaster">
               <MappingFragment StoreEntitySet="SamCutAssignmentMaster">
+                <ScalarProperty Name="Accessories" ColumnName="Accessories" />
                 <ScalarProperty Name="NewCommitedDate" ColumnName="NewCommitedDate" />
                 <ScalarProperty Name="Samplingcommiteddate" ColumnName="Samplingcommiteddate" />
                 <ScalarProperty Name="IsPatternCompleted" ColumnName="IsPatternCompleted" />
@@ -24098,6 +24937,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="StockMRNDetails">
             <EntityTypeMapping TypeName="ArtModel.StockMRNDetail">
               <MappingFragment StoreEntitySet="StockMRNDetails">
+                <ScalarProperty Name="SDoc_PK" ColumnName="SDoc_PK" />
                 <ScalarProperty Name="ExtraQty" ColumnName="ExtraQty" />
                 <ScalarProperty Name="Uom_PK" ColumnName="Uom_PK" />
                 <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
@@ -24151,6 +24991,9 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="StockPOMasters">
             <EntityTypeMapping TypeName="ArtModel.StockPOMaster">
               <MappingFragment StoreEntitySet="StockPOMaster">
+                <ScalarProperty Name="ClosedDate" ColumnName="ClosedDate" />
+                <ScalarProperty Name="ClosedBy" ColumnName="ClosedBy" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="DeptPK" ColumnName="DeptPK" />
                 <ScalarProperty Name="MarkCompleted" ColumnName="MarkCompleted" />
                 <ScalarProperty Name="ForwardedBy" ColumnName="ForwardedBy" />
@@ -24632,6 +25475,8 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="TnaUserRights">
             <EntityTypeMapping TypeName="ArtModel.TnaUserRight">
               <MappingFragment StoreEntitySet="TnaUserRight">
+                <ScalarProperty Name="IsCmFinalization" ColumnName="IsCmFinalization" />
+                <ScalarProperty Name="IsObSubmission" ColumnName="IsObSubmission" />
                 <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
                 <ScalarProperty Name="IsShrinkage" ColumnName="IsShrinkage" />
                 <ScalarProperty Name="IsSystemFile" ColumnName="IsSystemFile" />
@@ -25261,6 +26106,14 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="MCRDetails">
             <EntityTypeMapping TypeName="ArtModel.MCRDetail">
               <MappingFragment StoreEntitySet="MCRDetails">
+                <ScalarProperty Name="AlterUOM_qty" ColumnName="AlterUOM_qty" />
+                <ScalarProperty Name="AlterUOM" ColumnName="AlterUOM" />
+                <ScalarProperty Name="Packages" ColumnName="Packages" />
+                <ScalarProperty Name="ActualDiffQty" ColumnName="ActualDiffQty" />
+                <ScalarProperty Name="ActualReceive" ColumnName="ActualReceive" />
+                <ScalarProperty Name="ConfirmedDate" ColumnName="ConfirmedDate" />
+                <ScalarProperty Name="ConfirmedBy" ColumnName="ConfirmedBy" />
+                <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Mcr_pk" ColumnName="Mcr_pk" />
                 <ScalarProperty Name="Skudet_pk" ColumnName="Skudet_pk" />
@@ -25292,6 +26145,17 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="MCR_Master">
             <EntityTypeMapping TypeName="ArtModel.MCR_Master">
               <MappingFragment StoreEntitySet="MCR_Master">
+                <ScalarProperty Name="ToLocation_pk" ColumnName="ToLocation_pk" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="IsTransfer" ColumnName="IsTransfer" />
+                <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+                <ScalarProperty Name="ConfirmBy" ColumnName="ConfirmBy" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+                <ScalarProperty Name="TransferBy" ColumnName="TransferBy" />
                 <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
                 <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
@@ -25319,6 +26183,7 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
           <EntitySetMapping Name="RackInventoryMasters">
             <EntityTypeMapping TypeName="ArtModel.RackInventoryMaster">
               <MappingFragment StoreEntitySet="RackInventoryMaster">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
                 <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
                 <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
@@ -25383,6 +26248,288 @@ warning 6035: The relationship 'FK_SupplierMaster_SupplierTypemaster' has column
                 <ScalarProperty Name="location_pk" ColumnName="location_pk" />
                 <ScalarProperty Name="Ourstyle_id" ColumnName="Ourstyle_id" />
                 <ScalarProperty Name="TNA_list_PK" ColumnName="TNA_list_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockRackInventoryMasters">
+            <EntityTypeMapping TypeName="ArtModel.StockRackInventoryMaster">
+              <MappingFragment StoreEntitySet="StockRackInventoryMaster">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="IsLast" ColumnName="IsLast" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="Rack_PK" ColumnName="Rack_PK" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="ReceivedVia" ColumnName="ReceivedVia" />
+                <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
+                <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+                <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+                <ScalarProperty Name="OnhandQty" ColumnName="OnhandQty" />
+                <ScalarProperty Name="MrnQty" ColumnName="MrnQty" />
+                <ScalarProperty Name="Template_PK" ColumnName="Template_PK" />
+                <ScalarProperty Name="SPODetails_PK" ColumnName="SPODetails_PK" />
+                <ScalarProperty Name="SMRNDet_PK" ColumnName="SMRNDet_PK" />
+                <ScalarProperty Name="SInventoryitem_PK" ColumnName="SInventoryitem_PK" />
+                <ScalarProperty Name="SRackInventory_PK" ColumnName="SRackInventory_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MCRRollDetails">
+            <EntityTypeMapping TypeName="ArtModel.MCRRollDetail">
+              <MappingFragment StoreEntitySet="MCRRollDetails">
+                <ScalarProperty Name="Mcr_kg" ColumnName="Mcr_kg" />
+                <ScalarProperty Name="McrYard" ColumnName="McrYard" />
+                <ScalarProperty Name="AYard" ColumnName="AYard" />
+                <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
+                <ScalarProperty Name="Mrndet_pk" ColumnName="Mrndet_pk" />
+                <ScalarProperty Name="Inventoryitem_pk" ColumnName="Inventoryitem_pk" />
+                <ScalarProperty Name="RollNum" ColumnName="RollNum" />
+                <ScalarProperty Name="Roll_pk" ColumnName="Roll_pk" />
+                <ScalarProperty Name="Mcr_pk" ColumnName="Mcr_pk" />
+                <ScalarProperty Name="MCRRoll_pk" ColumnName="MCRRoll_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryOrderMasters">
+            <EntityTypeMapping TypeName="ArtModel.DeliveryOrderMaster">
+              <MappingFragment StoreEntitySet="DeliveryOrderMaster">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="ExportContainer" ColumnName="ExportContainer" />
+                <ScalarProperty Name="DoType" ColumnName="DoType" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="Deliverymethod_Pk" ColumnName="Deliverymethod_Pk" />
+                <ScalarProperty Name="BoeNum" ColumnName="BoeNum" />
+                <ScalarProperty Name="ContainerNumber" ColumnName="ContainerNumber" />
+                <ScalarProperty Name="DODate" ColumnName="DODate" />
+                <ScalarProperty Name="ToLocation_PK" ColumnName="ToLocation_PK" />
+                <ScalarProperty Name="FromLocation_PK" ColumnName="FromLocation_PK" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DONum" ColumnName="DONum" />
+                <ScalarProperty Name="DO_PK" ColumnName="DO_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndbitDoDetails">
+            <EntityTypeMapping TypeName="ArtModel.EndbitDoDetail">
+              <MappingFragment StoreEntitySet="EndbitDoDetails">
+                <ScalarProperty Name="Inventoryitem_pk" ColumnName="Inventoryitem_pk" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="Endbit" ColumnName="Endbit" />
+                <ScalarProperty Name="Skudet_pk" ColumnName="Skudet_pk" />
+                <ScalarProperty Name="Roll_pk" ColumnName="Roll_pk" />
+                <ScalarProperty Name="Do_pk" ColumnName="Do_pk" />
+                <ScalarProperty Name="Dodet_pk" ColumnName="Dodet_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndbitInventories">
+            <EntityTypeMapping TypeName="ArtModel.EndbitInventory">
+              <MappingFragment StoreEntitySet="EndbitInventory">
+                <ScalarProperty Name="Inventoryitem_pk" ColumnName="Inventoryitem_pk" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="DeliveredQty" ColumnName="DeliveredQty" />
+                <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+                <ScalarProperty Name="OnHandQty" ColumnName="OnHandQty" />
+                <ScalarProperty Name="Location_pk" ColumnName="Location_pk" />
+                <ScalarProperty Name="Skudet_pk" ColumnName="Skudet_pk" />
+                <ScalarProperty Name="Roll_Pk" ColumnName="Roll_Pk" />
+                <ScalarProperty Name="Endbit_Pk" ColumnName="Endbit_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndbitDoMasters">
+            <EntityTypeMapping TypeName="ArtModel.EndbitDoMaster">
+              <MappingFragment StoreEntitySet="EndbitDoMaster">
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="TotalYds" ColumnName="TotalYds" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
+                <ScalarProperty Name="FromLocation" ColumnName="FromLocation" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="DoNum" ColumnName="DoNum" />
+                <ScalarProperty Name="Do_pk" ColumnName="Do_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndbitSalesDetails">
+            <EntityTypeMapping TypeName="ArtModel.EndbitSalesDetail">
+              <MappingFragment StoreEntitySet="EndbitSalesDetail">
+                <ScalarProperty Name="InvoiceNum" ColumnName="InvoiceNum" />
+                <ScalarProperty Name="IsInvoiced" ColumnName="IsInvoiced" />
+                <ScalarProperty Name="CurateUpdatedDate" ColumnName="CurateUpdatedDate" />
+                <ScalarProperty Name="CuRateUpdatedBy" ColumnName="CuRateUpdatedBy" />
+                <ScalarProperty Name="AgreedCurRate" ColumnName="AgreedCurRate" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="CuRate" ColumnName="CuRate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="DeliveryQty" ColumnName="DeliveryQty" />
+                <ScalarProperty Name="Endbit_PK" ColumnName="Endbit_PK" />
+                <ScalarProperty Name="SalesDO_PK" ColumnName="SalesDO_PK" />
+                <ScalarProperty Name="SalesDODet_PK" ColumnName="SalesDODet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EndbitSalesMasters">
+            <EntityTypeMapping TypeName="ArtModel.EndbitSalesMaster">
+              <MappingFragment StoreEntitySet="EndbitSalesMaster">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="IsDebited" ColumnName="IsDebited" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBY" ColumnName="ApprovedBY" />
+                <ScalarProperty Name="ISApproved" ColumnName="ISApproved" />
+                <ScalarProperty Name="DoType" ColumnName="DoType" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Deliverymethod_Pk" ColumnName="Deliverymethod_Pk" />
+                <ScalarProperty Name="BoeNum" ColumnName="BoeNum" />
+                <ScalarProperty Name="ContainerNumber" ColumnName="ContainerNumber" />
+                <ScalarProperty Name="SalesDODate" ColumnName="SalesDODate" />
+                <ScalarProperty Name="ToLocation_PK" ColumnName="ToLocation_PK" />
+                <ScalarProperty Name="FromLocation_PK" ColumnName="FromLocation_PK" />
+                <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
+                <ScalarProperty Name="SalesDONum" ColumnName="SalesDONum" />
+                <ScalarProperty Name="SalesDO_PK" ColumnName="SalesDO_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrePackDetails">
+            <EntityTypeMapping TypeName="ArtModel.PrePackDetail">
+              <MappingFragment StoreEntitySet="PrePackDetails">
+                <ScalarProperty Name="IsInterChangable" ColumnName="IsInterChangable" />
+                <ScalarProperty Name="CombinationCode" ColumnName="CombinationCode" />
+                <ScalarProperty Name="MarkedCuttabledate" ColumnName="MarkedCuttabledate" />
+                <ScalarProperty Name="ShortClosedDate" ColumnName="ShortClosedDate" />
+                <ScalarProperty Name="MarkedCuttableBy" ColumnName="MarkedCuttableBy" />
+                <ScalarProperty Name="ShortClosedBy" ColumnName="ShortClosedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="CutQty" ColumnName="CutQty" />
+                <ScalarProperty Name="IsShortClosed" ColumnName="IsShortClosed" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="IsPackable" ColumnName="IsPackable" />
+                <ScalarProperty Name="IsCutable" ColumnName="IsCutable" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="PoQty" ColumnName="PoQty" />
+                <ScalarProperty Name="SIzeCode" ColumnName="SIzeCode" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="PoPackDetailID" ColumnName="PoPackDetailID" />
+                <ScalarProperty Name="PoPackID" ColumnName="PoPackID" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="PrePackId" ColumnName="PrePackId" />
+                <ScalarProperty Name="PrePack_Detail_PK" ColumnName="PrePack_Detail_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrePackMasters">
+            <EntityTypeMapping TypeName="ArtModel.PrePackMaster">
+              <MappingFragment StoreEntitySet="PrePackMaster">
+                <ScalarProperty Name="SalesHandoverDate" ColumnName="SalesHandoverDate" />
+                <ScalarProperty Name="IsShuffulable" ColumnName="IsShuffulable" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ExpectedLocation_PK" ColumnName="ExpectedLocation_PK" />
+                <ScalarProperty Name="HandoverDate" ColumnName="HandoverDate" />
+                <ScalarProperty Name="FirstDeliveryDate" ColumnName="FirstDeliveryDate" />
+                <ScalarProperty Name="IsCutable" ColumnName="IsCutable" />
+                <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+                <ScalarProperty Name="TagGroup" ColumnName="TagGroup" />
+                <ScalarProperty Name="PoGroup" ColumnName="PoGroup" />
+                <ScalarProperty Name="BuyerDestination_PK" ColumnName="BuyerDestination_PK" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Inhousedate" ColumnName="Inhousedate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="PackingInstruction" ColumnName="PackingInstruction" />
+                <ScalarProperty Name="BuyerPO" ColumnName="BuyerPO" />
+                <ScalarProperty Name="PoPackId" ColumnName="PoPackId" />
+                <ScalarProperty Name="AtcId" ColumnName="AtcId" />
+                <ScalarProperty Name="PrePacknum" ColumnName="PrePacknum" />
+                <ScalarProperty Name="PrePackId" ColumnName="PrePackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrePackShuffleDetails">
+            <EntityTypeMapping TypeName="ArtModel.PrePackShuffleDetail">
+              <MappingFragment StoreEntitySet="PrePackShuffleDetails">
+                <ScalarProperty Name="revisedQtyofToPrePackDet_PK" ColumnName="revisedQtyofToPrePackDet_PK" />
+                <ScalarProperty Name="RevisedQtyofFromPrePackDet_PK" ColumnName="RevisedQtyofFromPrePackDet_PK" />
+                <ScalarProperty Name="AddedQty" ColumnName="AddedQty" />
+                <ScalarProperty Name="ToPrePackDet_PK" ColumnName="ToPrePackDet_PK" />
+                <ScalarProperty Name="FromPrePackDet_PK" ColumnName="FromPrePackDet_PK" />
+                <ScalarProperty Name="ToPOPackDet_PK" ColumnName="ToPOPackDet_PK" />
+                <ScalarProperty Name="FromPOPackDet_PK" ColumnName="FromPOPackDet_PK" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="PrePackShuffle_PK" ColumnName="PrePackShuffle_PK" />
+                <ScalarProperty Name="PrePackShuffleDet_PK" ColumnName="PrePackShuffleDet_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrePackShuffleMasters">
+            <EntityTypeMapping TypeName="ArtModel.PrePackShuffleMaster">
+              <MappingFragment StoreEntitySet="PrePackShuffleMaster">
+                <ScalarProperty Name="RevisedFromQty" ColumnName="RevisedFromQty" />
+                <ScalarProperty Name="PrePackShuffleGroup" ColumnName="PrePackShuffleGroup" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="PrePackShuffleNum" ColumnName="PrePackShuffleNum" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="AddedBY" ColumnName="AddedBY" />
+                <ScalarProperty Name="OurStyleID" ColumnName="OurStyleID" />
+                <ScalarProperty Name="FromPrePackID" ColumnName="FromPrePackID" />
+                <ScalarProperty Name="PrePackShuffle_PK" ColumnName="PrePackShuffle_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestOrderLoanDetails">
+            <EntityTypeMapping TypeName="ArtModel.RequestOrderLoanDetail">
+              <MappingFragment StoreEntitySet="RequestOrderLoanDetails">
+                <ScalarProperty Name="PODet_PK" ColumnName="PODet_PK" />
+                <ScalarProperty Name="InventoryItem_PK" ColumnName="InventoryItem_PK" />
+                <ScalarProperty Name="CUnitPrice" ColumnName="CUnitPrice" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SkuDet_PK" ColumnName="SkuDet_PK" />
+                <ScalarProperty Name="LRO_Pk" ColumnName="LRO_Pk" />
+                <ScalarProperty Name="LRODet_Pk" ColumnName="LRODet_Pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestOrderLoanMasters">
+            <EntityTypeMapping TypeName="ArtModel.RequestOrderLoanMaster">
+              <MappingFragment StoreEntitySet="RequestOrderLoanMaster">
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="PO_PK" ColumnName="PO_PK" />
+                <ScalarProperty Name="ForwardedBy" ColumnName="ForwardedBy" />
+                <ScalarProperty Name="IsForwarded" ColumnName="IsForwarded" />
+                <ScalarProperty Name="LROType" ColumnName="LROType" />
+                <ScalarProperty Name="Location_PK" ColumnName="Location_PK" />
+                <ScalarProperty Name="Approveddate" ColumnName="Approveddate" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SupplierPk" ColumnName="SupplierPk" />
+                <ScalarProperty Name="AtcID" ColumnName="AtcID" />
+                <ScalarProperty Name="LRONum" ColumnName="LRONum" />
+                <ScalarProperty Name="LRO_Pk" ColumnName="LRO_Pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

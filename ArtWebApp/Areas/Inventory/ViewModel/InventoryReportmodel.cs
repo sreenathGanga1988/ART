@@ -29,7 +29,8 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
         public string Location{ get; set; }
         public DataTable InventoryDetails { get; set; }
         public DataTable TrimsInventoryDetails { get; set; }
-        
+        public DataTable rolldetails { get; set; }
+
 
     }
 
@@ -41,9 +42,11 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
         public string Location { get; set; }
         public DataTable InventoryDetails { get; set; }
         public DataTable TrimsInventoryDetails { get; set; }
+        public DataTable rolldetails { get; set; }
 
 
     }
+
 
     public class FabricInventoryList
     {
@@ -66,8 +69,25 @@ namespace ArtWebApp.Areas.Inventory.ViewModel
         public string CURate { get; set; }
         public string Template_Pk { get; set; }
         public string Skudet_Pk{ get; set; }
-    }
+        public string Packages { get; set; }
+        public string AlterUOM { get; set; }
+        public string AlterUOM_Qty { get; set; }
+        public string ToLocid { get; set; }
 
+
+    }
+    public class rolllist
+    {
+        public string MCR_pk { get; set; }
+        public string Roll_pk { get; set; }
+        public string RollNum{ get; set; }
+        public string InventoryItem_Pk{ get; set; }
+        public string Mrndet_pk{ get; set; }
+        public string location_pk{ get; set; }
+        public string RYard { get; set; }
+        public string Mcr_kg { get; set; }
+
+    }
     public class AllocateRack
     {
         public string Mrn_PK { get; set; }

@@ -33,8 +33,23 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
+                    <td>EXP #</td>
+                    <td colspan="2" >
+                             
+                                <asp:TextBox ID="txt_expno" runat="server" Height="20px" Width="164px" CssClass="auto-style10"></asp:TextBox>
+
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2" >
                              
                                 <asp:Label ID="lbl_errordisplayer" runat="server" Text="*" Font-Italic="True" ForeColor="#FF3300"></asp:Label>
                                

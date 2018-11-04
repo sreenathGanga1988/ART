@@ -188,6 +188,43 @@ FROM            DeliveryOrderMaster INNER JOIN
             return QueryFunctions.ReturnQueryResultDatatable(cmd);
 
         }
+
+        public DataTable GetStockDOList(ArrayList shpdetlist)
+        {
+            DataTable dt = new DataTable();
+            string condition = "";
+            String query = "";
+            for (int i = 0; i < shpdetlist.Count; i++)
+            {
+                if (i == 0)
+                {
+                    condition = condition + " Where  DeliveryOrderStockMaster.SDO_PK= " + shpdetlist[i].ToString().Trim();
+                }
+                else
+                {
+                    condition = condition + "  or DeliveryOrderStockMaster.SDO_PK=" + shpdetlist[i].ToString().Trim();
+                }
+
+
+
+            }
+
+            if (condition != "where")
+            {
+                query = @"SELECT        DeliveryOrderStockMaster.SDO_PK, DeliveryOrderStockMaster.SDONum, DeliveryOrderStockMaster.DeliveryDate, DeliveryOrderStockMaster.ContainerNumber,
+                         LocationMaster.LocationName AS [From], LocationMaster_1.LocationName AS [TO Location], DeliveryOrderStockMaster.AddedBy, DeliveryOrderStockMaster.AddedDate,
+						  DeliveryOrderStockMaster.DoType
+FROM            DeliveryOrderStockMaster INNER JOIN                         
+                         LocationMaster ON DeliveryOrderStockMaster.FromLocation_PK = LocationMaster.Location_PK INNER JOIN
+                         LocationMaster AS LocationMaster_1 ON DeliveryOrderStockMaster.ToLocation_PK = LocationMaster_1.Location_PK" + condition + "";
+
+            }
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+        }
     }
 
 

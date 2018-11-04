@@ -56,6 +56,7 @@ namespace ArtWebApp.Production.JobContractNew
             jcmstrdata.Location_Pk = int.Parse(drp_factory.SelectedValue.ToString());
             jcmstrdata.AddedBy = Session["Username"].ToString().Trim();
             jcmstrdata.AddedDate = DateTime.Now;
+            jcmstrdata.Remarks = txt_remarks.Text;
 
             return jcmstrdata;
         }
@@ -94,6 +95,7 @@ namespace ArtWebApp.Production.JobContractNew
                 if (chkBx != null && chkBx.Checked)
                 {
                     int ourstyleid = int.Parse(cmb_ourstyle.SelectedValue.ToString());
+                    string remarks = txt_remarks.Text;
                   
                     decimal JCnewwash = decimal.Parse(((di.FindControl("txt_washing") as TextBox).Text.ToString()));
                     decimal JCnewemb = decimal.Parse(((di.FindControl("txt_emb") as TextBox).Text.ToString()));
@@ -108,6 +110,7 @@ namespace ArtWebApp.Production.JobContractNew
 
                     BLL.ProductionBLL.JobContractDetailData deldet = new BLL.ProductionBLL.JobContractDetailData();
                     deldet.OurStyleID = ourstyleid;
+                    deldet.remarks = remarks;
            
 
 

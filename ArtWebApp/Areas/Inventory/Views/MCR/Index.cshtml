@@ -13,13 +13,14 @@
             $("#Show_MCRSummary").click(function (e, params) {
                 $('#loadingmessage').show();
                 var LocId = $('#Locid').find('option:selected').val();
+                var ToLocId = $('#ToLocid').find('option:selected').val();
                 var Atcid = $('#AtcID').find('option:selected').val();
                 
                 $.ajax({
                         url: "@Url.Action("GetATCwiseFabricInventory", "MCR")",
                         traditional: true,
-                        type: "GET",
-                        data: {  'locid': LocId, 'atcid': Atcid },
+                    type: "GET",
+                    data: { 'locid': LocId, 'atcid': Atcid, 'Tolocid': ToLocId },
                     success: function (fooBarHTML) {                        
                             $('#loadingmessage').hide();
                         $("#Summarydiv").html(fooBarHTML);
@@ -27,7 +28,20 @@
                         error: function (xhr, status, errorThrown) {
                             $('#loadingmessage').hide();
                         }
-                        });
+                });
+                @*$.ajax({
+                        url: "@Url.Action("GetRollDetails", "MCR")",
+                        traditional: true,
+                        type: "GET",
+                    data: { 'locid': LocId, 'atcid': Atcid },
+                    success: function (fooBarHTML) {                        
+                            $('#loadingmessage').hide();
+                        $("#output1").html(fooBarHTML);
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            $('#loadingmessage').hide();
+                        }
+                        });*@
             });
 
         });
@@ -47,9 +61,21 @@
         </div>
         <div class="row top-buffer">
             <div class="col-sm-2">
-                Location :
+               From Location :
             </div>
             <div class="col-md-6">  @Html.DropDownList("Locid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
+
+            <div class="col-sm-4">
+        
+            </div>
+
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-2">
+                To Location :
+            </div>
+            <div class="col-md-6">  @Html.DropDownList("ToLocid", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })</div>
 
             <div class="col-sm-4">
                 <input id="Show_MCRSummary" type="button" value="Get Details" data-toggle="tooltip" data-placement="top" title="Get Summary data of  Atc" class="btn btn-default show" />
@@ -65,5 +91,28 @@
     <img src='~/Image/ajax-loader.gif' />
 </div>
 
+@*<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Item details</a></li>
+        <li><a href="#tabs-2">Roll Details</a></li>
 
+    </ul>
+    <div id="tabs-1">
+        <p>
+            <div id='output' class="">
+                <!-- Output goes here -->
+            </div>
+
+
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p>
+            <div id='output1' class="">
+                <!-- Output goes here -->
+            </div>
+        </p>
+    </div>
+
+</div>*@
 <div id="Summarydiv"> </div>

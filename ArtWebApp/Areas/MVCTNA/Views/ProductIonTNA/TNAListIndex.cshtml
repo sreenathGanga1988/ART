@@ -9,19 +9,21 @@
 
 
 
-        $("#Location_pk").change(function () {
+        $("#AtcID").change(function () {
 
             debugger
+            var locpk = $('#Location_pk').find('option:selected').val();            
             var Id = $(this).find('option:selected').val();
-
-
+            alert(locpk);
             $.ajax({
                 url: "@Url.Action("PopulateOurStyle", "ProductIonTNA")",
                 type: 'Get',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
               //  data: JSON.stringify(123),
-                data: { 'Id': Id },
+                data: {
+                    'Id': Id, 'locpk': locpk
+                },
                 success: function (data) {
                     $('#OurStyleID').empty();
                     $.each(data, function () {
@@ -143,6 +145,21 @@
             </div>
             <div class="col-sm-3">
 
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                ATC #
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownList("AtcID", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+            </div>
+            <div class="col-sm-3">
+                
             </div>
             <div class="col-sm-3">
 

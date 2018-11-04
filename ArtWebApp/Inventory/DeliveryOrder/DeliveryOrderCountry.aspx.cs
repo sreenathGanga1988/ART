@@ -122,6 +122,7 @@ namespace ArtWebApp.Inventory
             domstr.ToLocation_PK = int.Parse(drp_ToWarehouse.SelectedValue.ToString()); ;
             domstr.FromLocation_PK = int.Parse(Session["UserLoc_pk"].ToString());
             domstr.ExportContainer = drp_expref.Text;
+            domstr.Remarks = txt_remarks.Text;
             
             domstr.DoType = "WW";
 
@@ -219,14 +220,6 @@ namespace ArtWebApp.Inventory
                 if (ArtWebApp.Controls.Gridviewvalidation.countofRowselected(tbl_InverntoryDetails, "chk_select") > 0)
                 {
                     InsertDOdata();
-
-
-
-
-
-
-
-
 
                 }
                 else

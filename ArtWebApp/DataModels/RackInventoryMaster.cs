@@ -29,5 +29,6 @@ namespace ArtWebApp.DataModels
         public Nullable<decimal> ReceivedQty { get; set; }
         public Nullable<decimal> DeliveredQty { get; set; }
         public Nullable<decimal> BalanceQty { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
     }
 }

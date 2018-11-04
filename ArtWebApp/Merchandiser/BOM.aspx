@@ -77,7 +77,7 @@ z-index: 10;
                                     <asp:Button ID="btn_RO" runat="server"  Text="Request  RO" OnClick="btn_RO_Click" CssClass="auto-style13" Height="22px" Font-Bold="True" Font-Size="Smaller" />
                                    
                                 </td>
-                                <td >&nbsp;</td>
+                                <td ><asp:Button ID="btn_loan" runat="server"  Text="Request  Loan" OnClick="btn_loan_Click" CssClass="auto-style13" Height="22px" Font-Bold="True" Font-Size="Smaller" /></td>
                                 <td >&nbsp;</td>
                             </tr>
                             <tr>

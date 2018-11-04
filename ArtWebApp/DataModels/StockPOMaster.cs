@@ -47,6 +47,9 @@ namespace ArtWebApp.DataModels
         public string ForwardedBy { get; set; }
         public string MarkCompleted { get; set; }
         public Nullable<decimal> DeptPK { get; set; }
+        public string IsClosed { get; set; }
+        public string ClosedBy { get; set; }
+        public Nullable<System.DateTime> ClosedDate { get; set; }
     
         public virtual CurrencyMaster CurrencyMaster { get; set; }
         public virtual DeliveryTermMaster DeliveryTermMaster { get; set; }

@@ -430,17 +430,24 @@
     <Content Include="Image\loading-animated-gif-8.gif" />
     <Content Include="Image\password.jpg" />
     <Content Include="Image\Refresh.png" />
+    <Content Include="Inventory\ADNClosing.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderEndbit.aspx" />
+    <Content Include="Inventory\DeliveryOrder\DeliveryOrderEndBitWW.aspx" />
     <Content Include="Inventory\DeliveryOrder\DeliveryReturnFabricAgainstCutOrder.aspx" />
     <Content Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx" />
+    <Content Include="Inventory\DeliveryOrder\TransferToEndbit.aspx" />
     <Content Include="Inventory\Fabric Transaction\AddRollAgainstWRfromAtraco.aspx" />
     <Content Include="Inventory\Fabric Transaction\DeliveryReturnTransaction.aspx" />
     <Content Include="Inventory\Fabric Transaction\RollTrack.aspx" />
     <Content Include="Inventory\Fabric Transaction\SROINRollEntry.aspx" />
+    <Content Include="Inventory\MRNClosing.aspx" />
+    <Content Include="Inventory\Sales\ExternalSalesEndbit.aspx" />
     <Content Include="JQuery\ExporttoExcel.js" />
     <Content Include="loader.gif" />
     <Content Include="Merchandiser\PO\GPODashBoard.aspx" />
     <Content Include="Merchandiser\PO\IPOMultiCreator.aspx" />
     <Content Include="Merchandiser\PO\IPOSPOTracker.aspx" />
+    <Content Include="Merchandiser\PO\LoanPO.aspx" />
     <Content Include="Plugin\InventoryReporter.js" />
     <Content Include="Plugin\MyDataTable.js" />
     <Content Include="Plugin\MyDataTableReporter.js" />
@@ -467,6 +474,7 @@
     <Content Include="Production\ShipmentHandOver\ShipementHandoverfromAtcWorld.aspx" />
     <Content Include="Progressbar.js" />
     <Content Include="Reports\Inventoryreport\DummyReportpage.aspx" />
+    <Content Include="Reports\MerchandiserReport\ASQBuyerPOReport.aspx" />
     <Content Include="Reports\Production\CutplanHTMLReportWithRoll.aspx" />
     <Content Include="Reports\Production\MSI\ASQofMonthofFactory.aspx" />
     <Content Include="Reports\Production\MSI\AtcASQStatus.aspx" />
@@ -1692,6 +1700,19 @@
     <Content Include="Areas\Inventory\Views\RackAllocation\RollRackShuffle_P.cshtml" />
     <Content Include="Areas\MVCTNA\Views\ProductIonTNA\TNAListIndex.cshtml" />
     <Content Include="Areas\MVCTNA\Views\ProductIonTNA\TNAListview.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\StockRackAllocationIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\RackAllocation\StockRackAllocation_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\TransferIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\TransferDetails_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ReceiveIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ReceiveDetails_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\MCRRollDetails_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\MCRRollIndex.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\TransferRollDetails_P.cshtml" />
+    <Content Include="Areas\Inventory\Views\MCR\ReceiveRollDetails_P.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ATCPerformance\Index.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\ATCPerformance\ATCPerformanceView_P.cshtml" />
+    <Content Include="Areas\ArtMVCMerchandiser\Views\EXPADN\SupplierPODetailsIndex.cshtml" />
     <None Include="ArtDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ArtDataSet.Designer.cs</LastGenOutput>
@@ -2111,6 +2132,8 @@
     <Compile Include="Areas\ArtMVCMerchandiser\AtcChartRepo.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcChartController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\AtcClosingController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ATCPerformanceController.cs" />
+    <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ATCPerformanceModel.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\EXPADNController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\ExtDeliveryTokensController.cs" />
     <Compile Include="Areas\ArtMVCMerchandiser\Controllers\FreightChargeDetailsController.cs" />
@@ -2437,6 +2460,21 @@
     <Compile Include="DataModels\EmployeeDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\EndbitDoDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EndbitDoMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EndbitInventory.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EndbitSalesDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\EndbitSalesMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\EtaDate.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2680,6 +2718,9 @@
     <Compile Include="DataModels\MCRDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\MCRRollDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\MCR_Master.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2759,6 +2800,18 @@
     <Compile Include="DataModels\PoPackMasterHistory.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\PrePackDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PrePackMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PrePackShuffleDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\PrePackShuffleMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\PrinterDetail.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -2823,6 +2876,12 @@
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RequestOrderDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderLoanDetail.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModels\RequestOrderLoanMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModels\RequestOrderMaster.cs">
@@ -2993,6 +3052,9 @@
     <Compile Include="DataModels\StockPOMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\StockRackInventoryMaster.cs">
+      <DependentUpon>ArtDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\StockRecieptMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
@@ -3128,12 +3190,40 @@
     <Compile Include="DataModels\YearWeekMaster.cs">
       <DependentUpon>ArtDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Inventory\ADNClosing.aspx.cs">
+      <DependentUpon>ADNClosing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\ADNClosing.aspx.designer.cs">
+      <DependentUpon>ADNClosing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderEndbit.aspx.cs">
+      <DependentUpon>DeliveryOrderEndbit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderEndbit.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderEndbit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderEndBitWW.aspx.cs">
+      <DependentUpon>DeliveryOrderEndBitWW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\DeliveryOrderEndBitWW.aspx.designer.cs">
+      <DependentUpon>DeliveryOrderEndBitWW.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.cs">
       <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Inventory\DeliveryOrder\DeveliveryOrderToMaintenance.aspx.designer.cs">
       <DependentUpon>DeveliveryOrderToMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\TransferToEndbit.aspx.cs">
+      <DependentUpon>TransferToEndbit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\DeliveryOrder\TransferToEndbit.aspx.designer.cs">
+      <DependentUpon>TransferToEndbit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Fabric Transaction\SROINRollEntry.aspx.cs">
       <DependentUpon>SROINRollEntry.aspx</DependentUpon>
@@ -3142,12 +3232,33 @@
     <Compile Include="Inventory\Fabric Transaction\SROINRollEntry.aspx.designer.cs">
       <DependentUpon>SROINRollEntry.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inventory\MRNClosing.aspx.cs">
+      <DependentUpon>MRNClosing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\MRNClosing.aspx.designer.cs">
+      <DependentUpon>MRNClosing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Sales\ExternalSalesEndbit.aspx.cs">
+      <DependentUpon>ExternalSalesEndbit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\Sales\ExternalSalesEndbit.aspx.designer.cs">
+      <DependentUpon>ExternalSalesEndbit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Merchandiser\PO\GPODashBoard.aspx.cs">
       <DependentUpon>GPODashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Merchandiser\PO\GPODashBoard.aspx.designer.cs">
       <DependentUpon>GPODashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Merchandiser\PO\LoanPO.aspx.cs">
+      <DependentUpon>LoanPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Merchandiser\PO\LoanPO.aspx.designer.cs">
+      <DependentUpon>LoanPO.aspx</DependentUpon>
     </Compile>
     <Compile Include="Production\CutOrder\CutOrderClose.aspx.cs">
       <DependentUpon>CutOrderClose.aspx</DependentUpon>
@@ -3214,6 +3325,13 @@
     </Compile>
     <Compile Include="Reports\Inventoryreport\DummyReportpage.aspx.designer.cs">
       <DependentUpon>DummyReportpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\ASQBuyerPOReport.aspx.cs">
+      <DependentUpon>ASQBuyerPOReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MerchandiserReport\ASQBuyerPOReport.aspx.designer.cs">
+      <DependentUpon>ASQBuyerPOReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Shipping\Externalsales\ExternalSalesInvoiceing.aspx.cs">
       <DependentUpon>ExternalSalesInvoiceing.aspx</DependentUpon>
@@ -5101,6 +5219,7 @@
     <EmbeddedResource Include="Reports\RDLC\ExtraReqQty.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\FinalCosting.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\FPO.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\GetMCR.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Goodsintransist.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\GoodsintransistLinear.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Gstock.rdlc" />

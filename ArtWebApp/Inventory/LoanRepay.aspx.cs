@@ -160,8 +160,10 @@ namespace ArtWebApp.Inventory
 
             }
 
-            loantrns.insertinvenloanmst(lndata);
-
+            string loannum=loantrns.insertinvenloanmst(lndata);
+            loannum = loannum + "  Created Sucessfully ";
+            ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", loannum);
+            
             ClientScript.RegisterStartupScript(this.GetType(), "Art", "alert('Loan Application Submitted Successfully');", true);
 
         }

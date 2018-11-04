@@ -31,6 +31,7 @@
 
     </script>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
         <table class="FullTable">
@@ -103,6 +104,28 @@
                         </ucc:DropDownListChosen>
 
                     </td>
+                </tr>
+                <tr>
+                    <td class="NormalTD">
+                        REMARKS</td>
+                    <td class="NormalTD">
+                        <asp:TextBox ID="txt_remarks" runat="server" Height="20px" Width="164px" CssClass="auto-style10"></asp:TextBox></td>
+                    <td class="auto-style7" >
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                    <td class="NormalTD">
+                        
+
+                        &nbsp;</td>
                 </tr>
                 <tr>
                     <td class="gridtable" colspan="9">

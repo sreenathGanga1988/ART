@@ -371,6 +371,8 @@ namespace ArtWebApp.BLL.ShippingBLL
                 foreach (var element in q)
                 {
                     element.IsApproved = "A";
+                    element.ApprovedDate = DateTime.Now;
+                    element.ApprovedBy = HttpContext.Current.Session["Username"].ToString().Trim();
                 }
 
 
@@ -416,6 +418,7 @@ namespace ArtWebApp.BLL.ShippingBLL
 
         public List<ShippingDocumentDetailsData> ShippingDocumentDetailsDataCollection { get; set; }
         public List<ShippingDocumentDODetailsData> ShippingDocumentDODetailsDataCollection { get; set; }
+        public List<ShippingDocumentStockDODetailsData> ShippingDocumentStockDODetailsDataCollection { get; set; }
         public String InsertShippingDocumentDataDirect()
         {
             String Donum = "";
@@ -556,6 +559,7 @@ namespace ArtWebApp.BLL.ShippingBLL
 
             return Donum;
         }
+
         public String InsertShippingDocumentDataVia()
         {
             String Donum = "";
@@ -593,8 +597,16 @@ namespace ArtWebApp.BLL.ShippingBLL
 
                 enty.ShippingDocumentMasters.Add(shpdocmstr);
 
+                try
+                {
 
-                enty.SaveChanges();
+                    enty.SaveChanges();
+                }
+                catch (Exception EXP)
+                {
+
+                    throw;
+                }
 
                 Donum = shpdocmstr.ShipDocNum = CodeGenerator.GetUniqueCode("EXP", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(shpdocmstr.ShipingDoc_PK.ToString()));
 
@@ -615,6 +627,79 @@ namespace ArtWebApp.BLL.ShippingBLL
 
 
 
+                }
+                enty.SaveChanges();
+
+            }
+
+
+            return Donum;
+        }
+
+        public String InsertShippingDocumentDataStockDo()
+        {
+            String Donum = "";
+            using (ArtEntitiesnew enty = new ArtEntitiesnew())
+            {
+                ShippingDocumentMaster shpdocmstr = new ShippingDocumentMaster();
+                shpdocmstr.AddedBY = this.AddedBY;
+                shpdocmstr.AddedDate = this.AddedDate;
+                shpdocmstr.ShipperName = this.ShipperName;
+                shpdocmstr.ExporterName = this.ExporterName;
+                shpdocmstr.ShipperInv = this.ShipperInv;
+                shpdocmstr.Description = this.Description;
+                shpdocmstr.NOofctnRoll = this.NOofctnRoll;
+                shpdocmstr.Packagetype = this.Packagetype;
+                shpdocmstr.Weight = this.Weight;
+                shpdocmstr.Type = this.Type;
+                shpdocmstr.IsReceived = "N";
+                shpdocmstr.InvoiceValue = this.InvoiceValue;
+                shpdocmstr.Vessel = this.Vessel;
+                shpdocmstr.Conatianer = this.Conatianer;
+                shpdocmstr.ContsainerType = this.ContsainerType;
+                shpdocmstr.BL = this.BL;
+                shpdocmstr.Mode = this.Mode;
+                shpdocmstr.DocType = this.DocType;
+                try
+                {
+                    shpdocmstr.ETA = this.ETA;
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+
+                enty.ShippingDocumentMasters.Add(shpdocmstr);
+
+                try
+                {
+
+                    enty.SaveChanges();
+                }
+                catch (Exception EXP)
+                {
+
+                    throw;
+                }
+
+                Donum = shpdocmstr.ShipDocNum = CodeGenerator.GetUniqueCode("EXP", HttpContext.Current.Session["lOC_Code"].ToString().Trim(), int.Parse(shpdocmstr.ShipingDoc_PK.ToString()));
+
+
+
+
+                foreach (ShippingDocumentStockDODetailsData di in this.ShippingDocumentStockDODetailsDataCollection)
+                {
+
+                    //ShippingDocumentDODetail invdet = new ShippingDocumentDODetail();
+                    ShippingDocumentStockDODetail invdet = new ShippingDocumentStockDODetail();
+                    invdet.ShipingDoc_PK = shpdocmstr.ShipingDoc_PK;
+
+                    invdet.SDO_PK = di.SDO_PK;
+
+
+                    enty.ShippingDocumentStockDODetails.Add(invdet);
                 }
                 enty.SaveChanges();
 
@@ -737,6 +822,17 @@ WHERE        (InventorySalesMaster.SalesDate > CONVERT(DATETIME, '2016-12-20 00:
             return QueryFunctions.ReturnQueryResultDatatable(cmd);
         }
 
+        public DataTable GetStockDOList()
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"SELECT        DeliveryOrderstockMaster.SDO_PK  as PK, DeliveryOrderStockMaster.SDONum as name
+FROM DeliveryOrderStockMaster LEFT OUTER JOIN
+              ShippingDocumentDODetails ON DeliveryOrderStockMaster.SDO_PK = ShippingDocumentDODetails.DO_PK
+WHERE(DeliveryOrderStockMaster.DeliveryDate > CONVERT(DATETIME, '2016-08-08 00:00:00', 102)) AND(ShippingDocumentDODetails.ShippingDocumentDO_PK IS NULL) AND(DeliveryOrderStockMaster.SDONum LIKE N'SAWATRW%')";
+
+            return QueryFunctions.ReturnQueryResultDatatable(cmd);
+        }
+
         public string getinboundtype(int shippingdoc_pk)
         {
             string inboundtype = "";
@@ -826,6 +922,13 @@ WHERE        (InventorySalesMaster.SalesDate > CONVERT(DATETIME, '2016-12-20 00:
     {
         public int ShippingDet_PK { get; set; }
         public int DO_PK { get; set; }
+    }
+
+    public class ShippingDocumentStockDODetailsData
+    {
+        public int ShippingDet_PK { get; set; }
+        public int SDO_PK { get; set; }
+        public int ShipingDoc_PK { get; set; }
     }
 
 }

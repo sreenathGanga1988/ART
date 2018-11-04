@@ -87,6 +87,6 @@ FROM            LCBankAdviceDetail INNER JOIN
                          LCMaster ON LCDetails.LC_PK = LCMaster.LC_PK INNER JOIN
                          BankMaster ON LCMaster.Bank_PK = BankMaster.Bank_PK INNER JOIN
                          SupplierMaster ON LCMaster.Supplier_pk = SupplierMaster.Supplier_PK
-WHERE        (LCBankAdviceDetail.IsApproved = N'A')"></asp:SqlDataSource>
+WHERE        (LCBankAdviceDetail.IsApproved = N'N')"></asp:SqlDataSource>
     </asp:Content>
 

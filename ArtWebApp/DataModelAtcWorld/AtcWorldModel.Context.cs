@@ -16,15 +16,13 @@ namespace ArtWebApp.DataModelAtcWorld
     public partial class AtcWorldEntities : DbContext
     {
         public AtcWorldEntities()
-            : base("name=AtcWorldEntities")
+             : base("name=AtcWorldEntities")
         {
         }
         public AtcWorldEntities(String EthiopiaConStr)
             : base("name=AtcWorldEthiopiaEntities")
         {
         }
-
-       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

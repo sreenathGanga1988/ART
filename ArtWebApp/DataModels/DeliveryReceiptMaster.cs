@@ -22,7 +22,7 @@ namespace ArtWebApp.DataModels
         public Nullable<System.DateTime> AddedDate { get; set; }
         public string DOReceiptType { get; set; }
     
-        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
         public virtual LocationMaster LocationMaster { get; set; }
+        public virtual DeliveryOrderMaster DeliveryOrderMaster { get; set; }
     }
 }

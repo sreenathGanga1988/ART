@@ -243,7 +243,56 @@ WHERE     (DeliveryOrderStockMaster.SDO_PK = @Param1)",con);
 
 
 
-        
+
+
+
+
+
+
+
+        public DataTable Getendbit(int Do_pk)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        ISNULL(SkuRawMaterialMaster.Composition, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Construction, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Weight, N' ') + ' ' + ISNULL(SkuRawMaterialMaster.Width, N' ') 
+                         + ' ' + ISNULL(ProcurementDetails.SupplierSize, N' ') + ' ' + ISNULL(ProcurementDetails.SupplierColor, N' ') AS itemDescription, EndbitDoDetails.Endbit, AtcMaster.AtcNum, InventoryMaster.InventoryItem_PK, 
+                         InventoryMaster.SkuDet_Pk, EndbitDoDetails.Roll_pk, AtcMaster.AtcNum AS RollNum, 0 AS WidthGroup, 0 AS ShadeGroup, 0 AS ShrinkageGroup, 0 AS AWidth, 0 AS AShrink, 0 AS AShade, EndbitDoMaster.DoNum, 
+                         EndbitDoMaster.FromLocation, EndbitDoMaster.ToLocation, EndbitDoMaster.DeliveryDate, EndbitDoMaster.TotalWeight, EndbitDoMaster.TotalYds, LocationMaster.LocationName AS FromLocation, 
+                         LocationMaster_1.LocationName AS ToLocation
+FROM            SkuRawMaterialMaster INNER JOIN
+                         SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
+                         EndbitDoDetails ON EndbitDoDetails.Skudet_pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN
+                         InventoryMaster ON InventoryMaster.InventoryItem_PK = EndbitDoDetails.Inventoryitem_pk INNER JOIN
+                         ProcurementDetails ON ProcurementDetails.PODet_PK = InventoryMaster.PoDet_PK INNER JOIN
+                         ProcurementMaster ON ProcurementMaster.PO_Pk = ProcurementDetails.PO_Pk INNER JOIN
+                         AtcMaster ON AtcMaster.AtcId = ProcurementMaster.AtcId INNER JOIN
+                         EndbitDoMaster ON EndbitDoDetails.Do_pk = EndbitDoMaster.Do_pk INNER JOIN
+                         LocationMaster ON EndbitDoMaster.FromLocation = LocationMaster.Location_PK INNER JOIN
+                         LocationMaster AS LocationMaster_1 ON EndbitDoMaster.ToLocation = LocationMaster_1.Location_PK
+WHERE        (EndbitDoDetails.Do_pk = @param1)", con);
+
+
+                cmd.Parameters.AddWithValue("@Param1", Do_pk);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
+
+
+
+
 
         /// <summary>
         /// Get All the details of a Jobcontract

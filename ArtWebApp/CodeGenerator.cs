@@ -47,12 +47,18 @@ namespace ArtWebApp
 
                     generatednum = "DO" + Locationcode + pk.ToString().PadLeft(6, '0');
                     break;
-                    break;
                 case "EDO":
 
                     generatednum = "DO" + Locationcode + pk.ToString().PadLeft(6, '0');
                     break;
+                case "END":
 
+                    generatednum = "EDO" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
+                case "ESDO":
+
+                    generatednum = "ESDO" + Locationcode + pk.ToString().PadLeft(6, '0');
+                    break;
                 case "WF":
 
                          generatednum = "WF" + Locationcode + pk.ToString().PadLeft(6, '0');

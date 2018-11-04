@@ -190,7 +190,7 @@
                                         <ContentTemplate>
                                  <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" DataSourceID="PendingOrder" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" RowStyle-CssClass="rows" PageSize="25" ShowFooter="True">
                                 <Columns>
-                                      <asp:TemplateField>  
+                               <asp:TemplateField>  
                                     <HeaderTemplate>
                                         <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
                                     </HeaderTemplate>                                 
@@ -277,7 +277,21 @@ WHERE        (Qty - OrderedQty > 0) AND (IsClosed IS NULL)"></asp:SqlDataSource>
 
                                 <asp:GridView ID="tbl_pendingtoreceive" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" DataKeyNames="SPO_Pk" DataSourceID="PendingtoReceive" Font-Size="Smaller" HeaderStyle-CssClass="header" OnPageIndexChanging="GridView1_PageIndexChanging" PagerStyle-CssClass="pager" PageSize="20" RowStyle-CssClass="rows" ShowFooter="True">
                                     <Columns>
+                                <asp:TemplateField>  
+                                    <HeaderTemplate>
+                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                    </HeaderTemplate>                                 
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                         <asp:BoundField DataField="SPO_Pk" HeaderText="SPO_Pk" InsertVisible="False" ReadOnly="True" SortExpression="SPO_Pk" />
+                                        <asp:TemplateField HeaderText="SPO_Pk" SortExpression="SPO_Pk">
+                                        
+                                          <ItemTemplate>
+                                              <asp:Label ID="lbl_SPO_Pk" runat="server" Text='<%# Bind("SPO_Pk") %>'></asp:Label>
+                                          </ItemTemplate>
+                                      </asp:TemplateField>
                                         <asp:BoundField DataField="SupplierName" HeaderText="SupplierName" SortExpression="SupplierName" />
                                         <asp:BoundField DataField="SPONum" HeaderText="SPONum" SortExpression="SPONum" />
                                         <asp:BoundField DataField="itemDescription" HeaderText="itemDescription" ReadOnly="True" SortExpression="itemDescription" />
@@ -292,7 +306,7 @@ WHERE        (Qty - OrderedQty > 0) AND (IsClosed IS NULL)"></asp:SqlDataSource>
                                     <PagerStyle CssClass="pager" />
                                     <RowStyle CssClass="rows" />
                                 </asp:GridView>
-                                <asp:SqlDataSource ID="PendingtoReceive" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SPO_Pk, SupplierName, SPONum, itemDescription, Unitprice, POQty, ReceivedQty, ExtraQty, POQty - ReceivedQty AS BalanceToReceive, Remark FROM (SELECT StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(Template_Master.Description, N'') + ISNULL(StockPODetails.Composition, N'') + ISNULL(StockPODetails.Construct, N'') + ISNULL(StockPODetails.TemplateColor, N'') + ISNULL(StockPODetails.TemplateWidth, N'') + ISNULL(StockPODetails.TemplateWeight, N'') AS itemDescription, StockPODetails.Unitprice, SUM(StockPODetails.POQty) AS POQty, StockPODetails.SPODetails_PK, ISNULL((SELECT SUM(ReceivedQty) AS Expr1 FROM StockMRNDetails WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ReceivedQty, ISNULL((SELECT SUM(ExtraQty) AS Expr1 FROM StockMRNDetails AS StockMRNDetails_1 WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ExtraQty, SupplierMaster.SupplierName, StockPOMaster.Remark FROM StockPOMaster INNER JOIN StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, StockPODetails.Unitprice, SupplierMaster.SupplierName, Template_Master.Description, Template_Master.ItemGroup_PK, StockPOMaster.AddedBy, UserMaster.Department_PK, StockPOMaster.Remark, StockPODetails.SPODetails_PK HAVING (UserMaster.Department_PK = 4)) AS tt WHERE (POQty - ReceivedQty &gt; 0)">
+                                <asp:SqlDataSource ID="PendingtoReceive" runat="server" ConnectionString="<%$ ConnectionStrings:ArtConnectionString %>" SelectCommand="SELECT SPO_Pk, SupplierName, SPONum, itemDescription, Unitprice, POQty, ReceivedQty, ExtraQty, POQty - ReceivedQty AS BalanceToReceive, Remark FROM (SELECT StockPOMaster.SPO_Pk, StockPOMaster.SPONum, ISNULL(Template_Master.Description, N'') + ISNULL(StockPODetails.Composition, N'') + ISNULL(StockPODetails.Construct, N'') + ISNULL(StockPODetails.TemplateColor, N'') + ISNULL(StockPODetails.TemplateWidth, N'') + ISNULL(StockPODetails.TemplateWeight, N'') AS itemDescription, StockPODetails.Unitprice, SUM(StockPODetails.POQty) AS POQty, StockPODetails.SPODetails_PK, ISNULL((SELECT SUM(ReceivedQty) AS Expr1 FROM StockMRNDetails WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ReceivedQty, ISNULL((SELECT SUM(ExtraQty) AS Expr1 FROM StockMRNDetails AS StockMRNDetails_1 WHERE (SPODetails_PK = StockPODetails.SPODetails_PK)), 0) AS ExtraQty, SupplierMaster.SupplierName, StockPOMaster.Remark FROM StockPOMaster INNER JOIN StockPODetails ON StockPOMaster.SPO_Pk = StockPODetails.SPO_PK INNER JOIN SupplierMaster ON StockPOMaster.Supplier_Pk = SupplierMaster.Supplier_PK INNER JOIN Template_Master ON StockPODetails.Template_PK = Template_Master.Template_PK INNER JOIN UserMaster ON StockPOMaster.AddedBy = UserMaster.UserName GROUP BY StockPOMaster.SPO_Pk, StockPOMaster.SPONum, StockPODetails.Composition, StockPODetails.Construct, StockPODetails.TemplateColor, StockPODetails.TemplateWidth, StockPODetails.TemplateWeight, StockPODetails.Unitprice, SupplierMaster.SupplierName, Template_Master.Description, Template_Master.ItemGroup_PK, StockPOMaster.AddedBy, UserMaster.Department_PK, StockPOMaster.Remark, StockPODetails.SPODetails_PK,StockPOMaster.isclosed HAVING (UserMaster.Department_PK = 4) and (StockPOMaster.isclosed is null)) AS tt WHERE (POQty - ReceivedQty &gt; 0)">
                                 </asp:SqlDataSource>
 
 
@@ -300,6 +314,23 @@ WHERE        (Qty - OrderedQty > 0) AND (IsClosed IS NULL)"></asp:SqlDataSource>
                             &nbsp;</td>
                         <td>
                             &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style1">
+                            
+                           
+                        </td>
+
+                          <td class="auto-style1">
+                            <asp:Button ID="btn_closespo" runat="server" Text="CLOSE SPO" OnClick="btn_closespo_Click" />
+                           
+                        </td>
+                       <%-- <td class="smallgridtable">
+                             <asp:Button ID="btn_closeipo" runat="server" Text="CLOSE IPO" />
+                             <td class="auto-style1">
+                                 &nbsp;</td>
+                        <td class="smallgridtable">
+                            &nbsp;</td>--%>
                     </tr>
                 </table>
             </td>
