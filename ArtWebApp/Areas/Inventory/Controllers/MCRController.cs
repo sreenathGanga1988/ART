@@ -16,7 +16,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         // GET: Inventory/MCR
         public ActionResult Index()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone!="Y").ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y").ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u=> u.LocType=="W").ToList(), "location_pk", "locationname");
             ViewBag.ToLocid = new SelectList(enty.LocationMasters.Where(u => u.LocType == "W").ToList(), "location_pk", "locationname");
             return View();
@@ -24,14 +24,14 @@ namespace ArtWebApp.Areas.Inventory.Controllers
 
         public ActionResult EditIndex()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y" && u.IsMCRDone=="Y" ).ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u=> u.IsShipmentCompleted=="Y"  ).ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u=> u.LocType=="W").ToList(), "location_pk", "locationname");
-            ViewBag.Mcr_pk = new SelectList(enty.MCR_Master.Where(u => u.IsTransfer == "N").ToList(), "MCR_Pk", "MCR_no");
+            ViewBag.Mcr_pk = new SelectList(enty.MCR_Master.Where(u => u.IsReceived == "N").ToList(), "MCR_Pk", "MCR_no");
             return View();
         }
         public ActionResult MCRRollIndex()
         {
-            ViewBag.Mcr_pk = new SelectList(enty.MCR_Master.Where(u => u.IsTransfer == "N").ToList(), "MCR_Pk", "MCR_no");
+            ViewBag.Mcr_pk = new SelectList(enty.MCR_Master.Where(u =>  u.IsReceived == "N").ToList(), "MCR_Pk", "MCR_no");
             return View();
         }
         public ActionResult TransferIndex()
@@ -47,7 +47,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         }
         public ActionResult ApproveIndex()
         {
-            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u => u.IsShipmentCompleted == "Y" && u.IsMCRDone == "Y").ToList(), "AtcId", "AtcNum");
+            ViewBag.AtcID = new SelectList(enty.AtcMasters.Where(u => u.IsShipmentCompleted == "Y" ).ToList(), "AtcId", "AtcNum");
             ViewBag.Locid = new SelectList(enty.LocationMasters.Where(u => u.LocType == "W").ToList(), "location_pk", "locationname");
             ViewBag.Mcr_pk = new SelectList(enty.MCR_Master.Where(u => u.IsReceived == "Y" && u.IsApproved=="N").ToList(), "MCR_Pk", "MCR_no");
             return View();
@@ -102,7 +102,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
 
                         popaklist.Add(invitem_pk);
                     }
-                    string conditionatc = " and ( ";
+                    string conditionatc = "  ( ";
 
                     for (int i = 0; i < popaklist.Count; i++)
                     {
@@ -117,7 +117,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                     }
                 }
                     conditionatc = conditionatc + ")";
-                    if (conditionatc == "and()")
+                    if (conditionatc == "()")
                     {
                         conditionatc = "";
                     }
@@ -201,7 +201,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                 popaklist.Add(invitem_pk);
                 locid = int.Parse(element.Location_pk.ToString());
             }
-                string conditionatc = " and ( ";
+                string conditionatc = " ( ";
 
                 for (int i = 0; i < popaklist.Count; i++)
                 {
@@ -216,7 +216,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                     }
                 }
                 conditionatc = conditionatc + ")";
-                if (conditionatc == "and()")
+                if (conditionatc == "()")
                 {
                     conditionatc = "";
                 }
@@ -421,31 +421,34 @@ namespace ArtWebApp.Areas.Inventory.Controllers
             int ToLocid = 0;
             try
             {
+                foreach(FabricInventoryList fab in things)
+                {
+                    atcid = int.Parse(fab.AtcId.ToString());
+                    inventory_Pk = int.Parse(fab.InventoryItem_PK.ToString());
+                    location = int.Parse(fab.Location.ToString());
+                    ToLocid = int.Parse(fab.ToLocid.ToString());
+
+                }
+
+                MCR_Master mCR_Master = new MCR_Master();
+                mCR_Master.Atc_Id = atcid;
+                mCR_Master.Location_pk = location;
+                mCR_Master.AddedDate = DateTime.Now;
+                mCR_Master.AddedBy = HttpContext.Session["Username"].ToString();
+                mCR_Master.IsReceived = "N";
+                mCR_Master.IsTransfer = "N";
+                mCR_Master.IsApproved = "N";
+                mCR_Master.IsConfirmed = "N";
+                mCR_Master.ToLocation_pk = ToLocid;
+                enty.MCR_Master.Add(mCR_Master);
+                enty.SaveChanges();
+                Donum = mCR_Master.MCR_no = "MCR" + mCR_Master.MCR_Pk.ToString().PadLeft(6, '0');
+                mcrpk = int.Parse(mCR_Master.MCR_Pk.ToString());
+
                 foreach (FabricInventoryList fablist in things)
                 {
-                    atcid = int.Parse(fablist.AtcId.ToString());
-                    inventory_Pk = int.Parse(fablist.InventoryItem_PK.ToString());
-                    location = int.Parse(fablist.Location.ToString());
-                    ToLocid = int.Parse(fablist.ToLocid.ToString());
-
-
-                    if (!enty.MCR_Master.Any(f => f.Atc_Id == atcid && f.Location_pk == location))
-                    {
-                        MCR_Master mCR_Master = new MCR_Master();
-                        mCR_Master.Atc_Id = atcid;
-                        mCR_Master.Location_pk = location;
-                        mCR_Master.AddedDate = DateTime.Now;
-                        mCR_Master.AddedBy = HttpContext.Session["Username"].ToString();
-                        mCR_Master.IsReceived = "N";
-                        mCR_Master.IsTransfer = "N";
-                        mCR_Master.IsApproved = "N";
-                        mCR_Master.IsConfirmed= "N";
-                        mCR_Master.ToLocation_pk = ToLocid;
-                        enty.MCR_Master.Add(mCR_Master);
-                        enty.SaveChanges();
-                        Donum = mCR_Master.MCR_no = "MCR" + mCR_Master.MCR_Pk.ToString().PadLeft(6, '0');
-                        mcrpk= int.Parse(mCR_Master.MCR_Pk.ToString()); 
-                    }
+                   
+                   
                     if (!enty.MCRDetails.Any(f=>f.Atcid ==atcid && f.Location_pk==location && f.InventoryItem_pk==inventory_Pk))
                     {
                         MCRDetail mCRDetail = new MCRDetail();
@@ -498,12 +501,11 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                         }
                     }
                     }
-                //}
                 enty.SaveChanges();
                 var atc = from atcmaster in enty.AtcMasters where atcmaster.AtcId == atcid select atcmaster;
-                foreach(var element in atc)
+                foreach (var element in atc)
                 {
-                    element.IsMCRDone = "Y";                    
+                    element.IsMCRDone = "Y";
                 }
                 enty.SaveChanges();
             }
@@ -882,7 +884,11 @@ namespace ArtWebApp.Areas.Inventory.Controllers
                 {
                     transferQty(things, atcid, tolocid);
                 }
-                
+                var atc = from atcmaster in enty.AtcMasters where atcmaster.AtcId == atcid select atcmaster;
+                foreach (var element in atc)
+                {
+                    element.IsMCRDone = "Y";
+                }
 
             }
             catch (Exception exp)

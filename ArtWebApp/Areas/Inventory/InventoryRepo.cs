@@ -77,8 +77,7 @@ namespace ArtWebApp.Areas.Inventory
                 InventoryMaster INNER JOIN
                 ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
                 SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Fabric')
-                 AND (InventoryMaster.OnhandQty > 0) 
-and AtcMaster.AtcId not in(select Atcid from MCRDetails where Location_pk =@Locid)
+                 AND (InventoryMaster.OnhandQty > 0) and InventoryMaster.InventoryItem_PK not in(select InventoryItem_PK from MCRDetails)
 ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
                   ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             cmd.Parameters.AddWithValue("@Locid", Locid);
@@ -113,7 +112,7 @@ AtcMaster.AtcID,LocationMaster.Location_PK,0 as DiffQty,InventoryMaster.CURate a
                 InventoryMaster INNER JOIN
                 ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK ON UOMMaster.Uom_PK = ProcurementDetails.Uom_PK ON LocationMaster.Location_PK = InventoryMaster.Location_PK ON 
                 SkuRawmaterialDetail.SkuDet_PK = InventoryMaster.SkuDet_Pk ON MrnDetails.MrnDet_PK = InventoryMaster.MrnDet_PK WHERE AtcMaster.AtcId=@Atcid AND LocationMaster.Location_PK =@Locid and (ItemGroupMaster.ItemGroupName = N'Trims')
-                 AND (InventoryMaster.OnhandQty > 0) and AtcMaster.AtcId not in(select Atcid from MCRDetails where Location_pk =@Locid) ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
+                 AND (InventoryMaster.OnhandQty > 0) and InventoryMaster.InventoryItem_PK not in(select InventoryItem_PK from MCRDetails) ORDER BY SkuRawMaterialMaster.RMNum, Description, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierSize,
                   ProcurementDetails.SupplierColor, UOMMaster.UomCode";
             cmd.Parameters.AddWithValue("@Locid", Locid);
             cmd.Parameters.AddWithValue("@Atcid", Atcid);
@@ -255,7 +254,7 @@ FROM            SkuRawMaterialMaster INNER JOIN
                          SupplierMaster ON SupplierDocumentMaster.Supplier_pk = SupplierMaster.Supplier_PK INNER JOIN
                          InventoryMaster ON FabricRollmaster.SkuDet_PK = InventoryMaster.SkuDet_Pk INNER JOIN
                          CurrencyMaster ON SupplierMaster.CurrencyID = CurrencyMaster.CurrencyID 
-WHERE         (InventoryMaster.MrnDet_PK =FabricRollmaster.MRnDet_PK) and (FabricRollmaster.IsDelivered <> N'Y') " + Condition+ " ) AS tt INNER JOIN RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK WHERe (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_PK = @location_pk) and tt.Roll_PK not in(select Roll_PK from MCRRollDetails where Mcr_pk =@mcrpk)  ORDER BY tt.InventoryItem_PK ";
+WHERE         " + Condition+ " ) AS tt INNER JOIN RollInventoryMaster ON tt.Roll_PK = RollInventoryMaster.Roll_PK WHERe (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_PK = @location_pk) and tt.Roll_PK not in(select Roll_PK from MCRRollDetails where Mcr_pk =@mcrpk)  ORDER BY tt.InventoryItem_PK ";
                 cmd.Parameters.AddWithValue("@Condition", Condition);
                 cmd.Parameters.AddWithValue("@location_pk", location_pk);
                 cmd.Parameters.AddWithValue("@mcrpk", mcrpk);

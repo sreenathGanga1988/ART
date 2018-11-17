@@ -17,7 +17,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-   <script>
+   <%--<script>
         $(document).ready(function () {          
             var User_PK = '<%= Session["User_PK"] %>';                      
             $.ajax({
@@ -55,7 +55,7 @@
             });
         });
 
-    </script>
+    </script>--%>
 
 
 

@@ -88,6 +88,30 @@ namespace ArtWebApp.Production.Cutting
         {
 
         }
+        public Boolean checkgriddata(GridView tblgrid)
+        {
+            Boolean isQtyok = true;
+
+            foreach (GridViewRow di in tbl_RollDetails.Rows)
+            {
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+                    int sequence = int.Parse(((di.FindControl("txt_sequence") as TextBox).Text.ToString()));
+                    if(sequence <= 0)
+                    {
+                        isQtyok = false;
+                        (di.FindControl("txt_sequence") as TextBox).BackColor = System.Drawing.Color.Red;
+                    }
+
+                    
+                }
+            }
+
+            
+            return isQtyok;
+        }
 
         protected void btn_sumbit_Click(object sender, EventArgs e)
         {
@@ -106,7 +130,10 @@ namespace ArtWebApp.Production.Cutting
                 lblmstr.markernum = drp_markernum.SelectedItem.Text.ToString();
                 lblmstr.Location_PK = int.Parse(drp_fact.SelectedValue.ToString());
                 
+                if (checkgriddata (tbl_RollDetails))
+                {
 
+                
                 if (lblmstr.NoofPlies > float.Parse(txt_balplies.Text))
                 {
 
@@ -141,6 +168,12 @@ namespace ArtWebApp.Production.Cutting
                     ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
                 }
 
+                }
+                else
+                {
+                    msg = "Check the Sequence No";
+                    ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "error", msg);
+                }
             }
 
 

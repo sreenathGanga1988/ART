@@ -84,12 +84,14 @@ namespace ArtWebApp.Areas.ArtAdministrator.Controllers
             return jsd;
         }
         [HttpGet]
+
         public JsonResult UpDateJobContractOptionaltokenya()
 
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
             bool status = false;
             ArtAdministrator.ArtAdministratorRepo.UpdateJobcontractOptionalTokenya();
+            ArtAdministrator.ArtAdministratorRepo.UpdateJobcontractOptionalToETH();
             status = true;
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

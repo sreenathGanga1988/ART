@@ -338,7 +338,7 @@ HAVING        (StockPOMaster.IsApproved = N'N') AND (UserMaster.Department_PK = 
 
         public void setgridviewRO()
         {
-            if (HttpContext.Current.User.Identity.Name == "Mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
+            if (HttpContext.Current.User.Identity.Name == "mahendra" || HttpContext.Current.User.Identity.Name == "Vijeesh")
             {
 
                 SqlDataSource3.SelectCommand = @"
@@ -413,9 +413,11 @@ HAVING        (RequestOrderMaster.IsApproved = N'N') AND (UserMaster.Department_
                 if (chk_isreq == "Y")
                 {
                     int popk = int.Parse(tbl_ro.Rows[i].Cells[1].Text);
+                    string fromatc = tbl_ro.Rows[i].Cells[3].Text;
+                    string toatc = tbl_ro.Rows[i].Cells[4].Text;
 
 
-                    rmmstr.ForwardROforApproval(popk);
+                    rmmstr.ForwardROforApproval(popk,fromatc,toatc);
                 }
 
             }
@@ -514,7 +516,8 @@ WHERE        (RequestOrderStockMaster.IsApproved = 'N') AND (UserMaster.Departme
                     int popk = int.Parse(tbl_sro.Rows[i].Cells[1].Text);
 
 
-                    rmmstr.ForwardsTOCKROforApproval(popk);
+                    //rmmstr.ForwardsTOCKROforApproval(popk);
+                    rmmstr.GetsTOCKROApproved(popk);
                 }
 
             }

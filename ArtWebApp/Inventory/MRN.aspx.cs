@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ArtWebApp.DataModels;
+using System.Data.SqlClient;
 using ArtWebApp.BLL;
 using System.Data;
 namespace ArtWebApp.Inventory
@@ -16,6 +17,22 @@ namespace ArtWebApp.Inventory
         {
             btn_saveMrn.Attributes.Add("onclick", " this.disabled = true; " + ClientScript.GetPostBackEventReference(btn_saveMrn, null) + ";");
             btn_excess.Attributes.Add("onclick", " this.disabled = true; " + ClientScript.GetPostBackEventReference(btn_excess, null) + ";");
+            //btn_savercpt.Enabled = false;
+            //if (!IsPostBack)
+            //{
+            //    BLL.InventoryBLL.StockPOreceipt prrrcpt = new BLL.InventoryBLL.StockPOreceipt();
+            //    Boolean checkmrn = prrrcpt.CheckADnMRN(int.Parse(Session["UserLoc_pk"].ToString()));
+            //    if (checkmrn == false)
+            //    {
+            //        String msg = "Some MRN is not Closed";
+            //        MessageBoxShow(msg);
+
+            //    }
+            //    else
+            //    {
+            //        btn_savercpt.Enabled = true;
+            //    }
+            //}
         }
 
 
@@ -390,6 +407,29 @@ namespace ArtWebApp.Inventory
 
             }
             else if (type == "LocalKenya")
+            {
+                if (Session["UserLoc_pk"].ToString().Trim() != "6")
+                {
+                    dt = mrntran.GetPODetailsforMRN(int.Parse(drp_po.SelectedValue.ToString()), int.Parse(drp_doc.SelectedValue.ToString()));
+                    tbl_Podetails.DataSource = dt;
+                    tbl_Podetails.DataBind();
+
+                    btn_saveMrn.Enabled = true;
+                }
+                else
+                {
+                    String msg = "This is a Non UAE ADN and you cannot MRN it";
+
+
+                    tbl_Podetails.DataSource = null;
+                    tbl_Podetails.DataBind();
+
+
+                    MessageBoxShow(msg);
+                }
+
+            }
+            else if (type == "LocalEthiopia")
             {
                 if (Session["UserLoc_pk"].ToString().Trim() != "6")
                 {

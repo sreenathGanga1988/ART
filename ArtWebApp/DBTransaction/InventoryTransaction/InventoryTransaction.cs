@@ -133,7 +133,10 @@ FROM            (SELECT        TOP (100) PERCENT InventoryMaster.InventoryItem_P
                                                     + ISNULL
                                                         ((SELECT        SUM(LoanQty) AS Expr1
                                                             FROM            InventoryLoanMaster
-                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0) AS BlockedQty
+                                                            WHERE        (FromIIT_Pk = InventoryMaster.InventoryItem_PK) AND (IsApproved = N'N')), 0)+ ISNULL
+                                                        ((SELECT        SUM(Onhandqty) AS Expr1
+                                                            FROM            MCRDetails 
+                                                            WHERE        (InventoryItem_pk  = InventoryMaster.InventoryItem_PK)), 0) AS BlockedQty
                           FROM            InventoryMaster INNER JOIN
                                                     ProcurementDetails ON InventoryMaster.PoDet_PK = ProcurementDetails.PODet_PK INNER JOIN
                                                     SkuRawmaterialDetail ON InventoryMaster.SkuDet_Pk = SkuRawmaterialDetail.SkuDet_PK INNER JOIN

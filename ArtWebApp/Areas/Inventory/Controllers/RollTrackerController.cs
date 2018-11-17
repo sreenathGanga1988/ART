@@ -19,6 +19,7 @@ namespace ArtWebApp.Areas.Inventory.Controllers
         {
             ViewBag.AtcID = new SelectList(db.AtcMasters, "AtcId", "AtcNum");
             ViewBag.Location_pk = new SelectList(db.LocationMasters, "Location_PK", "LocationName");
+            ViewBag.Inv_Location_pk = new SelectList(db.LocationMasters, "Location_PK", "LocationName");
             List<SelectListItem> MonthList = new List<SelectListItem>()
     {   new SelectListItem() {Text="TotalAlloc", Value="TotalAlloc"},
         new SelectListItem() {Text="All", Value="All"},

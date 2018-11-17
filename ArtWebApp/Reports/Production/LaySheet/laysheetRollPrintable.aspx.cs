@@ -39,7 +39,7 @@ namespace ArtWebApp.Reports.Production.LaySheet
                         join bymstr in entty.BuyerMasters on atcmstr.Buyer_ID equals bymstr.BuyerID
                         join lctnmstr in entty.LocationMasters on cutordrmstr.ToLoc equals lctnmstr.Location_PK
                         join ctplnmst in entty.CutPlanMasters on cutplanmarkerdet.CutPlan_PK equals ctplnmst.CutPlan_PK
-                        where lymstr.LaysheetRollmaster_Pk == laysheetpk
+                        where lymstr.LaysheetRollmaster_Pk == laysheetpk orderby lyrolldet.Sequence
                         select new
                         {
                             lymstr.LocationSequencenum,

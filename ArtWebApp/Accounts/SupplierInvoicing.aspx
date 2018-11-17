@@ -190,7 +190,8 @@
          <asp:TextBox ID="lbl_RcvdQty" runat="server" Text="0" Enabled="false" >0</asp:TextBox>
     </FooterTemplate>--%>
                                      </asp:TemplateField>
-                                    <asp:BoundField DataField="BalToRecv" HeaderText="BalToRecv" /> 
+                                    <asp:BoundField DataField="Rollqty" HeaderText="Rollqty" /> 
+                                    <asp:BoundField DataField="BalToRecv" HeaderText="BalToRecv" />
                                     <asp:BoundField DataField="InvQty" HeaderText="InvQty" />
                                      
                                      <asp:TemplateField HeaderText="BaltoINV">

@@ -385,6 +385,42 @@ namespace ArtWebApp.BLL.MerchandsingBLL
             return dt;
         }
 
+
+        public static float CalculateRequiredFORCTI(DataTable dt, int skudet)
+        {
+            DataTable skudata = GetSKUDataforCTI(skudet);
+            DataView ourstyleview = new DataView(skudata);
+            DataTable distinctOurstyleData = ourstyleview.ToTable(true, "OurStyleID");
+            float requiredqty = 0;
+            DBTransaction.BOMTransaction bomtrans = new DBTransaction.BOMTransaction();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                
+
+                int skudetpk = int.Parse(dt.Rows[i]["SkuDet_PK"].ToString().Trim());
+
+                if (skudetpk == 57591)
+                {
+                    int k = 9;
+                }
+                int uom_pk = int.Parse(dt.Rows[i]["uom_pk"].ToString().Trim());
+                String isCD = dt.Rows[i]["IsCD"].ToString().Trim();
+                String isSD = dt.Rows[i]["IsSD"].ToString().Trim();
+                String isCM = dt.Rows[i]["isCommon"].ToString().Trim();
+                String IsGD = dt.Rows[i]["IsGD"].ToString().Trim();
+
+
+                requiredqty = (int)Math.Round(requiredQtyCalculate(skudetpk, isCD, isSD, isCM, IsGD, skudata, distinctOurstyleData), 0);
+                
+
+
+
+            }
+            return requiredqty;
+        }
+
+
+
         public static float requiredQtyCalculate(int skudetpk, String isCD, String isSD, String isCM, String IsGD, DataTable skudata, DataTable ourstyles)
         {
             float requiredqty = 0;
@@ -1200,7 +1236,35 @@ WHERE        (StyleCostingMaster.IsApproved = N'A') AND (SkuRawMaterialMaster.At
             }
             return dt;
         }
+        public static System.Data.DataTable GetSKUDataforCTI(int skudet)
+        {
+            DataTable dt = new DataTable();
 
+            using (SqlCommand cmd = new SqlCommand())
+            {
+
+
+                cmd.CommandText = @" SELECT        SkuRawMaterialMaster.WastagePercentage, SkuRawMaterialMaster.Sku_Pk, SkuRawmaterialDetail.SkuDet_PK, StyleCostingDetails.Consumption, StyleCostingMaster.OurStyleID, POPackDetails.ColorCode, 
+                         POPackDetails.SIzeCode, POPackDetails.PoQty, StyleCostingMaster.IsApproved, SkuRawMaterialMaster.Atc_id, StyleCostingDetails.IsRequired,SkuRawmaterialDetail.ColorCode AS SKUColorCode, 
+                         SkuRawmaterialDetail.SizeCode AS SKUSizeCode
+FROM            SkuRawMaterialMaster INNER JOIN
+                         StyleCostingDetails ON SkuRawMaterialMaster.Sku_Pk = StyleCostingDetails.Sku_PK INNER JOIN
+                         StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK INNER JOIN
+                         POPackDetails ON StyleCostingMaster.OurStyleID = POPackDetails.OurStyleID INNER JOIN
+                         SkuRawmaterialDetail ON StyleCostingDetails.Sku_PK = SkuRawmaterialDetail.Sku_PK
+WHERE        (StyleCostingMaster.IsApproved = N'A') AND (SkuRawmaterialDetail.SkuDet_PK = @skudet) AND (StyleCostingDetails.IsRequired = N'Y')";
+
+
+
+                cmd.Parameters.AddWithValue("@skudet", skudet);
+
+                dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+
+
+
+            }
+            return dt;
+        }
         public static System.Data.DataTable GetEBOMData(int ATCID)
         {
             DataTable dt = new DataTable();

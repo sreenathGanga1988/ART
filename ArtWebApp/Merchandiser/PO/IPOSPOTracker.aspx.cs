@@ -96,7 +96,7 @@ FROM            ODOOGPOMaster INNER JOIN
                 using (SqlConnection con = new SqlConnection(constr))
                 {
                     using (SqlCommand cmd = new SqlCommand(@"SELECT        tt.SPODetails_PK, tt.SPO_Pk, tt.SPONum, tt.SupplierName, tt.Unitprice, tt.CurrencyCode, tt.Description, tt.Remark, tt.POQty, tt.ReceivedQty, tt.UomName, FORMAT(tt.AddedDate, 'dd/MMM/yyyy', 'en-us') AS AddedDate, 
-                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.MRNDetails,tt.Sales_DO
+                         tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.STOCKADN,tt.MRNDetails,tt.Sales_DO
 FROM            ODOOGPOMaster INNER JOIN
                          StocPOForODOO ON ODOOGPOMaster.POId = StocPOForODOO.POId AND ODOOGPOMaster.POLineID = StocPOForODOO.POLineID RIGHT OUTER JOIN
                              (SELECT        StockPODetails.SPODetails_PK, StockPOMaster.SPO_Pk, StockPOMaster.SPONum, SupplierMaster.SupplierName, CurrencyMaster.CurrencyCode, ISNULL(Template_Master.Description, '') 
@@ -109,6 +109,11 @@ SELECT        (StockMrnMaster.SMrnNum +'('+convert(varchar,(sum(StockMRNDetails.
 FROM            StockMrnMaster INNER JOIN
                          StockMRNDetails ON StockMrnMaster.SMrn_PK = StockMRNDetails.SMRN_Pk
 WHERE        (StockMRNDetails.SPODetails_PK = StockPODetails.SPODetails_PK) group by StockMrnMaster.SMrnNum)as tt for xml path('')),1,1,'')as txt) as MRNDetails,
+(select STUFF ((select ',' + STOCKADN from (
+SELECT        (SDocMaster.SDocNum +'('+convert(varchar,(sum(SDocDetails.Qty)+ sum(SDocDetails.ExtraQty)))+')') as STOCKADN
+FROM            SDocMaster  INNER JOIN
+                         SDocDetails  ON SDocMaster.SDoc_Pk= SDocDetails.SDoc_Pk 
+WHERE        (SDocDetails.SPODet_Pk  = StockPODetails.SPODetails_PK) group by SDocMaster.SDocNum )as tt for xml path('')),1,1,'')as txt) as STOCKADN,
 (select STUFF ((select ',' + Sales_DO from (
 SELECT        (InventorySalesMaster.SalesDONum+'( '+ convert(varchar, (sum(InventorySalesDetail.DeliveryQty)))+')') as Sales_DO
 FROM            InventorySalesMaster INNER JOIN
@@ -128,7 +133,7 @@ WHERE        (StockMRNDetails.SPODetails_PK = StockPODetails.SPODetails_PK) grou
                                                          + ' ' + ISNULL(StockPODetails.TemplateWidth, '') + ' ' + ISNULL(StockPODetails.TemplateWeight, ''), StockPODetails.POQty, StockPOMaster.SPO_Pk, SupplierMaster.SupplierName, 
                                                          StockPODetails.SPODetails_PK, StockPODetails.CUrate, StockPODetails.Unitprice, StockPOMaster.AddedBy) AS tt ON StocPOForODOO.Spo_PK = tt.SPO_Pk AND StocPOForODOO.SPoDet_PK = tt.SPODetails_PK
 group by  tt.SPODetails_PK, tt.SPO_Pk, tt.SPONum, tt.SupplierName, tt.Unitprice, tt.CurrencyCode, tt.Description, tt.Remark, tt.POQty, tt.ReceivedQty, tt.UomName,  AddedDate, 
-tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.MRNDetails,tt.Sales_DO"))
+tt.IsApproved, ODOOGPOMaster.PONum, ODOOGPOMaster.OdooLocation, tt.CUrate, tt.AddedBy,tt.MRNDetails,tt.Sales_DO,tt.STOCKADN"))
                           
 
                     using (SqlDataAdapter sda = new SqlDataAdapter())

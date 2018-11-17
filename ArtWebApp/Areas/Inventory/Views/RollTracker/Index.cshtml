@@ -98,16 +98,17 @@
      $("#InventoryOrderWF").click(function (e, params) {
                 $('#loadingmessage').show();
                 var fromdate = $("#locFromDate").val();
-                var todate = $("#locTodate").val();
+         var todate = $("#locTodate").val();
+         
                 var dotype = "WF";
-                var Id = $('#Location_pk').find('option:selected').val();
+         var Id = $('#Inv_Location_pk').find('option:selected').val();
                     $.ajax({
                         url: "@Url.Action("GetInventoryBetweenDate", "RollTracker")",
                         traditional: true,
                         type: "GET",
                         data: { 'fromdate': fromdate, 'todate': todate, 'Id': Id},
                         success: function (fooBarHTML) {
-                            alert("Hi");
+                            
                             $('#loadingmessage').hide();
                         $("#output").html(fooBarHTML);
                         },
@@ -628,7 +629,7 @@
 
             </div>
             <div class="col-sm-3">
-                @Html.DropDownList("Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
+                @Html.DropDownList("Inv_Location_pk", null, htmlAttributes: new { @style = "width: 250px;", @class = "chosen-select form-control" })
             </div>
 
         </div>
@@ -680,11 +681,6 @@
 
     </div>
 </div>
-
-
-
-
-
 
 
 

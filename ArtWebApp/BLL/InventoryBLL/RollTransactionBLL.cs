@@ -50,7 +50,7 @@ WHERE        (ItemGroupMaster.ItemGroupName = N'Fabric') AND (MrnDetails.Mrn_PK 
             {
                 cmd.CommandText = @"
 SELECT        SkuRawMaterialMaster.RMNum + ' ' + SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + '  ' + SkuRawMaterialMaster.Weight + SkuRawMaterialMaster.Width + '  ' + ProcurementDetails.SupplierColor
-                          + '  ' + ProcurementDetails.SupplierSize AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, SkuRawMaterialMaster.Atc_id
+                          + '  ' + ProcurementDetails.SupplierSize +' ' +SkuRawmaterialDetail.ColorCode AS ItemDescription, SkuRawmaterialDetail.SkuDet_PK, SkuRawMaterialMaster.Atc_id
 FROM            SkuRawMaterialMaster INNER JOIN
                          SkuRawmaterialDetail ON SkuRawMaterialMaster.Sku_Pk = SkuRawmaterialDetail.Sku_PK INNER JOIN
                          Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK INNER JOIN
@@ -1869,7 +1869,7 @@ WHERE        (FabricRollmaster.SupplierDoc_pk = @asn_pk) AND (MrnDetails.MrnDet_
 ISNULL( (SELECT        distinct(RackMaster.Rack_name)
 FROM            RackMaster INNER JOIN
                          RollInventoryMaster ON RackMaster.Rack_pk = RollInventoryMaster.Rack_PK
-WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RackName 
+WHERE        (RollInventoryMaster.Roll_PK = FabricRollmaster.Roll_PK )) ,0) AS RackName ,FabricRollmaster.MarkerType
 FROM            FabricRollmaster INNER JOIN
                          RollInventoryMaster ON FabricRollmaster.Roll_PK = RollInventoryMaster.Roll_PK
 WHERE        (RollInventoryMaster.IsPresent = N'Y') AND (RollInventoryMaster.Location_Pk = @lctn_pk) AND (FabricRollmaster.IsDelivered = N'N') AND (FabricRollmaster.SkuDet_PK = @skudet_pk)";

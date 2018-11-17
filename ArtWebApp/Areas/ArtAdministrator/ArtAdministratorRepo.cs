@@ -172,12 +172,6 @@ namespace ArtWebApp.Areas.ArtAdministrator
         {
             DataTable dt = GetJobContract();
 
-          
-           
-
-
-
-
                
                     foreach (DataRow row in dt.Rows)
                     {
@@ -224,32 +218,15 @@ namespace ArtWebApp.Areas.ArtAdministrator
 
                     }
 
-
-
-
-
-
-
-          
-            
-
-
-
-
         }
         
 
 
-              public static void UpdateJobcontractOptionalTokenya()
+      public static void UpdateJobcontractOptionalTokenya()
         {
             DataTable dt = GetJobContractOptional();
 
-
-
-
-
-
-
+            
 
             foreach (DataRow row in dt.Rows)
             {
@@ -284,6 +261,76 @@ namespace ArtWebApp.Areas.ArtAdministrator
                             ajcmstr.AtcID = int.Parse(row["AtcID"].ToString());
                             ajcmstr.AddedDate = DateTime.Parse(row["AddedDate"].ToString());
                             ajcmstr.AddedBy = row["AddedBy"].ToString();                         
+                            atcenty.ArtJobContractOptionalMasters.Add(ajcmstr);
+
+
+
+
+                            atcenty.SaveChanges();
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                    }
+                }
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+        public static void UpdateJobcontractOptionalToETH()
+        {
+            DataTable dt = GetJobContractOptionalEthiopia();
+
+
+
+            foreach (DataRow row in dt.Rows)
+            {
+                using (AtcWorldEntities atcenty = new AtcWorldEntities("Ethiopia"))
+                {
+                    try
+                    {
+                        int JobContractOptionalDetail_pk = int.Parse(row["JobContractOptionalDetail_pk"].ToString());
+                        int JobContractOptional_pk = int.Parse(row["JobContractOptional_pk"].ToString());
+                        int Location_Pk = int.Parse(row["Location_Pk"].ToString());
+
+                        if (!atcenty.ArtJobContractOptionalMasters.Any(f => f.JobContractOptional_pk == JobContractOptional_pk && f.JobContractOptionalDetail_pk == JobContractOptionalDetail_pk))
+                        {
+
+                            ArtJobContractOptionalMaster ajcmstr = new DataModelAtcWorld.ArtJobContractOptionalMaster();
+                            var atclocation_pk = atcenty.LocationMaster_tbl.Where(u => u.ArtLocation_PK == Location_Pk).Select(u => u.Location_PK).FirstOrDefault();
+
+                            ajcmstr.JobContractOptionalDetail_pk = int.Parse(row["JobContractOptionalDetail_pk"].ToString());
+                            ajcmstr.JobContractOptional_pk = int.Parse(row["JobContractOptional_pk"].ToString());
+                            ajcmstr.OurStyleID = int.Parse(row["OurStyleID"].ToString());
+                            ajcmstr.Wash = Decimal.Parse(row["Wash"].ToString());
+                            ajcmstr.EmbroidaryPrinting = Decimal.Parse(row["EmbroidaryPrinting"].ToString());
+
+                            ajcmstr.CompanyLogistic = Decimal.Parse(row["CompanyLogistic"].ToString());
+                            ajcmstr.FactoryLogistic = Decimal.Parse(row["FactoryLogistic"].ToString());
+                            ajcmstr.DryProcess = Decimal.Parse(row["DryProcess"].ToString());
+                            ajcmstr.FabCommision = Decimal.Parse(row["FabCommision"].ToString());
+                            ajcmstr.GarmentComission = Decimal.Parse(row["GarmentComission"].ToString());
+                            ajcmstr.Printing = Decimal.Parse(row["Printing"].ToString());
+                            ajcmstr.JobContractOptionalNUM = row["JobContractOptionalNUM"].ToString();
+                            ajcmstr.Location_Pk = int.Parse(atclocation_pk.ToString());
+                            ajcmstr.AtcID = int.Parse(row["AtcID"].ToString());
+                            ajcmstr.AddedDate = DateTime.Parse(row["AddedDate"].ToString());
+                            ajcmstr.AddedBy = row["AddedBy"].ToString();
                             atcenty.ArtJobContractOptionalMasters.Add(ajcmstr);
 
 
@@ -868,6 +915,18 @@ GROUP BY JobContractMaster.JOBContractNUM, AtcDetails.OurStyle, AtcMaster.AtcNum
 FROM            JobContractOptionalDetail INNER JOIN
                          JobContractOptionalMaster ON JobContractOptionalDetail.JobContractOptional_pk = JobContractOptionalMaster.JobContractOptional_pk
 WHERE        (JobContractOptionalDetail.PoPackID = 0)";
+            return QueryFunctions.ReturnQueryResultDatatable(Qry);
+
+        }
+        public static DataTable GetJobContractOptionalEthiopia()
+        {
+            String Qry = @"SELECT        JobContractOptionalDetail.JobContractOptionalDetail_pk, JobContractOptionalDetail.JobContractOptional_pk, JobContractOptionalDetail.OurStyleID, JobContractOptionalDetail.Wash, 
+                         JobContractOptionalDetail.EmbroidaryPrinting, JobContractOptionalDetail.CompanyLogistic, JobContractOptionalDetail.FactoryLogistic, JobContractOptionalDetail.DryProcess, JobContractOptionalDetail.FabCommision, 
+                         JobContractOptionalDetail.GarmentComission, JobContractOptionalDetail.Printing, JobContractOptionalMaster.JobContractOptionalNUM, JobContractOptionalMaster.Location_Pk, JobContractOptionalMaster.AtcID, 
+                         JobContractOptionalMaster.AddedDate, JobContractOptionalMaster.AddedBy
+FROM            JobContractOptionalDetail INNER JOIN
+                         JobContractOptionalMaster ON JobContractOptionalDetail.JobContractOptional_pk = JobContractOptionalMaster.JobContractOptional_pk
+WHERE        (JobContractOptionalDetail.PoPackID = 0) and JobContractOptionalMaster.Location_Pk =14";
             return QueryFunctions.ReturnQueryResultDatatable(Qry);
 
         }

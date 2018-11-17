@@ -400,11 +400,31 @@ namespace ArtWebApp.BLL.ProcurementBLL
 
 
 
-        public void ForwardROforApproval(int ro_pk)
+        public void ForwardROforApproval(int ro_pk,string fromatc,string toatc)
         {
             using (ArtEntitiesnew enty = new ArtEntitiesnew())
             {
+                string from_merchandiser = "";
+                string to_merchandiser = "";
+                var check = from atc in enty.AtcMasters where atc.AtcNum == fromatc select atc; 
+                foreach(var atc in check)
+                {
+                    from_merchandiser = atc.MerchandiserName;
+                }
+                var check1 = from atc1 in enty.AtcMasters where atc1.AtcNum == toatc  select atc1; 
+                foreach(var atc in check1)
+                {
+                    to_merchandiser = atc.MerchandiserName;
+                }
+                if (from_merchandiser ==to_merchandiser)
+                {
 
+                    GetROApproved(ro_pk);
+                }
+                else
+                {
+
+                
                 var q = from rmmstr in enty.RequestOrderMasters
                         where rmmstr.RO_Pk == ro_pk
                         select rmmstr;
@@ -417,7 +437,7 @@ namespace ArtWebApp.BLL.ProcurementBLL
                 }
 
                 enty.SaveChanges();
-
+                }
             }
         }
 

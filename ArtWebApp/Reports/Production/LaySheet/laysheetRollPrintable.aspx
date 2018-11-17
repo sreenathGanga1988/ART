@@ -295,8 +295,7 @@
 FROM            FabricRollmaster INNER JOIN
                          SupplierDocumentMaster ON FabricRollmaster.SupplierDoc_pk = SupplierDocumentMaster.SupplierDoc_pk INNER JOIN
                          LaySheetRollDetails ON FabricRollmaster.Roll_PK = LaySheetRollDetails.Roll_PK
-WHERE        (LaySheetRollDetails.LaysheetRollmaster_Pk = @Param1) and (LaySheetRollDetails.IsDeleted!='Y') ORDER BY 
-FabricRollmaster.ShadeGroup,LaySheetRollDetails.Roll_PK">
+WHERE        (LaySheetRollDetails.LaysheetRollmaster_Pk = @Param1) and (LaySheetRollDetails.IsDeleted!='Y') ORDER BY LaySheetRollDetails.Sequence ">
                                             <SelectParameters>
                                                 <asp:QueryStringParameter Name="Param1" QueryStringField="laysheetpk" />
                                             </SelectParameters>

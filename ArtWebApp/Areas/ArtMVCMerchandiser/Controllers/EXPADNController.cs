@@ -56,6 +56,27 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
 
                 return dt;
             }
+            public DataTable GETSPOEXPWISE(DateTime fromdate, DateTime todate)
+            {
+                DataTable dt = new DataTable();
+
+
+
+
+
+
+                using (SqlCommand cmd = new SqlCommand(@"GetStockADNWISE_SP"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@fromdate", fromdate);
+                    cmd.Parameters.AddWithValue("@todate", todate);
+
+                    dt = QueryFunctions.ReturnQueryResultDatatableforSP(cmd);
+                }
+
+
+                return dt;
+            }
             public DataTable GetSupplierwisePodetails(int @Supplier_PK,DateTime fromdate, DateTime todate)
             {
                 DataTable dt = new DataTable();
@@ -87,6 +108,19 @@ namespace ArtWebApp.Areas.ArtMVCMerchandiser.Controllers
             EXPADNReportModel model = new EXPADNReportModel();
             MerchantRepo MerchantReportRepo = new MerchantRepo();
             DataTable dt = MerchantReportRepo.GETEXPWISE(fromdate, todate);
+            model.AsqData = dt;
+
+            model.ReportName = "Report Between  " + fromdate.ToShortDateString() + " && " + todate.ToShortDateString();
+
+
+            return PartialView("EXPADN_P", model);
+        }
+        [HttpGet]
+        public PartialViewResult GETSPOEXPWISE(DateTime fromdate, DateTime todate)
+        {
+            EXPADNReportModel model = new EXPADNReportModel();
+            MerchantRepo MerchantReportRepo = new MerchantRepo();
+            DataTable dt = MerchantReportRepo.GETSPOEXPWISE(fromdate, todate);
             model.AsqData = dt;
 
             model.ReportName = "Report Between  " + fromdate.ToShortDateString() + " && " + todate.ToShortDateString();

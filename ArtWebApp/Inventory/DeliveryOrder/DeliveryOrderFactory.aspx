@@ -50,12 +50,13 @@
                
                                
                     </td>
-                    <td  >
-                         <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
+                    <td >
+                        <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
                                 <asp:Button ID="btn_confirmAtc" runat="server" Text="S" Width="33px" OnClick="btn_confirmAtc_Click" CssClass="auto-style10" />
                                  </ContentTemplate>
                         </asp:UpdatePanel>
+                         
                         
                     </td>
                     <td class="NormalTD">
@@ -132,6 +133,42 @@
                         &nbsp;</td>
                 </tr>
                 <tr>
+                    <td class="NormalTD">
+                        Trims Type</td>
+                    <td class="NormalTD">
+                        <ucc:DropDownListChosen ID="DropDownListChosen1" Width="150px" runat="server">
+                            <asp:ListItem Value="F">Sewing</asp:ListItem>
+                            <asp:ListItem Value="T">Packing</asp:ListItem>
+                        </ucc:DropDownListChosen></td>
+                   
+                    <td  >
+                         <asp:UpdatePanel ID="UpdatePanel4" UpdateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                <asp:Button ID="btn_trimstype" runat="server" Text="S" Width="33px" OnClick="btn_trimstype_Click" CssClass="auto-style10" />
+                                 </ContentTemplate>
+                        </asp:UpdatePanel></td>
+                    
+                    <td class="NormalTD">
+                        Issue No#</td>
+                    <td class="NormalTD">
+                        <ucc:DropDownListChosen ID="drp_issueno" runat="server" Width="200px">
+                        </ucc:DropDownListChosen></td>
+                    <td class="NormalTD">
+                       <%-- <asp:UpdatePanel ID="UpdatePanel3" UpdateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                <asp:Button ID="btn_issueno" runat="server" Text="S" Width="33px" OnClick="btn_issueno_Click" CssClass="auto-style10" />
+                                 </ContentTemplate>
+                        </asp:UpdatePanel>--%>
+
+                    </td>
+                    <td class="NormalTD">
+                          &nbsp;</td>
+                     <td class="NormalTD">
+                         &nbsp;</td>
+                    <td class="NormalTD">
+                        &nbsp;</td>
+                </tr>
+                <tr>
                     <td class="gridtable" colspan="9">
                         <asp:UpdatePanel ID="upd_grid" UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
@@ -140,10 +177,10 @@
                                        
                                           <asp:TemplateField>  
                                     <HeaderTemplate>
-                                        <asp:CheckBox ID="checkAll" runat ="server" onclick="checkAll(this)"/>
+                                        <asp:CheckBox ID="checkAll" runat ="server" />
                                     </HeaderTemplate>                                 
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chk_select" runat="server" onclick="Check_Click(this)"/>
+                                        <asp:CheckBox ID="chk_select" runat="server" AutoPostBack="True"  OnCheckedChanged="chk_select_CheckedChanged" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                         <asp:TemplateField HeaderText="II_PK">
@@ -175,6 +212,58 @@
                                                 <asp:Label ID="lbl_onhandQty" runat="server" Text='<%# Bind("OnhandQty") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="CTINo">
+                                        <ItemTemplate>
+                                                                                       
+                                            <asp:UpdatePanel ID="upd_cutorder" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                    <ucc:DropDownListChosen  ID="ddl_cutorder"  Width="130px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_cutorder_SelectedIndexChanged">
+                                            </ucc:DropDownListChosen>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </ItemTemplate>
+                                    
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="AllowedQty">
+                                           
+                                            <ItemTemplate>
+
+                                                <asp:UpdatePanel ID="upd_allowedqty" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                      <asp:Label ID="lbl_allowedqty" runat="server"></asp:Label>
+                                                      </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="DelQty">
+                                           
+                                            <ItemTemplate>
+
+                                                <asp:UpdatePanel ID="upd_delqty" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                      <asp:Label ID="lbl_delqty" runat="server"></asp:Label>
+                                                      </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="BalQty">
+                                           
+                                            <ItemTemplate>
+
+                                                <asp:UpdatePanel ID="upd_balacetocut" UpdateMode="Conditional" runat="server">
+                                                <ContentTemplate>
+                                                      <asp:Label ID="lbl_balacetocut" runat="server"></asp:Label>
+                                                      </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        
+                                        
+                                        
                                         <asp:TemplateField HeaderText="DeliveryQty">
                                            
                                             <ItemTemplate>

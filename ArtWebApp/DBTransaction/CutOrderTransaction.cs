@@ -232,7 +232,12 @@ WHERE        (CutOrderMaster.CutID = @Param1)", con);
                                  WHERE        (CutID = CutOrderMaster.CutID)), 0) AS DeliveredQty, AtcMaster.AtcId,  ISNULL
                              ((SELECT        SUM(AYard)
 FROM            DORollDetails
-WHERE        (CutID =  CutOrderMaster.CutID)), 0) AS Rollyard
+WHERE        (CutID =  CutOrderMaster.CutID)), 0) AS Rollyard,
+
+(isnull((SELECT sum(RejectionAdjustDetails.Qty)as Rejectadjqty FROM            RejectionAdjustDetails INNER JOIN
+                         RejectReqMaster ON RejectionAdjustDetails.RejReqMasterIDID = RejectReqMaster.RejReqMasterID INNER JOIN
+                         CutOrderMaster ON RejectionAdjustDetails.CutID = CutOrderMaster.CutID
+WHERE         (CutOrderMaster.SkuDet_pk = @Param1)),0))as Reject_qty, (select isnull(SUM(Qty),0)as qty from LayAdjustDetails where CutID =CutOrderMaster.CutID )as LayAdjust
 FROM            CutOrderMaster INNER JOIN
                          AtcDetails ON CutOrderMaster.OurStyleID = AtcDetails.OurStyleID INNER JOIN
                          AtcMaster ON CutOrderMaster.AtcID = AtcMaster.AtcId INNER JOIN

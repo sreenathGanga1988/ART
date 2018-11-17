@@ -15,7 +15,7 @@ namespace ArtWebApp.Approvals
 
             string currentusername = HttpContext.Current.User.Identity.Name.ToString();
 
-            List<String> LoanApproverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" , "mithilesh" ,"ravi", "martin","Hiren"});
+            List<String> LoanApproverlist = new List<String>(new String[] { "Mannan", "siraj", "Abhishek", "Sreenath" , "mithilesh" ,"ravi", "martin","Hiren","mahendra","Vijeesh"});
             string v = Request.QueryString["navtype"];
             if (navtype == "Ro Approval")
             {

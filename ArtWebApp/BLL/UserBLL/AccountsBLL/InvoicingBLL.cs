@@ -147,7 +147,7 @@ FROM(SELECT    ProcurementMaster.Supplier_Pk, ProcurementMaster.PO_Pk, Procureme
 
 
 
-                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty , (POQty-isnull(ReceivedQty,0)) as BalToRecv,   ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType,tt.LastMRNDATE
+                String query = @"SELECT        SkuDet_PK, PODet_PK,PONum, RMNum, Description, ItemColor, ItemSize, SupplierColor, SupplierSize, UomCode, POQty, ReceivedQty ,Rollqty, (POQty-isnull(ReceivedQty,0)) as BalToRecv,   ExtraQty ,    (CASE POQty WHEN 0 THEN 0   ELSE ((ExtraQty/POQty)*100)  END) AS ExtraPer,    InvQty  , ReceivedQty - InvQty AS BaltoINV, POUnitRate, Uom_PK,CurrencyCode,TT.POType,tt.LastMRNDATE
 FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PONum, ProcurementDetails.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
                          SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ItemColor, 
                          SkuRawmaterialDetail.ItemSize, ProcurementDetails.SupplierColor, ProcurementDetails.SupplierSize, UOMMaster.UomCode, ProcurementDetails.POQty, ProcurementDetails.POUnitRate,  CurrencyMaster.CurrencyID, CurrencyMaster.CurrencyCode,
@@ -160,7 +160,9 @@ FROM           ( SELECT        ProcurementDetails.PODet_PK,ProcurementMaster.PON
                                WHERE        (PODet_PK = ProcurementDetails.PODet_PK) AND (SkuDet_PK = ProcurementDetails.SkuDet_PK)) AS ExtraQty,
                              (SELECT        ISNULL(SUM(InvoiceQty), 0) AS Expr1
                                FROM            SupplierInvoiceDetail
-                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK)) AS InvQty,ProcurementMaster.POType,(SELECT        MAX(MrnMaster.AddedDate) 
+                               WHERE        (PODet_PK = ProcurementDetails.PODet_PK)) AS InvQty,ProcurementMaster.POType,isnull((select SUM(a.Ayard)as Ayard from FabricRollmaster a, MrnDetails b  where a.MRnDet_PK=b.MrnDet_PK 
+and b.PODet_PK =ProcurementDetails.PODet_PK 
+),0) as Rollqty,(SELECT        MAX(MrnMaster.AddedDate) 
 FROM            MrnMaster INNER JOIN
                          MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK
 WHERE        (MrnDetails.PODet_PK = ProcurementDetails.PODet_PK)) as LastMRNDATE

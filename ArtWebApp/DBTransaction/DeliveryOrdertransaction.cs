@@ -66,14 +66,6 @@ ORDER BY RMNum, Description, ItemColor, ItemSize, SupplierSize, SupplierColor, U
 ", con);
 
 
-
-
-
-
-
-
-
-
                 cmd.Parameters.AddWithValue("@atcid", atcid);
                 cmd.Parameters.AddWithValue("@loctn_pk", lctn_pk);
 

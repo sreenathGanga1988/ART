@@ -166,7 +166,30 @@ namespace ArtWebApp.Production.Cutting
           
             return lblmstr.DeleteLaysheetRoll(Planid);
         }
+        public Boolean checkgriddata(GridView tblgrid)
+        {
+            Boolean isQtyok = true;
 
+            foreach (GridViewRow di in tbl_RollDetails.Rows)
+            {
+                CheckBox chkBx = (CheckBox)di.FindControl("chk_select");
+
+                if (chkBx != null && chkBx.Checked)
+                {
+                    int sequence = int.Parse(((di.FindControl("txt_sequence") as TextBox).Text.ToString()));
+                    if (sequence <= 0)
+                    {
+                        isQtyok = false;
+                        (di.FindControl("txt_sequence") as TextBox).BackColor = System.Drawing.Color.Red;
+                    }
+
+
+                }
+            }
+
+
+            return isQtyok;
+        }
         protected void btn_addroll_Click(object sender, EventArgs e)
         {
             string msg = "";
@@ -175,17 +198,22 @@ namespace ArtWebApp.Production.Cutting
             lblmstr.cutid = int.Parse(drp_cutorder.SelectedValue.ToString());
             lblmstr.cutnum = drp_cutorder.SelectedItem.Text;
             lblmstr.LaysheetRollmaster_Pk = int.Parse(drp_cutRoll.SelectedValue.ToString());
-      
+      if (checkgriddata (tbl_RollDetails))
+            {
 
-
+            
             lblmstr.LaysheetDetaolsDataCollection = LSDetailsData();
-
-        String    num = lblmstr.InsertLaySheetRollRollOnly();
-
+             String    num = lblmstr.InsertLaySheetRollRollOnly();
             msg = num + " is generated Successfully";
             tbl_RollDetails.DataSource = null;
             tbl_RollDetails.DataBind();
             ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "sucess", msg);
+            }
+            else
+            {
+                msg = "Check the Sequence No";
+                ArtWebApp.Controls.Messagebox.MessgeboxUpdate(Messaediv, "error", msg);
+            }
         }
 
 

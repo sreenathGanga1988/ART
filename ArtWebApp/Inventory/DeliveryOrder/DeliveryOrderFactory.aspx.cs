@@ -32,6 +32,29 @@ namespace ArtWebApp.Inventory
             }
         }
 
+
+
+
+        protected void btn_trimstype_Click(object sender,EventArgs e)
+        {
+            DeliveryOrdertransaction dotran = new DeliveryOrdertransaction();
+            DataTable dt = new DataTable();
+            if (int.Parse(Session["UserLoc_pk"].ToString()) == 6)
+            {
+                dt = dotran.GetStockDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()));
+            }
+            else
+            {
+                dt = dotran.GetStockItemDetails(int.Parse(cmb_atc.SelectedValue.ToString()), int.Parse(Session["UserLoc_pk"].ToString()), "Trims");
+            }
+
+            tbl_InverntoryDetails.DataSource = dt;
+            tbl_InverntoryDetails.DataBind();
+            upd_grid.Update();
+            btn_saveDO.Enabled = true;
+        }
+
+
         protected void btn_confirmAtc_Click(object sender, EventArgs e)
         {
             DeliveryOrdertransaction dotran = new DeliveryOrdertransaction();
@@ -87,7 +110,12 @@ namespace ArtWebApp.Inventory
         }
 
 
-
+        public void fillcuttingisuse(int location)
+        {
+           
+            DeliveryOrdertransaction dotrans = new DeliveryOrdertransaction();
+            
+        }
 
 
         public void InsertDOdata()
@@ -166,8 +194,74 @@ namespace ArtWebApp.Inventory
 
         }
 
+        protected void chk_select_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (drp_ToWarehouse.SelectedItem.Value != null)
+                {
+                    BLL.CutOrderBLL.CutOrderData cdata = new BLL.CutOrderBLL.CutOrderData();
+                    CheckBox chkbox = (CheckBox)sender;
+                    GridViewRow currentRow = chkbox.ClosestContainer<GridViewRow>();
+
+                    if (chkbox.Checked == true)
+                    {
 
 
+
+                        int iipk = int.Parse((currentRow.FindControl("lblInventoryItem_PK") as Label).Text);
+                        DataTable dt = cdata.GetCutOrderData(524174, int.Parse(drp_ToWarehouse.SelectedItem.Value.ToString()));
+                        UpdatePanel upd_cutorder = (currentRow.FindControl("upd_cutorder") as UpdatePanel);
+                        DropDownList drp_cut = (currentRow.FindControl("ddl_cutorder") as DropDownList);
+                        drp_cut.DataSource = dt;
+                        drp_cut.DataTextField = "Cut_NO";
+                        drp_cut.DataValueField = "CutID";
+                        drp_cut.DataBind();
+                        upd_cutorder.Update();
+                        drp_cut.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Cut#"));
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                MessgeboxUpdate("error", "Location Not Selected");
+            }
+        }
+
+        protected void ddl_cutorder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BLL.CutOrderBLL.CutOrderData cdata = new BLL.CutOrderBLL.CutOrderData();
+
+            DropDownList dll_cutorder = (DropDownList)sender;
+            GridViewRow currentRow = dll_cutorder.ClosestContainer<GridViewRow>();
+            Label lbl_balacetocut = currentRow.FindControl("lbl_balacetocut") as Label;
+            Label lbl_delqtyyds = currentRow.FindControl("lbl_delqty") as Label;
+            Label lbl_allowedqty= currentRow.FindControl("lbl_allowedqty") as Label;
+            UpdatePanel upd_delqtyyds = currentRow.FindControl("upd_delqty") as UpdatePanel;
+            UpdatePanel upd_balacetocut = currentRow.FindControl("upd_balacetocut") as UpdatePanel;
+            UpdatePanel upd_allowedqty = currentRow.FindControl("upd_allowedqty") as UpdatePanel;            
+
+            if (dll_cutorder.Text != "Select CTI#")
+            {
+                int cutid = int.Parse(dll_cutorder.SelectedValue.ToString());
+                int item_pk = int.Parse(((currentRow.FindControl("lblInventoryItem_PK") as Label).Text.ToString()));
+                decimal allowedqty = cdata.GetAllowedQty(item_pk);
+                int balqty = cdata.GetbalanceQty(cutid);
+                int delqty = cdata.GetDeliverYdsQty(cutid);
+                
+                lbl_balacetocut.Text = balqty.ToString();
+                lbl_delqtyyds .Text = delqty.ToString();
+                lbl_allowedqty.Text = allowedqty.ToString();
+                upd_balacetocut.Update();
+                upd_delqtyyds.Update();
+                upd_allowedqty.Update();
+                upd_grid.Update();
+
+            }
+
+        }
 
 
         public Boolean checkdatagridValue(GridView tblgrid, String lbl_Qty1, String txt_Qty2)

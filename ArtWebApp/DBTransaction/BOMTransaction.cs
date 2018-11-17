@@ -87,12 +87,59 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
             return dt;
         }
 
+        public DataTable GetSkudetBOM(int skudet)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand(@"SELECT        SkuRawmaterialDetail.SkuDet_PK, SkuRawMaterialMaster.RMNum, 
+                         SkuRawMaterialMaster.Composition + ' ' + SkuRawMaterialMaster.Construction + ' ' + SkuRawMaterialMaster.Weight + ' ' + SkuRawMaterialMaster.Width AS Description, SkuRawmaterialDetail.ColorCode, 
+                         SkuRawmaterialDetail.SizeCode, SkuRawmaterialDetail.ItemColor, SkuRawmaterialDetail.SupplierColor, SkuRawmaterialDetail.ItemSize, SkuRawmaterialDetail.SupplierSize, ISNULL
+                             ((SELECT        MAX(StyleCostingDetails.Rate) AS Expr1
+                                 FROM            StyleCostingDetails INNER JOIN
+                                                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                                 GROUP BY StyleCostingDetails.Sku_PK, StyleCostingMaster.IsApproved
+                                 HAVING        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)), SkuRawmaterialDetail.UnitRate) AS UnitRate,
+								 
+								 
+								ISNULL ((SELECT        MAX(StyleCostingDetails.Consumption) AS Expr1
+                                 FROM            StyleCostingDetails INNER JOIN
+                                                          StyleCostingMaster ON StyleCostingDetails.Costing_PK = StyleCostingMaster.Costing_PK
+                                 GROUP BY StyleCostingDetails.Sku_PK, StyleCostingMaster.IsApproved
+                                 HAVING        (StyleCostingMaster.IsApproved = N'A') AND (StyleCostingDetails.Sku_PK = SkuRawMaterialMaster.Sku_Pk)), 0) AS Consumption ,SkuRawmaterialDetail.RqdQty, 
+                         0000 AS PoIssuedQty, 0000 AS BalanceQty, SkuRawMaterialMaster.Uom_PK, SkuRawMaterialMaster.AltUom_pk, SkuRawMaterialMaster.Atc_id, SkuRawMaterialMaster.isCommon, SkuRawMaterialMaster.IsCD, 
+                         SkuRawMaterialMaster.IsSD, SkuRawMaterialMaster.IsGD,UOMMaster.UomCode, SkuRawMaterialMaster.Template_pk, ISNULL(SkuRawMaterialMaster.OrderMin, 0) AS OrderMin, Template_Master.ItemGroup_PK, 
+                         SizeMaster.SizeName,00 AS GarmentQty
+FROM            SkuRawmaterialDetail INNER JOIN
+                         SkuRawMaterialMaster ON SkuRawmaterialDetail.Sku_PK = SkuRawMaterialMaster.Sku_Pk INNER JOIN
+                         UOMMaster ON SkuRawMaterialMaster.AltUom_pk = UOMMaster.Uom_PK INNER JOIN
+                         Template_Master ON SkuRawMaterialMaster.Template_pk = Template_Master.Template_PK left outer JOIN
+                         SizeMaster ON SkuRawmaterialDetail.SizeCode = SizeMaster.SizeCode
+WHERE        (SkuRawmaterialDetail.SkuDet_PK = @skudet)
+ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
+                ", con);
+
+
+
+                cmd.Parameters.AddWithValue("@skudet", skudet);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+
+
+
+            }
+            return dt;
+        }
 
 
 
 
 
-   
 
 
 
@@ -104,7 +151,8 @@ ORDER BY Template_Master.ItemGroup_PK, SkuRawMaterialMaster.RMNum
 
 
 
-           public DataTable GetTemplatecolor()
+
+        public DataTable GetTemplatecolor()
         {
             DataTable dt = new DataTable();
 

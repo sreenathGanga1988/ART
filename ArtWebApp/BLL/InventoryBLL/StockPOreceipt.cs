@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 namespace ArtWebApp.BLL.InventoryBLL
 {
     public class StockPOreceipt
     {
         public StockMRNMasterData smrnmstrdata { get; set; }
         public List<StockMRNDetailsData> StockMRNDetailsDataCollection { get; set; }
+        ArtWebApp.DataModels.ArtEntitiesnew artenty = new DataModels.ArtEntitiesnew();
         public String InsertSMRNData(StockPOreceipt SpoRcpt)
         {
             String mrnum = "";
@@ -119,7 +123,87 @@ namespace ArtWebApp.BLL.InventoryBLL
             return potype;
          }
 
+        public Boolean  CheckADnMRN(int Location)
+        {
+            Boolean isok = true;
+            DataTable dt = new DataTable();
+            int Doc_Pk = 0;
+            int PODet_PK = 0;
+            decimal MRNqty = 0;
+            decimal docqty = 0;
+            DateTime actdate = DateTime.Now;
+            int alloweddays = 0;
+            actdate = DateTime.Parse(actdate.ToString());
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = @"
+            SELECT        MrnDetails.PODet_PK, MrnDetails.Doc_Pk, isnull(sum(MrnDetails.ReceiptQty),0)+ isnull(sum(MrnDetails.ExtraQty),0)as MRNqty
+            FROM            MrnMaster INNER JOIN
+            MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+            ProcurementMaster ON MrnMaster.Po_PK = ProcurementMaster.PO_Pk
+            where ProcurementMaster.IsNormal ='Y' and MrnMaster.MrnClosed ='N' and MrnMaster.Location_Pk=@Location
+            group by MrnDetails.PODet_PK ,MrnDetails.Doc_Pk  ";
+            cmd.Parameters.AddWithValue("@Location", Location);
+            dt = QueryFunctions.ReturnQueryResultDatatable(cmd);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    Doc_Pk = int.Parse(row["Doc_Pk"].ToString());
+                    PODet_PK = int.Parse(row["PODet_PK"].ToString());
+                    MRNqty = decimal.Parse(row["MRNqty"].ToString());
+                    docqty = 0;
+                    var q = from doc in artenty.DocDetails where doc.PODet_Pk == PODet_PK && doc.Doc_Pk == Doc_Pk select doc;
+                    foreach(var element in q)
+                    {
+                        docqty += (decimal.Parse(element.Qty.ToString()) + decimal.Parse(element.ExtraQty.ToString()));
+                    }
+                    if (docqty != MRNqty)
+                    {
 
+                        isok = false;
+                    }
+                    if (docqty == MRNqty)
+                    {
+
+                        var q2 = from mrndet in artenty.MrnDetails where mrndet.PODet_PK == PODet_PK && mrndet.Doc_Pk == Doc_Pk select mrndet;
+                        foreach(var element1 in q2)
+                        {
+                            var q3 = from mrnmaster in artenty.MrnMasters where mrnmaster.Mrn_PK == element1.Mrn_PK select mrnmaster;
+                            foreach(var element2 in q3)
+                            {
+                                element2.MrnClosed = "Y";
+                                element2.MrnClosedBy = "System";
+                               
+                            }
+                        }
+                    }
+                }
+                artenty.SaveChanges();
+            }
+            return isok;
+        }
+
+        public DataTable getmrn(int location)
+        {
+            String connStr = ConfigurationManager.ConnectionStrings["ArtConnectionString"].ConnectionString;
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(@"SELECT        MrnDetails.PODet_PK, MrnDetails.Doc_Pk, isnull(sum(MrnDetails.ReceiptQty),0)+ isnull(sum(MrnDetails.ExtraQty),0)as MRNqty
+            FROM            MrnMaster INNER JOIN
+            MrnDetails ON MrnMaster.Mrn_PK = MrnDetails.Mrn_PK INNER JOIN
+            ProcurementMaster ON MrnMaster.Po_PK = ProcurementMaster.PO_Pk
+            where ProcurementMaster.IsNormal ='Y' and MrnMaster.MrnClosed ='N' and MrnMaster.Location_Pk=@Location
+            group by MrnDetails.PODet_PK ,MrnDetails.Doc_Pk", con);
+                cmd.Parameters.AddWithValue("@Location", location);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                dt.Load(rdr);
+            }
+                return dt;
+        }
         public String ShowCountry(int LocationPK)
         {
             String countryname = "UAE";

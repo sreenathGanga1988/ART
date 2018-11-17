@@ -41,11 +41,11 @@
 
        
                 $('#loadingmessage').show();
-                var fromdate = $("#FromDate").val();
-                var todate = $("#Todate").val();
-           
+            var fromdate = $("#SpoFromDate").val();
+            var todate = $("#SpoTodate").val();
+            alert(SpoTodate);
                 $.ajax({
-                    url: "@Url.Action("GETEXPWISE", "EXPADN")",
+                    url: "@Url.Action("GETSPOEXPWISE", "EXPADN")",
                     traditional: true,
                     type: "GET",
                     data: { 'fromdate': fromdate, 'todate': todate },
@@ -91,18 +91,10 @@
 
         </div>
 
-        @*<div class="row top-buffer" style="background-color:greenyellow;">
-                <div class="col-sm-3">
-                    <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
-
-                </div>
-
-
-                <div class="col-sm-3">
-                </div>
-
-            </div>*@
     </div>
+    </div>
+    
+    <button data-toggle="collapse" class="btn btn-info" data-target="#demo2">STOCK ADN WISE MRN (EXP) Between Date Reports</button>
     <div id="demo2" class="container collapse">
         <div class="container-fluid jumbotron">
 
@@ -127,17 +119,7 @@
 
             </div>
 
-            @*<div class="row top-buffer" style="background-color:greenyellow;">
-                    <div class="col-sm-3">
-                        <input id="SHOWEXP" type="button" value="SHOWEXP " data-toggle="tooltip" data-placement="top" title="Show ADN WISE MRN Between Date" class="btn btn-default show" />
-
-                    </div>
-
-
-                    <div class="col-sm-3">
-                    </div>
-
-                </div>*@
+         
         </div>
     </div>
 
